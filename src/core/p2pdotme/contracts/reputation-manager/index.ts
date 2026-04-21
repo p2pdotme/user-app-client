@@ -30,6 +30,7 @@ import {
   ZodAadhaarRpParamsSchema,
   ZodAddOrUpdateCampaignManagerParamsSchema,
   ZodAnonAadharProofParamsSchema,
+  ZodBinanceRpParamsSchema,
   ZodClaimCampaignUsdcParamsSchema,
   ZodClaimRecommendationParamsSchema,
   ZodClaimRecommendationRevenueParamsSchema,
@@ -335,6 +336,23 @@ export function prepareGetIsFacebookVerifiedArgs(params: UserParams): Result<
   }));
 }
 
+export function prepareGetIsBinanceVerifiedArgs(params: UserParams): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "isBinanceVerified";
+    args: [Address];
+  },
+  P2PError
+> {
+  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "isBinanceVerified" as const,
+    args: [validatedParams.address],
+  }));
+}
+
 export function prepareGetVotingRpArgs(): Result<
   {
     to: Address;
@@ -484,6 +502,23 @@ export function prepareGetFacebookRpArgs(): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "facebookRp" as const,
+    args: [],
+  }));
+}
+
+export function prepareGetBinanceRpArgs(): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "binanceRp";
+    args: [];
+  },
+  P2PError
+> {
+  return validate(ZodBinanceRpParamsSchema, {}).map(() => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "binanceRp" as const,
     args: [],
   }));
 }
