@@ -190,6 +190,7 @@ export const ZodGitHubRpParamsSchema = z.object({});
 export const ZodInstagramRpParamsSchema = z.object({});
 export const ZodXRpParamsSchema = z.object({});
 export const ZodFacebookRpParamsSchema = z.object({});
+export const ZodBinanceRpParamsSchema = z.object({});
 export const ZodZkPassportRpParamsSchema = z.object({});
 export const ZodVotesPerEpochParamsSchema = z.object({});
 export const ZodCmVotesPerEpochParamsSchema = z.object({});
@@ -221,6 +222,7 @@ export type GitHubRpParams = z.infer<typeof ZodGitHubRpParamsSchema>;
 export type InstagramRpParams = z.infer<typeof ZodInstagramRpParamsSchema>;
 export type XRpParams = z.infer<typeof ZodXRpParamsSchema>;
 export type FacebookRpParams = z.infer<typeof ZodFacebookRpParamsSchema>;
+export type BinanceRpParams = z.infer<typeof ZodBinanceRpParamsSchema>;
 export type ZkPassportRpParams = z.infer<typeof ZodZkPassportRpParamsSchema>;
 export type VotesPerEpochParams = z.infer<typeof ZodVotesPerEpochParamsSchema>;
 export type CmVotesPerEpochParams = z.infer<
@@ -463,6 +465,10 @@ export const ZodGetIsInstagramVerifiedParamsSchema = z.object({
 });
 
 export const ZodGetIsFacebookVerifiedParamsSchema = z.object({
+  address: ZodAddressSchema,
+});
+
+export const ZodGetIsBinanceVerifiedParamsSchema = z.object({
   address: ZodAddressSchema,
 });
 
@@ -726,6 +732,9 @@ export type GetIsInstagramVerifiedParams = z.infer<
 >;
 export type GetIsFacebookVerifiedParams = z.infer<
   typeof ZodGetIsFacebookVerifiedParamsSchema
+>;
+export type GetIsBinanceVerifiedParams = z.infer<
+  typeof ZodGetIsBinanceVerifiedParamsSchema
 >;
 export type GetIsLinkedInVerifiedParams = z.infer<
   typeof ZodGetIsLinkedInVerifiedParamsSchema
