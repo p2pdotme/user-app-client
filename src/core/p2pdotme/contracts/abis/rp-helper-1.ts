@@ -1281,6 +1281,11 @@ export const rPHelper1Abi = [
         name: "passport",
         type: "bool",
       },
+      {
+        internalType: "bool",
+        name: "binance",
+        type: "bool",
+      },
     ],
     stateMutability: "view",
     type: "function",
