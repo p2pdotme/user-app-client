@@ -15,6 +15,7 @@ import {
 } from "@/core/adapters/thirdweb/actions/p2p-config";
 import {
   getAadhaarRp,
+  getBinanceRp,
   getFacebookRp,
   getGitHubRp,
   getInstagramRp,
@@ -89,7 +90,7 @@ export function useSocialVerificationStatus() {
       if (!account?.address) throw new Error("No account connected");
       return getSocialVerified({ address: account.address as Address }).match(
         (result) => {
-          // result: [linkedIn, gitHub, x, instagram, facebook, passport]
+          // result: [linkedIn, gitHub, x, instagram, facebook, passport, binance]
           return {
             isLinkedInVerified: result[0],
             isGitHubVerified: result[1],
@@ -97,6 +98,7 @@ export function useSocialVerificationStatus() {
             isInstagramVerified: result[3],
             isFacebookVerified: result[4],
             isZkPassportVerified: result[5],
+            isBinanceVerified: result[6],
           };
         },
         (error) => {
@@ -288,6 +290,23 @@ export function useSocialRpRewards() {
     },
   });
 
+  const {
+    data: binanceRp,
+    isLoading: isBinanceRpLoading,
+    isError: isBinanceRpError,
+    error: binanceRpError,
+  } = useQuery({
+    queryKey: ["social-rp-reward", "binance"],
+    queryFn: async () => {
+      return getBinanceRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
   return {
     linkedInRp,
     gitHubRp,
@@ -295,27 +314,31 @@ export function useSocialRpRewards() {
     xRp,
     facebookRp,
     zkPassportRp,
+    binanceRp,
     isLoading:
       isLinkedInRpLoading ||
       isGitHubRpLoading ||
       isInstagramRpLoading ||
       isXRpLoading ||
       isFacebookRpLoading ||
-      isZkPassportRpLoading,
+      isZkPassportRpLoading ||
+      isBinanceRpLoading,
     isError:
       isLinkedInRpError ||
       isGitHubRpError ||
       isInstagramRpError ||
       isXRpError ||
       isFacebookRpError ||
-      isZkPassportRpError,
+      isZkPassportRpError ||
+      isBinanceRpError,
     error:
       linkedInRpError ||
       gitHubRpError ||
       instagramRpError ||
       xRpError ||
       facebookRpError ||
-      zkPassportRpError,
+      zkPassportRpError ||
+      binanceRpError,
   };
 }
 

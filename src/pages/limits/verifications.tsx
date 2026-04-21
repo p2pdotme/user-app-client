@@ -93,6 +93,7 @@ type SocialPlatformType =
   | "X"
   | "Instagram"
   | "Facebook"
+  | "Binance"
   | "Aadhaar"
   | "ZKPassport";
 
@@ -561,6 +562,7 @@ export function Verifications() {
     isXVerified,
     isInstagramVerified,
     isFacebookVerified,
+    isBinanceVerified,
     isSocialStatusLoading,
     isSocialStatusError,
     socialStatusError,
@@ -574,6 +576,7 @@ export function Verifications() {
     instagramRp,
     xRp,
     facebookRp,
+    binanceRp,
     isLoading: isRpLoading,
     isError: isRpError,
   } = useSocialRpRewards();
@@ -584,6 +587,7 @@ export function Verifications() {
     isXVerified,
     isInstagramVerified,
     isFacebookVerified,
+    isBinanceVerified,
     isZkPassportVerified,
   };
 
@@ -594,6 +598,7 @@ export function Verifications() {
     Instagram: instagramRp,
     X: xRp,
     Facebook: facebookRp,
+    Binance: binanceRp,
     ZkPassport: zkPassportRpReward,
   };
 
@@ -628,6 +633,12 @@ export function Verifications() {
       icon: <ASSETS.ICONS.Github className="size-5 text-foreground" />,
       rpReward: socialRewards.GitHub ?? 0,
     },
+    {
+      name: "Binance" as SocialPlatformType,
+      key: "isBinanceVerified",
+      icon: <ASSETS.ICONS.Binance className="size-5 text-foreground" />,
+      rpReward: socialRewards.Binance ?? 0,
+    },
   ];
 
   const isAnySocialVerified =
@@ -636,6 +647,7 @@ export function Verifications() {
     !!isXVerified ||
     !!isInstagramVerified ||
     !!isFacebookVerified ||
+    !!isBinanceVerified ||
     !!isZkPassportVerified;
 
   return (
