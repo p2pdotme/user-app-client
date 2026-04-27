@@ -1207,7 +1207,7 @@ export const en = {
     REWARD_CLAIMED: "Reward Claimed!",
     REWARD_CLAIMED_DESCRIPTION:
       "You have successfully claimed {{amount}} USDC. Share your win with your friends!",
-    RIF_LABEL: "RIF",
+    RIF_LABEL: "Cedula con V",
     SAVE: "Save",
     SAVED: "Saved {{paymentAddressName}}",
     SAVED_ADDRESS: "Saved Address",
