@@ -600,7 +600,10 @@ export function isBinanceVerified(
         }),
         (error) =>
           createAppError<"ThirdwebAdapter">(
-            "Failed to read Binance verification status from contract",
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to read Binance verification status from contract",
+            ),
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
@@ -890,7 +893,10 @@ export function getBinanceRp(): ResultAsync<
         }),
         (error) =>
           createAppError<"ThirdwebAdapter">(
-            "Failed to read Binance RP from contract",
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to read Binance RP from contract",
+            ),
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
