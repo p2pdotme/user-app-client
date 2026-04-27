@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <link id="favicon" rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com" />
+    <link rel="preconnect" href="https://firebasestorage.googleapis.com" crossorigin />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="oklch(0.97 0 0)" />
+    <meta name="fc:miniapp" content='{
+      "version":"next",
+      "imageUrl":"https://p2p.lol/favicon.svg",
+      "button":{
+          "title":"Pay with USDC at any QR",
+          "action":{
+          "type":"launch_miniapp",
+          "name":"P2P.me",
+          "url":"https://app.p2p.lol"
+          }
+      }
+      }' />
+    <meta name="base:app_id" content="69c3e246bae8fce8a308324f" />
+    <title>P2P.me - Pay with USDC at any QR</title>
+    <style>
+      #initial-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--background);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #initial-loader {
+          background-color: var(--background);
+        }
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--primary);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .spinner {
+          border: 3px solid rgba(255, 255, 255, 0.1);
+          border-top-color: var(--primary);
+        }
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root">
+      <div id="initial-loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

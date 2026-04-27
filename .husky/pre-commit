@@ -1,0 +1,11 @@
+# Sort i18n files before commit
+bun run i18n:sort
+
+# Format i18n files after sorting so they conform to biome style
+bunx biome format --write src/lib/i18n/
+
+# Stage any changes made to i18n files
+git add src/lib/i18n/
+
+# Lint-staged (runs biome check --write on staged files only)
+bunx lint-staged

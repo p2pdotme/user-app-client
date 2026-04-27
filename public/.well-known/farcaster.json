@@ -1,0 +1,28 @@
+{
+    "accountAssociation": {
+      "header": "eyJmaWQiOjE0Njc2MzksInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHg4MjNlZTc0YmZDQTAxNUEzNzFlRjJmYkMzNkFEQTA0NjkwRmMzOTQ1In0",
+      "payload": "eyJkb21haW4iOiJhcHAucDJwLmxvbCJ9",
+      "signature": "VcKJVzyn0OaG4akdW+NLyhUAoMya+yH6Go6noXyou7dv8fLNz7P/WPvVQB8yLWWPhoHpBfCa1gASdhbjrtkiKBw="
+    },
+    "baseBuilder": {
+      "ownerAddress": "0xA998daE7DF1f8aB3Cb9B25a1e1C55Ae29DAB15D2"
+    },
+    "miniapp": {
+      "version": "1",
+      "name": "P2P.me",
+      "homeUrl": "https://app.p2p.lol",
+      "iconUrl": "https://p2p.lol/icon.png",
+      "splashImageUrl": "https://p2p.lol/icon.png",
+      "splashBackgroundColor": "#FFFFFF",
+      "subtitle": "Pay with USDC at any QR",
+      "description": "Pay with USDC at any QR code",
+      "primaryCategory": "finance",
+      "tags": ["defi","payments","fiat", "stablecoin"],
+      "heroImageUrl": "https://p2p.lol/hero.png",
+      "tagline": "Pay with USDC at any QR",
+      "ogTitle": "Pay with USDC at any QR code",
+      "ogDescription": "Pay with USDC at any QR code",
+      "ogImageUrl": "https://p2p.lol/hero.png",
+      "noindex": false
+    }
+}

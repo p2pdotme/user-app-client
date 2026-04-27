@@ -1,0 +1,2 @@
+# Verify code quality without writing changes
+bunx --bun biome check . || npx biome check .
