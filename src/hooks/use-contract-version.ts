@@ -23,7 +23,7 @@ export const useContractVersion = () => {
   const checkContractSync = async () => {
     try {
       const version = await getContractVer();
-      return version ? isSyncedWithContract(version!) : false;
+      return version ? isSyncedWithContract(version) : false;
     } catch {
       return false;
     }
