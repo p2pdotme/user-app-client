@@ -1229,7 +1229,7 @@ export const id = {
     REWARD_CLAIMED: "Hadiah Diklaim!",
     REWARD_CLAIMED_DESCRIPTION:
       "Anda telah berhasil mengklaim {{amount}} USDC. Bagikan kemenangan Anda dengan teman-teman!",
-    RIF_LABEL: "RIF",
+    RIF_LABEL: "Cedula con V",
     SAVE: "Simpan",
     SAVED: "{{paymentAddressName}} tersimpan",
     SAVED_ADDRESS: "Alamat tersimpan",
