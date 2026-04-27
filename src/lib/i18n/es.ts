@@ -401,7 +401,7 @@ export const es = {
     ENTER_LAST_4_DIGITS_OF_TRANSACTION_ID:
       "Ingresa los últimos 4 dígitos del ID de transacción",
     ENTER_PAYMENT_ADDRESS_LABEL: "Ingresa la etiqueta de la dirección de pago",
-    ENTER_PAYMENT_DETAILS: "Ingresa los detalles de {{paymentAddressName}}",
+    ENTER_PAYMENT_DETAILS: "Ingresa {{paymentAddressName}}",
     ENTER_RECIPIENT_ADDRESS: "Ingresa la dirección del destinatario",
     ENTER_TIP_AMOUNT: "Ingresa el monto de la propina (USDC)",
     ENTER_WALLET_NAME: "Ingresa el nombre de la wallet",
@@ -1249,7 +1249,7 @@ export const es = {
     REWARD_CLAIMED: "¡Recompensa Reclamada!",
     REWARD_CLAIMED_DESCRIPTION:
       "Has reclamado exitosamente {{amount}} USDC. ¡Comparte tu logro con tus amigos!",
-    RIF_LABEL: "Cedula con V",
+    RIF_LABEL: "Cédula con V",
     SAVE: "Guardar",
     SAVED: "{{paymentAddressName}} Guardada",
     SAVED_ADDRESS: "Dirección Guardada",
