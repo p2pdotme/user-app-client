@@ -1,0 +1,30 @@
+diff --git a/src/prover.ts b/src/prover.ts
+index a864d81011bed6d239f5a0275b7c3d707391af6a..95096e25f3068988a19bb4bd142effac317d86ca 100644
+--- a/src/prover.ts
++++ b/src/prover.ts
+@@ -62,7 +62,7 @@ async function fetchKey(keyURL: string, maxRetries = 3): Promise<ZKArtifact> {
+       }
+ 
+       const data = await response.arrayBuffer()
+-      return data as Buffer
++      return data as unknown as Buffer
+     } catch (error) {
+       attempts++
+       if (attempts >= maxRetries) {
+@@ -140,13 +140,13 @@ export class AnonAadhaarProver implements ProverInferace {
+         break
+       case ArtifactsOrigin.server:
+         if (updateState) updateState(ProverState.FetchingWasm)
+-        wasmBuffer = new Uint8Array((await this.wasm.getKey()) as ArrayBuffer)
++        wasmBuffer = new Uint8Array((await this.wasm.getKey()) as unknown as ArrayBuffer)
+         if (updateState) updateState(ProverState.FetchingZkey)
+-        zkeyBuffer = new Uint8Array((await this.zkey.getKey()) as ArrayBuffer)
++        zkeyBuffer = new Uint8Array((await this.zkey.getKey()) as unknown as ArrayBuffer)
+         break
+       case ArtifactsOrigin.chunked:
+         if (updateState) updateState(ProverState.FetchingWasm)
+-        wasmBuffer = new Uint8Array((await this.wasm.getKey()) as ArrayBuffer)
++        wasmBuffer = new Uint8Array((await this.wasm.getKey()) as unknown as ArrayBuffer)
+         if (updateState) updateState(ProverState.FetchingZkey)
+         zkeyBuffer = await this.zkey.getKey()
+         break

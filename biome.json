@@ -1,0 +1,59 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "vcs": {
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["src/**", "scripts/**", "docs/**", "*.json", "*.md"],
+    "maxSize": 15728640
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf",
+    "bracketSameLine": true,
+    "bracketSpacing": true
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "jsxQuoteStyle": "double"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "nursery": {
+        "useSortedClasses": "error"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useSemanticElements": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off",
+        "noNestedComponentDefinitions": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noUnknownAtRules": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/vite-env.d.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ]
+}
