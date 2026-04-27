@@ -1178,7 +1178,7 @@ export const hi = {
     REWARD_CLAIMED: "इनाम प्राप्त हुआ!",
     REWARD_CLAIMED_DESCRIPTION:
       "आपने सफलतापूर्वक {{amount}} USDC प्राप्त किया। अपनी जीत अपने दोस्तों के साथ साझा करें!",
-    RIF_LABEL: "RIF",
+    RIF_LABEL: "Cedula con V",
     SAVE: "सेव करें",
     SAVED: "सेव किया गया {{paymentAddressName}}",
     SAVED_ADDRESS: "सेव किया गया पता",
