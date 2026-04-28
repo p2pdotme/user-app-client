@@ -64,6 +64,10 @@ export const STORAGE_KEYS = {
   RELAY_IDENTITY: "@P2PME:RELAY_IDENTITY",
   ORDER_PAYMENT_DETAILS: "@P2PME:ORDER_PAYMENT_DETAILS",
   SELL_QUIZ: "@P2PME:SELL_QUIZ",
+  // Owned by @p2pdotme/sdk (read/written inside the SDK). Listed
+  // here for visibility / debugging only — do not read or clear
+  // this key from app code.
+  DEVICE_HASH: "@P2PME:DEVICE_HASH",
 };
 
 export const LANGUAGE_OPTIONS: Language[] = [
