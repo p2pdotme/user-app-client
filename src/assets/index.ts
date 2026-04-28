@@ -22,6 +22,7 @@ import { ActionDeposit } from "./icons/action-deposit";
 import { ActionSupport } from "./icons/action-support";
 import { ActionWallet } from "./icons/action-wallet";
 import { ActionWithdraw } from "./icons/action-withdraw";
+import { Binance } from "./icons/binance";
 import { Buy } from "./icons/buy";
 import { DepositCross } from "./icons/deposit-cross";
 import { DepositDirect } from "./icons/deposit-direct";
@@ -249,6 +250,7 @@ const ASSETS = {
     Telegram,
     Discord,
     Facebook,
+    Binance,
     DepositDirect,
     DepositCross,
     WithdrawDirect,

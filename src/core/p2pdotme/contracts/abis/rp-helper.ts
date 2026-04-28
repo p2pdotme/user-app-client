@@ -663,6 +663,19 @@ export const rpHelperAbi = [
   },
   {
     inputs: [],
+    name: "binanceRp",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "gelatoAddress",
     outputs: [
       {
@@ -1496,6 +1509,11 @@ export const rpHelperAbi = [
       {
         internalType: "bool",
         name: "passport",
+        type: "bool",
+      },
+      {
+        internalType: "bool",
+        name: "binance",
         type: "bool",
       },
     ],

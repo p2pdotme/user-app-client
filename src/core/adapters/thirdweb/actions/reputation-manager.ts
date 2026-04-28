@@ -13,6 +13,7 @@ import {
   prepareGetAccruedVotingRewardsArgs,
   prepareGetAdminVotingRpArgs,
   prepareGetAnonAadhaarVerifierAddrArgs,
+  prepareGetBinanceRpArgs,
   prepareGetCampaignActiveArgs,
   prepareGetCampaignManagersArgs,
   prepareGetCampaignUsernamesArgs,
@@ -31,6 +32,7 @@ import {
   prepareGetInstagramMinYearGapArgs,
   prepareGetInstagramRpArgs,
   prepareGetIsAadharVerifiedArgs,
+  prepareGetIsBinanceVerifiedArgs,
   prepareGetIsCommunityManagerArgs,
   prepareGetIsFacebookVerifiedArgs,
   prepareGetIsGitHubVerifiedArgs,
@@ -114,6 +116,7 @@ import type {
   GetHasVerifiedParams,
   GetHasVerifiedUsernameParams,
   GetIsAadharVerifiedParams,
+  GetIsBinanceVerifiedParams,
   GetIsCommunityManagerParams,
   GetIsFacebookVerifiedParams,
   GetIsGitHubVerifiedParams,
@@ -583,6 +586,35 @@ export function isFacebookVerified(
   );
 }
 
+export function isBinanceVerified(
+  params: GetIsBinanceVerifiedParams,
+): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
+  return prepareGetIsBinanceVerifiedArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to read Binance verification status from contract",
+            ),
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
 export function getVotingRp(): ResultAsync<
   bigint,
   ThirdwebAdapterError | P2PError
@@ -835,6 +867,36 @@ export function getFacebookRp(): ResultAsync<
         (error) =>
           createAppError<"ThirdwebAdapter">(
             "Failed to read Facebook RP from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getBinanceRp(): ResultAsync<
+  bigint,
+  ThirdwebAdapterError | P2PError
+> {
+  return prepareGetBinanceRpArgs().asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to read Binance RP from contract",
+            ),
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
@@ -1976,7 +2038,7 @@ export function getSettleDisputeRp(): ResultAsync<
 export function getSocialVerified(params: {
   address: Address;
 }): ResultAsync<
-  readonly [boolean, boolean, boolean, boolean, boolean, boolean],
+  readonly [boolean, boolean, boolean, boolean, boolean, boolean, boolean],
   ThirdwebAdapterError | P2PError
 > {
   return prepareGetSocialVerifiedArgs(params).asyncAndThen(
@@ -1988,7 +2050,15 @@ export function getSocialVerified(params: {
           functionName,
           args,
         }) as Promise<
-          readonly [boolean, boolean, boolean, boolean, boolean, boolean]
+          readonly [
+            boolean,
+            boolean,
+            boolean,
+            boolean,
+            boolean,
+            boolean,
+            boolean,
+          ]
         >,
         (error) =>
           createAppError<"ThirdwebAdapter">(
