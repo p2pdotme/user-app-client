@@ -1082,6 +1082,12 @@ export const id = {
     PAY_VIA_UPI_AND_CONFIRM: "Bayar via UPI & konfirmasi",
     PAY_WITHIN: "Bayar Dalam",
     PC: "PC",
+    PERPS_BANNER_BEAR: "Bear?",
+    PERPS_BANNER_BULL: "Bull?",
+    PERPS_BANNER_CTA: "Pilih sisi",
+    PERPS_BANNER_DESCRIPTION:
+      "Long dan Short GOLD, BTC, ETH, dan SOL di Telegram dari akun P2P.me Anda.",
+    PERPS_BANNER_YES: "Ya.",
     PER_TRANSACTION_LIMITS: "Batas Per Transaksi",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Batas maksimum USDC yang dapat dibeli, dijual, atau dibayar dalam satu transaksi. Tingkatkan batas Anda untuk melakukan transaksi lebih banyak USDC.",
