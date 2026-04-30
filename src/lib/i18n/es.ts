@@ -1097,6 +1097,12 @@ export const es = {
     PAY_VIA_UPI_AND_CONFIRM: "Paga a través de UPI y confirma",
     PAY_WITHIN: "Pagar Dentro de",
     PC: "PC",
+    PERPS_BANNER_BEAR: "¿Bajista?",
+    PERPS_BANNER_BULL: "¿Alcista?",
+    PERPS_BANNER_CTA: "Elige tu lado",
+    PERPS_BANNER_DESCRIPTION:
+      "Largo y corto en ORO, BTC, ETH y SOL en Telegram desde tu cuenta P2P.me.",
+    PERPS_BANNER_YES: "Sí.",
     PER_TRANSACTION_LIMITS: "Límites por Transacción",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Este es el máximo de USDC que puedes comprar, vender o pagar en un solo pedido. Auméntalo para realizar transacciones más grandes.",
