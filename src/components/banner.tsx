@@ -15,6 +15,7 @@ import { CURRENCY } from "@/lib/constants";
 import { cn, isIOS } from "@/lib/utils";
 import { CoinsMeBanner } from "@/pages/help/components/coinsme-banner";
 import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
+import { PerpsBanner } from "@/pages/help/components/perps-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
 
@@ -106,6 +107,11 @@ export function Banner({
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
+          {/* Perps / Leverage Trading Banner */}
+          <CarouselItem>
+            <PerpsBanner />
+          </CarouselItem>
+
           {/* Unfreeze.pro Banner — INR users only */}
           {isINR && (
             <CarouselItem>

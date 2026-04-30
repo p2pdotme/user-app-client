@@ -1034,6 +1034,12 @@ export const hi = {
     PAY_VIA_UPI_AND_CONFIRM: "UPI के माध्यम से भुगतान करें और पुष्टि करें",
     PAY_WITHIN: "इसके अंदर भुगतान करें",
     PC: "पीसी",
+    PERPS_BANNER_BEAR: "बेयर?",
+    PERPS_BANNER_BULL: "बुल?",
+    PERPS_BANNER_CTA: "अपना पक्ष चुनें",
+    PERPS_BANNER_DESCRIPTION:
+      "Telegram पर अपने P2P.me अकाउंट से GOLD, BTC, ETH और SOL पर लॉन्ग और शॉर्ट करें।",
+    PERPS_BANNER_YES: "हाँ.",
     PER_TRANSACTION_LIMITS: "प्रति ट्रांजैक्शन लिमिट",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "यह आपके द्वारा एक ट्रांजैक्शन में खरीद, बेच या भुगतान करने के लिए अधिकतम USDC है। अधिक USDC का लेनदेन करने के लिए अपनी लिमिट बढ़ाएं।",
