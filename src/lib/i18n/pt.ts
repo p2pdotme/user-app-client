@@ -701,7 +701,7 @@ export const pt = {
     FRAUD_ASSESSMENT_APPROVED: "Aprovado! Realizando seu pedido...",
     FRAUD_ASSESSMENT_IN_PROGRESS: "Inspeção de fraude em andamento...",
     FRAUD_ASSESSMENT_REJECTED:
-      "Detectamos atividade incomum e estamos restringindo temporariamente sua conta. Por favor, tente novamente mais tarde.",
+      "Detectamos atividade incomum e estamos restringindo temporariamente sua conta. Tente novamente em alguns dias ou envie mais Zk-Verificações.",
     FRAUD_NOTICE:
       "Aviso: Pagamentos fraudulentos a comerciantes enfrentarão ações legais com base no histórico de transações.",
     FROM: "De",
