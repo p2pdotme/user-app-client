@@ -688,7 +688,7 @@ export const en = {
     FRAUD_ASSESSMENT_APPROVED: "Approved! Placing your order...",
     FRAUD_ASSESSMENT_IN_PROGRESS: "Fraud inspection happening...",
     FRAUD_ASSESSMENT_REJECTED:
-      "We detected unusual activity and are temporarily restricting your account. Please try again later.",
+      "We detected unusual activity and are temporarily restricting your account. Try again in a few days or submit more Zk-Verifications.",
     FRAUD_NOTICE:
       "Notice: Fraudulent payments to merchants will face legal action based on transaction history.",
     FROM: "From",
