@@ -701,7 +701,7 @@ export const id = {
     FRAUD_ASSESSMENT_APPROVED: "Disetujui! Menempatkan pesanan Anda...",
     FRAUD_ASSESSMENT_IN_PROGRESS: "Pemeriksaan penipuan sedang berlangsung...",
     FRAUD_ASSESSMENT_REJECTED:
-      "Kami mendeteksi aktivitas tidak biasa dan sementara membatasi akun Anda. Silakan coba lagi nanti.",
+      "Kami mendeteksi aktivitas tidak biasa dan sementara membatasi akun Anda. Coba lagi dalam beberapa hari atau kirimkan lebih banyak Zk-Verifikasi.",
     FRAUD_NOTICE:
       "Pemberitahuan: Pembayaran penipuan kepada pedagang akan menghadapi tindakan hukum berdasarkan riwayat transaksi.",
     FROM: "Dari",
