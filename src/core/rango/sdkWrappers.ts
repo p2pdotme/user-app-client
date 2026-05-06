@@ -3,6 +3,8 @@ import { RangoClient } from "rango-sdk-basic";
 import { formatUnits, isAddress } from "viem";
 import { type AppError, createAppError } from "@/lib/errors";
 import {
+  P2P_BRIDGE_FROM,
+  P2P_BRIDGE_TO,
   RANGO_API_KEY,
   RANGO_REFERRER_ADDRESS,
   RANGO_REFERRER_CODE,
@@ -126,6 +128,59 @@ export function fetchWalletTokensByChain(
 
   // Execute all token data requests in parallel and combine results
   return ResultAsync.combine(tokenDataRequests);
+}
+
+export function quoteP2pBridge(
+  amount: string,
+): ResultAsync<RangoQuoteResponse, AppError<"RangoDeposit">> {
+  return ResultAsync.fromPromise(
+    rango.quote({
+      from: P2P_BRIDGE_FROM,
+      to: P2P_BRIDGE_TO,
+      amount,
+      slippage: RANGO_SLIPPAGE,
+      referrerCode: RANGO_REFERRER_CODE,
+      referrerFee: RANGO_REFERRER_FEE_PERCENT,
+      swapperGroups: RANGO_SWAPPER_GROUPS,
+      swappersGroupsExclude: RANGO_SWAPPER_GROUPS_EXCLUDE,
+    }),
+    (error) =>
+      createAppError("Failed to get P2P bridge quote", {
+        domain: "RangoDeposit",
+        code: "RangoQuoteError",
+        cause: error,
+        context: { amount },
+      }),
+  );
+}
+
+export function swapP2pBridge(
+  amount: string,
+  fromAddress: string,
+  toAddress: string,
+): ResultAsync<RangoSwapResponse, AppError<"RangoDeposit">> {
+  return ResultAsync.fromPromise(
+    rango.swap({
+      from: P2P_BRIDGE_FROM,
+      to: P2P_BRIDGE_TO,
+      amount,
+      fromAddress,
+      toAddress,
+      slippage: RANGO_SLIPPAGE,
+      referrerCode: RANGO_REFERRER_CODE,
+      referrerFee: String(RANGO_REFERRER_FEE_PERCENT),
+      referrerAddress: RANGO_REFERRER_ADDRESS,
+      swapperGroups: RANGO_SWAPPER_GROUPS,
+      swappersGroupsExclude: RANGO_SWAPPER_GROUPS_EXCLUDE,
+    }),
+    (error) =>
+      createAppError("Failed to execute P2P bridge swap", {
+        domain: "RangoDeposit",
+        code: "RangoSwapError",
+        cause: error,
+        context: { amount, fromAddress, toAddress },
+      }),
+  );
 }
 
 export function quoteRango(
