@@ -1,6 +1,6 @@
 import type { Account } from "thirdweb";
 import { prepareTransaction, sendAndConfirmTransaction } from "thirdweb";
-import { baseSepolia } from "thirdweb/chains";
+import { sepolia } from "thirdweb/chains";
 import { encodeFunctionData } from "viem";
 import { thirdwebClient } from "@/core/adapters/thirdweb/client";
 import { WORMHOLE } from "./constants";
@@ -44,7 +44,7 @@ export async function redeemOnBase(
 
   const tx = prepareTransaction({
     to: WORMHOLE.REDEEMER_ADDRESS,
-    chain: baseSepolia,
+    chain: sepolia,
     client: thirdwebClient,
     data,
   });

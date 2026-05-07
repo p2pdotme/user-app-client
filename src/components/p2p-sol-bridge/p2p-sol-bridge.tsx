@@ -111,7 +111,7 @@ export function P2pSolBridge() {
         {/* P2PGovBase balance */}
         <div className="flex flex-1 flex-col gap-0.5 rounded-lg bg-muted/40 px-3 py-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs">P2PGovBase · Base</span>
+            <span className="text-muted-foreground text-xs">P2PGovToken · Eth Sepolia</span>
             <button
               type="button"
               onClick={() => refetchGovBase()}
@@ -149,7 +149,7 @@ export function P2pSolBridge() {
           {/* Output preview */}
           <div className="flex flex-col gap-1.5">
             <span className="text-muted-foreground text-xs">
-              To · P2PGovBase on Base Sepolia (1:1, 6 decimals)
+              To · P2PGovBase on Eth Sepolia (1:1, 6 decimals)
             </span>
             <div className="flex items-center justify-between rounded-md border bg-background px-3 py-2 text-lg font-medium">
               <span className={!deferredAmount ? "text-muted-foreground" : ""}>
@@ -162,7 +162,7 @@ export function P2pSolBridge() {
           {/* EVM recipient address */}
           <div className="flex flex-col gap-1.5">
             <span className="text-muted-foreground text-xs">
-              EVM recipient (Base Sepolia)
+              EVM recipient (Eth Sepolia)
             </span>
             <Input
               type="text"
@@ -203,7 +203,7 @@ export function P2pSolBridge() {
                   Loading balance…
                 </span>
               ) : (
-                "Bridge SPL P2P → Base Sepolia"
+                "Bridge SPL P2P → Eth Sepolia"
               )}
             </Button>
           )}

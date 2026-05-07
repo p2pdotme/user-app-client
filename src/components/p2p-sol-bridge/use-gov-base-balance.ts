@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { formatUnits } from "viem";
-import { viemPublicClient } from "@/core/adapters/thirdweb/client";
+import { createPublicClient, formatUnits, http } from "viem";
+import { sepolia } from "viem/chains";
 import { WORMHOLE } from "./constants";
+
+// Dedicated Eth Sepolia client — independent of VITE_CHAIN
+const sepoliaClient = createPublicClient({
+  chain: sepolia,
+  transport: http(import.meta.env.VITE_SEPOLIA_RPC_URL || undefined),
+});
 
 const ERC20_BALANCE_OF_ABI = [
   {
@@ -15,10 +21,10 @@ const ERC20_BALANCE_OF_ABI = [
 
 export function useGovBaseBalance(address: string | undefined) {
   return useQuery({
-    queryKey: ["gov-base-balance", address],
+    queryKey: ["gov-token-balance", address],
     queryFn: async () => {
-      const raw = await viemPublicClient.readContract({
-        address: WORMHOLE.P2P_GOV_BASE_TOKEN,
+      const raw = await sepoliaClient.readContract({
+        address: WORMHOLE.P2P_GOV_TOKEN,
         abi: ERC20_BALANCE_OF_ABI,
         functionName: "balanceOf",
         args: [address as `0x${string}`],

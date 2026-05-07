@@ -16,6 +16,24 @@ import type { BridgeStep, PendingBridge } from "./types";
 // Module-level Solana connection — created once
 const solanaConnection = new Connection(SOLANA_DEVNET_RPC, "confirmed");
 
+// Polls getSignatureStatuses instead of relying on the 30s WebSocket timeout.
+// Devnet can take 60-120s to confirm — this waits up to 3 minutes.
+async function confirmTx(sig: string, timeoutMs = 180_000): Promise<void> {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const { value } = await solanaConnection.getSignatureStatuses([sig], {
+      searchTransactionHistory: true,
+    });
+    const status = value[0];
+    if (status?.err) throw new Error(`Transaction failed: ${JSON.stringify(status.err)}`);
+    if (status?.confirmationStatus === "confirmed" || status?.confirmationStatus === "finalized") {
+      return;
+    }
+    await new Promise<void>((r) => setTimeout(r, 3000));
+  }
+  throw new Error(`Transaction not confirmed after ${timeoutMs / 1000}s — sig: ${sig}`);
+}
+
 // --- localStorage helpers ---
 
 function loadBridges(): PendingBridge[] {
@@ -119,8 +137,9 @@ export function useWormholeBridge() {
         // Send to devnet
         const sig = await solanaConnection.sendRawTransaction(
           signedTx.serialize(),
+          { skipPreflight: false, maxRetries: 3 },
         );
-        await solanaConnection.confirmTransaction(sig, "confirmed");
+        await confirmTx(sig);
 
         // Extract Wormhole sequence from tx logs
         const txInfo = await solanaConnection.getTransaction(sig, {
