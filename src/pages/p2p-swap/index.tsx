@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { TokenSolana } from "@/assets/icons/token-solana";
 import { NonHomeHeader } from "@/components";
+import { P2PSwapWidget } from "@/components/p2p-swap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { useSafeDynamicContext } from "@/contexts";
@@ -84,6 +85,7 @@ function ConnectSolanaWallet() {
  */
 export function P2PSwap() {
   const { t } = useTranslation();
+  const { primaryWallet } = useSafeDynamicContext();
 
   return (
     <>
@@ -91,6 +93,7 @@ export function P2PSwap() {
 
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto py-6">
         <ConnectSolanaWallet />
+        {primaryWallet?.isConnected && <P2PSwapWidget />}
       </main>
     </>
   );

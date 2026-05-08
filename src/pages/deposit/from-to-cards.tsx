@@ -246,6 +246,7 @@ export function FromToCards({ depositState }: FromToCardsProps) {
               bridgeType="DEPOSIT"
               selectedNetwork={depositData.sourceChain}
               selectedToken={depositData.sourceToken}
+              excludeChains={["BASE"]}
               onNetworkSelect={(network) => {
                 // Auto-switch EVM chains when selecting a new chain
                 if (

@@ -1,4 +1,4 @@
-import { arbitrum, bsc, mainnet, optimism, polygon } from "viem/chains";
+import { arbitrum, base, bsc, mainnet, optimism, polygon } from "viem/chains";
 import ASSETS from "@/assets";
 import type { BridgeChain, BridgeToken } from "./types";
 
@@ -19,6 +19,7 @@ export const RANGO_EVM_CHAINS = [
   "BSC",
   "ARBITRUM",
   "OPTIMISM",
+  "BASE",
   "HYPEREVM",
 ] as const;
 export const RANGO_ALL_CHAINS = [
@@ -34,6 +35,7 @@ export const NATIVE_TOKEN_SYMBOLS: { [chain: string]: string } = {
   BSC: "BNB",
   ARBITRUM: "ETH",
   OPTIMISM: "ETH",
+  BASE: "ETH",
   HYPEREVM: "HYPE",
 };
 
@@ -44,6 +46,7 @@ export const CHAIN_TO_CHAINID_MAP = {
   BSC: bsc.id,
   ARBITRUM: arbitrum.id,
   OPTIMISM: optimism.id,
+  BASE: base.id,
   HYPEREVM: 999,
 };
 
@@ -101,6 +104,12 @@ export const BRIDGE_TOKEN_ADDRESSES = {
     USDT: "0x94b008aa00579c1307b0ef2c499ad98a8ce58e58",
     DAI: "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
   },
+  BASE: {
+    ETH: null,
+    USDC: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    USDT: "0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2",
+    DAI: "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+  },
   HYPEREVM: {
     HYPE: null,
     USDC: "0xb88339cb7199b77e23db6e890353e22632ba630f",
@@ -135,6 +144,7 @@ export const CHAIN_LOGOS = {
     "https://assets.coingecko.com/coins/images/16547/small/photo_2023-03-29_21.47.00.jpeg",
   OPTIMISM:
     "https://assets.coingecko.com/coins/images/25244/small/Optimism.png",
+  BASE: "https://assets.coingecko.com/asset_platforms/images/131/small/base-network-logo.png",
   HYPEREVM:
     "https://assets.coingecko.com/coins/images/50882/small/hyperliquid.jpg",
 };
@@ -369,6 +379,36 @@ export const bridgeMetaDeposit = [
       ),
     ],
   ),
+  createBridgeChain(
+    "BASE",
+    "Base",
+    CHAIN_LOGOS.BASE,
+    createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH),
+    [
+      createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH),
+      createBridgeToken(
+        "USDC",
+        "USD Coin",
+        BRIDGE_TOKEN_ADDRESSES.BASE.USDC,
+        6,
+        TOKEN_LOGOS.USDC,
+      ),
+      createBridgeToken(
+        "USDT",
+        "Tether USD",
+        BRIDGE_TOKEN_ADDRESSES.BASE.USDT,
+        6,
+        TOKEN_LOGOS.USDT,
+      ),
+      createBridgeToken(
+        "DAI",
+        "Dai Stablecoin",
+        BRIDGE_TOKEN_ADDRESSES.BASE.DAI,
+        18,
+        TOKEN_LOGOS.DAI,
+      ),
+    ],
+  ),
 ];
 
 export const bridgeMetaWithdraw = [
@@ -434,6 +474,13 @@ export const bridgeMetaWithdraw = [
     "OPTIMISM",
     "Optimism",
     CHAIN_LOGOS.OPTIMISM,
+    createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH),
+    [createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH)],
+  ),
+  createBridgeChain(
+    "BASE",
+    "Base",
+    CHAIN_LOGOS.BASE,
     createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH),
     [createBridgeToken("ETH", "Ether", null, 18, TOKEN_LOGOS.ETH)],
   ),
