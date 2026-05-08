@@ -42,6 +42,7 @@ export const INTERNAL_HREFS = {
   NOTIFICATION: "/notification",
 
   P2P_SWAP: "/p2p-swap",
+  P2P_SWAP_HISTORY: "/p2p-swap/history",
 
   CAMPAIGN: "/campaign",
   RECOMMEND: "/recommend",
@@ -66,6 +67,7 @@ export const STORAGE_KEYS = {
   RELAY_IDENTITY: "@P2PME:RELAY_IDENTITY",
   ORDER_PAYMENT_DETAILS: "@P2PME:ORDER_PAYMENT_DETAILS",
   SELL_QUIZ: "@P2PME:SELL_QUIZ",
+  P2P_SWAP_HISTORY: "@P2PME:P2P_SWAP_HISTORY",
 };
 
 export const LANGUAGE_OPTIONS: Language[] = [

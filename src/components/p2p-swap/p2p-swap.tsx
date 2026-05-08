@@ -1,12 +1,12 @@
 import { ArrowUpDown } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useP2PSwap, useP2PSwapQuote, useUSDCBalance } from "@/hooks";
+import { useP2PSwap, useP2PSwapHistory, useP2PSwapQuote, useUSDCBalance } from "@/hooks";
 import { FromPanel } from "./from-panel";
 import { QuoteDetails } from "./quote-details";
 import { SwapProgress } from "./swap-progress";
@@ -52,7 +52,26 @@ export function BaseUsdcToP2P() {
 
   const { usdcBalance } = useUSDCBalance();
   const { state, execute, reset, isPending } = useP2PSwap();
+  const { saveEntry } = useP2PSwapHistory();
   const quote = useP2PSwapQuote(isUsdcToP2P ? amount : "");
+
+  // Save to history whenever swap reaches a terminal state with useful data
+  useEffect(() => {
+    if (
+      (state.step === "completed" || state.step === "failed") &&
+      (state.rangoRequestId || state.jupiterSignature)
+    ) {
+      saveEntry({
+        inputAmount: state.inputAmount,
+        rangoRequestId: state.rangoRequestId,
+        jupiterSignature: state.jupiterSignature,
+        jupiterOutputAmount: state.jupiterOutputAmount,
+        finalStep: state.step,
+        error: state.error,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.step]);
 
   const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : null;
   const outputAmount = isUsdcToP2P ? quote.totalOutputAmount : null;

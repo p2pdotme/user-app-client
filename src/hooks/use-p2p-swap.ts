@@ -16,19 +16,70 @@ import type { RangoSwapResponse } from "@/core/rango/types";
 import type { WithdrawState } from "@/pages/withdraw/shared";
 import { captureError } from "@/lib/sentry";
 import { useSounds, useThirdweb } from "@/hooks";
+import { STORAGE_KEYS } from "@/lib/constants";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+
+// ── Shared types ──────────────────────────────────────────────────────────────
 
 export type P2PSwapStep =
   | "idle"
-  | "rango_preparing"   // Fetching Rango swap tx
-  | "rango_approval"    // ERC-20 approval on Base
-  | "rango_swapping"    // Broadcasting bridge tx
-  | "rango_confirming"  // Waiting for bridge confirmation on Solana
-  | "jupiter_preparing" // Fetching Jupiter order
-  | "jupiter_swapping"  // Signing & sending Jupiter tx
+  | "rango_preparing"
+  | "rango_approval"
+  | "rango_swapping"
+  | "rango_confirming"
+  | "jupiter_preparing"
+  | "jupiter_swapping"
   | "completed"
   | "failed";
+
+// ── History ───────────────────────────────────────────────────────────────────
+
+export interface P2PSwapHistoryEntry {
+  id: string;
+  timestamp: number;
+  inputAmount: string;
+  rangoRequestId: string | null;
+  jupiterSignature: string | null;
+  jupiterOutputAmount: string | null;
+  finalStep: P2PSwapStep;
+  error: string | null;
+}
+
+const MAX_ENTRIES = 30;
+
+function loadHistory(): P2PSwapHistoryEntry[] {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEYS.P2P_SWAP_HISTORY) ?? "[]");
+  } catch {
+    return [];
+  }
+}
+
+export function useP2PSwapHistory() {
+  const [history, setHistory] = useState<P2PSwapHistoryEntry[]>(loadHistory);
+
+  const saveEntry = (entry: Omit<P2PSwapHistoryEntry, "id" | "timestamp">) => {
+    const newEntry: P2PSwapHistoryEntry = {
+      id: crypto.randomUUID(),
+      timestamp: Date.now(),
+      ...entry,
+    };
+    setHistory((prev) => {
+      const updated = [newEntry, ...prev].slice(0, MAX_ENTRIES);
+      localStorage.setItem(STORAGE_KEYS.P2P_SWAP_HISTORY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const clearHistory = () => {
+    localStorage.removeItem(STORAGE_KEYS.P2P_SWAP_HISTORY);
+    setHistory([]);
+  };
+
+  return { history, saveEntry, clearHistory };
+}
+
+// ── Swap types ────────────────────────────────────────────────────────────────
 
 export interface P2PSwapState {
   step: P2PSwapStep;
