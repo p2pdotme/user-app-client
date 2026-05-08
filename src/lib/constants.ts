@@ -52,6 +52,7 @@ export const INTERNAL_HREFS = {
   DEV_CAMERA: "/dev/camera",
   DEV_ANIMATIONS: "/dev/animations",
   DEV_TOASTS: "/dev/toasts",
+  DEV_SOLANA_SIGN_TX: "/dev/solana-sign-tx",
 };
 
 export const URLS = {

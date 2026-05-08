@@ -145,6 +145,12 @@ const DevAnimationsDemo = lazy(() =>
   })),
 );
 
+const DevSolanaSignTxDemo = lazy(() =>
+  import("@/pages/dev/solana-sign-tx").then((module) => ({
+    default: module.SolanaSignTxDemo,
+  })),
+);
+
 const SupportPageWrapper = lazy(() =>
   import("@/pages/help/support-page-router").then((module) => ({
     default: module.SupportPageWrapper,
@@ -239,54 +245,19 @@ export function Router() {
           }
         />
 
-        {/* Dev routes - only accessible in development */}
+        {/* Dev routes */}
+        <Route path={INTERNAL_HREFS.DEV} element={<DevDashboard />} />
+        <Route path={INTERNAL_HREFS.DEV_HAPTICS} element={<DevHapticsDemo />} />
+        <Route path="/dev/sounds" element={<DevSoundsDemo />} />
+        <Route path={INTERNAL_HREFS.DEV_CAMERA} element={<ScannerDevDashboard />} />
+        <Route path={INTERNAL_HREFS.DEV_ANIMATIONS} element={<DevAnimationsDemo />} />
+        <Route path={INTERNAL_HREFS.DEV_TOASTS} element={<DevToastsDemo />} />
         <Route
-          path={INTERNAL_HREFS.DEV}
+          path={INTERNAL_HREFS.DEV_SOLANA_SIGN_TX}
           element={
-            <DevRouteGuard>
-              <DevDashboard />
-            </DevRouteGuard>
-          }
-        />
-        <Route
-          path={INTERNAL_HREFS.DEV_HAPTICS}
-          element={
-            <DevRouteGuard>
-              <DevHapticsDemo />
-            </DevRouteGuard>
-          }
-        />
-        <Route
-          path="/dev/sounds"
-          element={
-            <DevRouteGuard>
-              <DevSoundsDemo />
-            </DevRouteGuard>
-          }
-        />
-        <Route
-          path={INTERNAL_HREFS.DEV_CAMERA}
-          element={
-            <DevRouteGuard>
-              <ScannerDevDashboard />
-            </DevRouteGuard>
-          }
-        />
-        <Route
-          path={INTERNAL_HREFS.DEV_ANIMATIONS}
-          element={
-            <DevRouteGuard>
-              <DevAnimationsDemo />
-            </DevRouteGuard>
-          }
-        />
 
-        <Route
-          path={INTERNAL_HREFS.DEV_TOASTS}
-          element={
-            <DevRouteGuard>
-              <DevToastsDemo />
-            </DevRouteGuard>
+              <DevSolanaSignTxDemo />
+
           }
         />
 
