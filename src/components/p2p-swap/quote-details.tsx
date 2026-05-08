@@ -3,11 +3,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
-import type { useP2PSwapQuote } from "@/hooks";
+import { Separator } from "@/components/ui/separator";
+import type { useP2PToUsdcSwapQuote, useUsdcToP2PSwapQuote } from "@/hooks";
 import { cn } from "@/lib/utils";
 
 interface QuoteDetailsProps {
-  quote: ReturnType<typeof useP2PSwapQuote>;
+  quote: ReturnType<typeof useUsdcToP2PSwapQuote> | ReturnType<typeof useP2PToUsdcSwapQuote>;
+  outputSymbol: string;
 }
 
 function Row({ label, value, valueClassName }: {
@@ -23,14 +25,68 @@ function Row({ label, value, valueClassName }: {
   );
 }
 
-export function QuoteDetails({ quote }: QuoteDetailsProps) {
+function StepSection({
+  stepNumber,
+  label,
+  from,
+  to,
+  outputAmount,
+  outputSymbol,
+  feeUsd,
+  estimatedTimeInSeconds,
+  priceImpact,
+  route,
+}: {
+  stepNumber: number;
+  label: string;
+  from: string;
+  to: string;
+  outputAmount: string | null;
+  outputSymbol: string;
+  feeUsd: string | number | null | undefined;
+  estimatedTimeInSeconds: number | null | undefined;
+  priceImpact: string | null | undefined;
+  route: string | null | undefined;
+}) {
   const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      <p className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+        Step {stepNumber} · {label}
+      </p>
+      <Row
+        label={`${from} → ${to}`}
+        value={outputAmount ? `${outputAmount} ${outputSymbol}` : "—"}
+      />
+      {feeUsd && (
+        <Row label={t("ESTIMATED_FEE")} value={`$${Number(feeUsd).toFixed(2)}`} />
+      )}
+      {estimatedTimeInSeconds && (
+        <Row
+          label={t("ESTIMATED_TIME")}
+          value={`~${Math.ceil(estimatedTimeInSeconds / 60)}m`}
+        />
+      )}
+      {priceImpact && (
+        <Row
+          label={t("PRICE_IMPACT")}
+          value={`${Number(priceImpact).toFixed(4)}%`}
+          valueClassName={Number(priceImpact) > 1 ? "text-warning" : "text-success"}
+        />
+      )}
+      {route && <Row label={t("ROUTE")} value={route} />}
+    </div>
+  );
+}
+
+export function QuoteDetails({ quote, outputSymbol }: QuoteDetailsProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <Card className="border-none bg-primary/10 shadow-none">
-      <CardContent className="px-4">
-        {/* Summary row — always visible */}
+      <CardContent className="px-4 py-3">
+        {/* Summary row */}
         <button
           type="button"
           className="flex w-full cursor-pointer items-center justify-between"
@@ -38,7 +94,7 @@ export function QuoteDetails({ quote }: QuoteDetailsProps) {
           <span className="text-muted-foreground text-sm">
             You get{" "}
             <span className="font-semibold text-foreground">
-              {quote.totalOutputAmount ? `${quote.totalOutputAmount} P2P` : "—"}
+              {quote.totalOutputAmount ? `${quote.totalOutputAmount} ${outputSymbol}` : "—"}
             </span>
           </span>
           <motion.div
@@ -48,7 +104,6 @@ export function QuoteDetails({ quote }: QuoteDetailsProps) {
           </motion.div>
         </button>
 
-        {/* Expandable breakdown */}
         <AnimatePresence initial={false}>
           {expanded && (
             <motion.div
@@ -58,53 +113,31 @@ export function QuoteDetails({ quote }: QuoteDetailsProps) {
               transition={{ duration: 0.2, ease: "easeInOut" }}
               className="overflow-hidden">
               <div className="mt-3 flex flex-col gap-3">
-                {/* Step 1: Rango bridge */}
-                <div className="flex flex-col gap-1.5">
-                  <p className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
-                    Step 1 · Bridge
-                  </p>
-                  <Row
-                    label="USDC (Base) → USDC (Solana)"
-                    value={quote.rango.outputAmount ? `${quote.rango.outputAmount} USDC` : "—"}
-                  />
-                  {quote.rango.feeUsd && (
-                    <Row
-                      label={t("ESTIMATED_FEE")}
-                      value={`$${Number(quote.rango.feeUsd).toFixed(2)}`}
-                    />
-                  )}
-                  {quote.rango.estimatedTimeInSeconds && (
-                    <Row
-                      label={t("ESTIMATED_TIME")}
-                      value={`~${Math.ceil(quote.rango.estimatedTimeInSeconds / 60)}m`}
-                    />
-                  )}
-                </div>
-
-                <div className="h-px bg-border" />
-
-                {/* Step 2: Jupiter swap */}
-                <div className="flex flex-col gap-1.5">
-                  <p className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
-                    Step 2 · Swap
-                  </p>
-                  <Row
-                    label="USDC (Solana) → P2P"
-                    value={quote.jupiter.outputAmount ? `${quote.jupiter.outputAmount} P2P` : "—"}
-                  />
-                  {quote.jupiter.priceImpact && (
-                    <Row
-                      label={t("PRICE_IMPACT")}
-                      value={`${Number(quote.jupiter.priceImpact).toFixed(4)}%`}
-                      valueClassName={
-                        Number(quote.jupiter.priceImpact) > 1 ? "text-warning" : "text-success"
-                      }
-                    />
-                  )}
-                  {quote.jupiter.route && (
-                    <Row label={t("ROUTE")} value={quote.jupiter.route} />
-                  )}
-                </div>
+                <StepSection
+                  stepNumber={1}
+                  label={quote.step1.label}
+                  from={quote.step1.from}
+                  to={quote.step1.to}
+                  outputAmount={quote.step1.outputAmount}
+                  outputSymbol={quote.step1.to.split(" ")[0]}
+                  feeUsd={quote.step1.feeUsd}
+                  estimatedTimeInSeconds={quote.step1.estimatedTimeInSeconds}
+                  priceImpact={quote.step1.priceImpact}
+                  route={quote.step1.route}
+                />
+                <Separator />
+                <StepSection
+                  stepNumber={2}
+                  label={quote.step2.label}
+                  from={quote.step2.from}
+                  to={quote.step2.to}
+                  outputAmount={quote.step2.outputAmount}
+                  outputSymbol={outputSymbol}
+                  feeUsd={quote.step2.feeUsd}
+                  estimatedTimeInSeconds={quote.step2.estimatedTimeInSeconds}
+                  priceImpact={quote.step2.priceImpact}
+                  route={quote.step2.route}
+                />
               </div>
             </motion.div>
           )}

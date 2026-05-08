@@ -3,22 +3,25 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import type { P2PSwapStep } from "@/hooks";
 import { cn } from "@/lib/utils";
-import { PROGRESS_STEPS, STEP_ORDER } from "./shared";
+import { getProgressSteps, getStepOrder, type SwapDirection } from "./shared";
 
 interface SwapProgressProps {
   currentStep: P2PSwapStep;
+  direction: SwapDirection;
 }
 
-export function SwapProgress({ currentStep }: SwapProgressProps) {
+export function SwapProgress({ currentStep, direction }: SwapProgressProps) {
   const { t } = useTranslation();
-  const currentIdx = STEP_ORDER.indexOf(currentStep);
+  const progressSteps = getProgressSteps(direction);
+  const stepOrder = getStepOrder(direction);
+  const currentIdx = stepOrder.indexOf(currentStep);
 
   return (
     <Card className="border-none bg-primary/10 shadow-none">
       <CardContent className="px-4 py-3">
         <div className="flex flex-col gap-2 py-1">
-          {PROGRESS_STEPS.map((step, idx) => {
-            const stepIdx = STEP_ORDER.indexOf(step.key);
+          {progressSteps.map((step, idx) => {
+            const stepIdx = stepOrder.indexOf(step.key);
             const isDone = stepIdx < currentIdx;
             const isActive = step.key === currentStep;
 

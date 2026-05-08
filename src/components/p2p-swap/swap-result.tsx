@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { formatUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { P2P_TOKEN_DECIMALS } from "@/core/jupiter";
+import { P2P_TOKEN_DECIMALS, SOLANA_USDC_DECIMALS } from "@/core/jupiter";
 import type { P2PSwapState } from "@/hooks";
 
 interface SwapResultProps {
@@ -14,6 +14,17 @@ interface SwapResultProps {
 
 export function SwapResult({ state, onReset }: SwapResultProps) {
   const { t } = useTranslation();
+  const isUsdcToP2P = state.direction === "USDC_TO_P2P";
+
+  const receivedAmount = isUsdcToP2P
+    ? state.jupiterOutputAmount
+      ? `${formatUnits(BigInt(state.jupiterOutputAmount), P2P_TOKEN_DECIMALS)} P2P`
+      : null
+    : state.rangoOutputAmount
+      ? `${formatUnits(BigInt(state.rangoOutputAmount), SOLANA_USDC_DECIMALS)} USDC`
+      : null;
+
+  const inputSymbol = isUsdcToP2P ? "USDC" : "P2P";
 
   if (state.step === "completed") {
     return (
@@ -27,24 +38,21 @@ export function SwapResult({ state, onReset }: SwapResultProps) {
           <div className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">{t("YOU_SENT")}</span>
-              <span className="font-medium">{state.inputAmount} USDC</span>
+              <span className="font-medium">{state.inputAmount} {inputSymbol}</span>
             </div>
-            {state.jupiterOutputAmount && (
+            {receivedAmount && (
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">{t("YOU_RECEIVED")}</span>
-                <span className="font-medium">
-                  {formatUnits(BigInt(state.jupiterOutputAmount), P2P_TOKEN_DECIMALS)} P2P
-                </span>
+                <span className="font-medium">{receivedAmount}</span>
               </div>
             )}
           </div>
 
+          {/* Jupiter signature (Solana tx) */}
           {state.jupiterSignature && (
             <div className="rounded-lg bg-primary/10 p-3">
               <div className="flex items-center gap-2 text-xs">
-                <span className="font-medium text-muted-foreground">
-                  {t("TRANSACTION_SIGNATURE")}
-                </span>
+                <span className="font-medium text-muted-foreground">Solana Tx</span>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -58,6 +66,28 @@ export function SwapResult({ state, onReset }: SwapResultProps) {
               </div>
               <p className="mt-1 truncate text-muted-foreground text-xs">
                 {state.jupiterSignature}
+              </p>
+            </div>
+          )}
+
+          {/* Rango request ID */}
+          {state.rangoRequestId && (
+            <div className="rounded-lg bg-primary/10 p-3">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="font-medium text-muted-foreground">Rango ID</span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="size-5 p-0"
+                  onClick={() => {
+                    navigator.clipboard.writeText(state.rangoRequestId!);
+                    toast.success(t("COPIED_TO_CLIPBOARD"));
+                  }}>
+                  <Copy className="size-3" />
+                </Button>
+              </div>
+              <p className="mt-1 truncate text-muted-foreground text-xs">
+                {state.rangoRequestId}
               </p>
             </div>
           )}

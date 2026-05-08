@@ -3,15 +3,17 @@ import {
   DynamicWidget,
   type WalletOption,
 } from "@dynamic-labs/sdk-react-core";
+import { History } from "lucide-react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { TokenSolana } from "@/assets/icons/token-solana";
 import { NonHomeHeader } from "@/components";
-import { P2PSwapWidget } from "@/components/p2p-swap";
-import { SolanaUsdcToP2P } from "@/components/p2p-swap/solana-usdc-to-p2p";
+import { BaseUsdcToP2P } from "@/components/p2p-swap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { useSafeDynamicContext } from "@/contexts";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 /** Filters the Dynamic wallet list to Solana-only connectors */
 function solanaOnly(wallets: WalletOption[]) {
@@ -55,7 +57,8 @@ function ConnectSolanaWallet() {
             {isAvailable ? (
               <DynamicConnectButton
                 buttonClassName="w-full bg-primary text-primary-foreground rounded-md p-2 cursor-pointer"
-                buttonContainerClassName="w-full">
+                buttonContainerClassName="w-full"
+              >
                 <p className="w-full text-center text-sm">
                   {t("CONNECT_WALLET")}
                 </p>
@@ -86,25 +89,26 @@ function ConnectSolanaWallet() {
  */
 export function P2PSwap() {
   const { t } = useTranslation();
-  const { primaryWallet } = useSafeDynamicContext();
 
   return (
     <>
       <NonHomeHeader title={t("P2P_TOKEN_SWAP")} showHelp />
 
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto py-6">
+        <div className="flex items-center justify-end">
+          <Link to={INTERNAL_HREFS.P2P_SWAP_HISTORY}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-1.5 text-muted-foreground"
+            >
+              <History className="size-4" />
+              History
+            </Button>
+          </Link>
+        </div>
         <ConnectSolanaWallet />
-        {primaryWallet?.isConnected && (
-          <>
-            <P2PSwapWidget />
-            <div className="flex items-center gap-3 py-2">
-              <div className="h-px flex-1 bg-border" />
-              <p className="text-muted-foreground text-xs">Solana USDC → P2P</p>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-            <SolanaUsdcToP2P />
-          </>
-        )}
+        <BaseUsdcToP2P />
       </main>
     </>
   );

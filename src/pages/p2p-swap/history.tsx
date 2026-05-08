@@ -81,7 +81,7 @@ function HistoryCard({ entry }: { entry: P2PSwapHistoryEntry }) {
                   label={entry.rangoRequestId}
                 />
                 <a
-                  href={`https://explorer.rango.exchange/search?query=${entry.rangoRequestId}`}
+                  href={`https://explorer.rango.exchange/swap/${entry.rangoRequestId}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary">
