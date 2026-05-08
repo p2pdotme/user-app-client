@@ -41,6 +41,8 @@ export const INTERNAL_HREFS = {
   LOGIN: "/login",
   NOTIFICATION: "/notification",
 
+  P2P_SWAP: "/p2p-swap",
+
   CAMPAIGN: "/campaign",
   RECOMMEND: "/recommend",
 

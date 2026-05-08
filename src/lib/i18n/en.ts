@@ -1014,6 +1014,7 @@ export const en = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Order with placed status only can be re-assigned",
     OUT_OF_DENOMINATOR: "out of {{denominator}}",
+    P2P_TOKEN_SWAP: "P2P Token Swap",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me Transaction Receipt",
     P2P_ME_UNREACHABLE:
       "p2p.me is currently unreachable. Please try again later.",
