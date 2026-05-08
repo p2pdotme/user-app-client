@@ -3,6 +3,7 @@ import {
   Camera,
   ChevronRight,
   Film,
+  Layers,
   Vibrate,
   Volume2,
 } from "lucide-react";
@@ -10,7 +11,6 @@ import { Link } from "react-router";
 import { NonHomeHeader } from "@/components";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { useSettings } from "@/contexts";
 import { INTERNAL_HREFS } from "@/lib/constants";
 
 const DEV_DEMOS = [
@@ -50,6 +50,14 @@ const DEV_DEMOS = [
     icon: Volume2,
     ready: true,
   },
+  {
+    name: "Solana Sign Tx",
+    description:
+      "Connect a Phantom wallet and sign a dummy SPL Memo transaction step by step",
+    href: INTERNAL_HREFS.DEV_SOLANA_SIGN_TX,
+    icon: Layers,
+    ready: true,
+  },
   // Future demos can be added here easily
   // {
   //   name: "UI Components",
@@ -61,13 +69,6 @@ const DEV_DEMOS = [
 ];
 
 export function DevDashboard() {
-  const { settings } = useSettings();
-
-  if (!settings.devMode) {
-    console.error("Dev pages are only available in development environment");
-    return null;
-  }
-
   return (
     <>
       <NonHomeHeader title="Developer Dashboard" showHelp={false} />
