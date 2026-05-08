@@ -238,6 +238,7 @@ export const hi = {
     CONNECTION_STATUS: "कनेक्शन स्थिति",
     CONNECT_ANY_SERVER_REFRESH: "किसी भी सर्वर से कनेक्ट करें और रीफ्रेश करें",
     CONNECT_WALLET: "वॉलेट कनेक्ट करें",
+    CONNECT_YOUR_SOLANA_WALLET: "अपना Solana वॉलेट कनेक्ट करें",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Solana और 5 EVM चेन से जमा करने के लिए अपना सोर्स वॉलेट कनेक्ट करें।",
     CONTINUE: "जारी रखें",

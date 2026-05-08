@@ -247,6 +247,7 @@ export const id = {
     CONNECTION_STATUS: "Status Koneksi",
     CONNECT_ANY_SERVER_REFRESH: "Hubungkan ke server mana saja dan refresh",
     CONNECT_WALLET: "Hubungkan Dompet",
+    CONNECT_YOUR_SOLANA_WALLET: "Hubungkan dompet Solana Anda",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Hubungkan dompet sumber Anda untuk deposit dari Solana dan 5 chain EVM.",
     CONTINUE: "Lanjutkan",

@@ -254,6 +254,7 @@ export const es = {
     CONNECTION_STATUS: "Estado de la Conexión",
     CONNECT_ANY_SERVER_REFRESH: "Conéctate a cualquier servidor y actualiza",
     CONNECT_WALLET: "Conectar Wallet",
+    CONNECT_YOUR_SOLANA_WALLET: "Conecta tu wallet de Solana",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Conecta tu wallet de origen para depositar desde Solana y 5 cadenas EVM.",
     CONTINUE: "Continuar",

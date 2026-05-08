@@ -242,6 +242,7 @@ export const en = {
     CONNECTION_STATUS: "Connection Status",
     CONNECT_ANY_SERVER_REFRESH: "Connect to any server and refresh",
     CONNECT_WALLET: "Connect Wallet",
+    CONNECT_YOUR_SOLANA_WALLET: "Connect your Solana wallet",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Connect your source wallet to deposit from Solana and 5 EVM chains.",
     CONTINUE: "Continue",
