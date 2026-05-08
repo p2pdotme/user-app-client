@@ -17,6 +17,7 @@ export * from "./use-price-config";
 export * from "./use-processing-times";
 export * from "./use-processing-txns";
 export * from "./use-raise-dispute";
+export * from "./use-jupiter-swap";
 export * from "./use-rango-fetch";
 export * from "./use-rango-quote";
 export * from "./use-rango-swap";

@@ -23,6 +23,7 @@
     "@dynamic-labs/solana": "3.9.11",
     "@farcaster/miniapp-sdk": "0.2.1",
     "@hookform/resolvers": "5.0.1",
+    "@jup-ag/api": "6.0.48",
     "@lottiefiles/dotlottie-react": "0.14.0",
     "@p2pdotme/sdk": "1.1.3",
     "@radix-ui/react-popover": "1.1.14",
