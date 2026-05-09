@@ -29,6 +29,10 @@ interface ImportMetaEnv {
   readonly VITE_RANGO_API_KEY: string;
   readonly VITE_RANGO_REFERRER_CODE: string;
 
+  // Jupiter Swap
+  readonly VITE_JUPITER_API_KEY: string;
+  readonly VITE_SOLANA_RPC_URL: string;
+
   // Analytics
   readonly VITE_AMPLITUDE_API_KEY: string;
 

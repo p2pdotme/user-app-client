@@ -247,6 +247,7 @@ export const id = {
     CONNECTION_STATUS: "Status Koneksi",
     CONNECT_ANY_SERVER_REFRESH: "Hubungkan ke server mana saja dan refresh",
     CONNECT_WALLET: "Hubungkan Dompet",
+    CONNECT_YOUR_SOLANA_WALLET: "Hubungkan dompet Solana Anda",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Hubungkan dompet sumber Anda untuk deposit dari Solana dan 5 chain EVM.",
     CONTINUE: "Lanjutkan",
@@ -1031,6 +1032,7 @@ export const id = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Pesanan dengan status ditempatkan saja yang dapat ditetapkan ulang",
     OUT_OF_DENOMINATOR: "dari {{denominator}}",
+    P2P_TOKEN_SWAP: "Pertukaran Token P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Tanda Terima Transaksi P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me tidak dapat dijangkau saat ini. Silakan coba lagi nanti.",

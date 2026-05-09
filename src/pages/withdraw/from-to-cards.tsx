@@ -207,7 +207,8 @@ export function FromToCards({
               selectedNetwork={withdrawData.destinationChain}
               selectedToken={withdrawData.destinationToken}
               onNetworkSelect={handleDestinationNetworkSelect}
-              onTokenSelect={handleDestinationTokenSelect}>
+              onTokenSelect={handleDestinationTokenSelect}
+              excludeChains={["BASE"]}>
               <div className="relative flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 px-3 py-2">
                 {withdrawData.destinationChain &&
                 withdrawData.destinationToken ? (

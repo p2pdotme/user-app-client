@@ -238,6 +238,7 @@ export const hi = {
     CONNECTION_STATUS: "कनेक्शन स्थिति",
     CONNECT_ANY_SERVER_REFRESH: "किसी भी सर्वर से कनेक्ट करें और रीफ्रेश करें",
     CONNECT_WALLET: "वॉलेट कनेक्ट करें",
+    CONNECT_YOUR_SOLANA_WALLET: "अपना Solana वॉलेट कनेक्ट करें",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Solana और 5 EVM चेन से जमा करने के लिए अपना सोर्स वॉलेट कनेक्ट करें।",
     CONTINUE: "जारी रखें",
@@ -986,6 +987,7 @@ export const hi = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "केवल दिए गए स्थिति वाले ऑर्डर को ही फिर से सौंपा जा सकता है",
     OUT_OF_DENOMINATOR: "{{denominator}} में से",
+    P2P_TOKEN_SWAP: "P2P टोकन स्वैप",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me लेनदेन रसीद",
     P2P_ME_UNREACHABLE: "p2p.me वर्तमान में अप्राप्य है। कृपया बाद में पुनः प्रयास करें।",
     P2P_ME_WALLET: "P2P.me वॉलेट",

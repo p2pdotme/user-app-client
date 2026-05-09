@@ -305,6 +305,7 @@ export const BridgeTokenSelectorDrawer = ({
   onNetworkSelect,
   selectedNetwork,
   selectedToken,
+  excludeChains,
 }: {
   bridgeType: "DEPOSIT" | "WITHDRAW";
   children: React.ReactNode;
@@ -312,14 +313,16 @@ export const BridgeTokenSelectorDrawer = ({
   selectedToken: BridgeToken | null;
   onTokenSelect: (token: BridgeToken) => void;
   onNetworkSelect: (network: BridgeChain) => void;
+  excludeChains?: string[];
 }) => {
   const [currentView, setCurrentView] = useState<
     "tokenList" | "networkSelector"
   >("tokenList");
   const [isOpen, setIsOpen] = useState(false);
 
-  const bridgeMetadata =
-    bridgeType === "DEPOSIT" ? bridgeMetaDeposit : bridgeMetaWithdraw;
+  const bridgeMetadata = (
+    bridgeType === "DEPOSIT" ? bridgeMetaDeposit : bridgeMetaWithdraw
+  ).filter((chain) => !excludeChains?.includes(chain.id));
 
   const handleNetworkSelectClick = () => {
     setCurrentView("networkSelector");

@@ -139,6 +139,18 @@ const DevAnimationsDemo = lazy(() =>
   })),
 );
 
+const P2PSwap = lazy(() =>
+  import("@/pages/p2p-swap").then((module) => ({
+    default: module.P2PSwap,
+  })),
+);
+
+const P2PSwapHistory = lazy(() =>
+  import("@/pages/p2p-swap/history").then((module) => ({
+    default: module.P2PSwapHistory,
+  })),
+);
+
 const SupportPageWrapper = lazy(() =>
   import("@/pages/help/support-page-router").then((module) => ({
     default: module.SupportPageWrapper,
@@ -190,6 +202,8 @@ export function Router() {
         <Route path={INTERNAL_HREFS.SELL_QUIZ} element={<SellQuiz />} />
         <Route path={INTERNAL_HREFS.SELL_PREVIEW} element={<SellPreview />} />
         <Route path={INTERNAL_HREFS.PAY} element={<Pay />} />
+        <Route path={INTERNAL_HREFS.P2P_SWAP} element={<P2PSwap />} />
+        <Route path={INTERNAL_HREFS.P2P_SWAP_HISTORY} element={<P2PSwapHistory />} />
 
         <Route path={`${INTERNAL_HREFS.ORDER}/:id`} element={<Order />} />
 

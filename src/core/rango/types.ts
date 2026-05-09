@@ -22,6 +22,7 @@ export type SupportedBridgeChains =
   | "BSC"
   | "ARBITRUM"
   | "OPTIMISM"
+  | "BASE"
   | "SOLANA"
   | "HYPEREVM";
 

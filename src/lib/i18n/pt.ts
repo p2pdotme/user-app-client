@@ -249,6 +249,7 @@ export const pt = {
     CONNECTION_STATUS: "Status de Conexão",
     CONNECT_ANY_SERVER_REFRESH: "Conecte-se a qualquer servidor e atualize",
     CONNECT_WALLET: "Conectar Carteira",
+    CONNECT_YOUR_SOLANA_WALLET: "Conecte sua carteira Solana",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Conecte sua carteira de origem para depositar de Solana e 5 chains EVM.",
     CONTINUE: "Continuar",
@@ -1032,6 +1033,7 @@ export const pt = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "O pedido com status colocado só pode ser reatribuído",
     OUT_OF_DENOMINATOR: "de {{denominator}}",
+    P2P_TOKEN_SWAP: "Troca de Tokens P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Recibo de Transação P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me está inacessível no momento. Tente novamente mais tarde.",
