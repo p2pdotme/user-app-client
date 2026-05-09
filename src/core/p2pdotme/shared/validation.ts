@@ -571,6 +571,7 @@ export const ZodSolidityVerifierParametersSchema = z.object({
     domain: z.string(),
     scope: z.string(),
     devMode: z.boolean(),
+    oprfPubKeyHash: z.string(),
   }),
 }) satisfies z.ZodType<SolidityVerifierParameters>;
 
