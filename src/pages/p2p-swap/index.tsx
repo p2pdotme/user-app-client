@@ -10,10 +10,12 @@ import { Link } from "react-router";
 import { TokenSolana } from "@/assets/icons/token-solana";
 import { NonHomeHeader } from "@/components";
 import { BaseUsdcToP2P } from "@/components/p2p-swap";
+import { P2PTokenBalances } from "@/components/p2p-swap/detailed-info";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { useSafeDynamicContext } from "@/contexts";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { DevSolanaToBaseTest, DevBaseToSolanaTest } from "@/components/p2p-swap/dev-wormhole-test";
 
 /** Filters the Dynamic wallet list to Solana-only connectors */
 function solanaOnly(wallets: WalletOption[]) {
@@ -109,6 +111,9 @@ export function P2PSwap() {
         </div>
         <ConnectSolanaWallet />
         <BaseUsdcToP2P />
+        <DevSolanaToBaseTest />
+        <DevBaseToSolanaTest />
+        <P2PTokenBalances />
       </main>
     </>
   );

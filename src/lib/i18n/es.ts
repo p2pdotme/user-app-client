@@ -1047,11 +1047,11 @@ export const es = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Solo se puede reasignar un pedido con estado 'realizado'",
     OUT_OF_DENOMINATOR: "de {{denominator}}",
-    P2P_TOKEN_SWAP: "Intercambio de Tokens P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Recibo de Transacción de P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me no está disponible en este momento. Por favor, inténtalo de nuevo más tarde.",
     P2P_ME_WALLET: "Wallet P2P.me",
+    P2P_TOKEN_SWAP: "Intercambio de Tokens P2P",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Lo sentimos, no pudimos encontrar la página que estás buscando.",
     PAGE_NOT_FOUND_TITLE: "Página no encontrada",

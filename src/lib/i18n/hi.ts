@@ -987,10 +987,10 @@ export const hi = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "केवल दिए गए स्थिति वाले ऑर्डर को ही फिर से सौंपा जा सकता है",
     OUT_OF_DENOMINATOR: "{{denominator}} में से",
-    P2P_TOKEN_SWAP: "P2P टोकन स्वैप",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me लेनदेन रसीद",
     P2P_ME_UNREACHABLE: "p2p.me वर्तमान में अप्राप्य है। कृपया बाद में पुनः प्रयास करें।",
     P2P_ME_WALLET: "P2P.me वॉलेट",
+    P2P_TOKEN_SWAP: "P2P टोकन स्वैप",
     PAGE_NOT_FOUND_DESCRIPTION:
       "क्षमा करें, हम वह पृष्ठ नहीं ढूंढ सके जिसकी आप तलाश कर रहे हैं।",
     PAGE_NOT_FOUND_TITLE: "पृष्ठ नहीं मिला",

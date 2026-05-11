@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -13,7 +14,10 @@ import {
   useUsdcToP2PSwap,
   useUsdcToP2PSwapQuote,
   useUSDCBalance,
+  useWormholeBridge,
 } from "@/hooks";
+import { P2P_TOKEN_DECIMALS } from "@/core/jupiter/config";
+import { useThirdweb } from "@/hooks/use-thirdweb";
 import { FromPanel } from "./from-panel";
 import { QuoteDetails } from "./quote-details";
 import { SwapProgress } from "./swap-progress";
@@ -63,9 +67,11 @@ export function BaseUsdcToP2P() {
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
 
+  const { account } = useThirdweb();
   const { usdcBalance } = useUSDCBalance();
   const usdcToP2P = useUsdcToP2PSwap();
   const p2pToUsdc = useP2PToUsdcSwap();
+  const wormholeBridge = useWormholeBridge();
   const { saveEntry } = useP2PSwapHistory();
   const usdcToP2PQuote = useUsdcToP2PSwapQuote(isUsdcToP2P ? amount : "");
   const p2pToUsdcQuote = useP2PToUsdcSwapQuote(!isUsdcToP2P ? amount : "");
@@ -94,6 +100,24 @@ export function BaseUsdcToP2P() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.step]);
 
+  // After USDC→P2P completes, auto-trigger Wormhole bridge for the received P2P amount
+  useEffect(() => {
+    if (
+      isUsdcToP2P &&
+      usdcToP2P.state.step === "completed" &&
+      usdcToP2P.state.jupiterOutputAmount &&
+      account?.address &&
+      wormholeBridge.state.step === "idle"
+    ) {
+      const humanAmount = formatUnits(
+        BigInt(usdcToP2P.state.jupiterOutputAmount),
+        P2P_TOKEN_DECIMALS,
+      );
+      wormholeBridge.bridge({ amount: humanAmount, recipientEvmAddress: account.address });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usdcToP2P.state.step]);
+
   const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : null;
   const outputAmount = quote.totalOutputAmount;
   const isQuoteLoading = quote.isLoading;
@@ -116,6 +140,7 @@ export function BaseUsdcToP2P() {
     );
     setAmount("");
     setSelectedPct(null);
+    wormholeBridge.reset();
   };
 
   const handleSwap = async () => {
@@ -126,8 +151,21 @@ export function BaseUsdcToP2P() {
     await execute(amount);
   };
 
+  const wormholeDone = ["completed", "failed"].includes(wormholeBridge.state.step);
+
+  // For USDC→P2P: wait for wormhole bridge to finish before showing result
+  if (isUsdcToP2P && state.step === "completed" && !wormholeDone) {
+    return (
+      <SwapProgress
+        currentStep={state.step}
+        direction={direction}
+        wormholeState={wormholeBridge.state}
+      />
+    );
+  }
+
   if (state.step === "completed" || state.step === "failed") {
-    return <SwapResult state={state} onReset={reset} />;
+    return <SwapResult state={state} onReset={() => { reset(); wormholeBridge.reset(); }} />;
   }
 
   const fromBadge = (
@@ -207,7 +245,7 @@ export function BaseUsdcToP2P() {
       </Button>
 
       {isPending && (
-        <SwapProgress currentStep={state.step} direction={direction} />
+        <SwapProgress currentStep={state.step} direction={direction} wormholeState={wormholeBridge.state} />
       )}
     </div>
   );

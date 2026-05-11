@@ -11,7 +11,8 @@ export type Domain =
   | "RangoWithdraw"
   | "Subgraph"
   | "SellQuiz"
-  | "JupiterSwap";
+  | "JupiterSwap"
+  | "WormholeBridge";
 
 export type ErrorCode =
   | "StorageError"
@@ -42,7 +43,10 @@ export type ErrorCode =
   | "JupiterQuoteError"
   | "JupiterSwapBuildError"
   | "JupiterSwapError"
-  | "JupiterConfirmError";
+  | "JupiterConfirmError"
+  | "WormholeTransferError"
+  | "WormholeVaaError"
+  | "WormholeRedeemError";
 
 export interface AppError<D extends Domain = Domain> {
   readonly domain: D; // where the error occurred

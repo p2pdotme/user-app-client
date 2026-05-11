@@ -85,6 +85,8 @@ export const en = {
     BOUGHT_VIA: "Bought via",
     BRIDGING_MAY_TAKE_TIME:
       "Bridging may take time. Stay on this page until it's complete or check progress by following this link",
+    BRIDGING_TO_BASE: "Bridging to Base",
+    BRIDGING_TO_SOLANA: "Bridging to Solana",
     BROWSE_HELP_CENTER: "Browse Help Center",
     BROWSE_HELP_CENTER_DESCRIPTION:
       "Find answers, guides, and support for all your questions in one place.",
@@ -223,6 +225,7 @@ export const en = {
     COMPLETE_ZK_PROOF_TO_UNLOCK:
       "Complete at least one zk proof to unlock refer and earn",
     CONFIRM: "Confirm",
+    CONFIRMING_BRIDGE: "Confirming bridge",
     CONFIRM_DOWNLOAD: "Confirm download",
     CONFIRM_PAYMENT_DETAILS: "Confirm payment details",
     CONFIRM_PURCHASE_OF_USDC_WITH_CURRENCY:
@@ -1015,11 +1018,11 @@ export const en = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Order with placed status only can be re-assigned",
     OUT_OF_DENOMINATOR: "out of {{denominator}}",
-    P2P_TOKEN_SWAP: "P2P Token Swap",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me Transaction Receipt",
     P2P_ME_UNREACHABLE:
       "p2p.me is currently unreachable. Please try again later.",
     P2P_ME_WALLET: "P2P.me Wallet",
+    P2P_TOKEN_SWAP: "P2P Token Swap",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Sorry, we couldn't find the page you're looking for.",
     PAGE_NOT_FOUND_TITLE: "Page not found",
@@ -1116,6 +1119,7 @@ export const en = {
       "Provide liquidity on P2P.me and get up to 1.5% per transaction. Click here to learn more.",
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare to scan once merchant is assigned",
+    PREPARING_SWAP: "Preparing swap",
     PRICE: "Price",
     PRICE_IMPACT: "Price Impact",
     PROCEED_TO_PAY: "Proceed to Pay",
@@ -1156,13 +1160,13 @@ export const en = {
       "Only raise a dispute if you paid but didn't get a refund.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Raise Dispute?",
     RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION: "Paid but no USDC received?",
+    RANGO_PREPARING: "Preparing bridge",
     RANGO_REQUEST_ID: "Rango Request ID",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "Rango request ID copied to clipboard",
     RANGO_REQUEST_ID_NOT_FOUND: "Rango request ID not found",
     RANGO_SWAP_ERROR: "Swap failed. Please try again.",
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "Receipt downloaded successfully",
-    ROUTE: "Route",
     RECEIVED: "Received",
     RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET: "Receive funds to your P2P.me wallet.",
     RECEIVING_ADDRESS: "Receiving Address",
@@ -1218,6 +1222,7 @@ export const en = {
     REWARD_CLAIMED_DESCRIPTION:
       "You have successfully claimed {{amount}} USDC. Share your win with your friends!",
     RIF_LABEL: "Cedula con V",
+    ROUTE: "Route",
     SAVE: "Save",
     SAVED: "Saved {{paymentAddressName}}",
     SAVED_ADDRESS: "Saved Address",
@@ -1358,17 +1363,12 @@ export const en = {
     SUBMITTING_PROOF: "Submitting proof",
     SUPPORT: "Support",
     SUPPORTED_NETWORKS: "Supported networks",
-    BRIDGING_TO_BASE: "Bridging to Base",
-    BRIDGING_TO_SOLANA: "Bridging to Solana",
-    CONFIRMING_BRIDGE: "Confirming bridge",
-    PREPARING_SWAP: "Preparing swap",
-    RANGO_PREPARING: "Preparing bridge",
     SWAP: "Swap",
     SWAPPED: "Swapped",
-    SWAPPING_TO_P2P: "Swapping to P2P",
-    SWAPPING_TO_USDC: "Swapping to USDC",
     SWAPPER: "Swapper",
     SWAPPING: "Swapping",
+    SWAPPING_TO_P2P: "Swapping to P2P",
+    SWAPPING_TO_USDC: "Swapping to USDC",
     SWAP_FAILED: "Swap failed",
     SWAP_IN_PROGRESS: "Swap in Progress",
     SWAP_SUCCESSFUL: "Swap Successful",

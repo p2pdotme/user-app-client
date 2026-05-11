@@ -1032,11 +1032,11 @@ export const id = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Pesanan dengan status ditempatkan saja yang dapat ditetapkan ulang",
     OUT_OF_DENOMINATOR: "dari {{denominator}}",
-    P2P_TOKEN_SWAP: "Pertukaran Token P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Tanda Terima Transaksi P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me tidak dapat dijangkau saat ini. Silakan coba lagi nanti.",
     P2P_ME_WALLET: "Dompet P2P.me",
+    P2P_TOKEN_SWAP: "Pertukaran Token P2P",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Maaf, kami tidak dapat menemukan halaman yang Anda cari.",
     PAGE_NOT_FOUND_TITLE: "Halaman tidak ditemukan",
