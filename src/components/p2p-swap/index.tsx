@@ -1,4 +1,4 @@
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Clock } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,7 @@ import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
+  useP2PBalance,
   useP2PSwapHistory,
   useP2PToUsdcSwap,
   useP2PToUsdcSwapQuote,
@@ -18,6 +19,8 @@ import {
 } from "@/hooks";
 import { P2P_TOKEN_DECIMALS } from "@/core/jupiter/config";
 import { useThirdweb } from "@/hooks/use-thirdweb";
+import { BaseBalances } from "./base-balances";
+import { P2PSwapFooter } from "./footer";
 import { FromPanel } from "./from-panel";
 import { QuoteDetails } from "./quote-details";
 import { SwapProgress } from "./swap-progress";
@@ -69,6 +72,8 @@ export function BaseUsdcToP2P() {
 
   const { account } = useThirdweb();
   const { usdcBalance } = useUSDCBalance();
+
+  const { p2pBalance: p2pBalanceData } = useP2PBalance();
   const usdcToP2P = useUsdcToP2PSwap();
   const p2pToUsdc = useP2PToUsdcSwap();
   const wormholeBridge = useWormholeBridge();
@@ -113,12 +118,17 @@ export function BaseUsdcToP2P() {
         BigInt(usdcToP2P.state.jupiterOutputAmount),
         P2P_TOKEN_DECIMALS,
       );
-      wormholeBridge.bridge({ amount: humanAmount, recipientEvmAddress: account.address });
+      wormholeBridge.bridge({
+        amount: humanAmount,
+        recipientEvmAddress: account.address,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usdcToP2P.state.step]);
 
-  const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : null;
+  const balance: number | null = isUsdcToP2P
+    ? (usdcBalance ?? null)
+    : (p2pBalanceData ?? null);
   const outputAmount = quote.totalOutputAmount;
   const isQuoteLoading = quote.isLoading;
   const isQuoteError = quote.isError;
@@ -151,22 +161,26 @@ export function BaseUsdcToP2P() {
     await execute(amount);
   };
 
-  const wormholeDone = ["completed", "failed"].includes(wormholeBridge.state.step);
+  const wormholeDone = ["completed", "failed"].includes(
+    wormholeBridge.state.step,
+  );
 
   // Map WormholeBridgeStep → P2PSwapStep for unified progress display
-  const wormholeStepMap: Partial<Record<typeof wormholeBridge.state.step, typeof state.step>> = {
-    locking:      "wormhole_locking",
+  const wormholeStepMap: Partial<
+    Record<typeof wormholeBridge.state.step, typeof state.step>
+  > = {
+    locking: "wormhole_locking",
     awaiting_vaa: "wormhole_vaa",
-    redeeming:    "wormhole_redeeming",
+    redeeming: "wormhole_redeeming",
   };
 
   // For USDC→P2P: after the Jupiter swap completes, Wormhole continues.
   // Map its step into P2PSwapStep so the unified progress list stays accurate.
-  const isWormholeRunning = isUsdcToP2P && !wormholeDone && wormholeBridge.state.step !== "idle";
-  const effectiveStep =
-    isWormholeRunning
-      ? (wormholeStepMap[wormholeBridge.state.step] ?? state.step)
-      : state.step;
+  const isWormholeRunning =
+    isUsdcToP2P && !wormholeDone && wormholeBridge.state.step !== "idle";
+  const effectiveStep = isWormholeRunning
+    ? (wormholeStepMap[wormholeBridge.state.step] ?? state.step)
+    : state.step;
   // Show progress whenever the swap is in-flight OR Wormhole is still running.
   const showProgress = isPending || isWormholeRunning;
 
@@ -176,7 +190,15 @@ export function BaseUsdcToP2P() {
     : state.step === "completed" || state.step === "failed";
 
   if (isFullyDone) {
-    return <SwapResult state={state} onReset={() => { reset(); if (isUsdcToP2P) wormholeBridge.reset(); }} />;
+    return (
+      <SwapResult
+        state={state}
+        onReset={() => {
+          reset();
+          if (isUsdcToP2P) wormholeBridge.reset();
+        }}
+      />
+    );
   }
 
   const fromBadge = (
@@ -195,6 +217,10 @@ export function BaseUsdcToP2P() {
 
   return (
     <div className="flex flex-col gap-2">
+      {account?.address && (
+        <BaseBalances />
+      )}
+
       <FromPanel
         amount={amount}
         onAmountChange={(v) => {
@@ -205,7 +231,7 @@ export function BaseUsdcToP2P() {
         onPercent={handlePercent}
         balance={balance}
         disabled={isPending}
-        showPctButtons={isUsdcToP2P}
+        showPctButtons={true}
         tokenBadge={fromBadge}
       />
 
@@ -238,8 +264,15 @@ export function BaseUsdcToP2P() {
       />
 
       {showQuoteDetails && (
-        <QuoteDetails quote={quote} outputSymbol={outputSymbol} />
+        <QuoteDetails quote={quote} outputSymbol={outputSymbol} direction={direction} />
       )}
+
+      <div className="flex items-start gap-2.5 rounded-xl bg-warning/10 px-4 py-3">
+        <Clock className="mt-0.5 size-4 shrink-0 text-warning" />
+        <p className="text-foreground text-xs leading-relaxed">
+          This swap takes <span className="font-semibold">~20 minutes</span> to complete. Keep this tab open and stay connected throughout the process.
+        </p>
+      </div>
 
       <Button
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
@@ -253,12 +286,16 @@ export function BaseUsdcToP2P() {
         }
         onClick={handleSwap}
       >
-        {isPending || isWormholeRunning || isQuoteLoading ? t("PROCESSING") : t("SWAP")}
+        {isPending || isWormholeRunning || isQuoteLoading
+          ? t("PROCESSING")
+          : t("SWAP")}
       </Button>
 
       {showProgress && (
         <SwapProgress currentStep={effectiveStep} direction={direction} />
       )}
+
+      <P2PSwapFooter />
     </div>
   );
 }

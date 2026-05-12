@@ -447,7 +447,7 @@ export function useUsdcToP2PSwapQuote(amount: string) {
       priceImpact: null, route: null,
     },
     step2: {
-      label: "Swap", from: "USDC (Solana)", to: "P2P",
+      label: "Swap", from: "USDC (Solana)", to: "P2P (Solana)",
       isLoading: jupiterQuery.isLoading, isError: jupiterQuery.isError,
       outputAmount: jupiterOutputRaw ? formatUnits(BigInt(jupiterOutputRaw), P2P_TOKEN_DECIMALS) : null,
       feeUsd: null, estimatedTimeInSeconds: null, swapper: null,
@@ -503,7 +503,7 @@ export function useP2PToUsdcSwapQuote(amount: string) {
     isError: jupiterQuery.isError || rangoDepositQuery.isError,
     error: jupiterQuery.error ?? rangoDepositQuery.error,
     step1: {
-      label: "Swap", from: "P2P", to: "USDC (Solana)",
+      label: "Swap", from: "P2P (Solana)", to: "USDC (Solana)",
       isLoading: hasAmount && jupiterQuery.isLoading, isError: jupiterQuery.isError,
       outputAmount: jupiterOutput ? formatUnits(BigInt(jupiterOutput), SOLANA_USDC_DECIMALS) : null,
       feeUsd: null, estimatedTimeInSeconds: null, swapper: null,
