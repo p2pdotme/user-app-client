@@ -84,6 +84,7 @@ export const contractErrors = {
   OrderAlreadyCompleted: "ORDER_ALREADY_MARKED_COMPLETED",
   InvalidOrderType: "INVALID_ORDER_TYPE",
   DailyBuyOrderLimitExceeded: "DAILY_BUY_ORDER_COUNT_LIMIT_EXCEEDED",
+  DailyBuyOrderPlacementLimitExceeded: "DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED",
   MonthlyBuyOrderLimitExceeded: "MONTHLY_BUY_ORDER_COUNT_LIMIT_EXCEEDED",
   SellOrderAmountLimitExceeded: "SELL_ORDER_AMOUNT_LIMIT_EXCEEDED",
   DisputeTimeNotReached:
@@ -292,6 +293,7 @@ export const hexContractErrors = {
   "0x03683687": contractErrors.OrderAlreadyCompleted,
   "0x688c176f": contractErrors.InvalidOrderType,
   "0xe595a7bf": contractErrors.DailyBuyOrderLimitExceeded,
+  "0x917c7aef": contractErrors.DailyBuyOrderPlacementLimitExceeded,
   "0x675dbc86": contractErrors.MonthlyBuyOrderLimitExceeded,
   "0x64301cb8": contractErrors.SellOrderAmountLimitExceeded,
   "0x07a2454f": contractErrors.DisputeTimeNotReached,

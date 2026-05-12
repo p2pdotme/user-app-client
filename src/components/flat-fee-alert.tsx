@@ -24,9 +24,9 @@ const FlatFeeAlert = ({
   } = useSettings();
 
   const { data: feeConfig } = useQuery({
-    queryKey: ["feeConfig", currency.currency],
+    queryKey: ["feeConfig", currency.currency, orderType],
     queryFn: () =>
-      getFeeConfig(currency.currency).match(
+      getFeeConfig(currency.currency, orderType).match(
         (config) => config,
         (error) => {
           throw error;
