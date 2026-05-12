@@ -114,9 +114,9 @@ export function P2PSwap() {
           </Link>
         </div>
         <BaseUsdcToP2P />
-        <DevSolanaToBaseTest />
+        {/* <DevSolanaToBaseTest />
         <DevBaseToSolanaTest />
-        <P2PTokenBalances />
+        <P2PTokenBalances /> */}
       </main>
     </>
   );
