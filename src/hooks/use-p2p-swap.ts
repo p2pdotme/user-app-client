@@ -1,6 +1,6 @@
 import { isSolanaWallet } from "@dynamic-labs/solana";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { formatUnits, parseUnits } from "viem";
 import { useSafeDynamicContext } from "@/contexts";
 import {
@@ -20,7 +20,7 @@ import type { WithdrawState } from "@/pages/withdraw/shared";
 import { DynamicSolanaSigner, ThirdwebEvmSigner, transferEvmToSolana } from "@/core/wormhole";
 import { WORMHOLE_NETWORK } from "@/core/wormhole/config";
 import { captureError } from "@/lib/sentry";
-import { STORAGE_KEYS } from "@/lib/constants";
+import { persistSwapStep } from "./use-p2p-swap-history";
 import { useSounds, useThirdweb } from "@/hooks";
 
 // ── Shared types ──────────────────────────────────────────────────────────────
@@ -59,77 +59,21 @@ export interface P2PSwapState {
   direction: P2PSwapDirection;
   /** Human-readable input amount entered by the user (e.g. "10") */
   inputAmount: string;
+  /** Stable UUID for this swap session — correlates live state to history entry */
+  swapId: string | null;
+  /** Unix ms timestamp recorded when each step is first entered */
+  stepTimestamps: Partial<Record<P2PSwapStep, number>>;
   /** Rango requestId — use with https://explorer.rango.exchange/swap/<id> */
   rangoRequestId: string | null;
   rangoOutputAmount: string | null;
   /** Solana transaction signature — use with https://solscan.io/tx/<sig> */
   jupiterSignature: string | null;
   jupiterOutputAmount: string | null;
+  /** Wormhole lock-side tx hash (Base tx for EVM→Solana; Solana tx for Solana→EVM) */
+  wormholeLockTxHash: string | null;
+  /** Wormhole redeem-side tx hash (Solana tx for EVM→Solana; Base tx for Solana→EVM) */
+  wormholeRedeemTxHash: string | null;
   error: string | null;
-}
-
-// ── History ───────────────────────────────────────────────────────────────────
-
-/**
- * A persisted record of a completed or failed swap attempt.
- * Stored in localStorage under STORAGE_KEYS.P2P_SWAP_HISTORY (max 30 entries).
- *
- * Debug links:
- *   Rango:  https://explorer.rango.exchange/swap/<rangoRequestId>
- *   Solana: https://solscan.io/tx/<jupiterSignature>
- */
-export interface P2PSwapHistoryEntry {
-  id: string;
-  timestamp: number;
-  direction: P2PSwapDirection;
-  inputAmount: string;
-  rangoRequestId: string | null;
-  jupiterSignature: string | null;
-  jupiterOutputAmount: string | null;
-  rangoOutputAmount: string | null;
-  finalStep: P2PSwapStep;
-  error: string | null;
-}
-
-const MAX_ENTRIES = 30;
-
-function loadHistory(): P2PSwapHistoryEntry[] {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEYS.P2P_SWAP_HISTORY) ?? "[]");
-  } catch {
-    return [];
-  }
-}
-
-/**
- * Manages the swap history persisted in localStorage.
- *
- * - `history`    — array of past swap attempts, newest first
- * - `saveEntry`  — prepend a new entry (auto-generates id + timestamp)
- * - `clearHistory` — wipe all entries
- */
-export function useP2PSwapHistory() {
-  const [history, setHistory] = useState<P2PSwapHistoryEntry[]>(loadHistory);
-
-  const saveEntry = (entry: Omit<P2PSwapHistoryEntry, "id" | "timestamp">) => {
-    const newEntry: P2PSwapHistoryEntry = {
-      id: crypto.randomUUID(),
-      timestamp: Date.now(),
-      ...entry,
-    };
-    setHistory((prev) => {
-      const updated = [newEntry, ...prev].slice(0, MAX_ENTRIES);
-      localStorage.setItem(STORAGE_KEYS.P2P_SWAP_HISTORY, JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const clearHistory = () => {
-    localStorage.removeItem(STORAGE_KEYS.P2P_SWAP_HISTORY);
-    setHistory([]);
-  };
-
-  return { history, saveEntry, clearHistory };
 }
 
 // ── Shared internals ──────────────────────────────────────────────────────────
@@ -144,10 +88,14 @@ function makeInitialState(direction: P2PSwapDirection): P2PSwapState {
     step: "idle",
     direction,
     inputAmount: "",
+    swapId: null,
+    stepTimestamps: {},
     rangoRequestId: null,
     rangoOutputAmount: null,
     jupiterSignature: null,
     jupiterOutputAmount: null,
+    wormholeLockTxHash: null,
+    wormholeRedeemTxHash: null,
     error: null,
   };
 }
@@ -222,7 +170,20 @@ export function useUsdcToP2PSwap() {
   const { account } = useThirdweb();
   const sounds = useSounds();
 
-  const [state, setState] = useState<P2PSwapState>(makeInitialState("USDC_TO_P2P"));
+  const [state, _setState] = useState<P2PSwapState>(makeInitialState("USDC_TO_P2P"));
+
+  // Wrapped setState: auto-stamps step timestamps and persists to localStorage on every update.
+  const setState = useCallback((updater: React.SetStateAction<P2PSwapState>) => {
+    _setState((prev) => {
+      const next = typeof updater === "function" ? (updater as (s: P2PSwapState) => P2PSwapState)(prev) : updater;
+      const stamped: P2PSwapState =
+        next.step !== prev.step && !next.stepTimestamps[next.step]
+          ? { ...next, stepTimestamps: { ...next.stepTimestamps, [next.step]: Date.now() } }
+          : next;
+      persistSwapStep(stamped);
+      return stamped;
+    });
+  }, []);
 
   const execute = async (inputAmount: string) => {
     if (!primaryWallet || !isSolanaWallet(primaryWallet)) {
@@ -234,7 +195,8 @@ export function useUsdcToP2PSwap() {
       return;
     }
 
-    setState({ ...makeInitialState("USDC_TO_P2P"), step: "rango_preparing", inputAmount });
+    const swapId = crypto.randomUUID();
+    setState({ ...makeInitialState("USDC_TO_P2P"), swapId, step: "rango_preparing", inputAmount });
 
     try {
       const amountInUnits = parseUnits(inputAmount, 6).toString();
@@ -279,7 +241,7 @@ export function useUsdcToP2PSwap() {
     }
   };
 
-  const reset = () => setState(makeInitialState("USDC_TO_P2P"));
+  const reset = () => _setState(makeInitialState("USDC_TO_P2P"));
   return { state, execute, reset, isPending: !["idle", "completed", "failed"].includes(state.step) };
 }
 
@@ -306,7 +268,20 @@ export function useP2PToUsdcSwap() {
   const { account } = useThirdweb();
   const sounds = useSounds();
 
-  const [state, setState] = useState<P2PSwapState>(makeInitialState("P2P_TO_USDC"));
+  const [state, _setState] = useState<P2PSwapState>(makeInitialState("P2P_TO_USDC"));
+
+  // Wrapped setState: auto-stamps step timestamps and persists to localStorage on every update.
+  const setState = useCallback((updater: React.SetStateAction<P2PSwapState>) => {
+    _setState((prev) => {
+      const next = typeof updater === "function" ? (updater as (s: P2PSwapState) => P2PSwapState)(prev) : updater;
+      const stamped: P2PSwapState =
+        next.step !== prev.step && !next.stepTimestamps[next.step]
+          ? { ...next, stepTimestamps: { ...next.stepTimestamps, [next.step]: Date.now() } }
+          : next;
+      persistSwapStep(stamped);
+      return stamped;
+    });
+  }, []);
 
   const execute = async (inputAmount: string) => {
     if (!primaryWallet || !isSolanaWallet(primaryWallet)) {
@@ -318,7 +293,8 @@ export function useP2PToUsdcSwap() {
       return;
     }
 
-    setState({ ...makeInitialState("P2P_TO_USDC"), step: "wormhole_locking", inputAmount });
+    const swapId = crypto.randomUUID();
+    setState({ ...makeInitialState("P2P_TO_USDC"), swapId, step: "wormhole_locking", inputAmount });
 
     try {
       // Step 1: Wormhole NTT — P2P (Base ERC20) → P2P (Solana SPL)
@@ -333,9 +309,9 @@ export function useP2PToUsdcSwap() {
           solanaSigner,
         },
         {
-          onLocking:     () => setState((s) => ({ ...s, step: "wormhole_locking" })),
-          onAwaitingVaa: () => setState((s) => ({ ...s, step: "wormhole_vaa" })),
-          onRedeeming:   () => setState((s) => ({ ...s, step: "wormhole_redeeming" })),
+          onLocking:     (txIds) => setState((s) => ({ ...s, step: "wormhole_locking", wormholeLockTxHash: txIds[txIds.length - 1] ?? null })),
+          onAwaitingVaa: ()      => setState((s) => ({ ...s, step: "wormhole_vaa" })),
+          onRedeeming:   ()      => setState((s) => ({ ...s, step: "wormhole_redeeming" })),
         },
       );
 
@@ -343,6 +319,9 @@ export function useP2PToUsdcSwap() {
         setState((s) => ({ ...s, step: "failed", error: wormholeResult.error.message }));
         return;
       }
+
+      // Store the Solana redeem tx hash from the Wormhole result
+      setState((s) => ({ ...s, wormholeRedeemTxHash: wormholeResult.value.solanaTxId }));
 
       // NTT is 1:1 — same human-readable amount arrives on Solana
       const amountInUnits = parseUnits(inputAmount, P2P_TOKEN_DECIMALS).toString();
@@ -387,7 +366,7 @@ export function useP2PToUsdcSwap() {
     }
   };
 
-  const reset = () => setState(makeInitialState("P2P_TO_USDC"));
+  const reset = () => _setState(makeInitialState("P2P_TO_USDC"));
   return { state, execute, reset, isPending: !["idle", "completed", "failed"].includes(state.step) };
 }
 

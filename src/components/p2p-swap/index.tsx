@@ -8,8 +8,8 @@ import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
+  updateHistoryEntry,
   useP2PBalance,
-  useP2PSwapHistory,
   useP2PToUsdcSwap,
   useP2PToUsdcSwapQuote,
   useUsdcToP2PSwap,
@@ -77,7 +77,6 @@ export function BaseUsdcToP2P() {
   const usdcToP2P = useUsdcToP2PSwap();
   const p2pToUsdc = useP2PToUsdcSwap();
   const wormholeBridge = useWormholeBridge();
-  const { saveEntry } = useP2PSwapHistory();
   const usdcToP2PQuote = useUsdcToP2PSwapQuote(isUsdcToP2P ? amount : "");
   const p2pToUsdcQuote = useP2PToUsdcSwapQuote(!isUsdcToP2P ? amount : "");
   const quote = isUsdcToP2P ? usdcToP2PQuote : p2pToUsdcQuote;
@@ -86,24 +85,41 @@ export function BaseUsdcToP2P() {
   const activeSwap = isUsdcToP2P ? usdcToP2P : p2pToUsdc;
   const { state, execute, reset, isPending } = activeSwap;
 
+  // Toast on swap error (covers all steps: rango, jupiter, wormhole inside swap hooks).
   useEffect(() => {
-    if (
-      (state.step === "completed" || state.step === "failed") &&
-      (state.rangoRequestId || state.jupiterSignature)
-    ) {
-      saveEntry({
-        direction: state.direction,
-        inputAmount: state.inputAmount,
-        rangoRequestId: state.rangoRequestId,
-        jupiterSignature: state.jupiterSignature,
-        jupiterOutputAmount: state.jupiterOutputAmount,
-        rangoOutputAmount: state.rangoOutputAmount,
-        finalStep: state.step,
-        error: state.error,
-      });
+    if (state.step === "failed" && state.error) {
+      toast.error(state.error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.step]);
+
+  // Toast on standalone Wormhole bridge error (USDC→P2P post-jupiter bridge leg).
+  useEffect(() => {
+    if (wormholeBridge.state.step === "failed" && wormholeBridge.state.error) {
+      toast.error(wormholeBridge.state.error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wormholeBridge.state.step]);
+
+  // Patch the history entry with Wormhole tx hashes as the bridge progresses (USDC→P2P flow).
+  // The swap itself is already saved by useUsdcToP2PSwap's wrapped setState.
+  useEffect(() => {
+    const swapId = usdcToP2P.state.swapId;
+    if (!swapId || wormholeBridge.state.step === "idle") return;
+    const stepMap: Partial<Record<typeof wormholeBridge.state.step, typeof state.step>> = {
+      locking: "wormhole_locking",
+      awaiting_vaa: "wormhole_vaa",
+      redeeming: "wormhole_redeeming",
+      completed: "completed",
+      failed: "failed",
+    };
+    updateHistoryEntry(swapId, {
+      ...(stepMap[wormholeBridge.state.step] && { currentStep: stepMap[wormholeBridge.state.step] }),
+      ...(wormholeBridge.state.solanaTxIds.length > 0 && { wormholeLockTxHash: wormholeBridge.state.solanaTxIds[wormholeBridge.state.solanaTxIds.length - 1] }),
+      ...(wormholeBridge.state.evmTxHash && { wormholeRedeemTxHash: wormholeBridge.state.evmTxHash }),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wormholeBridge.state.step]);
 
   // After USDC→P2P completes, auto-trigger Wormhole bridge for the received P2P amount
   useEffect(() => {
@@ -178,6 +194,27 @@ export function BaseUsdcToP2P() {
   // Map its step into P2PSwapStep so the unified progress list stays accurate.
   const isWormholeRunning =
     isUsdcToP2P && !wormholeDone && wormholeBridge.state.step !== "idle";
+
+  const swapActive = isPending || isWormholeRunning;
+
+  // Block back/forward navigation while swap is active.
+  // Push a dummy history entry on activation; intercept popstate to push it back.
+  useEffect(() => {
+    if (!swapActive) return;
+    window.history.pushState({ swapGuard: true }, "");
+    const handler = () => { window.history.pushState({ swapGuard: true }, ""); };
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, [swapActive]);
+
+  // Block page refresh / tab close while swap is active.
+  useEffect(() => {
+    if (!swapActive) return;
+    const handler = (e: BeforeUnloadEvent) => { e.preventDefault(); };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [swapActive]);
+
   const effectiveStep = isWormholeRunning
     ? (wormholeStepMap[wormholeBridge.state.step] ?? state.step)
     : state.step;
