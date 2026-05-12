@@ -6,6 +6,8 @@ import type { WormholeBridgeState, WormholeBridgeStep } from "@/hooks/use-wormho
 import { cn } from "@/lib/utils";
 import { getProgressSteps, getStepOrder, type SwapDirection } from "./shared";
 
+// WormholeSteps is kept for the dev test panels (DevSolanaToBaseTest / DevBaseToSolanaTest)
+
 // ── WormholeSteps ─────────────────────────────────────────────────────────────
 
 const STEPS_SOLANA_TO_BASE: { key: WormholeBridgeStep; label: string }[] = [
@@ -86,10 +88,9 @@ export function WormholeSteps({
 interface SwapProgressProps {
   currentStep: P2PSwapStep;
   direction: SwapDirection;
-  wormholeState?: WormholeBridgeState;
 }
 
-export function SwapProgress({ currentStep, direction, wormholeState }: SwapProgressProps) {
+export function SwapProgress({ currentStep, direction }: SwapProgressProps) {
   const { t } = useTranslation();
   const progressSteps = getProgressSteps(direction);
   const stepOrder = getStepOrder(direction);
@@ -134,9 +135,6 @@ export function SwapProgress({ currentStep, direction, wormholeState }: SwapProg
             );
           })}
 
-          {wormholeState && wormholeState.step !== "idle" && (
-            <WormholeSteps state={wormholeState} indexOffset={progressSteps.length} />
-          )}
         </div>
       </CardContent>
     </Card>

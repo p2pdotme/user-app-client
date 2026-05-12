@@ -87,6 +87,11 @@ export const en = {
       "Bridging may take time. Stay on this page until it's complete or check progress by following this link",
     BRIDGING_TO_BASE: "Bridging to Base",
     BRIDGING_TO_SOLANA: "Bridging to Solana",
+    BURNING_P2P_ON_BASE: "Burning P2P on Base",
+    AWAITING_WORMHOLE_VAA: "Awaiting Wormhole VAA (~10-15 min)",
+    LOCKING_P2P_ON_SOLANA: "Locking P2P on Solana",
+    MINTING_P2P_ON_BASE: "Minting P2P on Base",
+    RELEASING_P2P_ON_SOLANA: "Releasing P2P on Solana",
     BROWSE_HELP_CENTER: "Browse Help Center",
     BROWSE_HELP_CENTER_DESCRIPTION:
       "Find answers, guides, and support for all your questions in one place.",

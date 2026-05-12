@@ -17,6 +17,8 @@ import { handleWithdraw } from "@/core/rango/bridgeHandler/withdraw";
 import type { RangoSwapResponse } from "@/core/rango/types";
 import type { DepositState } from "@/pages/deposit/shared";
 import type { WithdrawState } from "@/pages/withdraw/shared";
+import { DynamicSolanaSigner, ThirdwebEvmSigner, transferEvmToSolana } from "@/core/wormhole";
+import { WORMHOLE_NETWORK } from "@/core/wormhole/config";
 import { captureError } from "@/lib/sentry";
 import { STORAGE_KEYS } from "@/lib/constants";
 import { useSounds, useThirdweb } from "@/hooks";
@@ -26,12 +28,15 @@ import { useSounds, useThirdweb } from "@/hooks";
 /** All possible steps across both swap directions. */
 export type P2PSwapStep =
   | "idle"
-  | "rango_preparing"   // Fetching & building the Rango swap transaction
-  | "rango_approval"    // Waiting for ERC-20 USDC approval on Base
-  | "rango_swapping"    // Broadcasting the Rango bridge transaction
-  | "rango_confirming"  // Polling Rango until the bridge confirms on Solana
-  | "jupiter_preparing" // Fetching & building the Jupiter swap order
-  | "jupiter_swapping"  // Signing & sending the Jupiter transaction on Solana
+  | "wormhole_locking"    // P2P_TO_USDC only: burning P2P on Base via Wormhole NTT
+  | "wormhole_vaa"        // P2P_TO_USDC only: waiting for Wormhole guardian VAA
+  | "wormhole_redeeming"  // P2P_TO_USDC only: releasing P2P on Solana
+  | "rango_preparing"     // Fetching & building the Rango swap transaction
+  | "rango_approval"      // Waiting for ERC-20 USDC approval on Base
+  | "rango_swapping"      // Broadcasting the Rango bridge transaction
+  | "rango_confirming"    // Polling Rango until the bridge confirms on Solana
+  | "jupiter_preparing"   // Fetching & building the Jupiter swap order
+  | "jupiter_swapping"    // Signing & sending the Jupiter transaction on Solana
   | "completed"
   | "failed";
 
@@ -281,15 +286,19 @@ export function useUsdcToP2PSwap() {
 // ── useP2PToUsdcSwap ─────────────────────────────────────────────────────────
 
 /**
- * Executes a full P2P token (Solana) → Base USDC swap.
+ * Executes a full P2P (Base ERC20) → USDC (Base) swap.
  *
- * Step 1 — Jupiter swap (P2P → Solana USDC):
- *   Signs with Dynamic Solana wallet. Transaction sent directly to Solana.
+ * Step 1 — Wormhole NTT (Base P2P → Solana P2P):
+ *   Burns ERC20 on Base via thirdweb, releases SPL on Solana via Phantom.
+ *   ~10-15 min for VAA + multiple wallet confirmations.
  *
- * Step 2 — Rango DEPOSIT (Solana → Base):
+ * Step 2 — Jupiter swap (Solana P2P → Solana USDC):
+ *   Signs with Dynamic Solana wallet.
+ *
+ * Step 3 — Rango DEPOSIT (Solana USDC → Base USDC):
  *   Signs with Dynamic Solana wallet. Polls until bridge confirms.
  *
- * Steps run automatically with no user action between them.
+ * Steps run automatically with no user action between them (beyond wallet prompts).
  * Returns { state, execute(inputAmount), reset, isPending }.
  */
 export function useP2PToUsdcSwap() {
@@ -309,12 +318,38 @@ export function useP2PToUsdcSwap() {
       return;
     }
 
-    setState({ ...makeInitialState("P2P_TO_USDC"), step: "jupiter_preparing", inputAmount });
+    setState({ ...makeInitialState("P2P_TO_USDC"), step: "wormhole_locking", inputAmount });
 
     try {
-      const amountInUnits = parseUnits(inputAmount, 6).toString();
+      // Step 1: Wormhole NTT — P2P (Base ERC20) → P2P (Solana SPL)
+      const evmSigner = new ThirdwebEvmSigner<typeof WORMHOLE_NETWORK>(account);
+      const solanaSigner = new DynamicSolanaSigner<typeof WORMHOLE_NETWORK>(primaryWallet);
 
-      // Step 1: Jupiter — P2P → Solana USDC
+      const wormholeResult = await transferEvmToSolana(
+        {
+          amount: inputAmount,
+          recipientSolanaAddress: primaryWallet.address,
+          evmSigner,
+          solanaSigner,
+        },
+        {
+          onLocking:     () => setState((s) => ({ ...s, step: "wormhole_locking" })),
+          onAwaitingVaa: () => setState((s) => ({ ...s, step: "wormhole_vaa" })),
+          onRedeeming:   () => setState((s) => ({ ...s, step: "wormhole_redeeming" })),
+        },
+      );
+
+      if (wormholeResult.isErr()) {
+        setState((s) => ({ ...s, step: "failed", error: wormholeResult.error.message }));
+        return;
+      }
+
+      // NTT is 1:1 — same human-readable amount arrives on Solana
+      const amountInUnits = parseUnits(inputAmount, P2P_TOKEN_DECIMALS).toString();
+
+      // Step 2: Jupiter — Solana P2P → Solana USDC
+      setState((s) => ({ ...s, step: "jupiter_preparing" }));
+
       const orderResult = await orderJupiterP2PToUsdc(amountInUnits, primaryWallet.address);
       if (orderResult.isErr()) { setState((s) => ({ ...s, step: "failed", error: orderResult.error.message })); return; }
 
@@ -325,11 +360,10 @@ export function useP2PToUsdcSwap() {
       const signer = await primaryWallet.getSigner();
       const { signature } = await signer.signAndSendTransaction(txResult.value);
 
-      // Jupiter confirmed — Solana USDC is in wallet, now bridge to Base
       const jupiterOutputAmount = orderResult.value.outAmount;
       setState((s) => ({ ...s, jupiterSignature: signature, jupiterOutputAmount, step: "rango_preparing" }));
 
-      // Step 2: Rango DEPOSIT — Solana USDC → Base USDC
+      // Step 3: Rango DEPOSIT — Solana USDC → Base USDC
       const swapResult = await swapRango("DEPOSIT", SOLANA_USDC_TOKEN, jupiterOutputAmount, primaryWallet.address, account.address);
       if (swapResult.isErr()) { setState((s) => ({ ...s, step: "failed", error: swapResult.error.message })); return; }
 
@@ -337,7 +371,6 @@ export function useP2PToUsdcSwap() {
       setState((s) => ({ ...s, rangoRequestId: swapRes.requestId ?? null }));
       if (swapRes.error) { setState((s) => ({ ...s, step: "failed", error: swapRes.error ?? "Rango error" })); return; }
 
-      // Handles approval (if needed) + broadcast + polls until confirmed
       try {
         await handleDeposit(swapRes, primaryWallet, makeDepositAdapter(setState), sounds);
       } catch (e) {

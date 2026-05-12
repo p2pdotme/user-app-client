@@ -140,7 +140,7 @@ export function BaseUsdcToP2P() {
     );
     setAmount("");
     setSelectedPct(null);
-    wormholeBridge.reset();
+    if (isUsdcToP2P) wormholeBridge.reset();
   };
 
   const handleSwap = async () => {
@@ -153,19 +153,30 @@ export function BaseUsdcToP2P() {
 
   const wormholeDone = ["completed", "failed"].includes(wormholeBridge.state.step);
 
-  // For USDC→P2P: wait for wormhole bridge to finish before showing result
-  if (isUsdcToP2P && state.step === "completed" && !wormholeDone) {
-    return (
-      <SwapProgress
-        currentStep={state.step}
-        direction={direction}
-        wormholeState={wormholeBridge.state}
-      />
-    );
-  }
+  // Map WormholeBridgeStep → P2PSwapStep for unified progress display
+  const wormholeStepMap: Partial<Record<typeof wormholeBridge.state.step, typeof state.step>> = {
+    locking:      "wormhole_locking",
+    awaiting_vaa: "wormhole_vaa",
+    redeeming:    "wormhole_redeeming",
+  };
 
-  if (state.step === "completed" || state.step === "failed") {
-    return <SwapResult state={state} onReset={() => { reset(); wormholeBridge.reset(); }} />;
+  // For USDC→P2P: after the Jupiter swap completes, Wormhole continues.
+  // Map its step into P2PSwapStep so the unified progress list stays accurate.
+  const isWormholeRunning = isUsdcToP2P && !wormholeDone && wormholeBridge.state.step !== "idle";
+  const effectiveStep =
+    isWormholeRunning
+      ? (wormholeStepMap[wormholeBridge.state.step] ?? state.step)
+      : state.step;
+  // Show progress whenever the swap is in-flight OR Wormhole is still running.
+  const showProgress = isPending || isWormholeRunning;
+
+  // Only show the result when the full flow (including Wormhole) is done.
+  const isFullyDone = isUsdcToP2P
+    ? (state.step === "completed" || state.step === "failed") && wormholeDone
+    : state.step === "completed" || state.step === "failed";
+
+  if (isFullyDone) {
+    return <SwapResult state={state} onReset={() => { reset(); if (isUsdcToP2P) wormholeBridge.reset(); }} />;
   }
 
   const fromBadge = (
@@ -234,6 +245,7 @@ export function BaseUsdcToP2P() {
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
         disabled={
           isPending ||
+          isWormholeRunning ||
           !hasAmount ||
           isQuoteLoading ||
           isQuoteError ||
@@ -241,11 +253,11 @@ export function BaseUsdcToP2P() {
         }
         onClick={handleSwap}
       >
-        {isPending || isQuoteLoading ? t("PROCESSING") : t("SWAP")}
+        {isPending || isWormholeRunning || isQuoteLoading ? t("PROCESSING") : t("SWAP")}
       </Button>
 
-      {isPending && (
-        <SwapProgress currentStep={state.step} direction={direction} wormholeState={wormholeBridge.state} />
+      {showProgress && (
+        <SwapProgress currentStep={effectiveStep} direction={direction} />
       )}
     </div>
   );
