@@ -270,7 +270,7 @@ export function BaseUsdcToP2P() {
       <div className="flex items-start gap-2.5 rounded-xl bg-warning/10 px-4 py-3">
         <Clock className="mt-0.5 size-4 shrink-0 text-warning" />
         <p className="text-foreground text-xs leading-relaxed">
-          This swap takes <span className="font-semibold">~20 minutes</span> to complete. Keep this tab open and stay connected throughout the process.
+          This swap takes <span className="font-semibold">~20 minutes</span> to complete. Keep this tab open and stay connected. For the best experience, we recommend using a laptop or desktop.
         </p>
       </div>
 

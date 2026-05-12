@@ -120,7 +120,7 @@ export function P2PSwapHistory() {
 
   return (
     <>
-      <NonHomeHeader title="Swap History" showHelp={false} />
+      <NonHomeHeader title="P2P Swap History" showHelp={false} />
 
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-3 overflow-y-auto py-6">
         {history.length > 0 && (

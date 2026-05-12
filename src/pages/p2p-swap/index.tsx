@@ -15,7 +15,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { useSafeDynamicContext } from "@/contexts";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { DevSolanaToBaseTest, DevBaseToSolanaTest } from "@/components/p2p-swap/dev-wormhole-test";
+import {
+  DevSolanaToBaseTest,
+  DevBaseToSolanaTest,
+} from "@/components/p2p-swap/dev-wormhole-test";
 
 /** Filters the Dynamic wallet list to Solana-only connectors */
 function solanaOnly(wallets: WalletOption[]) {
@@ -97,6 +100,7 @@ export function P2PSwap() {
       <NonHomeHeader title={t("P2P_TOKEN_SWAP")} showHelp />
 
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto py-6">
+        <ConnectSolanaWallet />
         <div className="flex items-center justify-end">
           <Link to={INTERNAL_HREFS.P2P_SWAP_HISTORY}>
             <Button
@@ -109,7 +113,6 @@ export function P2PSwap() {
             </Button>
           </Link>
         </div>
-        <ConnectSolanaWallet />
         <BaseUsdcToP2P />
         <DevSolanaToBaseTest />
         <DevBaseToSolanaTest />
