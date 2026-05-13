@@ -68,9 +68,9 @@ export function Pay() {
   const { usdcBalance, isUsdcBalanceLoading } = useUSDCBalance();
 
   const { data: feeConfig } = useQuery({
-    queryKey: ["feeConfig", currency.currency],
+    queryKey: ["feeConfig", currency.currency, "pay"],
     queryFn: () =>
-      getFeeConfig(currency.currency).match(
+      getFeeConfig(currency.currency, "pay").match(
         (config) => config,
         (error) => {
           throw error;
