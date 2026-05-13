@@ -49,7 +49,7 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
         <DrawerHeader className="mt-2 items-center gap-3 pb-6 text-center">
           <DrawerTitle className="text-xl">
             <div className="flex flex-col items-center">
-              <div className="flex h-[80px] w-[90px] flex-col items-center justify-center rounded-2xl bg-gradient-to-b from-white/10 to-transparent">
+              <div className="flex h-[80px] w-[90px] flex-col items-center justify-center rounded-2xl bg-gradient-to-b from-foreground/10 to-transparent">
                 <div
                   style={{
                     animation: "rocket-takeoff 1s ease-in-out infinite",
@@ -60,18 +60,18 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
                   />
                 </div>
               </div>
-              <p className="mt-4 font-normal text-base text-white/70 uppercase">
+              <p className="mt-4 font-normal text-base text-foreground/70 uppercase">
                 {t("PWA_NEW_UPDATE_AVAILABLE")}
               </p>
 
               <div className="flex items-center justify-center gap-3">
-                <span className="text-sm text-white/40 line-through">{`v${localVersion}`}</span>
-                <span className="text-white/30 text-xs">→</span>
+                <span className="text-sm text-foreground/40 line-through">{`v${localVersion}`}</span>
+                <span className="text-foreground/30 text-xs">→</span>
                 <span className="font-semibold text-primary text-sm">{`v${contractVersion}`}</span>
               </div>
               {remainingSeconds > 0 && (
                 <div className="mt-2 flex items-center justify-center gap-1">
-                  <p className="font-normal text-sm text-white/70 tracking-wider">
+                  <p className="font-normal text-sm text-foreground/70 tracking-wider">
                     {t("PWA_DOWNLOADING_UPDATE")}
                     <span className="text-green-500">
                       {" "}
@@ -82,25 +82,25 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
               )}
             </div>
           </DrawerTitle>
-          <div className="my-2 h-[1px] w-full bg-white/10" />
+          <div className="my-2 h-[1px] w-full bg-foreground/10" />
 
           <DrawerDescription className="flex w-full flex-col gap-2 text-base leading-relaxed">
             <div className="w-full space-y-2 text-start">
-              <p className="font-medium text-sm text-white/50">
+              <p className="font-medium text-sm text-foreground/50">
                 {t("PWA_UPDATE_NOT_DOWNLOADING")}
               </p>
-              <div className="space-y-1.5 text-sm text-white/40">
+              <div className="space-y-1.5 text-sm text-foreground/40">
                 <p className="flex items-center gap-2">
-                  <span className="text-white/20">1.</span>
+                  <span className="text-foreground/20">1.</span>
                   {t("PWA_CHECK_INTERNET")}
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="text-white/20">2.</span>
+                  <span className="text-foreground/20">2.</span>
                   {t("PWA_TURN_ON_VPN")}
                 </p>
 
                 <p className="flex items-center gap-2">
-                  <span className="text-white/20">3.</span>
+                  <span className="text-foreground/20">3.</span>
                   {t("PWA_TRY_MIRROR_LINK")}
                   <a
                     href="https://app.p2p.lol/"
@@ -112,7 +112,7 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
             </div>
           </DrawerDescription>
         </DrawerHeader>
-        <div className="mx-4 h-[1px] bg-white/10" />
+        <div className="mx-4 h-[1px] bg-foreground/10" />
         <div className="px-4 py-8">
           <Button
             onClick={onReload}
