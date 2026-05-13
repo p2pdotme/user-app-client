@@ -23,7 +23,10 @@ import {
   prepareGetOrderExpiryArgs,
   prepareGetOrderFixedFeePaidArgs,
   prepareGetRPPerUsdLimitArgs,
+  prepareGetSmallOrderFixedFeeBuyArgs,
   prepareGetSmallOrderFixedFeeArgs,
+  prepareGetSmallOrderFixedFeePayArgs,
+  prepareGetSmallOrderFixedFeeSellArgs,
   prepareGetSmallOrderThresholdArgs,
   prepareGetTxLimitArgs,
   prepareGetUserArgs,
@@ -428,6 +431,78 @@ export function getSmallOrderFixedFee(params: { currency: CurrencyType }) {
         (error) =>
           createAppError<"ThirdwebAdapter">(
             "Failed to read small order fixed fee from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getSmallOrderFixedFeeBuy(params: { currency: CurrencyType }) {
+  return prepareGetSmallOrderFixedFeeBuyArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read small order fixed fee buy from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getSmallOrderFixedFeeSell(params: { currency: CurrencyType }) {
+  return prepareGetSmallOrderFixedFeeSellArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read small order fixed fee sell from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getSmallOrderFixedFeePay(params: { currency: CurrencyType }) {
+  return prepareGetSmallOrderFixedFeePayArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read small order fixed fee pay from contract",
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
