@@ -38,9 +38,9 @@ export function Buy() {
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
 
   const { data: feeConfig, isLoading: isFeeConfigLoading } = useQuery({
-    queryKey: ["feeConfig", currency.currency],
+    queryKey: ["feeConfig", currency.currency, "buy"],
     queryFn: () =>
-      getFeeConfig(currency.currency).match(
+      getFeeConfig(currency.currency, "buy").match(
         (config) => config,
         (error) => {
           throw error;
