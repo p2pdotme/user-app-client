@@ -4,17 +4,28 @@ import { formatUnits } from "viem";
 import {
   getAdditionalOrderDetails,
   getOrderFixedFeePaid,
-  getSmallOrderFixedFee,
+  getSmallOrderFixedFeeBuy,
+  getSmallOrderFixedFeePay,
+  getSmallOrderFixedFeeSell,
   getSmallOrderThreshold,
 } from "./adapters/thirdweb/actions/order";
 
+const fixedFeeGetterByOrderType = {
+  buy: getSmallOrderFixedFeeBuy,
+  sell: getSmallOrderFixedFeeSell,
+  pay: getSmallOrderFixedFeePay,
+} as const;
+
 /**
- * Get fee configuration for a currency
+ * Get fee configuration for a currency and order type
  */
-export function getFeeConfig(currency: CurrencyType) {
+export function getFeeConfig(
+  currency: CurrencyType,
+  orderType: "buy" | "sell" | "pay",
+) {
   return ResultAsync.combine([
     getSmallOrderThreshold({ currency }),
-    getSmallOrderFixedFee({ currency }),
+    fixedFeeGetterByOrderType[orderType]({ currency }),
   ]).map(([threshold, fixedFee]) => ({
     smallOrderThreshold: Number(formatUnits(threshold as bigint, 6)),
     smallOrderFixedFee: Number(formatUnits(fixedFee as bigint, 6)),
