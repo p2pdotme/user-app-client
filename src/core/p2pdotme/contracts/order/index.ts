@@ -25,7 +25,10 @@ import {
   type ReleaseRevenueShareParams,
   type RPPerUsdLimitParams,
   type SetSellOrderUpiParams,
+  type SmallOrderFixedFeeBuyParams,
+  type SmallOrderFixedFeePayParams,
   type SmallOrderFixedFeeParams,
+  type SmallOrderFixedFeeSellParams,
   type SmallOrderThresholdParams,
   type TipMerchantParams,
   type TxLimitParams,
@@ -62,7 +65,10 @@ import {
   ZodSellOrderUserCompletedParamsSchema,
   ZodSetReputationManagerParamsSchema,
   ZodSetSellOrderUpiParamsSchema,
+  ZodSmallOrderFixedFeeBuyParamsSchema,
   ZodSmallOrderFixedFeeParamsSchema,
+  ZodSmallOrderFixedFeePayParamsSchema,
+  ZodSmallOrderFixedFeeSellParamsSchema,
   ZodSmallOrderThresholdParamsSchema,
   ZodTipMerchantParamsSchema,
   ZodTxLimitParamsSchema,
@@ -372,6 +378,69 @@ export function prepareGetSmallOrderFixedFeeArgs(
       to: CONTRACT_ADDRESSES.DIAMOND,
       abi: ABIS.DIAMOND,
       functionName: "getSmallOrderFixedFee" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
+}
+
+export function prepareGetSmallOrderFixedFeeBuyArgs(
+  params: SmallOrderFixedFeeBuyParams,
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getSmallOrderFixedFeeBuy";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodSmallOrderFixedFeeBuyParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getSmallOrderFixedFeeBuy" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
+}
+
+export function prepareGetSmallOrderFixedFeeSellArgs(
+  params: SmallOrderFixedFeeSellParams,
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getSmallOrderFixedFeeSell";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodSmallOrderFixedFeeSellParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getSmallOrderFixedFeeSell" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
+}
+
+export function prepareGetSmallOrderFixedFeePayArgs(
+  params: SmallOrderFixedFeePayParams,
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getSmallOrderFixedFeePay";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodSmallOrderFixedFeePayParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getSmallOrderFixedFeePay" as const,
       args: [stringToHex(validatedParams.currency, { size: 32 })],
     }),
   );
