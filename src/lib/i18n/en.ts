@@ -263,6 +263,8 @@ export const en = {
     CUSTOM_RANGE: "Custom Range",
     DAILY_BUY_ORDER_COUNT_LIMIT_EXCEEDED:
       "Daily buy order count limit exceeded",
+    DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED:
+      "Daily buy order placement limit exceeded",
     DAILY_VOLUME_LIMIT_EXCEEDED: "Daily volume limit exceeded",
     DATE: "Date",
     DATE_AND_TIME: "Date & Time",
