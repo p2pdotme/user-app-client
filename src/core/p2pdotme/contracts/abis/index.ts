@@ -11,6 +11,7 @@ import { protocolConfigFacetAbi } from "./protocol-config-facet";
 import { reputationManagerAbi } from "./reputation-manager";
 import { rpHelperAbi } from "./rp-helper";
 import { rPHelper1Abi } from "./rp-helper-1";
+import { getterFacetAbi } from "./getter-facet";
 
 const DIAMOND_ABI = [
   ...diamondAbi,
@@ -22,6 +23,7 @@ const DIAMOND_ABI = [
   ...diamondInfoAbi,
   ...orderFlowHelperAbi,
   ...protocolConfigFacetAbi,
+  ...getterFacetAbi
 ] as const;
 
 const REPUTATION_MANAGER_ABI = [

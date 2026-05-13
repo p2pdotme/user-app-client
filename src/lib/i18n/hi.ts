@@ -257,6 +257,7 @@ export const hi = {
     CUSTOM_DATE_RANGE: "कस्टम दिनांक सीमा",
     CUSTOM_RANGE: "कस्टम रेंज",
     DAILY_BUY_ORDER_COUNT_LIMIT_EXCEEDED: "दैनिक खरीद ऑर्डर गणना सीमा पार हो गई",
+    DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED: "दैनिक खरीद ऑर्डर प्लेसमेंट सीमा पार हो गई",
     DAILY_VOLUME_LIMIT_EXCEEDED: "दैनिक वॉल्यूम सीमा पार हो गई",
     DATE: "तारीख",
     DATE_AND_TIME: "तारीख और समय",
