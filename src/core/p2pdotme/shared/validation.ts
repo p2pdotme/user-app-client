@@ -84,6 +84,15 @@ export const ZodSmallOrderThresholdParamsSchema = z.object({
 export const ZodSmallOrderFixedFeeParamsSchema = z.object({
   currency: ZodCurrencySchema,
 });
+export const ZodSmallOrderFixedFeeBuyParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
+export const ZodSmallOrderFixedFeeSellParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
+export const ZodSmallOrderFixedFeePayParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
 export const ZodOrderFixedFeePaidParamsSchema = z.object({
   orderId: z.number().int().nonnegative(),
 });
@@ -108,6 +117,15 @@ export type SmallOrderThresholdParams = z.infer<
 >;
 export type SmallOrderFixedFeeParams = z.infer<
   typeof ZodSmallOrderFixedFeeParamsSchema
+>;
+export type SmallOrderFixedFeeBuyParams = z.infer<
+  typeof ZodSmallOrderFixedFeeBuyParamsSchema
+>;
+export type SmallOrderFixedFeeSellParams = z.infer<
+  typeof ZodSmallOrderFixedFeeSellParamsSchema
+>;
+export type SmallOrderFixedFeePayParams = z.infer<
+  typeof ZodSmallOrderFixedFeePayParamsSchema
 >;
 export type OrderFixedFeePaidParams = z.infer<
   typeof ZodOrderFixedFeePaidParamsSchema
