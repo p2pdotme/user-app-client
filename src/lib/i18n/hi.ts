@@ -1152,6 +1152,7 @@ export const hi = {
       "आप रेफर एंड अर्न को अनलॉक करने के लिए अपनी {{target}} सीमा तक पहुंचने से केवल {{left}} दूर हैं!",
     REFERRED: "रेफर किया गया",
     REFER_AND_EARN: "रेफर करें और कमाएं",
+    P2P_SWAP: "P2P स्वैप",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "अपने दोस्तों के साथ रेफरल लिंक शेयर करें और हर बार जब वे ट्रेड करें तो {{referralRewardPercentage}}% कमाएं।",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:

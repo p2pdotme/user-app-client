@@ -33,6 +33,7 @@ export const INTERNAL_HREFS = {
   SELL_PREVIEW: "/sell/preview",
   PAY: "/pay",
   PAY_PREVIEW: "/pay/preview",
+  P2P_SWAP: "/p2p-swap",
   ORDER: "/order",
 
   SETTINGS: "/settings",

@@ -1207,6 +1207,7 @@ export const pt = {
       "Você está a apenas {{left}} de {{target}} limite para desbloquear o Refer & Earn!",
     REFERRED: "Indicados",
     REFER_AND_EARN: "Indique & Ganhe",
+    P2P_SWAP: "P2P Swap",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Compartilhe seu link de indicação com amigos e ganhe {{referralRewardPercentage}}% toda vez que eles negociarem.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:

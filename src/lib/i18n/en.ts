@@ -1183,6 +1183,7 @@ export const en = {
       "You're just {{left}} away from reaching your {{target}} limit to unlock Refer & Earn!",
     REFERRED: "Referred",
     REFER_AND_EARN: "Refer & Earn",
+    P2P_SWAP: "P2P Swap",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Share your referral link with friends and earn {{referralRewardPercentage}}% every time they trade.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
