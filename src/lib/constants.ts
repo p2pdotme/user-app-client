@@ -20,6 +20,7 @@ export const INTERNAL_HREFS = {
   LIMITS: "/limits",
   DEPOSIT: "/deposit",
   WITHDRAW: "/withdraw",
+  P2P_BRIDGE: "/p2p-bridge",
   HELP: "/help",
   HELP_FAQS_SEARCH: "/help/faqs-search",
   HELP_HELPFUL_VIDEO_GUIDES: "/help/video-guides",

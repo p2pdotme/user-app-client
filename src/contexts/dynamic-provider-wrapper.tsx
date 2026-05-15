@@ -4,6 +4,7 @@ import {
   mergeNetworks,
   useDynamicContext,
   type Wallet,
+  type WalletOption,
 } from "@dynamic-labs/sdk-react-core";
 import { SolanaWalletConnectors } from "@dynamic-labs/solana";
 import type { GenericNetwork } from "@dynamic-labs/types";
@@ -42,17 +43,21 @@ const HYPEREVM_NETWORK: GenericNetwork = {
   ],
 };
 
-// Context to expose Dynamic availability status and safe wallet access
+type WalletsFilter = (wallets: WalletOption[]) => WalletOption[];
+
+// Context to expose Dynamic availability status, safe wallet access, and wallet filter control
 interface DynamicStatusContextValue {
   isAvailable: boolean;
   error: Error | null;
   primaryWallet: Wallet | null;
+  setWalletsFilter: (filter: WalletsFilter | undefined) => void;
 }
 
 const DynamicStatusContext = createContext<DynamicStatusContextValue>({
   isAvailable: true,
   error: null,
   primaryWallet: null,
+  setWalletsFilter: () => {},
 });
 
 export const useDynamicStatus = () => useContext(DynamicStatusContext);
@@ -98,7 +103,13 @@ class DynamicErrorBoundary extends Component<
  * Bridge component that syncs Dynamic context to our status context
  * This runs inside DynamicContextProvider when Dynamic is available
  */
-function DynamicContextBridge({ children }: { children: ReactNode }) {
+function DynamicContextBridge({
+  children,
+  setWalletsFilter,
+}: {
+  children: ReactNode;
+  setWalletsFilter: (filter: WalletsFilter | undefined) => void;
+}) {
   const { primaryWallet } = useDynamicContext();
 
   return (
@@ -107,6 +118,7 @@ function DynamicContextBridge({ children }: { children: ReactNode }) {
         isAvailable: true,
         error: null,
         primaryWallet,
+        setWalletsFilter,
       }}>
       {children}
     </DynamicStatusContext.Provider>
@@ -120,6 +132,18 @@ function DynamicContextBridge({ children }: { children: ReactNode }) {
 function DynamicProviderManager({ children }: { children: ReactNode }) {
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  // Wrap in object to avoid React's lazy-initializer behavior for function state
+  const [walletsFilterState, setWalletsFilterState] = useState<{
+    fn: WalletsFilter | undefined;
+  }>({ fn: undefined });
+
+  const setWalletsFilter = useCallback(
+    (filter: WalletsFilter | undefined) =>
+      setWalletsFilterState({ fn: filter }),
+    [],
+  );
+
+  const walletsFilter = walletsFilterState.fn;
 
   // Merge HyperEVM (999) into dashboard networks so switchNetwork(999) finds a mapping when multiple chains are enabled
   const evmNetworksOverride = useCallback(
@@ -159,6 +183,7 @@ function DynamicProviderManager({ children }: { children: ReactNode }) {
           isAvailable: false,
           error,
           primaryWallet: null,
+          setWalletsFilter: () => {},
         }}>
         {children}
       </DynamicStatusContext.Provider>
@@ -177,8 +202,11 @@ function DynamicProviderManager({ children }: { children: ReactNode }) {
           overrides: {
             evmNetworks: evmNetworksOverride,
           },
+          walletsFilter,
         }}>
-        <DynamicContextBridge>{children}</DynamicContextBridge>
+        <DynamicContextBridge setWalletsFilter={setWalletsFilter}>
+          {children}
+        </DynamicContextBridge>
       </DynamicContextProvider>
     </DynamicErrorBoundary>
   );

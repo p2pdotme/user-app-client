@@ -34,3 +34,4 @@ export * from "./text-logo";
 export * from "./tip-merchant-card";
 export * from "./version-badge";
 export * from "./youtube-video-dialog";
+export * from "./p2p-bridge"

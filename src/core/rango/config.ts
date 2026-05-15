@@ -112,6 +112,19 @@ export const RANGO_SWAPPER_GROUPS = undefined;
 export const RANGO_SWAPPER_GROUPS_EXCLUDE = false;
 export const RANGO_SLIPPAGE = 2;
 
+// P2P Bridge: USDC on BASE mainnet → USDC on Solana
+export const P2P_BRIDGE_FROM = {
+  blockchain: "BASE",
+  address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+} as const;
+
+export const P2P_BRIDGE_TO = {
+  blockchain: "SOLANA",
+  address: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+} as const;
+
+export const P2P_BRIDGE_FROM_DECIMALS = 6;
+
 // Token logo URLs from CoinGecko
 export const TOKEN_LOGOS = {
   BTC: "https://assets.coingecko.com/coins/images/1/small/bitcoin.png",

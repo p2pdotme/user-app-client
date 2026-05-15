@@ -31,6 +31,12 @@ const Deposit = lazy(() =>
     default: module.Deposit,
   })),
 );
+
+const P2pBridge = lazy(() =>
+  import("@/pages/p2p-bridge").then((module) => ({
+    default: module.P2pBridge,
+  })),
+);
 const Withdraw = lazy(() =>
   import("@/pages/withdraw").then((module) => ({
     default: module.Withdraw,
@@ -183,6 +189,7 @@ export function Router() {
         <Route path={INTERNAL_HREFS.LIMITS} element={<Limits />} />
         <Route path={INTERNAL_HREFS.DEPOSIT} element={<Deposit />} />
         <Route path={INTERNAL_HREFS.WITHDRAW} element={<Withdraw />} />
+        <Route path={INTERNAL_HREFS.P2P_BRIDGE} element={<P2pBridge />} />
 
         <Route path={INTERNAL_HREFS.BUY} element={<Buy />} />
         <Route path={INTERNAL_HREFS.BUY_PREVIEW} element={<BuyPreview />} />
