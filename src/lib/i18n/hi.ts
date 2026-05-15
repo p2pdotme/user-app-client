@@ -31,7 +31,7 @@ export const hi = {
     ADD_NEW_WALLET: "नया वॉलेट जोड़ें",
     ALIAS: "Alias",
     ALIAS_ID: "आपका Alias",
-    ALIAS_TRANSFERENCIA: "Alias ट्रांसफर",
+    ALIAS_TRANSFERENCIA: "Bre-B Key",
     ALL: "सभी",
     ALLOW_CAMERA: "कैमरा अनुमति दें",
     ALL_FAQS: "सभी FAQ",
