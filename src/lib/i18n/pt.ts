@@ -34,7 +34,7 @@ export const pt = {
     ADD_NEW_WALLET: "Adicionar nova carteira",
     ALIAS: "Alias",
     ALIAS_ID: "Seu Alias",
-    ALIAS_TRANSFERENCIA: "Alias de Transferência",
+    ALIAS_TRANSFERENCIA: "Chave Bre-B",
     ALL: "Todas",
     ALLOW_CAMERA: "Permitir Câmera",
     ALL_FAQS: "Todas as FAQs",
