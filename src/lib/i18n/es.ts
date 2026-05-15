@@ -33,7 +33,7 @@ export const es = {
     ADD_NEW_WALLET: "Añadir nueva wallet",
     ALIAS: "Alias",
     ALIAS_ID: "Tu Alias",
-    ALIAS_TRANSFERENCIA: "Alias de Transferencia",
+    ALIAS_TRANSFERENCIA: "Llave Bre-B",
     ALL: "Todos",
     ALLOW_CAMERA: "Permitir Cámara",
     ALL_FAQS: "Todas las FAQs",
