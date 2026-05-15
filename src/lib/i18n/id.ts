@@ -33,7 +33,7 @@ export const id = {
     ADD_NEW_WALLET: "Tambah dompet baru",
     ALIAS: "Alias",
     ALIAS_ID: "Alias Anda",
-    ALIAS_TRANSFERENCIA: "Transfer Alias",
+    ALIAS_TRANSFERENCIA: "Bre-B Key",
     ALL: "Semua",
     ALLOW_CAMERA: "Izinkan Kamera",
     ALL_FAQS: "Semua FAQ",
