@@ -1,12 +1,12 @@
 import { ArrowUpDown, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useP2PBalance, useP2PSwapQuote, useUSDCBalance } from "@/hooks";
+import { useP2PBalance, useP2PSwapQuote, useP2PSwap, useUSDCBalance } from "@/hooks";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { cn, truncateAmount } from "@/lib/utils";
@@ -186,10 +186,8 @@ export const P2PSwapForm = () => {
   const [selectedPct, setSelectedPct] = useState<number | null>(null);
 
   const { usdcBalance } = useUSDCBalance();
-  const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(
-    direction,
-    amount,
-  );
+  const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(direction, amount);
+  const { executeSwap, isSwapping, isSwapSuccess, isSwapError, swapError, swapData } = useP2PSwap(direction, amount);
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
@@ -210,12 +208,26 @@ export const P2PSwapForm = () => {
     setSelectedPct(null);
   };
 
+  useEffect(() => {
+    if (isSwapSuccess && swapData) {
+      toast.success(`${t("SWAP")} initiated! ID: ${swapData.swapId}`);
+      setAmount("");
+      setSelectedPct(null);
+    }
+  }, [isSwapSuccess, swapData, t]);
+
+  useEffect(() => {
+    if (isSwapError && swapError) {
+      toast.error(swapError instanceof Error ? swapError.message : t("SOMETHING_WENT_WRONG"));
+    }
+  }, [isSwapError, swapError, t]);
+
   const handleSwap = () => {
     if (!hasAmount) {
       toast.error(t("PLEASE_ENTER_VALID_AMOUNT"));
       return;
     }
-    // TODO: wire up swap execution hooks
+    executeSwap();
   };
 
   const fromBadge = (
@@ -277,10 +289,10 @@ export const P2PSwapForm = () => {
 
       <Button
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
-        disabled={!hasAmount || isQuoteLoading || !outputAmount}
+        disabled={!hasAmount || isQuoteLoading || !outputAmount || isSwapping}
         onClick={handleSwap}
       >
-        {t("SWAP")}
+        {isSwapping ? t("SWAPPING") : t("SWAP")}
       </Button>
     </>
   );

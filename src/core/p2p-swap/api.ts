@@ -39,6 +39,24 @@ export const QuoteP2PToUsdcResponseSchema = z.object({
 export type QuoteUsdcToP2PResponse = z.infer<typeof QuoteUsdcToP2PResponseSchema>;
 export type QuoteP2PToUsdcResponse = z.infer<typeof QuoteP2PToUsdcResponseSchema>;
 
+// ─── Response Schemas ─────────────────────────────────────────────────────────
+
+export const CompanyAddressesSchema = z.object({
+  status: z.literal("ok"),
+  addresses: z.object({
+    base: z.string(),
+    solana: z.string(),
+  }),
+});
+
+export const InitiateSwapResponseSchema = z.object({
+  status: z.literal("ok"),
+  swapId: z.number(),
+});
+
+export type CompanyAddresses = z.infer<typeof CompanyAddressesSchema>["addresses"];
+export type InitiateSwapResponse = z.infer<typeof InitiateSwapResponseSchema>;
+
 async function fetchJson(url: string): Promise<unknown> {
   if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
   const res = await fetch(url);
@@ -61,4 +79,33 @@ export async function fetchQuoteUsdcToP2P(amountBaseUnits: string): Promise<Quot
 export async function fetchQuoteP2PToUsdc(amountBaseUnits: string): Promise<QuoteP2PToUsdcResponse> {
   const json = await fetchJson(`${BASE_URL}/api/quote/p2p-to-usdc?amount=${amountBaseUnits}`);
   return QuoteP2PToUsdcResponseSchema.parse(json);
+}
+
+export async function fetchCompanyAddresses(): Promise<CompanyAddresses> {
+  const json = await fetchJson(`${BASE_URL}/api/company/addresses`);
+  return CompanyAddressesSchema.parse(json).addresses;
+}
+
+export async function initiateUsdcToP2PSwap(txnHash: string): Promise<InitiateSwapResponse> {
+  if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
+  const res = await fetch(`${BASE_URL}/api/swap/usdc-to-p2p`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ txnHash }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json?.message ?? `Swap initiation failed: ${res.status}`);
+  return InitiateSwapResponseSchema.parse(json);
+}
+
+export async function initiateP2PToUsdcSwap(txnHash: string): Promise<InitiateSwapResponse> {
+  if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
+  const res = await fetch(`${BASE_URL}/api/swap/p2p-to-usdc`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ txnHash }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json?.message ?? `Swap initiation failed: ${res.status}`);
+  return InitiateSwapResponseSchema.parse(json);
 }

@@ -1,9 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { parseUnits, formatUnits } from "viem";
-import { fetchQuoteUsdcToP2P, fetchQuoteP2PToUsdc } from "@/core/p2p-swap";
+import {
+  fetchQuoteUsdcToP2P,
+  fetchQuoteP2PToUsdc,
+  fetchCompanyAddresses,
+  initiateUsdcToP2PSwap,
+  initiateP2PToUsdcSwap,
+} from "@/core/p2p-swap";
+import { transferUSDC, transferP2PToken } from "@/core/adapters/thirdweb";
 import type { SwapDirection } from "@/core/p2p-swap";
 import { truncateAmount } from "@/lib/utils";
+import { useThirdweb } from "./use-thirdweb";
+import { Address } from "thirdweb";
 
 const USDC_DECIMALS = 6;
 const P2P_DECIMALS = 6;
@@ -47,5 +56,48 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
     isQuoteLoading: query.isLoading || query.isFetching,
     isQuoteError: query.isError,
     quoteError: query.error,
+  };
+}
+
+export function useP2PSwap(direction: SwapDirection, amount: string) {
+  const { account } = useThirdweb();
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!account) throw new Error("Wallet not connected");
+
+      const companyAddresses = await fetchCompanyAddresses();
+      const companyBaseAddress = companyAddresses.base as Address;
+
+      let txnHash: string;
+
+      if (direction === "USDC_TO_P2P") {
+        const result = await transferUSDC(
+          { address: companyBaseAddress, amount: parseUnits(amount, USDC_DECIMALS) },
+          account,
+        );
+        if (result.isErr()) throw result.error;
+        txnHash = result.value.transactionHash;
+        return initiateUsdcToP2PSwap(txnHash);
+      } else {
+        const result = await transferP2PToken(
+          { address: companyBaseAddress, amount: parseUnits(amount, P2P_DECIMALS) },
+          account,
+        );
+        if (result.isErr()) throw result.error;
+        txnHash = result.value.transactionHash;
+        return initiateP2PToUsdcSwap(txnHash);
+      }
+    },
+  });
+
+  return {
+    executeSwap: mutation.mutate,
+    isSwapping: mutation.isPending,
+    swapData: mutation.data ?? null,
+    swapError: mutation.error,
+    isSwapError: mutation.isError,
+    isSwapSuccess: mutation.isSuccess,
+    resetSwap: mutation.reset,
   };
 }
