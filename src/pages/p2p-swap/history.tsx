@@ -137,7 +137,7 @@ function WormholeStepRow({ step }: { step: WormholeStep }) {
   );
 }
 
-function SwapCard({ swap }: { swap: SwapRecord }) {
+export function SwapCard({ swap }: { swap: SwapRecord }) {
   const [expanded, setExpanded] = useState(false);
   const isUsdcToP2P = swap.swapType === "usdc_to_p2p";
 

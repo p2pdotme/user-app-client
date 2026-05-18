@@ -1365,6 +1365,7 @@ export const en = {
     SWAP_TXN_NOT_CREATED: "Swap transaction not created",
     NO_SWAPS_YET: "No swaps yet",
     NO_SWAPS_YET_DESC: "Your past P2P swaps will appear here.",
+    IN_PROGRESS: "In Progress",
     SW_INSTALLING_UPDATE: "Installing Update",
     SW_MAY_TAKE_UP_TO: "This may take up to 2 minutes.",
     SW_PLEASE_WAIT: "Please wait patiently.",

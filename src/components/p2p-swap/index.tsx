@@ -13,7 +13,9 @@ import {
   useP2PSwapQuote,
   useP2PSwap,
   useUSDCBalance,
+  useP2PSwapHistory,
 } from "@/hooks";
+import { SwapCard } from "@/pages/p2p-swap/history";
 
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
@@ -183,7 +185,7 @@ function P2PSolanaIcon() {
   );
 }
 
-export const P2PSwapForm = () => {
+export const P2PSwapForm = ({ onSwapSuccess }: { onSwapSuccess?: () => void }) => {
   const { t } = useTranslation();
   const [direction, setDirection] = useState<SwapDirection>("USDC_TO_P2P");
   const [amount, setAmount] = useState("");
@@ -231,8 +233,9 @@ export const P2PSwapForm = () => {
       toast.success(`${t("SWAP")} initiated! ID: ${swapData.swapId}`);
       setAmount("");
       setSelectedPct(null);
+      onSwapSuccess?.();
     }
-  }, [isSwapSuccess, swapData, t]);
+  }, [isSwapSuccess, swapData, t, onSwapSuccess]);
 
   useEffect(() => {
     if (isSwapError && swapError) {
@@ -393,11 +396,26 @@ function P2PSwapBalances() {
 export const P2PSwapMain = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { swaps, refetch } = useP2PSwapHistory();
+
+  const processingSwaps = swaps.filter(
+    (s) => s.status === "processing" || s.status === "pending",
+  );
 
   return (
     <>
       <P2PSwapBalances />
-      <P2PSwapForm />
+      <P2PSwapForm onSwapSuccess={refetch} />
+      {processingSwaps.length > 0 && (
+        <div className="mt-2 space-y-2">
+          <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            {t("IN_PROGRESS")}
+          </p>
+          {processingSwaps.map((swap) => (
+            <SwapCard key={swap.id} swap={swap} />
+          ))}
+        </div>
+      )}
       <button
         type="button"
         onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
