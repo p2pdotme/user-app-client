@@ -68,11 +68,11 @@ export type InitiateSwapResponse = z.infer<typeof InitiateSwapResponseSchema>;
 const JupiterStepSchema = z.object({
   id: z.number(),
   swapId: z.number(),
-  requestId: z.string(),
+  requestId: z.string().nullable(),
   inputMint: z.string(),
   outputMint: z.string(),
   inputAmount: z.string(),
-  outputAmount: z.string(),
+  outputAmount: z.string().nullable(),
   signature: z.string().nullable(),
   status: z.string(),
   createdAt: z.string(),
@@ -82,7 +82,7 @@ const JupiterStepSchema = z.object({
 const RangoStepSchema = z.object({
   id: z.number(),
   swapId: z.number(),
-  requestId: z.string(),
+  requestId: z.string().nullable(),
   fromChain: z.string(),
   toChain: z.string(),
   fromToken: z.string(),
@@ -122,6 +122,7 @@ export const SwapRecordSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   completedAt: z.string().nullable(),
+  estimatedCompletedAt: z.string().nullable().optional(),
   currentJob: z.string().nullable(),
   steps: z.object({
     rango: z.array(RangoStepSchema),

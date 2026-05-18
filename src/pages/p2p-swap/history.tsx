@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatUnits } from "viem";
-import { ChevronDown, ChevronUp, Copy, RefreshCw } from "lucide-react";
+import { ChevronDown, ChevronUp, Clock, Copy, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { NonHomeHeader } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -225,6 +225,22 @@ function SwapCard({ swap }: { swap: SwapRecord }) {
         )}
       </div>
 
+      {/* Estimated delivery */}
+      {swap.estimatedCompletedAt && swap.status !== "completed" && swap.status !== "failed" && (
+        <div className="mt-3 flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+          <Clock className="size-3.5 shrink-0" />
+          <span>
+            Est. delivery:{" "}
+            {new Date(swap.estimatedCompletedAt).toLocaleString(undefined, {
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+          </span>
+        </div>
+      )}
+
       {/* Steps toggle */}
       {hasSteps && (
         <button
@@ -240,15 +256,31 @@ function SwapCard({ swap }: { swap: SwapRecord }) {
       {/* Steps details */}
       {expanded && (
         <div className="mt-3 space-y-4">
-          {swap.steps.wormhole.map((step) => (
-            <WormholeStepRow key={step.id} step={step} />
-          ))}
-          {swap.steps.jupiter.map((step) => (
-            <JupiterStepRow key={step.id} step={step} />
-          ))}
-          {swap.steps.rango.map((step) => (
-            <RangoStepRow key={step.id} step={step} />
-          ))}
+          {isUsdcToP2P ? (
+            <>
+              {swap.steps.rango.map((step) => (
+                <RangoStepRow key={step.id} step={step} />
+              ))}
+              {swap.steps.jupiter.map((step) => (
+                <JupiterStepRow key={step.id} step={step} />
+              ))}
+              {swap.steps.wormhole.map((step) => (
+                <WormholeStepRow key={step.id} step={step} />
+              ))}
+            </>
+          ) : (
+            <>
+              {swap.steps.wormhole.map((step) => (
+                <WormholeStepRow key={step.id} step={step} />
+              ))}
+              {swap.steps.jupiter.map((step) => (
+                <JupiterStepRow key={step.id} step={step} />
+              ))}
+              {swap.steps.rango.map((step) => (
+                <RangoStepRow key={step.id} step={step} />
+              ))}
+            </>
+          )}
         </div>
       )}
     </div>

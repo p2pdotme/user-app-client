@@ -14,6 +14,7 @@ import {
   useP2PSwap,
   useUSDCBalance,
 } from "@/hooks";
+
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { cn, truncateAmount } from "@/lib/utils";
@@ -189,6 +190,7 @@ export const P2PSwapForm = () => {
   const [selectedPct, setSelectedPct] = useState<number | null>(null);
 
   const { usdcBalance } = useUSDCBalance();
+  const { p2pBalanceRaw } = useP2PBalance();
   const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(
     direction,
     amount,
@@ -204,7 +206,10 @@ export const P2PSwapForm = () => {
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
-  const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : null;
+  const p2pBalance = p2pBalanceRaw != null
+    ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6))
+    : null;
+  const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : p2pBalance;
   const outputSymbol = isUsdcToP2P ? "P2P" : "USDC";
 
   const handlePercent = (pct: number) => {
