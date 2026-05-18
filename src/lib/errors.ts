@@ -206,6 +206,8 @@ export const contractErrors = {
   CannotClaimRevenueForCurrentMonth: "CANNOT_CLAIM_REVENUE_FOR_CURRENT_MONTH",
   MerchantNotFulfilledEligibilityThreshold:
     "MERCHANT_NOT_FULFILLED_ELIGIBILITY_THRESHOLD",
+  ZkVerificationRequired: "ZK_VERIFICATION_REQUIRED",
+  MonthlyClaimLimitReached: "MONTHLY_CLAIM_LIMIT_REACHED",
 };
 
 export const errorMessages = {
@@ -409,6 +411,8 @@ export const hexContractErrors = {
   "0xd92e233d": contractErrors.ZeroAddress,
   "0x302c5138": contractErrors.CannotClaimRevenueForCurrentMonth,
   "0x70d753bd": contractErrors.MerchantNotFulfilledEligibilityThreshold,
+  "0x65f577de": contractErrors.ZkVerificationRequired,
+  "0x6500fe81": contractErrors.MonthlyClaimLimitReached,
 };
 
 export function parseContractError(error: unknown) {
