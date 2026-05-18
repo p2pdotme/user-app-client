@@ -32,6 +32,7 @@ export * from "./use-tx-limits";
 export * from "./use-txn-history";
 export * from "./use-p2p-balance";
 export * from "./use-p2p-swap";
+export * from "./use-p2p-swap-history";
 export * from "./use-usdc";
 export * from "./use-volume-milestones";
 export * from "./use-wallet-address-book";

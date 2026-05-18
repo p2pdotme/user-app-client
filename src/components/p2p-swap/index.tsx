@@ -1,22 +1,25 @@
-import { ArrowUpDown, RefreshCw } from "lucide-react";
+import { ArrowUpDown, Clock, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useP2PBalance, useP2PSwapQuote, useP2PSwap, useUSDCBalance } from "@/hooks";
+import {
+  useP2PBalance,
+  useP2PSwapQuote,
+  useP2PSwap,
+  useUSDCBalance,
+} from "@/hooks";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { cn, truncateAmount } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { formatUnits } from "viem";
-import type {
-  QuoteUsdcToP2PResponse,
-  QuoteP2PToUsdcResponse,
-  SwapDirection,
-} from "@/core/p2p-swap";
+import type { SwapDirection } from "@/core/p2p-swap";
 
 export type { SwapDirection } from "@/core/p2p-swap";
 
@@ -186,8 +189,18 @@ export const P2PSwapForm = () => {
   const [selectedPct, setSelectedPct] = useState<number | null>(null);
 
   const { usdcBalance } = useUSDCBalance();
-  const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(direction, amount);
-  const { executeSwap, isSwapping, isSwapSuccess, isSwapError, swapError, swapData } = useP2PSwap(direction, amount);
+  const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(
+    direction,
+    amount,
+  );
+  const {
+    executeSwap,
+    isSwapping,
+    isSwapSuccess,
+    isSwapError,
+    swapError,
+    swapData,
+  } = useP2PSwap(direction, amount);
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
@@ -218,7 +231,11 @@ export const P2PSwapForm = () => {
 
   useEffect(() => {
     if (isSwapError && swapError) {
-      toast.error(swapError instanceof Error ? swapError.message : t("SOMETHING_WENT_WRONG"));
+      toast.error(
+        swapError instanceof Error
+          ? swapError.message
+          : t("SOMETHING_WENT_WRONG"),
+      );
     }
   }, [isSwapError, swapError, t]);
 
@@ -369,10 +386,21 @@ function P2PSwapBalances() {
 }
 
 export const P2PSwapMain = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
     <>
       <P2PSwapBalances />
       <P2PSwapForm />
+      <button
+        type="button"
+        onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
+        className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
+      >
+        <Clock className="size-4" />
+        {t("SWAP_HISTORY")}
+      </button>
     </>
   );
 };

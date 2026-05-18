@@ -74,6 +74,12 @@ const P2PSwap = lazy(() =>
   })),
 );
 
+const P2PSwapHistory = lazy(() =>
+  import("@/pages/p2p-swap/history").then((module) => ({
+    default: module.P2PSwapHistory,
+  })),
+);
+
 const Order = lazy(() =>
   import("@/pages/order").then((module) => ({
     default: module.Order,
@@ -197,6 +203,7 @@ export function Router() {
         <Route path={INTERNAL_HREFS.SELL_PREVIEW} element={<SellPreview />} />
         <Route path={INTERNAL_HREFS.PAY} element={<Pay />} />
         <Route path={INTERNAL_HREFS.P2P_SWAP} element={<P2PSwap />} />
+        <Route path={INTERNAL_HREFS.P2P_SWAP_HISTORY} element={<P2PSwapHistory />} />
 
         <Route path={`${INTERNAL_HREFS.ORDER}/:id`} element={<Order />} />
 
