@@ -263,7 +263,7 @@ export function useClaimCampaignUsdc() {
         component: "useClaimCampaignUsdc",
         userId: account?.address,
       });
-      toast.error(t("FAILED_TO_CLAIM_CAMPAIGN_USDC"));
+      toast.error(error?.message || t("FAILED_TO_CLAIM_CAMPAIGN_USDC"));
     },
   });
 
