@@ -1,6 +1,6 @@
 import { ArrowUpDown, Clock, Loader2, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -201,14 +201,7 @@ export const P2PSwapForm = ({
     direction,
     amount,
   );
-  const {
-    executeSwap,
-    isSwapping,
-    isSwapSuccess,
-    isSwapError,
-    swapError,
-    swapData,
-  } = useP2PSwap(direction, amount);
+  const { executeSwap, isSwapping } = useP2PSwap(direction, amount);
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
@@ -238,35 +231,28 @@ export const P2PSwapForm = ({
     setSelectedPct(null);
   };
 
-  useEffect(() => {
-    if (isSwapSuccess && swapData) {
-      toast.success(t("SWAP_INITIATED_SUCCESS"));
-      setAmount("");
-      setSelectedPct(null);
-      setTimeout(() => {
-        onSwapSuccess?.();
-      }, 2000);
-    }
-  }, [isSwapSuccess, swapData, t, onSwapSuccess]);
-
-  useEffect(() => {
-    if (isSwapError && swapError) {
-      const message =
-        swapError instanceof Error &&
-        swapError.message &&
-        !swapError.message.trimStart().startsWith("[")
-          ? swapError.message
-          : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
-    }
-  }, [isSwapError, swapError, t]);
-
   const handleSwap = () => {
     if (!hasAmount) {
       toast.error(t("PLEASE_ENTER_VALID_AMOUNT"));
       return;
     }
-    executeSwap();
+    executeSwap(undefined, {
+      onSuccess: () => {
+        toast.success(t("SWAP_INITIATED_SUCCESS"));
+        setAmount("");
+        setSelectedPct(null);
+        setTimeout(() => onSwapSuccess?.(), 2000);
+      },
+      onError: (error) => {
+        const message =
+          error instanceof Error &&
+          error.message &&
+          !error.message.trimStart().startsWith("[")
+            ? error.message
+            : t("SOMETHING_WENT_WRONG");
+        toast.error(message);
+      },
+    });
   };
 
   const fromBadge = (
