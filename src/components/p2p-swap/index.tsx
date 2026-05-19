@@ -245,7 +245,7 @@ export const P2PSwapForm = ({
       setSelectedPct(null);
       setTimeout(() => {
         onSwapSuccess?.();
-      }, 1000);
+      }, 2000);
     }
   }, [isSwapSuccess, swapData, t, onSwapSuccess]);
 
