@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, ChevronUp, Clock, Copy, RefreshCw } from "lucide-react";
+import { ChevronDown, ChevronUp, Clock, Copy, Loader2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { NonHomeHeader } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn, formatDateTime, formatTokenAmount, truncateAddress } from "@/lib/utils";
-import { useP2PSwapHistory } from "@/hooks";
+import { useP2PSwapHistory, useClaimRefund } from "@/hooks";
 import ASSETS from "@/assets";
 import type {
   SwapRecord,
@@ -186,6 +186,28 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const isUsdcToP2P = swap.swapType === "usdc_to_p2p";
+  const { claimRefund, isClaiming, isClaimSuccess, isClaimError, claimError, resetClaim } =
+    useClaimRefund();
+
+  useEffect(() => {
+    if (isClaimSuccess) {
+      toast.success(t("SWAP_REFUND_SUCCESS"));
+      resetClaim();
+    }
+  }, [isClaimSuccess, resetClaim, t]);
+
+  useEffect(() => {
+    if (isClaimError && claimError) {
+      const message =
+        claimError instanceof Error &&
+        claimError.message &&
+        !claimError.message.trimStart().startsWith("[")
+          ? claimError.message
+          : t("SOMETHING_WENT_WRONG");
+      toast.error(message);
+      resetClaim();
+    }
+  }, [isClaimError, claimError, resetClaim, t]);
 
   const fromSymbol = isUsdcToP2P ? "USDC" : "P2P";
   const toSymbol = isUsdcToP2P ? "P2P" : "USDC";
@@ -277,6 +299,23 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
             </span>
           </div>
         )}
+
+      {/* Claim refund */}
+      {swap.refund && (
+        <div className="mt-3 border-t border-border/50 pt-3">
+          <button
+            type="button"
+            disabled={isClaiming}
+            onClick={() => claimRefund(swap.id)}
+            className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/20 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isClaiming ? (
+              <Loader2 className="size-3.5 animate-spin" />
+            ) : null}
+            {t("SWAP_CLAIM_REFUND")}
+          </button>
+        </div>
+      )}
 
       {/* Steps toggle */}
       {hasSteps && (

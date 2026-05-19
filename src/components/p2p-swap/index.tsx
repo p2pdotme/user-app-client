@@ -251,11 +251,13 @@ export const P2PSwapForm = ({
 
   useEffect(() => {
     if (isSwapError && swapError) {
-      toast.error(
-        swapError instanceof Error
+      const message =
+        swapError instanceof Error &&
+        swapError.message &&
+        !swapError.message.trimStart().startsWith("[")
           ? swapError.message
-          : t("SOMETHING_WENT_WRONG"),
-      );
+          : t("SOMETHING_WENT_WRONG");
+      toast.error(message);
     }
   }, [isSwapError, swapError, t]);
 
@@ -424,6 +426,14 @@ export const P2PSwapMain = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { swaps, refetch } = useP2PSwapHistory();
+  const { refetchUSDCBalance } = useUSDCBalance();
+  const { refetchP2PBalance } = useP2PBalance();
+
+  const handleSwapSuccess = () => {
+    refetch();
+    refetchUSDCBalance();
+    refetchP2PBalance();
+  };
 
   const processingSwaps = swaps.filter(
     (s) => s.status === "processing" || s.status === "pending",
@@ -432,7 +442,7 @@ export const P2PSwapMain = () => {
   return (
     <>
       <P2PSwapBalances />
-      <P2PSwapForm onSwapSuccess={refetch} />
+      <P2PSwapForm onSwapSuccess={handleSwapSuccess} />
       {processingSwaps.length > 0 && (
         <div className="mt-2 space-y-2">
           <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">

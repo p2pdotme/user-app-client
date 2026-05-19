@@ -123,6 +123,7 @@ export const SwapRecordSchema = z.object({
   updatedAt: z.string(),
   completedAt: z.string().nullable(),
   estimatedCompletedAt: z.string().nullable().optional(),
+  refund: z.boolean().optional(),
   currentJob: z.string().nullable(),
   steps: z.object({
     rango: z.array(RangoStepSchema),
@@ -215,4 +216,24 @@ export async function initiateP2PToUsdcSwap(
 export async function fetchUserSwaps(userId: string): Promise<SwapRecord[]> {
   const json = await fetchJson(`${BASE_URL}/api/swaps/user/${userId}`);
   return UserSwapsResponseSchema.parse(json).swaps;
+}
+
+const ClaimRefundResponseSchema = z.object({
+  status: z.literal("ok"),
+  refundTxnHash: z.string(),
+  refundAmount: z.string(),
+  refundedAt: z.string(),
+});
+
+export type ClaimRefundResponse = z.infer<typeof ClaimRefundResponseSchema>;
+
+export async function claimRefund(swapId: number): Promise<ClaimRefundResponse> {
+  if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
+  const res = await fetch(`${BASE_URL}/api/swap/refund/${swapId}`, {
+    method: "POST",
+  });
+  const json = await res.json();
+  if (!res.ok)
+    throw new Error(json?.message ?? `Refund failed: ${res.status}`);
+  return ClaimRefundResponseSchema.parse(json);
 }

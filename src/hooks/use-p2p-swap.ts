@@ -7,6 +7,7 @@ import {
   fetchCompanyAddresses,
   initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
+  claimRefund,
 } from "@/core/p2p-swap";
 import { transferUSDC, transferP2PToken } from "@/core/adapters/thirdweb";
 import type { SwapDirection } from "@/core/p2p-swap";
@@ -99,5 +100,21 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
     isSwapError: mutation.isError,
     isSwapSuccess: mutation.isSuccess,
     resetSwap: mutation.reset,
+  };
+}
+
+export function useClaimRefund() {
+  const mutation = useMutation({
+    mutationFn: (swapId: number) => claimRefund(swapId),
+  });
+
+  return {
+    claimRefund: mutation.mutate,
+    isClaiming: mutation.isPending,
+    claimData: mutation.data ?? null,
+    claimError: mutation.error,
+    isClaimError: mutation.isError,
+    isClaimSuccess: mutation.isSuccess,
+    resetClaim: mutation.reset,
   };
 }
