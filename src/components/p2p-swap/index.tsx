@@ -1,4 +1,4 @@
-import { ArrowUpDown, Clock, RefreshCw } from "lucide-react";
+import { ArrowUpDown, Clock, Loader2, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -130,7 +130,7 @@ export function ToPanel({
         </div>
         <div className="flex items-center gap-3">
           <div className="flex-1">
-            {hasAmount && isLoading && <Skeleton className="h-9 w-32" />}
+            {hasAmount && isLoading && <Skeleton className="h-9 w-32 bg-primary/30" />}
             {hasAmount && isError && (
               <p className="font-bold text-2xl text-destructive">—</p>
             )}
@@ -185,7 +185,11 @@ function P2PSolanaIcon() {
   );
 }
 
-export const P2PSwapForm = ({ onSwapSuccess }: { onSwapSuccess?: () => void }) => {
+export const P2PSwapForm = ({
+  onSwapSuccess,
+}: {
+  onSwapSuccess?: () => void;
+}) => {
   const { t } = useTranslation();
   const [direction, setDirection] = useState<SwapDirection>("USDC_TO_P2P");
   const [amount, setAmount] = useState("");
@@ -208,11 +212,17 @@ export const P2PSwapForm = ({ onSwapSuccess }: { onSwapSuccess?: () => void }) =
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
-  const p2pBalance = p2pBalanceRaw != null
-    ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6))
-    : null;
-  const balance: number | null = isUsdcToP2P ? (usdcBalance ?? null) : p2pBalance;
+  const p2pBalance =
+    p2pBalanceRaw != null
+      ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6))
+      : null;
+  const balance: number | null = isUsdcToP2P
+    ? (usdcBalance ?? null)
+    : p2pBalance;
   const outputSymbol = isUsdcToP2P ? "P2P" : "USDC";
+  const fromSymbol = isUsdcToP2P ? "USDC" : "P2P";
+  const isInsufficientBalance =
+    balance !== null && hasAmount && Number(amount) > balance;
 
   const handlePercent = (pct: number) => {
     if (balance === null) return;
@@ -230,10 +240,12 @@ export const P2PSwapForm = ({ onSwapSuccess }: { onSwapSuccess?: () => void }) =
 
   useEffect(() => {
     if (isSwapSuccess && swapData) {
-      toast.success(`${t("SWAP")} initiated! ID: ${swapData.swapId}`);
+      toast.success(t("SWAP_INITIATED_SUCCESS"));
       setAmount("");
       setSelectedPct(null);
-      onSwapSuccess?.();
+      setTimeout(() => {
+        onSwapSuccess?.();
+      }, 1000);
     }
   }, [isSwapSuccess, swapData, t, onSwapSuccess]);
 
@@ -314,10 +326,25 @@ export const P2PSwapForm = ({ onSwapSuccess }: { onSwapSuccess?: () => void }) =
 
       <Button
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
-        disabled={!hasAmount || isQuoteLoading || !outputAmount || isSwapping}
+        disabled={
+          !hasAmount ||
+          isQuoteLoading ||
+          !outputAmount ||
+          isSwapping ||
+          isInsufficientBalance
+        }
         onClick={handleSwap}
       >
-        {isSwapping ? t("SWAPPING") : t("SWAP")}
+        {isSwapping ? (
+          <span className="flex items-center gap-2">
+            <Loader2 className="size-4 animate-spin" />
+            {t("SWAPPING")}
+          </span>
+        ) : isInsufficientBalance ? (
+          t("SWAP_INSUFFICIENT_BALANCE", { token: fromSymbol })
+        ) : (
+          t("SWAP")
+        )}
       </Button>
     </>
   );

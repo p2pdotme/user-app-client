@@ -78,7 +78,7 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
         );
         if (result.isErr()) throw result.error;
         txnHash = result.value.transactionHash;
-        return initiateUsdcToP2PSwap(txnHash);
+        return initiateUsdcToP2PSwap(txnHash, account.address);
       } else {
         const result = await transferP2PToken(
           { address: companyBaseAddress, amount: parseUnits(amount, P2P_DECIMALS) },
@@ -86,7 +86,7 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
         );
         if (result.isErr()) throw result.error;
         txnHash = result.value.transactionHash;
-        return initiateP2PToUsdcSwap(txnHash);
+        return initiateP2PToUsdcSwap(txnHash, account.address);
       }
     },
   });
