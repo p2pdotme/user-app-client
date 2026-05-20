@@ -1382,6 +1382,7 @@ export const en = {
     SWAP_STEP_JUPITER: "Jupiter (DEX)",
     SWAP_STEP_WORMHOLE: "Wormhole (Bridge)",
     SWAP_CLAIM_REFUND: "Claim Refund",
+    SWAP_REFUNDED: "Refunded",
     SWAP_REFUND_SUCCESS: "Refund sent successfully",
     SWAP_REFUND_ALREADY_CLAIMED: "Refund already claimed",
     INSUFFICIENT_P2P_BALANCE: "You don't have enough $P2P tokens",

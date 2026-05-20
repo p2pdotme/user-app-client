@@ -110,6 +110,23 @@ const WormholeStepSchema = z.object({
   updatedAt: z.string().nullable(),
 });
 
+export const RefundRowSchema = z.object({
+  id: z.number(),
+  swapId: z.number(),
+  userId: z.string(),
+  tokenAddress: z.string(),
+  tokenLabel: z.string(),
+  amount: z.string(),
+  txnHash: z.string().nullable(),
+  status: z.string(),
+  error: z.string().nullable(),
+  completedAt: z.string().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export type RefundRow = z.infer<typeof RefundRowSchema>;
+
 export const SwapRecordSchema = z.object({
   id: z.number(),
   userId: z.string(),
@@ -123,8 +140,16 @@ export const SwapRecordSchema = z.object({
   updatedAt: z.string(),
   completedAt: z.string().nullable(),
   estimatedCompletedAt: z.string().nullable().optional(),
-  refund: z.boolean().optional(),
-  currentJob: z.string().nullable(),
+  refund: RefundRowSchema.nullable(),
+  refundAllowed: z.boolean(),
+  currentJob: z
+    .object({
+      jobType: z.string(),
+      status: z.string(),
+      attempts: z.number(),
+      error: z.string().nullable(),
+    })
+    .nullable(),
   steps: z.object({
     rango: z.array(RangoStepSchema),
     jupiter: z.array(JupiterStepSchema),
@@ -219,10 +244,9 @@ export async function fetchUserSwaps(userId: string): Promise<SwapRecord[]> {
 }
 
 const ClaimRefundResponseSchema = z.object({
-  status: z.literal("ok"),
-  refundTxnHash: z.string(),
-  refundAmount: z.string(),
-  refundedAt: z.string(),
+  status: z.literal("pending"),
+  message: z.string(),
+  refund: RefundRowSchema,
 });
 
 export type ClaimRefundResponse = z.infer<typeof ClaimRefundResponseSchema>;

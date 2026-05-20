@@ -198,13 +198,11 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
 
   useEffect(() => {
     if (isClaimError && claimError) {
-      const message =
-        claimError instanceof Error &&
-        claimError.message &&
-        !claimError.message.trimStart().startsWith("[")
+      toast.error(
+        claimError instanceof Error && claimError.message
           ? claimError.message
-          : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
+          : t("SOMETHING_WENT_WRONG"),
+      );
       resetClaim();
     }
   }, [isClaimError, claimError, resetClaim, t]);
@@ -300,8 +298,14 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
           </div>
         )}
 
-      {/* Claim refund */}
-      {swap.refund && (
+      {/* Refund section */}
+      {swap.refund?.status === "completed" ? (
+        <div className="mt-3 border-t border-border/50 pt-3">
+          <div className="flex items-center justify-center gap-1.5 rounded-xl bg-green-500/10 px-3 py-2 text-xs font-medium text-green-600 dark:text-green-400">
+            {t("SWAP_REFUNDED")}
+          </div>
+        </div>
+      ) : swap.refundAllowed ? (
         <div className="mt-3 border-t border-border/50 pt-3">
           <button
             type="button"
@@ -309,13 +313,11 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
             onClick={() => claimRefund(swap.id)}
             className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive transition-colors hover:bg-destructive/20 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isClaiming ? (
-              <Loader2 className="size-3.5 animate-spin" />
-            ) : null}
+            {isClaiming ? <Loader2 className="size-3.5 animate-spin" /> : null}
             {t("SWAP_CLAIM_REFUND")}
           </button>
         </div>
-      )}
+      ) : null}
 
       {/* Steps toggle */}
       {hasSteps && (

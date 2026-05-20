@@ -283,8 +283,10 @@ export const P2PSwapForm = ({
       <FromPanel
         amount={amount}
         onAmountChange={(v) => {
-          setAmount(v);
-          setSelectedPct(null);
+          if (v === "" || /^\d*\.?\d*$/.test(v)) {
+            setAmount(v);
+            setSelectedPct(null);
+          }
         }}
         selectedPct={selectedPct}
         onPercent={handlePercent}
