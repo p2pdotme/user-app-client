@@ -1366,6 +1366,7 @@ export const en = {
     SWAP_TXN_NOT_CREATED: "Swap transaction not created",
     SWAP_INITIATED_SUCCESS: "Swap initiated successfully",
     SWAP_INSUFFICIENT_BALANCE: "Insufficient {{token}} balance",
+    SWAP_EXCEEDS_LIMIT: "Max {{amount}} {{token}} per swap",
     SWAP_NUMBER: "Swap #{{id}}",
     SWAP_USER_TX: "User Tx",
     SWAP_EST_DELIVERY: "Est. delivery",

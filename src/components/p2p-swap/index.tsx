@@ -18,6 +18,7 @@ import {
   useP2PBalance,
   useP2PSwapQuote,
   useP2PSwap,
+  useP2PSwapInfo,
   useUSDCBalance,
   useP2PSwapHistory,
 } from "@/hooks";
@@ -212,6 +213,7 @@ export const P2PSwapForm = ({
     amount,
   );
   const { executeSwap, isSwapping } = useP2PSwap(direction, amount);
+  const { usdcLimit, p2pLimit } = useP2PSwapInfo();
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
@@ -224,8 +226,11 @@ export const P2PSwapForm = ({
     : p2pBalance;
   const outputSymbol = isUsdcToP2P ? "P2P" : "USDC";
   const fromSymbol = isUsdcToP2P ? "USDC" : "P2P";
+  const swapLimit = isUsdcToP2P ? usdcLimit : p2pLimit;
   const isInsufficientBalance =
     balance !== null && hasAmount && Number(amount) > balance;
+  const isOverLimit =
+    swapLimit !== null && hasAmount && Number(amount) > swapLimit;
 
   const handlePercent = (pct: number) => {
     if (balance === null) return;
@@ -324,6 +329,7 @@ export const P2PSwapForm = ({
       <Button
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
         disabled={
+          isOverLimit ||
           !hasAmount ||
           isQuoteLoading ||
           !outputAmount ||
@@ -337,6 +343,11 @@ export const P2PSwapForm = ({
             <Loader2 className="size-4 animate-spin" />
             {t("SWAPPING")}
           </span>
+        ) : isOverLimit ? (
+          t("SWAP_EXCEEDS_LIMIT", {
+            amount: swapLimit,
+            token: fromSymbol,
+          })
         ) : isInsufficientBalance ? (
           t("SWAP_INSUFFICIENT_BALANCE", { token: fromSymbol })
         ) : (

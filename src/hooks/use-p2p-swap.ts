@@ -4,7 +4,7 @@ import { parseUnits, formatUnits } from "viem";
 import {
   fetchQuoteUsdcToP2P,
   fetchQuoteP2PToUsdc,
-  fetchCompanyAddresses,
+  fetchInfo,
   initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
   claimRefund,
@@ -17,6 +17,30 @@ import { Address } from "thirdweb";
 
 const USDC_DECIMALS = 6;
 const P2P_DECIMALS = 6;
+
+export function useP2PSwapInfo() {
+  const query = useQuery({
+    queryKey: ["p2p-swap", "info"],
+    queryFn: fetchInfo,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const limits = query.data?.limits;
+  const usdcLimit = limits
+    ? Number(formatUnits(BigInt(limits.usdc), USDC_DECIMALS))
+    : null;
+  const p2pLimit = limits
+    ? Number(formatUnits(BigInt(limits.p2p), P2P_DECIMALS))
+    : null;
+
+  return {
+    info: query.data ?? null,
+    usdcLimit,
+    p2pLimit,
+    isInfoLoading: query.isLoading,
+    isInfoError: query.isError,
+  };
+}
 
 export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
   const [debouncedAmount, setDebouncedAmount] = useState(amount);
@@ -67,8 +91,8 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
     mutationFn: async () => {
       if (!account) throw new Error("Wallet not connected");
 
-      const companyAddresses = await fetchCompanyAddresses();
-      const companyBaseAddress = companyAddresses.base as Address;
+      const info = await fetchInfo();
+      const companyBaseAddress = info.addresses.base as Address;
 
       let txnHash: string;
 

@@ -1397,6 +1397,7 @@ export const pt = {
     SWAP_HISTORY: "Histórico de Swaps",
     SWAP_INITIATED_SUCCESS: "Swap iniciado com sucesso",
     SWAP_INSUFFICIENT_BALANCE: "Saldo insuficiente de {{token}}",
+    SWAP_EXCEEDS_LIMIT: "Máx {{amount}} {{token}} por swap",
     SWAP_NUMBER: "Swap #{{id}}",
     SWAP_USER_TX: "Tx do Usuário",
     SWAP_EST_DELIVERY: "Entrega estimada",

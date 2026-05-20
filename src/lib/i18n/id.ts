@@ -1394,6 +1394,7 @@ export const id = {
     SWAP_HISTORY: "Riwayat Swap",
     SWAP_INITIATED_SUCCESS: "Swap berhasil dimulai",
     SWAP_INSUFFICIENT_BALANCE: "Saldo {{token}} tidak mencukupi",
+    SWAP_EXCEEDS_LIMIT: "Maks {{amount}} {{token}} per swap",
     SWAP_NUMBER: "Swap #{{id}}",
     SWAP_USER_TX: "Tx Pengguna",
     SWAP_EST_DELIVERY: "Perkiraan pengiriman",

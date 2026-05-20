@@ -1334,6 +1334,7 @@ export const hi = {
     SWAP_HISTORY: "स्वैप इतिहास",
     SWAP_INITIATED_SUCCESS: "स्वैप सफलतापूर्वक शुरू हो गया",
     SWAP_INSUFFICIENT_BALANCE: "अपर्याप्त {{token}} बैलेंस",
+    SWAP_EXCEEDS_LIMIT: "प्रति स्वैप अधिकतम {{amount}} {{token}}",
     SWAP_NUMBER: "स्वैप #{{id}}",
     SWAP_USER_TX: "उपयोगकर्ता Tx",
     SWAP_EST_DELIVERY: "अनुमानित डिलीवरी",

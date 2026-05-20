@@ -45,11 +45,15 @@ export type QuoteP2PToUsdcResponse = z.infer<
 
 // ─── Response Schemas ─────────────────────────────────────────────────────────
 
-export const CompanyAddressesSchema = z.object({
+export const InfoSchema = z.object({
   status: z.literal("ok"),
   addresses: z.object({
     base: z.string(),
     solana: z.string(),
+  }),
+  limits: z.object({
+    usdc: z.string(),
+    p2p: z.string(),
   }),
 });
 
@@ -58,9 +62,9 @@ export const InitiateSwapResponseSchema = z.object({
   swapId: z.number(),
 });
 
-export type CompanyAddresses = z.infer<
-  typeof CompanyAddressesSchema
->["addresses"];
+export type Info = z.infer<typeof InfoSchema>;
+export type CompanyAddresses = Info["addresses"];
+export type SwapLimits = Info["limits"];
 export type InitiateSwapResponse = z.infer<typeof InitiateSwapResponseSchema>;
 
 // ─── User Swap History ────────────────────────────────────────────────────────
@@ -213,9 +217,9 @@ export async function fetchQuoteP2PToUsdc(
   return QuoteP2PToUsdcResponseSchema.parse(json);
 }
 
-export async function fetchCompanyAddresses(): Promise<CompanyAddresses> {
-  const json = await fetchJson(`${BASE_URL}/api/company/addresses`);
-  return CompanyAddressesSchema.parse(json).addresses;
+export async function fetchInfo(): Promise<Info> {
+  const json = await fetchJson(`${BASE_URL}/api/info`);
+  return InfoSchema.parse(json);
 }
 
 export async function initiateUsdcToP2PSwap(
