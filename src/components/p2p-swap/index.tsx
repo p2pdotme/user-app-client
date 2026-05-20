@@ -1,4 +1,10 @@
-import { ArrowUpDown, Clock, Loader2, RefreshCw } from "lucide-react";
+import {
+  ArrowUpDown,
+  Clock,
+  Loader2,
+  RefreshCw,
+  SendHorizonal,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,6 +22,7 @@ import {
   useP2PSwapHistory,
 } from "@/hooks";
 import { SwapCard } from "@/pages/p2p-swap/history";
+import { SendP2PDrawer } from "./send-p2p-drawer";
 
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
@@ -130,7 +137,9 @@ export function ToPanel({
         </div>
         <div className="flex items-center gap-3">
           <div className="flex-1">
-            {hasAmount && isLoading && <Skeleton className="h-9 w-32 bg-primary/30" />}
+            {hasAmount && isLoading && (
+              <Skeleton className="h-9 w-32 bg-primary/30" />
+            )}
             {hasAmount && isError && (
               <p className="font-bold text-2xl text-destructive">—</p>
             )}
@@ -292,6 +301,7 @@ export const P2PSwapForm = ({
           size="icon"
           className="relative z-10 size-9 rounded-full border-border bg-background shadow-sm hover:bg-background"
           onClick={toggleDirection}
+          disabled={isSwapping}
         >
           <motion.div
             key={direction}
@@ -439,14 +449,25 @@ export const P2PSwapMain = () => {
           ))}
         </div>
       )}
-      <button
-        type="button"
-        onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
-        className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
-      >
-        <Clock className="size-4" />
-        {t("SWAP_HISTORY")}
-      </button>
+      <div className="mt-2 grid grid-cols-2 gap-2">
+        <SendP2PDrawer>
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
+          >
+            <SendHorizonal className="size-4" />
+            {t("SEND_P2P")}
+          </button>
+        </SendP2PDrawer>
+        <button
+          type="button"
+          onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
+        >
+          <Clock className="size-4" />
+          {t("SWAP_HISTORY")}
+        </button>
+      </div>
     </>
   );
 };
