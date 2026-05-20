@@ -1208,6 +1208,10 @@ export const pt = {
     REFERRED: "Indicados",
     REFER_AND_EARN: "Indique & Ganhe",
     P2P_SWAP: "Troca P2P",
+    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
+    P2P_SWAP_BANNER_TITLE: "Troque P2P e USDC",
+    P2P_SWAP_BANNER_DESCRIPTION:
+      "Trocas instantâneas, direto da sua carteira.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Compartilhe seu link de indicação com amigos e ganhe {{referralRewardPercentage}}% toda vez que eles negociarem.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:

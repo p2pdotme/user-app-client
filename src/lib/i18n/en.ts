@@ -1184,6 +1184,10 @@ export const en = {
     REFERRED: "Referred",
     REFER_AND_EARN: "Refer & Earn",
     P2P_SWAP: "P2P Swap",
+    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
+    P2P_SWAP_BANNER_TITLE: "Swap P2P & USDC",
+    P2P_SWAP_BANNER_DESCRIPTION:
+      "Instant swaps, right from your wallet.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Share your referral link with friends and earn {{referralRewardPercentage}}% every time they trade.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:

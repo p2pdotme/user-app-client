@@ -1224,6 +1224,10 @@ export const es = {
     REFERRED: "Referido",
     REFER_AND_EARN: "Referir y Ganar",
     P2P_SWAP: "Intercambio P2P",
+    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
+    P2P_SWAP_BANNER_TITLE: "Intercambia P2P y USDC",
+    P2P_SWAP_BANNER_DESCRIPTION:
+      "Intercambios instantáneos, desde tu billetera.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Comparte tu enlace de referido con amigos y gana un {{referralRewardPercentage}}% cada vez que operen.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
