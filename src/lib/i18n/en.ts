@@ -1383,7 +1383,7 @@ export const en = {
     SWAP_STEP_WORMHOLE: "Wormhole (Bridge)",
     SWAP_CLAIM_REFUND: "Claim Refund",
     SWAP_REFUNDED: "Refunded",
-    SWAP_REFUND_SUCCESS: "Refund sent successfully",
+    SWAP_REFUND_SUCCESS: "Refund initiated successfully, you will get your refund in sometime.",
     SWAP_REFUND_ALREADY_CLAIMED: "Refund already claimed",
     INSUFFICIENT_P2P_BALANCE: "You don't have enough $P2P tokens",
     SEND_P2P: "Send P2P",
