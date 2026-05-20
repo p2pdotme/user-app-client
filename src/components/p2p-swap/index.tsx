@@ -30,6 +30,7 @@ import { cn, truncateAmount } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { formatUnits } from "viem";
 import type { SwapDirection } from "@/core/p2p-swap";
+import { getBackendErrorKey } from "@/core/p2p-swap";
 
 export type { SwapDirection } from "@/core/p2p-swap";
 
@@ -253,13 +254,9 @@ export const P2PSwapForm = ({
         setTimeout(() => onSwapSuccess?.(), 2000);
       },
       onError: (error) => {
-        const message =
-          error instanceof Error &&
-          error.message &&
-          !error.message.trimStart().startsWith("[")
-            ? error.message
-            : t("SOMETHING_WENT_WRONG");
-        toast.error(message);
+        const raw = error instanceof Error ? error.message : "";
+        const key = raw ? getBackendErrorKey(raw) : undefined;
+        toast.error(key ? t(key) : raw || t("SOMETHING_WENT_WRONG"));
       },
     });
   };

@@ -13,6 +13,7 @@ import type {
   RangoStep,
   WormholeStep,
 } from "@/core/p2p-swap";
+import { getBackendErrorKey } from "@/core/p2p-swap";
 
 function CopyHash({ value }: { value: string }) {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ function CopyHash({ value }: { value: string }) {
 }
 
 function StatusBadge({ status }: { status: string }) {
+  const { t } = useTranslation();
   const colorMap: Record<string, string> = {
     completed: "bg-green-500/15 text-green-600 dark:text-green-400",
     success: "bg-green-500/15 text-green-600 dark:text-green-400",
@@ -45,6 +47,7 @@ function StatusBadge({ status }: { status: string }) {
   };
   const color =
     colorMap[status.toLowerCase()] ?? "bg-muted text-muted-foreground";
+  const label = t(`P2P_SWAP_STATUS_${status.toUpperCase()}`, { defaultValue: status });
   return (
     <span
       className={cn(
@@ -52,7 +55,7 @@ function StatusBadge({ status }: { status: string }) {
         color,
       )}
     >
-      {status}
+      {label}
     </span>
   );
 }
@@ -198,11 +201,9 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
 
   useEffect(() => {
     if (isClaimError && claimError) {
-      toast.error(
-        claimError instanceof Error && claimError.message
-          ? claimError.message
-          : t("SOMETHING_WENT_WRONG"),
-      );
+      const raw = claimError instanceof Error ? claimError.message : "";
+      const key = raw ? getBackendErrorKey(raw) : undefined;
+      toast.error(key ? t(key) : raw || t("SOMETHING_WENT_WRONG"));
       resetClaim();
     }
   }, [isClaimError, claimError, resetClaim, t]);
