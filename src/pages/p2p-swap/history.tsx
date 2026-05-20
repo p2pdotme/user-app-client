@@ -300,10 +300,16 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
         )}
 
       {/* Refund section */}
-      {swap.refund?.status === "completed" ? (
+      {swap.refundRequest?.status === "settled" ? (
         <div className="mt-3 border-t border-border/50 pt-3">
           <div className="flex items-center justify-center gap-1.5 rounded-xl bg-green-500/10 px-3 py-2 text-xs font-medium text-green-600 dark:text-green-400">
             {t("SWAP_REFUNDED")}
+          </div>
+        </div>
+      ) : swap.refundRequestRaised ? (
+        <div className="mt-3 border-t border-border/50 pt-3">
+          <div className="flex items-center justify-center gap-1.5 rounded-xl bg-amber-500/10 px-3 py-2 text-center text-xs font-medium text-amber-600 dark:text-amber-400">
+            {t("SWAP_REFUND_REQUESTED")}
           </div>
         </div>
       ) : swap.refundAllowed ? (

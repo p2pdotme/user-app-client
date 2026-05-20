@@ -125,7 +125,18 @@ export const RefundRowSchema = z.object({
   updatedAt: z.string(),
 });
 
+export const RefundRequestSchema = z.object({
+  id: z.number(),
+  userAddress: z.string(),
+  claimId: z.number(),
+  status: z.enum(["pending", "settled"]),
+  raisedAt: z.string(),
+  settledAt: z.string().nullable(),
+  createdAt: z.string(),
+});
+
 export type RefundRow = z.infer<typeof RefundRowSchema>;
+export type RefundRequest = z.infer<typeof RefundRequestSchema>;
 
 export const SwapRecordSchema = z.object({
   id: z.number(),
@@ -139,9 +150,10 @@ export const SwapRecordSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   completedAt: z.string().nullable(),
-  estimatedCompletedAt: z.string().nullable().optional(),
-  refund: RefundRowSchema.nullable(),
+  estimatedCompletedAt: z.string().nullable(),
   refundAllowed: z.boolean(),
+  refundRequestRaised: z.boolean(),
+  refundRequest: RefundRequestSchema.nullable(),
   currentJob: z
     .object({
       jobType: z.string(),
@@ -246,7 +258,7 @@ export async function fetchUserSwaps(userId: string): Promise<SwapRecord[]> {
 const ClaimRefundResponseSchema = z.object({
   status: z.literal("pending"),
   message: z.string(),
-  refund: RefundRowSchema,
+  refund: RefundRowSchema.optional(),
 });
 
 export type ClaimRefundResponse = z.infer<typeof ClaimRefundResponseSchema>;
