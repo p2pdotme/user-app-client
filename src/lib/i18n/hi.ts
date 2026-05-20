@@ -1154,7 +1154,7 @@ export const hi = {
     REFER_AND_EARN: "रेफर करें और कमाएं",
     P2P_SWAP: "P2P स्वैप",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
-    P2P_SWAP_BANNER_TITLE: "P2P और USDC स्वैप करें",
+    P2P_SWAP_BANNER_TITLE: "P2P ⇄ USDC स्वैप करें",
     P2P_SWAP_BANNER_DESCRIPTION:
       "अपने वॉलेट से सीधे, तत्काल स्वैप।",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:

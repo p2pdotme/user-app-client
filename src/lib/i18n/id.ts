@@ -1205,7 +1205,7 @@ export const id = {
     REFER_AND_EARN: "Referensi & Dapatkan",
     P2P_SWAP: "Tukar P2P",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
-    P2P_SWAP_BANNER_TITLE: "Tukar P2P & USDC",
+    P2P_SWAP_BANNER_TITLE: "Tukar P2P ⇄ USDC",
     P2P_SWAP_BANNER_DESCRIPTION:
       "Tukar instan, langsung dari dompet Anda.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:

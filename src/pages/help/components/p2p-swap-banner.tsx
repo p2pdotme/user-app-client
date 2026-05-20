@@ -22,7 +22,7 @@ export function P2PSwapBanner() {
   };
 
   return (
-    <BannerItem bgColor="bg-gradient-to-br from-[#0a1f2e] via-[#142a4d] to-[#2a1652]">
+    <BannerItem bgColor="bg-gradient-to-br from-[#01030c] via-[#020618] to-[#04091f]">
       <style>{`
         @keyframes p2ps-orbit-a {
           0%   { transform: translate(0, 0)    scale(1);   }
