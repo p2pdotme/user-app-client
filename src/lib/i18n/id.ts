@@ -1203,7 +1203,7 @@ export const id = {
       "Anda hanya {{left}} dari {{target}} limit untuk membuka kunci Referensi & Dapatkan!",
     REFERRED: "Direferensikan",
     REFER_AND_EARN: "Referensi & Dapatkan",
-    P2P_SWAP: "P2P Swap",
+    P2P_SWAP: "Tukar P2P",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Bagikan link referensi Anda ke teman dan dapatkan {{referralRewardPercentage}}% setiap kali mereka trading.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:

@@ -1393,7 +1393,6 @@ export const en = {
     SEND_P2P_DESC: "Send $P2P tokens to any Base wallet address",
     SEND_P2P_BASE_ONLY_WARNING: "Only send to Base network addresses. Sending to other networks will result in permanent loss of funds.",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} sent successfully",
-    // ── P2P Swap statuses ────────────────────────────────────────────────────
     P2P_SWAP_STATUS_PENDING: "Pending",
     P2P_SWAP_STATUS_PROCESSING: "Processing",
     P2P_SWAP_STATUS_COMPLETED: "Completed",
@@ -1401,7 +1400,6 @@ export const en = {
     P2P_SWAP_STATUS_SUCCESS: "Success",
     P2P_SWAP_STATUS_REDEEMED: "Redeemed",
     P2P_SWAP_STATUS_ERROR: "Error",
-    // ── P2P Swap backend error messages ─────────────────────────────────────
     P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Internal server error",
     P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED: "Transaction hash and user address are required",
     P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED: "Amount query param is required",

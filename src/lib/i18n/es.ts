@@ -1223,7 +1223,7 @@ export const es = {
       "¡Estás a solo {{left}} de alcanzar tu límite de {{target}} para desbloquear Referir y Ganar!",
     REFERRED: "Referido",
     REFER_AND_EARN: "Referir y Ganar",
-    P2P_SWAP: "P2P Swap",
+    P2P_SWAP: "Intercambio P2P",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Comparte tu enlace de referido con amigos y gana un {{referralRewardPercentage}}% cada vez que operen.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
