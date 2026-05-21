@@ -318,7 +318,8 @@
   body {
     @apply bg-background text-foreground selection:bg-primary selection:text-foreground scroll-smooth font-sans;
   }
-  a {
+  a,
+  button {
     @apply cursor-pointer;
   }
   [role="button"],

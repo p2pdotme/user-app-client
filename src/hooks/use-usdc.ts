@@ -81,11 +81,15 @@ export function useUSDCBalance() {
     },
   });
 
+  const refetchUSDCBalance = () =>
+    queryClient.invalidateQueries({ queryKey: ["usdc", "balance", account?.address] });
+
   return {
     usdcBalance,
     isUsdcBalanceLoading,
     isUsdcBalanceError,
     usdcBalanceError,
     transferMutation,
+    refetchUSDCBalance,
   };
 }

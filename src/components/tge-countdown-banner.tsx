@@ -1,7 +1,7 @@
 import jupiterLogo from "@/assets/images/countdown/jupiterexchange-logo.svg";
 import "./tge-countdown-banner.css";
 
-const JUP_URL =
+export const JUP_URL =
   "https://jup.ag/tokens/P2PXup1ZvMpCDkJn3PQxtBYgxeCSfH39SFeurGSmeta";
 
 export const TgeCountdownBanner = () => (
