@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, ChevronUp, Clock, Copy, Loader2, RefreshCw } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  Copy,
+  Loader2,
+  RefreshCw,
+} from "lucide-react";
 import { toast } from "sonner";
 import { NonHomeHeader } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn, formatDateTime, formatTokenAmount, truncateAddress } from "@/lib/utils";
+import {
+  cn,
+  formatDateTime,
+  formatTokenAmount,
+  truncateAddress,
+} from "@/lib/utils";
 import { useP2PSwapHistory, useClaimRefund } from "@/hooks";
 import ASSETS from "@/assets";
 import type {
@@ -44,10 +56,13 @@ function StatusBadge({ status }: { status: string }) {
     error: "bg-destructive/15 text-destructive",
     processing: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
     pending: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
+    queued: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
   };
   const color =
     colorMap[status.toLowerCase()] ?? "bg-muted text-muted-foreground";
-  const label = t(`P2P_SWAP_STATUS_${status.toUpperCase()}`, { defaultValue: status });
+  const label = t(`P2P_SWAP_STATUS_${status.toUpperCase()}`, {
+    defaultValue: status,
+  });
   return (
     <span
       className={cn(
@@ -189,8 +204,14 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const isUsdcToP2P = swap.swapType === "usdc_to_p2p";
-  const { claimRefund, isClaiming, isClaimSuccess, isClaimError, claimError, resetClaim } =
-    useClaimRefund();
+  const {
+    claimRefund,
+    isClaiming,
+    isClaimSuccess,
+    isClaimError,
+    claimError,
+    resetClaim,
+  } = useClaimRefund();
 
   useEffect(() => {
     if (isClaimSuccess) {
@@ -254,7 +275,11 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
           <span className="font-semibold text-sm text-foreground">
             {t("SWAP_NUMBER", { id: swap.id })}
           </span>
-          <StatusBadge status={swap.status} />
+          <StatusBadge
+            status={
+              swap.status.toLowerCase() === "pending" ? "queued" : swap.status
+            }
+          />
         </div>
         <span className="text-muted-foreground text-xs">{date}</span>
       </div>
@@ -280,7 +305,9 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
         </div>
         {swap.userTxnHash && (
           <div className="shrink-0 text-right">
-            <p className="mb-0.5 text-muted-foreground text-xs">{t("SWAP_USER_TX")}</p>
+            <p className="mb-0.5 text-muted-foreground text-xs">
+              {t("SWAP_USER_TX")}
+            </p>
             <CopyHash value={swap.userTxnHash} />
           </div>
         )}

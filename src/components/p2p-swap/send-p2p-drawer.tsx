@@ -22,7 +22,13 @@ import { cn, truncateAmount } from "@/lib/utils";
 
 const P2P_DECIMALS = 6;
 
-export function SendP2PDrawer({ children }: { children: React.ReactNode }) {
+export function SendP2PDrawer({
+  children,
+  disabled = false,
+}: {
+  children: React.ReactNode;
+  disabled?: boolean;
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { account } = useThirdweb();
@@ -95,7 +101,14 @@ export function SendP2PDrawer({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <Drawer open={open} onOpenChange={setOpen} onClose={reset}>
+    <Drawer
+      open={open}
+      onOpenChange={(next) => {
+        if (next && disabled) return;
+        setOpen(next);
+      }}
+      onClose={reset}
+    >
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
@@ -132,6 +145,24 @@ export function SendP2PDrawer({ children }: { children: React.ReactNode }) {
                 parseFloat(amount) > balance && balance > 0 && "border-destructive",
               )}
             />
+            <div className="mt-1 flex items-center justify-end gap-1.5">
+              <button
+                type="button"
+                disabled={isLoading || balance <= 0}
+                onClick={() => setAmount(String(balance * 0.5))}
+                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                50%
+              </button>
+              <button
+                type="button"
+                disabled={isLoading || balance <= 0}
+                onClick={() => setAmount(String(balance))}
+                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {t("MAX")}
+              </button>
+            </div>
             {parseFloat(amount) > balance && balance > 0 && (
               <p className="px-1 text-destructive text-xs">
                 {t("INSUFFICIENT_P2P_BALANCE")}

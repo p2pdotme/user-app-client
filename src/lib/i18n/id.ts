@@ -1430,6 +1430,7 @@ export const id = {
     IN_PROGRESS: "Sedang Berlangsung",
     P2P_SWAP_STATUS_PENDING: "Menunggu",
     P2P_SWAP_STATUS_PROCESSING: "Memproses",
+    P2P_SWAP_STATUS_QUEUED: "Dalam antrian",
     P2P_SWAP_STATUS_COMPLETED: "Selesai",
     P2P_SWAP_STATUS_FAILED: "Gagal",
     P2P_SWAP_STATUS_SUCCESS: "Berhasil",

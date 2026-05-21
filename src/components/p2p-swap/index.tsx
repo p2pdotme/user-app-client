@@ -6,7 +6,7 @@ import {
   SendHorizonal,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -198,8 +198,10 @@ function P2PSolanaIcon() {
 
 export const P2PSwapForm = ({
   onSwapSuccess,
+  onSwappingChange,
 }: {
   onSwapSuccess?: () => void;
+  onSwappingChange?: (isSwapping: boolean) => void;
 }) => {
   const { t } = useTranslation();
   const [direction, setDirection] = useState<SwapDirection>("USDC_TO_P2P");
@@ -214,6 +216,10 @@ export const P2PSwapForm = ({
   );
   const { executeSwap, isSwapping } = useP2PSwap(direction, amount);
   const { usdcLimit, p2pLimit } = useP2PSwapInfo();
+
+  useEffect(() => {
+    onSwappingChange?.(isSwapping);
+  }, [isSwapping, onSwappingChange]);
 
   const isUsdcToP2P = direction === "USDC_TO_P2P";
   const hasAmount = !!amount && Number(amount) > 0;
@@ -293,7 +299,7 @@ export const P2PSwapForm = ({
         selectedPct={selectedPct}
         onPercent={handlePercent}
         balance={balance}
-        disabled={false}
+        disabled={isSwapping}
         showPctButtons={true}
         tokenBadge={fromBadge}
       />
@@ -358,7 +364,7 @@ export const P2PSwapForm = ({
   );
 };
 
-function P2PSwapBalances() {
+function P2PSwapBalances({ disabled = false }: { disabled?: boolean }) {
   const { usdcBalance, isUsdcBalanceLoading, refetchUSDCBalance } =
     useUSDCBalance();
   const { p2pBalanceRaw, isP2PBalanceLoading, refetchP2PBalance } =
@@ -417,7 +423,7 @@ function P2PSwapBalances() {
       <button
         type="button"
         onClick={handleRefresh}
-        disabled={isLoading}
+        disabled={isLoading || disabled}
         className="flex cursor-pointer items-center justify-center rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
       >
         <RefreshCw
@@ -434,6 +440,7 @@ export const P2PSwapMain = () => {
   const { swaps, refetch } = useP2PSwapHistory();
   const { refetchUSDCBalance } = useUSDCBalance();
   const { refetchP2PBalance } = useP2PBalance();
+  const [isSwapping, setIsSwapping] = useState(false);
 
   const handleSwapSuccess = () => {
     refetch();
@@ -447,8 +454,11 @@ export const P2PSwapMain = () => {
 
   return (
     <>
-      <P2PSwapBalances />
-      <P2PSwapForm onSwapSuccess={handleSwapSuccess} />
+      <P2PSwapBalances disabled={isSwapping} />
+      <P2PSwapForm
+        onSwapSuccess={handleSwapSuccess}
+        onSwappingChange={setIsSwapping}
+      />
       {processingSwaps.length > 0 && (
         <div className="mt-2 space-y-2">
           <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
@@ -460,10 +470,11 @@ export const P2PSwapMain = () => {
         </div>
       )}
       <div className="mt-2 grid grid-cols-2 gap-2">
-        <SendP2PDrawer>
+        <SendP2PDrawer disabled={isSwapping}>
           <button
             type="button"
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
+            disabled={isSwapping}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
           >
             <SendHorizonal className="size-4" />
             {t("SEND_P2P")}
@@ -471,8 +482,9 @@ export const P2PSwapMain = () => {
         </SendP2PDrawer>
         <button
           type="button"
+          disabled={isSwapping}
           onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
         >
           <Clock className="size-4" />
           {t("SWAP_HISTORY")}

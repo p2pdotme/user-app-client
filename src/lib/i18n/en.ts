@@ -1399,6 +1399,7 @@ export const en = {
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} sent successfully",
     P2P_SWAP_STATUS_PENDING: "Pending",
     P2P_SWAP_STATUS_PROCESSING: "Processing",
+    P2P_SWAP_STATUS_QUEUED: "In queue",
     P2P_SWAP_STATUS_COMPLETED: "Completed",
     P2P_SWAP_STATUS_FAILED: "Failed",
     P2P_SWAP_STATUS_SUCCESS: "Success",

@@ -1370,6 +1370,7 @@ export const hi = {
     IN_PROGRESS: "प्रगति में",
     P2P_SWAP_STATUS_PENDING: "लंबित",
     P2P_SWAP_STATUS_PROCESSING: "प्रोसेसिंग",
+    P2P_SWAP_STATUS_QUEUED: "कतार में",
     P2P_SWAP_STATUS_COMPLETED: "पूर्ण",
     P2P_SWAP_STATUS_FAILED: "विफल",
     P2P_SWAP_STATUS_SUCCESS: "सफल",

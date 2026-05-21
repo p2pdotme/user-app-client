@@ -1433,6 +1433,7 @@ export const pt = {
     IN_PROGRESS: "Em Andamento",
     P2P_SWAP_STATUS_PENDING: "Pendente",
     P2P_SWAP_STATUS_PROCESSING: "Processando",
+    P2P_SWAP_STATUS_QUEUED: "Em fila",
     P2P_SWAP_STATUS_COMPLETED: "Concluído",
     P2P_SWAP_STATUS_FAILED: "Falhou",
     P2P_SWAP_STATUS_SUCCESS: "Sucesso",
