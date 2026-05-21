@@ -43,6 +43,9 @@ interface ImportMetaEnv {
   // Activity Log / Fraud Engine
   readonly VITE_ACTIVITY_LOG_API_URL: string;
   readonly VITE_ACTIVITY_LOG_ENCRYPTION_KEY: string;
+
+  // P2P Swap URL
+  readonly VITE_P2P_SWAP_URL: string;
 }
 
 interface ImportMeta {

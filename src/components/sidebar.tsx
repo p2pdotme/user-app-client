@@ -1,6 +1,7 @@
 import {
   ArrowLeftCircle,
   ArrowRight,
+  ArrowUpDown,
   Key,
   LogOut,
   Mail,
@@ -56,6 +57,11 @@ const SidebarItems = () => {
       label: t("REFER_AND_EARN"),
       icon: <ASSETS.ICONS.SidebarReferral className="size-5 text-primary" />,
       to: INTERNAL_HREFS.REFERRAL,
+    },
+    {
+      label: t("P2P_SWAP"),
+      icon: <ArrowUpDown className="size-5 text-primary" />,
+      to: INTERNAL_HREFS.P2P_SWAP,
     },
     {
       label: t("HELP_AND_SUPPORT"),
