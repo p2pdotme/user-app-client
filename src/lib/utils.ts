@@ -4,7 +4,7 @@ import type { TFunction } from "i18next";
 import moment from "moment";
 import type { NavigateFunction } from "react-router";
 import { twMerge } from "tailwind-merge";
-import { type Abi, decodeEventLog } from "viem";
+import { type Abi, decodeEventLog, formatUnits } from "viem";
 import { z } from "zod";
 import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 import { deserializeCompoundPaymentId } from "./compound-payment-id";
@@ -12,6 +12,23 @@ import { CURRENCY_META_DATA, STORAGE_KEYS } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export function formatTokenAmount(raw: string | null, decimals = 6): string {
+  if (!raw) return "—";
+  return Number(formatUnits(BigInt(raw), decimals)).toLocaleString(undefined, {
+    maximumFractionDigits: decimals,
+    minimumFractionDigits: 0,
+  });
+}
+
+export function formatDateTime(dateStr: string | Date): string {
+  const d = new Date(dateStr);
+  return (
+    d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) +
+    ", " +
+    d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: true })
+  );
 }
 
 export function truncateAddress(address: string, showSidesUpto = 6) {
