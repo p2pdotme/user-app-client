@@ -1208,6 +1208,7 @@ export const pt = {
     REFERRED: "Indicados",
     REFER_AND_EARN: "Indique & Ganhe",
     P2P_SWAP: "Troca P2P",
+    P2P_SWAP_JUPITER_FOOTER: "Troque na Solana para obter tokens P2P instantaneamente",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
     P2P_SWAP_BANNER_TITLE: "Troque P2P ⇄ USDC",
     P2P_SWAP_BANNER_DESCRIPTION:

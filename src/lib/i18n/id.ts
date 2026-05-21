@@ -1204,6 +1204,7 @@ export const id = {
     REFERRED: "Direferensikan",
     REFER_AND_EARN: "Referensi & Dapatkan",
     P2P_SWAP: "Tukar P2P",
+    P2P_SWAP_JUPITER_FOOTER: "Tukar di Solana untuk mendapatkan token P2P secara instan",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
     P2P_SWAP_BANNER_TITLE: "Tukar P2P ⇄ USDC",
     P2P_SWAP_BANNER_DESCRIPTION:

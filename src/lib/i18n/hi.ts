@@ -1153,6 +1153,7 @@ export const hi = {
     REFERRED: "रेफर किया गया",
     REFER_AND_EARN: "रेफर करें और कमाएं",
     P2P_SWAP: "P2P स्वैप",
+    P2P_SWAP_JUPITER_FOOTER: "P2P टोकन तुरंत पाने के लिए Solana पर स्वैप करें",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
     P2P_SWAP_BANNER_TITLE: "P2P ⇄ USDC स्वैप करें",
     P2P_SWAP_BANNER_DESCRIPTION:
