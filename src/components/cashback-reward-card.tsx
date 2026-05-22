@@ -6,6 +6,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCashbackConfig, useOrderCashback } from "@/hooks";
 
 const COINSME_APP_URL = "https://app.coins.me";
+const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
+const LOTPOT_UTM_QUERY = "?utm_source=p2p-cashback";
 
 interface CashbackRewardCardProps {
   orderId: number;
@@ -27,6 +29,12 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
     return null;
   }
 
+  // Branch on token: USDC cashback routes to LotPot, cbBTC routes to Coins.me.
+  // The Diamond writes the cashback token address into orderCashback so the
+  // frontend can distinguish without any extra config.
+  const isLotpotCashback =
+    (orderCashback?.tokenSymbol ?? "").toUpperCase() === "USDC";
+
   const cashbackPercentagePercent =
     cashbackConfig?.cashbackPercentagePercent ?? 0;
   const formattedCashbackPercentage =
@@ -38,14 +46,23 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
       : "0";
 
   const description = orderCashback?.hasCashback
-    ? t("CASHBACK_REWARD_DESCRIPTION", {
-        tokenSymbol: orderCashback.tokenSymbol ?? t("TOKEN"),
-        percentage: formattedCashbackPercentage,
-      })
+    ? isLotpotCashback
+      ? t("LOTPOT_CASHBACK_DESCRIPTION", {
+          percentage: formattedCashbackPercentage,
+        })
+      : t("CASHBACK_REWARD_DESCRIPTION", {
+          tokenSymbol: orderCashback.tokenSymbol ?? t("TOKEN"),
+          percentage: formattedCashbackPercentage,
+        })
     : "";
 
   const handleOpenCoinsMe = () => {
     window.open(COINSME_APP_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleOpenLotpot = () => {
+    const base = import.meta.env.VITE_LOTPOT_URL ?? LOTPOT_FALLBACK_URL;
+    window.open(`${base}${LOTPOT_UTM_QUERY}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -63,7 +80,9 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
               <div className="flex items-center gap-3">
                 <Gift className="size-5 text-primary" />
                 <p className="font-semibold text-primary text-xs uppercase tracking-[0.3em]">
-                  {t("CASHBACK_REWARD_TITLE")}
+                  {isLotpotCashback
+                    ? t("LOTPOT_CASHBACK_TITLE")
+                    : t("CASHBACK_REWARD_TITLE")}
                 </p>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -75,9 +94,11 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
                 variant="default"
                 size="lg"
                 className="gap-2 rounded-full px-6"
-                onClick={handleOpenCoinsMe}>
+                onClick={
+                  isLotpotCashback ? handleOpenLotpot : handleOpenCoinsMe
+                }>
                 <ExternalLink className="size-4" />
-                {t("OPEN_COINS_ME")}
+                {isLotpotCashback ? t("OPEN_LOTPOT") : t("OPEN_COINS_ME")}
               </Button>
             </div>
           </div>

@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { CashbackRewardCard } from "@/components/cashback-reward-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -180,6 +181,10 @@ export function BuyCompleted({ order }: { order: Order }) {
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
+
+        {/* LotPot Cashback Card — only renders if the order earned USDC
+            credit (i.e., the protocol-side cashback feature is active). */}
+        <CashbackRewardCard orderId={Number(order.id)} />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">
           <CardContent>
