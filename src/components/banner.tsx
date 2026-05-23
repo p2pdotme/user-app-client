@@ -108,14 +108,14 @@ export function Banner({
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
+          {/* Perps Cashback Banner */}
+          <CarouselItem>
+            <PerpsBanner />
+          </CarouselItem>
+
           {/* P2P Swap Banner */}
           <CarouselItem>
             <P2PSwapBanner />
-          </CarouselItem>
-
-          {/* Perps / Leverage Trading Banner */}
-          <CarouselItem>
-            <PerpsBanner />
           </CarouselItem>
 
           {/* Unfreeze.pro Banner — INR users only */}
