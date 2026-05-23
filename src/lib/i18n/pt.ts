@@ -1085,12 +1085,12 @@ export const pt = {
     PAY_VIA_UPI_AND_CONFIRM: "Pague via UPI e confirme",
     PAY_WITHIN: "Pague Dentro",
     PC: "PC",
-    PERPS_BANNER_BEAR: "Bear?",
-    PERPS_BANNER_BULL: "Bull?",
-    PERPS_BANNER_CTA: "Escolha um lado",
+    PERPS_BANNER_BEAR: "Perdeu?",
+    PERPS_BANNER_BULL: "Ganhou?",
+    PERPS_BANNER_CTA: "Negociar Perps",
     PERPS_BANNER_DESCRIPTION:
-      "Long e Short em OURO, BTC, ETH e SOL no Telegram pela sua conta P2P.me.",
-    PERPS_BANNER_YES: "Sim.",
+      "Ganhando ou perdendo, você sempre recebe 10% de cashback.",
+    PERPS_BANNER_YES: "10% de Cashback.",
     PER_TRANSACTION_LIMITS: "Limites por Transação",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Este é o máximo de USDC que você pode comprar, vender ou pagar em uma transação. Aumente-o para fazer transações maiores.",
