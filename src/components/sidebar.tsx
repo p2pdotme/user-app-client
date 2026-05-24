@@ -14,6 +14,7 @@ import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
 import { useProfiles } from "thirdweb/react";
+import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { ConnectionStatusDrawer } from "@/components/connection-status";
 import { Button } from "@/components/ui/button";
@@ -32,11 +33,47 @@ import {
 } from "@/components/ui/sheet";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { thirdwebClient } from "@/core/adapters/thirdweb";
-import { useThirdweb } from "@/hooks";
+import { useP2PBalance, useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
 import { SocialLinks } from "./social-links";
 import { TextLogo } from "./text-logo";
 import { VersionBadge } from "./version-badge";
+
+const P2PTokenButton = () => {
+  const navigate = useNavigate();
+  const { p2pBalanceRaw } = useP2PBalance();
+  const balance =
+    p2pBalanceRaw != null
+      ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6)).toFixed(3)
+      : "0";
+
+  return (
+    <SheetClose asChild>
+      <button
+        type="button"
+        onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP)}
+        className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+            <ASSETS.ICONS.Logo className="size-5 text-primary" />
+            <ASSETS.ICONS.NetworkBase className="-right-0.5 -bottom-0.5 absolute size-3 rounded-full border border-background bg-background" />
+          </div>
+          <div className="flex flex-col items-start">
+            <p className="font-semibold text-sm">$P2P Token</p>
+            <p className="text-muted-foreground text-xs">
+              Send · Receive · Swap
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <p className="font-semibold text-sm">{balance}</p>
+          <ArrowRight className="size-4 text-primary transition-transform group-hover:translate-x-0.5" />
+        </div>
+      </button>
+    </SheetClose>
+  );
+};
 
 const SidebarItems = () => {
   const { t } = useTranslation();
@@ -58,11 +95,11 @@ const SidebarItems = () => {
       icon: <ASSETS.ICONS.SidebarReferral className="size-5 text-primary" />,
       to: INTERNAL_HREFS.REFERRAL,
     },
-    {
-      label: t("P2P_SWAP"),
-      icon: <ArrowUpDown className="size-5 text-primary" />,
-      to: INTERNAL_HREFS.P2P_SWAP,
-    },
+    // {
+    //   label: t("P2P_SWAP"),
+    //   icon: <ArrowUpDown className="size-5 text-primary" />,
+    //   to: INTERNAL_HREFS.P2P_SWAP,
+    // },
     {
       label: t("HELP_AND_SUPPORT"),
       icon: <ASSETS.ICONS.ActionSupport className="size-5 text-primary" />,
@@ -77,7 +114,8 @@ const SidebarItems = () => {
     <Link
       to={item.to}
       key={item.label}
-      className="flex cursor-pointer items-center justify-between">
+      className="flex cursor-pointer items-center justify-between"
+    >
       <div className="flex items-center gap-4">
         {item.icon}
         <p className="font-medium">{item.label}</p>
@@ -221,7 +259,7 @@ export function Sidebar({ children }: { children: ReactNode }) {
         </ScrollArea>
 
         {/* Fixed Footer */}
-        <SheetFooter className="flex-shrink-0 border-t p-4">
+        <SheetFooter className="flex-shrink-0">
           <div className="flex w-full flex-col gap-4">
             {/* Promotional Card */}
             {/* <Card
@@ -236,6 +274,8 @@ export function Sidebar({ children }: { children: ReactNode }) {
                 </CardDescription>
               </CardHeader>
             </Card> */}
+            <P2PTokenButton />
+            <div className="border-t" />
             {/* User Info Card */}
             <Card className="w-full border-none bg-primary/10 py-4 shadow-none">
               <CardContent className="flex items-center gap-2">
@@ -261,7 +301,8 @@ export function Sidebar({ children }: { children: ReactNode }) {
                   }}
                   variant="outline"
                   size="icon"
-                  className="border-none bg-primary/20">
+                  className="border-none bg-primary/20"
+                >
                   <LogOut className="size-5 text-primary" />
                 </Button>
               </div>
@@ -274,7 +315,8 @@ export function Sidebar({ children }: { children: ReactNode }) {
               <Link
                 to={URLS.TERMS_AND_CONDITIONS}
                 target="_blank"
-                className="cursor-pointer font-light text-xs">
+                className="cursor-pointer font-light text-xs"
+              >
                 {t("TERMS_AND_CONDITIONS")}
               </Link>
             </div>

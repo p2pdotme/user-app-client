@@ -1,22 +1,95 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { parseUnits, formatUnits } from "viem";
+import type { Address } from "thirdweb";
+import { erc20Abi, parseUnits, formatUnits } from "viem";
 import {
   fetchQuoteUsdcToP2P,
   fetchQuoteP2PToUsdc,
   fetchInfo,
+  fetchP2PTokenInfo,
+  fetchUserSwaps,
   initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
   claimRefund,
 } from "@/core/p2p-swap";
-import { transferUSDC, transferP2PToken } from "@/core/adapters/thirdweb";
 import type { SwapDirection } from "@/core/p2p-swap";
+import {
+  transferUSDC,
+  transferP2PToken,
+  viemPublicClient,
+} from "@/core/adapters/thirdweb";
 import { truncateAmount } from "@/lib/utils";
 import { useThirdweb } from "./use-thirdweb";
-import { Address } from "thirdweb";
 
 const USDC_DECIMALS = 6;
 const P2P_DECIMALS = 6;
+
+const P2P_TOKEN_ADDRESS =
+  "0x75a8FF75a4f224947A6315b8dab5D5a81FE2f550" as Address;
+
+// ─── Balance ──────────────────────────────────────────────────────────────────
+
+export function useP2PBalance() {
+  const { account } = useThirdweb();
+  const queryClient = useQueryClient();
+
+  const userAddress = account?.address as Address | undefined;
+
+  const query = useQuery({
+    queryKey: ["p2p", "balance", userAddress],
+    enabled: !!userAddress,
+    staleTime: 10_000,
+    refetchInterval: 30_000,
+    queryFn: async () => {
+      const [balance, decimals] = await Promise.all([
+        viemPublicClient.readContract({
+          address: P2P_TOKEN_ADDRESS,
+          abi: erc20Abi,
+          functionName: "balanceOf",
+          args: [userAddress as Address],
+        }),
+        viemPublicClient.readContract({
+          address: P2P_TOKEN_ADDRESS,
+          abi: erc20Abi,
+          functionName: "decimals",
+        }),
+      ]);
+
+      return { raw: balance, decimals };
+    },
+  });
+
+  const refetch = () =>
+    queryClient.invalidateQueries({
+      queryKey: ["p2p", "balance", userAddress],
+    });
+
+  return {
+    p2pBalanceRaw: query.data?.raw ?? null,
+    isP2PBalanceLoading: query.isLoading,
+    refetchP2PBalance: refetch,
+  };
+}
+
+// ─── Token Info (Jupiter metadata via backend) ────────────────────────────────
+
+export function useP2PTokenInfo() {
+  const query = useQuery({
+    queryKey: ["p2p", "token-info"],
+    queryFn: fetchP2PTokenInfo,
+    staleTime: 60_000,
+    refetchInterval: 60_000,
+  });
+
+  return {
+    tokenInfo: query.data ?? null,
+    isTokenInfoLoading: query.isLoading,
+    isTokenInfoError: query.isError,
+    refetchTokenInfo: query.refetch,
+  };
+}
+
+// ─── Swap Info (limits + company addresses) ───────────────────────────────────
 
 export function useP2PSwapInfo() {
   const query = useQuery({
@@ -42,6 +115,8 @@ export function useP2PSwapInfo() {
   };
 }
 
+// ─── Swap Quote ───────────────────────────────────────────────────────────────
+
 export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
   const [debouncedAmount, setDebouncedAmount] = useState(amount);
 
@@ -55,8 +130,8 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
   const outputDecimals = isUsdcToP2P ? P2P_DECIMALS : USDC_DECIMALS;
 
   const parsedAmount = Number(debouncedAmount);
-  const isEnabled = !!debouncedAmount && !Number.isNaN(parsedAmount) && parsedAmount > 0;
-
+  const isEnabled =
+    !!debouncedAmount && !Number.isNaN(parsedAmount) && parsedAmount > 0;
 
   const query = useQuery({
     queryKey: ["p2p-swap", "quote", direction, debouncedAmount],
@@ -77,12 +152,16 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
 
   return {
     quote: query.data ?? null,
-    outputAmount: truncateAmount(Number(formatUnits(BigInt(rawOutput || 0), outputDecimals))),
+    outputAmount: truncateAmount(
+      Number(formatUnits(BigInt(rawOutput || 0), outputDecimals)),
+    ),
     isQuoteLoading: query.isLoading || query.isFetching,
     isQuoteError: query.isError,
     quoteError: query.error,
   };
 }
+
+// ─── Execute Swap ─────────────────────────────────────────────────────────────
 
 export function useP2PSwap(direction: SwapDirection, amount: string) {
   const { account } = useThirdweb();
@@ -98,7 +177,10 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
 
       if (direction === "USDC_TO_P2P") {
         const result = await transferUSDC(
-          { address: companyBaseAddress, amount: parseUnits(amount, USDC_DECIMALS) },
+          {
+            address: companyBaseAddress,
+            amount: parseUnits(amount, USDC_DECIMALS),
+          },
           account,
         );
         if (result.isErr()) throw result.error;
@@ -106,7 +188,10 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
         return initiateUsdcToP2PSwap(txnHash, account.address);
       } else {
         const result = await transferP2PToken(
-          { address: companyBaseAddress, amount: parseUnits(amount, P2P_DECIMALS) },
+          {
+            address: companyBaseAddress,
+            amount: parseUnits(amount, P2P_DECIMALS),
+          },
           account,
         );
         if (result.isErr()) throw result.error;
@@ -126,6 +211,28 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
     resetSwap: mutation.reset,
   };
 }
+
+// ─── Swap History ─────────────────────────────────────────────────────────────
+
+export function useP2PSwapHistory() {
+  const { account } = useThirdweb();
+  const userId = account?.address;
+
+  const query = useQuery({
+    queryKey: ["p2p-swap", "history", userId],
+    enabled: !!userId,
+    queryFn: () => fetchUserSwaps(userId!),
+  });
+
+  return {
+    swaps: query.data ?? [],
+    isLoading: query.isLoading,
+    isError: query.isError,
+    refetch: query.refetch,
+  };
+}
+
+// ─── Refund Claim ─────────────────────────────────────────────────────────────
 
 export function useClaimRefund() {
   const mutation = useMutation({

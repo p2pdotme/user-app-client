@@ -1362,7 +1362,7 @@ export const hi = {
     SWAP_REFUND_REQUESTED: "रिफंड अनुरोध दर्ज किया गया — 24 घंटे के भीतर प्रोसेस होगा",
     SWAP_REFUND_ALREADY_CLAIMED: "रिफंड पहले ही दावा किया जा चुका है",
     INSUFFICIENT_P2P_BALANCE: "आपके पास पर्याप्त $P2P टोकन नहीं हैं",
-    SEND_P2P: "P2P भेजें",
+    SEND_P2P: "$P2P भेजें",
     SEND_P2P_DESC: "किसी भी Base वॉलेट पते पर $P2P टोकन भेजें",
     SEND_P2P_BASE_ONLY_WARNING: "केवल Base नेटवर्क पतों पर भेजें। अन्य नेटवर्क पर भेजने से फंड स्थायी रूप से खो जाएंगे।",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} सफलतापूर्वक भेजा गया",

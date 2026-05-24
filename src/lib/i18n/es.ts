@@ -1453,7 +1453,7 @@ export const es = {
     SWAP_REFUND_REQUESTED: "Solicitud de reembolso registrada — se procesará en 24 horas",
     SWAP_REFUND_ALREADY_CLAIMED: "El reembolso ya fue reclamado",
     INSUFFICIENT_P2P_BALANCE: "No tienes suficientes tokens $P2P",
-    SEND_P2P: "Enviar P2P",
+    SEND_P2P: "Enviar $P2P",
     SEND_P2P_DESC: "Envía tokens $P2P a cualquier dirección de billetera Base",
     SEND_P2P_BASE_ONLY_WARNING: "Solo envía a direcciones de la red Base. Enviar a otras redes resultará en pérdida permanente de fondos.",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} enviado exitosamente",

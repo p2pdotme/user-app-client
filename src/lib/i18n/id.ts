@@ -1422,7 +1422,7 @@ export const id = {
     SWAP_REFUND_REQUESTED: "Permintaan refund diajukan — akan diproses dalam 24 jam",
     SWAP_REFUND_ALREADY_CLAIMED: "Refund sudah diklaim",
     INSUFFICIENT_P2P_BALANCE: "Anda tidak memiliki cukup token $P2P",
-    SEND_P2P: "Kirim P2P",
+    SEND_P2P: "Kirim $P2P",
     SEND_P2P_DESC: "Kirim token $P2P ke alamat dompet Base mana saja",
     SEND_P2P_BASE_ONLY_WARNING: "Hanya kirim ke alamat jaringan Base. Mengirim ke jaringan lain akan mengakibatkan hilangnya dana secara permanen.",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} berhasil dikirim",

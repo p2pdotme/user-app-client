@@ -1393,7 +1393,7 @@ export const en = {
     SWAP_REFUND_REQUESTED: "Refund request raised — it will be processed within 24 hours",
     SWAP_REFUND_ALREADY_CLAIMED: "Refund already claimed",
     INSUFFICIENT_P2P_BALANCE: "You don't have enough $P2P tokens",
-    SEND_P2P: "Send P2P",
+    SEND_P2P: "Send $P2P",
     SEND_P2P_DESC: "Send $P2P tokens to any Base wallet address",
     SEND_P2P_BASE_ONLY_WARNING: "Only send to Base network addresses. Sending to other networks will result in permanent loss of funds.",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} sent successfully",
