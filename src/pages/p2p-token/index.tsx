@@ -1,5 +1,6 @@
 import {
   ArrowDownRight,
+  ArrowUpDown,
   ArrowUpRight,
   BadgeCheck,
   Copy,
@@ -9,12 +10,12 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
-import { P2PSwapMain } from "@/components/p2p-swap";
-import { SendP2PDrawer } from "@/components/p2p-swap/send-p2p-drawer";
+import { SendP2PDrawer } from "@/components/p2p-token/send-p2p-drawer";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -29,6 +30,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useP2PBalance, useP2PTokenInfo, useThirdweb } from "@/hooks";
 import { cn, truncateAddress } from "@/lib/utils";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { JUP_URL } from "@/components/tge-countdown-banner";
 
 
@@ -51,15 +53,15 @@ function ActionButton({
       type="button"
       disabled={disabled}
       className={cn(
-        "flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-primary/10 px-3 py-3 text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40",
+        "flex w-full cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl bg-primary/10 px-4 py-4 text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
       {...rest}
     >
-      <div className="flex size-8 items-center justify-center rounded-full bg-background text-primary">
+      <div className="flex size-9 items-center justify-center rounded-full bg-background text-primary">
         {icon}
       </div>
-      <span className="font-semibold text-sm">{label}</span>
+      <span className="font-semibold text-base">{label}</span>
     </button>
   );
 }
@@ -226,7 +228,7 @@ function TokenHoldingInfo() {
           <div className="flex items-baseline gap-2">
             <p className="font-bold text-4xl text-foreground tabular-nums tracking-tight">
               {balanceNum.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
+                minimumFractionDigits: 3,
                 maximumFractionDigits: 3,
               })}
             </p>
@@ -303,6 +305,7 @@ function TokenHoldingInfo() {
 // $P2P token landing page: holdings, send/receive actions, and Solana CTA.
 export function P2PToken() {
   const { account } = useThirdweb();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -322,7 +325,7 @@ export function P2PToken() {
         </div>
 
         {/* Actions */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           <SendP2PDrawer>
             <ActionButton
               icon={<SendHorizonal className="size-4" />}
@@ -330,6 +333,11 @@ export function P2PToken() {
             />
           </SendP2PDrawer>
           <ReceiveDrawer address={account?.address} />
+          <ActionButton
+            icon={<ArrowUpDown className="size-4" />}
+            label="Swap"
+            onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP)}
+          />
         </div>
 
         <SolanaTradeFooter />

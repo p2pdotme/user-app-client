@@ -10,9 +10,8 @@ import {
   fetchUserSwaps,
   initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
-  claimRefund,
 } from "@/core/p2p-swap";
-import type { SwapDirection } from "@/core/p2p-swap";
+import type { SwapDirection, SwapRecord } from "@/core/p2p-swap";
 import {
   transferUSDC,
   transferP2PToken,
@@ -136,6 +135,11 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
   const query = useQuery({
     queryKey: ["p2p-swap", "quote", direction, debouncedAmount],
     enabled: isEnabled,
+    retry: false,
+    staleTime: 30_000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
     queryFn: async () => {
       const amountBaseUnits = parseUnits(
         debouncedAmount.replace(/\.$/, ""),
@@ -149,15 +153,19 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
   });
 
   const rawOutput = query.data?.estimatedOutputAmount;
+  const isLowReserve =
+    query.isError && query.error instanceof Error && query.error.message === "LOW_RESERVE";
 
   return {
     quote: query.data ?? null,
-    outputAmount: truncateAmount(
-      Number(formatUnits(BigInt(rawOutput || 0), outputDecimals)),
-    ),
+    outputAmount: isLowReserve
+      ? "0"
+      : truncateAmount(Number(formatUnits(BigInt(rawOutput || 0), outputDecimals))),
     isQuoteLoading: query.isLoading || query.isFetching,
     isQuoteError: query.isError,
+    isLowReserve,
     quoteError: query.error,
+    refetchQuote: query.refetch,
   };
 }
 
@@ -221,31 +229,14 @@ export function useP2PSwapHistory() {
   const query = useQuery({
     queryKey: ["p2p-swap", "history", userId],
     enabled: !!userId,
+    refetchInterval: 15_000,
     queryFn: () => fetchUserSwaps(userId!),
   });
 
   return {
-    swaps: query.data ?? [],
+    swaps: query.data ?? ([] as SwapRecord[]),
     isLoading: query.isLoading,
     isError: query.isError,
     refetch: query.refetch,
-  };
-}
-
-// ─── Refund Claim ─────────────────────────────────────────────────────────────
-
-export function useClaimRefund() {
-  const mutation = useMutation({
-    mutationFn: (swapId: number) => claimRefund(swapId),
-  });
-
-  return {
-    claimRefund: mutation.mutate,
-    isClaiming: mutation.isPending,
-    claimData: mutation.data ?? null,
-    claimError: mutation.error,
-    isClaimError: mutation.isError,
-    isClaimSuccess: mutation.isSuccess,
-    resetClaim: mutation.reset,
   };
 }

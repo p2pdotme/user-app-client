@@ -18,7 +18,7 @@ export function P2PSwapBanner() {
       bannerName: "p2p_swap",
       location: "homescreen",
     });
-    navigate(INTERNAL_HREFS.P2P_SWAP);
+    navigate(INTERNAL_HREFS.P2P_TOKEN);
   };
 
   return (

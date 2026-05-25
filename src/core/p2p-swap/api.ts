@@ -59,7 +59,9 @@ export const InfoSchema = z.object({
 
 export const InitiateSwapResponseSchema = z.object({
   status: z.literal("ok"),
-  swapId: z.number(),
+  data: z.object({
+    swapId: z.number(),
+  }),
 });
 
 export type Info = z.infer<typeof InfoSchema>;
@@ -69,108 +71,19 @@ export type InitiateSwapResponse = z.infer<typeof InitiateSwapResponseSchema>;
 
 // ─── User Swap History ────────────────────────────────────────────────────────
 
-const JupiterStepSchema = z.object({
-  id: z.number().nullable(),
-  swapId: z.number().nullable(),
-  requestId: z.string().nullable(),
-  inputMint: z.string().nullable(),
-  outputMint: z.string().nullable(),
-  inputAmount: z.string().nullable(),
-  outputAmount: z.string().nullable(),
-  signature: z.string().nullable(),
-  status: z.string(),
-  createdAt: z.string().nullable(),
-  updatedAt: z.string().nullable(),
-});
-
-const RangoStepSchema = z.object({
-  id: z.number().nullable(),
-  swapId: z.number().nullable(),
-  requestId: z.string().nullable(),
-  fromChain: z.string().nullable(),
-  toChain: z.string().nullable(),
-  fromToken: z.string().nullable(),
-  toToken: z.string().nullable(),
-  inputAmount: z.string().nullable(),
-  outputAmount: z.string().nullable(),
-  txHash: z.string().nullable(),
-  status: z.string(),
-  finalStatus: z.string().nullable(),
-  createdAt: z.string().nullable(),
-  updatedAt: z.string().nullable(),
-});
-
-const WormholeStepSchema = z.object({
-  id: z.number().nullable(),
-  swapId: z.number().nullable(),
-  direction: z.string().nullable(),
-  amount: z.string().nullable(),
-  recipient: z.string().nullable(),
-  initiateTxHash: z.string().nullable(),
-  vaaId: z.string().nullable(),
-  redeemTxHash: z.string().nullable(),
-  status: z.string(),
-  createdAt: z.string().nullable(),
-  updatedAt: z.string().nullable(),
-});
-
-export const RefundRowSchema = z.object({
-  id: z.number(),
-  swapId: z.number(),
-  userId: z.string(),
-  tokenAddress: z.string(),
-  tokenLabel: z.string(),
-  amount: z.string(),
-  txnHash: z.string().nullable(),
-  status: z.string(),
-  error: z.string().nullable(),
-  completedAt: z.string().nullable(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-});
-
-export const RefundRequestSchema = z.object({
-  id: z.number(),
-  userAddress: z.string(),
-  claimId: z.number(),
-  status: z.enum(["pending", "settled"]),
-  raisedAt: z.string(),
-  settledAt: z.string().nullable(),
-  createdAt: z.string(),
-});
-
-export type RefundRow = z.infer<typeof RefundRowSchema>;
-export type RefundRequest = z.infer<typeof RefundRequestSchema>;
-
 export const SwapRecordSchema = z.object({
   id: z.number(),
-  userId: z.string(),
-  userTxnHash: z.string(),
+  userAddress: z.string(),
+  txnHash: z.string(),
   swapType: z.enum(["usdc_to_p2p", "p2p_to_usdc"]),
-  status: z.string(),
-  inputAmount: z.string(),
+  status: z.enum(["pending", "success", "failed"]),
+  inputAmount: z.string().nullable(),
   outputAmount: z.string().nullable(),
-  error: z.string().nullable(),
+  outputAmountTxnHash: z.string().nullable(),
+  refunded: z.boolean(),
+  rebalanced: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string(),
-  completedAt: z.string().nullable(),
-  estimatedCompletedAt: z.string().nullable(),
-  refundAllowed: z.boolean(),
-  refundRequestRaised: z.boolean(),
-  refundRequest: RefundRequestSchema.nullable(),
-  currentJob: z
-    .object({
-      jobType: z.string(),
-      status: z.string(),
-      attempts: z.number(),
-      error: z.string().nullable(),
-    })
-    .nullable(),
-  steps: z.object({
-    rango: z.array(RangoStepSchema),
-    jupiter: z.array(JupiterStepSchema),
-    wormhole: z.array(WormholeStepSchema),
-  }),
 });
 
 const UserSwapsResponseSchema = z.object({
@@ -179,9 +92,6 @@ const UserSwapsResponseSchema = z.object({
 });
 
 export type SwapRecord = z.infer<typeof SwapRecordSchema>;
-export type JupiterStep = z.infer<typeof JupiterStepSchema>;
-export type RangoStep = z.infer<typeof RangoStepSchema>;
-export type WormholeStep = z.infer<typeof WormholeStepSchema>;
 
 async function fetchJson(url: string): Promise<unknown> {
   if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
@@ -227,7 +137,7 @@ export async function initiateUsdcToP2PSwap(
   userAddress: string,
 ): Promise<InitiateSwapResponse> {
   if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
-  const res = await fetch(`${BASE_URL}/api/swap/usdc-to-p2p`, {
+  const res = await fetch(`${BASE_URL}/api/swap/usdc-to-p2p/v2`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ txnHash, userAddress }),
@@ -243,7 +153,7 @@ export async function initiateP2PToUsdcSwap(
   userAddress: string,
 ): Promise<InitiateSwapResponse> {
   if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
-  const res = await fetch(`${BASE_URL}/api/swap/p2p-to-usdc`, {
+  const res = await fetch(`${BASE_URL}/api/swap/p2p-to-usdc/v2`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ txnHash, userAddress }),
@@ -259,21 +169,3 @@ export async function fetchUserSwaps(userId: string): Promise<SwapRecord[]> {
   return UserSwapsResponseSchema.parse(json).swaps;
 }
 
-const ClaimRefundResponseSchema = z.object({
-  status: z.literal("pending"),
-  message: z.string(),
-  refund: RefundRowSchema.optional(),
-});
-
-export type ClaimRefundResponse = z.infer<typeof ClaimRefundResponseSchema>;
-
-export async function claimRefund(swapId: number): Promise<ClaimRefundResponse> {
-  if (!BASE_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
-  const res = await fetch(`${BASE_URL}/api/swap/refund/${swapId}`, {
-    method: "POST",
-  });
-  const json = await res.json();
-  if (!res.ok)
-    throw new Error(json?.message ?? `Refund failed: ${res.status}`);
-  return ClaimRefundResponseSchema.parse(json);
-}

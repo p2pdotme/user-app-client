@@ -51,7 +51,7 @@ const P2PTokenButton = () => {
     <SheetClose asChild>
       <button
         type="button"
-        onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP)}
+        onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN)}
         className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15"
       >
         <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ const P2PTokenButton = () => {
           </div>
           <div className="flex flex-col items-start">
             <p className="font-semibold text-sm">$P2P Token</p>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-muted-foreground text-xs whitespace-nowrap">
               Send · Receive · Swap
             </p>
           </div>
