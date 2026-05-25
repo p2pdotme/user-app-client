@@ -6,6 +6,14 @@ import { EVENTS } from "@/lib/analytics";
 
 const PERPS_URL = "https://perps.p2p.me";
 
+const FLOATING_CHIPS = [
+  { left: 14, delay: 0, dur: 4.8 },
+  { left: 32, delay: 1.6, dur: 5.4 },
+  { left: 52, delay: 0.8, dur: 4.4 },
+  { left: 72, delay: 2.4, dur: 5.0 },
+  { left: 88, delay: 1.2, dur: 4.6 },
+];
+
 export function PerpsBanner() {
   const { track } = useAnalytics();
   const { t } = useTranslation();
@@ -13,7 +21,7 @@ export function PerpsBanner() {
   const handleBannerClick = () => {
     track(EVENTS.FEATURE, {
       status: "banner_clicked",
-      bannerName: "perps_leverage",
+      bannerName: "perps_cashback",
       location: "homescreen",
     });
 
@@ -21,49 +29,52 @@ export function PerpsBanner() {
   };
 
   return (
-    <BannerItem bgColor="bg-gradient-to-br from-[#0B0F1A] via-[#0F172A] to-[#1A1033]">
+    <BannerItem bgColor="bg-gradient-to-br from-[#0B0F1A] via-[#0F2018] to-[#0A1F1A]">
       <style>{`
-        @keyframes perps-candle-up {
-          0%, 100% { transform: translateY(2px) scaleY(0.85); opacity: 0.55; }
-          50%      { transform: translateY(-2px) scaleY(1);    opacity: 0.9;  }
+        @keyframes perps-coin-rise {
+          0%   { transform: translateY(24px) rotate(-8deg); opacity: 0; }
+          15%  { opacity: 0.95; }
+          85%  { opacity: 0.95; }
+          100% { transform: translateY(-96px) rotate(12deg); opacity: 0; }
         }
-        @keyframes perps-candle-down {
-          0%, 100% { transform: translateY(-2px) scaleY(1);    opacity: 0.9;  }
-          50%      { transform: translateY(2px)  scaleY(0.85); opacity: 0.55; }
-        }
-        @keyframes perps-line-draw {
-          0%   { stroke-dashoffset: 240; }
-          50%  { stroke-dashoffset: 0;   }
-          100% { stroke-dashoffset: -240; }
-        }
-        @keyframes perps-pulse-glow {
+        @keyframes perps-glow-pulse {
           0%, 100% { opacity: 0.35; }
           50%      { opacity: 0.7;  }
         }
-        @keyframes perps-bull-tilt {
-          0%, 100% { transform: rotate(-3deg) translateY(0); }
-          50%      { transform: rotate(3deg)  translateY(-1px); }
-        }
-        @keyframes perps-bear-tilt {
-          0%, 100% { transform: rotate(3deg)  translateY(0); }
-          50%      { transform: rotate(-3deg) translateY(1px); }
-        }
-        @keyframes perps-yes-pop {
-          0%, 60%, 100% { transform: scale(1);    color: #ffffff; }
-          70%           { transform: scale(1.12); color: #FBBF24; }
-          85%           { transform: scale(1);    color: #ffffff; }
+        @keyframes perps-percent-shine {
+          0%   { background-position: -120% 0; }
+          100% { background-position: 220% 0;  }
         }
         @keyframes perps-cta-shimmer {
           0%   { background-position: -120% 0; }
-          100% { background-position: 220% 0; }
+          100% { background-position: 220% 0;  }
+        }
+        @keyframes perps-chip-pop {
+          0%, 100% { transform: scale(1);    opacity: 0.85; }
+          50%      { transform: scale(1.06); opacity: 1;    }
+        }
+        @keyframes perps-hero-breathe {
+          0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 6px rgba(16,185,129,0.35)); }
+          50%      { transform: scale(1.03); filter: drop-shadow(0 0 14px rgba(251,191,36,0.55)); }
         }
       `}</style>
 
-      {/* Background grid + animated candlesticks */}
+      {/* Background: glows, grid, floating cashback chips */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* horizontal grid lines */}
+        {/* radial emerald glow (left) */}
         <div
-          className="absolute inset-0 opacity-[0.08]"
+          className="-left-12 -translate-y-1/2 absolute top-1/2 size-56 rounded-full bg-emerald-500/25 blur-3xl"
+          style={{ animation: "perps-glow-pulse 3.4s ease-in-out infinite" }}
+        />
+        {/* radial gold glow (right) */}
+        <div
+          className="-right-12 -translate-y-1/2 absolute top-1/2 size-44 rounded-full bg-amber-400/25 blur-3xl"
+          style={{ animation: "perps-glow-pulse 3.4s ease-in-out infinite 1.2s" }}
+        />
+
+        {/* faint grid */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, transparent 0, transparent 24px, rgba(255,255,255,0.6) 25px), linear-gradient(to right, transparent 0, transparent 24px, rgba(255,255,255,0.4) 25px)",
@@ -71,84 +82,22 @@ export function PerpsBanner() {
           }}
         />
 
-        {/* animated candlesticks */}
-        <div className="absolute inset-y-0 right-0 left-0 flex items-center gap-[6px] pl-2">
-          {[
-            { up: true, h: 28, top: 6, delay: 0 },
-            { up: false, h: 22, top: 14, delay: 0.4 },
-            { up: true, h: 36, top: -2, delay: 0.2 },
-            { up: false, h: 18, top: 18, delay: 0.7 },
-            { up: true, h: 30, top: 2, delay: 0.1 },
-            { up: false, h: 26, top: 10, delay: 0.5 },
-            { up: true, h: 40, top: -6, delay: 0.3 },
-            { up: false, h: 20, top: 16, delay: 0.6 },
-            { up: true, h: 34, top: 0, delay: 0.15 },
-            { up: false, h: 24, top: 12, delay: 0.45 },
-            { up: true, h: 38, top: -4, delay: 0.25 },
-            { up: false, h: 16, top: 20, delay: 0.55 },
-          ].map((c, i) => (
-            <div
-              key={i}
-              className="relative flex shrink-0 flex-col items-center"
-              style={{ marginTop: c.top }}>
-              {/* wick */}
-              <div
-                className={`w-px ${c.up ? "bg-emerald-400/40" : "bg-rose-400/40"}`}
-                style={{ height: 6 }}
-              />
-              {/* body */}
-              <div
-                className={`w-[6px] rounded-[1px] ${c.up ? "bg-emerald-400/70" : "bg-rose-400/70"}`}
-                style={{
-                  height: c.h,
-                  animation: `${c.up ? "perps-candle-up" : "perps-candle-down"} 2.4s ease-in-out infinite`,
-                  animationDelay: `${c.delay}s`,
-                }}
-              />
-              {/* wick */}
-              <div
-                className={`w-px ${c.up ? "bg-emerald-400/40" : "bg-rose-400/40"}`}
-                style={{ height: 4 }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* animated sparkline overlay (long → short) */}
-        <svg
-          className="absolute inset-0 h-full w-full"
-          viewBox="0 0 240 112"
-          preserveAspectRatio="none"
-          aria-hidden="true">
-          <defs>
-            <linearGradient id="perps-line" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0%" stopColor="#10B981" stopOpacity="0.9" />
-              <stop offset="50%" stopColor="#FBBF24" stopOpacity="0.9" />
-              <stop offset="100%" stopColor="#F43F5E" stopOpacity="0.9" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,80 L20,72 L40,60 L60,48 L80,32 L100,24 L120,20 L140,32 L160,52 L180,68 L200,84 L220,92 L240,96"
-            fill="none"
-            stroke="url(#perps-line)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeDasharray="240"
+        {/* drifting +10% cashback chips */}
+        {FLOATING_CHIPS.map((c, i) => (
+          <div
+            key={i}
+            className="absolute bottom-0 inline-flex items-center justify-center rounded-full border border-emerald-300/50 bg-emerald-500/20 px-1.5 py-[1px] font-semibold text-[9px] text-emerald-100 backdrop-blur-sm"
             style={{
-              animation: "perps-line-draw 5s ease-in-out infinite",
-              filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))",
-            }}
-          />
-        </svg>
-
-        {/* radial glow pulse on the right (CTA side) */}
-        <div
-          className="-right-12 -translate-y-1/2 absolute top-1/2 size-44 rounded-full bg-purple-500/25 blur-2xl"
-          style={{ animation: "perps-pulse-glow 3s ease-in-out infinite" }}
-        />
+              left: `${c.left}%`,
+              animation: `perps-coin-rise ${c.dur}s ease-in-out infinite`,
+              animationDelay: `${c.delay}s`,
+            }}>
+            +10%
+          </div>
+        ))}
 
         {/* dim overlay so text reads cleanly */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/30 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-black/45" />
       </div>
 
       <div
@@ -162,37 +111,40 @@ export function PerpsBanner() {
             handleBannerClick();
           }
         }}>
-        {/* Left — headline + subtext */}
+        {/* Left — Win?/Lose? chips + hero "10% Back." + caption */}
         <div className="flex flex-col gap-1.5">
-          <h3 className="flex items-center gap-1.5 font-semibold text-base leading-tight">
+          <div className="flex items-center gap-1.5">
             <span
-              className="inline-flex items-center gap-1 text-emerald-400"
-              style={{
-                animation: "perps-bull-tilt 2.6s ease-in-out infinite",
-                transformOrigin: "50% 90%",
-              }}>
-              <span aria-hidden="true">🐂</span>
+              className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-[2px] font-medium text-[10px] text-emerald-200 ring-1 ring-emerald-400/40"
+              style={{ animation: "perps-chip-pop 2.4s ease-in-out infinite" }}>
+              <span aria-hidden="true">📈</span>
               {t("PERPS_BANNER_BULL")}
             </span>
             <span
-              className="inline-flex items-center gap-1 text-rose-400"
-              style={{
-                animation: "perps-bear-tilt 2.6s ease-in-out infinite 0.6s",
-                transformOrigin: "50% 90%",
-              }}>
-              <span aria-hidden="true">🐻</span>
+              className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-[2px] font-medium text-[10px] text-rose-200 ring-1 ring-rose-400/40"
+              style={{ animation: "perps-chip-pop 2.4s ease-in-out infinite 0.5s" }}>
+              <span aria-hidden="true">📉</span>
               {t("PERPS_BANNER_BEAR")}
             </span>
+          </div>
+
+          <h3
+            className="font-extrabold text-xl leading-none tracking-tight"
+            style={{
+              animation: "perps-hero-breathe 2.8s ease-in-out infinite",
+              transformOrigin: "0% 50%",
+            }}>
             <span
-              className="font-bold text-white"
+              className="bg-gradient-to-r from-emerald-300 via-amber-200 to-emerald-300 bg-clip-text text-transparent"
               style={{
-                animation: "perps-yes-pop 2.4s ease-in-out infinite 0.4s",
-                display: "inline-block",
+                backgroundSize: "200% 100%",
+                animation: "perps-percent-shine 3.2s linear infinite",
               }}>
               {t("PERPS_BANNER_YES")}
             </span>
           </h3>
-          <p className="max-w-[230px] text-white/75 text-xs leading-snug">
+
+          <p className="max-w-[240px] text-white/80 text-xs leading-snug">
             {t("PERPS_BANNER_DESCRIPTION")}
           </p>
         </div>
