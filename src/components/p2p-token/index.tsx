@@ -3,7 +3,6 @@ import {
   Clock,
   Loader2,
   RefreshCw,
-  SendHorizonal,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -22,16 +21,18 @@ import {
   useUSDCBalance,
   useP2PSwapHistory,
 } from "@/hooks";
-import { SwapCard } from "@/pages/p2p-swap/history";
-import { SendP2PDrawer } from "./send-p2p-drawer";
-
+import { SwapCard } from "@/pages/p2p-token/history";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { cn, truncateAmount } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
-import { formatUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import type { SwapDirection } from "@/core/p2p-swap";
-import { getBackendErrorKey } from "@/core/p2p-swap";
+import {
+  fetchQuoteP2PToUsdc,
+  fetchQuoteUsdcToP2P,
+  getBackendErrorKey,
+} from "@/core/p2p-swap";
 
 export type { SwapDirection } from "@/core/p2p-swap";
 
@@ -116,6 +117,7 @@ interface ToPanelProps {
   outputAmount: string | null;
   isLoading: boolean;
   isError: boolean;
+  isLowReserve?: boolean;
   hasAmount: boolean;
   tokenBadge: React.ReactNode;
 }
@@ -124,6 +126,7 @@ export function ToPanel({
   outputAmount,
   isLoading,
   isError,
+  isLowReserve,
   hasAmount,
   tokenBadge,
 }: ToPanelProps) {
@@ -142,15 +145,18 @@ export function ToPanel({
             {hasAmount && isLoading && (
               <Skeleton className="h-9 w-32 bg-primary/30" />
             )}
-            {hasAmount && isError && (
-              <p className="font-bold text-2xl text-destructive">—</p>
+            {hasAmount && isLowReserve && !isLoading && (
+              <p className="font-bold text-3xl text-foreground">0</p>
             )}
-            {outputAmount && !isLoading && (
+            {hasAmount && isError && !isLowReserve && (
+              <p className="font-bold text-3xl text-foreground">0</p>
+            )}
+            {outputAmount && !isLoading && !isLowReserve && !isError && (
               <p className="font-bold text-3xl text-foreground">
                 {outputAmount}
               </p>
             )}
-            {!isLoading && !outputAmount && !isError && (
+            {!isLoading && !outputAmount && !isError && !isLowReserve && (
               <p className="font-bold text-3xl text-muted-foreground/40">
                 0.00
               </p>
@@ -210,12 +216,12 @@ export const P2PSwapForm = ({
 
   const { usdcBalance } = useUSDCBalance();
   const { p2pBalanceRaw } = useP2PBalance();
-  const { outputAmount, isQuoteLoading, isQuoteError } = useP2PSwapQuote(
-    direction,
-    amount,
-  );
-  const { executeSwap, isSwapping } = useP2PSwap(direction, amount);
+  const { outputAmount, isQuoteLoading, isQuoteError, isLowReserve } =
+    useP2PSwapQuote(direction, amount);
+  const { executeSwap, isSwapping: isMutating } = useP2PSwap(direction, amount);
   const { usdcLimit, p2pLimit } = useP2PSwapInfo();
+  const [isValidating, setIsValidating] = useState(false);
+  const isSwapping = isMutating || isValidating;
 
   useEffect(() => {
     onSwappingChange?.(isSwapping);
@@ -252,11 +258,42 @@ export const P2PSwapForm = ({
     setSelectedPct(null);
   };
 
-  const handleSwap = () => {
+  const handleSwap = async () => {
     if (!hasAmount) {
       toast.error(t("PLEASE_ENTER_VALID_AMOUNT"));
       return;
     }
+
+    setIsValidating(true);
+    try {
+      const _amount = amount.replace(/\.$/, "");
+      const amountBaseUnits = parseUnits(_amount, 6).toString();
+      const quote = isUsdcToP2P
+        ? await fetchQuoteUsdcToP2P(amountBaseUnits)
+        : await fetchQuoteP2PToUsdc(amountBaseUnits);
+
+      if (
+        !quote.estimatedOutputAmount ||
+        BigInt(quote.estimatedOutputAmount) <= 0n
+      ) {
+        toast.error(t("SWAP_QUOTE_UNAVAILABLE"));
+        setIsValidating(false);
+        return;
+      }
+    } catch (error) {
+      const raw = error instanceof Error ? error.message : "";
+      if (raw === "LOW_RESERVE") {
+        toast.error(t("SWAP_QUOTE_UNAVAILABLE"));
+        setIsValidating(false);
+        return;
+      }
+      const key = raw ? getBackendErrorKey(raw) : undefined;
+      toast.error(key ? t(key) : raw || t("SOMETHING_WENT_WRONG"));
+      setIsValidating(false);
+      return;
+    }
+    setIsValidating(false);
+
     executeSwap(undefined, {
       onSuccess: () => {
         toast.success(t("SWAP_INITIATED_SUCCESS"));
@@ -328,9 +365,16 @@ export const P2PSwapForm = ({
         outputAmount={String(outputAmount)}
         isLoading={isQuoteLoading}
         isError={isQuoteError}
+        isLowReserve={isLowReserve}
         hasAmount={hasAmount}
         tokenBadge={toBadge}
       />
+
+      {hasAmount && isLowReserve && !isQuoteLoading && (
+        <p className="px-1 my-2 text-center text-muted-foreground text-xs">
+          {t("SWAP_QUOTE_UNAVAILABLE")}
+        </p>
+      )}
 
       <Button
         className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
@@ -340,7 +384,8 @@ export const P2PSwapForm = ({
           isQuoteLoading ||
           !outputAmount ||
           isSwapping ||
-          isInsufficientBalance
+          isInsufficientBalance ||
+          isLowReserve
         }
         onClick={handleSwap}
       >
@@ -448,9 +493,7 @@ export const P2PSwapMain = () => {
     refetchP2PBalance();
   };
 
-  const processingSwaps = swaps.filter(
-    (s) => s.status === "processing" || s.status === "pending",
-  );
+  const processingSwaps = swaps.filter((s) => s.status === "pending");
 
   return (
     <>
@@ -469,21 +512,11 @@ export const P2PSwapMain = () => {
           ))}
         </div>
       )}
-      <div className="mt-2 grid grid-cols-2 gap-2">
-        <SendP2PDrawer disabled={isSwapping}>
-          <button
-            type="button"
-            disabled={isSwapping}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
-          >
-            <SendHorizonal className="size-4" />
-            {t("SEND_P2P")}
-          </button>
-        </SendP2PDrawer>
+      <div className="mt-2">
         <button
           type="button"
           disabled={isSwapping}
-          onClick={() => navigate(INTERNAL_HREFS.P2P_SWAP_HISTORY)}
+          onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP_HISTORY)}
           className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
         >
           <Clock className="size-4" />
