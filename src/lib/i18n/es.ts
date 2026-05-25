@@ -1380,6 +1380,7 @@ export const es = {
     SENDING_TIP: "Enviando propina...",
     SENDING_YOUR_PAYMENT_DETAILS: "Enviando tus detalles de pago",
     SEND_FEEDBACK: "Enviar comentarios",
+    SEND_RECEIVE_SWAP: "Enviar · Recibir · Intercambiar",
     SEND_TIP: "Enviar propina",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Envía USDC desde tu wallet P2P.me",
     SENT: "Enviado",

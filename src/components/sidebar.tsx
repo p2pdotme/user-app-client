@@ -39,6 +39,7 @@ import { TextLogo } from "./text-logo";
 import { VersionBadge } from "./version-badge";
 
 const P2PTokenButton = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { p2pBalanceRaw } = useP2PBalance();
   const balance =
@@ -51,17 +52,16 @@ const P2PTokenButton = () => {
       <button
         type="button"
         onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN)}
-        className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15"
-      >
+        className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
         <div className="flex items-center gap-3">
           <div className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
             <ASSETS.ICONS.Logo className="size-5 text-primary" />
             <ASSETS.ICONS.NetworkBase className="-right-0.5 -bottom-0.5 absolute size-3 rounded-full border border-background bg-background" />
           </div>
           <div className="flex flex-col items-start">
-            <p className="font-semibold text-sm">$P2P Token</p>
+            <p className="font-semibold text-sm">{t("P2P_TOKEN_TITLE")}</p>
             <p className="text-muted-foreground text-xs whitespace-nowrap">
-              Send · Receive · Swap
+              {t("SEND_RECEIVE_SWAP")}
             </p>
           </div>
         </div>
@@ -113,8 +113,7 @@ const SidebarItems = () => {
     <Link
       to={item.to}
       key={item.label}
-      className="flex cursor-pointer items-center justify-between"
-    >
+      className="flex cursor-pointer items-center justify-between">
       <div className="flex items-center gap-4">
         {item.icon}
         <p className="font-medium">{item.label}</p>
@@ -300,8 +299,7 @@ export function Sidebar({ children }: { children: ReactNode }) {
                   }}
                   variant="outline"
                   size="icon"
-                  className="border-none bg-primary/20"
-                >
+                  className="border-none bg-primary/20">
                   <LogOut className="size-5 text-primary" />
                 </Button>
               </div>
@@ -314,8 +312,7 @@ export function Sidebar({ children }: { children: ReactNode }) {
               <Link
                 to={URLS.TERMS_AND_CONDITIONS}
                 target="_blank"
-                className="cursor-pointer font-light text-xs"
-              >
+                className="cursor-pointer font-light text-xs">
                 {t("TERMS_AND_CONDITIONS")}
               </Link>
             </div>

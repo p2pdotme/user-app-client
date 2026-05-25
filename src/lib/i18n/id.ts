@@ -1351,6 +1351,7 @@ export const id = {
     SENDING_TIP: "Sending tip...",
     SENDING_YOUR_PAYMENT_DETAILS: "Mengirim detail pembayaran Anda",
     SEND_FEEDBACK: "Kirim feedback",
+    SEND_RECEIVE_SWAP: "Kirim · Terima · Tukar",
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Kirim USDC dari dompet p2p.me Anda",
     SENT: "Dikirim",

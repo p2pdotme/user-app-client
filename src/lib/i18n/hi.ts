@@ -1288,6 +1288,7 @@ export const hi = {
     SENDING_TIP: "Sending tip...",
     SENDING_YOUR_PAYMENT_DETAILS: "आपका भुगतान विवरण भेजा जा रहा है",
     SEND_FEEDBACK: "फ़ीडबैक भेजें",
+    SEND_RECEIVE_SWAP: "भेजें · प्राप्त करें · स्वैप",
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "अपने P2P.me वॉलेट से USDC भेजें",
     SENT: "भेजा गया",

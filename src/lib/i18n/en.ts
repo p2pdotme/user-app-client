@@ -1319,6 +1319,7 @@ export const en = {
     SENDING_TIP: "Sending tip...",
     SENDING_YOUR_PAYMENT_DETAILS: "Sending your payment details",
     SEND_FEEDBACK: "Send feedback",
+    SEND_RECEIVE_SWAP: "Send · Receive · Swap",
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Send USDC from your P2P.me wallet",
     SENT: "Sent",

@@ -1356,6 +1356,7 @@ export const pt = {
     SENDING_TIP: "Enviando gorjeta...",
     SENDING_YOUR_PAYMENT_DETAILS: "Enviando seus detalhes de pagamento",
     SEND_FEEDBACK: "Enviar feedback",
+    SEND_RECEIVE_SWAP: "Enviar · Receber · Trocar",
     SEND_TIP: "Enviar Gorjeta",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Envie USDC da sua carteira p2p.me",
     SENT: "Enviado",
