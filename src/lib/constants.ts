@@ -161,7 +161,8 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
   EUR: { revolut: "PLACEHOLDER_PAYMENT_ID_USD" },
   NGN: {
     account: "PLACEHOLDER_ACCOUNT_NUMBER_NGN",
-    bank: "PLACEHOLDER_BANK_NAME_NGN",
+    "bank-name": "PLACEHOLDER_BANK_NAME_NGN",
+    "account-name": "PLACEHOLDER_ACCOUNT_NAME_NGN",
   },
   COP: { alias: "PLACEHOLDER_PAYMENT_ID_COP" },
 };
