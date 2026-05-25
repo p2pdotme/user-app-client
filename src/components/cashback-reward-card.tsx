@@ -13,9 +13,13 @@ interface CashbackRewardCardProps {
 
 /**
  * Reads on-chain cashback for a PAY-order (cbBTC mechanism) and renders
- * the reward card with an "Open Coins.me" CTA. BUY-order completion uses
- * the hardcoded LotpotCashbackCard instead — that lives on a server-side
- * issuance flow and doesn't go through this on-chain read path.
+ * the reward card with an "Open Coins.me" CTA. The cashback shown here
+ * is awarded by an external community and recorded on-chain — this
+ * component is a pure display, not the source of the reward.
+ *
+ * BUY-order completion uses the hardcoded LotpotCashbackCard instead —
+ * that one lives on a server-side issuance flow and doesn't go through
+ * this on-chain read path.
  */
 export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
   const { t } = useTranslation();
