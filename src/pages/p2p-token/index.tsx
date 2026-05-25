@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { formatUnits } from "viem";
@@ -33,7 +34,6 @@ import { cn, truncateAddress } from "@/lib/utils";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { JUP_URL } from "@/components/tge-countdown-banner";
 
-
 interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;
@@ -56,8 +56,7 @@ function ActionButton({
         "flex w-full cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl bg-primary/10 px-4 py-4 text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
-      {...rest}
-    >
+      {...rest}>
       <div className="flex size-9 items-center justify-center rounded-full bg-background text-primary">
         {icon}
       </div>
@@ -68,21 +67,20 @@ function ActionButton({
 
 // Drawer showing a QR code and copyable address to receive $P2P on Base.
 function ReceiveDrawer({ address }: { address: string | undefined }) {
+  const { t } = useTranslation();
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <ActionButton
           icon={<QrCode className="size-4" />}
-          label="Receive"
+          label={t("RECEIVE")}
           disabled={!address}
         />
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-center">
-          <DrawerTitle>Receive $P2P</DrawerTitle>
-          <DrawerDescription>
-            Send $P2P or any Base network token to this address.
-          </DrawerDescription>
+          <DrawerTitle>{t("RECEIVE_P2P_TITLE")}</DrawerTitle>
+          <DrawerDescription>{t("RECEIVE_P2P_DESCRIPTION")}</DrawerDescription>
         </DrawerHeader>
         <section className="flex flex-col items-center gap-6 px-4 pb-2">
           {address && (
@@ -95,13 +93,12 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
                 onClick={async () => {
                   try {
                     await navigator.clipboard.writeText(address);
-                    toast.success("Address copied");
+                    toast.success(t("ADDRESS_COPIED"));
                   } catch {
-                    toast.error("Failed to copy");
+                    toast.error(t("FAILED_TO_COPY"));
                   }
                 }}
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15"
-              >
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15">
                 <p className="font-mono text-muted-foreground">
                   {truncateAddress(address, 12)}
                 </p>
@@ -112,8 +109,11 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
         </section>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" size="lg" className="h-12 w-full text-base">
-              Close
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 w-full text-base">
+              {t("CLOSE")}
             </Button>
           </DrawerClose>
         </DrawerFooter>
@@ -124,10 +124,10 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
 
 // Hero card displaying $P2P balance, USD value, market price, and 24h change.
 function TokenHoldingInfo() {
+  const { t } = useTranslation();
   const { p2pBalanceRaw, isP2PBalanceLoading, refetchP2PBalance } =
     useP2PBalance();
-  const { tokenInfo, isTokenInfoLoading, refetchTokenInfo } =
-    useP2PTokenInfo();
+  const { tokenInfo, isTokenInfoLoading, refetchTokenInfo } = useP2PTokenInfo();
   const [spinning, setSpinning] = useState(false);
 
   const price = tokenInfo?.market.usdPrice ?? null;
@@ -151,9 +151,8 @@ function TokenHoldingInfo() {
 
   return (
     <section
-      aria-label="P2P token holdings"
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6"
-    >
+      aria-label={t("ARIA_P2P_TOKEN_HOLDINGS")}
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6">
       {/* Ambient glow */}
       <div
         aria-hidden
@@ -175,15 +174,11 @@ function TokenHoldingInfo() {
       <button
         type="button"
         onClick={handleRefresh}
-        aria-label="Refresh balance"
+        aria-label={t("ARIA_REFRESH_BALANCE")}
         disabled={isLoading || spinning}
-        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
-      >
+        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50">
         <RefreshCw
-          className={cn(
-            "size-3.5",
-            (spinning || isLoading) && "animate-spin",
-          )}
+          className={cn("size-3.5", (spinning || isLoading) && "animate-spin")}
         />
       </button>
 
@@ -200,7 +195,7 @@ function TokenHoldingInfo() {
             <ASSETS.ICONS.Logo className="size-7 text-primary" />
           )}
           <ASSETS.ICONS.NetworkBase
-            aria-label="Base network"
+            aria-label={t("ARIA_BASE_NETWORK")}
             className="-bottom-0 -right-0 absolute size-3 rounded-full bg-background ring-1 ring-background"
           />
         </div>
@@ -209,7 +204,7 @@ function TokenHoldingInfo() {
             <p className="font-semibold text-foreground text-sm">$P2P</p>
             {tokenInfo?.trust.isVerified && (
               <BadgeCheck
-                aria-label="Verified token"
+                aria-label={t("ARIA_VERIFIED_TOKEN")}
                 className="size-3.5 fill-success text-background"
               />
             )}
@@ -258,7 +253,7 @@ function TokenHoldingInfo() {
       <div className="relative flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
           <p className="text-muted-foreground text-xs tracking-wider">
-            Market Price
+            {t("MARKET_PRICE")}
           </p>
           {isTokenInfoLoading ? (
             <Skeleton className="h-5 w-20 bg-primary/20" />
@@ -276,15 +271,16 @@ function TokenHoldingInfo() {
           <Skeleton className="h-6 w-24 rounded-full bg-primary/20" />
         ) : change24h != null ? (
           <div className="flex flex-col items-end gap-0.5">
-            <p className="text-muted-foreground text-xs tracking-wider">24h</p>
+            <p className="text-muted-foreground text-xs tracking-wider">
+              {t("TWENTY_FOUR_HOUR")}
+            </p>
             <span
               className={cn(
                 "inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-semibold text-xs tabular-nums",
                 changeIsUp
                   ? "bg-success/15 text-success"
                   : "bg-destructive/15 text-destructive",
-              )}
-            >
+              )}>
               {changeIsUp ? (
                 <ArrowUpRight className="size-3" />
               ) : (
@@ -304,18 +300,19 @@ function TokenHoldingInfo() {
 
 // $P2P token landing page: holdings, send/receive actions, and Solana CTA.
 export function P2PToken() {
+  const { t } = useTranslation();
   const { account } = useThirdweb();
   const navigate = useNavigate();
 
   return (
     <>
-      <NonHomeHeader title="$P2P Token" />
+      <NonHomeHeader title={t("P2P_TOKEN_TITLE")} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto px-4 py-10">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="h-px w-8 bg-gradient-to-r from-transparent to-primary/40" />
             <p className="font-medium text-muted-foreground text-xs uppercase tracking-[0.2em]">
-              Your $P2P on Base
+              {t("YOUR_P2P_ON_BASE")}
             </p>
             <span className="h-px w-8 bg-gradient-to-l from-transparent to-primary/40" />
           </div>
@@ -329,13 +326,13 @@ export function P2PToken() {
           <SendP2PDrawer>
             <ActionButton
               icon={<SendHorizonal className="size-4" />}
-              label="Send"
+              label={t("SEND")}
             />
           </SendP2PDrawer>
           <ReceiveDrawer address={account?.address} />
           <ActionButton
             icon={<ArrowUpDown className="size-4" />}
-            label="Swap"
+            label={t("SWAP")}
             onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP)}
           />
         </div>
@@ -348,12 +345,13 @@ export function P2PToken() {
 
 // Footer CTA linking to the $P2P token page on Jupiter (Solana).
 function SolanaTradeFooter() {
+  const { t } = useTranslation();
   return (
     <div className="mt-auto flex flex-col items-center gap-2 pt-2">
       <div className="flex items-center gap-2">
         <span className="h-px w-6 bg-border" />
         <p className="font-medium text-[10px] text-muted-foreground uppercase tracking-[0.2em]">
-          Also available on
+          {t("ALSO_AVAILABLE_ON")}
         </p>
         <span className="h-px w-6 bg-border" />
       </div>
@@ -362,14 +360,13 @@ function SolanaTradeFooter() {
         href={JUP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25"
-      >
+        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25">
         <ASSETS.ICONS.NetworkSolana className="size-4" />
         <span className="font-semibold text-foreground text-xs">
-          Trade on Solana
+          {t("TRADE_ON_SOLANA")}
         </span>
         <span className="font-medium text-muted-foreground text-[10px]">
-          via Jupiter
+          {t("VIA_JUPITER")}
         </span>
         <ArrowUpRight className="size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
       </a>
