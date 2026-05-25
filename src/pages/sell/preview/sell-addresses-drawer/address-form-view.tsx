@@ -23,6 +23,7 @@ import {
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
+import { CURRENCY } from "@p2pdotme/sdk/country";
 
 interface AddressFormViewProps {
   page: SellAddressesPage;
@@ -154,9 +155,13 @@ export function AddressFormView({
                     <FormLabel>{t(fieldConfig.label)}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("ENTER_PAYMENT_DETAILS", {
-                          paymentAddressName: t(fieldConfig.label),
-                        })}
+                        placeholder={
+                          currency.currency === CURRENCY.NGN
+                            ? t(fieldConfig.placeholder)
+                            : t("ENTER_PAYMENT_DETAILS", {
+                                paymentAddressName: t(fieldConfig.label),
+                              })
+                        }
                         value={compoundValues[fieldConfig.key] || ""}
                         onChange={(e) =>
                           updateCompoundValue(fieldConfig.key, e.target.value)
