@@ -1,18 +1,18 @@
 import { z } from "zod";
 
 const StatsSchema = z.object({
-  priceChange: z.number(),
-  holderChange: z.number(),
-  liquidityChange: z.number(),
-  volumeChange: z.number(),
-  buyVolume: z.number(),
-  sellVolume: z.number(),
+  priceChange: z.number().optional(),
+  holderChange: z.number().optional(),
+  liquidityChange: z.number().optional(),
+  volumeChange: z.number().optional(),
+  buyVolume: z.number().optional(),
+  sellVolume: z.number().optional(),
   buyOrganicVolume: z.number().optional(),
   sellOrganicVolume: z.number().optional(),
-  numBuys: z.number(),
-  numSells: z.number(),
-  numTraders: z.number(),
-  numNetBuyers: z.number(),
+  numBuys: z.number().optional(),
+  numSells: z.number().optional(),
+  numTraders: z.number().optional(),
+  numNetBuyers: z.number().optional(),
 });
 
 const AuditSchema = z.object({
