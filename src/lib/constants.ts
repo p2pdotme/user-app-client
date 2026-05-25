@@ -33,8 +33,9 @@ export const INTERNAL_HREFS = {
   SELL_PREVIEW: "/sell/preview",
   PAY: "/pay",
   PAY_PREVIEW: "/pay/preview",
-  P2P_SWAP: "/p2p-swap",
-  P2P_SWAP_HISTORY: "/p2p-swap/history",
+  P2P_TOKEN: "/p2p-token",
+  P2P_TOKEN_SWAP: "/p2p-token/swap",
+  P2P_TOKEN_SWAP_HISTORY: "/p2p-token/swap/history",
   ORDER: "/order",
 
   SETTINGS: "/settings",

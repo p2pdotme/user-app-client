@@ -16,6 +16,7 @@ export const id = {
     ADDRESS: "Alamat",
     ADDRESS_ADDED_SUCCESSFULLY: "Alamat berhasil ditambahkan",
     ADDRESS_BOOK_IS_INVALID: "Buku alamat tidak valid",
+    ADDRESS_COPIED: "Alamat disalin",
     ADDRESS_COPIED_TO_CLIPBOARD: "Alamat Base disalin ke clipboard",
     ADDRESS_DELETED_SUCCESSFULLY: "Alamat berhasil dihapus",
     ADDRESS_IS_INVALID: "Alamat tidak valid",
@@ -43,6 +44,7 @@ export const id = {
     ALREADY_REFERRED: "Sudah direferensikan",
     ALREADY_VERIFIED: "Akun sosial sudah diverifikasi",
     ALREADY_VOTED: "Sudah memilih",
+    ALSO_AVAILABLE_ON: "Juga tersedia di",
     ALT_404_IMAGE: "Kesalahan 404",
     ALT_MAINTENANCE_MASCOT: "Maskot Pemeliharaan",
     AMOUNT_CONTAINS_INVALID_CHARACTERS:
@@ -64,7 +66,11 @@ export const id = {
     ARE_YOU_SURE: "Apakah Anda yakin?",
     ARE_YOU_SURE_YOU_WANT_TO_CANCEL_THIS_ORDER:
       "Apakah Anda yakin ingin membatalkan pesanan ini?",
+    ARIA_BASE_NETWORK: "Jaringan Base",
+    ARIA_P2P_TOKEN_HOLDINGS: "Kepemilikan token P2P",
+    ARIA_REFRESH_BALANCE: "Segarkan saldo",
     ARIA_SWITCH_CURRENCY: "Ganti mata uang",
+    ARIA_VERIFIED_TOKEN: "Token terverifikasi",
     ARRAY_LENGTH_MISMATCH: "Panjang array tidak cocok",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "Minta vendor untuk membuat QR hanya setelah scanner Anda terbuka",
@@ -417,6 +423,7 @@ export const id = {
     FAILED_TO_CLAIM_RECOMMENDATION: "Gagal mengklaim rekomendasi",
     FAILED_TO_CLAIM_RECOMMENDATION_REVENUE:
       "Gagal mengklaim revenue rekomendasi",
+    FAILED_TO_COPY: "Gagal menyalin",
     FAILED_TO_COPY_PAYMENT_ADDRESS: "Gagal menyalin {{paymentAddressName}}",
     FAILED_TO_CREATE_RELAY_IDENTITY: "Gagal membuat identitas relay",
     FAILED_TO_DELETE_ADDRESS: "Gagal menghapus alamat",
@@ -456,6 +463,10 @@ export const id = {
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS: "Apakah ada batas withdrawal?",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS_ANSWER:
       "Tidak — tidak ada batas withdrawal di P2P.me.",
+    FAQ_BANK_FREEZE_PROTECTION_INR_USERS:
+      "What is the Bank Freeze Protection for Indian transactions on P2P.me?",
+    FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER:
+      "P2P.me offers a 100% refund guarantee for Indian users: if any P2P.me transaction (dated after September 1st, 2025) results in a bank freeze or a transaction marked with a lien, we will refund the full transaction amount in USDC directly to your P2P.me wallet, and our community legal team will support you through the resolution process.\n\nPlease visit https://unfreeze.pro — our dedicated portal for end users and P2P merchants — and submit the details of your fraud incident as soon as possible. Our support team will verify your Order ID and bank acknowledgment before issuing the refund and legal support.\n\nOnly the exact amount tied to that specific transaction ID is covered. As of now, this protection is supported in India only. Although such cases are already extremely rare, we still recommend using a separate burner bank account for off-ramping.",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY:
       "Bisakah saya mengunduh riwayat transaksi saya?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
@@ -884,6 +895,7 @@ export const id = {
     MANAGER_INACTIVE: "Manajer tidak aktif",
     MANAGER_NOT_FOUND: "Manajer tidak ditemukan",
     MARKED_AS_PAID: "Ditandai sebagai dibayar",
+    MARKET_PRICE: "Harga Pasar",
     MAX: "Maks",
     MAX_TRANSACTION_LIMIT: "Limit Transaksi Maksimum",
     MAYBE_LATER: "Nanti saja",
@@ -976,6 +988,7 @@ export const id = {
     NO_RECOMMENDATIONS_GIVEN: "Belum ada rekomendasi yang diberikan",
     NO_RECOMMENDATIONS_RECEIVED: "Belum ada rekomendasi yang diterima",
     NO_RELAY_IDENTITY_FOUND: "Identitas relay tidak ditemukan",
+    NO_REPUTATION: "No reputation points",
     NO_REWARDS: "Tidak ada reward",
     NO_REWARDS_ACCRUED: "Tidak ada reward yang terkumpul",
     NO_REWARDS_TO_CLAIM: "Tidak ada hadiah untuk diklaim",
@@ -1182,7 +1195,11 @@ export const id = {
     RANGO_SWAP_ERROR: "Swap gagal. Silakan coba lagi.",
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "Tanda terima berhasil diunduh",
     RECEIVED: "Diterima",
+    RECEIVE: "Terima",
     RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET: "Terima dana ke dompet P2P.me Anda.",
+    RECEIVE_P2P_DESCRIPTION:
+      "Kirim $P2P atau token jaringan Base lainnya ke alamat ini.",
+    RECEIVE_P2P_TITLE: "Terima $P2P",
     RECEIVING_ADDRESS: "Alamat Penerima",
     RECEIVING_PAYMENT_ADDRESS: "Menerima {{paymentAddressName}}",
     RECEIVING_WALLET_ADDRESS: "Alamat Dompet Penerima",
@@ -1204,11 +1221,9 @@ export const id = {
     REFERRED: "Direferensikan",
     REFER_AND_EARN: "Referensi & Dapatkan",
     P2P_SWAP: "Tukar P2P",
-    P2P_SWAP_JUPITER_FOOTER: "Tukar di Solana untuk mendapatkan token P2P secara instan",
     P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
     P2P_SWAP_BANNER_TITLE: "Tukar P2P ⇄ USDC",
-    P2P_SWAP_BANNER_DESCRIPTION:
-      "Tukar instan, langsung dari dompet Anda.",
+    P2P_SWAP_BANNER_DESCRIPTION: "Tukar instan, langsung dari dompet Anda.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Bagikan link referensi Anda ke teman dan dapatkan {{referralRewardPercentage}}% setiap kali mereka trading.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
@@ -1330,11 +1345,13 @@ export const id = {
     SELL_QUIZ_TRY_AGAIN: "Belum tepat — pilih jawaban terbaik untuk lanjut.",
     SELL_USDC: "Jual USDC",
     SELL_USDC_FAQS: "FAQ Jual USDC",
+    SEND: "Kirim",
     SENDING: "Mengirim",
     SENDING_PAYMENT_DETAILS: "Mengirim detail pembayaran",
     SENDING_TIP: "Sending tip...",
     SENDING_YOUR_PAYMENT_DETAILS: "Mengirim detail pembayaran Anda",
     SEND_FEEDBACK: "Kirim feedback",
+    SEND_RECEIVE_SWAP: "Kirim · Terima · Tukar",
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Kirim USDC dari dompet p2p.me Anda",
     SENT: "Dikirim",
@@ -1395,99 +1412,102 @@ export const id = {
     SWAPPER: "Swapper",
     SWAPPING: "Menukar",
     SWAP_FAILED: "Swap gagal",
-    SWAP_TXN_NOT_CREATED: "Transaksi swap tidak dibuat",
     SWAP_HISTORY: "Riwayat Swap",
+    SWAP_TXN_NOT_CREATED: "Transaksi swap tidak dibuat",
     SWAP_INITIATED_SUCCESS: "Swap berhasil dimulai",
     SWAP_INSUFFICIENT_BALANCE: "Saldo {{token}} tidak mencukupi",
+    SWAP_QUOTE_UNAVAILABLE:
+      "Quote unavailable at the moment. Please try again shortly.",
     SWAP_EXCEEDS_LIMIT: "Maks {{amount}} {{token}} per swap",
     SWAP_NUMBER: "Swap #{{id}}",
     SWAP_USER_TX: "Tx Pengguna",
-    SWAP_EST_DELIVERY: "Perkiraan pengiriman",
-    SWAP_VIEW_STEPS: "Lihat langkah-langkah",
-    SWAP_HIDE_STEPS: "Sembunyikan langkah-langkah",
-    SWAP_STEP_INPUT: "Input",
-    SWAP_STEP_OUTPUT: "Output",
-    SWAP_STEP_ROUTE: "Rute",
-    SWAP_STEP_TX_HASH: "Hash Tx",
-    SWAP_STEP_SIGNATURE: "Tanda tangan",
-    SWAP_STEP_DIRECTION: "Arah",
-    SWAP_STEP_AMOUNT: "Jumlah",
-    SWAP_STEP_INITIATE_TX: "Inisiasi Tx",
-    SWAP_STEP_REDEEM_TX: "Redeem Tx",
-    SWAP_STEP_JUPITER: "Jupiter (DEX)",
-    SWAP_STEP_WORMHOLE: "Wormhole (Bridge)",
-    SWAP_CLAIM_REFUND: "Ajukan Refund",
     SWAP_REFUNDED: "Sudah Direfund",
-    SWAP_REFUND_SUCCESS: "Permintaan refund diajukan — akan diproses dalam 24 jam.",
-    SWAP_REFUND_REQUESTED: "Permintaan refund diajukan — akan diproses dalam 24 jam",
-    SWAP_REFUND_ALREADY_CLAIMED: "Refund sudah diklaim",
     INSUFFICIENT_P2P_BALANCE: "Anda tidak memiliki cukup token $P2P",
-    SEND_P2P: "Kirim P2P",
+    SEND_P2P: "Kirim $P2P",
     SEND_P2P_DESC: "Kirim token $P2P ke alamat dompet Base mana saja",
-    SEND_P2P_BASE_ONLY_WARNING: "Hanya kirim ke alamat jaringan Base. Mengirim ke jaringan lain akan mengakibatkan hilangnya dana secara permanen.",
+    SEND_P2P_BASE_ONLY_WARNING:
+      "Hanya kirim ke alamat jaringan Base. Mengirim ke jaringan lain akan mengakibatkan hilangnya dana secara permanen.",
     P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} berhasil dikirim",
-    NO_SWAPS_YET: "Belum ada swap",
-    NO_SWAPS_YET_DESC: "Swap P2P Anda sebelumnya akan muncul di sini.",
-    IN_PROGRESS: "Sedang Berlangsung",
     P2P_SWAP_STATUS_PENDING: "Menunggu",
-    P2P_SWAP_STATUS_PROCESSING: "Memproses",
-    P2P_SWAP_STATUS_QUEUED: "Dalam antrian",
-    P2P_SWAP_STATUS_COMPLETED: "Selesai",
     P2P_SWAP_STATUS_FAILED: "Gagal",
     P2P_SWAP_STATUS_SUCCESS: "Berhasil",
-    P2P_SWAP_STATUS_REDEEMED: "Ditukarkan",
-    P2P_SWAP_STATUS_ERROR: "Kesalahan",
     P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Kesalahan server internal",
-    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED: "Hash transaksi dan alamat pengguna diperlukan",
+    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED:
+      "Hash transaksi dan alamat pengguna diperlukan",
     P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED: "Parameter jumlah diperlukan",
     P2P_SWAP_ERROR_ADDRESS_REQUIRED: "Alamat diperlukan",
     P2P_SWAP_ERROR_USER_ID_REQUIRED: "ID pengguna diperlukan",
     P2P_SWAP_ERROR_INVALID_CLAIM_ID: "ID klaim tidak valid",
     P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Alamat EVM tidak valid",
-    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT: "Jumlah USDC tidak valid — harus dalam unit dasar",
+    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
+      "Jumlah USDC tidak valid — harus dalam unit dasar",
     P2P_SWAP_ERROR_SWAP_NOT_FOUND: "Swap tidak ditemukan",
     P2P_SWAP_ERROR_SWAP_NOT_IN_FAILED_STATE: "Swap tidak dalam status gagal",
     P2P_SWAP_ERROR_VAA_NOT_READY: "VAA belum siap untuk swap ini",
     P2P_SWAP_ERROR_SWAP_ALREADY_REFUNDED: "Swap sudah direfund",
     P2P_SWAP_ERROR_REFUND_ALREADY_IN_PROGRESS: "Refund sudah dalam proses",
-    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED: "Semua percobaan ulang harus habis sebelum refund dapat diterbitkan. Harap tunggu dan coba lagi.",
+    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED:
+      "Semua percobaan ulang harus habis sebelum refund dapat diterbitkan. Harap tunggu dan coba lagi.",
     P2P_SWAP_ERROR_REFUND_CREATE_FAILED: "Gagal membuat catatan refund",
     P2P_SWAP_ERROR_REFUND_QUEUED: "Refund telah dimasukkan ke antrian",
     P2P_SWAP_ERROR_REFUND_ROW_NOT_FOUND: "Catatan refund tidak ditemukan",
     P2P_SWAP_ERROR_REFUND_REQUEST_RAISED: "Permintaan refund diajukan",
-    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY: "Transaksi refund dibatalkan on-chain; akan disiarkan ulang pada percobaan berikutnya",
-    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED: "Transaksi refund belum terkonfirmasi; akan dicoba ulang",
+    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY:
+      "Transaksi refund dibatalkan on-chain; akan disiarkan ulang pada percobaan berikutnya",
+    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED:
+      "Transaksi refund belum terkonfirmasi; akan dicoba ulang",
     P2P_SWAP_ERROR_REFUND_TX_REVERTED: "Transaksi refund dibatalkan on-chain",
-    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED: "Transaksi tidak terkonfirmasi — mungkin masih pending atau belum on-chain",
-    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED: "Transaksi dibatalkan on-chain dan tidak dapat digunakan sebagai deposit",
-    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND: "Tidak ada transfer USDC ke alamat deposit yang ditemukan",
-    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND: "Tidak ada transfer P2P ke alamat deposit yang ditemukan",
-    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED: "Deposit dari dompet perusahaan tidak diizinkan",
-    P2P_SWAP_ERROR_NO_RANGO_ROUTE: "Tidak ada rute yang ditemukan untuk jumlah ini",
+    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
+      "Transaksi tidak terkonfirmasi — mungkin masih pending atau belum on-chain",
+    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
+      "Transaksi dibatalkan on-chain dan tidak dapat digunakan sebagai deposit",
+    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
+      "Tidak ada transfer USDC ke alamat deposit yang ditemukan",
+    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
+      "Tidak ada transfer P2P ke alamat deposit yang ditemukan",
+    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
+      "Deposit dari dompet perusahaan tidak diizinkan",
+    P2P_SWAP_ERROR_NO_RANGO_ROUTE:
+      "Tidak ada rute yang ditemukan untuk jumlah ini",
     P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Kutipan bridge gagal",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT: "Bridge timeout — tidak ada status terminal setelah 15 menit",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY: "Bridge gagal pada percobaan ulang",
-    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS: "Saldo ETH tidak mencukupi untuk biaya gas",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
+      "Bridge timeout — tidak ada status terminal setelah 15 menit",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
+      "Bridge gagal pada percobaan ulang",
+    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
+      "Saldo ETH tidak mencukupi untuk biaya gas",
     P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX: "Gagal membuat transaksi swap",
     P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Transaksi EVM diharapkan",
     P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Transaksi Solana diharapkan",
-    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE: "Bridge tidak mengembalikan transaksi yang diserialisasi",
+    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
+      "Bridge tidak mengembalikan transaksi yang diserialisasi",
     P2P_SWAP_ERROR_APPROVE_TX_FAILED: "Transaksi approve gagal on-chain",
-    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT: "Approve berhasil tetapi jumlahnya tidak mencukupi",
+    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT:
+      "Approve berhasil tetapi jumlahnya tidak mencukupi",
     P2P_SWAP_ERROR_APPROVE_TIMEOUT: "Transaksi approve timeout",
     P2P_SWAP_ERROR_BRIDGE_FAILED_ON_CHAIN: "Bridge gagal on-chain",
-    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT: "Bridge tidak mengembalikan jumlah output",
+    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT:
+      "Bridge tidak mengembalikan jumlah output",
     P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Gagal mendapatkan order DEX",
     P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Gagal mengeksekusi swap DEX",
     P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED: "Transaksi swap DEX gagal on-chain",
     P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "Swap DEX tidak berhasil",
-    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT: "Transaksi swap DEX tidak terkonfirmasi dalam batas waktu",
-    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND: "Saldo token output tidak ditemukan dalam transaksi yang terkonfirmasi",
-    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA: "Swap mungkin diarahkan secara berbeda — jumlah output nol atau negatif",
+    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
+      "Transaksi swap DEX tidak terkonfirmasi dalam batas waktu",
+    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
+      "Saldo token output tidak ditemukan dalam transaksi yang terkonfirmasi",
+    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
+      "Swap mungkin diarahkan secara berbeda — jumlah output nol atau negatif",
     P2P_SWAP_ERROR_WORMHOLE_INVALID_VAA_ID_FORMAT: "Format ID VAA tidak valid",
     P2P_SWAP_ERROR_WORMHOLE_VAA_TIMEOUT: "VAA tidak tersedia dalam batas waktu",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX: "Gagal mengurai pesan bridge dari transaksi Solana",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX: "Gagal mengurai pesan bridge dari transaksi Base",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX:
+      "Gagal mengurai pesan bridge dari transaksi Solana",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX:
+      "Gagal mengurai pesan bridge dari transaksi Base",
+    P2P_TOKEN_TITLE: "Token $P2P",
+    NO_SWAPS_YET: "Belum ada swap",
+    NO_SWAPS_YET_DESC: "Swap P2P Anda sebelumnya akan muncul di sini.",
+    IN_PROGRESS: "Sedang Berlangsung",
     SW_INSTALLING_UPDATE: "Memasang pembaruan",
     SW_MAY_TAKE_UP_TO: "Ini mungkin memakan waktu hingga 2 menit.",
     SW_PLEASE_WAIT: "Mohon tunggu dengan sabar.",
@@ -1560,6 +1580,7 @@ export const id = {
     TOTAL_PAYABLE_AMOUNT: "Total Jumlah yang Harus Dibayar",
     TOTAL_RECEIVABLE_AMOUNT: "Total Jumlah yang Harus Diterima",
     TO_DATE: "Hingga Tanggal",
+    TRADE_ON_SOLANA: "Trading di Solana",
     TRADING_BANNER_DESCRIPTION: "Periksa tren pasar sebelum trading",
     TRADING_BANNER_TITLE: "Trade Cerdas",
     TRANSACTIONS: "Transaksi",
@@ -1579,6 +1600,7 @@ export const id = {
     TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer jumlah ke UPI ID di bawah dan klik 'Saya sudah melakukan pembayaran' untuk melanjutkan",
     TRY_AGAIN: "Coba Lagi",
+    TWENTY_FOUR_HOUR: "24j",
     TYPE: "Tipe",
     TYPE_FILTER: "Jenis: {{types}}",
     UNABLE_TO_LOAD_ESSENTIAL_DATA: "Tidak dapat memuat data penting",
@@ -1589,6 +1611,12 @@ export const id = {
     UNDER_MAINTENANCE_DESCRIPTION: "Kami sedang membuatnya lebih baik!",
     UNDER_MAINTENANCE_EXPECTED_COMPLETION: "Perkiraan selesai: Segera™",
     UNDER_MAINTENANCE_TITLE: "Sedang Pemeliharaan",
+    UNFREEZE_BANNER_CTA: "Unfreeze.pro",
+    UNFREEZE_BANNER_LABEL: "Built for local problems",
+    UNFREEZE_BANNER_SUBTITLE:
+      "Bank account frozen or lien placed? Unfreeze.pro gets you 100% refund + legal support.",
+    UNFREEZE_BANNER_TITLE: "We've got your back, always.",
+    UNFREEZE_PRO_CTA: "Visit Unfreeze.pro",
     UNKNOWN_ERROR: "Kesalahan tidak diketahui",
     UNSTAKE_AMOUNT_EXCEEDED: "Jumlah un-stake melebihi batas",
     UNSTAKE_AMOUNT_EXCEEDS_TOTAL_STAKED:
@@ -1671,6 +1699,7 @@ export const id = {
     VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
       "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda, membuka verifikasi ZK Aadhaar, dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
+    VIA_JUPITER: "via Jupiter",
     VIDEO_AADHAR_VERIFICATION: "Verifikasi AADHAR",
     VIDEO_APP_TOUR: "Tur Aplikasi",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
@@ -1809,6 +1838,7 @@ export const id = {
     YOUR_ACTIVITY_FILTERED: "Aktivitas Anda (Difilter)",
     YOUR_BASE_ADDRESS: "Alamat Base Anda",
     YOUR_CURRENCY: "mata uang Anda",
+    YOUR_P2P_ON_BASE: "$P2P Anda di Base",
     YOUR_PAYMENT_DETAILS_WILL_BE_SENT_ONCE_THE_MERCHANT_IS_CONNECTED:
       "Detail pembayaran Anda akan dikirim setelah merchant terhubung. Jangan meninggalkan halaman ini, karena transaksi tidak akan selesai",
     YOUR_PAYMENT_DETAILS_WILL_BE_SENT_SHORTLY_DONT_LEAVE_THE_PAGE:
@@ -1868,4 +1898,4 @@ export const id = {
     ZK_PASSPORT_VERIFIER_NOT_SET: "Verifier ZK Passport tidak diatur",
     ZK_VERIFICATION_REQUIRED: "Verifikasi ZK diperlukan",
   },
-} as const;
+};
