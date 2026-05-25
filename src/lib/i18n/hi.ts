@@ -846,6 +846,9 @@ export const hi = {
     LOGOUT: "लॉग आउट",
     LOGOUT_ERROR: "लॉग आउट करने में विफल",
     LOGOUT_SUCCESS: "सफलतापूर्वक लॉग आउट हो गए",
+    LOTPOT_CASHBACK_DESCRIPTION:
+      "आपको lotpot.fun पर खेलने के लिए {{percentage}}% कैशबैक क्रेडिट मिले हैं। इसे lotpot.fun पर देखें।",
+    LOTPOT_CASHBACK_TITLE: "LotPot कैशबैक",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "{{paymentAddressName}} सक्रिय करें",
     MAKE_ACTIVE_RECEIVING_WALLET: "सक्रिय प्राप्त करने वाला वॉलेट बनाएं",
     MALFORMED_URL: "QR डेटा लिंक अमान्य है",
@@ -976,6 +979,7 @@ export const hi = {
       "केवल भुगतान किए गए खरीद ऑर्डर को पूरा चिह्नित किया जा सकता है",
     ON_TIME: "समय पर",
     OPEN_COINS_ME: "coins.me खोलें",
+    OPEN_LOTPOT: "lotpot.fun खोलें",
     ORDER: "ऑर्डर",
     ORDERS_COUNT: "{{count}}+ ऑर्डर",
     ORDER_ALREADY_MARKED_COMPLETED: "ऑर्डर पहले ही पूरा चिह्नित किया जा चुका है",

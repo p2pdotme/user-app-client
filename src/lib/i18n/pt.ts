@@ -891,6 +891,9 @@ export const pt = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Logout falhou",
     LOGOUT_SUCCESS: "Logout realizado com sucesso",
+    LOTPOT_CASHBACK_DESCRIPTION:
+      "Você acabou de receber {{percentage}}% em créditos de cashback para jogar no lotpot.fun. Confira em lotpot.fun.",
+    LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Tornar {{paymentAddressName}} ativo",
     MAKE_ACTIVE_RECEIVING_WALLET: "Tornar carteira de recebimento ativa",
     MALFORMED_URL: "O link dos dados do QR está malformado",
@@ -1026,6 +1029,7 @@ export const pt = {
       "Apenas pedidos de compra pagos podem ser marcados como completos",
     ON_TIME: "No prazo",
     OPEN_COINS_ME: "Open coins.me",
+    OPEN_LOTPOT: "Abrir lotpot.fun",
     ORDER: "Pedido",
     ORDERS_COUNT: "{{count}}+ pedidos",
     ORDER_ALREADY_MARKED_COMPLETED: "Pedido já marcado como concluído",

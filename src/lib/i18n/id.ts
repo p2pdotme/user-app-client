@@ -889,6 +889,9 @@ export const id = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Gagal logout",
     LOGOUT_SUCCESS: "Berhasil logout",
+    LOTPOT_CASHBACK_DESCRIPTION:
+      "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
+    LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",
     MAKE_ACTIVE_RECEIVING_WALLET: "Jadikan dompet penerima aktif",
     MALFORMED_URL: "Tautan data QR tidak valid",
@@ -1024,6 +1027,7 @@ export const id = {
       "Hanya pesanan beli yang sudah dibayar yang dapat ditandai selesai",
     ON_TIME: "Tepat waktu",
     OPEN_COINS_ME: "Open coins.me",
+    OPEN_LOTPOT: "Buka lotpot.fun",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ pesanan",
     ORDER_ALREADY_MARKED_COMPLETED: "Pesanan sudah ditandai selesai",
