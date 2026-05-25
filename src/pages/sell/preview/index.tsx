@@ -432,9 +432,13 @@ export function SellPreview() {
                         className="relative flex items-center gap-2">
                         <Input
                           className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
-                          placeholder={t("ENTER_PAYMENT_DETAILS", {
-                            paymentAddressName: t(fieldConfig.label),
-                          })}
+                          placeholder={
+                            currency.currency === "NGN"
+                              ? t(fieldConfig.placeholder)
+                              : t("ENTER_PAYMENT_DETAILS", {
+                                  paymentAddressName: t(fieldConfig.label),
+                                })
+                          }
                           value={compoundValues[fieldConfig.key] || ""}
                           onChange={(e) =>
                             updateCompoundValue(fieldConfig.key, e.target.value)
