@@ -22,7 +22,6 @@ export const useContractVersion = () => {
 
   const checkContractSync = async () => {
     try {
-      return true;
       const version = await getContractVer();
       return version ? isSyncedWithContract(version) : false;
     } catch {

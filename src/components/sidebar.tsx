@@ -1,7 +1,6 @@
 import {
   ArrowLeftCircle,
   ArrowRight,
-  ArrowUpDown,
   Key,
   LogOut,
   Mail,
