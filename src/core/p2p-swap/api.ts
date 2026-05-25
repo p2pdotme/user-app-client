@@ -128,7 +128,7 @@ export async function fetchQuoteP2PToUsdc(
 }
 
 export async function fetchInfo(): Promise<Info> {
-  const json = await fetchJson(`${BASE_URL}/api/info`);
+  const json = await fetchJson(`${BASE_URL}/api/info/v2`);
   return InfoSchema.parse(json);
 }
 
