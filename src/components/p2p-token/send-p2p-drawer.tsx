@@ -129,6 +129,7 @@ export function SendP2PDrawer({
             autoComplete="off"
             disabled={isLoading}
             className={cn(
+              "h-12 text-base",
               isValidAddress === true && "border-success",
               isValidAddress === false && "border-destructive",
             )}
@@ -142,6 +143,7 @@ export function SendP2PDrawer({
               onChange={(e) => setAmount(e.target.value)}
               disabled={isLoading}
               className={cn(
+                "h-12 text-base",
                 parseFloat(amount) > balance && balance > 0 && "border-destructive",
               )}
             />
@@ -173,14 +175,20 @@ export function SendP2PDrawer({
 
         <DrawerFooter>
           <Button
-            className="w-full"
+            size="lg"
+            className="h-12 w-full text-base"
             onClick={handleSend}
             disabled={!address || !amount || isValidAddress !== true || isLoading || parseFloat(amount) > balance}
           >
             {isLoading ? <Loader2 className="size-4 animate-spin" /> : t("SEND_P2P")}
           </Button>
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full" disabled={isLoading}>
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-12 w-full text-base"
+              disabled={isLoading}
+            >
               {t("CLOSE")}
             </Button>
           </DrawerClose>
