@@ -173,8 +173,7 @@ export function HomeScreen() {
             type="button"
             variant="ghost"
             className="flex cursor-pointer flex-col items-center gap-2 p-0"
-            onClick={handleWalletClick}
-          >
+            onClick={handleWalletClick}>
             <div className="rounded-xl border border-primary p-4">
               <ASSETS.ICONS.ActionWallet className="size-7 shrink-0 text-primary" />
             </div>
@@ -203,8 +202,7 @@ export function HomeScreen() {
             viewTransition
             style={{
               viewTransitionName: "support",
-            }}
-          >
+            }}>
             <div className="rounded-xl border border-primary p-4">
               <ASSETS.ICONS.ActionSupport className="size-7 shrink-0 text-primary" />
             </div>
