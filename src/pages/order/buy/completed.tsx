@@ -179,13 +179,13 @@ export function BuyCompleted({ order }: { order: Order }) {
           </AlertDescription>
         </Alert>
 
-        {/* Tip Card */}
-        <TipMerchantCard orderId={Number(order.id)} />
-
         {/* Hardcoded 2% LotPot cashback card. Credit is issued server-side
             on completed non-B2B BUYs — no on-chain hook to wait on, so the
             UI promises the credit unconditionally on every BUY completion. */}
         <LotpotCashbackCard />
+
+        {/* Tip Card */}
+        <TipMerchantCard orderId={Number(order.id)} />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">
           <CardContent>
