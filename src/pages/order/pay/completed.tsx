@@ -152,9 +152,10 @@ export function PayCompleted({ order }: { order: Order }) {
 
         {/* Completed in is shown below in details; animation removed */}
 
+        <CashbackRewardCard orderId={Number(order.id)} />
+
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
-        <CashbackRewardCard orderId={Number(order.id)} />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">
           <CardContent>
