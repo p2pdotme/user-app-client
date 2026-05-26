@@ -56,7 +56,8 @@ function ActionButton({
         "flex w-full cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl bg-primary/10 px-4 py-4 text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
-      {...rest}>
+      {...rest}
+    >
       <div className="flex size-9 items-center justify-center rounded-full bg-background text-primary">
         {icon}
       </div>
@@ -98,7 +99,8 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
                     toast.error(t("FAILED_TO_COPY"));
                   }
                 }}
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15">
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15"
+              >
                 <p className="font-mono text-muted-foreground">
                   {truncateAddress(address, 12)}
                 </p>
@@ -112,7 +114,8 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
             <Button
               variant="outline"
               size="lg"
-              className="h-12 w-full text-base">
+              className="h-12 w-full text-base"
+            >
               {t("CLOSE")}
             </Button>
           </DrawerClose>
@@ -152,7 +155,8 @@ function TokenHoldingInfo() {
   return (
     <section
       aria-label={t("ARIA_P2P_TOKEN_HOLDINGS")}
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6">
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6"
+    >
       {/* Ambient glow */}
       <div
         aria-hidden
@@ -176,7 +180,8 @@ function TokenHoldingInfo() {
         onClick={handleRefresh}
         aria-label={t("ARIA_REFRESH_BALANCE")}
         disabled={isLoading || spinning}
-        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50">
+        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+      >
         <RefreshCw
           className={cn("size-3.5", (spinning || isLoading) && "animate-spin")}
         />
@@ -280,7 +285,8 @@ function TokenHoldingInfo() {
                 changeIsUp
                   ? "bg-success/15 text-success"
                   : "bg-destructive/15 text-destructive",
-              )}>
+              )}
+            >
               {changeIsUp ? (
                 <ArrowUpRight className="size-3" />
               ) : (
@@ -337,9 +343,105 @@ export function P2PToken() {
           />
         </div>
 
+        <AboutToken />
+
         <SolanaTradeFooter />
       </main>
     </>
+  );
+}
+
+// Format a large number into a compact representation (e.g. 1.23M, 4.56K).
+function formatCompactUsd(n: number | null | undefined): string {
+  if (n == null || !Number.isFinite(n)) return "—";
+  return new Intl.NumberFormat(undefined, {
+    notation: "compact",
+    maximumFractionDigits: 2,
+  }).format(n);
+}
+
+function StatCard({
+  label,
+  value,
+  isLoading,
+}: {
+  label: string;
+  value: React.ReactNode;
+  isLoading: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-border/60 bg-card/40 px-3 py-3">
+      <p className="text-muted-foreground text-[11px] uppercase tracking-wider">
+        {label}
+      </p>
+      {isLoading ? (
+        <Skeleton className="h-5 w-16 bg-primary/20" />
+      ) : (
+        <p className="font-bold text-foreground text-base tabular-nums">
+          {value}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// Compact DEXScreener-style token stats sourced from the token detail API.
+function TokenStats() {
+  const { t } = useTranslation();
+  const { tokenInfo, isTokenInfoLoading } = useP2PTokenInfo();
+
+  const marketCap = tokenInfo?.market.marketCap ?? null;
+  const fdv = tokenInfo?.market.fdv ?? null;
+  const liquidity = tokenInfo?.market.liquidity ?? null;
+
+  return (
+    <section aria-label={t("TOKEN_STATS")} className="grid grid-cols-3 gap-2">
+      <StatCard
+        label={t("LIQUIDITY")}
+        value={`$${formatCompactUsd(liquidity)}`}
+        isLoading={isTokenInfoLoading}
+      />
+      <StatCard
+        label={t("FDV")}
+        value={`$${formatCompactUsd(fdv)}`}
+        isLoading={isTokenInfoLoading}
+      />
+      <StatCard
+        label={t("MKT_CAP")}
+        value={`$${formatCompactUsd(marketCap)}`}
+        isLoading={isTokenInfoLoading}
+      />
+    </section>
+  );
+}
+
+function AboutToken() {
+  const { t } = useTranslation();
+  return (
+    <section
+      aria-label={t("ABOUT_P2P_TOKEN")}
+      className="rounded-2xl border border-border/60 bg-card/40 p-4"
+    >
+      <h2 className="mb-2 font-semibold text-foreground text-sm">
+        {t("ABOUT_P2P_TOKEN")}
+      </h2>
+      <TokenStats />
+      <p className="text-muted-foreground text-xs leading-relaxed mt-2">
+        {t("ABOUT_P2P_TOKEN_DESCRIPTION")}
+      </p>
+      <p className="mt-2 text-muted-foreground text-xs">
+        {t("LEARN_MORE_AT")}{" "}
+        <a
+          href="https://docs.p2p.foundation/for-token-holders/start-here"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
+        >
+          docs.p2p.foundation
+          <ArrowUpRight className="size-3" />
+        </a>
+      </p>
+    </section>
   );
 }
 
@@ -360,7 +462,8 @@ function SolanaTradeFooter() {
         href={JUP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25">
+        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25"
+      >
         <ASSETS.ICONS.NetworkSolana className="size-4" />
         <span className="font-semibold text-foreground text-xs">
           {t("TRADE_ON_SOLANA")}

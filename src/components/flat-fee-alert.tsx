@@ -72,7 +72,8 @@ const FlatFeeAlert = ({
   const formattedDeductedAmount = `${deductedAmount.toFixed(isBuyOrder ? 2 : 3)} USDC`;
 
   return (
-    show && (
+    show &&
+    Number(flatFee) > 0 && (
       <Alert variant="warning" className="w-full py-2">
         <AlertTriangle className="size-4" />
         <AlertDescription className="flex w-full items-center justify-between text-xs">
