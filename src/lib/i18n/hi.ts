@@ -1,5 +1,8 @@
 export const hi = {
   translation: {
+    ABOUT_P2P_TOKEN: "$P2P टोकन के बारे में",
+    ABOUT_P2P_TOKEN_DESCRIPTION:
+      '$P2P, P2P प्रोटोकॉल का गवर्नेंस और यूटिलिटी टोकन है, जो विकेंद्रीकृत, गोपनीयता-संरक्षित फिएट-टू-क्रिप्टो ऑन/ऑफ-रैम्प के लिए फ्यूटार्की-आधारित प्रोटोकॉल गवर्नेंस, ट्रेज़री नियंत्रण और ट्रस्ट स्टेकिंग ("Circles of Trust") को सशक्त बनाता है।',
     ACCEPTED: "स्वीकार किया गया",
     ACCESS_GRANTED_BUTTON: "वीडियो गाइड देखें",
     ACCESS_GRANTED_DESCRIPTION:
@@ -683,6 +686,7 @@ export const hi = {
     FROM: "से",
     FROM_DATE: "शुरुआती तारीख",
     FROM_TO_MINUTES: "{{from}} - {{to}} मिनट",
+    FDV: "FDV",
     FUNCTION_NOT_FOUND: "फंक्शन नहीं मिला",
     FUND_PROTECTION_GUIDELINES: "फंड सुरक्षा दिशानिर्देश",
     GENERAL: "सामान्य",
@@ -811,6 +815,7 @@ export const hi = {
     LAST_7_DAYS: "अंतिम 7 दिन",
     LAST_7_DAYS_SHORT: "7द",
     LEARN_MORE: "और जानें",
+    LEARN_MORE_AT: "और जानें",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Add facet का पता address(0) नहीं हो सकता",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -825,6 +830,7 @@ export const hi = {
     LIMIT: "लिमिट",
     LIMIT_UPDATES: "सीमा अपडेट",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn केवल RP अद्यतन समर्थित है",
+    LIQUIDITY: "लिक्विडिटी",
     LOADING: "लोड हो रहा है",
     LOADING_APP: "P2P.ME लोड हो रहा है...",
     LOAD_MORE: "और लोड करें",
@@ -857,6 +863,7 @@ export const hi = {
     MANAGER_NOT_FOUND: "प्रबंधक नहीं मिला",
     MARKED_AS_PAID: "भुगतान के रूप में चिह्नित",
     MARKET_PRICE: "बाजार मूल्य",
+    MKT_CAP: "मार्केट कैप",
     MAX: "अधिकतम",
     MAX_TRANSACTION_LIMIT: "अधिकतम ट्रांजैक्शन लिमिट",
     MAYBE_LATER: "बाद में",
@@ -1511,6 +1518,7 @@ export const hi = {
     TOKEN_EMPTY: "टोकन खाली है",
     TOKEN_NOT_FOUND: "टोकन नहीं मिला",
     TOKEN_SINGULAR: "टोकन",
+    TOKEN_STATS: "टोकन आँकड़े",
     TOTAL_ORDER_VOLUME: "कुल ऑर्डर वॉल्यूम",
     TOTAL_PAYABLE_AMOUNT: "कुल देय राशि",
     TOTAL_RECEIVABLE_AMOUNT: "कुल प्राप्य राशि",
