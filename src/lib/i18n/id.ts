@@ -1,5 +1,8 @@
 export const id = {
   translation: {
+    ABOUT_P2P_TOKEN: "Tentang Token $P2P",
+    ABOUT_P2P_TOKEN_DESCRIPTION:
+      '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
     ACCEPTED: "Diterima",
     ACCESS_GRANTED_BUTTON: "Tonton Panduan Video",
     ACCESS_GRANTED_DESCRIPTION:
@@ -721,6 +724,7 @@ export const id = {
     FROM: "Dari",
     FROM_DATE: "Dari Tanggal",
     FROM_TO_MINUTES: "{{from}} - {{to}} menit",
+    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Fungsi tidak ditemukan",
     FUND_PROTECTION_GUIDELINES: "Panduan Perlindungan Dana",
     GENERAL: "Umum",
@@ -853,6 +857,7 @@ export const id = {
     LAST_7_DAYS: "7 Hari Terakhir",
     LAST_7_DAYS_SHORT: "7h",
     LEARN_MORE: "Pelajari lebih lanjut",
+    LEARN_MORE_AT: "Pelajari lebih lanjut di",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Alamat facet tidak boleh address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -868,6 +873,7 @@ export const id = {
     LIMIT: "Limit",
     LIMIT_UPDATES: "Pembaruan Batas",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn hanya mendukung pembaruan RP",
+    LIQUIDITY: "Likuiditas",
     LOADING: "Memuat",
     LOADING_APP: "Memuat P2P.ME...",
     LOAD_MORE: "Muat lebih banyak",
@@ -900,6 +906,7 @@ export const id = {
     MANAGER_NOT_FOUND: "Manajer tidak ditemukan",
     MARKED_AS_PAID: "Ditandai sebagai dibayar",
     MARKET_PRICE: "Harga Pasar",
+    MKT_CAP: "KAP. MKT",
     MAX: "Maks",
     MAX_TRANSACTION_LIMIT: "Limit Transaksi Maksimum",
     MAYBE_LATER: "Nanti saja",
@@ -1582,6 +1589,7 @@ export const id = {
     TOKEN_EMPTY: "Token kosong",
     TOKEN_NOT_FOUND: "Token tidak ditemukan",
     TOKEN_SINGULAR: "Token",
+    TOKEN_STATS: "Statistik Token",
     TOTAL_ORDER_VOLUME: "Total Volume Order",
     TOTAL_PAYABLE_AMOUNT: "Total Jumlah yang Harus Dibayar",
     TOTAL_RECEIVABLE_AMOUNT: "Total Jumlah yang Harus Diterima",
