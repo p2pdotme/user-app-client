@@ -1,5 +1,8 @@
 export const es = {
   translation: {
+    ABOUT_P2P_TOKEN: "Acerca del Token $P2P",
+    ABOUT_P2P_TOKEN_DESCRIPTION:
+      '$P2P es el token de gobernanza y utilidad del Protocolo P2P, que impulsa la gobernanza basada en futarquía, el control de tesorería y el staking de confianza ("Círculos de Confianza") para una rampa de entrada/salida fiat-cripto descentralizada y que preserva la privacidad.',
     ACCEPTED: "Aceptado",
     ACCESS_GRANTED_BUTTON: "Ver Guía en Video",
     ACCESS_GRANTED_DESCRIPTION:
@@ -732,6 +735,7 @@ export const es = {
     FROM: "Desde",
     FROM_DATE: "Desde la Fecha",
     FROM_TO_MINUTES: "{{from}} - {{to}} mins",
+    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Función no encontrada",
     FUND_PROTECTION_GUIDELINES: "Guías de Protección de Fondos",
     GENERAL: "General",
@@ -867,6 +871,7 @@ export const es = {
     LAST_7_DAYS: "Últimos 7 Días",
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Saber más",
+    LEARN_MORE_AT: "Más información en",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "La faceta a añadir no puede ser la dirección(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -883,6 +888,7 @@ export const es = {
     LIMIT_UPDATES: "Actualizaciones de Límites",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn solo admite actualizaciones de RP",
+    LIQUIDITY: "Liquidez",
     LOADING: "Cargando",
     LOADING_APP: "Cargando P2P.ME...",
     LOAD_MORE: "Cargar más",
@@ -917,6 +923,7 @@ export const es = {
     MARKED_AS_PAID: "Marcado como pagado",
     MARKET_PRICE: "Precio de Mercado",
     MAX: "Máx",
+    MKT_CAP: "CAP. MKT",
     MAX_TRANSACTION_LIMIT: "Límite Máximo de Transacción",
     MAYBE_LATER: "Quizás después",
     MERCHANT_ACCEPTED: "Comerciante aceptado",
@@ -1625,6 +1632,7 @@ export const es = {
     TOKEN_EMPTY: "El token está vacío",
     TOKEN_NOT_FOUND: "Token no encontrado",
     TOKEN_SINGULAR: "Token",
+    TOKEN_STATS: "Estadísticas del Token",
     TOTAL_ORDER_VOLUME: "Volumen Total del Pedido",
     TOTAL_PAYABLE_AMOUNT: "Monto Total a Pagar",
     TOTAL_RECEIVABLE_AMOUNT: "Monto Total a Recibir",
