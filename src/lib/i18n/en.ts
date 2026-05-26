@@ -840,6 +840,7 @@ export const en = {
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Learn more",
     LEARN_MORE_AT: "Learn more at",
+    VIEW_ON: "View on",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Add facet can't be address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
