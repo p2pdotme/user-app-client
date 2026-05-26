@@ -392,7 +392,8 @@ function TokenStats() {
 
   const marketCap = tokenInfo?.market.marketCap ?? null;
   const fdv = tokenInfo?.market.fdv ?? null;
-  const liquidity = tokenInfo?.market.liquidity ?? null;
+  const liquidity =
+    tokenInfo?.market.liquidity != null ? tokenInfo.market.liquidity * 2 : null;
 
   return (
     <section aria-label={t("TOKEN_STATS")} className="grid grid-cols-3 gap-2">
@@ -422,14 +423,14 @@ function AboutToken() {
       aria-label={t("ABOUT_P2P_TOKEN")}
       className="rounded-2xl border border-border/60 bg-card/40 p-4"
     >
-      <h2 className="mb-2 font-semibold text-foreground text-sm">
+      <h2 className="mb-2 font-semibold text-foreground text-base">
         {t("ABOUT_P2P_TOKEN")}
       </h2>
       <TokenStats />
-      <p className="text-muted-foreground text-xs leading-relaxed mt-2">
+      <p className="text-muted-foreground text-sm leading-relaxed mt-2">
         {t("ABOUT_P2P_TOKEN_DESCRIPTION")}
       </p>
-      <p className="mt-2 text-muted-foreground text-xs">
+      <p className="mt-2 text-muted-foreground text-sm">
         {t("LEARN_MORE_AT")}{" "}
         <a
           href="https://docs.p2p.foundation/for-token-holders/start-here"
@@ -438,7 +439,19 @@ function AboutToken() {
           className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
         >
           docs.p2p.foundation
-          <ArrowUpRight className="size-3" />
+          <ArrowUpRight className="size-3.5" />
+        </a>
+      </p>
+      <p className="mt-1 text-muted-foreground text-sm">
+        {t("VIEW_ON")}{" "}
+        <a
+          href="https://dexscreener.com/solana/cfymvueyikv8dakdns6wshc5uaxg6t7kqfbcsaebacfu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
+        >
+          dexscreener.com
+          <ArrowUpRight className="size-3.5" />
         </a>
       </p>
     </section>
