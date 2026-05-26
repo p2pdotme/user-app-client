@@ -858,6 +858,7 @@ export const id = {
     LAST_7_DAYS_SHORT: "7h",
     LEARN_MORE: "Pelajari lebih lanjut",
     LEARN_MORE_AT: "Pelajari lebih lanjut di",
+    VIEW_ON: "Lihat di",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Alamat facet tidak boleh address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
