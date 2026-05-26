@@ -816,6 +816,7 @@ export const hi = {
     LAST_7_DAYS_SHORT: "7द",
     LEARN_MORE: "और जानें",
     LEARN_MORE_AT: "और जानें",
+    VIEW_ON: "देखें",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Add facet का पता address(0) नहीं हो सकता",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:

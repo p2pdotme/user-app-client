@@ -872,6 +872,7 @@ export const es = {
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Saber más",
     LEARN_MORE_AT: "Más información en",
+    VIEW_ON: "Ver en",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "La faceta a añadir no puede ser la dirección(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
