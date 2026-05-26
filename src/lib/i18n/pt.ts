@@ -1,5 +1,8 @@
 export const pt = {
   translation: {
+    ABOUT_P2P_TOKEN: "Sobre o Token $P2P",
+    ABOUT_P2P_TOKEN_DESCRIPTION:
+      '$P2P é o token de governança e utilidade do Protocolo P2P, impulsionando a governança baseada em futarquia, o controle de tesouraria e o staking de confiança ("Círculos de Confiança") para uma rampa de entrada/saída fiat-cripto descentralizada e que preserva a privacidade.',
     ACCEPTED: "Aceitas",
     ACCESS_GRANTED_BUTTON: "Assista ao Guia em Vídeo",
     ACCESS_GRANTED_DESCRIPTION:
@@ -721,6 +724,7 @@ export const pt = {
     FROM: "De",
     FROM_DATE: "Data Inicial",
     FROM_TO_MINUTES: "{{from}} - {{to}} mins",
+    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Função não encontrada",
     FUND_PROTECTION_GUIDELINES: "Diretrizes de Proteção de Fundos",
     GENERAL: "Geral",
@@ -854,6 +858,7 @@ export const pt = {
     LAST_7_DAYS: "Últimos 7 Dias",
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Saiba mais",
+    LEARN_MORE_AT: "Saiba mais em",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Add facet não pode ser address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -870,6 +875,7 @@ export const pt = {
     LIMIT_UPDATES: "Atualizações de Limite",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn apenas suporta atualizações de RP",
+    LIQUIDITY: "Liquidez",
     LOADING: "Carregando",
     LOADING_APP: "Carregando P2P.ME...",
     LOAD_MORE: "Carregar mais",
@@ -902,6 +908,7 @@ export const pt = {
     MANAGER_NOT_FOUND: "Gerente não encontrado",
     MARKED_AS_PAID: "Marcado como pago",
     MARKET_PRICE: "Preço de Mercado",
+    MKT_CAP: "CAP. MKT",
     MAX: "Máx",
     MAX_TRANSACTION_LIMIT: "Limite Máximo de Transação",
     MAYBE_LATER: "Talvez depois",
@@ -1586,6 +1593,7 @@ export const pt = {
     TOKEN_EMPTY: "Token vazio",
     TOKEN_NOT_FOUND: "Token não encontrado",
     TOKEN_SINGULAR: "Token",
+    TOKEN_STATS: "Estatísticas do Token",
     TOTAL_ORDER_VOLUME: "Volume total de pedidos",
     TOTAL_PAYABLE_AMOUNT: "Valor Total a Pagar",
     TOTAL_RECEIVABLE_AMOUNT: "Total a Receber",

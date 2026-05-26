@@ -1,5 +1,8 @@
 export const en = {
   translation: {
+    ABOUT_P2P_TOKEN: "About $P2P Token",
+    ABOUT_P2P_TOKEN_DESCRIPTION:
+      '$P2P is the governance and utility token of the P2P Protocol, powering futarchy-based protocol governance, treasury control, and trust staking ("Circles of Trust") for a decentralized, privacy-preserving fiat-to-crypto on/off-ramp.',
     ACCEPTED: "Accepted",
     ACCESS_GRANTED_BUTTON: "Watch Video Guide",
     ACCESS_GRANTED_DESCRIPTION:
@@ -704,6 +707,7 @@ export const en = {
     FROM: "From",
     FROM_DATE: "From Date",
     FROM_TO_MINUTES: "{{from}} - {{to}} mins",
+    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Function not found",
     FUND_PROTECTION_GUIDELINES: "Fund Protection Guidelines",
     GENERAL: "General",
@@ -835,6 +839,7 @@ export const en = {
     LAST_7_DAYS: "Last 7 Days",
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Learn more",
+    LEARN_MORE_AT: "Learn more at",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Add facet can't be address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -849,6 +854,7 @@ export const en = {
     LIMIT: "Limit",
     LIMIT_UPDATES: "Limit Updates",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn only supports RP updates",
+    LIQUIDITY: "Liquidity",
     LOADING: "Loading",
     LOADING_APP: "Loading P2P.ME...",
     LOAD_MORE: "Load more",
@@ -881,6 +887,7 @@ export const en = {
     MANAGER_NOT_FOUND: "Manager not found",
     MARKED_AS_PAID: "Marked as paid",
     MARKET_PRICE: "Market Price",
+    MKT_CAP: "MKT CAP",
     MAX: "Max",
     MAX_TRANSACTION_LIMIT: "Max Transaction Limit",
     MAYBE_LATER: "Maybe later",
@@ -1547,6 +1554,7 @@ export const en = {
     TOKEN_EMPTY: "Token is empty",
     TOKEN_NOT_FOUND: "Token not found",
     TOKEN_SINGULAR: "Token",
+    TOKEN_STATS: "Token Stats",
     TOTAL_ORDER_VOLUME: "Total Order Volume",
     TOTAL_PAYABLE_AMOUNT: "Total Payable Amount",
     TOTAL_RECEIVABLE_AMOUNT: "Total Receivable Amount",
