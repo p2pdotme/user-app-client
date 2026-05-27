@@ -702,6 +702,7 @@ export const es = {
     FAQ_WITHDRAWAL_HASNT_ARRIVED: "¿Qué debo hacer si mi retiro no ha llegado?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
       "Para retiros directos de Base:\n• Revisa tu wallet y el explorador de bloques de Base.\n\nPara retiros cross-chain:\n• Visita el Explorador de Rango\n• Contacta al soporte de Rango si la transacción está atascada",
+    FDV: "FDV",
     FEATURE_COMING_SOON: "Función próximamente disponible",
     FEE: "Tarifa",
     FEEDBACK_FEATURE_COMING_SOON:
@@ -735,7 +736,6 @@ export const es = {
     FROM: "Desde",
     FROM_DATE: "Desde la Fecha",
     FROM_TO_MINUTES: "{{from}} - {{to}} mins",
-    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Función no encontrada",
     FUND_PROTECTION_GUIDELINES: "Guías de Protección de Fondos",
     GENERAL: "General",
@@ -820,6 +820,7 @@ export const es = {
     INSTALL_PWA_IOS_STEP_2: "Toca el botón 'Añadir a la pantalla de inicio'",
     INSTALL_PWA_IOS_TITLE: "Instalar p2p.me",
     INSTALL_VPN: "Instala Turbo VPN (móvil) o Zenmate (escritorio)",
+    INSUFFICIENT_P2P_BALANCE: "No tienes suficientes tokens $P2P",
     INSUFFICIENT_RP: "Puntos de reputación insuficientes",
     INSUFFICIENT_STAKED_AMOUNT: "Monto depositado insuficiente",
     INVALID_ADDRESS: "Dirección no válida",
@@ -852,6 +853,7 @@ export const es = {
       "Parámetros de recompensa de campaña de usuario no válidos",
     INVALID_WALLET_ADDRESS_FORMAT: "Formato de dirección de wallet no válido",
     INVITE_VIA_REFERRAL_LINK: "Invitar a través de enlace de referido",
+    IN_PROGRESS: "En progreso",
     IOS: "iOS:",
     IOS_DNS_INSTRUCTIONS:
       "Ajustes → Wi-Fi → Toca 'i' → Configurar DNS → Manual → Añadir DNS (8.8.8.8 o 1.1.1.1)",
@@ -872,7 +874,6 @@ export const es = {
     LAST_7_DAYS_SHORT: "7d",
     LEARN_MORE: "Saber más",
     LEARN_MORE_AT: "Más información en",
-    VIEW_ON: "Ver en",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "La faceta a añadir no puede ser la dirección(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -916,6 +917,8 @@ export const es = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Acabas de recibir {{percentage}}% en créditos de cashback para jugar en lotpot.fun. Compruébalo en lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback de LotPot",
+    LOTPOT_CREDITS_EARNED: "Créditos de LotPot ganados",
+    LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Hacer activa la {{paymentAddressName}}",
     MAKE_ACTIVE_RECEIVING_WALLET: "Hacer activa la wallet de recepción",
     MALFORMED_URL: "El enlace de datos del QR está malformado",
@@ -924,7 +927,6 @@ export const es = {
     MARKED_AS_PAID: "Marcado como pagado",
     MARKET_PRICE: "Precio de Mercado",
     MAX: "Máx",
-    MKT_CAP: "CAP. MKT",
     MAX_TRANSACTION_LIMIT: "Límite Máximo de Transacción",
     MAYBE_LATER: "Quizás después",
     MERCHANT_ACCEPTED: "Comerciante aceptado",
@@ -952,6 +954,7 @@ export const es = {
     MISSING_ACCOUNT_OR_CAMPAIGN_PARAMETERS:
       "Faltan parámetros de cuenta o campaña",
     MISSING_PAYMENT_ADDRESS: "Falta la dirección de pago en el QR",
+    MKT_CAP: "CAP. MKT",
     MONTHLY_BUY_ORDER_COUNT_LIMIT_EXCEEDED:
       "Límite mensual de pedidos de compra excedido",
     MONTHLY_REWARD_DROP: "Recompensa Mensual",
@@ -1029,6 +1032,8 @@ export const es = {
       "Añade tu dirección de venta para seleccionarla rápidamente en futuras transacciones",
     NO_STAKE: "Sin depósito",
     NO_STAKED_AMOUNT: "No hay monto depositado",
+    NO_SWAPS_YET: "Sin intercambios aún",
+    NO_SWAPS_YET_DESC: "Tus intercambios P2P pasados aparecerán aquí.",
     NO_TASK_LEDGER_ENTRIES:
       "No se encontraron entradas en el registro de tareas",
     NO_TRANSACTIONS_FOUND: "No se encontraron transacciones",
@@ -1078,6 +1083,98 @@ export const es = {
     P2P_ME_UNREACHABLE:
       "p2p.me no está disponible en este momento. Por favor, inténtalo de nuevo más tarde.",
     P2P_ME_WALLET: "Wallet P2P.me",
+    P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} enviado exitosamente",
+    P2P_SWAP: "Intercambio P2P",
+    P2P_SWAP_BANNER_DESCRIPTION:
+      "Intercambios instantáneos, desde tu billetera.",
+    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
+    P2P_SWAP_BANNER_TITLE: "Intercambia P2P ⇄ USDC",
+    P2P_SWAP_ERROR_ADDRESS_REQUIRED: "Se requiere la dirección",
+    P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED:
+      "Se requiere el parámetro de cantidad",
+    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT:
+      "La aprobación fue exitosa pero la cantidad es insuficiente",
+    P2P_SWAP_ERROR_APPROVE_TIMEOUT:
+      "La transacción de aprobación agotó el tiempo",
+    P2P_SWAP_ERROR_APPROVE_TX_FAILED:
+      "La transacción de aprobación falló en cadena",
+    P2P_SWAP_ERROR_BRIDGE_FAILED_ON_CHAIN: "El puente falló en cadena",
+    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT:
+      "El puente no devolvió una cantidad de salida",
+    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
+      "No se permite el depósito desde la billetera de la empresa",
+    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
+      "Transacción no confirmada — puede estar pendiente o no en cadena",
+    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
+      "La transacción fue revertida en cadena y no puede usarse como depósito",
+    P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Se esperaba una transacción EVM",
+    P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Se esperaba una transacción Solana",
+    P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX:
+      "Error al crear la transacción de intercambio",
+    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
+      "Saldo ETH insuficiente para las tarifas de gas",
+    P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Error interno del servidor",
+    P2P_SWAP_ERROR_INVALID_CLAIM_ID: "ID de reclamo inválido",
+    P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Dirección EVM inválida",
+    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
+      "Cantidad de USDC inválida — debe estar en unidades base",
+    P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Error al ejecutar el intercambio DEX",
+    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
+      "El intercambio puede haberse enrutado de manera diferente — la cantidad de salida es cero o negativa",
+    P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Error al obtener la orden DEX",
+    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
+      "Balance del token de salida no encontrado en la transacción confirmada",
+    P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "El intercambio DEX no tuvo éxito",
+    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
+      "La transacción de intercambio DEX no fue confirmada a tiempo",
+    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED:
+      "La transacción de intercambio DEX falló en cadena",
+    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
+      "No se encontró transferencia de P2P a la dirección de depósito",
+    P2P_SWAP_ERROR_NO_RANGO_ROUTE: "No se encontró ruta para esta cantidad",
+    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
+      "No se encontró transferencia de USDC a la dirección de depósito",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
+      "El puente falló en el reintento",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
+      "El puente agotó el tiempo — sin estado terminal después de 15 minutos",
+    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
+      "El puente no devolvió una transacción serializada",
+    P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Cotización del puente fallida",
+    P2P_SWAP_ERROR_REFUND_ALREADY_IN_PROGRESS:
+      "El reembolso ya está en progreso",
+    P2P_SWAP_ERROR_REFUND_CREATE_FAILED:
+      "Error al crear el registro de reembolso",
+    P2P_SWAP_ERROR_REFUND_QUEUED: "El reembolso ha sido puesto en cola",
+    P2P_SWAP_ERROR_REFUND_REQUEST_RAISED: "Solicitud de reembolso registrada",
+    P2P_SWAP_ERROR_REFUND_ROW_NOT_FOUND: "Registro de reembolso no encontrado",
+    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED:
+      "La transacción de reembolso aún no está confirmada; se reintentará",
+    P2P_SWAP_ERROR_REFUND_TX_REVERTED:
+      "La transacción de reembolso fue revertida en cadena",
+    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY:
+      "La transacción de reembolso fue revertida en cadena; se retransmitirá en el reintento",
+    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED:
+      "Todos los intentos de reintento deben agotarse antes de emitir un reembolso. Por favor espera e intenta de nuevo.",
+    P2P_SWAP_ERROR_SWAP_ALREADY_REFUNDED: "El intercambio ya fue reembolsado",
+    P2P_SWAP_ERROR_SWAP_NOT_FOUND: "Intercambio no encontrado",
+    P2P_SWAP_ERROR_SWAP_NOT_IN_FAILED_STATE:
+      "El intercambio no está en estado fallido",
+    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED:
+      "Se requieren el hash de transacción y la dirección del usuario",
+    P2P_SWAP_ERROR_USER_ID_REQUIRED: "Se requiere el ID de usuario",
+    P2P_SWAP_ERROR_VAA_NOT_READY: "VAA no está listo para este intercambio",
+    P2P_SWAP_ERROR_WORMHOLE_INVALID_VAA_ID_FORMAT:
+      "Formato de ID de VAA inválido",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX:
+      "Error al analizar el mensaje del puente desde la transacción Base",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX:
+      "Error al analizar el mensaje del puente desde la transacción Solana",
+    P2P_SWAP_ERROR_WORMHOLE_VAA_TIMEOUT: "VAA no disponible dentro del tiempo",
+    P2P_SWAP_STATUS_FAILED: "Fallido",
+    P2P_SWAP_STATUS_PENDING: "Pendiente",
+    P2P_SWAP_STATUS_SUCCESS: "Exitoso",
+    P2P_TOKEN_TITLE: "Token $P2P",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Lo sentimos, no pudimos encontrar la página que estás buscando.",
     PAGE_NOT_FOUND_TITLE: "Página no encontrada",
@@ -1227,8 +1324,8 @@ export const es = {
     RANGO_REQUEST_ID_NOT_FOUND: "ID de solicitud de Rango no encontrado",
     RANGO_SWAP_ERROR: "El intercambio falló. Por favor, inténtalo de nuevo.",
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "Recibo descargado con éxito",
-    RECEIVED: "Recibidas",
     RECEIVE: "Recibir",
+    RECEIVED: "Recibidas",
     RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET: "Recibe fondos en tu wallet P2P.me.",
     RECEIVE_P2P_DESCRIPTION:
       "Envía $P2P o cualquier token de la red Base a esta dirección.",
@@ -1254,11 +1351,6 @@ export const es = {
       "¡Estás a solo {{left}} de alcanzar tu límite de {{target}} para desbloquear Referir y Ganar!",
     REFERRED: "Referido",
     REFER_AND_EARN: "Referir y Ganar",
-    P2P_SWAP: "Intercambio P2P",
-    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
-    P2P_SWAP_BANNER_TITLE: "Intercambia P2P ⇄ USDC",
-    P2P_SWAP_BANNER_DESCRIPTION:
-      "Intercambios instantáneos, desde tu billetera.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Comparte tu enlace de referido con amigos y gana un {{referralRewardPercentage}}% cada vez que operen.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
@@ -1394,6 +1486,10 @@ export const es = {
     SENDING_TIP: "Enviando propina...",
     SENDING_YOUR_PAYMENT_DETAILS: "Enviando tus detalles de pago",
     SEND_FEEDBACK: "Enviar comentarios",
+    SEND_P2P: "Enviar $P2P",
+    SEND_P2P_BASE_ONLY_WARNING:
+      "Solo envía a direcciones de la red Base. Enviar a otras redes resultará en pérdida permanente de fondos.",
+    SEND_P2P_DESC: "Envía tokens $P2P a cualquier dirección de billetera Base",
     SEND_RECEIVE_SWAP: "Enviar · Recibir · Intercambiar",
     SEND_TIP: "Enviar propina",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Envía USDC desde tu wallet P2P.me",
@@ -1457,112 +1553,17 @@ export const es = {
     SWAPPED: "Intercambiado",
     SWAPPER: "Intercambiador",
     SWAPPING: "Intercambiando",
+    SWAP_EXCEEDS_LIMIT: "Máximo {{amount}} {{token}} por intercambio",
     SWAP_FAILED: "Intercambio fallido",
     SWAP_HISTORY: "Historial de intercambios",
-    SWAP_TXN_NOT_CREATED: "Transacción de intercambio no creada",
     SWAP_INITIATED_SUCCESS: "Intercambio iniciado exitosamente",
     SWAP_INSUFFICIENT_BALANCE: "Saldo insuficiente de {{token}}",
+    SWAP_NUMBER: "Intercambio #{{id}}",
     SWAP_QUOTE_UNAVAILABLE:
       "Quote unavailable at the moment. Please try again shortly.",
-    SWAP_EXCEEDS_LIMIT: "Máximo {{amount}} {{token}} por intercambio",
-    SWAP_NUMBER: "Intercambio #{{id}}",
-    SWAP_USER_TX: "Tx del usuario",
     SWAP_REFUNDED: "Reembolsado",
-    INSUFFICIENT_P2P_BALANCE: "No tienes suficientes tokens $P2P",
-    SEND_P2P: "Enviar $P2P",
-    SEND_P2P_DESC: "Envía tokens $P2P a cualquier dirección de billetera Base",
-    SEND_P2P_BASE_ONLY_WARNING:
-      "Solo envía a direcciones de la red Base. Enviar a otras redes resultará en pérdida permanente de fondos.",
-    P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} enviado exitosamente",
-    P2P_SWAP_STATUS_PENDING: "Pendiente",
-    P2P_SWAP_STATUS_FAILED: "Fallido",
-    P2P_SWAP_STATUS_SUCCESS: "Exitoso",
-    P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Error interno del servidor",
-    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED:
-      "Se requieren el hash de transacción y la dirección del usuario",
-    P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED:
-      "Se requiere el parámetro de cantidad",
-    P2P_SWAP_ERROR_ADDRESS_REQUIRED: "Se requiere la dirección",
-    P2P_SWAP_ERROR_USER_ID_REQUIRED: "Se requiere el ID de usuario",
-    P2P_SWAP_ERROR_INVALID_CLAIM_ID: "ID de reclamo inválido",
-    P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Dirección EVM inválida",
-    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
-      "Cantidad de USDC inválida — debe estar en unidades base",
-    P2P_SWAP_ERROR_SWAP_NOT_FOUND: "Intercambio no encontrado",
-    P2P_SWAP_ERROR_SWAP_NOT_IN_FAILED_STATE:
-      "El intercambio no está en estado fallido",
-    P2P_SWAP_ERROR_VAA_NOT_READY: "VAA no está listo para este intercambio",
-    P2P_SWAP_ERROR_SWAP_ALREADY_REFUNDED: "El intercambio ya fue reembolsado",
-    P2P_SWAP_ERROR_REFUND_ALREADY_IN_PROGRESS:
-      "El reembolso ya está en progreso",
-    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED:
-      "Todos los intentos de reintento deben agotarse antes de emitir un reembolso. Por favor espera e intenta de nuevo.",
-    P2P_SWAP_ERROR_REFUND_CREATE_FAILED:
-      "Error al crear el registro de reembolso",
-    P2P_SWAP_ERROR_REFUND_QUEUED: "El reembolso ha sido puesto en cola",
-    P2P_SWAP_ERROR_REFUND_ROW_NOT_FOUND: "Registro de reembolso no encontrado",
-    P2P_SWAP_ERROR_REFUND_REQUEST_RAISED: "Solicitud de reembolso registrada",
-    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY:
-      "La transacción de reembolso fue revertida en cadena; se retransmitirá en el reintento",
-    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED:
-      "La transacción de reembolso aún no está confirmada; se reintentará",
-    P2P_SWAP_ERROR_REFUND_TX_REVERTED:
-      "La transacción de reembolso fue revertida en cadena",
-    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
-      "Transacción no confirmada — puede estar pendiente o no en cadena",
-    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
-      "La transacción fue revertida en cadena y no puede usarse como depósito",
-    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
-      "No se encontró transferencia de USDC a la dirección de depósito",
-    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
-      "No se encontró transferencia de P2P a la dirección de depósito",
-    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
-      "No se permite el depósito desde la billetera de la empresa",
-    P2P_SWAP_ERROR_NO_RANGO_ROUTE: "No se encontró ruta para esta cantidad",
-    P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Cotización del puente fallida",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
-      "El puente agotó el tiempo — sin estado terminal después de 15 minutos",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
-      "El puente falló en el reintento",
-    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
-      "Saldo ETH insuficiente para las tarifas de gas",
-    P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX:
-      "Error al crear la transacción de intercambio",
-    P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Se esperaba una transacción EVM",
-    P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Se esperaba una transacción Solana",
-    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
-      "El puente no devolvió una transacción serializada",
-    P2P_SWAP_ERROR_APPROVE_TX_FAILED:
-      "La transacción de aprobación falló en cadena",
-    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT:
-      "La aprobación fue exitosa pero la cantidad es insuficiente",
-    P2P_SWAP_ERROR_APPROVE_TIMEOUT:
-      "La transacción de aprobación agotó el tiempo",
-    P2P_SWAP_ERROR_BRIDGE_FAILED_ON_CHAIN: "El puente falló en cadena",
-    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT:
-      "El puente no devolvió una cantidad de salida",
-    P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Error al obtener la orden DEX",
-    P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Error al ejecutar el intercambio DEX",
-    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED:
-      "La transacción de intercambio DEX falló en cadena",
-    P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "El intercambio DEX no tuvo éxito",
-    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
-      "La transacción de intercambio DEX no fue confirmada a tiempo",
-    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
-      "Balance del token de salida no encontrado en la transacción confirmada",
-    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
-      "El intercambio puede haberse enrutado de manera diferente — la cantidad de salida es cero o negativa",
-    P2P_SWAP_ERROR_WORMHOLE_INVALID_VAA_ID_FORMAT:
-      "Formato de ID de VAA inválido",
-    P2P_SWAP_ERROR_WORMHOLE_VAA_TIMEOUT: "VAA no disponible dentro del tiempo",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX:
-      "Error al analizar el mensaje del puente desde la transacción Solana",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX:
-      "Error al analizar el mensaje del puente desde la transacción Base",
-    P2P_TOKEN_TITLE: "Token $P2P",
-    NO_SWAPS_YET: "Sin intercambios aún",
-    NO_SWAPS_YET_DESC: "Tus intercambios P2P pasados aparecerán aquí.",
-    IN_PROGRESS: "En progreso",
+    SWAP_TXN_NOT_CREATED: "Transacción de intercambio no creada",
+    SWAP_USER_TX: "Tx del usuario",
     SW_INSTALLING_UPDATE: "Instalando actualización",
     SW_MAY_TAKE_UP_TO: "Esto puede tardar hasta 2 minutos.",
     SW_PLEASE_WAIT: "Por favor, espera pacientemente.",
@@ -1714,6 +1715,7 @@ export const es = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Límite de volumen anual del usuario excedido",
     USE_CBBTC_ON_COINSME: "Usa tu cbBTC en coins.me",
+    USE_CREDITS_ON_LOTPOT: "Usa tus créditos en lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error al obtener los votos de",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
@@ -1868,6 +1870,7 @@ export const es = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
+    VIEW_ON: "Ver en",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",
     VOTES_PER_EPOCH_EXCEEDED: "Votos por época excedidos",
