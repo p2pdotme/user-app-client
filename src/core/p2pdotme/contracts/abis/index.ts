@@ -3,6 +3,7 @@ import { erc20Abi } from "viem";
 import { circleFacetAbi } from "./circle-facet";
 import { diamondAbi } from "./diamond";
 import { diamondInfoAbi } from "./diamond-info";
+import { getterFacetAbi } from "./getter-facet";
 import { orderFlowFacetAbi } from "./order-flow-facet";
 import { orderFlowHelperAbi } from "./order-flow-helper";
 import { orderProcessorFacetAbi } from "./order-processor-facet";
@@ -11,7 +12,6 @@ import { protocolConfigFacetAbi } from "./protocol-config-facet";
 import { reputationManagerAbi } from "./reputation-manager";
 import { rpHelperAbi } from "./rp-helper";
 import { rPHelper1Abi } from "./rp-helper-1";
-import { getterFacetAbi } from "./getter-facet";
 
 const DIAMOND_ABI = [
   ...diamondAbi,
@@ -23,7 +23,7 @@ const DIAMOND_ABI = [
   ...diamondInfoAbi,
   ...orderFlowHelperAbi,
   ...protocolConfigFacetAbi,
-  ...getterFacetAbi
+  ...getterFacetAbi,
 ] as const;
 
 const REPUTATION_MANAGER_ABI = [
@@ -50,5 +50,8 @@ export const CONTRACT_ADDRESSES = {
   USDC: import.meta.env.VITE_CONTRACT_ADDRESS_USDC as Address,
   REPUTATION_MANAGER: import.meta.env
     .VITE_CONTRACT_ADDRESS_REPUTATION_MANAGER as Address,
+  LOTPOT_INTEGRATOR: import.meta.env.VITE_CONTRACT_ADDRESS_LOTPOT_INTEGRATOR as
+    | Address
+    | undefined,
   P2P_TOKEN: "0x75a8FF75a4f224947A6315b8dab5D5a81FE2f550" as Address,
 } as const;
