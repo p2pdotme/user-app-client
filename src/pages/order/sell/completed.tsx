@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
 import { Button } from "@/components/ui/button";
@@ -151,6 +152,11 @@ export function SellCompleted({ order }: { order: Order }) {
             {t("SOLD_VIA")} P2P.me
           </p>
         </div>
+
+        {/* Hardcoded 2% LotPot cashback card. Credit is issued server-side
+            on completed non-B2B SELLs — no on-chain hook to wait on, so the
+            UI promises the credit unconditionally on every SELL completion. */}
+        <LotpotCashbackCard />
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
