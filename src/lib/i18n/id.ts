@@ -691,6 +691,7 @@ export const id = {
       "Apa yang harus saya lakukan jika withdrawal saya belum tiba?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
       "Untuk withdrawal Base langsung:\n• Periksa wallet Anda dan Base block explorer.\n\nUntuk withdrawal cross-chain:\n• Kunjungi Rango Explorer\n• Hubungi dukungan Rango jika transaksi terjebak",
+    FDV: "FDV",
     FEATURE_COMING_SOON: "Fitur segera hadir",
     FEE: "Biaya",
     FEEDBACK_FEATURE_COMING_SOON: "Fitur umpan balik segera hadir",
@@ -724,7 +725,6 @@ export const id = {
     FROM: "Dari",
     FROM_DATE: "Dari Tanggal",
     FROM_TO_MINUTES: "{{from}} - {{to}} menit",
-    FDV: "FDV",
     FUNCTION_NOT_FOUND: "Fungsi tidak ditemukan",
     FUND_PROTECTION_GUIDELINES: "Panduan Perlindungan Dana",
     GENERAL: "Umum",
@@ -808,6 +808,7 @@ export const id = {
     INSTALL_PWA_IOS_STEP_2: "Ketuk tombol 'Tambahkan ke Layar Utama'",
     INSTALL_PWA_IOS_TITLE: "Instal p2p.me",
     INSTALL_VPN: "Install Turbo VPN (mobile) atau Zenmate (desktop)",
+    INSUFFICIENT_P2P_BALANCE: "Anda tidak memiliki cukup token $P2P",
     INSUFFICIENT_RP: "Poin reputasi tidak mencukupi",
     INSUFFICIENT_STAKED_AMOUNT: "Jumlah stake tidak mencukupi",
     INVALID_ADDRESS: "Alamat tidak valid",
@@ -837,6 +838,7 @@ export const id = {
     INVALID_USER_CAMPAIGN_REWARD_PARAMS: "Parameter akun kampanye tidak valid",
     INVALID_WALLET_ADDRESS_FORMAT: "Format alamat dompet tidak valid",
     INVITE_VIA_REFERRAL_LINK: "Undang via link referensi",
+    IN_PROGRESS: "Sedang Berlangsung",
     IOS: "Ios:",
     IOS_DNS_INSTRUCTIONS:
       "Pengaturan → Wi-Fi → Toque em 'i' → Konfigurasi DNS → Manual → Tambah DNS (8.8.8.8 atau 1.1.1.1)",
@@ -858,7 +860,6 @@ export const id = {
     LAST_7_DAYS_SHORT: "7h",
     LEARN_MORE: "Pelajari lebih lanjut",
     LEARN_MORE_AT: "Pelajari lebih lanjut di",
-    VIEW_ON: "Lihat di",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "Alamat facet tidak boleh address(0)",
     LIB_DIAMOND_CUT_CANT_REMOVE_IMMUTABLE_FUNCTION:
@@ -900,6 +901,8 @@ export const id = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
+    LOTPOT_CREDITS_EARNED: "Kredit LotPot diperoleh",
+    LOTPOT_CREDITS_UNIT: "kredit",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",
     MAKE_ACTIVE_RECEIVING_WALLET: "Jadikan dompet penerima aktif",
     MALFORMED_URL: "Tautan data QR tidak valid",
@@ -907,7 +910,6 @@ export const id = {
     MANAGER_NOT_FOUND: "Manajer tidak ditemukan",
     MARKED_AS_PAID: "Ditandai sebagai dibayar",
     MARKET_PRICE: "Harga Pasar",
-    MKT_CAP: "KAP. MKT",
     MAX: "Maks",
     MAX_TRANSACTION_LIMIT: "Limit Transaksi Maksimum",
     MAYBE_LATER: "Nanti saja",
@@ -936,6 +938,7 @@ export const id = {
     MISSING_ACCOUNT_OR_CAMPAIGN_PARAMETERS:
       "Parameter akun atau kampanye hilang",
     MISSING_PAYMENT_ADDRESS: "Alamat pembayaran hilang di QR",
+    MKT_CAP: "KAP. MKT",
     MONTHLY_BUY_ORDER_COUNT_LIMIT_EXCEEDED:
       "Batas jumlah pesanan beli bulanan terlampaui",
     MONTHLY_REWARD_DROP: "Hadiah Bulanan",
@@ -1014,6 +1017,8 @@ export const id = {
       "Tambahkan alamat penjualan Anda untuk memilih dengan cepat untuk transaksi mendatang",
     NO_STAKE: "Tidak ada stake",
     NO_STAKED_AMOUNT: "Tidak ada jumlah yang di-stake",
+    NO_SWAPS_YET: "Belum ada swap",
+    NO_SWAPS_YET_DESC: "Swap P2P Anda sebelumnya akan muncul di sini.",
     NO_TASK_LEDGER_ENTRIES: "Tidak ada entri buku besar tugas ditemukan",
     NO_TRANSACTIONS_FOUND: "Tidak ada transaksi",
     NO_WITHDRAWABLE_AMOUNT: "Tidak ada jumlah yang dapat ditarik",
@@ -1063,6 +1068,88 @@ export const id = {
     P2P_ME_UNREACHABLE:
       "p2p.me tidak dapat dijangkau saat ini. Silakan coba lagi nanti.",
     P2P_ME_WALLET: "Dompet P2P.me",
+    P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} berhasil dikirim",
+    P2P_SWAP: "Tukar P2P",
+    P2P_SWAP_BANNER_DESCRIPTION: "Tukar instan, langsung dari dompet Anda.",
+    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
+    P2P_SWAP_BANNER_TITLE: "Tukar P2P ⇄ USDC",
+    P2P_SWAP_ERROR_ADDRESS_REQUIRED: "Alamat diperlukan",
+    P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED: "Parameter jumlah diperlukan",
+    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT:
+      "Approve berhasil tetapi jumlahnya tidak mencukupi",
+    P2P_SWAP_ERROR_APPROVE_TIMEOUT: "Transaksi approve timeout",
+    P2P_SWAP_ERROR_APPROVE_TX_FAILED: "Transaksi approve gagal on-chain",
+    P2P_SWAP_ERROR_BRIDGE_FAILED_ON_CHAIN: "Bridge gagal on-chain",
+    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT:
+      "Bridge tidak mengembalikan jumlah output",
+    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
+      "Deposit dari dompet perusahaan tidak diizinkan",
+    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
+      "Transaksi tidak terkonfirmasi — mungkin masih pending atau belum on-chain",
+    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
+      "Transaksi dibatalkan on-chain dan tidak dapat digunakan sebagai deposit",
+    P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Transaksi EVM diharapkan",
+    P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Transaksi Solana diharapkan",
+    P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX: "Gagal membuat transaksi swap",
+    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
+      "Saldo ETH tidak mencukupi untuk biaya gas",
+    P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Kesalahan server internal",
+    P2P_SWAP_ERROR_INVALID_CLAIM_ID: "ID klaim tidak valid",
+    P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Alamat EVM tidak valid",
+    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
+      "Jumlah USDC tidak valid — harus dalam unit dasar",
+    P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Gagal mengeksekusi swap DEX",
+    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
+      "Swap mungkin diarahkan secara berbeda — jumlah output nol atau negatif",
+    P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Gagal mendapatkan order DEX",
+    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
+      "Saldo token output tidak ditemukan dalam transaksi yang terkonfirmasi",
+    P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "Swap DEX tidak berhasil",
+    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
+      "Transaksi swap DEX tidak terkonfirmasi dalam batas waktu",
+    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED: "Transaksi swap DEX gagal on-chain",
+    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
+      "Tidak ada transfer P2P ke alamat deposit yang ditemukan",
+    P2P_SWAP_ERROR_NO_RANGO_ROUTE:
+      "Tidak ada rute yang ditemukan untuk jumlah ini",
+    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
+      "Tidak ada transfer USDC ke alamat deposit yang ditemukan",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
+      "Bridge gagal pada percobaan ulang",
+    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
+      "Bridge timeout — tidak ada status terminal setelah 15 menit",
+    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
+      "Bridge tidak mengembalikan transaksi yang diserialisasi",
+    P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Kutipan bridge gagal",
+    P2P_SWAP_ERROR_REFUND_ALREADY_IN_PROGRESS: "Refund sudah dalam proses",
+    P2P_SWAP_ERROR_REFUND_CREATE_FAILED: "Gagal membuat catatan refund",
+    P2P_SWAP_ERROR_REFUND_QUEUED: "Refund telah dimasukkan ke antrian",
+    P2P_SWAP_ERROR_REFUND_REQUEST_RAISED: "Permintaan refund diajukan",
+    P2P_SWAP_ERROR_REFUND_ROW_NOT_FOUND: "Catatan refund tidak ditemukan",
+    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED:
+      "Transaksi refund belum terkonfirmasi; akan dicoba ulang",
+    P2P_SWAP_ERROR_REFUND_TX_REVERTED: "Transaksi refund dibatalkan on-chain",
+    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY:
+      "Transaksi refund dibatalkan on-chain; akan disiarkan ulang pada percobaan berikutnya",
+    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED:
+      "Semua percobaan ulang harus habis sebelum refund dapat diterbitkan. Harap tunggu dan coba lagi.",
+    P2P_SWAP_ERROR_SWAP_ALREADY_REFUNDED: "Swap sudah direfund",
+    P2P_SWAP_ERROR_SWAP_NOT_FOUND: "Swap tidak ditemukan",
+    P2P_SWAP_ERROR_SWAP_NOT_IN_FAILED_STATE: "Swap tidak dalam status gagal",
+    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED:
+      "Hash transaksi dan alamat pengguna diperlukan",
+    P2P_SWAP_ERROR_USER_ID_REQUIRED: "ID pengguna diperlukan",
+    P2P_SWAP_ERROR_VAA_NOT_READY: "VAA belum siap untuk swap ini",
+    P2P_SWAP_ERROR_WORMHOLE_INVALID_VAA_ID_FORMAT: "Format ID VAA tidak valid",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX:
+      "Gagal mengurai pesan bridge dari transaksi Base",
+    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX:
+      "Gagal mengurai pesan bridge dari transaksi Solana",
+    P2P_SWAP_ERROR_WORMHOLE_VAA_TIMEOUT: "VAA tidak tersedia dalam batas waktu",
+    P2P_SWAP_STATUS_FAILED: "Gagal",
+    P2P_SWAP_STATUS_PENDING: "Menunggu",
+    P2P_SWAP_STATUS_SUCCESS: "Berhasil",
+    P2P_TOKEN_TITLE: "Token $P2P",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Maaf, kami tidak dapat menemukan halaman yang Anda cari.",
     PAGE_NOT_FOUND_TITLE: "Halaman tidak ditemukan",
@@ -1208,8 +1295,8 @@ export const id = {
     RANGO_REQUEST_ID_NOT_FOUND: "ID permintaan Rango tidak ditemukan",
     RANGO_SWAP_ERROR: "Swap gagal. Silakan coba lagi.",
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "Tanda terima berhasil diunduh",
-    RECEIVED: "Diterima",
     RECEIVE: "Terima",
+    RECEIVED: "Diterima",
     RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET: "Terima dana ke dompet P2P.me Anda.",
     RECEIVE_P2P_DESCRIPTION:
       "Kirim $P2P atau token jaringan Base lainnya ke alamat ini.",
@@ -1234,10 +1321,6 @@ export const id = {
       "Anda hanya {{left}} dari {{target}} limit untuk membuka kunci Referensi & Dapatkan!",
     REFERRED: "Direferensikan",
     REFER_AND_EARN: "Referensi & Dapatkan",
-    P2P_SWAP: "Tukar P2P",
-    P2P_SWAP_BANNER_LABEL: "P2P ↔ USDC",
-    P2P_SWAP_BANNER_TITLE: "Tukar P2P ⇄ USDC",
-    P2P_SWAP_BANNER_DESCRIPTION: "Tukar instan, langsung dari dompet Anda.",
     REFER_AND_EARN_DESCRIPTION_EARNABLE:
       "Bagikan link referensi Anda ke teman dan dapatkan {{referralRewardPercentage}}% setiap kali mereka trading.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
@@ -1365,6 +1448,10 @@ export const id = {
     SENDING_TIP: "Sending tip...",
     SENDING_YOUR_PAYMENT_DETAILS: "Mengirim detail pembayaran Anda",
     SEND_FEEDBACK: "Kirim feedback",
+    SEND_P2P: "Kirim $P2P",
+    SEND_P2P_BASE_ONLY_WARNING:
+      "Hanya kirim ke alamat jaringan Base. Mengirim ke jaringan lain akan mengakibatkan hilangnya dana secara permanen.",
+    SEND_P2P_DESC: "Kirim token $P2P ke alamat dompet Base mana saja",
     SEND_RECEIVE_SWAP: "Kirim · Terima · Tukar",
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Kirim USDC dari dompet p2p.me Anda",
@@ -1425,103 +1512,17 @@ export const id = {
     SWAPPED: "Ditukar",
     SWAPPER: "Swapper",
     SWAPPING: "Menukar",
+    SWAP_EXCEEDS_LIMIT: "Maks {{amount}} {{token}} per swap",
     SWAP_FAILED: "Swap gagal",
     SWAP_HISTORY: "Riwayat Swap",
-    SWAP_TXN_NOT_CREATED: "Transaksi swap tidak dibuat",
     SWAP_INITIATED_SUCCESS: "Swap berhasil dimulai",
     SWAP_INSUFFICIENT_BALANCE: "Saldo {{token}} tidak mencukupi",
+    SWAP_NUMBER: "Swap #{{id}}",
     SWAP_QUOTE_UNAVAILABLE:
       "Quote unavailable at the moment. Please try again shortly.",
-    SWAP_EXCEEDS_LIMIT: "Maks {{amount}} {{token}} per swap",
-    SWAP_NUMBER: "Swap #{{id}}",
-    SWAP_USER_TX: "Tx Pengguna",
     SWAP_REFUNDED: "Sudah Direfund",
-    INSUFFICIENT_P2P_BALANCE: "Anda tidak memiliki cukup token $P2P",
-    SEND_P2P: "Kirim $P2P",
-    SEND_P2P_DESC: "Kirim token $P2P ke alamat dompet Base mana saja",
-    SEND_P2P_BASE_ONLY_WARNING:
-      "Hanya kirim ke alamat jaringan Base. Mengirim ke jaringan lain akan mengakibatkan hilangnya dana secara permanen.",
-    P2P_SENT_SUCCESSFULLY: "$P2P {{amount}} berhasil dikirim",
-    P2P_SWAP_STATUS_PENDING: "Menunggu",
-    P2P_SWAP_STATUS_FAILED: "Gagal",
-    P2P_SWAP_STATUS_SUCCESS: "Berhasil",
-    P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "Kesalahan server internal",
-    P2P_SWAP_ERROR_TXN_HASH_AND_USER_ADDRESS_REQUIRED:
-      "Hash transaksi dan alamat pengguna diperlukan",
-    P2P_SWAP_ERROR_AMOUNT_QUERY_PARAM_REQUIRED: "Parameter jumlah diperlukan",
-    P2P_SWAP_ERROR_ADDRESS_REQUIRED: "Alamat diperlukan",
-    P2P_SWAP_ERROR_USER_ID_REQUIRED: "ID pengguna diperlukan",
-    P2P_SWAP_ERROR_INVALID_CLAIM_ID: "ID klaim tidak valid",
-    P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Alamat EVM tidak valid",
-    P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
-      "Jumlah USDC tidak valid — harus dalam unit dasar",
-    P2P_SWAP_ERROR_SWAP_NOT_FOUND: "Swap tidak ditemukan",
-    P2P_SWAP_ERROR_SWAP_NOT_IN_FAILED_STATE: "Swap tidak dalam status gagal",
-    P2P_SWAP_ERROR_VAA_NOT_READY: "VAA belum siap untuk swap ini",
-    P2P_SWAP_ERROR_SWAP_ALREADY_REFUNDED: "Swap sudah direfund",
-    P2P_SWAP_ERROR_REFUND_ALREADY_IN_PROGRESS: "Refund sudah dalam proses",
-    P2P_SWAP_ERROR_RETRY_ATTEMPTS_NOT_EXHAUSTED:
-      "Semua percobaan ulang harus habis sebelum refund dapat diterbitkan. Harap tunggu dan coba lagi.",
-    P2P_SWAP_ERROR_REFUND_CREATE_FAILED: "Gagal membuat catatan refund",
-    P2P_SWAP_ERROR_REFUND_QUEUED: "Refund telah dimasukkan ke antrian",
-    P2P_SWAP_ERROR_REFUND_ROW_NOT_FOUND: "Catatan refund tidak ditemukan",
-    P2P_SWAP_ERROR_REFUND_REQUEST_RAISED: "Permintaan refund diajukan",
-    P2P_SWAP_ERROR_REFUND_TX_REVERTED_RETRY:
-      "Transaksi refund dibatalkan on-chain; akan disiarkan ulang pada percobaan berikutnya",
-    P2P_SWAP_ERROR_REFUND_TX_NOT_CONFIRMED:
-      "Transaksi refund belum terkonfirmasi; akan dicoba ulang",
-    P2P_SWAP_ERROR_REFUND_TX_REVERTED: "Transaksi refund dibatalkan on-chain",
-    P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
-      "Transaksi tidak terkonfirmasi — mungkin masih pending atau belum on-chain",
-    P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
-      "Transaksi dibatalkan on-chain dan tidak dapat digunakan sebagai deposit",
-    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
-      "Tidak ada transfer USDC ke alamat deposit yang ditemukan",
-    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
-      "Tidak ada transfer P2P ke alamat deposit yang ditemukan",
-    P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
-      "Deposit dari dompet perusahaan tidak diizinkan",
-    P2P_SWAP_ERROR_NO_RANGO_ROUTE:
-      "Tidak ada rute yang ditemukan untuk jumlah ini",
-    P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Kutipan bridge gagal",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
-      "Bridge timeout — tidak ada status terminal setelah 15 menit",
-    P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
-      "Bridge gagal pada percobaan ulang",
-    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
-      "Saldo ETH tidak mencukupi untuk biaya gas",
-    P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX: "Gagal membuat transaksi swap",
-    P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Transaksi EVM diharapkan",
-    P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Transaksi Solana diharapkan",
-    P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
-      "Bridge tidak mengembalikan transaksi yang diserialisasi",
-    P2P_SWAP_ERROR_APPROVE_TX_FAILED: "Transaksi approve gagal on-chain",
-    P2P_SWAP_ERROR_APPROVE_INSUFFICIENT_AMOUNT:
-      "Approve berhasil tetapi jumlahnya tidak mencukupi",
-    P2P_SWAP_ERROR_APPROVE_TIMEOUT: "Transaksi approve timeout",
-    P2P_SWAP_ERROR_BRIDGE_FAILED_ON_CHAIN: "Bridge gagal on-chain",
-    P2P_SWAP_ERROR_BRIDGE_NO_OUTPUT_AMOUNT:
-      "Bridge tidak mengembalikan jumlah output",
-    P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Gagal mendapatkan order DEX",
-    P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Gagal mengeksekusi swap DEX",
-    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED: "Transaksi swap DEX gagal on-chain",
-    P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "Swap DEX tidak berhasil",
-    P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
-      "Transaksi swap DEX tidak terkonfirmasi dalam batas waktu",
-    P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
-      "Saldo token output tidak ditemukan dalam transaksi yang terkonfirmasi",
-    P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
-      "Swap mungkin diarahkan secara berbeda — jumlah output nol atau negatif",
-    P2P_SWAP_ERROR_WORMHOLE_INVALID_VAA_ID_FORMAT: "Format ID VAA tidak valid",
-    P2P_SWAP_ERROR_WORMHOLE_VAA_TIMEOUT: "VAA tidak tersedia dalam batas waktu",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_SOLANA_TX:
-      "Gagal mengurai pesan bridge dari transaksi Solana",
-    P2P_SWAP_ERROR_WORMHOLE_PARSE_FAILED_BASE_TX:
-      "Gagal mengurai pesan bridge dari transaksi Base",
-    P2P_TOKEN_TITLE: "Token $P2P",
-    NO_SWAPS_YET: "Belum ada swap",
-    NO_SWAPS_YET_DESC: "Swap P2P Anda sebelumnya akan muncul di sini.",
-    IN_PROGRESS: "Sedang Berlangsung",
+    SWAP_TXN_NOT_CREATED: "Transaksi swap tidak dibuat",
+    SWAP_USER_TX: "Tx Pengguna",
     SW_INSTALLING_UPDATE: "Memasang pembaruan",
     SW_MAY_TAKE_UP_TO: "Ini mungkin memakan waktu hingga 2 menit.",
     SW_PLEASE_WAIT: "Mohon tunggu dengan sabar.",
@@ -1667,6 +1668,7 @@ export const id = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Batas volume tahunan pengguna terlampaui",
     USE_CBBTC_ON_COINSME: "Gunakan cbBTC Anda di coins.me",
+    USE_CREDITS_ON_LOTPOT: "Gunakan kredit Anda di lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error mengambil suara oleh",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
@@ -1819,6 +1821,7 @@ export const id = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
+    VIEW_ON: "Lihat di",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
     VOTES_PER_EPOCH_EXCEEDED: "Suara per epoch terlampaui",
