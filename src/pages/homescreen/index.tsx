@@ -26,6 +26,7 @@ import { ClaimMonthlyDropCard } from "./claim-monthly-drop-card";
 import { DepositDrawer } from "./deposit-drawer";
 import { Footer } from "./footer";
 import { Header } from "./header";
+import { LotpotCreditsEarnedCard } from "./lotpot-credits-earned-card";
 import { PerTxnLimit } from "./per-txn-limits";
 import { PriceIndicator } from "./price-indicator";
 import { ProcessingTransactions } from "./processing-txns";
@@ -221,6 +222,8 @@ export function HomeScreen() {
         </section>
 
         <CashbackEarnedCard />
+
+        <LotpotCreditsEarnedCard />
 
         <ProcessingTransactions />
 
