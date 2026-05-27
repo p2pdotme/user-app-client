@@ -10,6 +10,7 @@ export * from "./use-event-timestamp";
 export * from "./use-get-order-by-id";
 export * from "./use-haptic-interactions";
 export * from "./use-haptics";
+export * from "./use-lotpot-credits";
 export * from "./use-order-cashback";
 export * from "./use-order-flow";
 export * from "./use-order-tip";
