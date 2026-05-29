@@ -10,11 +10,31 @@ import {
   type P2pBoostTopUpParams,
   validate,
   ZodP2pBoostClaimUnstakeParamsSchema,
+  ZodP2pBoostGetUserStakeParamsSchema,
   ZodP2pBoostRequestUnstakeParamsSchema,
   ZodP2pBoostStakeParamsSchema,
   ZodP2pBoostTopUpParamsSchema,
 } from "../../shared";
 import { ABIS, CONTRACT_ADDRESSES } from "../abis";
+
+export function prepareGetUserStakeArgs(params: unknown): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getUserStake";
+    args: [Address];
+  },
+  P2PError
+> {
+  return validate(ZodP2pBoostGetUserStakeParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getUserStake" as const,
+      args: [validatedParams.user],
+    }),
+  );
+}
 
 export function prepareP2pBoostStakeTx(
   params: P2pBoostStakeParams,

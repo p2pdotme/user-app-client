@@ -2587,4 +2587,40 @@ export const getterFacetAbi = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "getUserStake",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint128",
+            name: "stakedAmount",
+            type: "uint128",
+          },
+          {
+            internalType: "uint64",
+            name: "cooldownEnd",
+            type: "uint64",
+          },
+          {
+            internalType: "enum P2PStakeBoostStorage.StakeStatus",
+            name: "status",
+            type: "uint8",
+          },
+        ],
+        internalType: "struct P2PStakeBoostStorage.UserStake",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ] as const;

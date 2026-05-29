@@ -1052,6 +1052,9 @@ export const ZodP2pBoostTopUpParamsSchema = z.object({
 });
 export const ZodP2pBoostRequestUnstakeParamsSchema = z.object({});
 export const ZodP2pBoostClaimUnstakeParamsSchema = z.object({});
+export const ZodP2pBoostGetUserStakeParamsSchema = z.object({
+  user: ZodAddressSchema,
+});
 export type P2pBoostStakeParams = z.infer<typeof ZodP2pBoostStakeParamsSchema>;
 export type P2pBoostTopUpParams = z.infer<typeof ZodP2pBoostTopUpParamsSchema>;
 export type P2pBoostRequestUnstakeParams = z.infer<
@@ -1059,4 +1062,7 @@ export type P2pBoostRequestUnstakeParams = z.infer<
 >;
 export type P2pBoostClaimUnstakeParams = z.infer<
   typeof ZodP2pBoostClaimUnstakeParamsSchema
+>;
+export type P2pBoostGetUserStakeParams = z.infer<
+  typeof ZodP2pBoostGetUserStakeParamsSchema
 >;

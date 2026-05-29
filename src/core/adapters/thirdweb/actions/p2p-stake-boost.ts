@@ -3,6 +3,7 @@ import { type Address, sendAndConfirmTransaction } from "thirdweb";
 import type { TransactionReceipt } from "thirdweb/transaction";
 import type { Account } from "thirdweb/wallets";
 import {
+  prepareGetUserStakeArgs,
   prepareP2pBoostClaimUnstakeTx,
   prepareP2pBoostRequestUnstakeTx,
   prepareP2pBoostStakeTx,
@@ -16,7 +17,42 @@ import {
   estimatedPrepareTransaction,
   type ThirdwebAdapterError,
   thirdwebClient,
+  viemPublicClient,
 } from "../client";
+
+// READ OPERATIONS - Using readContract with function signatures
+export const getUserStake = (params: {
+  user: Address;
+}): ResultAsync<
+  {
+    stakedAmount: bigint;
+    cooldownEnd: bigint;
+    status: number;
+  },
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
+  return prepareGetUserStakeArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read user stake from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+};
 
 export const p2pBoostStake = (
   params: { tokens: bigint },

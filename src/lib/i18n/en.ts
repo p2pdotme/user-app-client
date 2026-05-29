@@ -1131,6 +1131,9 @@ export const en = {
     P2P_STAKE_TITLE: "Stake $P2P",
     P2P_STAKE_INPUT_LABEL: "Stake",
     P2P_STAKE_INSUFFICIENT_BALANCE: "Insufficient $P2P balance",
+    P2P_STAKE_CONFIRM_TITLE: "Confirm stake",
+    P2P_STAKE_CONFIRM_STAKING: "Staking",
+    P2P_STAKE_SUCCESS: "$P2P staked successfully",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Sorry, we couldn't find the page you're looking for.",
     PAGE_NOT_FOUND_TITLE: "Page not found",
@@ -1453,6 +1456,7 @@ export const en = {
     SOCIAL_ALREADY_VERIFIED: "Social already verified",
     SOCIAL_VERIFICATION: "Social verification for {{name}}",
     SOLD_VIA: "Sold via",
+    SOMETHING_WENT_WRONG: "Something went wrong",
     SOUNDS: "Sounds",
     SOUNDS_ALL: "All Sounds",
     SOUNDS_ALL_DESC: "Play all notification and interaction sounds",

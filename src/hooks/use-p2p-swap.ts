@@ -19,12 +19,10 @@ import {
 } from "@/core/adapters/thirdweb";
 import { truncateAmount } from "@/lib/utils";
 import { useThirdweb } from "./use-thirdweb";
+import { CONTRACT_ADDRESSES } from "@/core";
 
 const USDC_DECIMALS = 6;
 const P2P_DECIMALS = 6;
-
-const P2P_TOKEN_ADDRESS =
-  "0x75a8FF75a4f224947A6315b8dab5D5a81FE2f550" as Address;
 
 // ─── Balance ──────────────────────────────────────────────────────────────────
 
@@ -42,13 +40,13 @@ export function useP2PBalance() {
     queryFn: async () => {
       const [balance, decimals] = await Promise.all([
         viemPublicClient.readContract({
-          address: P2P_TOKEN_ADDRESS,
+          address: CONTRACT_ADDRESSES.P2P_TOKEN,
           abi: erc20Abi,
           functionName: "balanceOf",
           args: [userAddress as Address],
         }),
         viemPublicClient.readContract({
-          address: P2P_TOKEN_ADDRESS,
+          address: CONTRACT_ADDRESSES.P2P_TOKEN,
           abi: erc20Abi,
           functionName: "decimals",
         }),
