@@ -8,6 +8,7 @@ import { orderFlowFacetAbi } from "./order-flow-facet";
 import { orderFlowHelperAbi } from "./order-flow-helper";
 import { orderProcessorFacetAbi } from "./order-processor-facet";
 import { p2pConfigFacetAbi } from "./p2p-config-facet";
+import { p2pStakeBoostFacetAbi } from "./p2p-stake-boost-facet";
 import { protocolConfigFacetAbi } from "./protocol-config-facet";
 import { reputationManagerAbi } from "./reputation-manager";
 import { rpHelperAbi } from "./rp-helper";
@@ -24,6 +25,7 @@ const DIAMOND_ABI = [
   ...orderFlowHelperAbi,
   ...protocolConfigFacetAbi,
   ...getterFacetAbi,
+  ...p2pStakeBoostFacetAbi,
 ] as const;
 
 const REPUTATION_MANAGER_ABI = [
@@ -39,6 +41,7 @@ export const ABIS = {
     CONFIG: p2pConfigFacetAbi,
     ORDER_FLOW: orderFlowFacetAbi,
     ORDER_PROCESSOR: orderProcessorFacetAbi,
+    P2P_STAKE_BOOST: p2pStakeBoostFacetAbi,
   },
   EXTERNAL: {
     USDC: erc20Abi,

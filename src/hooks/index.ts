@@ -14,6 +14,7 @@ export * from "./use-lotpot-credits";
 export * from "./use-order-cashback";
 export * from "./use-order-flow";
 export * from "./use-order-tip";
+export * from "./use-p2p-boost";
 export * from "./use-p2p-swap";
 export * from "./use-price-config";
 export * from "./use-processing-times";

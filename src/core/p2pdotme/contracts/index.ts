@@ -2,6 +2,7 @@ export * from "./abis";
 export * from "./diamond-info";
 export * from "./order";
 export * from "./p2p-config";
+export * from "./p2p-stake-boost";
 export * from "./p2p-token";
 export * from "./protocol-config";
 export * from "./reputation-manager";

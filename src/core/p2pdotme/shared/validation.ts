@@ -1042,3 +1042,21 @@ export const ZodGetRecommenderRewardPercentageByCurrencyParamsSchema = z.object(
 export type GetRecommenderRewardPercentageByCurrencyParams = z.infer<
   typeof ZodGetRecommenderRewardPercentageByCurrencyParamsSchema
 >;
+
+// P2P STAKE BOOST
+export const ZodP2pBoostStakeParamsSchema = z.object({
+  tokens: z.bigint(),
+});
+export const ZodP2pBoostTopUpParamsSchema = z.object({
+  tokens: z.bigint(),
+});
+export const ZodP2pBoostRequestUnstakeParamsSchema = z.object({});
+export const ZodP2pBoostClaimUnstakeParamsSchema = z.object({});
+export type P2pBoostStakeParams = z.infer<typeof ZodP2pBoostStakeParamsSchema>;
+export type P2pBoostTopUpParams = z.infer<typeof ZodP2pBoostTopUpParamsSchema>;
+export type P2pBoostRequestUnstakeParams = z.infer<
+  typeof ZodP2pBoostRequestUnstakeParamsSchema
+>;
+export type P2pBoostClaimUnstakeParams = z.infer<
+  typeof ZodP2pBoostClaimUnstakeParamsSchema
+>;

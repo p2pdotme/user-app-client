@@ -36,6 +36,7 @@ export const INTERNAL_HREFS = {
   P2P_TOKEN: "/p2p-token",
   P2P_TOKEN_SWAP: "/p2p-token/swap",
   P2P_TOKEN_SWAP_HISTORY: "/p2p-token/swap/history",
+  P2P_TOKEN_STAKE: "/p2p-token/stake",
   ORDER: "/order",
 
   SETTINGS: "/settings",

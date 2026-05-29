@@ -5,7 +5,8 @@ export type P2PErrorDomain =
   | "reputation-manager"
   | "validation"
   | "subgraph"
-  | "p2p-token";
+  | "p2p-token"
+  | "p2p-stake-boost";
 
 export type P2PErrorCode =
   | "P2PPrepareFunctionCallError"

@@ -1128,6 +1128,9 @@ export const en = {
     P2P_SWAP_STATUS_PENDING: "Pending",
     P2P_SWAP_STATUS_SUCCESS: "Success",
     P2P_TOKEN_TITLE: "$P2P Token",
+    P2P_STAKE_TITLE: "Stake $P2P",
+    P2P_STAKE_INPUT_LABEL: "Stake",
+    P2P_STAKE_INSUFFICIENT_BALANCE: "Insufficient $P2P balance",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Sorry, we couldn't find the page you're looking for.",
     PAGE_NOT_FOUND_TITLE: "Page not found",
