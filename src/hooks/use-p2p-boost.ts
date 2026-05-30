@@ -112,7 +112,7 @@ export function useP2PBoost() {
     },
   });
 
-  // TOP UP
+  // TOP UP (approves P2P token to Diamond first if needed, then top-ups)
   const p2pBoostTopUpMutation = useMutation({
     mutationKey: ["p2pBoostTopUp"],
     mutationFn: async (params: { tokens: bigint }) => {
@@ -124,6 +124,43 @@ export function useP2PBoost() {
         "transaction.p2p_boost_top_up",
         "P2P Boost Top Up Transaction",
         async () => {
+          // 1. Check current allowance; approve only if insufficient
+          const currentAllowance = await getP2PTokenAllowance({
+            owner: account.address as `0x${string}`,
+            spender: CONTRACT_ADDRESSES.DIAMOND,
+          }).match(
+            (value) => value,
+            (error) => {
+              console.error("[useP2PBoost] getP2PTokenAllowance error", error);
+              captureError(error, {
+                operation: "p2p_token_allowance",
+                component: "useP2PBoost",
+                userId: account.address,
+              });
+              throw error;
+            },
+          );
+
+          if (currentAllowance < params.tokens) {
+            await approveP2PTokenTx(
+              { spender: CONTRACT_ADDRESSES.DIAMOND, amount: params.tokens },
+              account,
+            ).match(
+              (value) => value,
+              (error) => {
+                console.error("[useP2PBoost] approveP2PToken error", error);
+                captureError(error, {
+                  operation: "p2p_token_approve",
+                  component: "useP2PBoost",
+                  userId: account.address,
+                  extra: { tokens: params.tokens.toString() },
+                });
+                throw error;
+              },
+            );
+          }
+
+          // 2. Top up
           return p2pBoostTopUpTx(params, account).match(
             (value) => {
               console.log("[useP2PBoost] p2pBoostTopUp success", value);
@@ -146,8 +183,15 @@ export function useP2PBoost() {
       );
     },
     onSuccess: () => {
+      toast.success(t("P2P_TOPUP_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-balance"] });
+      queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+    },
+    onError: (error) => {
+      const message =
+        error instanceof Error ? error.message : t("SOMETHING_WENT_WRONG");
+      toast.error(message);
     },
   });
 

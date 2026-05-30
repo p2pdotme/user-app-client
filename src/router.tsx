@@ -92,6 +92,12 @@ const P2PStake = lazy(() =>
   })),
 );
 
+const P2PMyStake = lazy(() =>
+  import("@/pages/p2p-token/my-stake").then((module) => ({
+    default: module.P2PMyStake,
+  })),
+);
+
 const Order = lazy(() =>
   import("@/pages/order").then((module) => ({
     default: module.Order,
@@ -218,6 +224,7 @@ export function Router() {
         <Route path={INTERNAL_HREFS.P2P_TOKEN_SWAP} element={<P2PSwap />} />
         <Route path={INTERNAL_HREFS.P2P_TOKEN_SWAP_HISTORY} element={<P2PSwapHistory />} />
         <Route path={INTERNAL_HREFS.P2P_TOKEN_STAKE} element={<P2PStake />} />
+        <Route path={INTERNAL_HREFS.P2P_TOKEN_MY_STAKE} element={<P2PMyStake />} />
 
         <Route path={`${INTERNAL_HREFS.ORDER}/:id`} element={<Order />} />
 
