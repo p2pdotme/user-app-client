@@ -10,7 +10,7 @@ type Step = "start" | "confirm" | "success";
 const STEP_TITLE_KEY: Record<Step, string> = {
   start: "P2P_STAKE_TITLE",
   confirm: "P2P_STAKE_CONFIRM_TITLE",
-  success: "P2P_STAKE_TITLE",
+  success: "P2P_STAKE_COMPLETED_TITLE",
 };
 
 /**
@@ -45,7 +45,7 @@ export function P2PStake() {
           onConfirm={() => setStep("success")}
         />
       )}
-      {step === "success" && <SuccessP2pStake />}
+      {step === "success" && <SuccessP2pStake amount={amount} />}
     </>
   );
 }

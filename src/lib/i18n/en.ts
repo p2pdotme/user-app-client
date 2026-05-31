@@ -1134,6 +1134,7 @@ export const en = {
     P2P_STAKE_CONFIRM_TITLE: "Confirm stake",
     P2P_STAKE_CONFIRM_STAKING: "Staking",
     P2P_STAKE_SUCCESS: "$P2P staked successfully",
+    P2P_STAKE_COMPLETED_TITLE: "Stake Completed",
     MY_STAKE_TITLE: "My stake",
     MY_STAKE_STAKED_LABEL: "Staked",
     MY_STAKE_COOLDOWN_ENDS: "Cooldown ends",

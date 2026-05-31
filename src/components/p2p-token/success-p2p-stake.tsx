@@ -1,40 +1,140 @@
-import { CheckCircle2 } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { Sparkles, TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { formatUnits } from "viem";
+import ASSETS from "@/assets";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useUserStake } from "@/hooks";
+import { useStakeBoostPreview, useTxLimits, useUserStake } from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
+
+interface SuccessP2pStakeProps {
+  /** Amount the user just staked, in human-readable $P2P. */
+  amount: string;
+}
 
 /**
  * SuccessP2pStake — step 3 (final) of the staking flow.
  *
  * Confirmation screen shown after the stake transaction succeeds. Reads the
  * user's current on-chain stake via `useUserStake` and displays the total
- * staked $P2P amount (formatted from 18-decimal base units).
+ * staked $P2P amount. Also shows the new per-transaction Buy and Sell/Pay
+ * limits (from `useTxLimits`) along with the boost just unlocked from this
+ * stake (`useStakeBoostPreview(amount)`).
  */
-export function SuccessP2pStake() {
+export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
   const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();
+  const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+  const { buyLimitBoost, sellLimitBoost } = useStakeBoostPreview(amount);
 
   // TODO: 18 decimal to 6
   const stakedAmount = userStake
     ? Number(formatUnits(userStake.stakedAmount, 18))
     : 0;
 
+  const buyLimit = txLimit?.buyLimit ?? 0;
+  const sellLimit = txLimit?.sellLimit ?? 0;
+  const buyBoost = buyLimitBoost ?? 0;
+  const sellBoost = sellLimitBoost ?? 0;
+
   return (
-    <main className="no-scrollbar container-narrow flex h-full w-full flex-col items-center justify-center gap-4 overflow-y-auto px-4 py-6 pb-28 text-center">
-      <CheckCircle2 className="size-16 text-emerald-500" />
-      <h2 className="font-bold text-2xl text-foreground">
-        {t("P2P_STAKE_SUCCESS")}
-      </h2>
-      {isUserStakeLoading ? (
-        <Skeleton className="h-8 w-40 rounded-full" />
-      ) : (
-        <p className="font-semibold text-3xl text-foreground tabular-nums tracking-tight">
-          {truncateAmount(stakedAmount)}{" "}
-          <span className="text-muted-foreground">$P2P</span>
+    <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-2 pb-8">
+      {/* Hero — animation + status */}
+      <section className="flex flex-col items-center text-center">
+        <div className="relative -mb-2 overflow-hidden">
+          <DotLottieReact
+            className="h-40 w-80 origin-center scale-200"
+            src={ASSETS.ANIMATIONS.COMPLETED}
+            autoplay
+          />
+        </div>
+        <h2 className="font-bold text-2xl text-foreground tracking-tight">
+          Staked Successfully
+        </h2>
+        <p className="mt-1 text-muted-foreground text-sm">
+          Your boost is now active.
         </p>
-      )}
+      </section>
+
+      {/* Total staked card */}
+      <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+        <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+          Total Staked
+        </p>
+        {isUserStakeLoading ? (
+          <Skeleton className="mt-1.5 h-10 w-40" />
+        ) : (
+          <p className="mt-1 font-bold text-4xl text-foreground tabular-nums tracking-tight">
+            {truncateAmount(stakedAmount)}{" "}
+            <span className="text-muted-foreground text-2xl">$P2P</span>
+          </p>
+        )}
+      </section>
+
+      {/* New per-transaction limits */}
+      <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
+        <div className="flex items-center gap-2">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15">
+            <Sparkles className="size-3 text-primary" />
+          </div>
+          <p className="font-medium text-muted-foreground text-sm tracking-wider">
+            Your New Limits
+          </p>
+        </div>
+
+        <dl className="mt-2.5 flex items-stretch gap-2">
+          <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
+            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+              {t("BUY")}
+            </dt>
+            {isTxLimitLoading ? (
+              <Skeleton className="mt-1 h-6 w-16" />
+            ) : (
+              <dd className="font-bold text-foreground text-lg tabular-nums">
+                {isTxLimitError ? "—" : `$${truncateAmount(buyLimit, 0)}`}
+              </dd>
+            )}
+            {buyBoost > 0 && (
+              <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
+                <TrendingUp className="size-3" />
+                +${truncateAmount(buyBoost)}
+              </p>
+            )}
+          </div>
+          <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
+            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+              {t("SELL")} / {t("PAY")}
+            </dt>
+            {isTxLimitLoading ? (
+              <Skeleton className="mt-1 h-6 w-16" />
+            ) : (
+              <dd className="font-bold text-foreground text-lg tabular-nums">
+                {isTxLimitError ? "—" : `$${truncateAmount(sellLimit, 0)}`}
+              </dd>
+            )}
+            {sellBoost > 0 && (
+              <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
+                <TrendingUp className="size-3" />
+                +${truncateAmount(sellBoost)}
+              </p>
+            )}
+          </div>
+        </dl>
+      </section>
+
+      <p className="mt-auto px-2 text-center text-muted-foreground text-xs leading-relaxed">
+        You can top up your stake or unstake anytime from{" "}
+        <Link
+          to={INTERNAL_HREFS.LIMITS}
+          replace
+          className="font-medium text-primary underline underline-offset-2 hover:opacity-80"
+        >
+          My Limits
+        </Link>
+        .
+      </p>
     </main>
   );
 }
