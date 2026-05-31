@@ -1,9 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { parseUnits } from "viem";
 import {
   approveP2PToken as approveP2PTokenTx,
   getP2PTokenAllowance,
+  getStakeBoostConfig as getStakeBoostConfigTx,
+  getStakeBoostGlobals as getStakeBoostGlobalsTx,
   getUserStake as getUserStakeTx,
   p2pBoostClaimUnstake as p2pBoostClaimUnstakeTx,
   p2pBoostRequestUnstake as p2pBoostRequestUnstakeTx,
@@ -13,6 +17,7 @@ import {
 import { CONTRACT_ADDRESSES } from "@/core/p2pdotme/contracts";
 import { useThirdweb } from "@/hooks";
 import { captureError, withSentrySpan } from "@/lib/sentry";
+import { useSettings } from "@/contexts";
 
 export function useP2PBoost() {
   const { t } = useTranslation();
@@ -329,5 +334,123 @@ export function useUserStake() {
     userStake: query.data ?? null,
     isUserStakeLoading: query.isLoading,
     refetchUserStake: query.refetch,
+  };
+}
+
+/**
+ * Reads the per-currency stake-boost configuration from the Diamond.
+ * Cached for ~5 minutes — config rarely changes and the values are used
+ * for client-side preview math, so a stale value is acceptable.
+ */
+export function useStakeBoostConfig(currency: string | undefined) {
+  const query = useQuery({
+    queryKey: ["p2p-stake-boost-config", currency],
+    enabled: !!currency,
+    staleTime: 5 * 60_000,
+    queryFn: async () => {
+      if (!currency) throw new Error("CURRENCY_REQUIRED");
+      return getStakeBoostConfigTx({ currency }).match(
+        (value) => value,
+        (error) => {
+          console.error("[useStakeBoostConfig] error", error);
+          captureError(error, {
+            operation: "p2p_get_stake_boost_config",
+            component: "useStakeBoostConfig",
+            extra: { currency },
+          });
+          throw error;
+        },
+      );
+    },
+  });
+
+  return {
+    stakeBoostConfig: query.data ?? null,
+    isStakeBoostConfigLoading: query.isLoading,
+  };
+}
+
+/**
+ * Reads global stake parameters (token decimals, caps, cooldowns) from the
+ * Diamond. Cached for ~5 minutes — these almost never change.
+ */
+export function useStakeBoostGlobals() {
+  const query = useQuery({
+    queryKey: ["p2p-stake-boost-globals"],
+    staleTime: 5 * 60_000,
+    queryFn: async () => {
+      return getStakeBoostGlobalsTx().match(
+        (value) => value,
+        (error) => {
+          console.error("[useStakeBoostGlobals] error", error);
+          captureError(error, {
+            operation: "p2p_get_stake_boost_globals",
+            component: "useStakeBoostGlobals",
+          });
+          throw error;
+        },
+      );
+    },
+  });
+
+  return {
+    stakeBoostGlobals: query.data ?? null,
+    isStakeBoostGlobalsLoading: query.isLoading,
+  };
+}
+
+/**
+ * Computes the per-transaction USD limit unlocked by staking `stakeAmount`
+ * P2P tokens (human-readable units) for the user's selected currency.
+ *
+ * Formula (per contract):
+ *   usd6 = (tokens * 1_000_000 * den) / (num * 10^tokenDecimals)
+ *   if (usd6 > maxBoostUsd) usd6 = maxBoostUsd
+ *   unlockedUSD = usd6 / 1_000_000
+ *
+ * The same unlocked USD value applies to BUY, SELL, and PAY limits.
+ */
+export function useStakeBoostPreview(stakeAmount: string | undefined) {
+  const {
+    settings: { currency },
+  } = useSettings();
+  const { stakeBoostGlobals, isStakeBoostGlobalsLoading } =
+    useStakeBoostGlobals();
+  const { stakeBoostConfig, isStakeBoostConfigLoading } = useStakeBoostConfig(
+    currency.currency,
+  );
+
+  const unlockedUSD = useMemo(() => {
+    if (!stakeBoostGlobals || !stakeBoostConfig) return null;
+    if (!stakeAmount || Number(stakeAmount) <= 0) return 0;
+
+    const { tokenDecimals } = stakeBoostGlobals;
+    const num = BigInt(stakeBoostConfig.tokensPerUsdNumerator);
+    const den = BigInt(stakeBoostConfig.tokensPerUsdDenominator);
+    const maxBoostUsd = BigInt(stakeBoostConfig.maxBoostUsd);
+
+    if (num === 0n) return 0;
+
+    let tokens: bigint;
+    try {
+      tokens = parseUnits(stakeAmount, tokenDecimals);
+    } catch {
+      return 0;
+    }
+
+    const usd6 =
+      (tokens * 1_000_000n * den) / (num * 10n ** BigInt(tokenDecimals));
+    const clamped = usd6 > maxBoostUsd ? maxBoostUsd : usd6;
+    return Number(clamped) / 1e6;
+  }, [stakeAmount, stakeBoostGlobals, stakeBoostConfig]);
+
+  return {
+    stakeBoostGlobals,
+    stakeBoostConfig,
+    unlockedUSD,
+    buyLimitBoost: unlockedUSD,
+    sellLimitBoost: unlockedUSD,
+    payLimitBoost: unlockedUSD,
+    isLoading: isStakeBoostGlobalsLoading || isStakeBoostConfigLoading,
   };
 }

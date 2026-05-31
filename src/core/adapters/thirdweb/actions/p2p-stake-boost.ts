@@ -3,13 +3,23 @@ import { type Address, sendAndConfirmTransaction } from "thirdweb";
 import type { TransactionReceipt } from "thirdweb/transaction";
 import type { Account } from "thirdweb/wallets";
 import {
+  prepareGetStakeBoostConfigArgs,
+  prepareGetStakeBoostGlobalsArgs,
   prepareGetUserStakeArgs,
   prepareP2pBoostClaimUnstakeTx,
   prepareP2pBoostRequestUnstakeTx,
   prepareP2pBoostStakeTx,
   prepareP2pBoostTopUpTx,
 } from "@/core/p2pdotme/contracts";
-import type { P2PError, P2PErrorDomain } from "@/core/p2pdotme/shared";
+import {
+  type P2PError,
+  type P2PErrorDomain,
+  type StakeBoostConfigResult,
+  type StakeBoostGlobalsResult,
+  validate,
+  ZodStakeBoostConfigResultSchema,
+  ZodStakeBoostGlobalsResultSchema,
+} from "@/core/p2pdotme/shared";
 import { createAppError, parseContractError } from "@/lib/errors";
 import { i18n } from "@/lib/i18n";
 import { chain } from "../chain";
@@ -50,6 +60,82 @@ export const getUserStake = (params: {
               context: { params, to, args },
             },
           ),
+      ),
+  );
+};
+
+export const getStakeBoostConfig = (params: {
+  currency: string;
+}): ResultAsync<
+  StakeBoostConfigResult,
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
+  return prepareGetStakeBoostConfigArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read stake boost config from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ).andThen(({ tokensPerUsdNumerator, tokensPerUsdDenominator, maxBoostUsd }) =>
+        validate(ZodStakeBoostConfigResultSchema, {
+          tokensPerUsdNumerator,
+          tokensPerUsdDenominator,
+          maxBoostUsd,
+        }),
+      ),
+  );
+};
+
+export const getStakeBoostGlobals = (): ResultAsync<
+  StakeBoostGlobalsResult,
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
+  return prepareGetStakeBoostGlobalsArgs().asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({ address: to, abi, functionName, args }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read stake boost globals from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { to },
+            },
+          ),
+      ).andThen(
+        ([
+          p2pToken,
+          fraudReserve,
+          maxStakeTokens,
+          normalCooldown,
+          blacklistCooldown,
+          tokenDecimals,
+          totalStaked,
+        ]) =>
+          validate(ZodStakeBoostGlobalsResultSchema, {
+            p2pToken,
+            fraudReserve,
+            maxStakeTokens,
+            normalCooldown,
+            blacklistCooldown,
+            tokenDecimals,
+            totalStaked,
+          }),
       ),
   );
 };

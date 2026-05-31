@@ -5,7 +5,12 @@ import { formatUnits, parseUnits } from "viem";
 import { NonHomeHeader } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useP2PBalance, useP2PBoost, useUserStake } from "@/hooks";
+import {
+  useP2PBalance,
+  useP2PBoost,
+  useStakeBoostPreview,
+  useUserStake,
+} from "@/hooks";
 import { truncateAmount } from "@/lib/utils";
 
 type Step = "start" | "confirm" | "success";
@@ -16,11 +21,18 @@ const STEP_TITLE_KEY: Record<Step, string> = {
   success: "P2P_STAKE_TITLE",
 };
 
+/**
+ * P2PStake — root page for the P2P token staking flow.
+ *
+ * Drives a three-step wizard (`start` → `confirm` → `success`) and owns the
+ * shared `amount` state so child steps stay in sync. Also fetches a live
+ * boost preview (buy / sell / pay limit unlocked) for the entered amount via
+ * `useStakeBoostPreview`.
+ */
 export function P2PStake() {
   const { t } = useTranslation();
   const [step, setStep] = useState<Step>("start");
   const [amount, setAmount] = useState("");
-
   return (
     <>
       <NonHomeHeader
@@ -52,6 +64,14 @@ interface StakeP2pStartProps {
   onContinue: () => void;
 }
 
+/**
+ * StakeP2pStart — step 1 of the staking flow.
+ *
+ * Renders the amount input card, the user's available $P2P balance, the
+ * 25% / 50% / MAX quick-pick buttons, and the Continue CTA. The input is
+ * digit-only and leading zeros are stripped. Continue is enabled only when
+ * the entered amount is > 0 and ≤ the user's $P2P balance.
+ */
 function StakeP2pStart({
   amount,
   onAmountChange,
@@ -60,7 +80,7 @@ function StakeP2pStart({
   const { t } = useTranslation();
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
 
-  // TODO: 
+  // TODO:
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
   const parsedAmount = Number(amount);
   const isValid = parsedAmount > 0 && parsedAmount <= p2pBalance;
@@ -68,6 +88,9 @@ function StakeP2pStart({
   const handleAmountChange = (value: string) => {
     onAmountChange(value.replace(/\D/g, "").replace(/^0+(?=\d)/, ""));
   };
+
+  const { buyLimitBoost, sellLimitBoost, payLimitBoost } =
+    useStakeBoostPreview(amount);
 
   return (
     <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-6 pb-8">
@@ -149,6 +172,15 @@ interface ConfirmP2pStakeProps {
   onConfirm: () => void;
 }
 
+/**
+ * ConfirmP2pStake — step 2 of the staking flow.
+ *
+ * Shows a summary of the pending stake (amount, unlocked limit, cost,
+ * timing) and triggers the on-chain `p2pBoostStake` transaction via
+ * `useP2PBoost`. The amount is converted from the human-readable string to
+ * base units with `parseUnits(amount, 18)`. Disables both buttons while the
+ * transaction is pending; advances to the success step on confirmation.
+ */
 function ConfirmP2pStake({ amount, onBack, onConfirm }: ConfirmP2pStakeProps) {
   const { t } = useTranslation();
   const { p2pBoostStakeMutation } = useP2PBoost();
@@ -225,6 +257,13 @@ function ConfirmP2pStake({ amount, onBack, onConfirm }: ConfirmP2pStakeProps) {
   );
 }
 
+/**
+ * SuccessP2pStake — step 3 (final) of the staking flow.
+ *
+ * Confirmation screen shown after the stake transaction succeeds. Reads the
+ * user's current on-chain stake via `useUserStake` and displays the total
+ * staked $P2P amount (formatted from 18-decimal base units).
+ */
 function SuccessP2pStake() {
   const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();

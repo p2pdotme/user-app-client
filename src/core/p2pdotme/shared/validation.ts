@@ -1055,6 +1055,26 @@ export const ZodP2pBoostClaimUnstakeParamsSchema = z.object({});
 export const ZodP2pBoostGetUserStakeParamsSchema = z.object({
   user: ZodAddressSchema,
 });
+export const ZodP2pBoostGetStakeBoostConfigParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
+export const ZodP2pBoostGetStakeBoostGlobalsParamsSchema = z.object({});
+
+export const ZodStakeBoostGlobalsResultSchema = z.object({
+  p2pToken: ZodAddressSchema,
+  fraudReserve: ZodAddressSchema,
+  maxStakeTokens: z.bigint().transform((v) => v.toString()),
+  normalCooldown: z.bigint().transform((v) => Number(v)),
+  blacklistCooldown: z.bigint().transform((v) => Number(v)),
+  tokenDecimals: z.number().int().min(0).max(255),
+  totalStaked: z.bigint().transform((v) => v.toString()),
+});
+
+export const ZodStakeBoostConfigResultSchema = z.object({
+  tokensPerUsdNumerator: z.bigint().transform((v) => v.toString()),
+  tokensPerUsdDenominator: z.bigint().transform((v) => v.toString()),
+  maxBoostUsd: z.bigint().transform((v) => v.toString()),
+});
 export type P2pBoostStakeParams = z.infer<typeof ZodP2pBoostStakeParamsSchema>;
 export type P2pBoostTopUpParams = z.infer<typeof ZodP2pBoostTopUpParamsSchema>;
 export type P2pBoostRequestUnstakeParams = z.infer<
@@ -1065,4 +1085,16 @@ export type P2pBoostClaimUnstakeParams = z.infer<
 >;
 export type P2pBoostGetUserStakeParams = z.infer<
   typeof ZodP2pBoostGetUserStakeParamsSchema
+>;
+export type P2pBoostGetStakeBoostConfigParams = z.infer<
+  typeof ZodP2pBoostGetStakeBoostConfigParamsSchema
+>;
+export type P2pBoostGetStakeBoostGlobalsParams = z.infer<
+  typeof ZodP2pBoostGetStakeBoostGlobalsParamsSchema
+>;
+export type StakeBoostGlobalsResult = z.infer<
+  typeof ZodStakeBoostGlobalsResultSchema
+>;
+export type StakeBoostConfigResult = z.infer<
+  typeof ZodStakeBoostConfigResultSchema
 >;

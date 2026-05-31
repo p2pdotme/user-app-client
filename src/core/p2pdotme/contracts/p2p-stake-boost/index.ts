@@ -1,15 +1,18 @@
 import { Result } from "neverthrow";
 import type { Address } from "thirdweb";
-import { encodeFunctionData, type Hex } from "viem";
+import { encodeFunctionData, type Hex, stringToHex } from "viem";
 import {
   createP2PError,
   type P2PError,
   type P2pBoostClaimUnstakeParams,
   type P2pBoostRequestUnstakeParams,
+  type P2pBoostGetStakeBoostGlobalsParams,
   type P2pBoostStakeParams,
   type P2pBoostTopUpParams,
   validate,
   ZodP2pBoostClaimUnstakeParamsSchema,
+  ZodP2pBoostGetStakeBoostConfigParamsSchema,
+  ZodP2pBoostGetStakeBoostGlobalsParamsSchema,
   ZodP2pBoostGetUserStakeParamsSchema,
   ZodP2pBoostRequestUnstakeParamsSchema,
   ZodP2pBoostStakeParamsSchema,
@@ -32,6 +35,46 @@ export function prepareGetUserStakeArgs(params: unknown): Result<
       abi: ABIS.DIAMOND,
       functionName: "getUserStake" as const,
       args: [validatedParams.user],
+    }),
+  );
+}
+
+export function prepareGetStakeBoostConfigArgs(params: unknown): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getStakeBoostConfig";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodP2pBoostGetStakeBoostConfigParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getStakeBoostConfig" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
+}
+
+export function prepareGetStakeBoostGlobalsArgs(
+  params: P2pBoostGetStakeBoostGlobalsParams = {},
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getStakeBoostGlobals";
+    args: [];
+  },
+  P2PError
+> {
+  return validate(ZodP2pBoostGetStakeBoostGlobalsParamsSchema, params).map(
+    () => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getStakeBoostGlobals" as const,
+      args: [] as [],
     }),
   );
 }
