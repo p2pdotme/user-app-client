@@ -153,6 +153,24 @@ export const roundAmount = (amount: string | number) => {
  */
 export const truncate6 = (n: number) => Math.trunc(n * 1e6) / 1e6;
 
+/**
+ * Converts a duration in seconds to whole days, rounded.
+ *
+ * @param seconds - Duration in seconds (e.g. on-chain cooldown).
+ * @returns Number of days, or `null` if `seconds` is falsy/invalid.
+ *
+ * @example
+ * secondsToDays(1_296_000) // → 15
+ * secondsToDays(86_400)    // → 1
+ * secondsToDays(0)         // → null
+ */
+export const secondsToDays = (
+  seconds: number | null | undefined,
+): number | null => {
+  if (!seconds || !Number.isFinite(seconds)) return null;
+  return Math.round(seconds / 86_400);
+};
+
 export const bpsToPercent = (bps: string) => {
   const val = Number(bps);
   if (!bps || Number.isNaN(val)) return "";

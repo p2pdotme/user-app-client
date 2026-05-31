@@ -218,6 +218,8 @@ export function StakeP2pStart({
             inputMode="numeric"
             pattern="[0-9]*"
             autoComplete="off"
+            // biome-ignore lint/a11y/noAutofocus: amount input is the primary action on this step
+            autoFocus
             placeholder="0"
             aria-label={t("P2P_STAKE_INPUT_LABEL")}
             value={amount}

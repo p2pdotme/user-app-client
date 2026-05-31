@@ -1,8 +1,16 @@
-import { Loader2 } from "lucide-react";
+import {
+  AlertTriangle,
+  Loader2,
+  Lock,
+  Sparkles,
+  TrendingDown,
+  Zap,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { parseUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import { Button } from "@/components/ui/button";
-import { useP2PBoost } from "@/hooks";
+import { useP2PBoost, useStakeBoostPreview } from "@/hooks";
+import { secondsToDays, truncateAmount } from "@/lib/utils";
 
 interface ConfirmP2pStakeProps {
   amount: string;
@@ -26,8 +34,22 @@ export function ConfirmP2pStake({
 }: ConfirmP2pStakeProps) {
   const { t } = useTranslation();
   const { p2pBoostStakeMutation } = useP2PBoost();
+  const {
+    buyLimitBoost,
+    sellLimitBoost,
+    payLimitBoost,
+    stakeBoostConfig,
+    stakeBoostGlobals,
+  } = useStakeBoostPreview(amount);
   const numericAmount = Number(amount) || 0;
   const isProcessing = p2pBoostStakeMutation.isPending;
+
+  const tokensPerUsd = stakeBoostConfig
+    ? Number(stakeBoostConfig.tokensPerUsdNumerator) /
+      Number(stakeBoostConfig.tokensPerUsdDenominator)
+    : null;
+
+  const cooldownDays = secondsToDays(stakeBoostGlobals?.normalCooldown);
 
   // TODO: 18 decimal to 6
   const handleConfirm = () => {
@@ -39,36 +61,117 @@ export function ConfirmP2pStake({
 
   return (
     <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-6 pb-8">
+      {/* Staking amount card */}
       <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
-        {/* Staking amount */}
         <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
           {t("P2P_STAKE_CONFIRM_STAKING")}
         </p>
         <p className="mt-1 font-bold text-4xl text-foreground tabular-nums tracking-tight">
-          {numericAmount} <span className="text-muted-foreground">$P2P</span>
+          {truncateAmount(numericAmount)}{" "}
+          <span className="text-muted-foreground text-2xl">$P2P</span>
         </p>
 
         <div className="my-4 h-px bg-border/60" />
 
-        {/* Rows */}
-        <dl className="flex flex-col gap-2 text-sm">
-          <div className="flex items-center justify-between">
-            <dt className="text-muted-foreground">Unlocks</dt>
-            <dd className="font-semibold text-emerald-500 tabular-nums">
-              +${numericAmount} per txn · Buy + Sell
-            </dd>
-          </div>
-          <div className="flex items-center justify-between">
-            <dt className="text-muted-foreground">You pay</dt>
-            <dd className="font-semibold text-foreground tabular-nums">
-              {numericAmount.toFixed(2)} USDC
-            </dd>
-          </div>
+        <dl className="flex flex-col gap-2.5 text-sm">
           <div className="flex items-center justify-between">
             <dt className="text-muted-foreground">Applies</dt>
-            <dd className="font-semibold text-foreground">Instantly</dd>
+            <dd className="inline-flex items-center gap-1 font-semibold text-foreground">
+              <Zap className="size-3.5 text-primary" />
+              Instantly
+            </dd>
           </div>
         </dl>
+      </section>
+
+      {/* Unlock preview — Buy / Sell / Pay tiles */}
+      <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15">
+              <Sparkles className="size-3 text-primary" />
+            </div>
+            <p className="font-medium text-muted-foreground text-sm tracking-wider">
+              You Unlock Limit
+            </p>
+          </div>
+          {tokensPerUsd !== null && Number.isFinite(tokensPerUsd) && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
+              <span className="font-semibold tabular-nums">
+                {truncateAmount(tokensPerUsd)}
+              </span>
+              <span className="text-muted-foreground">$P2P</span>
+              <span className="text-muted-foreground">=</span>
+              <span className="font-semibold tabular-nums">$1</span>
+              <span className="text-muted-foreground">limit</span>
+            </span>
+          )}
+        </div>
+
+        <dl className="mt-2.5 flex items-stretch gap-2">
+          <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
+            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+              Buy Limit
+            </dt>
+            <dd className="font-bold text-foreground text-sm tabular-nums">
+              +${truncateAmount(buyLimitBoost ?? 0)}
+            </dd>
+          </div>
+          <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
+            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+              Sell Limit
+            </dt>
+            <dd className="font-bold text-foreground text-sm tabular-nums">
+              +${truncateAmount(sellLimitBoost ?? 0)}
+            </dd>
+          </div>
+          <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
+            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+              Pay Limit
+            </dt>
+            <dd className="font-bold text-foreground text-sm tabular-nums">
+              +${truncateAmount(payLimitBoost ?? 0)}
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      {/* What you're agreeing to */}
+      <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+        <div className="mb-3.5 flex items-center gap-2">
+          <AlertTriangle className="size-3.5 text-amber-500" />
+          <p className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
+            Before You Stake
+          </p>
+        </div>
+        <ul className="flex flex-col divide-y divide-border/40">
+          <li className="flex items-start gap-3 pb-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <Lock className="size-4 text-amber-500" />
+            </div>
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                {cooldownDays ?? 0} days cooldown to unstake
+              </p>
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
+                Your $P2P is locked during this period.
+              </p>
+            </div>
+          </li>
+          <li className="flex items-start gap-3 pt-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <TrendingDown className="size-4 text-amber-500" />
+            </div>
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                Boost ends the moment you unstake
+              </p>
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
+                Your limit returns to the default right away.
+              </p>
+            </div>
+          </li>
+        </ul>
       </section>
 
       <div className="mt-auto flex flex-col gap-2">
