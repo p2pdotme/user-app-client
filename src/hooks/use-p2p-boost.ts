@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { parseUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import {
   approveP2PToken as approveP2PTokenTx,
   getP2PTokenAllowance,
@@ -441,7 +441,7 @@ export function useStakeBoostPreview(stakeAmount: string | undefined) {
     const usd6 =
       (tokens * 1_000_000n * den) / (num * 10n ** BigInt(tokenDecimals));
     const clamped = usd6 > maxBoostUsd ? maxBoostUsd : usd6;
-    return Number(clamped) / 1e6;
+    return Number(formatUnits(clamped, 6));
   }, [stakeAmount, stakeBoostGlobals, stakeBoostConfig]);
 
   return {
