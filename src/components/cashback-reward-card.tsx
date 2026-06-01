@@ -1,4 +1,4 @@
-import { ArrowRight, Gift } from "lucide-react";
+import { ArrowRight, ExternalLink, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCashbackConfig, useOrderCashback } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
+
+const COINSME_APP_URL = "https://app.coins.me";
 
 interface CashbackRewardCardProps {
   orderId: number;
@@ -48,8 +50,13 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
         })
       : "0";
 
+  const isCbBTC =
+    orderCashback?.tokenSymbol?.toLowerCase() === "cbbtc";
+  const descriptionKey = isCbBTC
+    ? "CBTC_CASHBACK_REWARD_DESCRIPTION"
+    : "CASHBACK_REWARD_DESCRIPTION";
   const description = orderCashback?.hasCashback
-    ? t("CASHBACK_REWARD_DESCRIPTION", {
+    ? t(descriptionKey, {
         tokenSymbol: orderCashback.tokenSymbol ?? t("TOKEN"),
         percentage: formattedCashbackPercentage,
       })
@@ -57,6 +64,10 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
 
   const handleViewP2PToken = () => {
     navigate(INTERNAL_HREFS.P2P_TOKEN);
+  };
+
+  const handleOpenCoinsMe = () => {
+    window.open(COINSME_APP_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -82,14 +93,25 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
               </p>
             </div>
             <div className="flex flex-col items-start gap-4 sm:items-end">
-              <Button
-                variant="default"
-                size="lg"
-                className="gap-2 rounded-full px-6"
-                onClick={handleViewP2PToken}>
-                {t("P2P_HOLDINGS")}
-                <ArrowRight className="size-4" />
-              </Button>
+              {isCbBTC ? (
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="gap-2 rounded-full px-6"
+                  onClick={handleOpenCoinsMe}>
+                  <ExternalLink className="size-4" />
+                  {t("OPEN_COINS_ME")}
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="gap-2 rounded-full px-6"
+                  onClick={handleViewP2PToken}>
+                  {t("P2P_HOLDINGS")}
+                  <ArrowRight className="size-4" />
+                </Button>
+              )}
             </div>
           </div>
         )}

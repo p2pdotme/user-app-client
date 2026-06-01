@@ -205,6 +205,8 @@ export const es = {
     CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en ${{tokenSymbol}} por esta transacción. Ver tenencias de ${{tokenSymbol}}",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
+      "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
     CASHBACK_REWARD_TITLE: "Recompensa de Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Sigue y canjea en coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:

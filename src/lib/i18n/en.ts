@@ -193,6 +193,8 @@ export const en = {
     CASHBACK_EARNED: "Cashback earned",
     CASHBACK_REWARD_DESCRIPTION:
       "You just received {{percentage}}% cashback in ${{tokenSymbol}} for this transaction. Check ${{tokenSymbol}} Holdings",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
+      "You just received {{percentage}}% cashback in {{tokenSymbol}} for this transaction. Check it on coins.me.",
     CASHBACK_REWARD_TITLE: "Cashback Reward",
     CASHBACK_TRACK_IN_COINS_ME: "Track and redeem on coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
