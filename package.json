@@ -1,10 +1,10 @@
 {
   "name": "user-app",
   "private": true,
-  "version": "3.1.8",
+  "version": "3.1.9",
   "license": "MIT",
   "type": "module",
-  "contractVersion": "0.0.6",
+  "contractVersion": "0.0.7",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && node --max-old-space-size=7700 ./node_modules/.bin/vite build",
