@@ -188,7 +188,7 @@ export const hi = {
     CANNOT_VOTE_YOURSELF: "खुद को वोट नहीं दे सकते",
     CASHBACK_EARNED: "कैशबैक अर्जित",
     CASHBACK_REWARD_DESCRIPTION:
-      "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। {{tokenSymbol}} होल्डिंग्स देखें",
+      "आपको इस लेनदेन पर ${{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। ${{tokenSymbol}} होल्डिंग्स देखें",
     CASHBACK_REWARD_TITLE: "कैशबैक रिवार्ड",
     CASHBACK_TRACK_IN_COINS_ME: "coins.me पर ट्रैक करें और रिडीम करें",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:

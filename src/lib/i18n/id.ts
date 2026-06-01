@@ -197,7 +197,7 @@ export const id = {
     CANNOT_VOTE_YOURSELF: "Tidak dapat memilih diri sendiri",
     CASHBACK_EARNED: "Cashback diperoleh",
     CASHBACK_REWARD_DESCRIPTION:
-      "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan {{tokenSymbol}}",
+      "Anda baru saja menerima {{percentage}}% cashback dalam ${{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan ${{tokenSymbol}}",
     CASHBACK_REWARD_TITLE: "Hadiah Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Lacak dan tukarkan di coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:

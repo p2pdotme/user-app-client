@@ -199,7 +199,7 @@ export const pt = {
     CANNOT_VOTE_YOURSELF: "Não pode votar em si mesmo",
     CASHBACK_EARNED: "Cashback ganho",
     CASHBACK_REWARD_DESCRIPTION:
-      "Você acabou de receber {{percentage}}% de cashback em {{tokenSymbol}} por esta transação. Ver posições de {{tokenSymbol}}",
+      "Você acabou de receber {{percentage}}% de cashback em ${{tokenSymbol}} por esta transação. Ver posições de ${{tokenSymbol}}",
     CASHBACK_REWARD_TITLE: "Recompensa de Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Acompanhe e resgate no coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
