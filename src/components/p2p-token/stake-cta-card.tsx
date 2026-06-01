@@ -18,12 +18,11 @@ import { truncateAmount } from "@/lib/utils";
 export function StakeCtaCard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { tokensPerUsd, maxBoostUsd } = useStakeBoostMetrics("0");
+  const { usdPerToken, maxBoostUsd } = useStakeBoostMetrics("0");
   const { userStake, isUserStakeLoading } = useUserStake();
 
   const hasRate =
-    tokensPerUsd !== null && Number.isFinite(tokensPerUsd) && tokensPerUsd > 0;
-  const usdPerToken = hasRate ? 1 / (tokensPerUsd as number) : 0;
+    usdPerToken !== null && Number.isFinite(usdPerToken) && usdPerToken > 0;
   const hasActiveStake =
     userStake !== undefined && userStake !== null && userStake.stakedAmount > 0n;
 
@@ -58,7 +57,7 @@ export function StakeCtaCard() {
               {t("STAKE_CTA_RATE_STAKE")}
             </p>
             <p className="font-bold text-foreground text-sm tabular-nums">
-              10 <span className="font-medium text-muted-foreground">$P2P</span>
+              1 <span className="font-medium text-muted-foreground">$P2P</span>
             </p>
           </div>
           <div className="flex shrink-0 items-center justify-center">
@@ -71,7 +70,7 @@ export function StakeCtaCard() {
               {t("STAKE_CTA_RATE_UNLOCK")}
             </p>
             <p className="font-bold text-emerald-500 text-sm tabular-nums">
-              +{truncateAmount(usdPerToken * 10)}{" "}
+              +{truncateAmount(usdPerToken ?? 0)}{" "}
               <span className="font-medium text-[10px] text-muted-foreground">
                 USDC
               </span>

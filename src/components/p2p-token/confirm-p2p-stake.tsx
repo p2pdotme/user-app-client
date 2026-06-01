@@ -40,7 +40,7 @@ export function ConfirmP2pStake({
   const { p2pBoostStakeMutation } = useP2PBoost();
   const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostGlobals } =
     useStakeBoostPreview(amount);
-  const { tokensPerUsd } = useStakeBoostMetrics(amount);
+  const { usdPerToken } = useStakeBoostMetrics(amount);
   const numericAmount = Number(amount) || 0;
   const isProcessing = p2pBoostStakeMutation.isPending;
 
@@ -93,17 +93,19 @@ export function ConfirmP2pStake({
               You Unlock Limit
             </p>
           </div>
-          {tokensPerUsd !== null && Number.isFinite(tokensPerUsd) && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
-              <span className="font-semibold tabular-nums">
-                {truncateAmount(tokensPerUsd)}
+          {usdPerToken !== null &&
+            Number.isFinite(usdPerToken) &&
+            usdPerToken > 0 && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
+                <span className="font-semibold tabular-nums">1</span>
+                <span className="text-muted-foreground">$P2P</span>
+                <span className="text-muted-foreground">=</span>
+                <span className="font-semibold tabular-nums">
+                  {truncateAmount(usdPerToken)}
+                </span>
+                <span className="text-muted-foreground">USDC limit</span>
               </span>
-              <span className="text-muted-foreground">$P2P</span>
-              <span className="text-muted-foreground">=</span>
-              <span className="font-semibold tabular-nums">1 USDC</span>
-              <span className="text-muted-foreground">limit</span>
-            </span>
-          )}
+            )}
         </div>
 
         <dl className="mt-2.5 flex items-stretch gap-2">

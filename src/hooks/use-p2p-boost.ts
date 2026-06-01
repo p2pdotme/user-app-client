@@ -473,6 +473,10 @@ export const useStakeBoostMetrics = (amount: string) => {
       Number(stakeBoostConfig.tokensPerUsdDenominator)
     : null;
 
+  // USDC limit unlocked per 1 P2P token (= 1 / tokensPerUsd).
+  const usdPerToken =
+    tokensPerUsd !== null && tokensPerUsd > 0 ? 1 / tokensPerUsd : null;
+
   const maxBoostUsd = stakeBoostConfig
     ? Number(formatUnits(BigInt(stakeBoostConfig.maxBoostUsd), 6))
     : 0;
@@ -493,6 +497,7 @@ export const useStakeBoostMetrics = (amount: string) => {
     maxStakeForCap,
     progressPct,
     tokensPerUsd,
+    usdPerToken,
     maxBoostUsd,
     headroom,
   };

@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { formatUnits, parseUnits } from "viem";
+import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
 import { StakeBoostPreviewCard } from "@/components/p2p-token/stake-p2p-start";
 import { OrderLimitCard } from "@/components/p2p-token/success-p2p-stake";
@@ -58,7 +59,7 @@ export function P2PMyStake() {
   const isActive = status === 1;
   const isCoolingDown = status === 2;
 
-  const { maxBoostUsd, progressPct, tokensPerUsd, headroom } =
+  const { maxBoostUsd, progressPct, tokensPerUsd, usdPerToken, headroom } =
     useStakeBoostMetrics(String(stakedAmount));
   const { buyLimitBoost, sellLimitBoost, payLimitBoost } = useStakeBoostPreview(
     String(stakedAmount),
@@ -115,10 +116,23 @@ export function P2PMyStake() {
               <>
                 <div className="my-4 h-px bg-border/60" />
 
-                {/* Section label */}
-                <p className="text-muted-foreground text-xs uppercase tracking-wider">
-                  Order Limit Boosted
-                </p>
+                {/* Section label + rate */}
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider">
+                    Order Limit Boosted
+                  </p>
+                  {usdPerToken !== null && usdPerToken > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
+                      <span className="font-semibold tabular-nums">1</span>
+                      <span className="text-muted-foreground">$P2P</span>
+                      <span className="text-muted-foreground">=</span>
+                      <span className="font-semibold tabular-nums">
+                        {truncateAmount(usdPerToken)}
+                      </span>
+                      <span className="text-muted-foreground">USDC limit</span>
+                    </span>
+                  )}
+                </div>
 
                 {/* Buy / Sell / Pay tiles */}
                 <dl className="mt-2 grid grid-cols-3 gap-2">
@@ -544,7 +558,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
 
         <div className="mt-3 flex flex-col items-center gap-3 rounded-xl bg-primary/5 p-4">
           <div className="flex size-12 items-center justify-center rounded-full bg-primary/15">
-            <Sparkles className="size-6 text-primary" />
+            <ASSETS.ICONS.Logo className="size-7 text-primary" />
           </div>
           <p className="font-bold text-2xl text-primary tabular-nums tracking-tight">
             {truncateAmount(stakedAmount)}{" "}

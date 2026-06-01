@@ -180,7 +180,7 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
       />
 
       <p className="mt-auto px-2 text-center text-muted-foreground text-xs leading-relaxed">
-        You can top up your stake or unstake anytime from{" "}
+        You can increase your stake or unstake anytime from{" "}
         <Link
           to={INTERNAL_HREFS.LIMITS}
           replace

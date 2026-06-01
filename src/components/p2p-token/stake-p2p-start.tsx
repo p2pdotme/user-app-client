@@ -33,14 +33,15 @@ export function StakeBoostPreviewCard({
 
   if (!stakeBoostConfig) return null;
 
-  const { maxBoostUsd, tokensPerUsd, progressPct } = useStakeBoostMetrics(amount);
+  const { maxBoostUsd, usdPerToken, progressPct } =
+    useStakeBoostMetrics(amount);
 
   const unlocked = buyLimitBoost ?? 0;
 
   const isCapReached = progressPct >= 100;
 
   const hasRate =
-    Number.isFinite(tokensPerUsd) && tokensPerUsd != null && tokensPerUsd > 0;
+    usdPerToken !== null && Number.isFinite(usdPerToken) && usdPerToken > 0;
 
   return (
     <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
@@ -56,13 +57,13 @@ export function StakeBoostPreviewCard({
         </div>
         {hasRate && (
           <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-xs text-foreground">
-            <span className="font-semibold tabular-nums">
-              {truncateAmount(tokensPerUsd)}
-            </span>
+            <span className="font-semibold tabular-nums">1</span>
             <span className="text-muted-foreground">$P2P</span>
             <span className="text-muted-foreground">=</span>
-            <span className="font-semibold tabular-nums">1 USDC</span>
-            <span className="text-muted-foreground">limit</span>
+            <span className="font-semibold tabular-nums">
+              {truncateAmount(usdPerToken ?? 0)}
+            </span>
+            <span className="text-muted-foreground">USDC limit</span>
           </span>
         )}
       </div>
@@ -184,6 +185,14 @@ export function StakeP2pStart({
     onAmountChange(value.replace(/\D/g, "").replace(/^0+(?=\d)/, ""));
   };
 
+  const maxStakeable =
+    maxStakeForCap !== null ? Math.min(p2pBalance, maxStakeForCap) : p2pBalance;
+  const canMax = maxStakeable > 0;
+
+  const handleMax = () => {
+    onAmountChange(String(Math.floor(maxStakeable)));
+  };
+
   return (
     <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-6 pb-8">
       {/* Page heading */}
@@ -232,6 +241,14 @@ export function StakeP2pStart({
             onChange={(e) => handleAmountChange(e.target.value)}
             className="min-w-0 flex-1 bg-transparent font-bold text-4xl text-foreground tabular-nums tracking-tight outline-none placeholder:text-muted-foreground/40"
           />
+          <button
+            type="button"
+            onClick={handleMax}
+            disabled={!canMax}
+            className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {t("MAX")}
+          </button>
           <span className="font-semibold text-muted-foreground text-base">
             $P2P
           </span>
