@@ -188,6 +188,8 @@ export const hi = {
     CANNOT_VOTE_YOURSELF: "खुद को वोट नहीं दे सकते",
     CASHBACK_EARNED: "कैशबैक अर्जित",
     CASHBACK_REWARD_DESCRIPTION:
+      "आपको इस लेनदेन पर ${{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। ${{tokenSymbol}} होल्डिंग्स देखें",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। coins.me पर देखें।",
     CASHBACK_REWARD_TITLE: "कैशबैक रिवार्ड",
     CASHBACK_TRACK_IN_COINS_ME: "coins.me पर ट्रैक करें और रिडीम करें",
@@ -1746,6 +1748,8 @@ export const hi = {
     VIEW_MORE: "और देखें",
     VIEW_MORE_DETAILS: "अधिक विवरण देखें",
     VIEW_ON: "देखें",
+    VIEW_P2P_TOKEN_HOLDINGS: "अपनी $P2P होल्डिंग्स देखें",
+    P2P_HOLDINGS: "$P2P होल्डिंग्स",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
     VOTES_PER_EPOCH_EXCEEDED: "प्रति एपॉक वोट सीमा पार हो गई",

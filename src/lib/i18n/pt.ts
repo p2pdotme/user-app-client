@@ -199,6 +199,8 @@ export const pt = {
     CANNOT_VOTE_YOURSELF: "Não pode votar em si mesmo",
     CASHBACK_EARNED: "Cashback ganho",
     CASHBACK_REWARD_DESCRIPTION:
+      "Você acabou de receber {{percentage}}% de cashback em ${{tokenSymbol}} por esta transação. Ver posições de ${{tokenSymbol}}",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Você acabou de receber {{percentage}}% de cashback em {{tokenSymbol}} por esta transação. Confira no coins.me.",
     CASHBACK_REWARD_TITLE: "Recompensa de Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Acompanhe e resgate no coins.me",
@@ -1828,6 +1830,8 @@ export const pt = {
     VIEW_MORE: "Ver mais",
     VIEW_MORE_DETAILS: "Ver mais detalhes",
     VIEW_ON: "Ver em",
+    VIEW_P2P_TOKEN_HOLDINGS: "Ver suas posições de $P2P",
+    P2P_HOLDINGS: "Posições de $P2P",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Veja perguntas frequentes sobre pedidos {{orderType}}",
     VOTES_PER_EPOCH_EXCEEDED: "Votos por época excedidos",
