@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { Address } from "thirdweb";
 import { erc20Abi, formatUnits, parseUnits, zeroAddress } from "viem";
 import { viemPublicClient } from "@/core/adapters/thirdweb";
-import { useCashbackConfig } from "./use-cashback-config";
 
 const quoterAbi = [
   {
@@ -33,6 +32,9 @@ const quoterAbi = [
 
 const USDC_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS_USDC as Address;
 const USDC_DECIMALS = 6;
+const QUOTER_ADDRESS =
+  "0x222cA98F00eD15B1faE10B61c277703a194cf5d2" as Address;
+const QUOTER_FEE = 500;
 
 interface CbBtcPriceSummary {
   pricePerToken: number;
@@ -41,25 +43,14 @@ interface CbBtcPriceSummary {
   getFormattedUsdValue: (amount: bigint) => string;
 }
 
-export function useCbBtcPrice() {
-  const { data: cashbackConfig, isLoading: isConfigLoading } =
-    useCashbackConfig();
-
-  const tokenAddress = cashbackConfig?.cashbackToken as Address | undefined;
-  const quoterAddress = cashbackConfig?.quoterAddress as Address | undefined;
-  const quoterFee = cashbackConfig?.quoterFee;
-
+export function useCbBtcPrice(tokenAddress: Address | undefined) {
   return useQuery<CbBtcPriceSummary>({
-    queryKey: ["cbbtc-price", tokenAddress, quoterAddress, quoterFee],
+    queryKey: ["cbbtc-price", tokenAddress],
     enabled:
       !!tokenAddress &&
-      !!quoterAddress &&
-      !!quoterFee &&
-      tokenAddress.toLowerCase() !== zeroAddress.toLowerCase() &&
-      quoterAddress.toLowerCase() !== zeroAddress.toLowerCase() &&
-      !isConfigLoading,
+      tokenAddress.toLowerCase() !== zeroAddress.toLowerCase(),
     queryFn: async () => {
-      if (!tokenAddress || !quoterAddress || !quoterFee) {
+      if (!tokenAddress) {
         return {
           pricePerToken: 0,
           tokenDecimals: 8,
@@ -77,7 +68,7 @@ export function useCbBtcPrice() {
       const oneToken = parseUnits("1", tokenDecimals);
 
       const { result } = await viemPublicClient.simulateContract({
-        address: quoterAddress,
+        address: QUOTER_ADDRESS,
         abi: quoterAbi,
         functionName: "quoteExactInputSingle",
         args: [
@@ -85,7 +76,7 @@ export function useCbBtcPrice() {
             tokenIn: tokenAddress,
             tokenOut: USDC_ADDRESS,
             amountIn: oneToken,
-            fee: quoterFee,
+            fee: QUOTER_FEE,
             sqrtPriceLimitX96: 0n,
           },
         ],
