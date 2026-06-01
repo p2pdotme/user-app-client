@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { Address } from "thirdweb";
 import { erc20Abi, formatUnits, zeroAddress } from "viem";
 import { viemPublicClient } from "@/core/adapters/thirdweb";
-import { useCashbackConfig } from "./use-cashback-config";
 import { useThirdweb } from "./use-thirdweb";
 
 interface CbBtcBalanceSummary {
@@ -15,21 +14,17 @@ interface CbBtcBalanceSummary {
   tokenSymbol: string;
 }
 
-export function useCbBtcBalance() {
+export function useCbBtcBalance(tokenAddress: Address | undefined) {
   const { account } = useThirdweb();
-  const { data: cashbackConfig, isLoading: isConfigLoading } =
-    useCashbackConfig();
 
   const userAddress = account?.address as Address | undefined;
-  const tokenAddress = cashbackConfig?.cashbackToken as Address | undefined;
 
   return useQuery<CbBtcBalanceSummary>({
     queryKey: ["cbbtc-balance", userAddress, tokenAddress],
     enabled:
       !!userAddress &&
       !!tokenAddress &&
-      tokenAddress.toLowerCase() !== zeroAddress.toLowerCase() &&
-      !isConfigLoading,
+      tokenAddress.toLowerCase() !== zeroAddress.toLowerCase(),
     queryFn: async () => {
       if (!userAddress || !tokenAddress) {
         return {
