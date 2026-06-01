@@ -454,3 +454,46 @@ export function useStakeBoostPreview(stakeAmount: string | undefined) {
     isLoading: isStakeBoostGlobalsLoading || isStakeBoostConfigLoading,
   };
 }
+
+/**
+ * stakeBoostMetrics — derives the cap-related metrics from the
+ * stake-boost preview for a given `amount` of P2P tokens.
+ *
+ * Returns:
+ *  - `maxStakeForCap`: maximum stake (in P2P) that fully consumes the
+ *    country cap (`maxBoostUsd * tokensPerUsd`). `null` until config loads.
+ *  - `progressPct`: percentage (0–100) of the country cap unlocked by
+ *    the current `amount`.
+ */
+export const useStakeBoostMetrics = (amount: string) => {
+  const { stakeBoostConfig, unlockedUSD } = useStakeBoostPreview(amount);
+
+  const tokensPerUsd = stakeBoostConfig
+    ? Number(stakeBoostConfig.tokensPerUsdNumerator) /
+      Number(stakeBoostConfig.tokensPerUsdDenominator)
+    : null;
+
+  const maxBoostUsd = stakeBoostConfig
+    ? Number(formatUnits(BigInt(stakeBoostConfig.maxBoostUsd), 6))
+    : 0;
+
+  const maxStakeForCap =
+    tokensPerUsd !== null && maxBoostUsd !== null
+      ? maxBoostUsd * tokensPerUsd
+      : null;
+
+  const progressPct =
+    maxBoostUsd !== null && maxBoostUsd > 0
+      ? Math.min(100, ((unlockedUSD ?? 0) / maxBoostUsd) * 100)
+      : 0;
+
+  const headroom = Math.max(0, (maxBoostUsd ?? 0) - (unlockedUSD ?? 0));
+
+  return {
+    maxStakeForCap,
+    progressPct,
+    tokensPerUsd,
+    maxBoostUsd,
+    headroom,
+  };
+};

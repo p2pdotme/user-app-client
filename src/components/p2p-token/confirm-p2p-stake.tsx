@@ -7,9 +7,13 @@ import {
   Zap,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { formatUnits, parseUnits } from "viem";
+import { parseUnits } from "viem";
 import { Button } from "@/components/ui/button";
-import { useP2PBoost, useStakeBoostPreview } from "@/hooks";
+import {
+  useP2PBoost,
+  useStakeBoostMetrics,
+  useStakeBoostPreview,
+} from "@/hooks";
 import { secondsToDays, truncateAmount } from "@/lib/utils";
 
 interface ConfirmP2pStakeProps {
@@ -34,20 +38,11 @@ export function ConfirmP2pStake({
 }: ConfirmP2pStakeProps) {
   const { t } = useTranslation();
   const { p2pBoostStakeMutation } = useP2PBoost();
-  const {
-    buyLimitBoost,
-    sellLimitBoost,
-    payLimitBoost,
-    stakeBoostConfig,
-    stakeBoostGlobals,
-  } = useStakeBoostPreview(amount);
+  const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostGlobals } =
+    useStakeBoostPreview(amount);
+  const { tokensPerUsd } = useStakeBoostMetrics(amount);
   const numericAmount = Number(amount) || 0;
   const isProcessing = p2pBoostStakeMutation.isPending;
-
-  const tokensPerUsd = stakeBoostConfig
-    ? Number(stakeBoostConfig.tokensPerUsdNumerator) /
-      Number(stakeBoostConfig.tokensPerUsdDenominator)
-    : null;
 
   const cooldownDays = secondsToDays(stakeBoostGlobals?.normalCooldown);
 

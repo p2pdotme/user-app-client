@@ -3,13 +3,15 @@ import { useTranslation } from "react-i18next";
 import { formatUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useP2PBalance } from "@/hooks";
+import { useStakeBoostMetrics, useP2PBalance } from "@/hooks";
 import { useStakeBoostPreview } from "@/hooks";
 import { truncateAmount } from "@/lib/utils";
 
 interface StakeBoostPreviewCardProps {
   /** Human-readable P2P token amount the user intends to stake (e.g. "1000"). */
   amount: string;
+  /** Header label shown above the Buy/Sell/Pay tiles. */
+  label?: string;
 }
 
 /**
@@ -22,25 +24,23 @@ interface StakeBoostPreviewCardProps {
  *
  * Renders nothing until the on-chain stake-boost config is loaded.
  */
-function StakeBoostPreviewCard({ amount }: StakeBoostPreviewCardProps) {
+export function StakeBoostPreviewCard({
+  amount,
+  label = "You Unlock Limit",
+}: StakeBoostPreviewCardProps) {
   const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostConfig } =
     useStakeBoostPreview(amount);
 
   if (!stakeBoostConfig) return null;
 
-  const maxBoostUsd = Number(
-    formatUnits(BigInt(stakeBoostConfig.maxBoostUsd), 6),
-  );
+  const { maxBoostUsd, tokensPerUsd, progressPct } = useStakeBoostMetrics(amount);
+
   const unlocked = buyLimitBoost ?? 0;
-  const progressPct =
-    maxBoostUsd > 0 ? Math.min(100, (unlocked / maxBoostUsd) * 100) : 0;
 
   const isCapReached = progressPct >= 100;
 
-  const tokensPerUsd =
-    Number(stakeBoostConfig.tokensPerUsdNumerator) /
-    Number(stakeBoostConfig.tokensPerUsdDenominator);
-  const hasRate = Number.isFinite(tokensPerUsd) && tokensPerUsd > 0;
+  const hasRate =
+    Number.isFinite(tokensPerUsd) && tokensPerUsd != null && tokensPerUsd > 0;
 
   return (
     <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
@@ -51,7 +51,7 @@ function StakeBoostPreviewCard({ amount }: StakeBoostPreviewCardProps) {
             <Sparkles className="size-3 text-primary" />
           </div>
           <p className="font-medium text-muted-foreground text-sm tracking-wider">
-            You Unlock Limit
+            {label}
           </p>
         </div>
         {hasRate && (
@@ -147,26 +147,13 @@ export function StakeP2pStart({
 }: StakeP2pStartProps) {
   const { t } = useTranslation();
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
-  const { stakeBoostConfig } = useStakeBoostPreview(amount);
 
   // TODO:
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
   const parsedAmount = Number(amount);
 
-  // Conversion rate: {tokensPerUsd} $P2P = $1 limit
-  const tokensPerUsd = stakeBoostConfig
-    ? Number(stakeBoostConfig.tokensPerUsdNumerator) /
-      Number(stakeBoostConfig.tokensPerUsdDenominator)
-    : null;
+  const { maxStakeForCap } = useStakeBoostMetrics(amount);
 
-  // Max stake that fully consumes the country cap (maxBoostUsd in dollars × tokensPerUsd)
-  const maxBoostUsd = stakeBoostConfig
-    ? Number(formatUnits(BigInt(stakeBoostConfig.maxBoostUsd), 6))
-    : null;
-  const maxStakeForCap =
-    tokensPerUsd !== null && maxBoostUsd !== null
-      ? maxBoostUsd * tokensPerUsd
-      : null;
   const exceedsCap =
     maxStakeForCap !== null &&
     parsedAmount > 0 &&
