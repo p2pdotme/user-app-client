@@ -10,11 +10,13 @@ import {
   TrendingDown,
   Wallet,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { formatUnits, parseUnits } from "viem";
 import { NonHomeHeader } from "@/components";
 import { StakeBoostPreviewCard } from "@/components/p2p-token/stake-p2p-start";
+import { OrderLimitCard } from "@/components/p2p-token/success-p2p-stake";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -32,14 +34,20 @@ import {
   useStakeBoostPreview,
   useUserStake,
 } from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { formatSecondsDuration, truncateAmount } from "@/lib/utils";
 
 export function P2PMyStake() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { userStake, isUserStakeLoading } = useUserStake();
+  const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
   const { p2pBoostRequestUnstakeMutation } = useP2PBoost();
   const [isTopUpOpen, setIsTopUpOpen] = useState(false);
   const [isUnstakeOpen, setIsUnstakeOpen] = useState(false);
+
+  // TODO: 18 decimal to 6
+  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
 
   // TODO: 18 decimal to 6
   const stakedAmount = userStake
@@ -64,6 +72,20 @@ export function P2PMyStake() {
     <>
       <NonHomeHeader title={t("MY_STAKE_TITLE")} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-6 pb-8">
+        <div className="flex justify-end">
+          {isP2PBalanceLoading ? (
+            <Skeleton className="h-6 w-24 rounded-full" />
+          ) : (
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-foreground text-xs">
+              <Wallet className="size-3 text-muted-foreground" />
+              <span className="font-semibold tabular-nums">
+                {truncateAmount(p2pBalance)}
+              </span>
+              <span className="font-normal text-muted-foreground">$P2P</span>
+            </div>
+          )}
+        </div>
+
         {isUserStakeLoading ? (
           <Skeleton className="h-72 w-full rounded-2xl" />
         ) : (
@@ -73,6 +95,7 @@ export function P2PMyStake() {
               <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
                 {t("MY_STAKE_STAKED_LABEL")}
               </p>
+              <StakeStatusPill status={status} />
             </div>
 
             {/* Staked amount + USD equivalent */}
@@ -88,7 +111,7 @@ export function P2PMyStake() {
               </p>
             )}
 
-            {maxBoostUsd > 0 && (
+            {isActive && maxBoostUsd > 0 && (
               <>
                 <div className="my-4 h-px bg-border/60" />
 
@@ -151,19 +174,27 @@ export function P2PMyStake() {
                 </div>
               </>
             )}
-
-            {isCoolingDown && cooldownEnd > 0 && (
-              <div className="mt-4 flex items-center justify-between gap-2 rounded-xl bg-amber-500/10 px-3 py-2 text-amber-500 text-xs">
-                <span className="inline-flex items-center gap-1.5 uppercase tracking-wider">
-                  <Clock className="size-3" />
-                  Unlocks
-                </span>
-                <span className="font-semibold tabular-nums">
-                  {new Date(cooldownEnd * 1000).toLocaleString()}
-                </span>
-              </div>
-            )}
           </section>
+        )}
+
+        {isCoolingDown && cooldownEnd > 0 && (
+          <CooldownCard cooldownEnd={cooldownEnd} stakedAmount={stakedAmount} />
+        )}
+
+        {!isUserStakeLoading && stakedAmount === 0 && (
+          <>
+            <OrderLimitCard label={t("MY_STAKE_YOUR_ORDER_LIMIT")} />
+
+            <Button
+              onClick={() =>
+                navigate(INTERNAL_HREFS.P2P_TOKEN_STAKE, { replace: true })
+              }
+              className="w-full rounded-2xl py-6 font-semibold text-base"
+            >
+              <Sparkles className="size-4" />
+              {t("MY_STAKE_STAKE_NOW")}
+            </Button>
+          </>
         )}
 
         {isActive && (
@@ -461,7 +492,9 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
               disabled={!isValid || isProcessing}
               className="w-full rounded-2xl py-6 font-semibold text-base"
             >
-              {isProcessing ? <Loader2 className="size-4 animate-spin" /> : null}
+              {isProcessing ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : null}
               {t("MY_STAKE_TOPUP_CONFIRM")}
             </Button>
             <Button
@@ -476,5 +509,124 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
         </div>
       </DrawerContent>
     </Drawer>
+  );
+}
+
+interface CooldownCardProps {
+  cooldownEnd: number;
+  stakedAmount: number;
+}
+
+function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
+  const { t } = useTranslation();
+  const { p2pBoostClaimUnstakeMutation } = useP2PBoost();
+  const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
+
+  useEffect(() => {
+    const id = window.setInterval(
+      () => setNow(Math.floor(Date.now() / 1000)),
+      30_000,
+    );
+    return () => window.clearInterval(id);
+  }, []);
+
+  const remaining = Math.max(0, cooldownEnd - now);
+  const isReadyToClaim = remaining === 0;
+  const days = Math.floor(remaining / 86_400);
+  const hours = Math.floor((remaining % 86_400) / 3_600);
+  const minutes = Math.floor((remaining % 3_600) / 60);
+
+  const pad2 = (n: number) => n.toString().padStart(2, "0");
+  const isClaiming = p2pBoostClaimUnstakeMutation.isPending;
+
+  if (isReadyToClaim) {
+    return (
+      <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+        <p className="text-center font-medium text-muted-foreground text-sm">
+          {t("MY_STAKE_CLAIM_READY_HEADING")}
+        </p>
+
+        <div className="mt-3 flex flex-col items-center gap-3 rounded-xl bg-primary/5 p-4">
+          <div className="flex size-12 items-center justify-center rounded-full bg-primary/15">
+            <Sparkles className="size-6 text-primary" />
+          </div>
+          <p className="font-bold text-2xl text-primary tabular-nums tracking-tight">
+            {truncateAmount(stakedAmount)}{" "}
+            <span className="text-muted-foreground text-base">$P2P</span>
+          </p>
+        </div>
+
+        <Button
+          onClick={() => p2pBoostClaimUnstakeMutation.mutate()}
+          disabled={isClaiming}
+          hapticType="success"
+          className="mt-4 w-full rounded-2xl py-6 font-semibold text-base"
+        >
+          {isClaiming ? <Loader2 className="size-4 animate-spin" /> : null}
+          {t("P2P_UNSTAKE_CLAIM_BUTTON")}
+        </Button>
+      </section>
+    );
+  }
+
+  return (
+    <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+      <p className="text-center font-medium text-muted-foreground text-sm">
+        {t("MY_STAKE_COOLDOWN_HEADING")}
+      </p>
+
+      <div className="mt-3 rounded-xl bg-primary/5 p-4">
+        <p className="text-center font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
+          {t("MY_STAKE_COOLDOWN_TIME_REMAINING")}
+        </p>
+        <div className="mt-2 flex items-baseline justify-center gap-4 font-bold text-3xl text-primary tabular-nums tracking-tight">
+          <span>
+            {days}
+            <span className="ml-1 text-xl text-primary/70">d</span>
+          </span>
+          <span className="text-primary/40">·</span>
+          <span>
+            {pad2(hours)}
+            <span className="ml-1 text-xl text-primary/70">h</span>
+          </span>
+          <span className="text-primary/40">·</span>
+          <span>
+            {pad2(minutes)}
+            <span className="ml-1 text-xl text-primary/70">m</span>
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const STAKE_STATUS_STYLES: Record<
+  number,
+  { labelKey: string; className: string }
+> = {
+  1: {
+    labelKey: "STAKE_STATUS_ACTIVE",
+    className: "bg-emerald-500/15 text-emerald-500",
+  },
+  2: {
+    labelKey: "STAKE_STATUS_COOLDOWN",
+    className: "bg-amber-500/15 text-amber-500",
+  },
+  3: {
+    labelKey: "STAKE_STATUS_SEIZED",
+    className: "bg-destructive/15 text-destructive",
+  },
+};
+
+function StakeStatusPill({ status }: { status: number }) {
+  const { t } = useTranslation();
+  const style = STAKE_STATUS_STYLES[status];
+  if (!style) return null;
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-semibold text-[11px] uppercase tracking-wider ${style.className}`}
+    >
+      {t(style.labelKey)}
+    </span>
   );
 }

@@ -32,7 +32,7 @@ function formatRemaining(seconds: number): string {
 export function P2PUnstake() {
   const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();
-  const { p2pBoostRequestUnstakeMutation, p2pBoostClaimUnstakeMutation } =
+  const { p2pBoostRequestUnstakeMutation } =
     useP2PBoost();
 
   // TODO: 18 decimal to 6
@@ -53,7 +53,6 @@ export function P2PUnstake() {
   const remaining = Math.max(0, cooldownEnd - now);
   const isReadyToClaim = status === STATUS.COOLDOWN && remaining === 0;
   const isRequesting = p2pBoostRequestUnstakeMutation.isPending;
-  const isClaiming = p2pBoostClaimUnstakeMutation.isPending;
 
   return (
     <>
@@ -124,23 +123,6 @@ export function P2PUnstake() {
               </span>
             ) : (
               t("P2P_UNSTAKE_REQUEST_BUTTON")
-            )}
-          </Button>
-        )}
-
-        {!isUserStakeLoading && status === STATUS.COOLDOWN && (
-          <Button
-            onClick={() => p2pBoostClaimUnstakeMutation.mutate()}
-            disabled={!isReadyToClaim || isClaiming}
-            className="mt-auto w-full rounded-2xl py-6 font-semibold text-base"
-          >
-            {isClaiming ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="size-4 animate-spin" />
-                {t("P2P_UNSTAKE_CLAIMING")}
-              </span>
-            ) : (
-              t("P2P_UNSTAKE_CLAIM_BUTTON")
             )}
           </Button>
         )}

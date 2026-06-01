@@ -9,6 +9,88 @@ import { useStakeBoostPreview, useTxLimits, useUserStake } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
 
+interface OrderLimitCardProps {
+  /** Header label shown above the Buy and Sell/Pay tiles. */
+  label: string;
+  /** Optional Buy limit boost (USD) shown as a +$X chip beneath the value. */
+  buyBoost?: number;
+  /** Optional Sell/Pay limit boost (USD) shown as a +$X chip beneath the value. */
+  sellBoost?: number;
+}
+
+/**
+ * OrderLimitCard — displays the user's current per-transaction Buy and
+ * Sell/Pay USD limits in a two-tile layout.
+ *
+ * Reads `txLimit` from `useTxLimits` and renders skeletons while loading.
+ * If `buyBoost` or `sellBoost` is provided and > 0, an emerald "+$X" chip is
+ * shown under the corresponding limit to indicate the unlock from a new
+ * stake.
+ */
+export function OrderLimitCard({
+  label,
+  buyBoost = 0,
+  sellBoost = 0,
+}: OrderLimitCardProps) {
+  const { t } = useTranslation();
+  const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+
+  const buyLimit = txLimit?.buyLimit ?? 0;
+  const sellLimit = txLimit?.sellLimit ?? 0;
+
+  return (
+    <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
+      <div className="flex items-center gap-2">
+        <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15">
+          <Sparkles className="size-3 text-primary" />
+        </div>
+        <p className="font-medium text-muted-foreground text-sm tracking-wider">
+          {label}
+        </p>
+      </div>
+
+      <dl className="mt-2.5 flex items-stretch gap-2">
+        <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
+          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            {t("BUY")}
+          </dt>
+          {isTxLimitLoading ? (
+            <Skeleton className="mt-1 h-6 w-16" />
+          ) : (
+            <dd className="font-bold text-foreground text-lg tabular-nums">
+              {isTxLimitError ? "—" : `$${truncateAmount(buyLimit, 0)}`}
+            </dd>
+          )}
+          {buyBoost > 0 && (
+            <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
+              <TrendingUp className="size-3" />
+              +${truncateAmount(buyBoost)}
+            </p>
+          )}
+        </div>
+        <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
+          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            {t("SELL")} / {t("PAY")}
+          </dt>
+          {isTxLimitLoading ? (
+            <Skeleton className="mt-1 h-6 w-16" />
+          ) : (
+            <dd className="font-bold text-foreground text-lg tabular-nums">
+              {isTxLimitError ? "—" : `$${truncateAmount(sellLimit, 0)}`}
+            </dd>
+          )}
+          {sellBoost > 0 && (
+            <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
+              <TrendingUp className="size-3" />
+              +${truncateAmount(sellBoost)}
+            </p>
+          )}
+        </div>
+      </dl>
+    </section>
+  );
+}
+
 interface SuccessP2pStakeProps {
   /** Amount the user just staked, in human-readable $P2P. */
   amount: string;
@@ -24,9 +106,7 @@ interface SuccessP2pStakeProps {
  * stake (`useStakeBoostPreview(amount)`).
  */
 export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
-  const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();
-  const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
   const { buyLimitBoost, sellLimitBoost } = useStakeBoostPreview(amount);
 
   // TODO: 18 decimal to 6
@@ -34,8 +114,6 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
     ? Number(formatUnits(userStake.stakedAmount, 18))
     : 0;
 
-  const buyLimit = txLimit?.buyLimit ?? 0;
-  const sellLimit = txLimit?.sellLimit ?? 0;
   const buyBoost = buyLimitBoost ?? 0;
   const sellBoost = sellLimitBoost ?? 0;
 
@@ -73,56 +151,11 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
         )}
       </section>
 
-      {/* New per-transaction limits */}
-      <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/15">
-            <Sparkles className="size-3 text-primary" />
-          </div>
-          <p className="font-medium text-muted-foreground text-sm tracking-wider">
-            Your New Limits
-          </p>
-        </div>
-
-        <dl className="mt-2.5 flex items-stretch gap-2">
-          <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
-            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-              {t("BUY")}
-            </dt>
-            {isTxLimitLoading ? (
-              <Skeleton className="mt-1 h-6 w-16" />
-            ) : (
-              <dd className="font-bold text-foreground text-lg tabular-nums">
-                {isTxLimitError ? "—" : `$${truncateAmount(buyLimit, 0)}`}
-              </dd>
-            )}
-            {buyBoost > 0 && (
-              <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
-                <TrendingUp className="size-3" />
-                +${truncateAmount(buyBoost)}
-              </p>
-            )}
-          </div>
-          <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
-            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-              {t("SELL")} / {t("PAY")}
-            </dt>
-            {isTxLimitLoading ? (
-              <Skeleton className="mt-1 h-6 w-16" />
-            ) : (
-              <dd className="font-bold text-foreground text-lg tabular-nums">
-                {isTxLimitError ? "—" : `$${truncateAmount(sellLimit, 0)}`}
-              </dd>
-            )}
-            {sellBoost > 0 && (
-              <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
-                <TrendingUp className="size-3" />
-                +${truncateAmount(sellBoost)}
-              </p>
-            )}
-          </div>
-        </dl>
-      </section>
+      <OrderLimitCard
+        label="Your New Limits"
+        buyBoost={buyBoost}
+        sellBoost={sellBoost}
+      />
 
       <p className="mt-auto px-2 text-center text-muted-foreground text-xs leading-relaxed">
         You can top up your stake or unstake anytime from{" "}
