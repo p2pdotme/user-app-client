@@ -1,11 +1,11 @@
-import { ExternalLink, Gift } from "lucide-react";
+import { ArrowRight, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCashbackConfig, useOrderCashback } from "@/hooks";
-
-const COINSME_APP_URL = "https://app.coins.me";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 interface CashbackRewardCardProps {
   orderId: number;
@@ -23,6 +23,7 @@ interface CashbackRewardCardProps {
  */
 export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { data: orderCashback, isLoading: isOrderCashbackLoading } =
     useOrderCashback(orderId);
   const { data: cashbackConfig, isLoading: isCashbackConfigLoading } =
@@ -54,8 +55,8 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
       })
     : "";
 
-  const handleOpenCoinsMe = () => {
-    window.open(COINSME_APP_URL, "_blank", "noopener,noreferrer");
+  const handleViewP2PToken = () => {
+    navigate(INTERNAL_HREFS.P2P_TOKEN);
   };
 
   return (
@@ -85,9 +86,9 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
                 variant="default"
                 size="lg"
                 className="gap-2 rounded-full px-6"
-                onClick={handleOpenCoinsMe}>
-                <ExternalLink className="size-4" />
-                {t("OPEN_COINS_ME")}
+                onClick={handleViewP2PToken}>
+                {t("P2P_HOLDINGS")}
+                <ArrowRight className="size-4" />
               </Button>
             </div>
           </div>

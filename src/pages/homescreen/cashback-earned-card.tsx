@@ -1,41 +1,48 @@
-import { ArrowRight, Bitcoin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { formatUnits } from "viem";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCbBtcBalance, useCbBtcPrice, useThirdweb } from "@/hooks";
-
-const COINSME_APP_URL = "https://app.coins.me";
+import { useP2pRewardBalance, useP2PTokenInfo, useThirdweb } from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 export function CashbackEarnedCard() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { account } = useThirdweb();
   const {
     data: balance,
     isLoading: isBalanceLoading,
     isError: isBalanceError,
-  } = useCbBtcBalance();
-  const {
-    data: price,
-    isLoading: isPriceLoading,
-    isError: isPriceError,
-  } = useCbBtcPrice();
+  } = useP2pRewardBalance();
+  const { tokenInfo, isTokenInfoLoading } =
+    useP2PTokenInfo();
 
   const balanceQueryEnabled = !!account?.address;
-  const isLoading = balanceQueryEnabled && (isBalanceLoading || isPriceLoading);
+  const isLoading =
+    balanceQueryEnabled && (isBalanceLoading);
 
-  if (isBalanceError || isPriceError) {
+  if (isBalanceError) {
     return null;
   }
   if (!isLoading && (!balance || !balance.hasBalance)) {
     return null;
   }
 
-  const handleOpenCoinsMe = () => {
-    window.open(COINSME_APP_URL, "_blank", "noopener,noreferrer");
+  const handleViewP2PToken = () => {
+    navigate(INTERNAL_HREFS.P2P_TOKEN);
   };
 
-  const usdValue = price?.getFormattedUsdValue(balance?.rawAmount ?? 0n) ?? "";
+  const price = tokenInfo?.market.usdPrice ?? null;
+  const balanceNum =
+    balance?.rawAmount != null
+      ? Number(formatUnits(balance.rawAmount, 6))
+      : 0;
+  const balanceUsd = price != null ? balanceNum * price : null;
+  const usdValue = balanceUsd != null ? `≈ $${balanceUsd.toFixed(3)}` : "";
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-4">
@@ -60,23 +67,27 @@ export function CashbackEarnedCard() {
             <CardContent className="flex items-center justify-between p-0">
               <div className="flex items-center gap-2">
                 <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Bitcoin className="size-5 text-primary" />
+                  <ASSETS.ICONS.Logo className="size-5 text-primary" />
                 </div>
                 <span className="font-medium text-foreground text-lg">
-                  {balance?.displayAmount} {balance?.tokenSymbol}
+                  {balance?.displayAmount} ${balance?.tokenSymbol}
                 </span>
               </div>
-              {usdValue && (
-                <span className="text-muted-foreground text-sm">
-                  {usdValue}
-                </span>
+              {isTokenInfoLoading ? (
+                <Skeleton className="h-4 w-10" />
+              ) : (
+                usdValue && (
+                  <span className="text-muted-foreground text-sm">
+                    {usdValue}
+                  </span>
+                )
               )}
             </CardContent>
             <Button
               variant="link"
-              onClick={handleOpenCoinsMe}
+              onClick={handleViewP2PToken}
               className="h-auto p-0 no-underline hover:no-underline">
-              {t("USE_CBBTC_ON_COINSME")}
+              {t("VIEW_P2P_TOKEN_HOLDINGS")}
               <ArrowRight className="size-4" />
             </Button>
           </>

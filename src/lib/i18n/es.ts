@@ -204,7 +204,7 @@ export const es = {
     CANNOT_VOTE_YOURSELF: "No puedes votarte a ti mismo",
     CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
-      "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
+      "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Ver tenencias de {{tokenSymbol}}",
     CASHBACK_REWARD_TITLE: "Recompensa de Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Sigue y canjea en coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
@@ -1871,6 +1871,8 @@ export const es = {
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
     VIEW_ON: "Ver en",
+    VIEW_P2P_TOKEN_HOLDINGS: "Ver tus tenencias de $P2P",
+    P2P_HOLDINGS: "Tenencias de $P2P",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",
     VOTES_PER_EPOCH_EXCEEDED: "Votos por época excedidos",

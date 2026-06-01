@@ -197,7 +197,7 @@ export const id = {
     CANNOT_VOTE_YOURSELF: "Tidak dapat memilih diri sendiri",
     CASHBACK_EARNED: "Cashback diperoleh",
     CASHBACK_REWARD_DESCRIPTION:
-      "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Cek di coins.me.",
+      "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan {{tokenSymbol}}",
     CASHBACK_REWARD_TITLE: "Hadiah Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Lacak dan tukarkan di coins.me",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
@@ -1822,6 +1822,8 @@ export const id = {
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
     VIEW_ON: "Lihat di",
+    VIEW_P2P_TOKEN_HOLDINGS: "Lihat kepemilikan $P2P Anda",
+    P2P_HOLDINGS: "Kepemilikan $P2P",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
     VOTES_PER_EPOCH_EXCEEDED: "Suara per epoch terlampaui",
