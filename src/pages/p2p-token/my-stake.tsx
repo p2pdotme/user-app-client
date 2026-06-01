@@ -344,7 +344,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
               disabled={isProcessing}
               className="w-full rounded-2xl py-6 font-semibold text-base"
             >
-              {t("MY_STAKE_UNSTAKE_KEEP_STAKE")}
+              Cancel
             </Button>
             <Button
               variant="destructive"
@@ -355,12 +355,8 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
             >
               {isProcessing ? (
                 <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <LockOpen className="size-4" />
-              )}
-              {isProcessing
-                ? t("MY_STAKE_UNSTAKE_LOADING")
-                : t("MY_STAKE_UNSTAKE_BUTTON")}
+              ) : null}
+              {t("MY_STAKE_UNSTAKE_BUTTON")}
             </Button>
           </div>
         </div>

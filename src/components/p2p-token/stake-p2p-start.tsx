@@ -61,7 +61,7 @@ export function StakeBoostPreviewCard({
             </span>
             <span className="text-muted-foreground">$P2P</span>
             <span className="text-muted-foreground">=</span>
-            <span className="font-semibold tabular-nums">$1</span>
+            <span className="font-semibold tabular-nums">1 USDC</span>
             <span className="text-muted-foreground">limit</span>
           </span>
         )}
@@ -74,7 +74,10 @@ export function StakeBoostPreviewCard({
             Buy Limit
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
-            +${truncateAmount(buyLimitBoost ?? 0)}
+            +{truncateAmount(buyLimitBoost ?? 0)}{" "}
+            <span className="font-medium text-[10px] text-muted-foreground">
+              USDC
+            </span>
           </dd>
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
@@ -82,7 +85,10 @@ export function StakeBoostPreviewCard({
             Sell Limit
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
-            +${truncateAmount(sellLimitBoost ?? 0)}
+            +{truncateAmount(sellLimitBoost ?? 0)}{" "}
+            <span className="font-medium text-[10px] text-muted-foreground">
+              USDC
+            </span>
           </dd>
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
@@ -90,7 +96,10 @@ export function StakeBoostPreviewCard({
             Pay Limit
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
-            +${truncateAmount(payLimitBoost ?? 0)}
+            +{truncateAmount(payLimitBoost ?? 0)}{" "}
+            <span className="font-medium text-[10px] text-muted-foreground">
+              USDC
+            </span>
           </dd>
         </div>
       </dl>
@@ -100,16 +109,26 @@ export function StakeBoostPreviewCard({
         <div className="mt-2.5">
           <div className="flex items-center justify-between text-[11px]">
             <span className="text-muted-foreground">
-              {isCapReached
-                ? "Stake Cap Reached"
-                : `Up to $${truncateAmount(maxBoostUsd)}`}
+              {isCapReached ? (
+                "Stake Cap Reached"
+              ) : (
+                <>
+                  Up to{" "}
+                  <span className="tabular-nums">
+                    {truncateAmount(maxBoostUsd)}
+                  </span>{" "}
+                  <span className="text-[10px]">USDC</span>
+                </>
+              )}
             </span>
             <span className="tabular-nums">
               <span className="font-semibold text-foreground">
-                ${truncateAmount(unlocked)}
+                {truncateAmount(unlocked)}
               </span>
               <span className="text-muted-foreground">
-                {" / "}${truncateAmount(maxBoostUsd)}
+                {" / "}
+                {truncateAmount(maxBoostUsd)}
+                <span className="ml-1 text-[10px]">USDC</span>
               </span>
             </span>
           </div>

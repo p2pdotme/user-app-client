@@ -107,7 +107,7 @@ export function useP2PBoost() {
     onSuccess: () => {
       toast.success(t("P2P_STAKE_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
-      queryClient.invalidateQueries({ queryKey: ["p2p-balance"] });
+      queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
@@ -190,7 +190,7 @@ export function useP2PBoost() {
     onSuccess: () => {
       toast.success(t("P2P_TOPUP_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
-      queryClient.invalidateQueries({ queryKey: ["p2p-balance"] });
+      queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
@@ -285,7 +285,7 @@ export function useP2PBoost() {
     onSuccess: () => {
       toast.success(t("P2P_UNSTAKE_CLAIM_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
-      queryClient.invalidateQueries({ queryKey: ["p2p-balance"] });
+      queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {

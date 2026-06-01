@@ -7,6 +7,7 @@ import {
   SectionHeader,
   TaskLedger,
 } from "@/components";
+import { StakeCtaCard } from "@/components/p2p-token/stake-cta-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -173,6 +174,9 @@ export function Limits() {
               </div>
             </CardContent>
           </Card>
+        </section>
+        <section className="flex w-full flex-col gap-4 pb-2">
+          <StakeCtaCard />
         </section>
         {hasUnclaimedRewards && formattedReward > 0 && (
           <section className="flex w-full flex-col gap-4 py-2">

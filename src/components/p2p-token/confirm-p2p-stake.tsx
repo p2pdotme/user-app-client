@@ -44,7 +44,10 @@ export function ConfirmP2pStake({
   const numericAmount = Number(amount) || 0;
   const isProcessing = p2pBoostStakeMutation.isPending;
 
-  const cooldownLabel = formatSecondsDuration(stakeBoostGlobals?.normalCooldown, t);
+  const cooldownLabel = formatSecondsDuration(
+    stakeBoostGlobals?.normalCooldown,
+    t,
+  );
 
   // TODO: 18 decimal to 6
   const handleConfirm = () => {
@@ -97,7 +100,7 @@ export function ConfirmP2pStake({
               </span>
               <span className="text-muted-foreground">$P2P</span>
               <span className="text-muted-foreground">=</span>
-              <span className="font-semibold tabular-nums">$1</span>
+              <span className="font-semibold tabular-nums">1 USDC</span>
               <span className="text-muted-foreground">limit</span>
             </span>
           )}
@@ -109,7 +112,10 @@ export function ConfirmP2pStake({
               Buy Limit
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
-              +${truncateAmount(buyLimitBoost ?? 0)}
+              +{truncateAmount(buyLimitBoost ?? 0)}{" "}
+              <span className="font-medium text-[10px] text-muted-foreground">
+                USDC
+              </span>
             </dd>
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
@@ -117,7 +123,10 @@ export function ConfirmP2pStake({
               Sell Limit
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
-              +${truncateAmount(sellLimitBoost ?? 0)}
+              +{truncateAmount(sellLimitBoost ?? 0)}{" "}
+              <span className="font-medium text-[10px] text-muted-foreground">
+                USDC
+              </span>
             </dd>
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
@@ -125,7 +134,10 @@ export function ConfirmP2pStake({
               Pay Limit
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
-              +${truncateAmount(payLimitBoost ?? 0)}
+              +{truncateAmount(payLimitBoost ?? 0)}{" "}
+              <span className="font-medium text-[10px] text-muted-foreground">
+                USDC
+              </span>
             </dd>
           </div>
         </dl>
@@ -183,14 +195,8 @@ export function ConfirmP2pStake({
           disabled={isProcessing}
           className="w-full rounded-2xl py-6 text-base font-semibold"
         >
-          {isProcessing ? (
-            <span className="flex items-center gap-2">
-              <Loader2 className="size-4 animate-spin" />
-              Staking...
-            </span>
-          ) : (
-            t("CONFIRM")
-          )}
+          {isProcessing ? <Loader2 className="size-4 animate-spin" /> : null}
+          {t("CONFIRM")}
         </Button>
       </div>
     </main>

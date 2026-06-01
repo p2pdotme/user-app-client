@@ -58,13 +58,24 @@ export function OrderLimitCard({
             <Skeleton className="mt-1 h-6 w-16" />
           ) : (
             <dd className="font-bold text-foreground text-lg tabular-nums">
-              {isTxLimitError ? "—" : `$${truncateAmount(buyLimit, 0)}`}
+              {isTxLimitError ? (
+                "—"
+              ) : (
+                <>
+                  {truncateAmount(buyLimit, 0)}{" "}
+                  <span className="font-medium text-[10px] text-muted-foreground">
+                    USDC
+                  </span>
+                </>
+              )}
             </dd>
           )}
           {buyBoost > 0 && (
             <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
-              <TrendingUp className="size-3" />
-              +${truncateAmount(buyBoost)}
+              <TrendingUp className="size-3" />+{truncateAmount(buyBoost)}{" "}
+              <span className="font-medium text-[10px] text-muted-foreground">
+                USDC
+              </span>
             </p>
           )}
         </div>
@@ -76,13 +87,24 @@ export function OrderLimitCard({
             <Skeleton className="mt-1 h-6 w-16" />
           ) : (
             <dd className="font-bold text-foreground text-lg tabular-nums">
-              {isTxLimitError ? "—" : `$${truncateAmount(sellLimit, 0)}`}
+              {isTxLimitError ? (
+                "—"
+              ) : (
+                <>
+                  {truncateAmount(sellLimit, 0)}{" "}
+                  <span className="font-medium text-[10px] text-muted-foreground">
+                    USDC
+                  </span>
+                </>
+              )}
             </dd>
           )}
           {sellBoost > 0 && (
             <p className="mt-0.5 inline-flex items-center gap-0.5 font-medium text-[11px] text-emerald-500 tabular-nums">
-              <TrendingUp className="size-3" />
-              +${truncateAmount(sellBoost)}
+              <TrendingUp className="size-3" />+{truncateAmount(sellBoost)}{" "}
+              <span className="font-medium text-[10px] text-muted-foreground">
+                USDC
+              </span>
             </p>
           )}
         </div>
