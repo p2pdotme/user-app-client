@@ -14,7 +14,7 @@ import {
   useStakeBoostMetrics,
   useStakeBoostPreview,
 } from "@/hooks";
-import { secondsToDays, truncateAmount } from "@/lib/utils";
+import { formatSecondsDuration, truncateAmount } from "@/lib/utils";
 
 interface ConfirmP2pStakeProps {
   amount: string;
@@ -44,7 +44,7 @@ export function ConfirmP2pStake({
   const numericAmount = Number(amount) || 0;
   const isProcessing = p2pBoostStakeMutation.isPending;
 
-  const cooldownDays = secondsToDays(stakeBoostGlobals?.normalCooldown);
+  const cooldownLabel = formatSecondsDuration(stakeBoostGlobals?.normalCooldown, t);
 
   // TODO: 18 decimal to 6
   const handleConfirm = () => {
@@ -146,7 +146,7 @@ export function ConfirmP2pStake({
             </div>
             <div className="flex min-w-0 flex-col gap-0.5">
               <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
-                {cooldownDays ?? 0} days cooldown to unstake
+                {cooldownLabel ?? ""} cooldown to unstake
               </p>
               <p className="text-[13px] text-muted-foreground leading-relaxed">
                 Your $P2P is locked during this period.

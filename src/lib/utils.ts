@@ -171,6 +171,34 @@ export const secondsToDays = (
   return Math.round(seconds / 86_400);
 };
 
+type DurationTranslator = (
+  key: string,
+  options?: Record<string, unknown>,
+) => string;
+
+/**
+ * Formats a duration in seconds as a short human-readable, localized string.
+ * Returns hours when the duration is less than a day, days otherwise.
+ *
+ * Translation keys used:
+ *  - `DURATION_HOUR`  / `DURATION_HOURS` with `{{count}}`
+ *  - `DURATION_DAY`   / `DURATION_DAYS`  with `{{count}}`
+ */
+export const formatSecondsDuration = (
+  seconds: number | null | undefined,
+  t: DurationTranslator,
+): string | null => {
+  if (!seconds || !Number.isFinite(seconds)) return null;
+  if (seconds < 86_400) {
+    const hours = Math.max(1, Math.round(seconds / 3_600));
+    return t(hours === 1 ? "DURATION_HOUR" : "DURATION_HOURS", {
+      count: hours,
+    });
+  }
+  const days = Math.round(seconds / 86_400);
+  return t(days === 1 ? "DURATION_DAY" : "DURATION_DAYS", { count: days });
+};
+
 export const bpsToPercent = (bps: string) => {
   const val = Number(bps);
   if (!bps || Number.isNaN(val)) return "";

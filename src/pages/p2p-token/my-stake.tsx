@@ -1,4 +1,15 @@
-import { Clock, Loader2, Plus, Sparkles, Wallet } from "lucide-react";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  Loader2,
+  LockOpen,
+  Plus,
+  ShieldAlert,
+  Sparkles,
+  TrendingDown,
+  Wallet,
+} from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatUnits, parseUnits } from "viem";
@@ -16,17 +27,19 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   useP2PBalance,
   useP2PBoost,
+  useStakeBoostGlobals,
   useStakeBoostMetrics,
   useStakeBoostPreview,
   useUserStake,
 } from "@/hooks";
-import { truncateAmount } from "@/lib/utils";
+import { formatSecondsDuration, truncateAmount } from "@/lib/utils";
 
 export function P2PMyStake() {
   const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();
   const { p2pBoostRequestUnstakeMutation } = useP2PBoost();
   const [isTopUpOpen, setIsTopUpOpen] = useState(false);
+  const [isUnstakeOpen, setIsUnstakeOpen] = useState(false);
 
   // TODO: 18 decimal to 6
   const stakedAmount = userStake
@@ -46,10 +59,6 @@ export function P2PMyStake() {
   const stakedUsd =
     tokensPerUsd !== null && tokensPerUsd > 0 ? stakedAmount / tokensPerUsd : 0;
   const isUnstaking = p2pBoostRequestUnstakeMutation.isPending;
-
-  const handleUnstake = () => {
-    p2pBoostRequestUnstakeMutation.mutate();
-  };
 
   return (
     <>
@@ -169,19 +178,13 @@ export function P2PMyStake() {
             </Button>
             <Button
               variant="destructive"
-              onClick={handleUnstake}
+              onClick={() => setIsUnstakeOpen(true)}
               disabled={isUnstaking}
               hapticType="warning"
               className="flex-1 rounded-2xl py-6 font-semibold text-base"
             >
-              {isUnstaking ? (
-                <span className="flex items-center gap-2">
-                  <Loader2 className="size-4 animate-spin" />
-                  {t("MY_STAKE_UNSTAKE_BUTTON")}...
-                </span>
-              ) : (
-                t("UNSTAKE")
-              )}
+              <LockOpen className="size-4" />
+              {t("MY_STAKE_UNSTAKE_BUTTON")}
             </Button>
           </div>
         )}
@@ -192,7 +195,146 @@ export function P2PMyStake() {
         onClose={() => setIsTopUpOpen(false)}
         stakedAmount={stakedAmount}
       />
+
+      <UnstakeDrawer
+        isOpen={isUnstakeOpen}
+        onClose={() => setIsUnstakeOpen(false)}
+        stakedAmount={stakedAmount}
+      />
     </>
+  );
+}
+
+interface UnstakeDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  stakedAmount: number;
+}
+
+function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
+  const { t } = useTranslation();
+  const { stakeBoostGlobals } = useStakeBoostGlobals();
+  const { p2pBoostRequestUnstakeMutation } = useP2PBoost();
+
+  const normalCooldownLabel =
+    formatSecondsDuration(stakeBoostGlobals?.normalCooldown, t) ?? "";
+  const blacklistCooldownLabel =
+    formatSecondsDuration(stakeBoostGlobals?.blacklistCooldown, t) ?? "";
+  const isProcessing = p2pBoostRequestUnstakeMutation.isPending;
+  const stakedAmountStr = truncateAmount(stakedAmount);
+
+  const handleConfirm = () => {
+    p2pBoostRequestUnstakeMutation.mutate(undefined, {
+      onSuccess: () => onClose(),
+    });
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open && !isProcessing) onClose();
+  };
+
+  return (
+    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
+      <DrawerContent className="container-narrow mx-auto pb-8">
+        <DrawerHeader>
+          <DrawerTitle className="sr-only">
+            {t("MY_STAKE_UNSTAKE_DRAWER_TITLE")}
+          </DrawerTitle>
+          <DrawerDescription className="sr-only">
+            {t("MY_STAKE_UNSTAKE_HEADING")}
+          </DrawerDescription>
+        </DrawerHeader>
+
+        <div className="flex flex-col gap-4 px-4">
+          {/* Warning icon + heading */}
+          <div className="flex flex-col items-center gap-3 text-center">
+            <div className="relative flex size-14 items-center justify-center rounded-full bg-amber-500/15">
+              <span className="absolute inset-0 animate-ping rounded-full bg-amber-500/20" />
+              <AlertTriangle className="relative size-6 text-amber-500" />
+            </div>
+            <h2 className="font-bold text-xl text-foreground tracking-tight">
+              {t("MY_STAKE_UNSTAKE_HEADING")}
+            </h2>
+          </div>
+
+          {/* What happens card */}
+          <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+            <p className="mb-3.5 font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
+              {t("MY_STAKE_UNSTAKE_WHAT_HAPPENS")}
+            </p>
+            <ul className="flex flex-col divide-y divide-border/40">
+              <li className="flex items-center gap-3 pb-3">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
+                  <Clock className="size-4 text-destructive" />
+                </div>
+                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                  {t("MY_STAKE_UNSTAKE_RIGHT_NOW", {
+                    amount: stakedAmountStr,
+                    duration: normalCooldownLabel,
+                  })}
+                </p>
+              </li>
+              <li className="flex items-center gap-3 py-3">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
+                  <TrendingDown className="size-4 text-destructive" />
+                </div>
+                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                  {t("MY_STAKE_UNSTAKE_YOUR_LIMITS")}
+                </p>
+              </li>
+              <li className="flex items-center gap-3 py-3">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10">
+                  <CheckCircle2 className="size-4 text-emerald-500" />
+                </div>
+                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                  {t("MY_STAKE_UNSTAKE_IN_DAYS", {
+                    amount: stakedAmountStr,
+                    duration: normalCooldownLabel,
+                  })}
+                </p>
+              </li>
+              <li className="flex items-center gap-3 pt-3">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10">
+                  <ShieldAlert className="size-4 text-amber-500" />
+                </div>
+                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                  {t("MY_STAKE_UNSTAKE_IF_FLAGGED", {
+                    duration: blacklistCooldownLabel,
+                  })}
+                </p>
+              </li>
+            </ul>
+          </section>
+
+          <div className="flex flex-col gap-2 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => handleOpenChange(false)}
+              disabled={isProcessing}
+              className="w-full rounded-2xl py-6 font-semibold text-base"
+            >
+              {t("MY_STAKE_UNSTAKE_KEEP_STAKE")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleConfirm}
+              disabled={isProcessing}
+              hapticType="warning"
+              className="w-full rounded-2xl py-6 font-semibold text-base"
+            >
+              {isProcessing ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <LockOpen className="size-4" />
+              )}
+              {isProcessing
+                ? t("MY_STAKE_UNSTAKE_LOADING")
+                : t("MY_STAKE_UNSTAKE_BUTTON")}
+            </Button>
+          </div>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 }
 
