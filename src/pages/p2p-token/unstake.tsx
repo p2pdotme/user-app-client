@@ -1,4 +1,5 @@
 import { Loader2 } from "lucide-react";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { formatUnits } from "viem";
@@ -17,10 +18,11 @@ const STATUS = {
 
 function formatRemaining(seconds: number): string {
   if (seconds <= 0) return "0s";
-  const d = Math.floor(seconds / 86400);
-  const h = Math.floor((seconds % 86400) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
+  const dur = moment.duration(seconds, "seconds");
+  const d = Math.floor(dur.asDays());
+  const h = dur.hours();
+  const m = dur.minutes();
+  const s = dur.seconds();
   const parts: string[] = [];
   if (d > 0) parts.push(`${d}d`);
   if (h > 0 || d > 0) parts.push(`${h}h`);

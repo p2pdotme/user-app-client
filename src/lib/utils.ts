@@ -191,13 +191,14 @@ export const formatSecondsDuration = (
   t: DurationTranslator,
 ): string | null => {
   if (!seconds || !Number.isFinite(seconds)) return null;
-  if (seconds < 86_400) {
-    const hours = Math.max(1, Math.round(seconds / 3_600));
+  const dur = moment.duration(seconds, "seconds");
+  if (dur.asDays() < 1) {
+    const hours = Math.max(1, Math.round(dur.asHours()));
     return t(hours === 1 ? "DURATION_HOUR" : "DURATION_HOURS", {
       count: hours,
     });
   }
-  const days = Math.round(seconds / 86_400);
+  const days = Math.round(dur.asDays());
   return t(days === 1 ? "DURATION_DAY" : "DURATION_DAYS", { count: days });
 };
 

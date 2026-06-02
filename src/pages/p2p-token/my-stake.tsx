@@ -321,7 +321,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
                   <Clock className="size-4 text-destructive" />
                 </div>
-                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular tracking-wider text-[15px] text-foreground leading-snug tracking-tight">
                   {t("MY_STAKE_UNSTAKE_RIGHT_NOW", {
                     amount: stakedAmountStr,
                     duration: normalCooldownLabel,
@@ -332,7 +332,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
                   <TrendingDown className="size-4 text-destructive" />
                 </div>
-                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
                   {t("MY_STAKE_UNSTAKE_YOUR_LIMITS")}
                 </p>
               </li>
@@ -340,7 +340,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10">
                   <CheckCircle2 className="size-4 text-emerald-500" />
                 </div>
-                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
                   {t("MY_STAKE_UNSTAKE_IN_DAYS", {
                     amount: stakedAmountStr,
                     duration: normalCooldownLabel,
@@ -351,7 +351,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10">
                   <ShieldAlert className="size-4 text-amber-500" />
                 </div>
-                <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
                   {t("MY_STAKE_UNSTAKE_IF_FLAGGED", {
                     duration: blacklistCooldownLabel,
                   })}
