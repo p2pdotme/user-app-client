@@ -685,27 +685,34 @@ const ACTIVITY_LABEL_KEYS: Record<string, string> = {
   SEIZED: "MY_STAKE_ACTIVITY_SEIZED",
 };
 
-const ACTIVITY_ICONS: Record<string, { Icon: typeof Plus; className: string }> =
-  {
-    STAKED: { Icon: Sparkles, className: "bg-primary/15 text-primary" },
-    TOPPED_UP: { Icon: Plus, className: "bg-primary/15 text-primary" },
-    UNSTAKE_REQUESTED: {
-      Icon: LockOpen,
-      className: "bg-amber-500/15 text-amber-500",
-    },
-    UNSTAKE_CLAIMED: {
-      Icon: CheckCircle2,
-      className: "bg-emerald-500/15 text-emerald-500",
-    },
-    COOLDOWN_EXTENDED: {
-      Icon: Clock,
-      className: "bg-amber-500/15 text-amber-500",
-    },
-    SEIZED: {
-      Icon: ShieldAlert,
-      className: "bg-destructive/15 text-destructive",
-    },
-  };
+const ACTIVITY_ICONS: Record<
+  string,
+  { Icon: React.ComponentType<{ className?: string }>; className: string }
+> = {
+  STAKED: { Icon: ASSETS.ICONS.Logo, className: "bg-primary/15 text-primary" },
+  TOPPED_UP: {
+    Icon: ASSETS.ICONS.Logo,
+    className: "bg-primary/15 text-primary",
+  },
+  UNSTAKE_REQUESTED: {
+    Icon: LockOpen,
+    className: "bg-amber-500/15 text-amber-500",
+  },
+  UNSTAKE_CLAIMED: {
+    Icon: CheckCircle2,
+    className: "bg-emerald-500/15 text-emerald-500",
+  },
+  COOLDOWN_EXTENDED: {
+    Icon: Clock,
+    className: "bg-amber-500/15 text-amber-500",
+  },
+  SEIZED: {
+    Icon: ShieldAlert,
+    className: "bg-destructive/15 text-destructive",
+  },
+};
+
+const ACTIVITY_PAGE_SIZE = 10;
 
 const ACTIVITIES_WITH_AMOUNT = new Set([
   "STAKED",
@@ -733,6 +740,7 @@ function StakeActivityList() {
     isLoading,
     isError,
   } = useUserP2PStakeActivities();
+  const [visibleCount, setVisibleCount] = useState(ACTIVITY_PAGE_SIZE);
 
   if (isLoading) {
     return (
@@ -767,13 +775,16 @@ function StakeActivityList() {
     return null;
   }
 
+  const visibleActivities = activities.slice(0, visibleCount);
+  const hasMore = activities.length > visibleCount;
+
   return (
     <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
       <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
         {t("MY_STAKE_ACTIVITY_TITLE")}
       </p>
       <ul className="mt-3 flex flex-col gap-2">
-        {activities.map((a) => {
+        {visibleActivities.map((a) => {
           const meta = ACTIVITY_ICONS[a.activityType] ?? ACTIVITY_ICONS.STAKED;
           const Icon = meta.Icon;
           const labelKey = ACTIVITY_LABEL_KEYS[a.activityType];
@@ -806,10 +817,11 @@ function StakeActivityList() {
               {amount !== null && (
                 <p className="shrink-0 font-bold text-foreground text-sm tabular-nums">
                   {a.activityType === "SEIZED" ||
-                  a.activityType === "UNSTAKE_REQUESTED" ||
                   a.activityType === "UNSTAKE_CLAIMED"
                     ? "−"
-                    : "+"}
+                    : a.activityType === "UNSTAKE_REQUESTED"
+                      ? ""
+                      : "+"}
                   {truncateAmount(amount)}{" "}
                   <span className="font-medium text-[10px] text-muted-foreground">
                     $P2P
@@ -820,6 +832,15 @@ function StakeActivityList() {
           );
         })}
       </ul>
+      {hasMore && (
+        <Button
+          variant="outline"
+          onClick={() => setVisibleCount((c) => c + ACTIVITY_PAGE_SIZE)}
+          className="mt-3 w-full rounded-xl"
+        >
+          {t("SHOW_MORE")}
+        </Button>
+      )}
     </section>
   );
 }
