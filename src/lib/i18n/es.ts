@@ -1212,7 +1212,7 @@ export const es = {
     MY_STAKE_UNSTAKE_WHAT_HAPPENS: "Qué sucede",
     MY_STAKE_UNSTAKE_RIGHT_NOW: "Ahora, {{amount}} $P2P se bloquean por {{duration}}",
     MY_STAKE_UNSTAKE_YOUR_LIMITS: "Los límites vuelven al valor por defecto",
-    MY_STAKE_UNSTAKE_IN_DAYS: "Después de {{duration}}, {{amount}} $P2P regresan a tu billetera",
+    MY_STAKE_UNSTAKE_IN_DAYS: "Después de {{duration}}, Reclama {{amount}} $P2P de vuelta en tu billetera",
     MY_STAKE_UNSTAKE_IF_FLAGGED: "Si se marca, bloqueo de {{duration}} · stake en riesgo",
     P2P_TOPUP_SUCCESS: "Límite de orden aumentado exitosamente",
     P2P_UNSTAKE_TITLE: "Retirar Stake de $P2P",
