@@ -1190,6 +1190,7 @@ export const id = {
     MY_STAKE_UNSTAKE_YOUR_LIMITS: "Batas kembali ke default",
     MY_STAKE_UNSTAKE_IN_DAYS: "Setelah {{duration}}, Klaim {{amount}} $P2P kembali ke dompet Anda",
     MY_STAKE_UNSTAKE_IF_FLAGGED: "Jika ditandai, kunci {{duration}} · stake berisiko",
+    MY_STAKE: "Stake Saya",
     P2P_TOPUP_SUCCESS: "Batas pesanan berhasil dinaikkan",
     P2P_UNSTAKE_TITLE: "Unstake $P2P",
     P2P_UNSTAKE_STAKED_LABEL: "Sedang di-stake",

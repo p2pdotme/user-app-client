@@ -179,14 +179,14 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
         sellBoost={sellBoost}
       />
 
-      <p className="mt-auto px-2 text-center text-muted-foreground text-xs leading-relaxed">
+      <p className="mt-auto px-2 text-center text-muted-foreground text-sm leading-relaxed">
         {t("P2P_STAKE_MANAGE_FROM_PREFIX")}{" "}
         <Link
-          to={INTERNAL_HREFS.LIMITS}
+          to={INTERNAL_HREFS.P2P_TOKEN_MY_STAKE}
           replace
           className="font-medium text-primary underline underline-offset-2 hover:opacity-80"
         >
-          {t("MY_LIMITS")}
+          {t("MY_STAKE")}
         </Link>
         .
       </p>
