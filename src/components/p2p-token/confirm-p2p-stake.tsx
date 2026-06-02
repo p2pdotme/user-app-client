@@ -95,7 +95,7 @@ export function ConfirmP2pStake({
           {usdPerToken !== null &&
             Number.isFinite(usdPerToken) &&
             usdPerToken > 0 && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
+              <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
                 <span className="font-semibold tabular-nums">1</span>
                 <span className="text-muted-foreground">$P2P</span>
                 <span className="text-muted-foreground">=</span>

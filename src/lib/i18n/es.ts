@@ -1204,7 +1204,7 @@ export const es = {
     STAKE_CTA_BUTTON_MY_STAKE: "Mi Stake de $P2P",
     STAKE_CTA_RATE_STAKE: "Stake",
     STAKE_CTA_RATE_UNLOCK: "Desbloquea",
-    MY_STAKE_TOPUP_BUTTON: "Aumentar Límite",
+    MY_STAKE_TOPUP_BUTTON: "Haz Stake para Aumentar Límite",
     MY_STAKE_TOPUP_TITLE: "Hacer Stake de $P2P",
     MY_STAKE_TOPUP_CONFIRM: "Confirmar",
     MY_STAKE_UNSTAKE_BUTTON: "Retirar Stake",

@@ -1183,7 +1183,7 @@ export const pt = {
     STAKE_CTA_BUTTON_MY_STAKE: "Meu Stake de $P2P",
     STAKE_CTA_RATE_STAKE: "Stake",
     STAKE_CTA_RATE_UNLOCK: "Desbloqueia",
-    MY_STAKE_TOPUP_BUTTON: "Aumentar Limite",
+    MY_STAKE_TOPUP_BUTTON: "Faça Stake para Aumentar Limite",
     MY_STAKE_TOPUP_TITLE: "Fazer Stake de $P2P",
     MY_STAKE_TOPUP_CONFIRM: "Confirmar",
     MY_STAKE_UNSTAKE_BUTTON: "Retirar Stake",

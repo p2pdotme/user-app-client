@@ -1179,7 +1179,7 @@ export const id = {
     STAKE_CTA_BUTTON_MY_STAKE: "Stake $P2P Saya",
     STAKE_CTA_RATE_STAKE: "Stake",
     STAKE_CTA_RATE_UNLOCK: "Buka",
-    MY_STAKE_TOPUP_BUTTON: "Naikkan Batas",
+    MY_STAKE_TOPUP_BUTTON: "Stake untuk Naikkan Limit",
     MY_STAKE_TOPUP_TITLE: "Stake $P2P",
     MY_STAKE_TOPUP_CONFIRM: "Konfirmasi",
     MY_STAKE_UNSTAKE_BUTTON: "Unstake",

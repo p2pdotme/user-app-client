@@ -125,7 +125,7 @@ export function P2PMyStake() {
                     {t("MY_STAKE_ORDER_LIMIT_BOOSTED")}
                   </p>
                   {usdPerToken !== null && usdPerToken > 0 && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
+                    <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
                       <span className="font-semibold tabular-nums">1</span>
                       <span className="text-muted-foreground">$P2P</span>
                       <span className="text-muted-foreground">=</span>
@@ -221,9 +221,9 @@ export function P2PMyStake() {
             <Button
               onClick={() => setIsTopUpOpen(true)}
               disabled={isUnstaking || isCapReached}
-              className="flex-1 rounded-2xl py-6 font-semibold text-base"
+              className="flex-1 rounded-2xl py-6 font-semibold text-xs leading-tight whitespace-normal text-center"
             >
-              <Plus className="size-4" />
+              <Plus className="size-4 shrink-0" />
               {isCapReached
                 ? t("MY_STAKE_BOOST_MAXED_OUT_BUTTON")
                 : t("MY_STAKE_TOPUP_BUTTON")}
@@ -233,9 +233,9 @@ export function P2PMyStake() {
               onClick={() => setIsUnstakeOpen(true)}
               disabled={isUnstaking}
               hapticType="warning"
-              className="flex-1 rounded-2xl py-6 font-semibold text-base"
+              className="flex-1 rounded-2xl py-6 font-semibold text-xs leading-tight whitespace-normal text-center"
             >
-              <LockOpen className="size-4" />
+              <LockOpen className="size-4 shrink-0" />
               {t("MY_STAKE_UNSTAKE_BUTTON")}
             </Button>
           </div>

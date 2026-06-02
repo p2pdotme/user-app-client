@@ -1125,7 +1125,7 @@ export const hi = {
     STAKE_CTA_BUTTON_MY_STAKE: "मेरा $P2P स्टेक",
     STAKE_CTA_RATE_STAKE: "स्टेक",
     STAKE_CTA_RATE_UNLOCK: "अनलॉक",
-    MY_STAKE_TOPUP_BUTTON: "सीमा बढ़ाएं",
+    MY_STAKE_TOPUP_BUTTON: "लिमिट बढ़ाने हेतु स्टेक",
     MY_STAKE_TOPUP_TITLE: "$P2P स्टेक करें",
     MY_STAKE_TOPUP_CONFIRM: "पुष्टि करें",
     MY_STAKE_UNSTAKE_BUTTON: "अनस्टेक",
