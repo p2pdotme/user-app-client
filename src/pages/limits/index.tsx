@@ -155,7 +155,7 @@ export function Limits() {
                 <div>
                   <p className="font-medium text-sm">{t("BUY")}</p>
                   <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-                    ${truncateAmount(txLimit?.buyLimit ?? 0, 0)}{" "}
+                    ${truncateAmount(txLimit?.buyLimit ?? 0, 1)}{" "}
                   </p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export function Limits() {
                     {t("SELL")}/{t("PAY")}
                   </p>
                   <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-                    ${truncateAmount(txLimit?.sellLimit ?? 0, 0)}
+                    ${truncateAmount(txLimit?.sellLimit ?? 0, 1)}
                   </p>
                 </div>
               </div>

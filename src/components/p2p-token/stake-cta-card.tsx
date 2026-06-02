@@ -88,7 +88,7 @@ export function StakeCtaCard() {
         disabled={isUserStakeLoading}
         className="mt-3 w-full rounded-2xl py-6 font-semibold text-base"
       >
-        {t("STAKE_CTA_BUTTON")}
+        {hasActiveStake ? t("STAKE_CTA_BUTTON_MY_STAKE") : t("STAKE_CTA_BUTTON")}
         <ArrowRight className="size-4" />
       </Button>
     </section>

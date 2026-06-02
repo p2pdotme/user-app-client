@@ -1141,7 +1141,7 @@ export const en = {
     P2P_STAKE_CONFIRM_STAKING: "Staking",
     P2P_STAKE_SUCCESS: "$P2P staked successfully",
     P2P_STAKE_COMPLETED_TITLE: "Stake Completed",
-    MY_STAKE_TITLE: "My stake",
+    MY_STAKE_TITLE: "My Stake",
     MY_STAKE_STAKED_LABEL: "My Stake",
     MY_STAKE_COOLDOWN_ENDS: "Cooldown ends",
     MY_STAKE_COOLDOWN_HEADING: "Your $P2P will be claimable in",
@@ -1157,6 +1157,7 @@ export const en = {
     STAKE_CTA_DESCRIPTION:
       "Stake $P2P tokens to unlock up to +{{amount}} USDC per transaction limit on Buy, Sell and Pay.",
     STAKE_CTA_BUTTON: "Stake $P2P",
+    STAKE_CTA_BUTTON_MY_STAKE: "My $P2P Stake",
     STAKE_CTA_RATE_STAKE: "Stake",
     STAKE_CTA_RATE_UNLOCK: "Unlock",
     MY_STAKE_TOPUP_BUTTON: "Increase Limit",

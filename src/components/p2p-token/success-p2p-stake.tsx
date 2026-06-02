@@ -62,7 +62,7 @@ export function OrderLimitCard({
                 "—"
               ) : (
                 <>
-                  {truncateAmount(buyLimit, 0)}{" "}
+                  {truncateAmount(buyLimit, 1)}{" "}
                   <span className="font-medium text-[10px] text-muted-foreground">
                     USDC
                   </span>
@@ -91,7 +91,7 @@ export function OrderLimitCard({
                 "—"
               ) : (
                 <>
-                  {truncateAmount(sellLimit, 0)}{" "}
+                  {truncateAmount(sellLimit, 1)}{" "}
                   <span className="font-medium text-[10px] text-muted-foreground">
                     USDC
                   </span>

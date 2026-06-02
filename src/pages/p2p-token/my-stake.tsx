@@ -411,8 +411,18 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   const isValid = parsedAmount > 0 && parsedAmount <= p2pBalance && !exceedsCap;
   const isProcessing = p2pBoostTopUpMutation.isPending;
 
+  const maxTopUp =
+    remainingTopUpCap !== null
+      ? Math.min(p2pBalance, remainingTopUpCap)
+      : p2pBalance;
+  const canMax = maxTopUp > 0;
+
   const handleAmountChange = (value: string) => {
     setAmount(value.replace(/\D/g, "").replace(/^0+(?=\d)/, ""));
+  };
+
+  const handleMax = () => {
+    setAmount(String(Math.floor(maxTopUp)));
   };
 
   const handleConfirm = () => {
@@ -479,6 +489,14 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
                 onChange={(e) => handleAmountChange(e.target.value)}
                 className="min-w-0 flex-1 bg-transparent font-bold text-4xl text-foreground tabular-nums tracking-tight outline-none placeholder:text-muted-foreground/40"
               />
+              <button
+                type="button"
+                onClick={handleMax}
+                disabled={!canMax}
+                className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {t("MAX")}
+              </button>
               <span className="font-semibold text-muted-foreground text-base">
                 $P2P
               </span>

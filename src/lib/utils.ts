@@ -77,8 +77,10 @@ export const truncateAmount = (
     );
   }
 
-  // If the value is less than 1, format using significant digits with truncation
-  if (numberAmount < 1 && numberAmount > 0) {
+  // If the value is less than 1, format using significant digits with truncation.
+  // Intl.NumberFormat requires maximumSignificantDigits >= 1, so fall through to
+  // the decimal-truncation branch when precision is 0 (which correctly yields 0).
+  if (numberAmount < 1 && numberAmount > 0 && precision >= 1) {
     // Intl.NumberFormat with significant digits handles truncation correctly for small numbers
     return Number(
       new Intl.NumberFormat("en-US", {
