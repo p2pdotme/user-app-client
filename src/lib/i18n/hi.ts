@@ -189,10 +189,10 @@ export const hi = {
     CASHBACK_EARNED: "कैशबैक अर्जित",
     CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर ${{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। ${{tokenSymbol}} होल्डिंग्स देखें",
-    CBTC_CASHBACK_REWARD_DESCRIPTION:
-      "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। coins.me पर देखें।",
     CASHBACK_REWARD_TITLE: "कैशबैक रिवार्ड",
     CASHBACK_TRACK_IN_COINS_ME: "coins.me पर ट्रैक करें और रिडीम करें",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
+      "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। coins.me पर देखें।",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
@@ -1017,6 +1017,7 @@ export const hi = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "केवल दिए गए स्थिति वाले ऑर्डर को ही फिर से सौंपा जा सकता है",
     OUT_OF_DENOMINATOR: "{{denominator}} में से",
+    P2P_HOLDINGS: "$P2P होल्डिंग्स",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me लेनदेन रसीद",
     P2P_ME_UNREACHABLE: "p2p.me वर्तमान में अप्राप्य है। कृपया बाद में पुनः प्रयास करें।",
     P2P_ME_WALLET: "P2P.me वॉलेट",
@@ -1748,10 +1749,9 @@ export const hi = {
     VIEW_MORE: "और देखें",
     VIEW_MORE_DETAILS: "अधिक विवरण देखें",
     VIEW_ON: "देखें",
-    VIEW_P2P_TOKEN_HOLDINGS: "अपनी $P2P होल्डिंग्स देखें",
-    P2P_HOLDINGS: "$P2P होल्डिंग्स",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
+    VIEW_P2P_TOKEN_HOLDINGS: "अपनी $P2P होल्डिंग्स देखें",
     VOTES_PER_EPOCH_EXCEEDED: "प्रति एपॉक वोट सीमा पार हो गई",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER:
       "मर्चेंट द्वारा ऑर्डर स्वीकार करने की प्रतीक्षा",

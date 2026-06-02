@@ -198,10 +198,10 @@ export const id = {
     CASHBACK_EARNED: "Cashback diperoleh",
     CASHBACK_REWARD_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% cashback dalam ${{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan ${{tokenSymbol}}",
-    CBTC_CASHBACK_REWARD_DESCRIPTION:
-      "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Cek di coins.me.",
     CASHBACK_REWARD_TITLE: "Hadiah Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Lacak dan tukarkan di coins.me",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
+      "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Cek di coins.me.",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
@@ -1066,6 +1066,7 @@ export const id = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Pesanan dengan status ditempatkan saja yang dapat ditetapkan ulang",
     OUT_OF_DENOMINATOR: "dari {{denominator}}",
+    P2P_HOLDINGS: "Kepemilikan $P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Tanda Terima Transaksi P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me tidak dapat dijangkau saat ini. Silakan coba lagi nanti.",
@@ -1824,10 +1825,9 @@ export const id = {
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
     VIEW_ON: "Lihat di",
-    VIEW_P2P_TOKEN_HOLDINGS: "Lihat kepemilikan $P2P Anda",
-    P2P_HOLDINGS: "Kepemilikan $P2P",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
+    VIEW_P2P_TOKEN_HOLDINGS: "Lihat kepemilikan $P2P Anda",
     VOTES_PER_EPOCH_EXCEEDED: "Suara per epoch terlampaui",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER: "Menunggu merchant menerima order",
     WALLET: "Dompet",
