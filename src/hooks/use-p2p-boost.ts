@@ -16,6 +16,7 @@ import {
 } from "@/core/adapters/thirdweb";
 import { CONTRACT_ADDRESSES } from "@/core/p2pdotme/contracts";
 import { useThirdweb } from "@/hooks";
+import { parseContractError } from "@/lib/errors";
 import { captureError, withSentrySpan } from "@/lib/sentry";
 import { useSettings } from "@/contexts";
 
@@ -111,9 +112,7 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
-      const message =
-        error instanceof Error ? error.message : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
+      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
     },
   });
 
@@ -194,9 +193,7 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
-      const message =
-        error instanceof Error ? error.message : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
+      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
     },
   });
 
@@ -244,9 +241,7 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
-      const message =
-        error instanceof Error ? error.message : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
+      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
     },
   });
 
@@ -289,9 +284,7 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
     },
     onError: (error) => {
-      const message =
-        error instanceof Error ? error.message : t("SOMETHING_WENT_WRONG");
-      toast.error(message);
+      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
     },
   });
 
