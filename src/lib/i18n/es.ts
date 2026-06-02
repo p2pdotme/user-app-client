@@ -205,10 +205,10 @@ export const es = {
     CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en ${{tokenSymbol}} por esta transacción. Ver tenencias de ${{tokenSymbol}}",
-    CBTC_CASHBACK_REWARD_DESCRIPTION:
-      "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
     CASHBACK_REWARD_TITLE: "Recompensa de Cashback",
     CASHBACK_TRACK_IN_COINS_ME: "Sigue y canjea en coins.me",
+    CBTC_CASHBACK_REWARD_DESCRIPTION:
+      "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Si tu dirección de recepción es un CEX, a veces puede tardar más en aparecer. Contacta al soporte de tu CEX si tarda demasiado.",
     CHANGE_DNS: "Cambiar DNS",
@@ -1081,6 +1081,7 @@ export const es = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Solo se puede reasignar un pedido con estado 'realizado'",
     OUT_OF_DENOMINATOR: "de {{denominator}}",
+    P2P_HOLDINGS: "Tenencias de $P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Recibo de Transacción de P2P.me",
     P2P_ME_UNREACHABLE:
       "p2p.me no está disponible en este momento. Por favor, inténtalo de nuevo más tarde.",
@@ -1981,10 +1982,9 @@ export const es = {
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
     VIEW_ON: "Ver en",
-    VIEW_P2P_TOKEN_HOLDINGS: "Ver tus tenencias de $P2P",
-    P2P_HOLDINGS: "Tenencias de $P2P",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",
+    VIEW_P2P_TOKEN_HOLDINGS: "Ver tus tenencias de $P2P",
     VOTES_PER_EPOCH_EXCEEDED: "Votos por época excedidos",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER:
       "Esperando que el comerciante acepte el pedido",
