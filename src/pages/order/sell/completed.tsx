@@ -153,10 +153,11 @@ export function SellCompleted({ order }: { order: Order }) {
           </p>
         </div>
 
-        {/* Hardcoded 2% LotPot cashback card. Credit is issued server-side
-            on completed non-B2B SELLs — no on-chain hook to wait on, so the
-            UI promises the credit unconditionally on every SELL completion. */}
-        <LotpotCashbackCard />
+        {/* LotPot cashback card. Credit is issued server-side on completed
+            non-B2B SELLs — no on-chain hook to wait on, so the UI promises the
+            credit unconditionally on every SELL completion. Rate falls back per
+            currency (2% default, 1% for ARS/MEX) to mirror server issuance. */}
+        <LotpotCashbackCard currency={order.currency} />
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
