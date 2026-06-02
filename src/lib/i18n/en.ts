@@ -1171,7 +1171,7 @@ export const en = {
     MY_STAKE_UNSTAKE_RIGHT_NOW: "Now, {{amount}} $P2P locks for {{duration}}",
     MY_STAKE_UNSTAKE_YOUR_LIMITS: "Limits reset to default",
     MY_STAKE_UNSTAKE_IN_DAYS: "After {{duration}}, Claim {{amount}} $P2P back in your wallet",
-    MY_STAKE_UNSTAKE_IF_FLAGGED: "If flagged, {{duration}} lock · stake at risk",
+    MY_STAKE_UNSTAKE_IF_FLAGGED: "If blacklisted, {{duration}} lock · stake at risk",
     MY_STAKE: "My Stake",
     P2P_TOPUP_SUCCESS: "Order limit increased successfully",
     P2P_UNSTAKE_TITLE: "Unstake $P2P",

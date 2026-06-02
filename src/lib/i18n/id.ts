@@ -1189,7 +1189,7 @@ export const id = {
     MY_STAKE_UNSTAKE_RIGHT_NOW: "Sekarang, {{amount}} $P2P terkunci selama {{duration}}",
     MY_STAKE_UNSTAKE_YOUR_LIMITS: "Batas kembali ke default",
     MY_STAKE_UNSTAKE_IN_DAYS: "Setelah {{duration}}, Klaim {{amount}} $P2P kembali ke dompet Anda",
-    MY_STAKE_UNSTAKE_IF_FLAGGED: "Jika ditandai, kunci {{duration}} · stake berisiko",
+    MY_STAKE_UNSTAKE_IF_FLAGGED: "Jika masuk daftar hitam, kunci {{duration}} · stake berisiko",
     MY_STAKE: "Stake Saya",
     P2P_TOPUP_SUCCESS: "Batas pesanan berhasil dinaikkan",
     P2P_UNSTAKE_TITLE: "Unstake $P2P",

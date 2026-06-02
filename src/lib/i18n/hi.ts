@@ -1135,7 +1135,7 @@ export const hi = {
     MY_STAKE_UNSTAKE_RIGHT_NOW: "अभी, {{amount}} $P2P {{duration}} के लिए लॉक होगा",
     MY_STAKE_UNSTAKE_YOUR_LIMITS: "सीमाएं डिफ़ॉल्ट पर रीसेट होंगी",
     MY_STAKE_UNSTAKE_IN_DAYS: "{{duration}} के बाद, {{amount}} $P2P अपने वॉलेट में वापस क्लेम करें",
-    MY_STAKE_UNSTAKE_IF_FLAGGED: "यदि फ्लैग किया गया, {{duration}} लॉक · स्टेक जोखिम में",
+    MY_STAKE_UNSTAKE_IF_FLAGGED: "यदि ब्लैकलिस्ट किया गया, {{duration}} लॉक · स्टेक जोखिम में",
     MY_STAKE: "मेरा स्टेक",
     P2P_TOPUP_SUCCESS: "ऑर्डर सीमा सफलतापूर्वक बढ़ाई गई",
     P2P_UNSTAKE_TITLE: "$P2P अनस्टेक करें",

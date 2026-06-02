@@ -1,29 +1,81 @@
+import { useStake } from "@p2pdotme/sdk/react";
+import type {
+  GetStakeBoostConfigParams,
+  StakeStatus,
+} from "@p2pdotme/sdk/stake";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { ResultAsync } from "neverthrow";
+import { sendAndConfirmTransaction } from "thirdweb";
+import type { Account } from "thirdweb/wallets";
 import { formatUnits, parseUnits } from "viem";
 import {
   approveP2PToken as approveP2PTokenTx,
   getP2PTokenAllowance,
-  getStakeBoostConfig as getStakeBoostConfigTx,
-  getStakeBoostGlobals as getStakeBoostGlobalsTx,
-  getUserStake as getUserStakeTx,
-  p2pBoostClaimUnstake as p2pBoostClaimUnstakeTx,
-  p2pBoostRequestUnstake as p2pBoostRequestUnstakeTx,
-  p2pBoostStake as p2pBoostStakeTx,
-  p2pBoostTopUp as p2pBoostTopUpTx,
 } from "@/core/adapters/thirdweb";
+import { chain } from "@/core/adapters/thirdweb/chain";
+import {
+  estimatedPrepareTransaction,
+  thirdwebClient,
+} from "@/core/adapters/thirdweb/client";
 import { CONTRACT_ADDRESSES } from "@/core/p2pdotme/contracts";
 import { useThirdweb } from "@/hooks";
-import { parseContractError } from "@/lib/errors";
+import { createAppError, parseContractError } from "@/lib/errors";
+import { i18n } from "@/lib/i18n";
 import { captureError, withSentrySpan } from "@/lib/sentry";
 import { useSettings } from "@/contexts";
+
+// Map SDK string status back to the numeric status that existing consumers expect.
+const STATUS_TO_NUMBER: Record<StakeStatus, number> = {
+  none: 0,
+  active: 1,
+  cooldown: 2,
+  seized: 3,
+};
+
+// Submits a prepared `{ to, data, value }` tx via thirdweb's account-based flow.
+async function submitPrepared(
+  prepared: { to: `0x${string}`; data: `0x${string}` },
+  account: Account,
+  errorLabel: string,
+) {
+  return estimatedPrepareTransaction({
+    from: account.address as `0x${string}`,
+    to: prepared.to,
+    chain,
+    client: thirdwebClient,
+    data: prepared.data,
+  })
+    .andThen((preppedTx) =>
+      ResultAsync.fromPromise(
+        sendAndConfirmTransaction({ account, transaction: preppedTx }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            i18n.t(parseContractError(error) ?? errorLabel),
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWSendAndConfirmTransactionError",
+              cause: error,
+              context: { account, transaction: preppedTx },
+            },
+          ),
+      ),
+    )
+    .match(
+      (v) => v,
+      (e) => {
+        throw e;
+      },
+    );
+}
 
 export function useP2PBoost() {
   const { t } = useTranslation();
   const { account } = useThirdweb();
   const queryClient = useQueryClient();
+  const stake = useStake();
 
   // STAKE (approves P2P token to Diamond first, then stakes)
   const p2pBoostStakeMutation = useMutation({
@@ -83,24 +135,27 @@ export function useP2PBoost() {
             );
           }
 
-          // 2. Stake
-          return p2pBoostStakeTx(params, account).match(
-            (value) => {
-              console.log("[useP2PBoost] p2pBoostStake success", value);
-              return value;
-            },
-            (error) => {
-              console.error("[useP2PBoost] p2pBoostStake error", error);
+          // 2. Stake — encode via SDK, submit via thirdweb
+          const prepared = await stake.stake
+            .prepare({ tokens: params.tokens })
+            .match(
+              (v) => v,
+              (error) => {
+                console.error("[useP2PBoost] sdk stake.prepare error", error);
+                captureError(error, {
+                  operation: "p2p_boost_stake_prepare",
+                  component: "useP2PBoost",
+                  userId: account.address,
+                  extra: { tokens: params.tokens.toString() },
+                });
+                throw error;
+              },
+            );
 
-              captureError(error, {
-                operation: "p2p_boost_stake",
-                component: "useP2PBoost",
-                userId: account.address,
-                extra: { tokens: params.tokens.toString() },
-              });
-
-              throw error;
-            },
+          return submitPrepared(
+            prepared,
+            account,
+            "Failed to sendAndConfirm p2pBoostStake transaction",
           );
         },
       );
@@ -164,24 +219,27 @@ export function useP2PBoost() {
             );
           }
 
-          // 2. Top up
-          return p2pBoostTopUpTx(params, account).match(
-            (value) => {
-              console.log("[useP2PBoost] p2pBoostTopUp success", value);
-              return value;
-            },
-            (error) => {
-              console.error("[useP2PBoost] p2pBoostTopUp error", error);
+          // 2. Top up — encode via SDK, submit via thirdweb
+          const prepared = await stake.topUp
+            .prepare({ tokens: params.tokens })
+            .match(
+              (v) => v,
+              (error) => {
+                console.error("[useP2PBoost] sdk topUp.prepare error", error);
+                captureError(error, {
+                  operation: "p2p_boost_top_up_prepare",
+                  component: "useP2PBoost",
+                  userId: account.address,
+                  extra: { tokens: params.tokens.toString() },
+                });
+                throw error;
+              },
+            );
 
-              captureError(error, {
-                operation: "p2p_boost_top_up",
-                component: "useP2PBoost",
-                userId: account.address,
-                extra: { tokens: params.tokens.toString() },
-              });
-
-              throw error;
-            },
+          return submitPrepared(
+            prepared,
+            account,
+            "Failed to sendAndConfirm p2pBoostTopUp transaction",
           );
         },
       );
@@ -209,28 +267,26 @@ export function useP2PBoost() {
         "transaction.p2p_boost_request_unstake",
         "P2P Boost Request Unstake Transaction",
         async () => {
-          return p2pBoostRequestUnstakeTx(account).match(
-            (value) => {
-              console.log(
-                "[useP2PBoost] p2pBoostRequestUnstake success",
-                value,
-              );
-              return value;
-            },
+          const prepared = await stake.requestUnstake.prepare().match(
+            (v) => v,
             (error) => {
               console.error(
-                "[useP2PBoost] p2pBoostRequestUnstake error",
+                "[useP2PBoost] sdk requestUnstake.prepare error",
                 error,
               );
-
               captureError(error, {
-                operation: "p2p_boost_request_unstake",
+                operation: "p2p_boost_request_unstake_prepare",
                 component: "useP2PBoost",
                 userId: account.address,
               });
-
               throw error;
             },
+          );
+
+          return submitPrepared(
+            prepared,
+            account,
+            "Failed to sendAndConfirm p2pBoostRequestUnstake transaction",
           );
         },
       );
@@ -257,22 +313,26 @@ export function useP2PBoost() {
         "transaction.p2p_boost_claim_unstake",
         "P2P Boost Claim Unstake Transaction",
         async () => {
-          return p2pBoostClaimUnstakeTx(account).match(
-            (value) => {
-              console.log("[useP2PBoost] p2pBoostClaimUnstake success", value);
-              return value;
-            },
+          const prepared = await stake.claimUnstake.prepare().match(
+            (v) => v,
             (error) => {
-              console.error("[useP2PBoost] p2pBoostClaimUnstake error", error);
-
+              console.error(
+                "[useP2PBoost] sdk claimUnstake.prepare error",
+                error,
+              );
               captureError(error, {
-                operation: "p2p_boost_claim_unstake",
+                operation: "p2p_boost_claim_unstake_prepare",
                 component: "useP2PBoost",
                 userId: account.address,
               });
-
               throw error;
             },
+          );
+
+          return submitPrepared(
+            prepared,
+            account,
+            "Failed to sendAndConfirm p2pBoostClaimUnstake transaction",
           );
         },
       );
@@ -298,6 +358,7 @@ export function useP2PBoost() {
 
 export function useUserStake() {
   const { account } = useThirdweb();
+  const stake = useStake();
   const userAddress = account?.address as `0x${string}` | undefined;
 
   const query = useQuery({
@@ -308,18 +369,27 @@ export function useUserStake() {
       if (!userAddress) {
         throw new Error("WALLET_NOT_CONNECTED");
       }
-      return getUserStakeTx({ user: userAddress }).match(
-        (value) => value,
-        (error) => {
-          console.error("[useUserStake] getUserStake error", error);
-          captureError(error, {
-            operation: "p2p_get_user_stake",
-            component: "useUserStake",
-            userId: userAddress,
-          });
-          throw error;
-        },
-      );
+      const userStake = await stake
+        .getUserStake({ user: userAddress })
+        .match(
+          (value) => value,
+          (error) => {
+            console.error("[useUserStake] getUserStake error", error);
+            captureError(error, {
+              operation: "p2p_get_user_stake",
+              component: "useUserStake",
+              userId: userAddress,
+            });
+            throw error;
+          },
+        );
+
+      // Preserve the legacy numeric `status` shape expected by consumers.
+      return {
+        stakedAmount: userStake.stakedAmount,
+        cooldownEnd: userStake.cooldownEnd,
+        status: STATUS_TO_NUMBER[userStake.status],
+      };
     },
   });
 
@@ -336,22 +406,29 @@ export function useUserStake() {
  * for client-side preview math, so a stale value is acceptable.
  */
 export function useStakeBoostConfig(currency: string | undefined) {
+  const stake = useStake();
+
   const query = useQuery({
     queryKey: ["p2p-stake-boost-config", currency],
     enabled: !!currency,
     staleTime: 5 * 60_000,
     queryFn: async () => {
       if (!currency) throw new Error("CURRENCY_REQUIRED");
-      return getStakeBoostConfigTx({ currency }).match(
-        (value) => value,
-        (error) => {
-          console.error("[useStakeBoostConfig] error", error);
-          captureError(error, {
+
+      return stake
+        .getStakeBoostConfig({
+          currency: currency as GetStakeBoostConfigParams["currency"],
+        })
+        .match(
+        (v) => v,
+        (e) => {
+          console.error("[useStakeBoostConfig] error", e);
+          captureError(e, {
             operation: "p2p_get_stake_boost_config",
             component: "useStakeBoostConfig",
             extra: { currency },
           });
-          throw error;
+          throw e;
         },
       );
     },
@@ -368,21 +445,29 @@ export function useStakeBoostConfig(currency: string | undefined) {
  * Diamond. Cached for ~5 minutes — these almost never change.
  */
 export function useStakeBoostGlobals() {
+  const stake = useStake();
+
   const query = useQuery({
     queryKey: ["p2p-stake-boost-globals"],
     staleTime: 5 * 60_000,
     queryFn: async () => {
-      return getStakeBoostGlobalsTx().match(
-        (value) => value,
-        (error) => {
-          console.error("[useStakeBoostGlobals] error", error);
-          captureError(error, {
+      const globals = await stake.getStakeBoostGlobals().match(
+        (v) => v,
+        (e) => {
+          console.error("[useStakeBoostGlobals] error", e);
+          captureError(e, {
             operation: "p2p_get_stake_boost_globals",
             component: "useStakeBoostGlobals",
           });
-          throw error;
+          throw e;
         },
       );
+
+      return {
+        ...globals,
+        normalCooldown: Number(globals.normalCooldown),
+        blacklistCooldown: Number(globals.blacklistCooldown),
+      };
     },
   });
 
