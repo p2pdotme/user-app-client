@@ -35,9 +35,8 @@ export function P2PUnstake() {
   const { p2pBoostRequestUnstakeMutation } =
     useP2PBoost();
 
-  // TODO: 18 decimal to 6
   const stakedAmount = userStake
-    ? Number(formatUnits(userStake.stakedAmount, 18))
+    ? Number(formatUnits(userStake.stakedAmount, 6))
     : 0;
   const status = userStake ? Number(userStake.status) : STATUS.NONE;
   const cooldownEnd = userStake ? Number(userStake.cooldownEnd) : 0;

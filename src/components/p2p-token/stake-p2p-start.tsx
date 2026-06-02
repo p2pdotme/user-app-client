@@ -168,8 +168,7 @@ export function StakeP2pStart({
   const { t } = useTranslation();
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
 
-  // TODO:
-  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
+  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
   const parsedAmount = Number(amount);
 
   const { maxStakeForCap } = useStakeBoostMetrics(amount);
@@ -253,9 +252,6 @@ export function StakeP2pStart({
             $P2P
           </span>
         </div>
-        <p className="mt-1 text-muted-foreground text-xs tabular-nums">
-          ≈ 0.00 USDC
-        </p>
         {exceedsCap && maxStakeForCap !== null && (
           <p className="mt-2 text-destructive text-xs">
             Max stake is {truncateAmount(maxStakeForCap)} $P2P

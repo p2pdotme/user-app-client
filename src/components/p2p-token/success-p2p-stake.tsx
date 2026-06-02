@@ -131,9 +131,8 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
   const { userStake, isUserStakeLoading } = useUserStake();
   const { buyLimitBoost, sellLimitBoost } = useStakeBoostPreview(amount);
 
-  // TODO: 18 decimal to 6
   const stakedAmount = userStake
-    ? Number(formatUnits(userStake.stakedAmount, 18))
+    ? Number(formatUnits(userStake.stakedAmount, 6))
     : 0;
 
   const buyBoost = buyLimitBoost ?? 0;

@@ -30,6 +30,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   useP2PBalance,
   useP2PBoost,
+  useP2PTokenInfo,
   useStakeBoostGlobals,
   useStakeBoostMetrics,
   useStakeBoostPreview,
@@ -43,30 +44,29 @@ export function P2PMyStake() {
   const navigate = useNavigate();
   const { userStake, isUserStakeLoading } = useUserStake();
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
+  const { tokenInfo } = useP2PTokenInfo();
   const { p2pBoostRequestUnstakeMutation } = useP2PBoost();
   const [isTopUpOpen, setIsTopUpOpen] = useState(false);
   const [isUnstakeOpen, setIsUnstakeOpen] = useState(false);
 
-  // TODO: 18 decimal to 6
-  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
+  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
 
-  // TODO: 18 decimal to 6
   const stakedAmount = userStake
-    ? Number(formatUnits(userStake.stakedAmount, 18))
+    ? Number(formatUnits(userStake.stakedAmount, 6))
     : 0;
   const status = userStake ? Number(userStake.status) : 0;
   const cooldownEnd = userStake ? Number(userStake.cooldownEnd) : 0;
   const isActive = status === 1;
   const isCoolingDown = status === 2;
 
-  const { maxBoostUsd, progressPct, tokensPerUsd, usdPerToken, headroom } =
+  const { maxBoostUsd, progressPct, usdPerToken, headroom } =
     useStakeBoostMetrics(String(stakedAmount));
   const { buyLimitBoost, sellLimitBoost, payLimitBoost } = useStakeBoostPreview(
     String(stakedAmount),
   );
   const isCapReached = progressPct >= 100;
-  const stakedUsd =
-    tokensPerUsd !== null && tokensPerUsd > 0 ? stakedAmount / tokensPerUsd : 0;
+  const marketPrice = tokenInfo?.market.usdPrice ?? null;
+  const stakedUsd = marketPrice != null ? stakedAmount * marketPrice : null;
   const isUnstaking = p2pBoostRequestUnstakeMutation.isPending;
 
   return (
@@ -106,9 +106,13 @@ export function P2PMyStake() {
               </span>
               <span className="text-muted-foreground text-base">$P2P</span>
             </div>
-            {tokensPerUsd !== null && tokensPerUsd > 0 && (
-              <p className="mt-1 text-muted-foreground text-xs tabular-nums">
-                ≈ ${truncateAmount(stakedUsd)} at today's rate
+            {stakedUsd != null && (
+              <p className="mt-1 font-medium text-muted-foreground text-sm tabular-nums">
+                ≈{" "}
+                <span className="text-foreground">
+                  {stakedUsd.toFixed(3)}
+                </span>{" "}
+                USDC
               </p>
             )}
 
@@ -391,8 +395,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
   const { p2pBoostTopUpMutation } = useP2PBoost();
 
-  // TODO: 18 decimal to 6
-  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 18)) : 0;
+  const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
   const parsedAmount = Number(amount);
   const combinedAmount = stakedAmount + (parsedAmount || 0);
   const combinedAmountStr = String(combinedAmount);
@@ -414,7 +417,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
 
   const handleConfirm = () => {
     p2pBoostTopUpMutation.mutate(
-      { tokens: parseUnits(amount, 18) },
+      { tokens: parseUnits(amount, 6) },
       {
         onSuccess: () => {
           setAmount("");
@@ -480,9 +483,6 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
                 $P2P
               </span>
             </div>
-            <p className="mt-1 text-muted-foreground text-xs tabular-nums">
-              ≈ 0.00 USDC
-            </p>
             {exceedsCap && remainingTopUpCap !== null && (
               <p className="mt-2 text-destructive text-xs">
                 Max top-up is {truncateAmount(remainingTopUpCap)} $P2P
@@ -605,6 +605,16 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
             <span className="ml-1 text-xl text-primary/70">m</span>
           </span>
         </div>
+        <p className="mt-2 text-center text-[11px] text-muted-foreground tabular-nums">
+          {new Date(cooldownEnd * 1000).toLocaleString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          })}
+        </p>
       </div>
     </section>
   );

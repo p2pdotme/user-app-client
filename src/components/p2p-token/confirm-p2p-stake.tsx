@@ -28,7 +28,7 @@ interface ConfirmP2pStakeProps {
  * Shows a summary of the pending stake (amount, unlocked limit, cost,
  * timing) and triggers the on-chain `p2pBoostStake` transaction via
  * `useP2PBoost`. The amount is converted from the human-readable string to
- * base units with `parseUnits(amount, 18)`. Disables both buttons while the
+ * base units with `parseUnits(amount, 6)`. Disables both buttons while the
  * transaction is pending; advances to the success step on confirmation.
  */
 export function ConfirmP2pStake({
@@ -49,10 +49,9 @@ export function ConfirmP2pStake({
     t,
   );
 
-  // TODO: 18 decimal to 6
   const handleConfirm = () => {
     p2pBoostStakeMutation.mutate(
-      { tokens: parseUnits(amount, 18) },
+      { tokens: parseUnits(amount, 6) },
       { onSuccess: () => onConfirm() },
     );
   };
