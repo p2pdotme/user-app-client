@@ -72,10 +72,10 @@ export function ConfirmP2pStake({
 
         <dl className="flex flex-col gap-2.5 text-sm">
           <div className="flex items-center justify-between">
-            <dt className="text-muted-foreground">Applies</dt>
+            <dt className="text-muted-foreground">{t("P2P_STAKE_APPLIES")}</dt>
             <dd className="inline-flex items-center gap-1 font-semibold text-foreground">
               <Zap className="size-3.5 text-primary" />
-              Instantly
+              {t("P2P_STAKE_INSTANTLY")}
             </dd>
           </div>
         </dl>
@@ -89,7 +89,7 @@ export function ConfirmP2pStake({
               <Sparkles className="size-3 text-primary" />
             </div>
             <p className="font-medium text-muted-foreground text-sm tracking-wider">
-              You Unlock Limit
+              {t("P2P_STAKE_YOU_UNLOCK_LIMIT")}
             </p>
           </div>
           {usdPerToken !== null &&
@@ -102,7 +102,7 @@ export function ConfirmP2pStake({
                 <span className="font-semibold tabular-nums">
                   {truncateAmount(usdPerToken)}
                 </span>
-                <span className="text-muted-foreground">USDC limit</span>
+                <span className="text-muted-foreground">{t("P2P_STAKE_USDC_LIMIT")}</span>
               </span>
             )}
         </div>
@@ -110,7 +110,7 @@ export function ConfirmP2pStake({
         <dl className="mt-2.5 flex items-stretch gap-2">
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
             <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-              Buy Limit
+              {t("P2P_STAKE_BUY_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
               +{truncateAmount(buyLimitBoost ?? 0)}{" "}
@@ -121,7 +121,7 @@ export function ConfirmP2pStake({
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
             <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-              Sell Limit
+              {t("P2P_STAKE_SELL_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
               +{truncateAmount(sellLimitBoost ?? 0)}{" "}
@@ -132,7 +132,7 @@ export function ConfirmP2pStake({
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
             <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-              Pay Limit
+              {t("P2P_STAKE_PAY_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
               +{truncateAmount(payLimitBoost ?? 0)}{" "}
@@ -149,7 +149,7 @@ export function ConfirmP2pStake({
         <div className="mb-3.5 flex items-center gap-2">
           <AlertTriangle className="size-3.5 text-amber-500" />
           <p className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
-            Before You Stake
+            {t("P2P_STAKE_BEFORE_YOU_STAKE")}
           </p>
         </div>
         <ul className="flex flex-col divide-y divide-border/40">
@@ -159,10 +159,12 @@ export function ConfirmP2pStake({
             </div>
             <div className="flex min-w-0 flex-col gap-0.5">
               <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
-                {cooldownLabel ?? ""} cooldown to unstake
+                {t("P2P_STAKE_COOLDOWN_TO_UNSTAKE", {
+                  duration: cooldownLabel ?? "",
+                })}
               </p>
               <p className="text-[13px] text-muted-foreground leading-relaxed">
-                Your $P2P is locked during this period.
+                {t("P2P_STAKE_LOCKED_DURING_PERIOD")}
               </p>
             </div>
           </li>
@@ -172,10 +174,10 @@ export function ConfirmP2pStake({
             </div>
             <div className="flex min-w-0 flex-col gap-0.5">
               <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
-                Boost ends the moment you unstake
+                {t("P2P_STAKE_BOOST_ENDS_ON_UNSTAKE")}
               </p>
               <p className="text-[13px] text-muted-foreground leading-relaxed">
-                Your limit returns to the default right away.
+                {t("P2P_STAKE_LIMIT_RETURNS_DEFAULT")}
               </p>
             </div>
           </li>

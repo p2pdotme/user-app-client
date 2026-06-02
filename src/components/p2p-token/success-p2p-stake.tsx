@@ -128,6 +128,7 @@ interface SuccessP2pStakeProps {
  * stake (`useStakeBoostPreview(amount)`).
  */
 export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
+  const { t } = useTranslation();
   const { userStake, isUserStakeLoading } = useUserStake();
   const { buyLimitBoost, sellLimitBoost } = useStakeBoostPreview(amount);
 
@@ -150,17 +151,17 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
           />
         </div>
         <h2 className="font-bold text-2xl text-foreground tracking-tight">
-          Staked Successfully
+          {t("P2P_STAKE_SUCCESS_HEADING")}
         </h2>
         <p className="mt-1 text-muted-foreground text-sm">
-          Your boost is now active.
+          {t("P2P_STAKE_BOOST_ACTIVE")}
         </p>
       </section>
 
       {/* Total staked card */}
       <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
         <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
-          Total Staked
+          {t("P2P_STAKE_TOTAL_STAKED")}
         </p>
         {isUserStakeLoading ? (
           <Skeleton className="mt-1.5 h-10 w-40" />
@@ -173,19 +174,19 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
       </section>
 
       <OrderLimitCard
-        label="Your New Limits"
+        label={t("P2P_STAKE_YOUR_NEW_LIMITS")}
         buyBoost={buyBoost}
         sellBoost={sellBoost}
       />
 
       <p className="mt-auto px-2 text-center text-muted-foreground text-xs leading-relaxed">
-        You can increase your stake or unstake anytime from{" "}
+        {t("P2P_STAKE_MANAGE_FROM_PREFIX")}{" "}
         <Link
           to={INTERNAL_HREFS.LIMITS}
           replace
           className="font-medium text-primary underline underline-offset-2 hover:opacity-80"
         >
-          My Limits
+          {t("MY_LIMITS")}
         </Link>
         .
       </p>

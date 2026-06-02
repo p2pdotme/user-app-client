@@ -34,6 +34,7 @@ export * from "./use-task-ledger";
 export * from "./use-thirdweb";
 export * from "./use-tx-limits";
 export * from "./use-txn-history";
+export * from "./use-user-stake-activities";
 export * from "./use-usdc";
 export * from "./use-volume-milestones";
 export * from "./use-wallet-address-book";

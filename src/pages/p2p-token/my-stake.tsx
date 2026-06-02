@@ -34,6 +34,7 @@ import {
   useStakeBoostGlobals,
   useStakeBoostMetrics,
   useStakeBoostPreview,
+  useUserP2PStakeActivities,
   useUserStake,
 } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -109,9 +110,7 @@ export function P2PMyStake() {
             {stakedUsd != null && (
               <p className="mt-1 font-medium text-muted-foreground text-sm tabular-nums">
                 ≈{" "}
-                <span className="text-foreground">
-                  {stakedUsd.toFixed(3)}
-                </span>{" "}
+                <span className="text-foreground">{stakedUsd.toFixed(3)}</span>{" "}
                 USDC
               </p>
             )}
@@ -123,7 +122,7 @@ export function P2PMyStake() {
                 {/* Section label + rate */}
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-muted-foreground text-xs uppercase tracking-wider">
-                    Order Limit Boosted
+                    {t("MY_STAKE_ORDER_LIMIT_BOOSTED")}
                   </p>
                   {usdPerToken !== null && usdPerToken > 0 && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
@@ -133,7 +132,9 @@ export function P2PMyStake() {
                       <span className="font-semibold tabular-nums">
                         {truncateAmount(usdPerToken)}
                       </span>
-                      <span className="text-muted-foreground">USDC limit</span>
+                      <span className="text-muted-foreground">
+                        {t("P2P_STAKE_USDC_LIMIT")}
+                      </span>
                     </span>
                   )}
                 </div>
@@ -142,7 +143,7 @@ export function P2PMyStake() {
                 <dl className="mt-2 grid grid-cols-3 gap-2">
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
                     <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-                      Buy
+                      {t("BUY")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
                       +${truncateAmount(buyLimitBoost ?? 0)}
@@ -150,7 +151,7 @@ export function P2PMyStake() {
                   </div>
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
                     <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-                      Sell
+                      {t("SELL")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
                       +${truncateAmount(sellLimitBoost ?? 0)}
@@ -158,7 +159,7 @@ export function P2PMyStake() {
                   </div>
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
                     <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-                      Pay
+                      {t("PAY")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
                       +${truncateAmount(payLimitBoost ?? 0)}
@@ -178,14 +179,14 @@ export function P2PMyStake() {
                     {isCapReached ? (
                       <span className="inline-flex items-center gap-1 font-medium text-emerald-500">
                         <Sparkles className="size-3" />
-                        Boost maxed out
+                        {t("MY_STAKE_BOOST_MAXED_OUT")}
                       </span>
                     ) : (
                       <span className="text-muted-foreground">
                         <span className="font-semibold text-foreground tabular-nums">
                           ${truncateAmount(headroom)}
                         </span>{" "}
-                        more limit to unlock
+                        {t("MY_STAKE_MORE_LIMIT_TO_UNLOCK")}
                       </span>
                     )}
                   </div>
@@ -223,7 +224,9 @@ export function P2PMyStake() {
               className="flex-1 rounded-2xl py-6 font-semibold text-base"
             >
               <Plus className="size-4" />
-              {isCapReached ? "Boost Maxed Out" : t("MY_STAKE_TOPUP_BUTTON")}
+              {isCapReached
+                ? t("MY_STAKE_BOOST_MAXED_OUT_BUTTON")
+                : t("MY_STAKE_TOPUP_BUTTON")}
             </Button>
             <Button
               variant="destructive"
@@ -237,6 +240,8 @@ export function P2PMyStake() {
             </Button>
           </div>
         )}
+
+        <StakeActivityList />
       </main>
 
       <TopUpDrawer
@@ -362,7 +367,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
               disabled={isProcessing}
               className="w-full rounded-2xl py-6 font-semibold text-base"
             >
-              Cancel
+              {t("CANCEL")}
             </Button>
             <Button
               variant="destructive"
@@ -450,7 +455,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
         <DrawerHeader>
           <DrawerTitle>{t("MY_STAKE_TOPUP_TITLE")}</DrawerTitle>
           <DrawerDescription>
-            Stake more $P2P to unlock higher order limits.
+            {t("MY_STAKE_TOPUP_DESCRIPTION")}
           </DrawerDescription>
         </DrawerHeader>
 
@@ -459,7 +464,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
           <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
             <div className="flex items-center justify-between">
               <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
-                Amount
+                {t("MY_STAKE_AMOUNT_LABEL")}
               </p>
               {isP2PBalanceLoading ? (
                 <Skeleton className="h-6 w-24 rounded-full" />
@@ -484,7 +489,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
                 // biome-ignore lint/a11y/noAutofocus: amount input is the primary action in this drawer
                 autoFocus
                 placeholder="0"
-                aria-label={"amount"}
+                aria-label={t("MY_STAKE_AMOUNT_LABEL")}
                 value={amount}
                 onChange={(e) => handleAmountChange(e.target.value)}
                 className="min-w-0 flex-1 bg-transparent font-bold text-4xl text-foreground tabular-nums tracking-tight outline-none placeholder:text-muted-foreground/40"
@@ -503,7 +508,9 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
             </div>
             {exceedsCap && remainingTopUpCap !== null && (
               <p className="mt-2 text-destructive text-xs">
-                Max top-up is {truncateAmount(remainingTopUpCap)} $P2P
+                {t("MY_STAKE_MAX_TOPUP_IS", {
+                  amount: truncateAmount(remainingTopUpCap),
+                })}
               </p>
             )}
           </section>
@@ -511,7 +518,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
           {/* Boost preview for the combined (current + top-up) stake */}
           <StakeBoostPreviewCard
             amount={combinedAmountStr}
-            label="Updated Unlock Limit"
+            label={t("MY_STAKE_UPDATED_UNLOCK_LIMIT")}
           />
 
           <div className="flex flex-col gap-2 mt-8">
@@ -666,5 +673,153 @@ function StakeStatusPill({ status }: { status: number }) {
     >
       {t(style.labelKey)}
     </span>
+  );
+}
+
+const ACTIVITY_LABEL_KEYS: Record<string, string> = {
+  STAKED: "MY_STAKE_ACTIVITY_STAKED",
+  TOPPED_UP: "MY_STAKE_ACTIVITY_TOPPED_UP",
+  UNSTAKE_REQUESTED: "MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED",
+  UNSTAKE_CLAIMED: "MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED",
+  COOLDOWN_EXTENDED: "MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED",
+  SEIZED: "MY_STAKE_ACTIVITY_SEIZED",
+};
+
+const ACTIVITY_ICONS: Record<string, { Icon: typeof Plus; className: string }> =
+  {
+    STAKED: { Icon: Sparkles, className: "bg-primary/15 text-primary" },
+    TOPPED_UP: { Icon: Plus, className: "bg-primary/15 text-primary" },
+    UNSTAKE_REQUESTED: {
+      Icon: LockOpen,
+      className: "bg-amber-500/15 text-amber-500",
+    },
+    UNSTAKE_CLAIMED: {
+      Icon: CheckCircle2,
+      className: "bg-emerald-500/15 text-emerald-500",
+    },
+    COOLDOWN_EXTENDED: {
+      Icon: Clock,
+      className: "bg-amber-500/15 text-amber-500",
+    },
+    SEIZED: {
+      Icon: ShieldAlert,
+      className: "bg-destructive/15 text-destructive",
+    },
+  };
+
+const ACTIVITIES_WITH_AMOUNT = new Set([
+  "STAKED",
+  "TOPPED_UP",
+  "UNSTAKE_REQUESTED",
+  "UNSTAKE_CLAIMED",
+  "SEIZED",
+]);
+
+function formatActivityTimestamp(tsSeconds: number) {
+  return new Date(tsSeconds * 1000).toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+function StakeActivityList() {
+  const { t } = useTranslation();
+  const {
+    data: activitiesData,
+    isLoading,
+    isError,
+  } = useUserP2PStakeActivities();
+
+  if (isLoading) {
+    return (
+      <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+        <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+          {t("MY_STAKE_ACTIVITY_TITLE")}
+        </p>
+        <div className="mt-3 flex flex-col gap-2">
+          <Skeleton className="h-12 w-full rounded-xl" />
+          <Skeleton className="h-12 w-full rounded-xl" />
+          <Skeleton className="h-12 w-full rounded-xl" />
+        </div>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+        <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+          {t("MY_STAKE_ACTIVITY_TITLE")}
+        </p>
+        <p className="mt-3 text-center text-destructive text-sm">
+          {t("MY_STAKE_ACTIVITY_FAILED")}
+        </p>
+      </section>
+    );
+  }
+
+  const activities = activitiesData ?? [];
+  if (activities.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
+      <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
+        {t("MY_STAKE_ACTIVITY_TITLE")}
+      </p>
+      <ul className="mt-3 flex flex-col gap-2">
+        {activities.map((a) => {
+          const meta = ACTIVITY_ICONS[a.activityType] ?? ACTIVITY_ICONS.STAKED;
+          const Icon = meta.Icon;
+          const labelKey = ACTIVITY_LABEL_KEYS[a.activityType];
+          const label = labelKey ? t(labelKey) : a.activityType;
+          const showAmount = ACTIVITIES_WITH_AMOUNT.has(a.activityType);
+          const amount = showAmount
+            ? Number(formatUnits(BigInt(a.amount), 6))
+            : null;
+          const ts = Number(a.timestamp);
+          return (
+            <li
+              key={a.id}
+              className="flex items-center justify-between gap-3 rounded-xl bg-background/60 px-3 py-2"
+            >
+              <div className="flex min-w-0 items-center gap-3">
+                <div
+                  className={`flex size-9 shrink-0 items-center justify-center rounded-full ${meta.className}`}
+                >
+                  <Icon className="size-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate font-semibold text-foreground text-sm">
+                    {label}
+                  </p>
+                  <p className="text-muted-foreground text-[11px] tabular-nums">
+                    {formatActivityTimestamp(ts)}
+                  </p>
+                </div>
+              </div>
+              {amount !== null && (
+                <p className="shrink-0 font-bold text-foreground text-sm tabular-nums">
+                  {a.activityType === "SEIZED" ||
+                  a.activityType === "UNSTAKE_REQUESTED" ||
+                  a.activityType === "UNSTAKE_CLAIMED"
+                    ? "−"
+                    : "+"}
+                  {truncateAmount(amount)}{" "}
+                  <span className="font-medium text-[10px] text-muted-foreground">
+                    $P2P
+                  </span>
+                </p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

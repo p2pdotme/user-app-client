@@ -26,8 +26,9 @@ interface StakeBoostPreviewCardProps {
  */
 export function StakeBoostPreviewCard({
   amount,
-  label = "You Unlock Limit",
+  label,
 }: StakeBoostPreviewCardProps) {
+  const { t } = useTranslation();
   const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostConfig } =
     useStakeBoostPreview(amount);
 
@@ -35,6 +36,7 @@ export function StakeBoostPreviewCard({
 
   const { maxBoostUsd, usdPerToken, progressPct } =
     useStakeBoostMetrics(amount);
+  const resolvedLabel = label ?? t("P2P_STAKE_YOU_UNLOCK_LIMIT");
 
   const unlocked = buyLimitBoost ?? 0;
 
@@ -52,7 +54,7 @@ export function StakeBoostPreviewCard({
             <Sparkles className="size-3 text-primary" />
           </div>
           <p className="font-medium text-muted-foreground text-sm tracking-wider">
-            {label}
+            {resolvedLabel}
           </p>
         </div>
         {hasRate && (
@@ -63,7 +65,7 @@ export function StakeBoostPreviewCard({
             <span className="font-semibold tabular-nums">
               {truncateAmount(usdPerToken ?? 0)}
             </span>
-            <span className="text-muted-foreground">USDC limit</span>
+            <span className="text-muted-foreground">{t("P2P_STAKE_USDC_LIMIT")}</span>
           </span>
         )}
       </div>
@@ -72,7 +74,7 @@ export function StakeBoostPreviewCard({
       <dl className="mt-2.5 flex items-stretch gap-2">
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
           <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-            Buy Limit
+            {t("P2P_STAKE_BUY_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
             +{truncateAmount(buyLimitBoost ?? 0)}{" "}
@@ -83,7 +85,7 @@ export function StakeBoostPreviewCard({
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
           <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-            Sell Limit
+            {t("P2P_STAKE_SELL_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
             +{truncateAmount(sellLimitBoost ?? 0)}{" "}
@@ -94,7 +96,7 @@ export function StakeBoostPreviewCard({
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
           <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
-            Pay Limit
+            {t("P2P_STAKE_PAY_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
             +{truncateAmount(payLimitBoost ?? 0)}{" "}
@@ -111,10 +113,10 @@ export function StakeBoostPreviewCard({
           <div className="flex items-center justify-between text-[11px]">
             <span className="text-muted-foreground">
               {isCapReached ? (
-                "Stake Cap Reached"
+                t("P2P_STAKE_CAP_REACHED")
               ) : (
                 <>
-                  Up to{" "}
+                  {t("P2P_STAKE_UP_TO_PREFIX")}{" "}
                   <span className="tabular-nums">
                     {truncateAmount(maxBoostUsd)}
                   </span>{" "}
@@ -197,14 +199,14 @@ export function StakeP2pStart({
       {/* Page heading */}
       <header className="flex flex-col items-center gap-3 text-center">
         <h1 className="font-bold text-2xl text-foreground tracking-tight">
-          Get Higher
+          {t("P2P_STAKE_HEADING_PREFIX")}
           <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             {" "}
-            Order Limits
+            {t("P2P_STAKE_HEADING_HIGHLIGHT")}
           </span>
         </h1>
         <p className="max-w-sm text-muted-foreground text-sm">
-          The more $P2P you stake, the bigger each order can be.
+          {t("P2P_STAKE_TAGLINE")}
         </p>
       </header>
 
@@ -254,7 +256,9 @@ export function StakeP2pStart({
         </div>
         {exceedsCap && maxStakeForCap !== null && (
           <p className="mt-2 text-destructive text-xs">
-            Max stake is {truncateAmount(maxStakeForCap)} $P2P
+            {t("P2P_STAKE_MAX_STAKE_IS", {
+              amount: truncateAmount(maxStakeForCap),
+            })}
           </p>
         )}
       </section>

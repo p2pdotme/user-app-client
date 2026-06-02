@@ -3,12 +3,15 @@ import {
   type OrdersCollectionQueryParams,
   type OrdersCollectionWithDateFilterQueryParams,
   type ProcessingOrdersCollectionQueryParams,
+  type UserP2PStakeActivitiesQueryParams,
   validate,
   ZodCirclesForRoutingResponseSchema,
   ZodOrdersCollectionQueryParamsSchema,
   ZodOrdersCollectionSchema,
   ZodOrdersCollectionWithDateFilterQueryParamsSchema,
   ZodProcessingOrdersCollectionQueryParamsSchema,
+  ZodUserP2PStakeActivitiesQueryParamsSchema,
+  ZodUserP2PStakeActivitiesResponseSchema,
 } from "../shared";
 import { querySubgraph } from "./client";
 import {
@@ -16,6 +19,7 @@ import {
   ORDERS_COLLECTION_QUERY,
   ORDERS_COLLECTION_WITH_DATE_FILTER_QUERY,
   PROCESSING_ORDERS_COLLECTION_QUERY,
+  USER_P2P_STAKE_ACTIVITIES_QUERY,
 } from "./queries";
 
 export function getOrdersCollection(params: OrdersCollectionQueryParams) {
@@ -73,6 +77,29 @@ export function getProcessingOrdersCollection(
       queryResult
         .andThen((data) => validate(ZodOrdersCollectionSchema, data))
         .map((validated) => validated.orders_collection),
+    ),
+  );
+}
+
+export function getUserP2PStakeActivities(
+  params: UserP2PStakeActivitiesQueryParams,
+) {
+  return validate(
+    ZodUserP2PStakeActivitiesQueryParamsSchema,
+    params,
+  ).asyncAndThen(() =>
+    ResultAsync.fromPromise(
+      querySubgraph({
+        query: USER_P2P_STAKE_ACTIVITIES_QUERY,
+        variables: params,
+      }),
+      (error) => error,
+    ).andThen((queryResult) =>
+      queryResult
+        .andThen((data) =>
+          validate(ZodUserP2PStakeActivitiesResponseSchema, data),
+        )
+        .map((validated) => validated.userP2PStakeActivities),
     ),
   );
 }
