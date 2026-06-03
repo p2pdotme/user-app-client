@@ -42,7 +42,7 @@ export function StakeCtaCard() {
       </div>
 
       <h3 className="mt-2 font-bold text-foreground text-xl tracking-tight">
-        {t("STAKE_CTA_TITLE")}
+        {t("STAKE_CTA_TITLE_CARD")}
       </h3>
       <p className="mt-1 text-muted-foreground text-sm leading-relaxed">
         {t("STAKE_CTA_DESCRIPTION", {

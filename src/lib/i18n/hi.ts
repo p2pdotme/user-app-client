@@ -1125,6 +1125,7 @@ export const hi = {
     STAKE_CTA_INSTANT: "तत्काल",
     STAKE_CTA_KICKER: "$P2P स्टेक करें",
     STAKE_CTA_TITLE: "सीमाएं बढ़ाएं",
+    STAKE_CTA_TITLE_CARD: "$P2P स्टेक करें, सीमाएं बढ़ाएं",
     STAKE_CTA_SUBTITLE: "Buy, Pay & Sell पर {{amount}} USDC तक",
     STAKE_CTA_DESCRIPTION:
       "खरीद, बिक्री और भुगतान पर प्रति लेनदेन +{{amount}} USDC तक की सीमा अनलॉक करने के लिए $P2P टोकन स्टेक करें।",
@@ -1769,7 +1770,7 @@ export const hi = {
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "अपनी सीमाएं बढ़ाने और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें।",
     VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "अपनी सीमाएं बढ़ाने, ZK आधार सत्यापन को अनलॉक करने और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें।",
+      "अपनी सीमाएं बढ़ाने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें, और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहें।",
     VERIFY_ZK_PROOF: "zk प्रमाण सत्यापित करें",
     VIA_JUPITER: "Jupiter के माध्यम से",
     VIDEO_AADHAR_VERIFICATION: "आधार वेरिफिकेशन",

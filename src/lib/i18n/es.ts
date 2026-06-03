@@ -1204,6 +1204,7 @@ export const es = {
     STAKE_CTA_INSTANT: "Instantáneo",
     STAKE_CTA_KICKER: "Stakea $P2P",
     STAKE_CTA_TITLE: "Aumenta Límites",
+    STAKE_CTA_TITLE_CARD: "Stakea $P2P, Aumenta Límites",
     STAKE_CTA_SUBTITLE: "Hasta {{amount}} USDC en Compra, Pago y Venta",
     STAKE_CTA_DESCRIPTION:
       "Haz stake de tokens $P2P para desbloquear hasta +{{amount}} USDC de límite por transacción en Comprar, Vender y Pagar.",
@@ -1893,7 +1894,7 @@ export const es = {
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifica al menos una cuenta social para aumentar tus límites y sigue aumentándolos a medida que completas transacciones.",
     VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "Verifica al menos una cuenta social para aumentar tus límites, desbloquear la verificación ZK Aadhaar y sigue aumentándolos a medida que completas transacciones.",
+      "Verifica al menos una cuenta social para aumentar tus límites, y sigue aumentándolos a medida que completas transacciones.",
     VERIFY_ZK_PROOF: "Verificar prueba zk",
     VIA_JUPITER: "vía Jupiter",
     VIDEO_AADHAR_VERIFICATION: "Verificación AADHAR",

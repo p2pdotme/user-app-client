@@ -1179,6 +1179,7 @@ export const id = {
     STAKE_CTA_INSTANT: "Instan",
     STAKE_CTA_KICKER: "Stake $P2P",
     STAKE_CTA_TITLE: "Naikkan Batas",
+    STAKE_CTA_TITLE_CARD: "Stake $P2P, Naikkan Batas",
     STAKE_CTA_SUBTITLE: "Hingga {{amount}} USDC pada Buy, Pay & Sell",
     STAKE_CTA_DESCRIPTION:
       "Stake token $P2P untuk membuka hingga +{{amount}} USDC batas per transaksi pada Beli, Jual, dan Bayar.",
@@ -1844,7 +1845,7 @@ export const id = {
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
     VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda, membuka verifikasi ZK Aadhaar, dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
+      "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda, dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VIA_JUPITER: "via Jupiter",
     VIDEO_AADHAR_VERIFICATION: "Verifikasi AADHAR",

@@ -11,7 +11,6 @@ import { StakeCtaCard } from "@/components/p2p-token/stake-cta-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useSettings } from "@/contexts";
 import {
   useClaimCampaignUsdc,
   useHasUnclaimedCampaignRewards,
@@ -124,8 +123,6 @@ export function Limits() {
     !!isFacebookVerified ||
     !!isZkPassportVerified;
 
-  const { settings } = useSettings();
-
   // Campaign USDC claim hook
   const { claimCampaignUsdcReward, claimCampaignUsdcMutation } =
     useClaimCampaignUsdc();
@@ -211,37 +208,6 @@ export function Limits() {
           </section>
         )}
 
-        {!isAnySocialVerified && (
-          <section className="flex w-full flex-col gap-4 py-2">
-            <Card className="w-full border-none bg-primary/10 shadow-none">
-              <CardHeader>
-                <p className="font-medium">
-                  {t("VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT")}
-                </p>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <p className="font-light text-sm">
-                  {settings.currency.country === "India"
-                    ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
-                    : t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
-                </p>
-                <p className="mt-4 mb-2 font-light text-xs">
-                  {t("VERIFIED_SOCIALS_TO_UNLOCK")}
-                </p>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-primary px-4 py-0.5 font-medium text-white text-xs">
-                    0/1
-                  </span>
-                  <Progress
-                    value={0}
-                    className="h-4 flex-1 bg-white"
-                    style={{ backgroundColor: "#fff" }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-        )}
         {isAnySocialVerified && (
           <section className="flex w-full flex-col gap-4 py-2">
             <div className="flex w-full flex-row items-center justify-between rounded-xl border-none bg-primary/10 p-4 shadow-none">
