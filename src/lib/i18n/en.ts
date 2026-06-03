@@ -590,6 +590,10 @@ export const en = {
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE: "What happens if I raise a false dispute?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "If you raise false or abusive disputes, there will be consequences. This could result in:\n• Suspension of services\n• Loss of trading privileges\n\nSo, play fair and keep it honest.",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
+      "What will happen if I'm found doing fraudulent activity?",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
+      "You will be blacklisted, and if you have staked $P2P tokens, it will be seized.",
     FAQ_WHAT_IF_BANK_FROZEN:
       "What happens if my account freezes? Will P2P.me help unfreeze it?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:

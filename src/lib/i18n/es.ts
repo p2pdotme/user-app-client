@@ -613,6 +613,10 @@ export const es = {
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE: "¿Qué pasa si abro una disputa falsa?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "Si abres disputas falsas o abusivas, habrá consecuencias. Esto podría resultar en:\n• Suspensión de los servicios\n• Pérdida de los privilegios de operación\n\nAsí que, juega limpio y sé honesto.",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
+      "¿Qué pasará si me descubren realizando actividad fraudulenta?",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
+      "Serás incluido en la lista negra y, si has hecho staking de tokens $P2P, estos serán confiscados.",
     FAQ_WHAT_IF_BANK_FROZEN:
       "¿Qué sucede si mi cuenta se congela? ¿P2P.me ayudará a descongelarla?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:

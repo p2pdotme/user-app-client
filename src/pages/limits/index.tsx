@@ -316,7 +316,7 @@ export function Limits() {
         </section>
         <section className="flex w-full flex-col justify-between gap-4 py-2">
           <SectionHeader title={t("FAQS")} seeAllLink={INTERNAL_HREFS.HELP} />
-          <FAQAccordion faqs={getPageFAQs("LIMITS_PAGE")} />
+          <FAQAccordion faqs={getPageFAQs("LIMITS_PAGE")} slice={4} />
         </section>
       </main>
     </>

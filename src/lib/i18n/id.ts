@@ -600,6 +600,10 @@ export const id = {
       "Apa yang terjadi jika saya mengajukan dispute palsu?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "Jika Anda mengajukan dispute palsu atau kasar, akan ada konsekuensi. Ini bisa mengakibatkan:\n• Penangguhan layanan\n• Kehilangan hak istimewa trading\n\nJadi, bermainlah dengan adil dan tetap jujur.",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
+      "Apa yang akan terjadi jika saya ketahuan melakukan aktivitas penipuan?",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
+      "Anda akan masuk daftar hitam, dan jika Anda telah men-stake token $P2P, token tersebut akan disita.",
     FAQ_WHAT_IF_BANK_FROZEN:
       "Apa yang terjadi jika akun saya dibekukan? Apakah P2P.me akan membantu membuka bekuannya?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:

@@ -569,6 +569,10 @@ export const hi = {
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE: "अगर मैं झूठा विवाद उठाता हूँ तो क्या होगा?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "यदि आप झूठे या अपमानजनक विवाद उठाते हैं, तो इसके परिणाम होंगे। इसके परिणामस्वरूप:\n• सेवाओं का निलंबन\n• ट्रेडिंग विशेषाधिकारों का नुकसान\n\nइसलिए, निष्पक्ष खेलें और ईमानदार रहें।",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
+      "अगर मुझे धोखाधड़ी की गतिविधि करते हुए पाया गया तो क्या होगा?",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
+      "आपको ब्लैकलिस्ट कर दिया जाएगा, और यदि आपने $P2P टोकन स्टेक किए हैं, तो उन्हें ज़ब्त कर लिया जाएगा।",
     FAQ_WHAT_IF_BANK_FROZEN:
       "अगर मेरा खाता फ्रीज हो जाता है तो क्या होगा? क्या P2P.me इसे अनफ्रीज करने में मदद करेगा?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:

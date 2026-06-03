@@ -602,6 +602,10 @@ export const pt = {
       "O que acontece se eu levantar uma disputa falsa?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "Se você levantar disputas falsas ou abusivas, haverá consequências. Isso pode resultar em:\n• Suspensão de serviços\n• Perda de privilégios de negociação\n\nEntão, jogue limpo e mantenha-se honesto.",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
+      "O que acontecerá se eu for pego em atividade fraudulenta?",
+    FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
+      "Você será colocado na lista negra e, se tiver feito stake de tokens $P2P, eles serão confiscados.",
     FAQ_WHAT_IF_BANK_FROZEN:
       "O que acontece se minha conta congelar? P2P.me vai ajudar a descongelar?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
