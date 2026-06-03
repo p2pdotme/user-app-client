@@ -1225,6 +1225,10 @@ export const id = {
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "Boost berakhir saat Anda melakukan unstake",
     P2P_STAKE_LIMIT_RETURNS_DEFAULT:
       "Batas Anda langsung kembali ke default.",
+    P2P_STAKE_IF_BLACKLISTED:
+      "Jika masuk daftar hitam, kunci stake {{duration}}",
+    P2P_STAKE_IF_BLACKLISTED_DESCRIPTION:
+      "Aktivitas penipuan dapat menyebabkan masa kunci diperpanjang.",
     P2P_STAKE_CAP_REACHED: "Batas Stake Tercapai",
     P2P_STAKE_UP_TO_PREFIX: "Hingga",
     P2P_STAKE_HEADING_PREFIX: "Dapatkan Lebih Tinggi",

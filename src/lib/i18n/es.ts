@@ -1250,6 +1250,10 @@ export const es = {
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "El boost termina al momento que retires el stake",
     P2P_STAKE_LIMIT_RETURNS_DEFAULT:
       "Tu límite vuelve al valor por defecto inmediatamente.",
+    P2P_STAKE_IF_BLACKLISTED:
+      "Si estás en la lista negra, bloqueo de stake de {{duration}}",
+    P2P_STAKE_IF_BLACKLISTED_DESCRIPTION:
+      "La actividad fraudulenta puede provocar un bloqueo extendido.",
     P2P_STAKE_CAP_REACHED: "Tope de Stake Alcanzado",
     P2P_STAKE_UP_TO_PREFIX: "Hasta",
     P2P_STAKE_HEADING_PREFIX: "Obtén Mayores",

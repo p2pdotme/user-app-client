@@ -49,6 +49,10 @@ export function ConfirmP2pStake({
     stakeBoostGlobals?.normalCooldown,
     t,
   );
+  const blacklistCooldownLabel = formatSecondsDuration(
+    stakeBoostGlobals?.blacklistCooldown,
+    t,
+  );
 
   const handleConfirm = () => {
     p2pBoostStakeMutation.mutate(
@@ -103,7 +107,9 @@ export function ConfirmP2pStake({
                 <span className="font-semibold tabular-nums">
                   {truncateAmount(usdPerToken)}
                 </span>
-                <span className="text-muted-foreground">{t("P2P_STAKE_USDC_LIMIT")}</span>
+                <span className="text-muted-foreground">
+                  {t("P2P_STAKE_USDC_LIMIT")}
+                </span>
               </span>
             )}
         </div>
@@ -171,6 +177,21 @@ export function ConfirmP2pStake({
               </p>
             </div>
           </li>
+          <li className="flex items-start gap-3 py-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <ShieldAlert className="size-4 text-amber-500" />
+            </div>
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <p className="font-medium text-[15px] text-foreground leading-snug tracking-tight">
+                {t("P2P_STAKE_IF_BLACKLISTED", {
+                  duration: blacklistCooldownLabel ?? "",
+                })}
+              </p>
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
+                {t("P2P_STAKE_IF_BLACKLISTED_DESCRIPTION")}
+              </p>
+            </div>
+          </li>
           <li className="flex items-start gap-3 pt-3">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10">
               <TrendingDown className="size-4 text-amber-500" />
@@ -187,7 +208,7 @@ export function ConfirmP2pStake({
         </ul>
       </section>
 
-      <div className="mt-auto flex flex-col gap-2">
+      <div className="sticky bottom-0 -mx-4 mt-auto flex flex-col gap-2 border-t border-border/60 bg-background px-4 py-4">
         <Button
           variant="outline"
           onClick={onBack}
@@ -212,28 +233,29 @@ export function ConfirmP2pStake({
 function FraudWarningBanner() {
   const { t } = useTranslation();
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 p-4">
+    <section className="relative isolate rounded-2xl border border-border/60 bg-card/40 p-4">
       {/* Subtle accent bar */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-500 via-amber-500/70 to-amber-500/40"
+        className="pointer-events-none absolute inset-y-1 left-0 w-1 overflow-hidden rounded-l-2xl bg-gradient-to-b from-amber-500 via-amber-500/70 to-amber-500/40"
       />
-      {/* Subtle ambient glow */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -top-16 -right-16 size-48 animate-pulse rounded-full bg-amber-500/10 blur-3xl"
-      />
-      {/* Shimmer sweep */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 animate-shimmer bg-gradient-to-r from-transparent via-amber-500/[0.06] to-transparent"
-      />
+      {/* Subtle ambient glow — clipped by isolate + overflow on inner wrapper */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+        <span
+          aria-hidden
+          className="absolute -top-16 -right-16 size-48 animate-pulse rounded-full bg-amber-500/10 blur-3xl"
+        />
+        <span
+          aria-hidden
+          className="absolute inset-y-0 -left-1/3 w-1/3 animate-shimmer bg-gradient-to-r from-transparent via-amber-500/[0.06] to-transparent"
+        />
+      </div>
       <div className="relative flex items-start gap-3 pl-2">
         <div className="relative flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 ring-1 ring-amber-500/20">
           <span className="absolute inset-0 animate-ping rounded-xl bg-amber-500/15" />
           <ShieldAlert className="relative size-4 text-amber-500" />
         </div>
-        <div className="flex min-w-0 flex-col gap-1">
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
           <p className="font-semibold text-[15px] text-foreground leading-snug tracking-tight">
             {t("P2P_STAKE_FRAUD_WARNING_TITLE")}
           </p>

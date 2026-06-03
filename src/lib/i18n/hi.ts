@@ -1171,6 +1171,9 @@ export const hi = {
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "अनस्टेक करते ही बूस्ट समाप्त हो जाता है",
     P2P_STAKE_LIMIT_RETURNS_DEFAULT:
       "आपकी सीमा तुरंत डिफ़ॉल्ट पर वापस आ जाती है।",
+    P2P_STAKE_IF_BLACKLISTED: "ब्लैकलिस्ट होने पर, {{duration}} स्टेक लॉक",
+    P2P_STAKE_IF_BLACKLISTED_DESCRIPTION:
+      "धोखाधड़ी की गतिविधि से लॉक अवधि बढ़ सकती है।",
     P2P_STAKE_CAP_REACHED: "स्टेक सीमा पहुंच गई",
     P2P_STAKE_UP_TO_PREFIX: "तक",
     P2P_STAKE_HEADING_PREFIX: "पाएं उच्च",

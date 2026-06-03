@@ -1206,6 +1206,9 @@ export const en = {
     P2P_STAKE_LOCKED_DURING_PERIOD: "Your $P2P is locked during this period.",
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "Boost ends the moment you unstake",
     P2P_STAKE_LIMIT_RETURNS_DEFAULT: "Your limit returns to the default right away.",
+    P2P_STAKE_IF_BLACKLISTED: "If blacklisted, {{duration}} stake lock",
+    P2P_STAKE_IF_BLACKLISTED_DESCRIPTION:
+      "Fraudulent activity can lead to an extended lock-up.",
     P2P_STAKE_CAP_REACHED: "Stake Cap Reached",
     P2P_STAKE_UP_TO_PREFIX: "Up to",
     P2P_STAKE_HEADING_PREFIX: "Get Higher",
