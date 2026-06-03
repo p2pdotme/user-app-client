@@ -1,10 +1,12 @@
-import { Sparkles, Wallet } from "lucide-react";
+import { ArrowLeftRight, ChevronRight, Sparkles, Wallet } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { formatUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStakeBoostMetrics, useP2PBalance } from "@/hooks";
 import { useStakeBoostPreview } from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
 
 interface StakeBoostPreviewCardProps {
@@ -147,6 +149,37 @@ export function StakeBoostPreviewCard({
   );
 }
 
+/**
+ * NoP2pBalanceCta — call-to-action shown when the user has zero $P2P balance,
+ * inviting them to swap into $P2P via the token swap flow.
+ */
+export function NoP2pBalanceCta() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  return (
+    <button
+      type="button"
+      onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP)}
+      className="mt-auto flex w-full items-center gap-3 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3 text-left transition-transform duration-150 ease-out active:scale-[0.99]"
+    >
+      <div className="relative flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/15">
+        <span className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
+        <ArrowLeftRight className="relative size-4 animate-pulse text-primary" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="font-semibold text-foreground text-sm">
+          {t("P2P_STAKE_NO_BALANCE_TITLE")}
+        </p>
+        <p className="text-muted-foreground text-xs">
+          {t("P2P_STAKE_NO_BALANCE_DESCRIPTION")}
+        </p>
+      </div>
+      <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+    </button>
+  );
+}
+
 interface StakeP2pStartProps {
   amount: string;
   onAmountChange: (value: string) => void;
@@ -171,6 +204,7 @@ export function StakeP2pStart({
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
 
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
+  const hasNoBalance = !isP2PBalanceLoading && p2pBalance === 0;
   const parsedAmount = Number(amount);
 
   const { maxStakeForCap } = useStakeBoostMetrics(amount);
@@ -265,10 +299,12 @@ export function StakeP2pStart({
 
       <StakeBoostPreviewCard amount={amount} />
 
+      {hasNoBalance && <NoP2pBalanceCta />}
+
       <Button
         disabled={!isValid}
         onClick={onContinue}
-        className="mt-auto w-full rounded-2xl py-6 text-base font-semibold"
+        className={`w-full rounded-2xl py-6 text-base font-semibold ${hasNoBalance ? "" : "mt-auto"}`}
       >
         {t("CONTINUE")}
       </Button>

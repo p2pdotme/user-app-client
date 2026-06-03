@@ -1159,6 +1159,9 @@ export const hi = {
     P2P_STAKE_SELL_LIMIT: "बिक्री सीमा",
     P2P_STAKE_PAY_LIMIT: "भुगतान सीमा",
     P2P_STAKE_BEFORE_YOU_STAKE: "स्टेक करने से पहले",
+    P2P_STAKE_FRAUD_WARNING_TITLE: "धोखाधड़ी पर दंड मिलेगा",
+    P2P_STAKE_FRAUD_WARNING_DESCRIPTION:
+      "साबित धोखाधड़ी पर आपका स्टेक ज़ब्त कर लिया जाएगा।",
     P2P_STAKE_COOLDOWN_TO_UNSTAKE: "अनस्टेक करने के लिए {{duration}} कूलडाउन",
     P2P_STAKE_LOCKED_DURING_PERIOD: "इस अवधि के दौरान आपका $P2P लॉक रहता है।",
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "अनस्टेक करते ही बूस्ट समाप्त हो जाता है",
@@ -1170,6 +1173,8 @@ export const hi = {
     P2P_STAKE_HEADING_HIGHLIGHT: "ऑर्डर सीमाएं",
     P2P_STAKE_TAGLINE:
       "आप जितना अधिक $P2P स्टेक करेंगे, प्रत्येक ऑर्डर उतना ही बड़ा हो सकता है।",
+    P2P_STAKE_NO_BALANCE_TITLE: "कोई $P2P बैलेंस नहीं",
+    P2P_STAKE_NO_BALANCE_DESCRIPTION: "स्टेकिंग शुरू करने के लिए USDC को $P2P में स्वैप करें",
     P2P_STAKE_MAX_STAKE_IS: "अधिकतम स्टेक {{amount}} $P2P है",
     P2P_STAKE_SUCCESS_HEADING: "सफलतापूर्वक स्टेक किया गया",
     P2P_STAKE_BOOST_ACTIVE: "आपका बूस्ट अब सक्रिय है।",

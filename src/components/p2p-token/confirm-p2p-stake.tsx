@@ -2,6 +2,7 @@ import {
   AlertTriangle,
   Loader2,
   Lock,
+  ShieldAlert,
   Sparkles,
   TrendingDown,
   Zap,
@@ -144,6 +145,8 @@ export function ConfirmP2pStake({
         </dl>
       </section>
 
+      <FraudWarningBanner />
+
       {/* What you're agreeing to */}
       <section className="rounded-2xl border border-border/60 bg-card/40 p-4">
         <div className="mb-3.5 flex items-center gap-2">
@@ -203,5 +206,42 @@ export function ConfirmP2pStake({
         </Button>
       </div>
     </main>
+  );
+}
+
+function FraudWarningBanner() {
+  const { t } = useTranslation();
+  return (
+    <section className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 p-4">
+      {/* Subtle accent bar */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-amber-500 via-amber-500/70 to-amber-500/40"
+      />
+      {/* Subtle ambient glow */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-16 -right-16 size-48 animate-pulse rounded-full bg-amber-500/10 blur-3xl"
+      />
+      {/* Shimmer sweep */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 animate-shimmer bg-gradient-to-r from-transparent via-amber-500/[0.06] to-transparent"
+      />
+      <div className="relative flex items-start gap-3 pl-2">
+        <div className="relative flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 ring-1 ring-amber-500/20">
+          <span className="absolute inset-0 animate-ping rounded-xl bg-amber-500/15" />
+          <ShieldAlert className="relative size-4 text-amber-500" />
+        </div>
+        <div className="flex min-w-0 flex-col gap-1">
+          <p className="font-semibold text-[15px] text-foreground leading-snug tracking-tight">
+            {t("P2P_STAKE_FRAUD_WARNING_TITLE")}
+          </p>
+          <p className="text-[13px] text-muted-foreground leading-relaxed">
+            {t("P2P_STAKE_FRAUD_WARNING_DESCRIPTION")}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }

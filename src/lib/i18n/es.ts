@@ -1238,6 +1238,9 @@ export const es = {
     P2P_STAKE_SELL_LIMIT: "Límite de Venta",
     P2P_STAKE_PAY_LIMIT: "Límite de Pago",
     P2P_STAKE_BEFORE_YOU_STAKE: "Antes de Hacer Stake",
+    P2P_STAKE_FRAUD_WARNING_TITLE: "El fraude será castigado",
+    P2P_STAKE_FRAUD_WARNING_DESCRIPTION:
+      "El fraude comprobado resultará en la confiscación de tu stake.",
     P2P_STAKE_COOLDOWN_TO_UNSTAKE: "{{duration}} de enfriamiento para retirar",
     P2P_STAKE_LOCKED_DURING_PERIOD: "Tu $P2P está bloqueado durante este período.",
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "El boost termina al momento que retires el stake",
@@ -1249,6 +1252,8 @@ export const es = {
     P2P_STAKE_HEADING_HIGHLIGHT: "Límites de Orden",
     P2P_STAKE_TAGLINE:
       "Mientras más $P2P stakees, más grande puede ser cada orden.",
+    P2P_STAKE_NO_BALANCE_TITLE: "Sin saldo de $P2P",
+    P2P_STAKE_NO_BALANCE_DESCRIPTION: "Intercambia USDC por $P2P para empezar a stakear",
     P2P_STAKE_MAX_STAKE_IS: "Stake máximo es {{amount}} $P2P",
     P2P_STAKE_SUCCESS_HEADING: "Stake Exitoso",
     P2P_STAKE_BOOST_ACTIVE: "Tu boost ahora está activo.",

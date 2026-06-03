@@ -16,7 +16,10 @@ import { useNavigate } from "react-router";
 import { formatUnits, parseUnits } from "viem";
 import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
-import { StakeBoostPreviewCard } from "@/components/p2p-token/stake-p2p-start";
+import {
+  NoP2pBalanceCta,
+  StakeBoostPreviewCard,
+} from "@/components/p2p-token/stake-p2p-start";
 import { OrderLimitCard } from "@/components/p2p-token/success-p2p-stake";
 import { Button } from "@/components/ui/button";
 import {
@@ -221,7 +224,7 @@ export function P2PMyStake() {
             <Button
               onClick={() => setIsTopUpOpen(true)}
               disabled={isUnstaking || isCapReached}
-              className="flex-1 rounded-2xl py-6 font-semibold text-xs leading-tight whitespace-normal text-center"
+              className="flex-1 rounded-2xl py-6 font-semibold text-xs sm:text-base leading-tight whitespace-normal text-center"
             >
               <Plus className="size-4 shrink-0" />
               {isCapReached
@@ -233,7 +236,7 @@ export function P2PMyStake() {
               onClick={() => setIsUnstakeOpen(true)}
               disabled={isUnstaking}
               hapticType="warning"
-              className="flex-1 rounded-2xl py-6 font-semibold text-xs leading-tight whitespace-normal text-center"
+              className="flex-1 rounded-2xl py-6 font-semibold text-xs sm:text-base leading-tight whitespace-normal text-center"
             >
               <LockOpen className="size-4 shrink-0" />
               {t("MY_STAKE_UNSTAKE_BUTTON")}
@@ -401,6 +404,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   const { p2pBoostTopUpMutation } = useP2PBoost();
 
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
+  const hasNoBalance = !isP2PBalanceLoading && p2pBalance === 0;
   const parsedAmount = Number(amount);
   const combinedAmount = stakedAmount + (parsedAmount || 0);
   const combinedAmountStr = String(combinedAmount);
@@ -521,7 +525,9 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
             label={t("MY_STAKE_UPDATED_UNLOCK_LIMIT")}
           />
 
-          <div className="flex flex-col gap-2 mt-8">
+          <div className="mt-6">{hasNoBalance && <NoP2pBalanceCta />}</div>
+
+          <div className="flex flex-col gap-2">
             <Button
               onClick={handleConfirm}
               disabled={!isValid || isProcessing}

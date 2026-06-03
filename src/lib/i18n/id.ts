@@ -1213,6 +1213,9 @@ export const id = {
     P2P_STAKE_SELL_LIMIT: "Batas Jual",
     P2P_STAKE_PAY_LIMIT: "Batas Bayar",
     P2P_STAKE_BEFORE_YOU_STAKE: "Sebelum Anda Stake",
+    P2P_STAKE_FRAUD_WARNING_TITLE: "Penipuan akan dihukum",
+    P2P_STAKE_FRAUD_WARNING_DESCRIPTION:
+      "Penipuan yang terbukti akan menyebabkan stake Anda disita.",
     P2P_STAKE_COOLDOWN_TO_UNSTAKE: "Cooldown {{duration}} untuk unstake",
     P2P_STAKE_LOCKED_DURING_PERIOD: "$P2P Anda terkunci selama periode ini.",
     P2P_STAKE_BOOST_ENDS_ON_UNSTAKE: "Boost berakhir saat Anda melakukan unstake",
@@ -1224,6 +1227,8 @@ export const id = {
     P2P_STAKE_HEADING_HIGHLIGHT: "Batas Pesanan",
     P2P_STAKE_TAGLINE:
       "Semakin banyak $P2P yang Anda stake, semakin besar setiap pesanan.",
+    P2P_STAKE_NO_BALANCE_TITLE: "Tidak ada saldo $P2P",
+    P2P_STAKE_NO_BALANCE_DESCRIPTION: "Swap USDC ke $P2P untuk mulai staking",
     P2P_STAKE_MAX_STAKE_IS: "Stake maksimum adalah {{amount}} $P2P",
     P2P_STAKE_SUCCESS_HEADING: "Berhasil Di-Stake",
     P2P_STAKE_BOOST_ACTIVE: "Boost Anda sekarang aktif.",
