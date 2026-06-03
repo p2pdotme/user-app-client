@@ -785,6 +785,7 @@ export const en = {
     INCOMPATIBLE_WALLET: "Incompatible wallet",
     INCORRECT_ORDER_TYPE: "Incorrect order type",
     INCREASE_LIMIT: "Increase Limit",
+    INCREASE_LIMIT_HEADING: "Unlock Higher Limits with Stake & ZK Verify",
     INCREASE_LIMITS: "Increase Limits",
     INCREASE_LIMITS_DESCRIPTION:
       "Increase your transaction limits by ZK-verifying your socials.",

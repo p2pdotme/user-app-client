@@ -800,6 +800,7 @@ export const pt = {
     INCOMPATIBLE_WALLET: "Carteira incompatível",
     INCORRECT_ORDER_TYPE: "Tipo de pedido incorreto",
     INCREASE_LIMIT: "Aumentar Limite",
+    INCREASE_LIMIT_HEADING: "Desbloqueie Limites Maiores com Stake e ZK Verify",
     INCREASE_LIMITS: "Aumentar Limites",
     INCREASE_LIMITS_DESCRIPTION:
       "Aumente seus limites de transação verificando seus perfis sociais via ZK.",

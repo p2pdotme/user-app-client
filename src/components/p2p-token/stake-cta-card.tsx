@@ -35,7 +35,7 @@ export function StakeCtaCard() {
   };
 
   return (
-    <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-4">
+    <section className="rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 p-4">
       <div className="inline-flex items-center gap-1.5 font-semibold text-[11px] text-primary uppercase tracking-[0.18em]">
         <Zap className="size-3.5" />
         {t("STAKE_CTA_INSTANT")}

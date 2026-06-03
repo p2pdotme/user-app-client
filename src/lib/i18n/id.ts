@@ -799,6 +799,7 @@ export const id = {
     INCOMPATIBLE_WALLET: "Dompet tidak kompatibel",
     INCORRECT_ORDER_TYPE: "Jenis pesanan salah",
     INCREASE_LIMIT: "Tingkatkan Limit",
+    INCREASE_LIMIT_HEADING: "Buka Limit Lebih Tinggi dengan Stake & ZK Verify",
     INCREASE_LIMITS: "Tingkatkan Limits",
     INCREASE_LIMITS_DESCRIPTION:
       "Tingkatkan batas transaksi Anda dengan memverifikasi media sosial melalui ZK.",

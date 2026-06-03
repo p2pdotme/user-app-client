@@ -758,6 +758,7 @@ export const hi = {
     INCOMPATIBLE_WALLET: "असंगत वॉलेट",
     INCORRECT_ORDER_TYPE: "गलत ऑर्डर प्रकार",
     INCREASE_LIMIT: "लिमिट बढ़ाएं",
+    INCREASE_LIMIT_HEADING: "स्टेक और ZK Verify से उच्च लिमिट अनलॉक करें",
     INCREASE_LIMITS: "लिमिट बढ़ाएं",
     INCREASE_LIMITS_DESCRIPTION:
       "अपने सोशल मीडिया अकाउंट्स को ZK-सत्यापित करके अपनी लेन-देन सीमाएं बढ़ाएं।",
