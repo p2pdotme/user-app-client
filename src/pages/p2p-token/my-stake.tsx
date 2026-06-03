@@ -94,7 +94,7 @@ export function P2PMyStake() {
         {isUserStakeLoading ? (
           <Skeleton className="h-72 w-full rounded-2xl" />
         ) : (
-          <section className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-4">
+          <section className="rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 p-4">
             {/* Header: label + status pill */}
             <div className="flex items-center justify-between">
               <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">
