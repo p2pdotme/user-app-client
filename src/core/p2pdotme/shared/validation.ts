@@ -148,6 +148,12 @@ export const ZodPriceConfigParamsSchema = z.object({
 export const ZodProcessingTimeParamsSchema = z.object({});
 export const ZodCashbackConfigParamsSchema = z.object({});
 export const ZodCashbackPercentageParamsSchema = z.object({});
+export const ZodMaxBuyTxLimitParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
+export const ZodMaxSellTxLimitParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
 export type PriceConfigParams = z.infer<typeof ZodPriceConfigParamsSchema>;
 export type ProcessingTimeParams = z.infer<
   typeof ZodProcessingTimeParamsSchema
@@ -158,6 +164,8 @@ export type CashbackConfigParams = z.infer<
 export type CashbackPercentageParams = z.infer<
   typeof ZodCashbackPercentageParamsSchema
 >;
+export type MaxBuyTxLimitParams = z.infer<typeof ZodMaxBuyTxLimitParamsSchema>;
+export type MaxSellTxLimitParams = z.infer<typeof ZodMaxSellTxLimitParamsSchema>;
 
 // PROTOCOL-CONFIG
 export const ZodRewardsConfigParamsSchema = z.object({
