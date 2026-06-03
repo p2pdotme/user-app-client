@@ -1178,9 +1178,12 @@ export const pt = {
     STAKE_STATUS_COOLDOWN: "Resfriamento",
     STAKE_STATUS_SEIZED: "Confiscado",
     MY_STAKE_STAKE_NOW: "Fazer Stake Agora",
+    MY_STAKE_STAKE_TO_INCREASE_LIMIT: "Faça stake para aumentar o limite",
     MY_STAKE_YOUR_ORDER_LIMIT: "Seu Limite de Ordem",
     STAKE_CTA_INSTANT: "Instantâneo",
-    STAKE_CTA_TITLE: "Faça Stake de $P2P, Aumente os Limites",
+    STAKE_CTA_KICKER: "Stake $P2P",
+    STAKE_CTA_TITLE: "Aumente Limites",
+    STAKE_CTA_SUBTITLE: "Até {{amount}} USDC em Compra, Pagamento e Venda",
     STAKE_CTA_DESCRIPTION:
       "Faça stake de tokens $P2P para desbloquear até +{{amount}} USDC de limite por transação em Comprar, Vender e Pagar.",
     STAKE_CTA_BUTTON: "Fazer Stake de $P2P",
@@ -1245,6 +1248,7 @@ export const pt = {
     P2P_STAKE_SUCCESS_HEADING: "Stake Bem-Sucedido",
     P2P_STAKE_BOOST_ACTIVE: "Seu boost agora está ativo.",
     P2P_STAKE_TOTAL_STAKED: "Total em Stake",
+    P2P_TOKEN_TOTAL: "Total",
     P2P_STAKE_YOUR_NEW_LIMITS: "Seus Novos Limites",
     P2P_STAKE_MANAGE_FROM_PREFIX:
       "Você pode aumentar seu stake ou retirá-lo a qualquer momento em",

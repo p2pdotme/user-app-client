@@ -1120,9 +1120,12 @@ export const hi = {
     STAKE_STATUS_COOLDOWN: "कूलडाउन",
     STAKE_STATUS_SEIZED: "जब्त",
     MY_STAKE_STAKE_NOW: "अभी स्टेक करें",
+    MY_STAKE_STAKE_TO_INCREASE_LIMIT: "ऑर्डर सीमा बढ़ाने के लिए स्टेक करें",
     MY_STAKE_YOUR_ORDER_LIMIT: "आपकी ऑर्डर सीमा",
     STAKE_CTA_INSTANT: "तत्काल",
-    STAKE_CTA_TITLE: "$P2P स्टेक करें, सीमा बढ़ाएं",
+    STAKE_CTA_KICKER: "$P2P स्टेक करें",
+    STAKE_CTA_TITLE: "सीमाएं बढ़ाएं",
+    STAKE_CTA_SUBTITLE: "Buy, Pay & Sell पर {{amount}} USDC तक",
     STAKE_CTA_DESCRIPTION:
       "खरीद, बिक्री और भुगतान पर प्रति लेनदेन +{{amount}} USDC तक की सीमा अनलॉक करने के लिए $P2P टोकन स्टेक करें।",
     STAKE_CTA_BUTTON: "$P2P स्टेक करें",
@@ -1186,6 +1189,7 @@ export const hi = {
     P2P_STAKE_SUCCESS_HEADING: "सफलतापूर्वक स्टेक किया गया",
     P2P_STAKE_BOOST_ACTIVE: "आपका बूस्ट अब सक्रिय है।",
     P2P_STAKE_TOTAL_STAKED: "कुल स्टेक",
+    P2P_TOKEN_TOTAL: "कुल",
     P2P_STAKE_YOUR_NEW_LIMITS: "आपकी नई सीमाएं",
     P2P_STAKE_MANAGE_FROM_PREFIX:
       "आप कभी भी अपना स्टेक बढ़ा सकते हैं या अनस्टेक कर सकते हैं — यहां से",

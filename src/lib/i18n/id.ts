@@ -1174,9 +1174,12 @@ export const id = {
     STAKE_STATUS_COOLDOWN: "Cooldown",
     STAKE_STATUS_SEIZED: "Disita",
     MY_STAKE_STAKE_NOW: "Stake Sekarang",
+    MY_STAKE_STAKE_TO_INCREASE_LIMIT: "Stake untuk menambah batas pesanan",
     MY_STAKE_YOUR_ORDER_LIMIT: "Batas Pesanan Anda",
     STAKE_CTA_INSTANT: "Instan",
-    STAKE_CTA_TITLE: "Stake $P2P, Naikkan Batas",
+    STAKE_CTA_KICKER: "Stake $P2P",
+    STAKE_CTA_TITLE: "Naikkan Batas",
+    STAKE_CTA_SUBTITLE: "Hingga {{amount}} USDC pada Buy, Pay & Sell",
     STAKE_CTA_DESCRIPTION:
       "Stake token $P2P untuk membuka hingga +{{amount}} USDC batas per transaksi pada Beli, Jual, dan Bayar.",
     STAKE_CTA_BUTTON: "Stake $P2P",
@@ -1241,6 +1244,7 @@ export const id = {
     P2P_STAKE_SUCCESS_HEADING: "Berhasil Di-Stake",
     P2P_STAKE_BOOST_ACTIVE: "Boost Anda sekarang aktif.",
     P2P_STAKE_TOTAL_STAKED: "Total Di-Stake",
+    P2P_TOKEN_TOTAL: "Total",
     P2P_STAKE_YOUR_NEW_LIMITS: "Batas Baru Anda",
     P2P_STAKE_MANAGE_FROM_PREFIX:
       "Anda dapat menambah atau melakukan unstake kapan saja dari",

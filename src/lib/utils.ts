@@ -22,6 +22,23 @@ export function formatTokenAmount(raw: string | null, decimals = 6): string {
   });
 }
 
+/**
+ * Format a numeric token balance with locale grouping.
+ * Hides decimals when the value is a whole number; otherwise shows up to
+ * `maxDecimals` fractional digits.
+ *
+ * @example
+ * formatTokenBalance(998)        // → "998"
+ * formatTokenBalance(998.5)      // → "998.500"
+ * formatTokenBalance(1234.5678)  // → "1,234.568"
+ */
+export function formatTokenBalance(value: number, maxDecimals = 3): string {
+  return value.toLocaleString(undefined, {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : maxDecimals,
+    maximumFractionDigits: maxDecimals,
+  });
+}
+
 export function formatDateTime(dateStr: string | Date): string {
   const d = new Date(dateStr);
   return (

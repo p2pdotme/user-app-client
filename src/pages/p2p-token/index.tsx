@@ -3,10 +3,13 @@ import {
   ArrowUpDown,
   ArrowUpRight,
   BadgeCheck,
+  ChevronRight,
   Copy,
+  Lock,
   QrCode,
   RefreshCw,
   SendHorizonal,
+  Wallet,
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
@@ -29,8 +32,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useP2PBalance, useP2PTokenInfo, useThirdweb } from "@/hooks";
-import { cn, truncateAddress } from "@/lib/utils";
+import {
+  useP2PBalance,
+  useP2PTokenInfo,
+  useStakeBoostMetrics,
+  useThirdweb,
+  useUserStake,
+} from "@/hooks";
+import { cn, formatTokenBalance, truncateAddress } from "@/lib/utils";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { JUP_URL } from "@/components/tge-countdown-banner";
 
@@ -125,12 +134,95 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
   );
 }
 
+// Compact card showing the user's current $P2P stake. Clicks navigate to /my-stake.
+function StakedSummaryCard({
+  stakedAmount,
+  stakedUsd,
+}: {
+  stakedAmount: number;
+  stakedUsd: number | null;
+}) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <button
+      type="button"
+      onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_MY_STAKE)}
+      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60"
+    >
+      <div className="flex h-4 items-center gap-1.5">
+        <Lock className="size-3 text-primary" />
+        <p className="font-medium text-[10px] text-muted-foreground uppercase tracking-[0.08em]">
+          {t("MY_STAKE_STAKED_LABEL")}
+        </p>
+        <ChevronRight className="ml-auto size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+      </div>
+      <div className="flex items-baseline gap-1">
+        <p className="font-bold text-2xl text-foreground leading-none tabular-nums tracking-wide">
+          {formatTokenBalance(stakedAmount)}
+        </p>
+        <span className="font-semibold text-[11px] text-muted-foreground">
+          P2P
+        </span>
+      </div>
+      <p className="font-medium text-[11px] text-muted-foreground tabular-nums">
+        ≈{" "}
+        <span className="text-foreground">
+          {stakedUsd != null ? stakedUsd.toFixed(3) : "—"}
+        </span>{" "}
+        USDC
+      </p>
+    </button>
+  );
+}
+
+// Empty-state CTA shown in place of the Staked card when the user has no stake.
+// Animated gradient + shimmer + sparkle to invite the user into the staking flow.
+function StakeCtaCard() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { maxBoostUsd } = useStakeBoostMetrics("0");
+  const capLabel =
+    maxBoostUsd > 0
+      ? `${formatTokenBalance(maxBoostUsd, 0)}`
+      : t("STAKE_CTA_INSTANT");
+
+  return (
+    <button
+      type="button"
+      onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_STAKE)}
+      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60"
+    >
+      {/* Kicker row (mirrors Available's label row) */}
+      <div className="flex h-4 items-center gap-1.5">
+        <Lock className="size-3 text-primary" />
+        <p className="font-medium text-[10px] text-primary uppercase tracking-[0.08em]">
+          {t("STAKE_CTA_KICKER")}
+        </p>
+        <ChevronRight className="ml-auto size-3 text-primary transition-transform group-hover:translate-x-0.5" />
+      </div>
+
+      {/* Headline (mirrors Available's big amount) */}
+      <p className="font-bold text-primary text-xl leading-none tracking-wide">
+        {t("STAKE_CTA_TITLE")}
+      </p>
+
+      {/* Subtitle (mirrors Available's USDC line) */}
+      <p className="font-medium text-[11px] text-muted-foreground leading-snug">
+        {t("STAKE_CTA_SUBTITLE", { amount: capLabel })}
+      </p>
+    </button>
+  );
+}
+
 // Hero card displaying $P2P balance, USD value, market price, and 24h change.
 function TokenHoldingInfo() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { p2pBalanceRaw, isP2PBalanceLoading, refetchP2PBalance } =
     useP2PBalance();
   const { tokenInfo, isTokenInfoLoading, refetchTokenInfo } = useP2PTokenInfo();
+  const { userStake } = useUserStake();
   const [spinning, setSpinning] = useState(false);
 
   const price = tokenInfo?.market.usdPrice ?? null;
@@ -140,6 +232,11 @@ function TokenHoldingInfo() {
       ? Number(formatUnits(BigInt(String(p2pBalanceRaw) || 0), 6))
       : 0;
   const balanceUsd = price != null ? balanceNum * price : null;
+  const stakedAmount = userStake
+    ? Number(formatUnits(userStake.stakedAmount, 6))
+    : 0;
+  const stakedUsd = price != null ? stakedAmount * price : null;
+  const totalAmount = balanceNum + stakedAmount;
   const isLoading = isP2PBalanceLoading || isTokenInfoLoading;
 
   const handleRefresh = () => {
@@ -221,34 +318,63 @@ function TokenHoldingInfo() {
       </div>
 
       {/* Primary balance */}
-      <div className="relative flex flex-col gap-1">
-        {isP2PBalanceLoading ? (
-          <Skeleton className="h-10 w-40 bg-primary/20" />
-        ) : (
-          <div className="flex items-baseline gap-2">
-            <p className="font-bold text-4xl text-foreground tabular-nums tracking-tight">
-              {balanceNum.toLocaleString(undefined, {
-                minimumFractionDigits: 3,
-                maximumFractionDigits: 3,
-              })}
-            </p>
-            <span className="font-semibold text-muted-foreground text-sm">
+      <div className="relative flex flex-col gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5">
+          {/* Available */}
+          <div className="flex flex-col gap-1.5 py-3 pr-3">
+            <div className="flex h-4 items-center gap-1.5">
+              <Wallet className="size-3 text-muted-foreground" />
+              <p className="font-medium text-[10px] text-muted-foreground uppercase tracking-[0.08em]">
+                {t("BALANCE")}
+              </p>
+            </div>
+            {isP2PBalanceLoading ? (
+              <Skeleton className="h-7 w-24 bg-primary/20" />
+            ) : (
+              <div className="flex items-baseline gap-1">
+                <p className="font-bold text-[26px] text-foreground leading-none tabular-nums tracking-wide">
+                  {formatTokenBalance(balanceNum)}
+                </p>
+                <span className="font-semibold text-[11px] text-muted-foreground">
+                  P2P
+                </span>
+              </div>
+            )}
+            {isTokenInfoLoading ? (
+              <Skeleton className="h-3.5 w-20 bg-primary/20" />
+            ) : (
+              <p className="font-medium text-[11px] text-muted-foreground tabular-nums">
+                ≈{" "}
+                <span className="text-foreground">
+                  {balanceUsd != null ? balanceUsd.toFixed(3) : "—"}
+                </span>{" "}
+                USDC
+              </p>
+            )}
+          </div>
+
+          {/* Staked */}
+          {stakedAmount > 0 ? (
+            <StakedSummaryCard
+              stakedAmount={stakedAmount}
+              stakedUsd={stakedUsd}
+            />
+          ) : (
+            <StakeCtaCard />
+          )}
+        </div>
+
+        <div className="flex items-center justify-between px-1">
+          <p className="font-medium text-[10px] text-muted-foreground uppercase tracking-[0.18em]">
+            {t("P2P_TOKEN_TOTAL")}
+          </p>
+          <p className="font-semibold text-[13px] text-foreground tabular-nums">
+            {formatTokenBalance(totalAmount)}{" "}
+            <span className="font-medium text-[10px] text-muted-foreground">
               P2P
             </span>
-          </div>
-        )}
-
-        {isTokenInfoLoading ? (
-          <Skeleton className="h-5 w-28 bg-primary/20" />
-        ) : (
-          <p className="font-medium text-muted-foreground text-sm tabular-nums">
-            ≈{" "}
-            <span className="text-foreground">
-              {balanceUsd != null ? balanceUsd.toFixed(3) : "—"}
-            </span>{" "}
-            USDC
           </p>
-        )}
+        </div>
       </div>
 
       {/* Divider */}
