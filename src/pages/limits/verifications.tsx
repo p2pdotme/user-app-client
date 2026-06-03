@@ -40,7 +40,12 @@ import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   Drawer,
@@ -638,7 +643,6 @@ export function Verifications() {
       <h3 className="font-medium text-lg">
         {t("VERIFY_SECURELY")}, {t("INCREASE_LIMITS")}
       </h3>
-      <VerifySocialCta />
       <div className="relative overflow-hidden rounded-lg bg-gradient-to-r from-primary via-primary/90 to-primary p-4 text-white">
         <div className="relative z-10 flex items-center justify-between gap-4">
           <p className="text-base leading-relaxed">
@@ -647,6 +651,7 @@ export function Verifications() {
           <ShieldCheck className="size-12 shrink-0 opacity-80" />
         </div>
       </div>
+      <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
         {SOCIALS.map((social) => (
           <VerificationItem
@@ -701,7 +706,8 @@ export function Verifications() {
                     className="bg-muted text-foreground hover:bg-muted"
                     onClick={() => {
                       toast.success(t("ALREADY_VERIFIED"));
-                    }}>
+                    }}
+                  >
                     <Check className="mr-2 size-4" />
                     {t("VERIFIED")}
                   </Button>
@@ -768,7 +774,8 @@ export function Verifications() {
                   className="bg-muted text-foreground hover:bg-muted"
                   onClick={() => {
                     toast.success(t("ALREADY_VERIFIED"));
-                  }}>
+                  }}
+                >
                   <Check className="mr-2 size-4" />
                   {t("VERIFIED")}
                 </Button>
@@ -776,7 +783,8 @@ export function Verifications() {
                 <Button
                   variant="outline"
                   onClick={handleZkPassportVerification}
-                  disabled={isZkPassportLoading || isZkPassportRegisterPending}>
+                  disabled={isZkPassportLoading || isZkPassportRegisterPending}
+                >
                   {isZkPassportLoading || isZkPassportRegisterPending ? (
                     <>
                       <Loader2 className="mr-2 size-4 animate-spin" />
@@ -812,7 +820,8 @@ export function Verifications() {
           const StatusDisplay = () =>
             zkPassportStatus ? (
               <div
-                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}>
+                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}
+              >
                 <div className="flex items-center gap-2">
                   {isZkPassportLoading && (
                     <Loader2 className="size-4 animate-spin text-primary" />
@@ -831,7 +840,8 @@ export function Verifications() {
                 if (!open) {
                   handleCancel();
                 }
-              }}>
+              }}
+            >
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>
@@ -889,7 +899,8 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                           }
-                          className="w-full">
+                          className="w-full"
+                        >
                           {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                         </Button>
                       )}
@@ -899,7 +910,8 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.ANDROID, "_blank")
                           }
-                          className="w-full">
+                          className="w-full"
+                        >
                           {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                         </Button>
                       )}
@@ -910,7 +922,8 @@ export function Verifications() {
                             onClick={() =>
                               window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                             }
-                            className="w-full">
+                            className="w-full"
+                          >
                             {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                           </Button>
                           <Button
@@ -921,7 +934,8 @@ export function Verifications() {
                                 "_blank",
                               )
                             }
-                            className="w-full">
+                            className="w-full"
+                          >
                             {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                           </Button>
                         </>
@@ -935,7 +949,8 @@ export function Verifications() {
                     <Button
                       variant="outline"
                       onClick={handleCancel}
-                      className="w-full">
+                      className="w-full"
+                    >
                       {t("CANCEL")}
                     </Button>
                   ) : (
@@ -944,7 +959,8 @@ export function Verifications() {
                       <Button
                         onClick={handleZkPassportContinueToVerification}
                         disabled={isZkPassportLoading}
-                        className="w-full">
+                        className="w-full"
+                      >
                         {isZkPassportLoading ? (
                           <>
                             <Loader2 className="mr-2 size-4 animate-spin" />
@@ -959,7 +975,8 @@ export function Verifications() {
                         onClick={() => {
                           setShowZkPassportTutorial(false);
                         }}
-                        className="w-full">
+                        className="w-full"
+                      >
                         {t("CANCEL")}
                       </Button>
                     </>
@@ -1338,7 +1355,8 @@ function VerificationItem({
             if (!open) {
               clearVerification(t("VERIFICATION_CANCELLED"));
             }
-          }}>
+          }}
+        >
           <DrawerContent className="bg-background">
             <DrawerHeader>
               <DrawerTitle>{t("VERIFICATION_IN_PROGRESS")}</DrawerTitle>
@@ -1367,7 +1385,8 @@ function VerificationItem({
                     window.history.replaceState({}, document.title, "/limits");
                   }
                   handleReclaimVerification();
-                }}>
+                }}
+              >
                 {t("RETRY_VERIFICATION")}
               </Button>
               <Button
@@ -1375,7 +1394,8 @@ function VerificationItem({
                   clearVerification(t("VERIFICATION_CANCELLED"));
                 }}
                 size="sm"
-                className="w-full">
+                className="w-full"
+              >
                 {t("CANCEL_VERIFICATION")}
               </Button>
             </DrawerFooter>
@@ -1389,7 +1409,8 @@ function VerificationItem({
             <Button
               variant="ghost"
               className="absolute top-4 right-4"
-              onClick={() => setShowTutorial(false)}>
+              onClick={() => setShowTutorial(false)}
+            >
               ✕
             </Button>
             <h3 className="mb-4 font-bold text-xl">
@@ -1424,7 +1445,8 @@ function VerificationItem({
                       onClick={() =>
                         window.open(RECLAIM_APP_LINKS.ANDROID, "_blank")
                       }
-                      className="w-full max-w-xs">
+                      className="w-full max-w-xs"
+                    >
                       {t("RECLAIM_DOWNLOAD_ANDROID")}
                     </Button>
                   </div>
@@ -1443,7 +1465,8 @@ function VerificationItem({
               <Button
                 onClick={handleContinueToVerification}
                 className="w-full"
-                disabled={isLoading}>
+                disabled={isLoading}
+              >
                 {t("CONTINUE_TO_VERIFICATION")}
               </Button>
             </div>
@@ -1507,7 +1530,8 @@ function VerificationItem({
                 className="bg-muted text-foreground hover:bg-muted"
                 onClick={() => {
                   toast.success(t("ALREADY_VERIFIED"));
-                }}>
+                }}
+              >
                 <Check className="mr-2 size-4" />
                 {t("VERIFIED")}
               </Button>
@@ -1525,7 +1549,8 @@ function VerificationItem({
               <Button
                 variant="outline"
                 onClick={() => handleVerifySocial()}
-                disabled={isLoading}>
+                disabled={isLoading}
+              >
                 {t("GET_VERIFIED")}
               </Button>
             )}
