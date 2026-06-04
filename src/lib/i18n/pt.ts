@@ -1225,6 +1225,9 @@ export const pt = {
     P2P_STAKE_BUY_LIMIT: "Limite de Compra",
     P2P_STAKE_SELL_LIMIT: "Limite de Venda",
     P2P_STAKE_PAY_LIMIT: "Limite de Pagamento",
+    P2P_STAKE_UPDATED_TXN_LIMIT: "Limite de Txn atualizado",
+    P2P_STAKE_BUY_SHORT: "Compra",
+    P2P_STAKE_SELL_PAY_SHORT: "Venda / Pagamento",
     P2P_STAKE_BEFORE_YOU_STAKE: "Antes de Fazer Stake",
     P2P_STAKE_FRAUD_WARNING_TITLE: "Fraude será punida",
     P2P_STAKE_FRAUD_WARNING_DESCRIPTION:

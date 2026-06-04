@@ -1203,6 +1203,9 @@ export const en = {
     P2P_STAKE_BUY_LIMIT: "Buy Limit",
     P2P_STAKE_SELL_LIMIT: "Sell Limit",
     P2P_STAKE_PAY_LIMIT: "Pay Limit",
+    P2P_STAKE_UPDATED_TXN_LIMIT: "Updated Txn limit",
+    P2P_STAKE_BUY_SHORT: "Buy",
+    P2P_STAKE_SELL_PAY_SHORT: "Sell / Pay",
     P2P_STAKE_BEFORE_YOU_STAKE: "Before You Stake",
     P2P_STAKE_FRAUD_WARNING_TITLE: "Fraud will be punished",
     P2P_STAKE_FRAUD_WARNING_DESCRIPTION:

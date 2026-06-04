@@ -1221,6 +1221,9 @@ export const id = {
     P2P_STAKE_BUY_LIMIT: "Batas Beli",
     P2P_STAKE_SELL_LIMIT: "Batas Jual",
     P2P_STAKE_PAY_LIMIT: "Batas Bayar",
+    P2P_STAKE_UPDATED_TXN_LIMIT: "Batas Txn diperbarui",
+    P2P_STAKE_BUY_SHORT: "Beli",
+    P2P_STAKE_SELL_PAY_SHORT: "Jual / Bayar",
     P2P_STAKE_BEFORE_YOU_STAKE: "Sebelum Anda Stake",
     P2P_STAKE_FRAUD_WARNING_TITLE: "Penipuan akan dihukum",
     P2P_STAKE_FRAUD_WARNING_DESCRIPTION:

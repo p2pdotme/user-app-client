@@ -19,6 +19,7 @@ import { NonHomeHeader } from "@/components";
 import {
   NoP2pBalanceCta,
   StakeBoostPreviewCard,
+  UpdatedLimitsSummary,
 } from "@/components/p2p-token/stake-p2p-start";
 import { OrderLimitCard } from "@/components/p2p-token/success-p2p-stake";
 import { Button } from "@/components/ui/button";
@@ -525,7 +526,15 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
             label={t("MY_STAKE_UPDATED_UNLOCK_LIMIT")}
           />
 
-          <div className="mt-6">{hasNoBalance && <NoP2pBalanceCta />}</div>
+          <div className="h-[16px]">
+            <UpdatedLimitsSummary amount={amount} />
+          </div>
+          
+          {hasNoBalance && (
+            <div className="mt-6">
+              <NoP2pBalanceCta />
+            </div>
+          )}
 
           <div className="flex flex-col gap-2">
             <Button

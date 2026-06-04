@@ -1167,6 +1167,9 @@ export const hi = {
     P2P_STAKE_BUY_LIMIT: "खरीद सीमा",
     P2P_STAKE_SELL_LIMIT: "बिक्री सीमा",
     P2P_STAKE_PAY_LIMIT: "भुगतान सीमा",
+    P2P_STAKE_UPDATED_TXN_LIMIT: "अपडेटेड लेनदेन सीमा",
+    P2P_STAKE_BUY_SHORT: "खरीद",
+    P2P_STAKE_SELL_PAY_SHORT: "बिक्री / भुगतान",
     P2P_STAKE_BEFORE_YOU_STAKE: "स्टेक करने से पहले",
     P2P_STAKE_FRAUD_WARNING_TITLE: "धोखाधड़ी पर दंड मिलेगा",
     P2P_STAKE_FRAUD_WARNING_DESCRIPTION:

@@ -4,8 +4,14 @@ import { useNavigate } from "react-router";
 import { formatUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useStakeBoostMetrics, useP2PBalance } from "@/hooks";
-import { useStakeBoostPreview } from "@/hooks";
+import {
+  useMaxBuyTxLimit,
+  useMaxSellTxLimit,
+  useP2PBalance,
+  useStakeBoostMetrics,
+  useStakeBoostPreview,
+  useTxLimits,
+} from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
 
@@ -67,7 +73,9 @@ export function StakeBoostPreviewCard({
             <span className="font-semibold tabular-nums">
               {truncateAmount(usdPerToken ?? 0)}
             </span>
-            <span className="text-muted-foreground">{t("P2P_STAKE_USDC_LIMIT")}</span>
+            <span className="text-muted-foreground">
+              {t("P2P_STAKE_USDC_LIMIT")}
+            </span>
           </span>
         )}
       </div>
@@ -146,6 +154,64 @@ export function StakeBoostPreviewCard({
         </div>
       )}
     </section>
+  );
+}
+interface UpdatedLimitsSummaryProps {
+  /** Human-readable P2P token amount the user intends to stake. */
+  amount: string;
+}
+
+/**
+ * UpdatedLimitsSummary — compact one-line preview of the user's per-tx limits
+ * after applying the stake boost. Surfaces only when the user has entered a
+ * non-zero stake.
+ *
+ * Pay shares the same on-chain limit as Sell.
+ */
+export function UpdatedLimitsSummary({ amount }: UpdatedLimitsSummaryProps) {
+  const { t } = useTranslation();
+  const { buyLimitBoost, sellLimitBoost, stakeBoostConfig } =
+    useStakeBoostPreview(amount);
+  const { txLimit } = useTxLimits();
+  const { maxBuyTxLimit } = useMaxBuyTxLimit();
+  const { maxSellTxLimit } = useMaxSellTxLimit();
+
+  if (!stakeBoostConfig) return null;
+  if (Number(amount) <= 0) return null;
+
+  const currentBuy = txLimit?.buyLimit ?? 0;
+  const currentSellPay = txLimit?.sellLimit ?? 0;
+  const maxBuyUsd =
+    maxBuyTxLimit !== undefined
+      ? Number(formatUnits(maxBuyTxLimit as bigint, 6))
+      : null;
+  const maxSellUsd =
+    maxSellTxLimit !== undefined
+      ? Number(formatUnits(maxSellTxLimit as bigint, 6))
+      : null;
+
+  const newBuy =
+    maxBuyUsd !== null
+      ? Math.min(currentBuy + (buyLimitBoost ?? 0), maxBuyUsd)
+      : currentBuy + (buyLimitBoost ?? 0);
+  const newSellPay =
+    maxSellUsd !== null
+      ? Math.min(currentSellPay + (sellLimitBoost ?? 0), maxSellUsd)
+      : currentSellPay + (sellLimitBoost ?? 0);
+
+  return (
+    <p className="text-center text-muted-foreground text-xs">
+      {t("P2P_STAKE_UPDATED_TXN_LIMIT")}{" "}
+      <span className="font-semibold text-foreground tabular-nums">
+        {t("P2P_STAKE_BUY_SHORT")} {truncateAmount(newBuy)}
+      </span>
+      <span className="ml-1 text-[10px]">USDC</span>
+      <span className="mx-1.5 text-muted-foreground/60">·</span>
+      <span className="font-semibold text-foreground tabular-nums">
+        {t("P2P_STAKE_SELL_PAY_SHORT")} {truncateAmount(newSellPay)}
+      </span>
+      <span className="ml-1 text-[10px]">USDC</span>
+    </p>
   );
 }
 
@@ -301,13 +367,16 @@ export function StakeP2pStart({
 
       {hasNoBalance && <NoP2pBalanceCta />}
 
-      <Button
-        disabled={!isValid}
-        onClick={onContinue}
-        className={`w-full rounded-2xl py-6 text-base font-semibold ${hasNoBalance ? "" : "mt-auto"}`}
-      >
-        {t("CONTINUE")}
-      </Button>
+      <div className={`flex flex-col gap-3 ${hasNoBalance ? "" : "mt-auto"}`}>
+        <UpdatedLimitsSummary amount={amount} />
+        <Button
+          disabled={!isValid}
+          onClick={onContinue}
+          className="w-full rounded-2xl py-6 text-base font-semibold"
+        >
+          {t("CONTINUE")}
+        </Button>
+      </div>
     </main>
   );
 }
