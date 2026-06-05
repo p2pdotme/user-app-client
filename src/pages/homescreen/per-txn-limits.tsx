@@ -37,7 +37,7 @@ export function PerTxnLimit() {
               {t("BUY")}
             </p>
             <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-              {isTxLimitError ? "--" : `$${truncateAmount(buyLimit, 0)}`}
+              {isTxLimitError ? "--" : `$${truncateAmount(buyLimit, 1)}`}
             </p>
           </div>
         </div>
@@ -50,7 +50,7 @@ export function PerTxnLimit() {
               {t("SELL")}/{t("PAY")}
             </p>
             <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-              {isTxLimitError ? "--" : `$${truncateAmount(sellLimit, 0)}`}
+              {isTxLimitError ? "--" : `$${truncateAmount(sellLimit, 1)}`}
             </p>
           </div>
         </div>

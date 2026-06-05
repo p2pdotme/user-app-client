@@ -1,6 +1,8 @@
 import {
   prepareGetCashbackConfigArgs,
   prepareGetCashbackPercentageArgs,
+  prepareGetMaxBuyTxLimitArgs,
+  prepareGetMaxSellTxLimitArgs,
   prepareGetPriceConfigArgs,
   prepareGetProcessingTimeArgs,
 } from "@p2pdotme";
@@ -104,3 +106,51 @@ export const getCashbackPercentage = () => {
       ),
   );
 };
+
+export function getMaxBuyTxLimit(currency: string) {
+  return prepareGetMaxBuyTxLimitArgs({ currency }).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read max buy tx limit from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { currency, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getMaxSellTxLimit(currency: string) {
+  return prepareGetMaxSellTxLimitArgs({ currency }).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read max sell tx limit from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { currency, to, args },
+            },
+          ),
+      ),
+  );
+}

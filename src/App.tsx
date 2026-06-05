@@ -113,6 +113,7 @@ function App() {
               subgraphUrl={import.meta.env.VITE_SUBGRAPH_URL}
               diamondAddress={CONTRACT_ADDRESSES.DIAMOND}
               usdcAddress={CONTRACT_ADDRESSES.USDC}
+              p2pTokenAddress={CONTRACT_ADDRESSES.P2P_TOKEN}
               orders={{
                 relayIdentityStore: createLocalStorageRelayStore({
                   key: STORAGE_KEYS.RELAY_IDENTITY,
