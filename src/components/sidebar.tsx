@@ -34,6 +34,7 @@ import { useDomainReachability } from "@/contexts/domain-reachability";
 import { thirdwebClient } from "@/core/adapters/thirdweb";
 import { useP2PBalance, useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
+import { formatTokenBalance } from "@/lib/utils";
 import { SocialLinks } from "./social-links";
 import { TextLogo } from "./text-logo";
 import { VersionBadge } from "./version-badge";
@@ -43,9 +44,11 @@ const P2PTokenButton = () => {
   const navigate = useNavigate();
   const { p2pBalanceRaw } = useP2PBalance();
   const balance =
-    p2pBalanceRaw != null
-      ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6)).toFixed(3)
-      : "0";
+    p2pBalanceRaw == null
+      ? "0"
+      : formatTokenBalance(
+          Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6)),
+        );
 
   return (
     <SheetClose asChild>

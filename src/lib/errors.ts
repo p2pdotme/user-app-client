@@ -208,6 +208,19 @@ export const contractErrors = {
     "MERCHANT_NOT_FULFILLED_ELIGIBILITY_THRESHOLD",
   ZkVerificationRequired: "ZK_VERIFICATION_REQUIRED",
   MonthlyClaimLimitReached: "MONTHLY_CLAIM_LIMIT_REACHED",
+  StakeAmountZero: "STAKE_AMOUNT_ZERO",
+  StakeExceedsMaxTokens: "STAKE_EXCEEDS_MAX_TOKENS",
+  StakeAlreadyActive: "STAKE_ALREADY_ACTIVE",
+  StakeNotActive: "STAKE_NOT_ACTIVE",
+  StakeNotInCooldown: "STAKE_NOT_IN_COOLDOWN",
+  StakeSeized: "STAKE_SEIZED",
+  UnstakeCooldownActive: "UNSTAKE_COOLDOWN_ACTIVE",
+  NoStakeToClaim: "NO_STAKE_TO_CLAIM",
+  StakeCooldownAlreadyExtended: "STAKE_COOLDOWN_ALREADY_EXTENDED",
+  P2PStakeTokenNotSet: "P2P_STAKE_TOKEN_NOT_SET",
+  P2PStakeTokenAlreadySet: "P2P_STAKE_TOKEN_ALREADY_SET",
+  UserNotBlacklistedForExtension: "USER_NOT_BLACKLISTED_FOR_EXTENSION",
+  InvalidBoostConfig: "INVALID_BOOST_CONFIG",
 };
 
 export const errorMessages = {
@@ -413,6 +426,19 @@ export const hexContractErrors = {
   "0x70d753bd": contractErrors.MerchantNotFulfilledEligibilityThreshold,
   "0x65f577de": contractErrors.ZkVerificationRequired,
   "0x6500fe81": contractErrors.MonthlyClaimLimitReached,
+  "0xc4bef9f7": contractErrors.StakeAmountZero,
+  "0xc142eb7d": contractErrors.StakeExceedsMaxTokens,
+  "0x7cac15fa": contractErrors.StakeAlreadyActive,
+  "0xb0dd466e": contractErrors.StakeNotActive,
+  "0xf90f39ad": contractErrors.StakeNotInCooldown,
+  "0xf7f284b0": contractErrors.StakeSeized,
+  "0xbf10dfb4": contractErrors.UnstakeCooldownActive,
+  "0x7aabac6c": contractErrors.NoStakeToClaim,
+  "0xbe6a1e57": contractErrors.StakeCooldownAlreadyExtended,
+  "0xdcbd1131": contractErrors.P2PStakeTokenNotSet,
+  "0xe018b17c": contractErrors.P2PStakeTokenAlreadySet,
+  "0x709a7dcd": contractErrors.UserNotBlacklistedForExtension,
+  "0xec98d463": contractErrors.InvalidBoostConfig,
 };
 
 export function parseContractError(error: unknown) {
