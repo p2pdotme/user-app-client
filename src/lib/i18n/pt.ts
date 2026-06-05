@@ -1250,6 +1250,7 @@ export const pt = {
     P2P_STAKE_NO_BALANCE_TITLE: "Sem saldo de $P2P",
     P2P_STAKE_NO_BALANCE_DESCRIPTION: "Troque USDC por $P2P para começar a stakar",
     P2P_STAKE_MAX_STAKE_IS: "Stake máximo é {{amount}} $P2P",
+    P2P_STAKE_LOW_BALANCE: "Você tem saldo baixo de $P2P",
     P2P_STAKE_SUCCESS_HEADING: "Stake Bem-Sucedido",
     P2P_STAKE_BOOST_ACTIVE: "Seu boost agora está ativo.",
     P2P_STAKE_TOTAL_STAKED: "Total em Stake",
