@@ -114,6 +114,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "limits-5", // How do I verify my social accounts with zk proofs to increase my limits?
       "limits-6", // How do I complete Aadhaar verification?
       "limits-7", // Why am I seeing "Didn't meet eligible criteria" at the end of verification?
+      "limits-8", // What will happen if I'm found doing fraudulent activity?
     ],
   },
   [SUPPORT_PAGE_TITLES.REFER_AND_EARN]: {
@@ -194,6 +195,7 @@ export const FAQ_ON_PAGES = {
       "limits-1", // What are the default limits?
       "limits-3", // Are buy and sell limits tracked separately?
       "limits-4", // Can I lose my increased limits?
+      "limits-8", // What will happen if I'm found doing fraudulent activity?
     ],
   },
 
@@ -518,6 +520,11 @@ export const ALL_FAQS: FAQ[] = [
     id: "limits-7",
     questionKey: "FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA",
     answerKey: "FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER",
+  },
+  {
+    id: "limits-8",
+    questionKey: "FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY",
+    answerKey: "FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER",
   },
   {
     id: "deposits-withdrawals-1",
