@@ -218,7 +218,6 @@ function StakeCtaCard() {
 // Hero card displaying $P2P balance, USD value, market price, and 24h change.
 function TokenHoldingInfo() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { p2pBalanceRaw, isP2PBalanceLoading, refetchP2PBalance } =
     useP2PBalance();
   const { tokenInfo, isTokenInfoLoading, refetchTokenInfo } = useP2PTokenInfo();
