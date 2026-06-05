@@ -30,3 +30,30 @@ export function prepareP2PTokenTransferTx(params: {
       }),
   )();
 }
+
+export function prepareP2PTokenApproveTx(params: {
+  spender: Address;
+  amount: bigint;
+}): Result<{ to: Address; data: Hex }, P2PError> {
+  return Result.fromThrowable(
+    () => ({
+      to: CONTRACT_ADDRESSES.P2P_TOKEN,
+      data: encodeFunctionData({
+        abi: ABIS.EXTERNAL.USDC, // erc20Abi — same for any ERC20
+        functionName: "approve",
+        args: [params.spender, params.amount],
+      }),
+    }),
+    (error) =>
+      createP2PError("Failed to prepare P2P token approve transaction", {
+        domain: "p2p-token",
+        code: "P2PPrepareFunctionCallError",
+        cause: error,
+        context: {
+          operation: "prepareP2PTokenApproveTx",
+          timestamp: Math.floor(Date.now() / 1000),
+          params: { spender: params.spender, amount: params.amount.toString() },
+        },
+      }),
+  )();
+}

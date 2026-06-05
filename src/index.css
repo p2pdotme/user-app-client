@@ -81,6 +81,16 @@
       transform: scale(1.5);
     }
   }
+
+  --animate-shimmer: shimmer 2.8s ease-in-out infinite;
+  @keyframes shimmer {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(400%);
+    }
+  }
 }
 
 /* 
