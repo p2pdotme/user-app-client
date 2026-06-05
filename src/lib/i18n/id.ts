@@ -1246,6 +1246,7 @@ export const id = {
     P2P_STAKE_NO_BALANCE_TITLE: "Tidak ada saldo $P2P",
     P2P_STAKE_NO_BALANCE_DESCRIPTION: "Swap USDC ke $P2P untuk mulai staking",
     P2P_STAKE_MAX_STAKE_IS: "Stake maksimum adalah {{amount}} $P2P",
+    P2P_STAKE_LOW_BALANCE: "Saldo $P2P Anda rendah",
     P2P_STAKE_SUCCESS_HEADING: "Berhasil Di-Stake",
     P2P_STAKE_BOOST_ACTIVE: "Boost Anda sekarang aktif.",
     P2P_STAKE_TOTAL_STAKED: "Total Di-Stake",

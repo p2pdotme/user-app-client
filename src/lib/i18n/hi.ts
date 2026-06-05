@@ -1191,6 +1191,7 @@ export const hi = {
     P2P_STAKE_NO_BALANCE_TITLE: "कोई $P2P बैलेंस नहीं",
     P2P_STAKE_NO_BALANCE_DESCRIPTION: "स्टेकिंग शुरू करने के लिए USDC को $P2P में स्वैप करें",
     P2P_STAKE_MAX_STAKE_IS: "अधिकतम स्टेक {{amount}} $P2P है",
+    P2P_STAKE_LOW_BALANCE: "आपके पास कम $P2P बैलेंस है",
     P2P_STAKE_SUCCESS_HEADING: "सफलतापूर्वक स्टेक किया गया",
     P2P_STAKE_BOOST_ACTIVE: "आपका बूस्ट अब सक्रिय है।",
     P2P_STAKE_TOTAL_STAKED: "कुल स्टेक",
