@@ -1225,6 +1225,7 @@ export const en = {
     P2P_STAKE_NO_BALANCE_TITLE: "No $P2P Balance",
     P2P_STAKE_NO_BALANCE_DESCRIPTION: "Swap USDC to $P2P to start staking",
     P2P_STAKE_MAX_STAKE_IS: "Max stake is {{amount}} $P2P",
+    P2P_STAKE_LOW_BALANCE: "You have low $P2P balance",
     P2P_STAKE_SUCCESS_HEADING: "Staked Successfully",
     P2P_STAKE_BOOST_ACTIVE: "Your boost is now active.",
     P2P_STAKE_TOTAL_STAKED: "Total Staked",
