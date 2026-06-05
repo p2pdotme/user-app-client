@@ -8,12 +8,14 @@ interface NonHomeHeaderProps {
   title: string;
   showHelp?: boolean;
   onHelpClick?: () => void;
+  onBack?: () => void;
 }
 
 export function NonHomeHeader({
   title,
   showHelp = true,
   onHelpClick,
+  onBack,
 }: NonHomeHeaderProps) {
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ export function NonHomeHeader({
       <div className="flex w-full max-w-xl items-center justify-between gap-2">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <Button
-            onClick={() => safeNavigateBack(navigate)}
+            onClick={() => (onBack ? onBack() : safeNavigateBack(navigate))}
             variant="ghost"
             size="icon"
             className="flex h-8 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded-lg border border-border p-2 transition-colors hover:bg-muted"

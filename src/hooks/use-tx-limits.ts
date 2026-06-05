@@ -10,6 +10,10 @@ import { formatUnits } from "viem";
 import { useSettings } from "@/contexts";
 import { getSocialVerified, getUser } from "@/core/adapters/thirdweb";
 import {
+  getMaxBuyTxLimit,
+  getMaxSellTxLimit,
+} from "@/core/adapters/thirdweb/actions/p2p-config";
+import {
   getAadhaarRp,
   getFacebookRp,
   getGitHubRp,
@@ -679,5 +683,73 @@ export function useUserRp() {
     isUserRpLoading,
     isUserRpError,
     userRpError,
+  };
+}
+
+export function useMaxBuyTxLimit() {
+  const {
+    settings: { currency },
+  } = useSettings();
+
+  const {
+    data: maxBuyTxLimit,
+    isLoading: isMaxBuyTxLimitLoading,
+    isError: isMaxBuyTxLimitError,
+    error: maxBuyTxLimitError,
+  } = useQuery({
+    queryKey: ["max-buy-tx-limit", currency.currency],
+    queryFn: async () => {
+      return getMaxBuyTxLimit(currency.currency).match(
+        (value) => value,
+        (error) => {
+          console.error(
+            "[useMaxBuyTxLimit] Error fetching max buy tx limit",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+  });
+
+  return {
+    maxBuyTxLimit,
+    isMaxBuyTxLimitLoading,
+    isMaxBuyTxLimitError,
+    maxBuyTxLimitError,
+  };
+}
+
+export function useMaxSellTxLimit() {
+  const {
+    settings: { currency },
+  } = useSettings();
+
+  const {
+    data: maxSellTxLimit,
+    isLoading: isMaxSellTxLimitLoading,
+    isError: isMaxSellTxLimitError,
+    error: maxSellTxLimitError,
+  } = useQuery({
+    queryKey: ["max-sell-tx-limit", currency.currency],
+    queryFn: async () => {
+      return getMaxSellTxLimit(currency.currency).match(
+        (value) => value,
+        (error) => {
+          console.error(
+            "[useMaxSellTxLimit] Error fetching max sell tx limit",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+  });
+
+  return {
+    maxSellTxLimit,
+    isMaxSellTxLimitLoading,
+    isMaxSellTxLimitError,
+    maxSellTxLimitError,
   };
 }

@@ -20,7 +20,6 @@ import { transferP2PToken } from "@/core/adapters/thirdweb/actions/p2p-token";
 import { useP2PBalance, useSounds, useThirdweb } from "@/hooks";
 import { cn, truncateAmount } from "@/lib/utils";
 
-const P2P_DECIMALS = 6;
 
 export function SendP2PDrawer({
   children,
@@ -42,7 +41,7 @@ export function SendP2PDrawer({
 
   const balance =
     p2pBalanceRaw != null
-      ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), P2P_DECIMALS))
+      ? Number(formatUnits(BigInt(String(p2pBalanceRaw)), 6))
       : 0;
 
   const isValidAddress = useMemo(() => {
@@ -78,7 +77,7 @@ export function SendP2PDrawer({
     setIsLoading(true);
     try {
       const result = await transferP2PToken(
-        { address: address as Address, amount: parseUnits(amount, P2P_DECIMALS) },
+        { address: address as Address, amount: parseUnits(amount, 6) },
         account,
       );
 

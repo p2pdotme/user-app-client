@@ -6,6 +6,8 @@ import {
   validate,
   ZodCashbackConfigParamsSchema,
   ZodCashbackPercentageParamsSchema,
+  ZodMaxBuyTxLimitParamsSchema,
+  ZodMaxSellTxLimitParamsSchema,
   ZodPriceConfigParamsSchema,
   ZodProcessingTimeParamsSchema,
 } from "../../shared";
@@ -79,4 +81,42 @@ export function prepareGetCashbackPercentageArgs(): Result<
     functionName: "getCashbackPercentage" as const,
     args: [],
   }));
+}
+
+export function prepareGetMaxBuyTxLimitArgs(params: unknown): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getMaxBuyTxLimit";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodMaxBuyTxLimitParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getMaxBuyTxLimit" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
+}
+
+export function prepareGetMaxSellTxLimitArgs(params: unknown): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getMaxSellTxLimit";
+    args: [Hex];
+  },
+  P2PError
+> {
+  return validate(ZodMaxSellTxLimitParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getMaxSellTxLimit" as const,
+      args: [stringToHex(validatedParams.currency, { size: 32 })],
+    }),
+  );
 }

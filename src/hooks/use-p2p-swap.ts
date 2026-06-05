@@ -1,7 +1,8 @@
+import { useStake } from "@p2pdotme/sdk/react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import type { Address } from "thirdweb";
-import { erc20Abi, parseUnits, formatUnits } from "viem";
+import { parseUnits, formatUnits } from "viem";
 import {
   fetchQuoteUsdcToP2P,
   fetchQuoteP2PToUsdc,
@@ -12,25 +13,19 @@ import {
   initiateP2PToUsdcSwap,
 } from "@/core/p2p-swap";
 import type { SwapDirection, SwapRecord } from "@/core/p2p-swap";
-import {
-  transferUSDC,
-  transferP2PToken,
-  viemPublicClient,
-} from "@/core/adapters/thirdweb";
+import { transferUSDC, transferP2PToken } from "@/core/adapters/thirdweb";
 import { truncateAmount } from "@/lib/utils";
 import { useThirdweb } from "./use-thirdweb";
 
 const USDC_DECIMALS = 6;
 const P2P_DECIMALS = 6;
 
-const P2P_TOKEN_ADDRESS =
-  "0x75a8FF75a4f224947A6315b8dab5D5a81FE2f550" as Address;
-
 // ─── Balance ──────────────────────────────────────────────────────────────────
 
 export function useP2PBalance() {
   const { account } = useThirdweb();
   const queryClient = useQueryClient();
+  const stake = useStake();
 
   const userAddress = account?.address as Address | undefined;
 
@@ -40,21 +35,19 @@ export function useP2PBalance() {
     staleTime: 10_000,
     refetchInterval: 30_000,
     queryFn: async () => {
-      const [balance, decimals] = await Promise.all([
-        viemPublicClient.readContract({
-          address: P2P_TOKEN_ADDRESS,
-          abi: erc20Abi,
-          functionName: "balanceOf",
-          args: [userAddress as Address],
-        }),
-        viemPublicClient.readContract({
-          address: P2P_TOKEN_ADDRESS,
-          abi: erc20Abi,
-          functionName: "decimals",
-        }),
-      ]);
+      if (!userAddress) throw new Error("WALLET_NOT_CONNECTED");
 
-      return { raw: balance, decimals };
+      const balance = await stake
+        .getP2pTokenBalance({ address: userAddress })
+        .match(
+          (value) => value,
+          (error) => {
+            console.error("[useP2PBalance] getP2pTokenBalance error", error);
+            throw error;
+          },
+        );
+
+      return { raw: balance, decimals: P2P_DECIMALS };
     },
   });
 
