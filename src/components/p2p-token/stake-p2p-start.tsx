@@ -270,7 +270,7 @@ export function StakeP2pStart({
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
 
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
-  const hasNoBalance = !isP2PBalanceLoading && p2pBalance === 0;
+  const hasNoBalance = !isP2PBalanceLoading && p2pBalance < 1;
   const parsedAmount = Number(amount);
 
   const { maxStakeForCap } = useStakeBoostMetrics(amount);
@@ -359,6 +359,11 @@ export function StakeP2pStart({
             {t("P2P_STAKE_MAX_STAKE_IS", {
               amount: truncateAmount(maxStakeForCap),
             })}
+          </p>
+        )}
+        {hasNoBalance && parsedAmount > 0 && (
+          <p className="mt-2 text-destructive text-xs">
+            {t("P2P_STAKE_LOW_BALANCE")}
           </p>
         )}
       </section>
