@@ -148,6 +148,12 @@ export const ZodPriceConfigParamsSchema = z.object({
 export const ZodProcessingTimeParamsSchema = z.object({});
 export const ZodCashbackConfigParamsSchema = z.object({});
 export const ZodCashbackPercentageParamsSchema = z.object({});
+export const ZodMaxBuyTxLimitParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
+export const ZodMaxSellTxLimitParamsSchema = z.object({
+  currency: ZodCurrencySchema,
+});
 export type PriceConfigParams = z.infer<typeof ZodPriceConfigParamsSchema>;
 export type ProcessingTimeParams = z.infer<
   typeof ZodProcessingTimeParamsSchema
@@ -158,6 +164,8 @@ export type CashbackConfigParams = z.infer<
 export type CashbackPercentageParams = z.infer<
   typeof ZodCashbackPercentageParamsSchema
 >;
+export type MaxBuyTxLimitParams = z.infer<typeof ZodMaxBuyTxLimitParamsSchema>;
+export type MaxSellTxLimitParams = z.infer<typeof ZodMaxSellTxLimitParamsSchema>;
 
 // PROTOCOL-CONFIG
 export const ZodRewardsConfigParamsSchema = z.object({
@@ -1020,6 +1028,48 @@ export type SubgraphOrdersCollection = z.infer<
   typeof ZodOrdersCollectionSchema
 >;
 
+// USER P2P STAKE ACTIVITIES (subgraph)
+export const ZodUserP2PStakeActivitiesQueryParamsSchema = z.object({
+  userAddress: z.string().refine((v) => /^0x[a-fA-F0-9]{40}$/.test(v), {
+    error: "userAddress must be a 0x-prefixed 20-byte hex string",
+  }),
+  first: z.number().int().min(1).max(1000).optional().default(100),
+  skip: z.number().int().min(0).optional().default(0),
+});
+export type UserP2PStakeActivitiesQueryParams = z.infer<
+  typeof ZodUserP2PStakeActivitiesQueryParamsSchema
+>;
+
+export const ZodUserP2PStakeActivitySchema = z.object({
+  id: z.string(),
+  activityType: z.enum([
+    "STAKED",
+    "TOPPED_UP",
+    "UNSTAKE_REQUESTED",
+    "UNSTAKE_CLAIMED",
+    "COOLDOWN_EXTENDED",
+    "SEIZED",
+  ]),
+  amount: z.string(),
+  newTotal: z.string(),
+  cooldownEnd: z.string(),
+  fraudReserve: z.string().nullable().optional(),
+  stakedAmountAfter: z.string(),
+  statusAfter: z.string(),
+  timestamp: z.string(),
+  transactionHash: z.string(),
+});
+export type UserP2PStakeActivity = z.infer<
+  typeof ZodUserP2PStakeActivitySchema
+>;
+
+export const ZodUserP2PStakeActivitiesResponseSchema = z.object({
+  userP2PStakeActivities: z.array(ZodUserP2PStakeActivitySchema),
+});
+export type UserP2PStakeActivitiesResponse = z.infer<
+  typeof ZodUserP2PStakeActivitiesResponseSchema
+>;
+
 // Add and export ReferralUrlParamsSchema, VoteSchema, and RewardSchema
 export const ReferralUrlParamsSchema = z.object({
   address: z.string().min(1, "Address is required"),
@@ -1042,3 +1092,4 @@ export const ZodGetRecommenderRewardPercentageByCurrencyParamsSchema = z.object(
 export type GetRecommenderRewardPercentageByCurrencyParams = z.infer<
   typeof ZodGetRecommenderRewardPercentageByCurrencyParamsSchema
 >;
+

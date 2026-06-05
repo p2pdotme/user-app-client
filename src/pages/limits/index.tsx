@@ -1,3 +1,4 @@
+import { TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
@@ -7,10 +8,10 @@ import {
   SectionHeader,
   TaskLedger,
 } from "@/components";
+import { StakeCtaCard } from "@/components/p2p-token/stake-cta-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useSettings } from "@/contexts";
 import {
   useClaimCampaignUsdc,
   useHasUnclaimedCampaignRewards,
@@ -123,8 +124,6 @@ export function Limits() {
     !!isFacebookVerified ||
     !!isZkPassportVerified;
 
-  const { settings } = useSettings();
-
   // Campaign USDC claim hook
   const { claimCampaignUsdcReward, claimCampaignUsdcMutation } =
     useClaimCampaignUsdc();
@@ -154,7 +153,7 @@ export function Limits() {
                 <div>
                   <p className="font-medium text-sm">{t("BUY")}</p>
                   <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-                    ${truncateAmount(txLimit?.buyLimit ?? 0, 0)}{" "}
+                    ${truncateAmount(txLimit?.buyLimit ?? 0, 1)}{" "}
                   </p>
                 </div>
               </div>
@@ -167,12 +166,23 @@ export function Limits() {
                     {t("SELL")}/{t("PAY")}
                   </p>
                   <p className="bg-linear-to-b from-primary to-primary/50 bg-clip-text font-bold text-3xl text-transparent">
-                    ${truncateAmount(txLimit?.sellLimit ?? 0, 0)}
+                    ${truncateAmount(txLimit?.sellLimit ?? 0, 1)}
                   </p>
                 </div>
               </div>
             </CardContent>
           </Card>
+        </section>
+        <section className="flex w-full flex-col gap-3 pb-2">
+          <div className="flex items-center justify-start gap-2.5 mb-2">
+            <div className="flex size-7 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/20">
+              <TrendingUp className="size-4 text-primary" />
+            </div>
+            <h3 className="font-medium text-foreground text-md leading-tight tracking-tight">
+              {t("INCREASE_LIMIT_HEADING")}
+            </h3>
+          </div>
+          <StakeCtaCard />
         </section>
         {hasUnclaimedRewards && formattedReward > 0 && (
           <section className="flex w-full flex-col gap-4 py-2">
@@ -197,7 +207,8 @@ export function Limits() {
                     claimCampaignUsdcMutation.isPending ||
                     isCampaignRewardLoading
                   }
-                  onClick={claimCampaignUsdcReward}>
+                  onClick={claimCampaignUsdcReward}
+                >
                   {claimCampaignUsdcMutation.isPending
                     ? t("CLAIMING")
                     : t("CLAIM_REWARD")}
@@ -207,37 +218,6 @@ export function Limits() {
           </section>
         )}
 
-        {!isAnySocialVerified && (
-          <section className="flex w-full flex-col gap-4 py-2">
-            <Card className="w-full border-none bg-primary/10 shadow-none">
-              <CardHeader>
-                <p className="font-medium">
-                  {t("VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT")}
-                </p>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <p className="font-light text-sm">
-                  {settings.currency.country === "India"
-                    ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
-                    : t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
-                </p>
-                <p className="mt-4 mb-2 font-light text-xs">
-                  {t("VERIFIED_SOCIALS_TO_UNLOCK")}
-                </p>
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-primary px-4 py-0.5 font-medium text-white text-xs">
-                    0/1
-                  </span>
-                  <Progress
-                    value={0}
-                    className="h-4 flex-1 bg-white"
-                    style={{ backgroundColor: "#fff" }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-        )}
         {isAnySocialVerified && (
           <section className="flex w-full flex-col gap-4 py-2">
             <div className="flex w-full flex-row items-center justify-between rounded-xl border-none bg-primary/10 p-4 shadow-none">
@@ -312,7 +292,7 @@ export function Limits() {
         </section>
         <section className="flex w-full flex-col justify-between gap-4 py-2">
           <SectionHeader title={t("FAQS")} seeAllLink={INTERNAL_HREFS.HELP} />
-          <FAQAccordion faqs={getPageFAQs("LIMITS_PAGE")} />
+          <FAQAccordion faqs={getPageFAQs("LIMITS_PAGE")} slice={4} />
         </section>
       </main>
     </>

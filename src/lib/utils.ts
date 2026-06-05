@@ -22,6 +22,23 @@ export function formatTokenAmount(raw: string | null, decimals = 6): string {
   });
 }
 
+/**
+ * Format a numeric token balance with locale grouping.
+ * Hides decimals when the value is a whole number; otherwise shows up to
+ * `maxDecimals` fractional digits.
+ *
+ * @example
+ * formatTokenBalance(998)        // → "998"
+ * formatTokenBalance(998.5)      // → "998.500"
+ * formatTokenBalance(1234.5678)  // → "1,234.568"
+ */
+export function formatTokenBalance(value: number, maxDecimals = 3): string {
+  return value.toLocaleString(undefined, {
+    minimumFractionDigits: Number.isInteger(value) ? 0 : maxDecimals,
+    maximumFractionDigits: maxDecimals,
+  });
+}
+
 export function formatDateTime(dateStr: string | Date): string {
   const d = new Date(dateStr);
   return (
@@ -77,8 +94,10 @@ export const truncateAmount = (
     );
   }
 
-  // If the value is less than 1, format using significant digits with truncation
-  if (numberAmount < 1 && numberAmount > 0) {
+  // If the value is less than 1, format using significant digits with truncation.
+  // Intl.NumberFormat requires maximumSignificantDigits >= 1, so fall through to
+  // the decimal-truncation branch when precision is 0 (which correctly yields 0).
+  if (numberAmount < 1 && numberAmount > 0 && precision >= 1) {
     // Intl.NumberFormat with significant digits handles truncation correctly for small numbers
     return Number(
       new Intl.NumberFormat("en-US", {
@@ -152,6 +171,53 @@ export const roundAmount = (amount: string | number) => {
  * truncate6(0.123456789) // → 0.123456
  */
 export const truncate6 = (n: number) => Math.trunc(n * 1e6) / 1e6;
+
+/**
+ * Converts a duration in seconds to whole days, rounded.
+ *
+ * @param seconds - Duration in seconds (e.g. on-chain cooldown).
+ * @returns Number of days, or `null` if `seconds` is falsy/invalid.
+ *
+ * @example
+ * secondsToDays(1_296_000) // → 15
+ * secondsToDays(86_400)    // → 1
+ * secondsToDays(0)         // → null
+ */
+export const secondsToDays = (
+  seconds: number | null | undefined,
+): number | null => {
+  if (!seconds || !Number.isFinite(seconds)) return null;
+  return Math.round(seconds / 86_400);
+};
+
+type DurationTranslator = (
+  key: string,
+  options?: Record<string, unknown>,
+) => string;
+
+/**
+ * Formats a duration in seconds as a short human-readable, localized string.
+ * Returns hours when the duration is less than a day, days otherwise.
+ *
+ * Translation keys used:
+ *  - `DURATION_HOUR`  / `DURATION_HOURS` with `{{count}}`
+ *  - `DURATION_DAY`   / `DURATION_DAYS`  with `{{count}}`
+ */
+export const formatSecondsDuration = (
+  seconds: number | null | undefined,
+  t: DurationTranslator,
+): string | null => {
+  if (!seconds || !Number.isFinite(seconds)) return null;
+  const dur = moment.duration(seconds, "seconds");
+  if (dur.asDays() < 1) {
+    const hours = Math.max(1, Math.round(dur.asHours()));
+    return t(hours === 1 ? "DURATION_HOUR" : "DURATION_HOURS", {
+      count: hours,
+    });
+  }
+  const days = Math.round(dur.asDays());
+  return t(days === 1 ? "DURATION_DAY" : "DURATION_DAYS", { count: days });
+};
 
 export const bpsToPercent = (bps: string) => {
   const val = Number(bps);

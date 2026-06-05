@@ -20,9 +20,10 @@ interface FAQ {
 interface FAQAccordionProps {
   faqs: FAQ[];
   showAll?: boolean;
+  slice?: number;
 }
 
-export const FAQAccordion = ({ faqs, showAll = false }: FAQAccordionProps) => {
+export const FAQAccordion = ({ faqs, showAll = false, slice = 3 }: FAQAccordionProps) => {
   const { track } = useAnalytics();
   const { t, i18n } = useTranslation();
   const {
@@ -50,7 +51,7 @@ export const FAQAccordion = ({ faqs, showAll = false }: FAQAccordionProps) => {
     return !isExcluded && !isCurrencyRestricted;
   });
 
-  const faqsToShow = showAll ? filteredFaqs : filteredFaqs.slice(0, 3);
+  const faqsToShow = showAll ? filteredFaqs : filteredFaqs.slice(0, slice);
 
   return (
     <Accordion type="single" collapsible>

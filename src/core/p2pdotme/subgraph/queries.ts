@@ -87,6 +87,33 @@ export const PROCESSING_ORDERS_COLLECTION_QUERY = /* GraphQL */ `
   }
 `;
 
+export const USER_P2P_STAKE_ACTIVITIES_QUERY = /* GraphQL */ `
+  query UserP2PStakeActivities(
+    $userAddress: String!
+    $first: Int = 100
+    $skip: Int = 0
+  ) {
+    userP2PStakeActivities(
+      where: { userAddress: $userAddress }
+      first: $first
+      skip: $skip
+      orderBy: timestamp
+      orderDirection: desc
+    ) {
+      id
+      activityType
+      amount
+      newTotal
+      cooldownEnd
+      fraudReserve
+      stakedAmountAfter
+      statusAfter
+      timestamp
+      transactionHash
+    }
+  }
+`;
+
 export const ORDERS_COLLECTION_WITH_DATE_FILTER_QUERY = /* GraphQL */ `
   query OrdersCollectionWithDateFilter(
     $userAddress: String!
