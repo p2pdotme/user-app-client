@@ -1,9 +1,4 @@
-import {
-  ArrowUpDown,
-  Clock,
-  Loader2,
-  RefreshCw,
-} from "lucide-react";
+import { ArrowUpDown, Clock, Loader2, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -79,7 +74,7 @@ export function FromPanel({
             type="text"
             inputMode="decimal"
             pattern="[0-9]*\.?[0-9]*"
-            className="h-auto flex-1 border-none bg-transparent p-0 font-bold text-3xl text-foreground shadow-none placeholder:text-muted-foreground/40 focus-visible:ring-0"
+            className="h-auto flex-1 border-none bg-transparent p-0 font-bold text-3xl leading-none tracking-tight text-foreground tabular-nums shadow-none placeholder:text-muted-foreground/30 focus-visible:ring-0 md:text-3xl"
             placeholder="0.00"
             value={amount}
             disabled={disabled}
