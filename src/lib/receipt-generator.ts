@@ -106,62 +106,6 @@ export async function generateReceiptImage(
 
   // Receipt dimensions (optimized for mobile sharing)
   const width = 400;
-  const height = 700;
-
-  // Scale for high DPI
-  canvas.width = width * devicePixelRatio;
-  canvas.height = height * devicePixelRatio;
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-
-  // Scale context for high DPI
-  ctx.scale(devicePixelRatio, devicePixelRatio);
-
-  // Background
-  ctx.fillStyle = RECEIPT_COLORS.background;
-  ctx.fillRect(0, 0, width, height);
-
-  // Success icon background
-  ctx.fillStyle = RECEIPT_COLORS.success;
-  ctx.beginPath();
-  ctx.arc(200, 100, 40, 0, 2 * Math.PI);
-  ctx.fill();
-
-  // Success checkmark
-  ctx.strokeStyle = RECEIPT_COLORS.background;
-  ctx.lineWidth = 4;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.beginPath();
-  ctx.moveTo(180, 100);
-  ctx.lineTo(195, 115);
-  ctx.lineTo(220, 85);
-  ctx.stroke();
-
-  // Main amount display
-  ctx.fillStyle = RECEIPT_COLORS.primary;
-  ctx.font = "bold 48px 'Outfit', system-ui, -apple-system, sans-serif";
-  ctx.textAlign = "center";
-
-  if (receiptData.type === ORDER_TYPES.BUY) {
-    ctx.fillText(`${receiptData.amount} USDC`, 200, 200);
-  } else {
-    ctx.fillText(receiptData.formattedFiatAmount, 200, 200);
-  }
-
-  // Transaction successful text
-  ctx.fillStyle = RECEIPT_COLORS.success;
-  ctx.font = "16px 'Outfit', system-ui, -apple-system, sans-serif";
-  ctx.fillText(t("TRANSACTION_SUCCESSFUL"), 200, 240);
-
-  // Receipt details card background
-  ctx.fillStyle = RECEIPT_COLORS.muted;
-  ctx.fillRect(30, 280, 340, 320);
-
-  // Receipt details card border
-  ctx.strokeStyle = RECEIPT_COLORS.border;
-  ctx.lineWidth = 1;
-  ctx.strokeRect(30, 280, 340, 320);
 
   // Receipt details
   const details = [
@@ -223,22 +167,144 @@ export async function generateReceiptImage(
     value: receiptData.formattedTimestamp,
   });
 
+  const detailFont = "14px 'Outfit', system-ui, -apple-system, sans-serif";
+  const lineHeight = 20; // spacing between wrapped value lines
+  const rowSpacing = 35; // spacing between detail rows (first lines)
+
+  // Wraps a value into multiple lines, breaking at spaces or after "|"
+  const wrapValue = (text: string, maxWidth: number): string[] => {
+    const segments = text.split(/(?<=\|)|(?<=\s)/);
+    const lines: string[] = [];
+    let current = "";
+
+    for (const segment of segments) {
+      if (current && ctx.measureText(current + segment).width > maxWidth) {
+        lines.push(current.trimEnd());
+        current = segment;
+      } else {
+        current += segment;
+      }
+
+      // Hard-break a single segment that is wider than the line itself
+      while (ctx.measureText(current).width > maxWidth && current.length > 1) {
+        let cut = current.length - 1;
+        while (
+          cut > 1 &&
+          ctx.measureText(current.slice(0, cut)).width > maxWidth
+        ) {
+          cut--;
+        }
+        lines.push(current.slice(0, cut));
+        current = current.slice(cut);
+      }
+    }
+
+    if (current.trimEnd()) {
+      lines.push(current.trimEnd());
+    }
+    return lines;
+  };
+
+  // Measure pass: compute wrapped lines per row and the card height
+  ctx.font = detailFont;
+  const rows = details.map((detail) => {
+    const labelWidth = ctx.measureText(detail.label).width;
+    const maxValueWidth = 350 - (50 + labelWidth + 12);
+    const lines =
+      ctx.measureText(detail.value).width <= maxValueWidth
+        ? [detail.value]
+        : wrapValue(detail.value, maxValueWidth);
+    return { label: detail.label, lines };
+  });
+
+  const cardTop = 280;
+  const firstBaseline = cardTop + 40;
+  let lastBaseline = firstBaseline;
+  let nextBaseline = firstBaseline;
+  const rowBaselines = rows.map((row) => {
+    const baseline = nextBaseline;
+    lastBaseline = baseline + (row.lines.length - 1) * lineHeight;
+    nextBaseline = lastBaseline + rowSpacing;
+    return baseline;
+  });
+  const cardBottom = lastBaseline + 25;
+  const cardHeight = cardBottom - cardTop;
+
+  // Canvas height grows with the card so long values flow downward
+  const height = cardBottom + 100;
+
+  // Scale for high DPI
+  canvas.width = width * devicePixelRatio;
+  canvas.height = height * devicePixelRatio;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+
+  // Scale context for high DPI (resizing reset the context state)
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+
+  // Background
+  ctx.fillStyle = RECEIPT_COLORS.background;
+  ctx.fillRect(0, 0, width, height);
+
+  // Success icon background
+  ctx.fillStyle = RECEIPT_COLORS.success;
+  ctx.beginPath();
+  ctx.arc(200, 100, 40, 0, 2 * Math.PI);
+  ctx.fill();
+
+  // Success checkmark
+  ctx.strokeStyle = RECEIPT_COLORS.background;
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(180, 100);
+  ctx.lineTo(195, 115);
+  ctx.lineTo(220, 85);
+  ctx.stroke();
+
+  // Main amount display
+  ctx.fillStyle = RECEIPT_COLORS.primary;
+  ctx.font = "bold 48px 'Outfit', system-ui, -apple-system, sans-serif";
+  ctx.textAlign = "center";
+
+  if (receiptData.type === ORDER_TYPES.BUY) {
+    ctx.fillText(`${receiptData.amount} USDC`, 200, 200);
+  } else {
+    ctx.fillText(receiptData.formattedFiatAmount, 200, 200);
+  }
+
+  // Transaction successful text
+  ctx.fillStyle = RECEIPT_COLORS.success;
+  ctx.font = "16px 'Outfit', system-ui, -apple-system, sans-serif";
+  ctx.fillText(t("TRANSACTION_SUCCESSFUL"), 200, 240);
+
+  // Receipt details card background
+  ctx.fillStyle = RECEIPT_COLORS.muted;
+  ctx.fillRect(30, cardTop, 340, cardHeight);
+
+  // Receipt details card border
+  ctx.strokeStyle = RECEIPT_COLORS.border;
+  ctx.lineWidth = 1;
+  ctx.strokeRect(30, cardTop, 340, cardHeight);
+
   // Render details
-  ctx.fillStyle = RECEIPT_COLORS.cardForeground;
-  ctx.font = "14px 'Outfit', system-ui, -apple-system, sans-serif";
+  ctx.font = detailFont;
   ctx.textAlign = "left";
 
-  details.forEach((detail, index) => {
-    const y = 320 + index * 35;
+  rows.forEach((row, index) => {
+    const baseline = rowBaselines[index];
 
     // Label
     ctx.fillStyle = RECEIPT_COLORS.mutedForeground;
-    ctx.fillText(detail.label, 50, y);
+    ctx.fillText(row.label, 50, baseline);
 
-    // Value
+    // Value lines, right-aligned, flowing downward
     ctx.fillStyle = RECEIPT_COLORS.cardForeground;
     ctx.textAlign = "right";
-    ctx.fillText(detail.value, 350, y);
+    row.lines.forEach((line, lineIndex) => {
+      ctx.fillText(line, 350, baseline + lineIndex * lineHeight);
+    });
     ctx.textAlign = "left";
   });
 
@@ -259,7 +325,7 @@ export async function generateReceiptImage(
 
   // Position and scale the logo (SVG viewBox is 0 0 24 30, scale to 24px width)
   ctx.save();
-  ctx.translate(startX, 635); // Position logo at calculated start
+  ctx.translate(startX, cardBottom + 35); // Position logo below the card
   ctx.scale(1, 0.8); // Scale to 24px width, slightly compressed height
   ctx.fillStyle = RECEIPT_COLORS.primary;
   ctx.fill(logoPath);
@@ -268,7 +334,7 @@ export async function generateReceiptImage(
   // Company text (positioned with gap-1 spacing like in TextLogo component)
   ctx.fillStyle = RECEIPT_COLORS.foreground;
   ctx.font = "bold 18px 'Outfit', system-ui, -apple-system, sans-serif"; // text-lg font-bold
-  ctx.fillText("P2P.ME", startX + logoWidth + gap, 655);
+  ctx.fillText("P2P.ME", startX + logoWidth + gap, cardBottom + 55);
 
   // Convert canvas to blob
   return new Promise((resolve, reject) => {
