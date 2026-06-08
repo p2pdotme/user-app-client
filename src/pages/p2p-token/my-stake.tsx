@@ -569,7 +569,8 @@ interface CooldownCardProps {
 
 function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
   const { t } = useTranslation();
-  const { p2pBoostClaimUnstakeMutation } = useP2PBoost();
+  const { p2pBoostClaimUnstakeMutation, p2pBoostCancelUnstakeMutation } =
+    useP2PBoost();
   const [now, setNow] = useState(() => Math.floor(Date.now() / 1000));
 
   useEffect(() => {
@@ -588,6 +589,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
 
   const pad2 = (n: number) => n.toString().padStart(2, "0");
   const isClaiming = p2pBoostClaimUnstakeMutation.isPending;
+  const isCancelling = p2pBoostCancelUnstakeMutation.isPending;
 
   if (isReadyToClaim) {
     return (
@@ -608,12 +610,21 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
 
         <Button
           onClick={() => p2pBoostClaimUnstakeMutation.mutate()}
-          disabled={isClaiming}
+          disabled={isClaiming || isCancelling}
           hapticType="success"
           className="mt-4 w-full rounded-2xl py-6 font-semibold text-base"
         >
           {isClaiming ? <Loader2 className="size-4 animate-spin" /> : null}
           {t("P2P_UNSTAKE_CLAIM_BUTTON")}
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => p2pBoostCancelUnstakeMutation.mutate()}
+          disabled={isClaiming || isCancelling}
+          className="mt-2 w-full rounded-2xl py-6 font-semibold text-base"
+        >
+          {isCancelling ? <Loader2 className="size-4 animate-spin" /> : null}
+          {t("P2P_UNSTAKE_CANCEL_BUTTON")}
         </Button>
       </section>
     );
@@ -656,6 +667,16 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
           })}
         </p>
       </div>
+
+      <Button
+        variant="outline"
+        onClick={() => p2pBoostCancelUnstakeMutation.mutate()}
+        disabled={isCancelling}
+        className="mt-4 w-full rounded-2xl py-6 font-semibold text-base"
+      >
+        {isCancelling ? <Loader2 className="size-4 animate-spin" /> : null}
+        {t("P2P_UNSTAKE_CANCEL_BUTTON")}
+      </Button>
     </section>
   );
 }

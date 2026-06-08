@@ -1196,6 +1196,8 @@ export const hi = {
     P2P_TOKEN_TITLE: "$P2P टोकन",
     P2P_TOKEN_TOTAL: "कुल",
     P2P_TOPUP_SUCCESS: "ऑर्डर सीमा सफलतापूर्वक बढ़ाई गई",
+    P2P_UNSTAKE_CANCEL_BUTTON: "अनस्टेक रद्द करें",
+    P2P_UNSTAKE_CANCEL_SUCCESS: "अनस्टेक रद्द हुआ। आपका बूस्ट बहाल कर दिया गया है।",
     P2P_UNSTAKE_CLAIM_BUTTON: "$P2P का दावा करें",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P सफलतापूर्वक दावा किया गया",
     P2P_UNSTAKE_COOLDOWN_LABEL: "कूलडाउन समाप्त",

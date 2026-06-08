@@ -301,6 +301,52 @@ export function useP2PBoost() {
     },
   });
 
+  // CANCEL UNSTAKE — exits COOLDOWN back to ACTIVE without token movement
+  const p2pBoostCancelUnstakeMutation = useMutation({
+    mutationKey: ["p2pBoostCancelUnstake"],
+    mutationFn: async () => {
+      if (!account) {
+        throw new Error("WALLET_NOT_CONNECTED");
+      }
+
+      return withSentrySpan(
+        "transaction.p2p_boost_cancel_unstake",
+        "P2P Boost Cancel Unstake Transaction",
+        async () => {
+          const prepared = await stake.cancelUnstake.prepare().match(
+            (v) => v,
+            (error) => {
+              console.error(
+                "[useP2PBoost] sdk cancelUnstake.prepare error",
+                error,
+              );
+              captureError(error, {
+                operation: "p2p_boost_cancel_unstake_prepare",
+                component: "useP2PBoost",
+                userId: account.address,
+              });
+              throw error;
+            },
+          );
+
+          return submitPrepared(
+            prepared,
+            account,
+            "Failed to sendAndConfirm p2pBoostCancelUnstake transaction",
+          );
+        },
+      );
+    },
+    onSuccess: () => {
+      toast.success(t("P2P_UNSTAKE_CANCEL_SUCCESS"));
+      queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
+      queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+    },
+    onError: (error) => {
+      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
+    },
+  });
+
   // CLAIM UNSTAKE
   const p2pBoostClaimUnstakeMutation = useMutation({
     mutationKey: ["p2pBoostClaimUnstake"],
@@ -352,6 +398,7 @@ export function useP2PBoost() {
     p2pBoostStakeMutation,
     p2pBoostTopUpMutation,
     p2pBoostRequestUnstakeMutation,
+    p2pBoostCancelUnstakeMutation,
     p2pBoostClaimUnstakeMutation,
   };
 }
