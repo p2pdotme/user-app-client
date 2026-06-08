@@ -1251,6 +1251,8 @@ export const id = {
     P2P_TOKEN_TITLE: "Token $P2P",
     P2P_TOKEN_TOTAL: "Total",
     P2P_TOPUP_SUCCESS: "Batas pesanan berhasil dinaikkan",
+    P2P_UNSTAKE_CANCEL_BUTTON: "Batalkan unstake",
+    P2P_UNSTAKE_CANCEL_SUCCESS: "Unstake dibatalkan. Boost Anda dipulihkan.",
     P2P_UNSTAKE_CLAIM_BUTTON: "Klaim $P2P",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P berhasil diklaim",
     P2P_UNSTAKE_COOLDOWN_LABEL: "Cooldown berakhir",
