@@ -10,7 +10,7 @@ import {
   TrendingDown,
   Wallet,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { formatUnits, parseUnits } from "viem";
@@ -403,6 +403,19 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   const [amount, setAmount] = useState("");
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
   const { p2pBoostTopUpMutation } = useP2PBoost();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // iOS: focus AFTER vaul's open animation so its visualViewport listener
+  // (repositionInputs) is mounted before the keyboard appears. Then scroll
+  // the input into view so it sits above the keyboard.
+  useEffect(() => {
+    if (!isOpen) return;
+    const id = window.setTimeout(() => {
+      inputRef.current?.focus({ preventScroll: true });
+      inputRef.current?.scrollIntoView({ block: "center" });
+    }, 400);
+    return () => window.clearTimeout(id);
+  }, [isOpen]);
 
   const p2pBalance = p2pBalanceRaw ? Number(formatUnits(p2pBalanceRaw, 6)) : 0;
   const hasNoBalance = !isP2PBalanceLoading && p2pBalance === 0;
@@ -455,8 +468,12 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={handleOpenChange}>
-      <DrawerContent className="container-narrow mx-auto pb-8">
+    <Drawer
+      open={isOpen}
+      onOpenChange={handleOpenChange}
+      repositionInputs
+    >
+      <DrawerContent className="container-narrow mx-auto max-h-[100dvh] overflow-y-auto overscroll-contain pb-[max(env(safe-area-inset-bottom),2rem)]">
         <DrawerHeader>
           <DrawerTitle>{t("MY_STAKE_TOPUP_TITLE")}</DrawerTitle>
           <DrawerDescription>
@@ -487,16 +504,24 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
             </div>
             <div className="mt-2 flex items-center gap-3">
               <input
+                ref={inputRef}
                 type="tel"
                 inputMode="numeric"
                 pattern="[0-9]*"
                 autoComplete="off"
-                // biome-ignore lint/a11y/noAutofocus: amount input is the primary action in this drawer
-                autoFocus
                 placeholder="0"
                 aria-label={t("MY_STAKE_AMOUNT_LABEL")}
                 value={amount}
                 onChange={(e) => handleAmountChange(e.target.value)}
+                onFocus={(e) => {
+                  // Keep the input above the iOS keyboard once it appears.
+                  window.setTimeout(() => {
+                    e.target.scrollIntoView({
+                      block: "center",
+                      behavior: "smooth",
+                    });
+                  }, 300);
+                }}
                 className="min-w-0 flex-1 bg-transparent font-bold text-4xl text-foreground tabular-nums tracking-tight outline-none placeholder:text-muted-foreground/40"
               />
               <button
