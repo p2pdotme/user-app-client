@@ -1658,9 +1658,13 @@ export const id = {
     SWAP_INITIATED_SUCCESS: "Swap berhasil dimulai",
     SWAP_INSUFFICIENT_BALANCE: "Saldo {{token}} tidak mencukupi",
     SWAP_NUMBER: "Swap #{{id}}",
+    SWAP_QUOTE_TIMEOUT:
+      "Quote request timed out. Please try again in a few seconds.",
     SWAP_QUOTE_UNAVAILABLE:
       "Quote unavailable at the moment. Please try again shortly.",
     SWAP_REFUNDED: "Sudah Direfund",
+    SWAP_STEP_INITIATING: "(2/2) Initiating swap…",
+    SWAP_STEP_TRANSFERRING: "(1/2) Transferring funds…",
     SWAP_TXN_NOT_CREATED: "Transaksi swap tidak dibuat",
     SWAP_USER_TX: "Tx Pengguna",
     SW_INSTALLING_UPDATE: "Memasang pembaruan",
