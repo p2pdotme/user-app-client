@@ -19,6 +19,7 @@ import { parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
 import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
+import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -34,6 +35,7 @@ import { useSettings } from "@/contexts/settings";
 import {
   useAnalytics,
   useOrderFlow,
+  usePriceConfig,
   useProcessingTimes,
   useSellAddressBook,
   useThirdweb,
@@ -45,7 +47,7 @@ import {
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
 import { INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
-import { placeOrderErrorKey } from "@/lib/errors";
+import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
   cn,
@@ -81,6 +83,7 @@ export function SellPreview() {
   const { addressBook, refresh: refreshAddressBook } = useSellAddressBook();
   const { placeOrderMutation } = useOrderFlow();
   const { account } = useThirdweb();
+  const { priceConfig } = usePriceConfig();
   const {
     data: processingTimes,
     isLoading: isProcessingTimesLoading,
@@ -113,6 +116,8 @@ export function SellPreview() {
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
+  // State for slippage drawer
+  const [showSlippageDrawer, setShowSlippageDrawer] = useState(false);
 
   const { checkContractSync } = useContractVersion();
   // validate the state being passed from the previous page
@@ -232,13 +237,24 @@ export function SellPreview() {
       return;
     }
 
+    const cryptoBig = parseUnits(sellPreviewState.amount.crypto.toString(), 6);
+    const sellPriceBig = parseUnits(
+      (priceConfig?.sellPrice ?? 0).toString(),
+      6,
+    );
+    // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
+    // slippage check tolerates frontend rounding and only triggers on real
+    // price movements.
+    const fiatAmountLimit = (cryptoBig * sellPriceBig) / 1_000_000n;
+
     await placeOrderMutation.mutateAsync(
       {
-        amount: parseUnits(sellPreviewState.amount.crypto.toString(), 6),
+        amount: cryptoBig,
         recipientAddr: zeroAddress,
         orderType: ORDER_TYPE.SELL,
         currency: currency.currency,
         fiatAmount: parseUnits(sellPreviewState.amount.fiat.toString(), 6),
+        fiatAmountLimit,
         user: account?.address as `0x${string}`,
       },
       {
@@ -281,6 +297,13 @@ export function SellPreview() {
           });
 
           console.error("Error placing order", error);
+          setIsPlacingOrder(false);
+
+          if (isSlippageError(error)) {
+            setShowSlippageDrawer(true);
+            return;
+          }
+
           const key = placeOrderErrorKey(error);
           toast.error(
             t(key),
@@ -290,7 +313,6 @@ export function SellPreview() {
                 }
               : undefined,
           );
-          setIsPlacingOrder(false);
         },
       },
     );
@@ -306,6 +328,14 @@ export function SellPreview() {
       <PWAUpdateDrawer
         open={showContractMismatch}
         onReload={() => window.location.reload()}
+      />
+      <SlippageDrawer
+        open={showSlippageDrawer}
+        onOpenChange={setShowSlippageDrawer}
+        onConfirm={() => {
+          setShowSlippageDrawer(false);
+          navigate(-1);
+        }}
       />
       <NonHomeHeader
         title={t("ORDER_PREVIEW")}

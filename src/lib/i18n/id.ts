@@ -1338,6 +1338,7 @@ export const id = {
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
+    PLACE_NEW_ORDER: "Buat Order Baru",
     PLACE_ORDER: "Buat Order",
     PLACING_ORDER: "Membuat Order",
     PLEASE_ENTER_RECIPIENT_ADDRESS: "Silakan masukkan alamat penerima",
@@ -1591,6 +1592,9 @@ export const id = {
     SHOW_QR_CODE: "Tampilkan kode QR",
     SIGNATURE_VALIDATION_FAILED: "Validasi tanda tangan gagal",
     SLIPPAGE: "Slippage",
+    SLIPPAGE_DESCRIPTION:
+      "Harga pasar berubah. Silakan buat order baru dengan kurs terbaru.",
+    SLIPPAGE_TITLE: "Harga telah berubah",
     SMART_LIMITS_DESCRIPTION:
       "Limit kami dirancang untuk melindungi perdagangan Anda dan mengurangi kemungkinan bank menandai atau membekukan akun Anda.",
     SMART_LIMITS_NO_FREEZES: "Smart Limits = Tanpa Pembekuan",
