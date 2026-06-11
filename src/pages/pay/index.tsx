@@ -9,6 +9,7 @@ import { z } from "zod";
 import { NonHomeHeader, NumpadInput } from "@/components";
 import FlatfeeAlert from "@/components/flat-fee-alert";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
+import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { getFeeConfig } from "@/core/fees";
@@ -28,7 +29,7 @@ import {
   ORDER_TYPE,
   PAY_DISABLED_CURRENCIES,
 } from "@/lib/constants";
-import { placeOrderErrorKey } from "@/lib/errors";
+import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   calculateFee,
   cn,
@@ -140,6 +141,7 @@ export function Pay() {
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
+  const [showSlippageDrawer, setShowSlippageDrawer] = useState(false);
 
   const { placeOrderMutation } = useOrderFlow();
   const { checkContractSync } = useContractVersion();
@@ -307,13 +309,24 @@ export function Pay() {
       denomination,
     });
 
+    const cryptoBig = parseUnits(amount.crypto.toString(), 6);
+    const sellPriceBig = parseUnits(
+      (priceConfig?.sellPrice ?? 0).toString(),
+      6,
+    );
+    // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
+    // slippage check tolerates frontend rounding and only triggers on real
+    // price movements.
+    const fiatAmountLimit = (cryptoBig * sellPriceBig) / 1_000_000n;
+
     await placeOrderMutation.mutateAsync(
       {
-        amount: parseUnits(amount.crypto.toString(), 6),
+        amount: cryptoBig,
         recipientAddr: zeroAddress,
         orderType: ORDER_TYPE.PAY,
         currency: currency.currency,
         fiatAmount: parseUnits(amount.fiat.toString(), 6),
+        fiatAmountLimit,
         user: account?.address as `0x${string}`,
       },
       {
@@ -351,6 +364,11 @@ export function Pay() {
           });
 
           console.error("Error placing order", error);
+          setIsPlacingOrder(false);
+          if (isSlippageError(error)) {
+            setShowSlippageDrawer(true);
+            return;
+          }
           const key = placeOrderErrorKey(error);
           toast.error(
             t(key),
@@ -360,7 +378,6 @@ export function Pay() {
                 }
               : undefined,
           );
-          setIsPlacingOrder(false);
         },
       },
     );
@@ -428,6 +445,14 @@ export function Pay() {
       <PWAUpdateDrawer
         open={showContractMismatch}
         onReload={() => window.location.reload()}
+      />
+      <SlippageDrawer
+        open={showSlippageDrawer}
+        onOpenChange={setShowSlippageDrawer}
+        onConfirm={() => {
+          setShowSlippageDrawer(false);
+          navigate(INTERNAL_HREFS.PAY, { replace: true });
+        }}
       />
       <NonHomeHeader
         title={`${t("SCAN_PAY")} USDC`}
