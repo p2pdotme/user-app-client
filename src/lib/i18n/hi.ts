@@ -1588,9 +1588,13 @@ export const hi = {
     SWAP_INITIATED_SUCCESS: "स्वैप सफलतापूर्वक शुरू हो गया",
     SWAP_INSUFFICIENT_BALANCE: "अपर्याप्त {{token}} बैलेंस",
     SWAP_NUMBER: "स्वैप #{{id}}",
+    SWAP_QUOTE_TIMEOUT:
+      "Quote request timed out. Please try again in a few seconds.",
     SWAP_QUOTE_UNAVAILABLE:
       "Quote unavailable at the moment. Please try again shortly.",
     SWAP_REFUNDED: "रिफंड हो गया",
+    SWAP_STEP_INITIATING: "(2/2) Initiating swap…",
+    SWAP_STEP_TRANSFERRING: "(1/2) Transferring funds…",
     SWAP_TXN_NOT_CREATED: "स्वैप लेनदेन नहीं बनाया गया",
     SWAP_USER_TX: "उपयोगकर्ता Tx",
     SW_INSTALLING_UPDATE: "अपडेट इंस्टॉल हो रहा है",
