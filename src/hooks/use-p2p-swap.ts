@@ -164,8 +164,11 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
 
 // ─── Execute Swap ─────────────────────────────────────────────────────────────
 
+export type SwapStep = "idle" | "transferring" | "initiating";
+
 export function useP2PSwap(direction: SwapDirection, amount: string) {
   const { account } = useThirdweb();
+  const [swapStep, setSwapStep] = useState<SwapStep>("idle");
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -174,6 +177,7 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
       const info = await fetchInfo();
       const companyBaseAddress = info.addresses.base as Address;
 
+      setSwapStep("transferring");
       let txnHash: string;
 
       if (direction === "USDC_TO_P2P") {
@@ -186,6 +190,7 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
         );
         if (result.isErr()) throw result.error;
         txnHash = result.value.transactionHash;
+        setSwapStep("initiating");
         return initiateUsdcToP2PSwap(txnHash, account.address);
       } else {
         const result = await transferP2PToken(
@@ -197,14 +202,17 @@ export function useP2PSwap(direction: SwapDirection, amount: string) {
         );
         if (result.isErr()) throw result.error;
         txnHash = result.value.transactionHash;
+        setSwapStep("initiating");
         return initiateP2PToUsdcSwap(txnHash, account.address);
       }
     },
+    onSettled: () => setSwapStep("idle"),
   });
 
   return {
     executeSwap: mutation.mutate,
     isSwapping: mutation.isPending,
+    swapStep,
     swapData: mutation.data ?? null,
     swapError: mutation.error,
     isSwapError: mutation.isError,

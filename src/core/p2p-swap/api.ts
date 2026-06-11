@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { toast } from "sonner";
+import { i18n } from "@/lib/i18n";
+import { isTimeoutError } from "./errors";
 
 export type SwapDirection = "USDC_TO_P2P" | "P2P_TO_USDC";
 
@@ -103,6 +106,9 @@ async function fetchJson(url: string): Promise<unknown> {
     );
   }
   const json = await res.json();
+  if (isTimeoutError(json)) {
+    throw new Error("REQUEST_TIMEOUT");
+  }
   if (!res.ok) {
     throw new Error(json?.message ?? `Request failed: ${res.status}`);
   }
@@ -112,19 +118,33 @@ async function fetchJson(url: string): Promise<unknown> {
 export async function fetchQuoteUsdcToP2P(
   amountBaseUnits: string,
 ): Promise<QuoteUsdcToP2PResponse> {
-  const json = await fetchJson(
-    `${BASE_URL}/api/quote/usdc-to-p2p?amount=${amountBaseUnits}`,
-  );
-  return QuoteUsdcToP2PResponseSchema.parse(json);
+  try {
+    const json = await fetchJson(
+      `${BASE_URL}/api/quote/usdc-to-p2p?amount=${amountBaseUnits}`,
+    );
+    return QuoteUsdcToP2PResponseSchema.parse(json);
+  } catch (err) {
+    if (err instanceof Error && err.message === "REQUEST_TIMEOUT") {
+      toast.error(i18n.t("SWAP_QUOTE_TIMEOUT"));
+    }
+    throw err;
+  }
 }
 
 export async function fetchQuoteP2PToUsdc(
   amountBaseUnits: string,
 ): Promise<QuoteP2PToUsdcResponse> {
-  const json = await fetchJson(
-    `${BASE_URL}/api/quote/p2p-to-usdc?amount=${amountBaseUnits}`,
-  );
-  return QuoteP2PToUsdcResponseSchema.parse(json);
+  try {
+    const json = await fetchJson(
+      `${BASE_URL}/api/quote/p2p-to-usdc?amount=${amountBaseUnits}`,
+    );
+    return QuoteP2PToUsdcResponseSchema.parse(json);
+  } catch (err) {
+    if (err instanceof Error && err.message === "REQUEST_TIMEOUT") {
+      toast.error(i18n.t("SWAP_QUOTE_TIMEOUT"));
+    }
+    throw err;
+  }
 }
 
 export async function fetchInfo(): Promise<Info> {
