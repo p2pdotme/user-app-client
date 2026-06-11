@@ -520,3 +520,38 @@ export function placeOrderErrorKey(error: {
     ? "NO_LIQUIDITY_FOR_ORDER"
     : "FAILED_TO_PLACE_ORDER";
 }
+
+// Selector for `SlippageExceeded(uint256 expected, uint256 actual)` from
+// contracts-v4/contracts/libraries/Errors.sol
+const SLIPPAGE_EXCEEDED_SELECTOR = "71c4efed";
+
+/**
+ * Detects whether a contract error is a SlippageExceeded revert.
+ * Only checks for the selector — does NOT decode the encoded values.
+ */
+export function isSlippageError(error: unknown): boolean {
+  if (!error) return false;
+  if (typeof error === "string") {
+    return error.toLowerCase().includes(SLIPPAGE_EXCEEDED_SELECTOR);
+  }
+  if (typeof error === "object") {
+    try {
+      const serialized = JSON.stringify(error, (_, v) =>
+        typeof v === "bigint" ? v.toString() : v,
+      );
+      if (serialized.toLowerCase().includes(SLIPPAGE_EXCEEDED_SELECTOR))
+        return true;
+    } catch {
+      // fall through to recursive check
+    }
+    const errorObj = error as { message?: unknown; cause?: unknown };
+    if (
+      typeof errorObj.message === "string" &&
+      errorObj.message.toLowerCase().includes(SLIPPAGE_EXCEEDED_SELECTOR)
+    ) {
+      return true;
+    }
+    if (errorObj.cause) return isSlippageError(errorObj.cause);
+  }
+  return false;
+}

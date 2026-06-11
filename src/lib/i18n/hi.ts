@@ -1280,6 +1280,7 @@ export const hi = {
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
+    PLACE_NEW_ORDER: "नया ऑर्डर प्लेस करें",
     PLACE_ORDER: "ऑर्डर प्लेस करें",
     PLACING_ORDER: "ऑर्डर प्लेस कर रहा है",
     PLEASE_ENTER_RECIPIENT_ADDRESS: "कृपया प्राप्तकर्ता का पता दर्ज करें",
@@ -1523,6 +1524,9 @@ export const hi = {
     SHOW_QR_CODE: "QR कोड दिखाएं",
     SIGNATURE_VALIDATION_FAILED: "हस्ताक्षर सत्यापन विफल",
     SLIPPAGE: "स्लिपेज",
+    SLIPPAGE_DESCRIPTION:
+      "बाजार की कीमत बदल गई है। कृपया नवीनतम दर पर नया ऑर्डर प्लेस करें।",
+    SLIPPAGE_TITLE: "कीमत बदल गई है",
     SMART_LIMITS_DESCRIPTION:
       "हमारी लिमिट्स आपके ट्रेड्स की सुरक्षा के लिए बनी हैं और आपके बैंक द्वारा अकाउंट को फ्लैग/फ्रीज करने की संभावना कम करती हैं।",
     SMART_LIMITS_NO_FREEZES: "स्मार्ट लिमिट = कोई फ्रीज नहीं",
