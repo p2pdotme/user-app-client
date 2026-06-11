@@ -24,6 +24,7 @@ export * from "./pwa-status-debug";
 export * from "./qr-scanner";
 export * from "./section-header";
 export * from "./sidebar";
+export * from "./slippage-drawer";
 export * from "./social-links";
 export * from "./spaceship-speed-indicator";
 export * from "./spaceship-speed-indicator";
