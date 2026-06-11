@@ -1345,6 +1345,7 @@ export const pt = {
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
+    PLACE_NEW_ORDER: "Fazer Novo Pedido",
     PLACE_ORDER: "Fazer Pedido",
     PLACING_ORDER: "Fazendo Pedido",
     PLEASE_ENTER_RECIPIENT_ADDRESS:
@@ -1602,6 +1603,9 @@ export const pt = {
     SHOW_QR_CODE: "Mostrar código QR",
     SIGNATURE_VALIDATION_FAILED: "Falha na validação da assinatura",
     SLIPPAGE: "Slippage",
+    SLIPPAGE_DESCRIPTION:
+      "O preço de mercado mudou. Por favor, faça um novo pedido com a taxa mais recente.",
+    SLIPPAGE_TITLE: "O preço mudou",
     SMART_LIMITS_DESCRIPTION:
       "Nossos limites foram projetados para proteger suas negociações e reduzir a chance do seu banco sinalizar ou congelar sua conta.",
     SMART_LIMITS_NO_FREEZES: "Limites Inteligentes = Sem Congelamentos",

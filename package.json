@@ -4,7 +4,7 @@
   "version": "3.2.0",
   "license": "MIT",
   "type": "module",
-  "contractVersion": "0.0.7",
+  "contractVersion": "0.0.8",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && node --max-old-space-size=7700 ./node_modules/.bin/vite build",
