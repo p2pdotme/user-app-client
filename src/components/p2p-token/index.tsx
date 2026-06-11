@@ -213,7 +213,7 @@ export const P2PSwapForm = ({
   const { p2pBalanceRaw } = useP2PBalance();
   const { outputAmount, isQuoteLoading, isQuoteError, isLowReserve } =
     useP2PSwapQuote(direction, amount);
-  const { executeSwap, isSwapping: isMutating } = useP2PSwap(direction, amount);
+  const { executeSwap, isSwapping: isMutating, swapStep } = useP2PSwap(direction, amount);
   const { usdcLimit, p2pLimit } = useP2PSwapInfo();
   const [isValidating, setIsValidating] = useState(false);
   const isSwapping = isMutating || isValidating;
@@ -279,6 +279,11 @@ export const P2PSwapForm = ({
       const raw = error instanceof Error ? error.message : "";
       if (raw === "LOW_RESERVE") {
         toast.error(t("SWAP_QUOTE_UNAVAILABLE"));
+        setIsValidating(false);
+        return;
+      }
+      if (raw === "REQUEST_TIMEOUT") {
+        // toast handled by api layer
         setIsValidating(false);
         return;
       }
@@ -387,7 +392,11 @@ export const P2PSwapForm = ({
         {isSwapping ? (
           <span className="flex items-center gap-2">
             <Loader2 className="size-4 animate-spin" />
-            {t("SWAPPING")}
+            {swapStep === "transferring"
+              ? t("SWAP_STEP_TRANSFERRING")
+              : swapStep === "initiating"
+                ? t("SWAP_STEP_INITIATING")
+                : t("SWAPPING")}
           </span>
         ) : isOverLimit ? (
           t("SWAP_EXCEEDS_LIMIT", {

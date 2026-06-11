@@ -1626,9 +1626,13 @@ export const en = {
     SWAP_INITIATED_SUCCESS: "Swap initiated successfully",
     SWAP_INSUFFICIENT_BALANCE: "Insufficient {{token}} balance",
     SWAP_NUMBER: "Swap #{{id}}",
+    SWAP_QUOTE_TIMEOUT:
+      "Quote request timed out. Please try again in a few seconds.",
     SWAP_QUOTE_UNAVAILABLE:
       "Quote unavailable at the moment. Please try again shortly.",
     SWAP_REFUNDED: "Refunded",
+    SWAP_STEP_INITIATING: "(2/2) Initiating swap…",
+    SWAP_STEP_TRANSFERRING: "(1/2) Transferring funds…",
     SWAP_TXN_NOT_CREATED: "Swap transaction not created",
     SWAP_USER_TX: "User Tx",
     SW_INSTALLING_UPDATE: "Installing Update",
