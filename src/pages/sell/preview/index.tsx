@@ -35,6 +35,7 @@ import { useSettings } from "@/contexts/settings";
 import {
   useAnalytics,
   useOrderFlow,
+  usePriceConfig,
   useProcessingTimes,
   useSellAddressBook,
   useThirdweb,
@@ -82,6 +83,7 @@ export function SellPreview() {
   const { addressBook, refresh: refreshAddressBook } = useSellAddressBook();
   const { placeOrderMutation } = useOrderFlow();
   const { account } = useThirdweb();
+  const { priceConfig } = usePriceConfig();
   const {
     data: processingTimes,
     isLoading: isProcessingTimesLoading,
@@ -235,17 +237,24 @@ export function SellPreview() {
       return;
     }
 
+    const cryptoBig = parseUnits(sellPreviewState.amount.crypto.toString(), 6);
+    const sellPriceBig = parseUnits(
+      (priceConfig?.sellPrice ?? 0).toString(),
+      6,
+    );
+    // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
+    // slippage check tolerates frontend rounding and only triggers on real
+    // price movements.
+    const fiatAmountLimit = (cryptoBig * sellPriceBig) / 1_000_000n;
+
     await placeOrderMutation.mutateAsync(
       {
-        amount: parseUnits(sellPreviewState.amount.crypto.toString(), 6),
+        amount: cryptoBig,
         recipientAddr: zeroAddress,
         orderType: ORDER_TYPE.SELL,
         currency: currency.currency,
         fiatAmount: parseUnits(sellPreviewState.amount.fiat.toString(), 6),
-        fiatAmountLimit: parseUnits(
-          sellPreviewState.amount.fiat.toString(),
-          6,
-        ),
+        fiatAmountLimit,
         user: account?.address as `0x${string}`,
       },
       {

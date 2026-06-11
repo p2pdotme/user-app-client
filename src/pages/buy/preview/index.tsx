@@ -41,6 +41,7 @@ import {
   useAnalytics,
   useHapticInteractions,
   useOrderFlow,
+  usePriceConfig,
   useProcessingTimes,
   useThirdweb,
   useWalletAddressBook,
@@ -114,6 +115,7 @@ export function BuyPreview() {
     error: processingTimesError,
   } = useProcessingTimes();
   const { placeOrderMutation } = useOrderFlow();
+  const { priceConfig } = usePriceConfig();
 
   const [buyPreviewState, setBuyPreviewState] = useState<BuyPreviewState>({
     amount: {
@@ -317,17 +319,24 @@ export function BuyPreview() {
         let receipt: Awaited<
           ReturnType<typeof placeOrderMutation.mutateAsync>
         >;
+        const cryptoBig = parseUnits(amountAfterFee.toString(), 6);
+        const buyPriceBig = parseUnits(
+          (priceConfig?.buyPrice ?? 0).toString(),
+          6,
+        );
+        // Mirror the contract's fiatAmount = (amount * buyPrice) / 1e6 so the
+        // slippage check tolerates frontend rounding and only triggers on real
+        // price movements.
+        const fiatAmountLimit = (cryptoBig * buyPriceBig) / 1_000_000n;
+
         try {
           receipt = await placeOrderMutation.mutateAsync({
-            amount: parseUnits(amountAfterFee.toString(), 6),
+            amount: cryptoBig,
             recipientAddr: currentAddress,
             orderType: ORDER_TYPE.BUY,
             currency: currency.currency,
             fiatAmount: parseUnits(buyPreviewState.amount.fiat.toString(), 6),
-            fiatAmountLimit: parseUnits(
-              buyPreviewState.amount.fiat.toString(),
-              6,
-            ),
+            fiatAmountLimit,
             user: account?.address as `0x${string}`,
           });
         } catch (error) {

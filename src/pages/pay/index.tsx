@@ -309,14 +309,24 @@ export function Pay() {
       denomination,
     });
 
+    const cryptoBig = parseUnits(amount.crypto.toString(), 6);
+    const sellPriceBig = parseUnits(
+      (priceConfig?.sellPrice ?? 0).toString(),
+      6,
+    );
+    // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
+    // slippage check tolerates frontend rounding and only triggers on real
+    // price movements.
+    const fiatAmountLimit = (cryptoBig * sellPriceBig) / 1_000_000n;
+
     await placeOrderMutation.mutateAsync(
       {
-        amount: parseUnits(amount.crypto.toString(), 6),
+        amount: cryptoBig,
         recipientAddr: zeroAddress,
         orderType: ORDER_TYPE.PAY,
         currency: currency.currency,
         fiatAmount: parseUnits(amount.fiat.toString(), 6),
-        fiatAmountLimit: parseUnits(amount.fiat.toString(), 6),
+        fiatAmountLimit,
         user: account?.address as `0x${string}`,
       },
       {
