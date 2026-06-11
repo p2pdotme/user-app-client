@@ -21,6 +21,7 @@ import { isAddress, parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
 import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
+import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -47,7 +48,7 @@ import {
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
-import { placeOrderErrorKey } from "@/lib/errors";
+import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
   calculateFee,
@@ -129,6 +130,8 @@ export function BuyPreview() {
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
+  // State for slippage drawer
+  const [showSlippageDrawer, setShowSlippageDrawer] = useState(false);
   const [fraudStatus, setFraudStatus] = useState<
     "idle" | "checking" | "approved" | "rejected"
   >("idle");
@@ -311,29 +314,37 @@ export function BuyPreview() {
         setFraudStatus("approved");
         toast.success(t("FRAUD_ASSESSMENT_APPROVED"));
 
-        const receipt = await placeOrderMutation.mutateAsync(
-          {
+        let receipt: Awaited<
+          ReturnType<typeof placeOrderMutation.mutateAsync>
+        >;
+        try {
+          receipt = await placeOrderMutation.mutateAsync({
             amount: parseUnits(amountAfterFee.toString(), 6),
             recipientAddr: currentAddress,
             orderType: ORDER_TYPE.BUY,
             currency: currency.currency,
             fiatAmount: parseUnits(buyPreviewState.amount.fiat.toString(), 6),
+            fiatAmountLimit: parseUnits(
+              buyPreviewState.amount.fiat.toString(),
+              6,
+            ),
             user: account?.address as `0x${string}`,
-          },
-          {
-            onError: (error) => {
-              const key = placeOrderErrorKey(error);
-              toast.error(
-                t(key),
-                key === "FAILED_TO_PLACE_ORDER"
-                  ? {
-                      description: error.message,
-                    }
-                  : undefined,
-              );
-            },
-          },
-        );
+          });
+        } catch (error) {
+          if (isSlippageError(error)) {
+            setShowSlippageDrawer(true);
+            throw error;
+          }
+          const err = error as Error;
+          const key = placeOrderErrorKey(err);
+          toast.error(
+            t(key),
+            key === "FAILED_TO_PLACE_ORDER"
+              ? { description: err.message }
+              : undefined,
+          );
+          throw error;
+        }
         onOrderPlaced();
 
         const orderId = extractOrderIdFromOrderPlaced(
@@ -411,6 +422,14 @@ export function BuyPreview() {
       <PWAUpdateDrawer
         open={showContractMismatch}
         onReload={() => window.location.reload()}
+      />
+      <SlippageDrawer
+        open={showSlippageDrawer}
+        onOpenChange={setShowSlippageDrawer}
+        onConfirm={() => {
+          setShowSlippageDrawer(false);
+          navigate(-1);
+        }}
       />
       <NonHomeHeader
         title={t("ORDER_PREVIEW")}

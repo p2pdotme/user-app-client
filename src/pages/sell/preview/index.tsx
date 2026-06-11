@@ -19,6 +19,7 @@ import { parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
 import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
+import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -45,7 +46,7 @@ import {
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
 import { INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
-import { placeOrderErrorKey } from "@/lib/errors";
+import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
   cn,
@@ -113,6 +114,8 @@ export function SellPreview() {
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
+  // State for slippage drawer
+  const [showSlippageDrawer, setShowSlippageDrawer] = useState(false);
 
   const { checkContractSync } = useContractVersion();
   // validate the state being passed from the previous page
@@ -239,6 +242,10 @@ export function SellPreview() {
         orderType: ORDER_TYPE.SELL,
         currency: currency.currency,
         fiatAmount: parseUnits(sellPreviewState.amount.fiat.toString(), 6),
+        fiatAmountLimit: parseUnits(
+          sellPreviewState.amount.fiat.toString(),
+          6,
+        ),
         user: account?.address as `0x${string}`,
       },
       {
@@ -281,6 +288,13 @@ export function SellPreview() {
           });
 
           console.error("Error placing order", error);
+          setIsPlacingOrder(false);
+
+          if (isSlippageError(error)) {
+            setShowSlippageDrawer(true);
+            return;
+          }
+
           const key = placeOrderErrorKey(error);
           toast.error(
             t(key),
@@ -290,7 +304,6 @@ export function SellPreview() {
                 }
               : undefined,
           );
-          setIsPlacingOrder(false);
         },
       },
     );
@@ -306,6 +319,14 @@ export function SellPreview() {
       <PWAUpdateDrawer
         open={showContractMismatch}
         onReload={() => window.location.reload()}
+      />
+      <SlippageDrawer
+        open={showSlippageDrawer}
+        onOpenChange={setShowSlippageDrawer}
+        onConfirm={() => {
+          setShowSlippageDrawer(false);
+          navigate(-1);
+        }}
       />
       <NonHomeHeader
         title={t("ORDER_PREVIEW")}
