@@ -946,6 +946,7 @@ export const en = {
     MY_STAKE_ACTIVITY_STAKED: "Staked",
     MY_STAKE_ACTIVITY_TITLE: "Activity",
     MY_STAKE_ACTIVITY_TOPPED_UP: "Increased Stake",
+    MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED: "Unstake cancelled",
     MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED: "Unstake claimed",
     MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED: "Unstake requested",
     MY_STAKE_AMOUNT_LABEL: "Amount",

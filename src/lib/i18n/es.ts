@@ -978,6 +978,7 @@ export const es = {
     MY_STAKE_ACTIVITY_STAKED: "En stake",
     MY_STAKE_ACTIVITY_TITLE: "Actividad",
     MY_STAKE_ACTIVITY_TOPPED_UP: "Stake aumentado",
+    MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED: "Retiro cancelado",
     MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED: "Retiro reclamado",
     MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED: "Retiro solicitado",
     MY_STAKE_AMOUNT_LABEL: "Monto",
