@@ -962,6 +962,7 @@ export const id = {
     MY_STAKE_ACTIVITY_STAKED: "Di-stake",
     MY_STAKE_ACTIVITY_TITLE: "Aktivitas",
     MY_STAKE_ACTIVITY_TOPPED_UP: "Stake ditingkatkan",
+    MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED: "Unstake dibatalkan",
     MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED: "Unstake diklaim",
     MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED: "Unstake diajukan",
     MY_STAKE_AMOUNT_LABEL: "Jumlah",
