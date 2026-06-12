@@ -964,6 +964,7 @@ export const pt = {
     MY_STAKE_ACTIVITY_STAKED: "Em stake",
     MY_STAKE_ACTIVITY_TITLE: "Atividade",
     MY_STAKE_ACTIVITY_TOPPED_UP: "Stake aumentado",
+    MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED: "Retirada cancelada",
     MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED: "Retirada resgatada",
     MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED: "Retirada solicitada",
     MY_STAKE_AMOUNT_LABEL: "Valor",
