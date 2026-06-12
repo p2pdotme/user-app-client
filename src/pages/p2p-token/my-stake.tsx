@@ -3,6 +3,7 @@ import {
   CheckCircle2,
   Clock,
   Loader2,
+  Lock,
   LockOpen,
   Plus,
   ShieldAlert,
@@ -741,6 +742,7 @@ const ACTIVITY_LABEL_KEYS: Record<string, string> = {
   STAKED: "MY_STAKE_ACTIVITY_STAKED",
   TOPPED_UP: "MY_STAKE_ACTIVITY_TOPPED_UP",
   UNSTAKE_REQUESTED: "MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED",
+  UNSTAKE_CANCELLED: "MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED",
   UNSTAKE_CLAIMED: "MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED",
   COOLDOWN_EXTENDED: "MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED",
   SEIZED: "MY_STAKE_ACTIVITY_SEIZED",
@@ -758,6 +760,10 @@ const ACTIVITY_ICONS: Record<
   UNSTAKE_REQUESTED: {
     Icon: LockOpen,
     className: "bg-amber-500/15 text-amber-500",
+  },
+  UNSTAKE_CANCELLED: {
+    Icon: Lock,
+    className: "bg-primary/15 text-primary",
   },
   UNSTAKE_CLAIMED: {
     Icon: CheckCircle2,
@@ -779,6 +785,7 @@ const ACTIVITIES_WITH_AMOUNT = new Set([
   "STAKED",
   "TOPPED_UP",
   "UNSTAKE_REQUESTED",
+  "UNSTAKE_CANCELLED",
   "UNSTAKE_CLAIMED",
   "SEIZED",
 ]);
@@ -880,7 +887,8 @@ function StakeActivityList() {
                   {a.activityType === "SEIZED" ||
                   a.activityType === "UNSTAKE_CLAIMED"
                     ? "−"
-                    : a.activityType === "UNSTAKE_REQUESTED"
+                    : a.activityType === "UNSTAKE_REQUESTED" ||
+                        a.activityType === "UNSTAKE_CANCELLED"
                       ? ""
                       : "+"}
                   {truncateAmount(amount)}{" "}

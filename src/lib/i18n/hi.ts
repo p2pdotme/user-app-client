@@ -917,6 +917,7 @@ export const hi = {
     MY_STAKE_ACTIVITY_STAKED: "स्टेक किया गया",
     MY_STAKE_ACTIVITY_TITLE: "गतिविधि",
     MY_STAKE_ACTIVITY_TOPPED_UP: "स्टेक बढ़ाया गया",
+    MY_STAKE_ACTIVITY_UNSTAKE_CANCELLED: "अनस्टेक रद्द",
     MY_STAKE_ACTIVITY_UNSTAKE_CLAIMED: "अनस्टेक का दावा",
     MY_STAKE_ACTIVITY_UNSTAKE_REQUESTED: "अनस्टेक का अनुरोध",
     MY_STAKE_AMOUNT_LABEL: "राशि",
