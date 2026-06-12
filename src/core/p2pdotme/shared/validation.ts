@@ -1046,6 +1046,7 @@ export const ZodUserP2PStakeActivitySchema = z.object({
     "STAKED",
     "TOPPED_UP",
     "UNSTAKE_REQUESTED",
+    "UNSTAKE_CANCELLED",
     "UNSTAKE_CLAIMED",
     "COOLDOWN_EXTENDED",
     "SEIZED",
