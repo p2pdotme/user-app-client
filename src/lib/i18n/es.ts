@@ -1279,6 +1279,8 @@ export const es = {
     P2P_TOKEN_TITLE: "Token $P2P",
     P2P_TOKEN_TOTAL: "Total",
     P2P_TOPUP_SUCCESS: "Límite de orden aumentado exitosamente",
+    P2P_UNSTAKE_CANCEL_BUTTON: "Cancelar unstake",
+    P2P_UNSTAKE_CANCEL_SUCCESS: "Unstake cancelado. Tu boost ha sido restaurado.",
     P2P_UNSTAKE_CLAIM_BUTTON: "Reclamar $P2P",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P reclamado exitosamente",
     P2P_UNSTAKE_COOLDOWN_LABEL: "Enfriamiento termina",
