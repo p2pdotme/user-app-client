@@ -195,7 +195,7 @@ export const UnrecordedTransferSchema = z.object({
   token: z.string(),
   from: z.string(),
   txHash: z.string(),
-  amount: z.string().optional(),
+  amountRaw: z.string().optional(),
 });
 
 const UnrecordedDepositsResponseSchema = z.object({
@@ -215,7 +215,7 @@ export async function fetchUnrecordedDeposits(
     token: t.token,
     from: t.from,
     txHash: t.txHash,
-    amount: t.amount,
+    amountRaw: t.amountRaw,
   }));
 }
 
