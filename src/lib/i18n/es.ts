@@ -1494,6 +1494,7 @@ export const es = {
       "Mantén tus ajustes de moneda e idioma, y restablece tus preferencias de tema, sonidos y respuesta táctil a sus valores predeterminados.",
     RESET_TO_DEFAULTS: "Restablecer a Predeterminados",
     RESULTS_FOR: "Resultados para",
+    FAILED_SWAPS: "Intercambios Fallidos",
     RETRY: "Reintentar",
     RETRY_VERIFICATION: "Reintentar Verificación",
     RETURN_HOME: "Volver al Inicio",

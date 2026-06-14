@@ -189,3 +189,33 @@ export async function fetchUserSwaps(userId: string): Promise<SwapRecord[]> {
   return UserSwapsResponseSchema.parse(json).swaps;
 }
 
+// ─── Unrecorded Deposits ──────────────────────────────────────────────────────
+
+export const UnrecordedTransferSchema = z.object({
+  token: z.string(),
+  from: z.string(),
+  txHash: z.string(),
+  amount: z.string().optional(),
+});
+
+const UnrecordedDepositsResponseSchema = z.object({
+  transfers: z.array(UnrecordedTransferSchema),
+});
+
+export type UnrecordedTransfer = z.infer<typeof UnrecordedTransferSchema>;
+
+export async function fetchUnrecordedDeposits(
+  userAddress: string,
+): Promise<UnrecordedTransfer[]> {
+  const json = await fetchJson(
+    `${BASE_URL}/api/deposits/unrecorded/${userAddress}`,
+  );
+  const parsed = UnrecordedDepositsResponseSchema.parse(json);
+  return parsed.transfers.map((t) => ({
+    token: t.token,
+    from: t.from,
+    txHash: t.txHash,
+    amount: t.amount,
+  }));
+}
+
