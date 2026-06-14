@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import ASSETS from "@/assets";
 import { useThirdweb } from "@/hooks";
-import { cn, truncateAddress } from "@/lib/utils";
+import { cn, formatTokenAmount, truncateAddress } from "@/lib/utils";
 import {
   initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
@@ -15,13 +15,6 @@ import {
   getBackendErrorKey,
 } from "@/core/p2p-swap";
 import type { UnrecordedTransfer } from "@/core/p2p-swap";
-
-function formatAmount(amount: string | undefined) {
-  if (!amount) return "0.000";
-  const num = Number(amount);
-  if (Number.isNaN(num)) return "0.000";
-  return num.toFixed(3);
-}
 
 function FromIcon({ token }: { token: string }) {
   const Icon = token === "USDC" ? ASSETS.ICONS.Usdc : ASSETS.ICONS.Logo;
@@ -143,7 +136,7 @@ function UnrecordedDepositCard({
           <div className="flex items-center gap-1.5">
             <FromIcon token={transfer.token} />
             <span className="font-bold text-lg leading-none tabular-nums">
-              {formatAmount(transfer.amount)}
+              {Number(formatTokenAmount(transfer.amountRaw ?? null, 6) ?? "0")?.toFixed(3)}
             </span>
             <span className="text-muted-foreground text-sm">{fromSymbol}</span>
           </div>
