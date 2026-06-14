@@ -127,7 +127,14 @@ function UnrecordedDepositCard({
       {/* Header row */}
       <div className="flex items-start justify-between gap-2">
         <StatusBadge />
-        {transfer.txHash && <CopyHash value={transfer.txHash} />}
+        {transfer.txHash && (
+          <div className="flex flex-col items-end gap-0.5">
+            <span className="text-muted-foreground text-xs">
+              {t("SWAP_USER_TX")}
+            </span>
+            <CopyHash value={transfer.txHash} />
+          </div>
+        )}
       </div>
 
       {/* Amount row */}
