@@ -202,9 +202,11 @@ export function UnrecordedDeposits() {
 
   return (
     <div className="mt-2 space-y-2">
-      <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
-        {t("FAILED_SWAPS")}
-      </p>
+      {!isLoading && (
+        <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+          {t("FAILED_SWAPS")}
+        </p>
+      )}
       {isLoading ? (
         <UnrecordedDepositSkeleton />
       ) : (
