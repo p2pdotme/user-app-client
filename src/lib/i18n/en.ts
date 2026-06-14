@@ -1434,6 +1434,7 @@ export const en = {
       "Keep your currency and language settings, and reset your theme, sounds, and haptic preferences to their default values.",
     RESET_TO_DEFAULTS: "Reset to Defaults",
     RESULTS_FOR: "Results for",
+    FAILED_SWAPS: "Failed Swaps",
     RETRY: "Retry",
     RETRY_VERIFICATION: "Retry Verification",
     RETURN_HOME: "Return Home",
