@@ -1461,6 +1461,7 @@ export const id = {
       "Jaga pengaturan mata uang dan bahasa Anda, dan atur tema, suara, dan preferensi haptic Anda ke nilai default.",
     RESET_TO_DEFAULTS: "Reset ke Default",
     RESULTS_FOR: "Hasil untuk",
+    FAILED_SWAPS: "Pertukaran Gagal",
     RETRY: "Coba Lagi",
     RETRY_VERIFICATION: "Coba Lagi",
     RETURN_HOME: "Kembali ke Beranda",

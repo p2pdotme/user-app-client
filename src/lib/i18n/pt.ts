@@ -1471,6 +1471,7 @@ export const pt = {
       "Mantenha suas configurações de moeda e idioma, e resete seu tema, sons, e preferências haptic para os valores padrão.",
     RESET_TO_DEFAULTS: "Resetar para Padrão",
     RESULTS_FOR: "Resultados para",
+    FAILED_SWAPS: "Trocas Falhadas",
     RETRY: "Tentar Novamente",
     RETRY_VERIFICATION: "Tentar Novamente",
     RETURN_HOME: "Voltar ao Início",
