@@ -295,6 +295,9 @@ export const en = {
     DEPOSIT_FAILED: "Deposit Failed",
     DEPOSIT_FAILED_GENERIC: "The deposit process failed. Please try again.",
     DEPOSIT_FROM_OTHER_CHAINS: "Deposit from other chains",
+    DEPOSIT_INTERRUPTED: "Deposit interrupted",
+    DEPOSIT_INTERRUPTED_DESCRIPTION:
+      "Your previous deposit was interrupted. If you completed the transaction in your wallet, check its history. Otherwise, retry below.",
     DEPOSIT_PROGRESS: "Deposit Progress",
     DEPOSIT_SUCCESSFUL: "Deposit Successful",
     DEPOSIT_USDC: "Deposit USDC",

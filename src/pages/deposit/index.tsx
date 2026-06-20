@@ -1,5 +1,5 @@
 import { AlertTriangle, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { toast } from "sonner";
@@ -33,7 +33,12 @@ import { getPageFAQs } from "@/pages/help/constants";
 import { ConnectSourceWallet } from "./connect-source-wallet";
 import { FromToCards } from "./from-to-cards";
 import { QuoteDetails } from "./quote-details";
-import type { DepositState } from "./shared";
+import {
+  clearPendingDeposit,
+  type DepositState,
+  loadPendingDeposit,
+  savePendingDeposit,
+} from "./shared";
 
 export function Deposit() {
   const { t } = useTranslation();
@@ -91,7 +96,33 @@ export function Deposit() {
       status: "idle",
     });
     setSwapResponse(null);
+    clearPendingDeposit();
   };
+
+  // Restore an interrupted deposit after a mobile-wallet deep-link reload.
+  // We don't auto-resume signing (risk of double-send); we just restore the
+  // UI context and surface an interrupted state so the user can retry or
+  // verify in their wallet history.
+  useEffect(() => {
+    const pending = loadPendingDeposit();
+    if (!pending) return;
+
+    setDepositData({ ...pending.depositData, status: "failed" });
+    setSwapResponse(pending.swapResponse);
+    toast.warning(t("DEPOSIT_INTERRUPTED"), {
+      description: t("DEPOSIT_INTERRUPTED_DESCRIPTION"),
+    });
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Clear persisted state once the deposit reaches a terminal success state.
+  // We intentionally keep it on "failed" so the user can review or retry.
+  useEffect(() => {
+    if (depositData.status === "completed") {
+      clearPendingDeposit();
+    }
+  }, [depositData.status]);
 
   const handleDeposit = async () => {
     // Validate all required data is available
@@ -186,6 +217,16 @@ export function Deposit() {
 
         return;
       }
+
+      // Persist BEFORE the wallet deep-link. Mobile wallets (Phantom on iOS
+      // especially) may reload our tab on return, wiping React state. With
+      // this in localStorage the user can recover their deposit context.
+      savePendingDeposit({
+        requestId: swapRes.requestId,
+        depositData: { ...depositData, status: "swapping" },
+        swapResponse: swapRes,
+        startedAt: Date.now(),
+      });
 
       // Use the bridge handler to execute the deposit
       await executeDepositTransaction(
