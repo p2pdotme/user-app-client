@@ -173,7 +173,6 @@ function DynamicProviderManager({ children }: { children: ReactNode }) {
           environmentId: import.meta.env.VITE_DYNAMIC_PROJECT_ID,
           walletConnectors: [EthereumWalletConnectors, SolanaWalletConnectors],
           initialAuthenticationMode: "connect-only",
-          mobileExperience: "redirect",
           overrides: {
             evmNetworks: evmNetworksOverride,
           },
