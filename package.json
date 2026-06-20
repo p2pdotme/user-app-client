@@ -7,7 +7,7 @@
   "contractVersion": "0.0.9",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && node --max-old-space-size=7700 ./node_modules/.bin/vite build",
+    "build": "tsc -b && node --max-old-space-size=10240 ./node_modules/.bin/vite build",
     "lint": "biome lint --write .",
     "format": "biome format --write .",
     "check": "biome check --write .",
