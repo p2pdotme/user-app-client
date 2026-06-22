@@ -8,7 +8,6 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
-import { TgeCountdownBanner } from "@/components/tge-countdown-banner";
 import { Button } from "@/components/ui/button";
 import {
   useAnalytics,
@@ -215,10 +214,6 @@ export function HomeScreen() {
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <Banner openVideo={openVideo} />
-        </section>
-
-        <section className="flex w-full flex-col items-center justify-center py-2">
-          <TgeCountdownBanner />
         </section>
 
         <CashbackEarnedCard />
