@@ -202,7 +202,6 @@ export const es = {
     CANNOT_RAISE_DISPUTE_TWICE: "No se puede abrir una disputa dos veces",
     CANNOT_VOTE_SELF: "No puedes votarte a ti mismo",
     CANNOT_VOTE_YOURSELF: "No puedes votarte a ti mismo",
-    CASHBACK: "Cashback",
     CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en ${{tokenSymbol}} por esta transacción. Ver tenencias de ${{tokenSymbol}}",
@@ -927,7 +926,6 @@ export const es = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Acabas de recibir {{percentage}}% en créditos de cashback para jugar en lotpot.fun. Compruébalo en lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback de LotPot",
-    LOTPOT_CREDITS: "Créditos de LotPot",
     LOTPOT_CREDITS_EARNED: "Créditos de LotPot ganados",
     LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Hacer activa la {{paymentAddressName}}",

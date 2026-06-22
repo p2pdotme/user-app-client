@@ -195,7 +195,6 @@ export const id = {
     CANNOT_RAISE_DISPUTE_TWICE: "Tidak dapat mengajukan sengketa dua kali",
     CANNOT_VOTE_SELF: "Tidak dapat memilih diri sendiri",
     CANNOT_VOTE_YOURSELF: "Tidak dapat memilih diri sendiri",
-    CASHBACK: "Cashback",
     CASHBACK_EARNED: "Cashback diperoleh",
     CASHBACK_REWARD_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% cashback dalam ${{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan ${{tokenSymbol}}",
@@ -911,7 +910,6 @@ export const id = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
-    LOTPOT_CREDITS: "Kredit LotPot",
     LOTPOT_CREDITS_EARNED: "Kredit LotPot diperoleh",
     LOTPOT_CREDITS_UNIT: "kredit",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",

@@ -13,8 +13,8 @@ const tileClassName =
   "flex flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
 const iconWrapClassName =
   "flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10";
-const tileTitleClassName = "text-muted-foreground text-xs";
-const tileAmountClassName = "truncate font-semibold text-base text-foreground";
+const tileAmountClassName =
+  "min-w-0 truncate font-semibold text-base text-foreground";
 const tileActionClassName =
   "flex items-center gap-1 font-medium text-primary text-xs";
 
@@ -51,12 +51,9 @@ export function RewardsCard() {
                 <div className={iconWrapClassName}>
                   <ASSETS.ICONS.Logo className="size-5 text-primary" />
                 </div>
-                <div className="flex min-w-0 flex-col">
-                  <span className={tileTitleClassName}>{t("CASHBACK")}</span>
-                  <span className={tileAmountClassName}>
-                    {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
-                  </span>
-                </div>
+                <span className={tileAmountClassName}>
+                  {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
+                </span>
               </div>
               <span className={tileActionClassName}>
                 {t("VIEW_HOLDINGS")}
@@ -73,14 +70,9 @@ export function RewardsCard() {
                 <div className={iconWrapClassName}>
                   <Gift className="size-5 text-primary" />
                 </div>
-                <div className="flex min-w-0 flex-col">
-                  <span className={tileTitleClassName}>
-                    {t("LOTPOT_CREDITS")}
-                  </span>
-                  <span className={tileAmountClassName}>
-                    {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
-                  </span>
-                </div>
+                <span className={tileAmountClassName}>
+                  {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
+                </span>
               </div>
               <span className={tileActionClassName}>
                 {t("SPEND_ON_LOTPOT")}
