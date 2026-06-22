@@ -30,6 +30,7 @@ import { PerTxnLimit } from "./per-txn-limits";
 import { PriceIndicator } from "./price-indicator";
 import { ProcessingTransactions } from "./processing-txns";
 import { Referral } from "./referral";
+import { StakingEarnedCard } from "./staking-earned-card";
 import { WithdrawDrawer } from "./withdraw-drawer";
 import { YoureInvitedDrawer } from "./youre-invited-drawer";
 
@@ -215,6 +216,8 @@ export function HomeScreen() {
         <section className="flex w-full flex-col items-center justify-center py-4">
           <Banner openVideo={openVideo} />
         </section>
+
+        <StakingEarnedCard />
 
         <CashbackEarnedCard />
 
