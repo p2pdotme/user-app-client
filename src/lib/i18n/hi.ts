@@ -1898,7 +1898,6 @@ export const hi = {
     VIEW_HOLDINGS: "होल्डिंग्स देखें",
     VIEW_MORE: "और देखें",
     VIEW_MORE_DETAILS: "अधिक विवरण देखें",
-    VIEW_MY_STAKE: "अपनी स्टेकिंग देखें",
     VIEW_ON: "देखें",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
