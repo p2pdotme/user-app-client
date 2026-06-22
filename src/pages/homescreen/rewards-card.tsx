@@ -16,7 +16,8 @@ const iconWrapClassName =
   "flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10";
 const tileAmountClassName =
   "min-w-0 font-semibold text-base text-foreground leading-tight";
-const tileActionClassName = "font-medium text-primary text-xs";
+const tileActionClassName =
+  "whitespace-nowrap font-medium text-primary text-xs";
 
 type Reward = {
   key: string;
@@ -93,7 +94,7 @@ export function RewardsCard() {
         <CardHeader className="p-0">
           <CardTitle>{t("REWARDS")}</CardTitle>
         </CardHeader>
-        <div className="flex w-full items-stretch gap-3">
+        <div className="flex w-full items-stretch gap-1">
           {rewards.map((reward) => (
             <button
               key={reward.key}

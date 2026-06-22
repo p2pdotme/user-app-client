@@ -896,7 +896,7 @@ export const en = {
       "You just received {{percentage}}% in cashback credits to play on lotpot.fun. Check it on lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "LotPot Cashback",
     LOTPOT_CREDITS_EARNED: "LotPot credits earned",
-    LOTPOT_CREDITS_UNIT: "credits",
+    LOTPOT_CREDITS_UNIT: "Credits",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Make active {{paymentAddressName}}",
     MAKE_ACTIVE_RECEIVING_WALLET: "Make active receiving wallet",
     MALFORMED_URL: "The QR data link is malformed",
