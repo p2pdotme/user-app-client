@@ -1,4 +1,5 @@
 import { ArrowRight, Gift } from "lucide-react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
@@ -17,22 +18,70 @@ const tileAmountClassName =
   "min-w-0 font-semibold text-base text-foreground leading-tight";
 const tileActionClassName = "font-medium text-primary text-xs";
 
+type Reward = {
+  key: string;
+  icon: ReactNode;
+  amount: string;
+  action: string;
+  onClick: () => void;
+};
+
 export function RewardsCard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: p2pBalance } = useP2pRewardBalance();
   const { data: credits } = useLotpotCredits();
 
-  const hasP2p = !!p2pBalance?.hasBalance;
-  const hasCredits = !!credits?.hasCredits;
-
-  if (!hasP2p && !hasCredits) return null;
-
   const handleViewP2P = () => navigate(INTERNAL_HREFS.P2P_TOKEN);
   const handleOpenLotpot = () => {
     const base = import.meta.env.VITE_LOTPOT_URL ?? LOTPOT_FALLBACK_URL;
     window.open(`${base}${LOTPOT_UTM_QUERY}`, "_blank", "noopener,noreferrer");
   };
+
+  const rewards: Reward[] = [];
+  if (p2pBalance?.hasBalance) {
+    rewards.push({
+      key: "p2p",
+      icon: <ASSETS.ICONS.Logo className="size-5 text-primary" />,
+      amount: `${p2pBalance.displayAmount} $${p2pBalance.tokenSymbol}`,
+      action: t("VIEW_HOLDINGS"),
+      onClick: handleViewP2P,
+    });
+  }
+  if (credits?.hasCredits) {
+    rewards.push({
+      key: "lotpot",
+      icon: <Gift className="size-5 text-primary" />,
+      amount: `${credits.displayAmount} ${t("LOTPOT_CREDITS_UNIT")}`,
+      action: t("SPEND_ON_LOTPOT"),
+      onClick: handleOpenLotpot,
+    });
+  }
+
+  if (rewards.length === 0) return null;
+
+  // Single reward: render like the My Stake card (no nested card-in-card).
+  if (rewards.length === 1) {
+    const reward = rewards[0];
+    return (
+      <div className="flex w-full flex-col items-center justify-center py-4">
+        <button
+          type="button"
+          onClick={reward.onClick}
+          className="w-full rounded-xl bg-primary/5 px-6 py-4 text-left transition-colors hover:bg-primary/10">
+          <div className="flex items-center justify-between gap-3">
+            <CardTitle>{t("REWARDS")}</CardTitle>
+            <div className="flex min-w-0 items-center gap-2">
+              <div className={iconWrapClassName}>{reward.icon}</div>
+              <span className="font-semibold text-foreground text-lg">
+                {reward.amount}
+              </span>
+            </div>
+          </div>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-4">
@@ -41,44 +90,22 @@ export function RewardsCard() {
           <CardTitle>{t("REWARDS")}</CardTitle>
         </CardHeader>
         <div className="flex w-full items-stretch gap-3">
-          {hasP2p && (
+          {rewards.map((reward) => (
             <button
+              key={reward.key}
               type="button"
-              onClick={handleViewP2P}
+              onClick={reward.onClick}
               className={tileClassName}>
               <div className="flex min-w-0 items-center gap-2">
-                <div className={iconWrapClassName}>
-                  <ASSETS.ICONS.Logo className="size-5 text-primary" />
-                </div>
-                <span className={tileAmountClassName}>
-                  {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
-                </span>
+                <div className={iconWrapClassName}>{reward.icon}</div>
+                <span className={tileAmountClassName}>{reward.amount}</span>
               </div>
               <span className={tileActionClassName}>
-                {t("VIEW_HOLDINGS")}{" "}
+                {reward.action}{" "}
                 <ArrowRight className="inline size-3 align-middle" />
               </span>
             </button>
-          )}
-          {hasCredits && (
-            <button
-              type="button"
-              onClick={handleOpenLotpot}
-              className={tileClassName}>
-              <div className="flex min-w-0 items-center gap-2">
-                <div className={iconWrapClassName}>
-                  <Gift className="size-5 text-primary" />
-                </div>
-                <span className={tileAmountClassName}>
-                  {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
-                </span>
-              </div>
-              <span className={tileActionClassName}>
-                {t("SPEND_ON_LOTPOT")}{" "}
-                <ArrowRight className="inline size-3 align-middle" />
-              </span>
-            </button>
-          )}
+          ))}
         </div>
       </Card>
     </div>
