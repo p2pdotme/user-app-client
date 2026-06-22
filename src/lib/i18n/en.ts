@@ -1937,7 +1937,6 @@ export const en = {
     VIEW_HOLDINGS: "View holdings",
     VIEW_MORE: "View more",
     VIEW_MORE_DETAILS: "View more details",
-    VIEW_MY_STAKE: "View your stake",
     VIEW_ON: "View on",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "View frequently asked questions about {{orderType}} orders",

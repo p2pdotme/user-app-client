@@ -2030,7 +2030,6 @@ export const es = {
     VIEW_HOLDINGS: "Ver tenencias",
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
-    VIEW_MY_STAKE: "Ver mi staking",
     VIEW_ON: "Ver en",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",

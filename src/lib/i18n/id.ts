@@ -1975,7 +1975,6 @@ export const id = {
     VIEW_HOLDINGS: "Lihat aset",
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
-    VIEW_MY_STAKE: "Lihat stake Anda",
     VIEW_ON: "Lihat di",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
