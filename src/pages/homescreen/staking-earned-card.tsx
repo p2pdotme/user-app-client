@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
-import { CollapsibleCard } from "@/components/collapsible-card";
 import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useP2PTokenInfo, useStakeBoostPreview, useUserStake } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
@@ -35,7 +35,10 @@ export function StakingEarnedCard() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-4">
-      <CollapsibleCard title={t("MY_STAKE")} storageKey="card-collapse:staking">
+      <Card className="w-full gap-3 border-none bg-primary/5 px-6 pt-4 pb-4">
+        <CardHeader className="p-0">
+          <CardTitle>{t("MY_STAKE")}</CardTitle>
+        </CardHeader>
         <div className="flex w-full flex-col gap-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -68,7 +71,7 @@ export function StakingEarnedCard() {
             <ArrowRight className="size-4" />
           </Button>
         </div>
-      </CollapsibleCard>
+      </Card>
     </div>
   );
 }

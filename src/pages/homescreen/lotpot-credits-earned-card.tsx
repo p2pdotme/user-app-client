@@ -1,8 +1,7 @@
 import { ArrowRight, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { CollapsibleCard } from "@/components/collapsible-card";
 import { Button } from "@/components/ui/button";
-import { CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLotpotCredits, useThirdweb } from "@/hooks";
 
@@ -35,11 +34,10 @@ export function LotpotCreditsEarnedCard() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-4">
-      <CollapsibleCard
-        title={t("LOTPOT_CREDITS_EARNED")}
-        storageKey="card-collapse:lotpot">
+      <Card className="h-28 w-full justify-between gap-1 border-none bg-primary/5 px-6 pt-4 pb-2">
         {isLoading ? (
-          <div className="flex w-full flex-col gap-3">
+          <div className="flex w-full flex-col justify-between gap-1">
+            <Skeleton className="h-5 w-32" />
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Skeleton className="size-8 shrink-0 rounded-full" />
@@ -50,7 +48,10 @@ export function LotpotCreditsEarnedCard() {
             <Skeleton className="mx-auto h-4 w-40" />
           </div>
         ) : (
-          <div className="flex w-full flex-col gap-2">
+          <>
+            <CardHeader className="p-0">
+              <CardTitle>{t("LOTPOT_CREDITS_EARNED")}</CardTitle>
+            </CardHeader>
             <CardContent className="flex items-center justify-between p-0">
               <div className="flex items-center gap-2">
                 <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
@@ -73,9 +74,9 @@ export function LotpotCreditsEarnedCard() {
               {t("USE_CREDITS_ON_LOTPOT")}
               <ArrowRight className="size-4" />
             </Button>
-          </div>
+          </>
         )}
-      </CollapsibleCard>
+      </Card>
     </div>
   );
 }
