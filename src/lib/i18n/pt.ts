@@ -1985,7 +1985,6 @@ export const pt = {
     VIEW_HOLDINGS: "Ver ativos",
     VIEW_MORE: "Ver mais",
     VIEW_MORE_DETAILS: "Ver mais detalhes",
-    VIEW_MY_STAKE: "Ver meu staking",
     VIEW_ON: "Ver em",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Veja perguntas frequentes sobre pedidos {{orderType}}",
