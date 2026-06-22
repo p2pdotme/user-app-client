@@ -195,6 +195,7 @@ export const id = {
     CANNOT_RAISE_DISPUTE_TWICE: "Tidak dapat mengajukan sengketa dua kali",
     CANNOT_VOTE_SELF: "Tidak dapat memilih diri sendiri",
     CANNOT_VOTE_YOURSELF: "Tidak dapat memilih diri sendiri",
+    CASHBACK: "Cashback",
     CASHBACK_EARNED: "Cashback diperoleh",
     CASHBACK_REWARD_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% cashback dalam ${{tokenSymbol}} untuk transaksi ini. Lihat kepemilikan ${{tokenSymbol}}",
@@ -910,6 +911,7 @@ export const id = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
+    LOTPOT_CREDITS: "Kredit LotPot",
     LOTPOT_CREDITS_EARNED: "Kredit LotPot diperoleh",
     LOTPOT_CREDITS_UNIT: "kredit",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",
@@ -1615,6 +1617,7 @@ export const id = {
     SOUNDS_NONE_DESC: "Nonaktifkan semua suara notifikasi",
     SOURCE_WALLET_NOT_CONNECTED: "Dompet sumber tidak terhubung",
     SPEI: "SPEI",
+    SPEND_ON_LOTPOT: "Belanja di lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Belanjakan USDC di mana saja dengan Scan & Bayar",
     STAKE_ALREADY_ACTIVE: "Anda sudah memiliki stake aktif",
@@ -1971,6 +1974,7 @@ export const id = {
     VIDEO_ZK_VERIFICATION_TWITTER_LINK:
       "https://www.youtube.com/watch?v=zk-twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
+    VIEW_HOLDINGS: "Lihat aset",
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
     VIEW_MY_STAKE: "Lihat stake Anda",
