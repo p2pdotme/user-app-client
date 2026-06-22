@@ -665,7 +665,12 @@ export function Verifications() {
       </div>
       <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
-        {SOCIALS.map((social) => (
+        {SOCIALS.filter(
+          (social) =>
+            // Binance verification is not offered when the selected country is India
+            social.name !== "Binance" ||
+            settings.currency.country !== "India",
+        ).map((social) => (
           <VerificationItem
             key={social.name}
             name={social.name}
