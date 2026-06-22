@@ -68,8 +68,8 @@ export function RewardsCard() {
         <button
           type="button"
           onClick={reward.onClick}
-          className="w-full rounded-xl bg-primary/5 px-6 py-4 text-left transition-colors hover:bg-primary/10">
-          <div className="flex items-center justify-between gap-3">
+          className="flex w-full flex-col gap-2 rounded-xl bg-primary/5 px-6 py-4 text-left transition-colors hover:bg-primary/10">
+          <div className="flex w-full items-center justify-between gap-3">
             <CardTitle>{t("REWARDS")}</CardTitle>
             <div className="flex min-w-0 items-center gap-2">
               <div className={iconWrapClassName}>{reward.icon}</div>
@@ -78,6 +78,10 @@ export function RewardsCard() {
               </span>
             </div>
           </div>
+          <span className={tileActionClassName}>
+            {reward.action}{" "}
+            <ArrowRight className="inline size-3 align-middle" />
+          </span>
         </button>
       </div>
     );
