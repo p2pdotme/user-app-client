@@ -10,13 +10,12 @@ const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-credits";
 
 const tileClassName =
-  "flex flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
+  "flex min-w-0 flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
 const iconWrapClassName =
-  "flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10";
+  "flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10";
 const tileAmountClassName =
-  "min-w-0 truncate font-semibold text-base text-foreground";
-const tileActionClassName =
-  "flex items-center gap-1 font-medium text-primary text-xs";
+  "min-w-0 font-semibold text-base text-foreground leading-tight";
+const tileActionClassName = "font-medium text-primary text-xs";
 
 export function RewardsCard() {
   const { t } = useTranslation();
@@ -47,7 +46,7 @@ export function RewardsCard() {
               type="button"
               onClick={handleViewP2P}
               className={tileClassName}>
-              <div className="flex items-center gap-3">
+              <div className="flex min-w-0 items-center gap-2">
                 <div className={iconWrapClassName}>
                   <ASSETS.ICONS.Logo className="size-5 text-primary" />
                 </div>
@@ -56,8 +55,8 @@ export function RewardsCard() {
                 </span>
               </div>
               <span className={tileActionClassName}>
-                {t("VIEW_HOLDINGS")}
-                <ArrowRight className="size-3" />
+                {t("VIEW_HOLDINGS")}{" "}
+                <ArrowRight className="inline size-3 align-middle" />
               </span>
             </button>
           )}
@@ -66,7 +65,7 @@ export function RewardsCard() {
               type="button"
               onClick={handleOpenLotpot}
               className={tileClassName}>
-              <div className="flex items-center gap-3">
+              <div className="flex min-w-0 items-center gap-2">
                 <div className={iconWrapClassName}>
                   <Gift className="size-5 text-primary" />
                 </div>
@@ -75,8 +74,8 @@ export function RewardsCard() {
                 </span>
               </div>
               <span className={tileActionClassName}>
-                {t("SPEND_ON_LOTPOT")}
-                <ArrowRight className="size-3" />
+                {t("SPEND_ON_LOTPOT")}{" "}
+                <ArrowRight className="inline size-3 align-middle" />
               </span>
             </button>
           )}
