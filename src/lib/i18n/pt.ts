@@ -427,6 +427,7 @@ export const pt = {
     EXPIRED: "Expirado",
     EXTERNAL_WALLET: "Carteira Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook só suporta atualizações de RP",
+    FAILED_SWAPS: "Trocas Falhadas",
     FAILED_TO_CANCEL_ORDER: "Falha ao cancelar pedido",
     FAILED_TO_CHANGE_LANGUAGE: "Falha ao alterar idioma",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD:
@@ -1471,7 +1472,6 @@ export const pt = {
       "Mantenha suas configurações de moeda e idioma, e resete seu tema, sons, e preferências haptic para os valores padrão.",
     RESET_TO_DEFAULTS: "Resetar para Padrão",
     RESULTS_FOR: "Resultados para",
-    FAILED_SWAPS: "Trocas Falhadas",
     RETRY: "Tentar Novamente",
     RETRY_VERIFICATION: "Tentar Novamente",
     RETURN_HOME: "Voltar ao Início",
@@ -1982,6 +1982,7 @@ export const pt = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "Ver mais",
     VIEW_MORE_DETAILS: "Ver mais detalhes",
+    VIEW_MY_STAKE: "Ver meu staking",
     VIEW_ON: "Ver em",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Veja perguntas frequentes sobre pedidos {{orderType}}",

@@ -434,6 +434,7 @@ export const es = {
     EXPIRED: "Expirado",
     EXTERNAL_WALLET: "Wallet Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook solo admite actualizaciones de RP",
+    FAILED_SWAPS: "Intercambios Fallidos",
     FAILED_TO_CANCEL_ORDER: "Error al cancelar el pedido",
     FAILED_TO_CHANGE_LANGUAGE: "Error al cambiar el idioma",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD:
@@ -1281,7 +1282,8 @@ export const es = {
     P2P_TOKEN_TOTAL: "Total",
     P2P_TOPUP_SUCCESS: "Límite de orden aumentado exitosamente",
     P2P_UNSTAKE_CANCEL_BUTTON: "Cancelar unstake",
-    P2P_UNSTAKE_CANCEL_SUCCESS: "Unstake cancelado. Tu boost ha sido restaurado.",
+    P2P_UNSTAKE_CANCEL_SUCCESS:
+      "Unstake cancelado. Tu boost ha sido restaurado.",
     P2P_UNSTAKE_CLAIM_BUTTON: "Reclamar $P2P",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P reclamado exitosamente",
     P2P_UNSTAKE_COOLDOWN_LABEL: "Enfriamiento termina",
@@ -1494,7 +1496,6 @@ export const es = {
       "Mantén tus ajustes de moneda e idioma, y restablece tus preferencias de tema, sonidos y respuesta táctil a sus valores predeterminados.",
     RESET_TO_DEFAULTS: "Restablecer a Predeterminados",
     RESULTS_FOR: "Resultados para",
-    FAILED_SWAPS: "Intercambios Fallidos",
     RETRY: "Reintentar",
     RETRY_VERIFICATION: "Reintentar Verificación",
     RETURN_HOME: "Volver al Inicio",
@@ -2026,6 +2027,7 @@ export const es = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
+    VIEW_MY_STAKE: "Ver mi staking",
     VIEW_ON: "Ver en",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",

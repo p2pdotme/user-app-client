@@ -405,6 +405,7 @@ export const hi = {
     EXPIRED: "समाप्त",
     EXTERNAL_WALLET: "बाहरी वॉलेट",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook केवल RP अपडेट का समर्थन करता है",
+    FAILED_SWAPS: "विफल स्वैप",
     FAILED_TO_CANCEL_ORDER: "ऑर्डर रद्द करने में विफल",
     FAILED_TO_CHANGE_LANGUAGE: "भाषा बदलने में विफल",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD: "अभियान पुरस्कार का दावा करने में विफल",
@@ -1399,7 +1400,6 @@ export const hi = {
       "अपनी मुद्रा और भाषा सेटिंग्स रखें, और अपनी थीम, आवाज़, और हैप्टिक प्राथमिकताओं को उनके डिफ़ॉल्ट मानों पर रीसेट करें।",
     RESET_TO_DEFAULTS: "डिफ़ॉल्ट पर रीसेट करें",
     RESULTS_FOR: "के लिए परिणाम",
-    FAILED_SWAPS: "विफल स्वैप",
     RETRY: "पुनः प्रयास करें",
     RETRY_VERIFICATION: "सत्यापन पुनः प्रयास करें",
     RETURN_HOME: "होम पर वापस जाएँ",
@@ -1895,6 +1895,7 @@ export const hi = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "और देखें",
     VIEW_MORE_DETAILS: "अधिक विवरण देखें",
+    VIEW_MY_STAKE: "अपनी स्टेकिंग देखें",
     VIEW_ON: "देखें",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
