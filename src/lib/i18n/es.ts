@@ -434,6 +434,7 @@ export const es = {
     EXPIRED: "Expirado",
     EXTERNAL_WALLET: "Wallet Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook solo admite actualizaciones de RP",
+    FAILED_SWAPS: "Intercambios Fallidos",
     FAILED_TO_CANCEL_ORDER: "Error al cancelar el pedido",
     FAILED_TO_CHANGE_LANGUAGE: "Error al cambiar el idioma",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD:
@@ -1281,7 +1282,8 @@ export const es = {
     P2P_TOKEN_TOTAL: "Total",
     P2P_TOPUP_SUCCESS: "Límite de orden aumentado exitosamente",
     P2P_UNSTAKE_CANCEL_BUTTON: "Cancelar unstake",
-    P2P_UNSTAKE_CANCEL_SUCCESS: "Unstake cancelado. Tu boost ha sido restaurado.",
+    P2P_UNSTAKE_CANCEL_SUCCESS:
+      "Unstake cancelado. Tu boost ha sido restaurado.",
     P2P_UNSTAKE_CLAIM_BUTTON: "Reclamar $P2P",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P reclamado exitosamente",
     P2P_UNSTAKE_COOLDOWN_LABEL: "Enfriamiento termina",
@@ -1494,13 +1496,13 @@ export const es = {
       "Mantén tus ajustes de moneda e idioma, y restablece tus preferencias de tema, sonidos y respuesta táctil a sus valores predeterminados.",
     RESET_TO_DEFAULTS: "Restablecer a Predeterminados",
     RESULTS_FOR: "Resultados para",
-    FAILED_SWAPS: "Intercambios Fallidos",
     RETRY: "Reintentar",
     RETRY_VERIFICATION: "Reintentar Verificación",
     RETURN_HOME: "Volver al Inicio",
     REVOLUT: "Revolut",
     REVOLUT_ID: "ID de Revolut",
     REWARD: "Recompensa",
+    REWARDS: "Recompensas",
     REWARDS_BANNER_DESCRIPTION: "Refiere amigos y gana bonos en USDC",
     REWARDS_BANNER_TITLE: "Gana Recompensas",
     REWARD_ALREADY_CLAIMED: "Recompensa ya reclamada",
@@ -1658,6 +1660,7 @@ export const es = {
     SOUNDS_NONE_DESC: "Deshabilitar todas las notificaciones de sonido",
     SOURCE_WALLET_NOT_CONNECTED: "Wallet de origen no conectada",
     SPEI: "SPEI",
+    SPEND_ON_LOTPOT: "Gastar en lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Gasta USDC en cualquier lugar con Escanear y Pagar",
     STAKE_ALREADY_ACTIVE: "Ya tienes un stake activo",
@@ -2024,6 +2027,7 @@ export const es = {
     VIDEO_ZK_VERIFICATION_TWITTER_LINK:
       "https://www.youtube.com/watch?v=zk-twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
+    VIEW_HOLDINGS: "Ver tenencias",
     VIEW_MORE: "Ver más",
     VIEW_MORE_DETAILS: "Ver más detalles",
     VIEW_ON: "Ver en",
