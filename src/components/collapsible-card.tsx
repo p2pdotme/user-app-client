@@ -26,7 +26,9 @@ export function CollapsibleCard({
   className?: string;
   children: ReactNode;
 }) {
-  const [open, setOpen] = useState(() => readStoredOpen(storageKey, defaultOpen));
+  const [open, setOpen] = useState(() =>
+    readStoredOpen(storageKey, defaultOpen),
+  );
   const contentId = useId();
 
   useEffect(() => {
