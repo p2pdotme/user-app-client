@@ -1406,6 +1406,7 @@ export const hi = {
     REVOLUT: "Revolut",
     REVOLUT_ID: "Revolut ID",
     REWARD: "रिवार्ड",
+    REWARDS: "रिवार्ड्स",
     REWARDS_BANNER_DESCRIPTION: "दोस्तों को रेफर करें और USDC बोनस पाएं",
     REWARDS_BANNER_TITLE: "रिवार्ड्स कमाएं",
     REWARD_ALREADY_CLAIMED: "पुरस्कार पहले ही दावा किया जा चुका है",

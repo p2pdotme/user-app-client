@@ -1502,6 +1502,7 @@ export const es = {
     REVOLUT: "Revolut",
     REVOLUT_ID: "ID de Revolut",
     REWARD: "Recompensa",
+    REWARDS: "Recompensas",
     REWARDS_BANNER_DESCRIPTION: "Refiere amigos y gana bonos en USDC",
     REWARDS_BANNER_TITLE: "Gana Recompensas",
     REWARD_ALREADY_CLAIMED: "Recompensa ya reclamada",

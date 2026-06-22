@@ -1468,6 +1468,7 @@ export const id = {
     REVOLUT: "Revolut",
     REVOLUT_ID: "ID Revolut",
     REWARD: "Reward",
+    REWARDS: "Reward",
     REWARDS_BANNER_DESCRIPTION: "Referensikan teman dan dapatkan bonus USDC",
     REWARDS_BANNER_TITLE: "Dapatkan Reward",
     REWARD_ALREADY_CLAIMED: "Reward sudah diklaim",
