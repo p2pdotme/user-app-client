@@ -419,6 +419,7 @@ export const en = {
     EXPIRED: "Expired",
     EXTERNAL_WALLET: "External Wallet",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook only supports RP updates",
+    FAILED_SWAPS: "Failed Swaps",
     FAILED_TO_CANCEL_ORDER: "Failed to cancel order",
     FAILED_TO_CHANGE_LANGUAGE: "Failed to change language",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD: "Failed to claim campaign reward",
@@ -1434,7 +1435,6 @@ export const en = {
       "Keep your currency and language settings, and reset your theme, sounds, and haptic preferences to their default values.",
     RESET_TO_DEFAULTS: "Reset to Defaults",
     RESULTS_FOR: "Results for",
-    FAILED_SWAPS: "Failed Swaps",
     RETRY: "Retry",
     RETRY_VERIFICATION: "Retry Verification",
     RETURN_HOME: "Return Home",
@@ -1934,6 +1934,7 @@ export const en = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "View more",
     VIEW_MORE_DETAILS: "View more details",
+    VIEW_MY_STAKE: "View your stake",
     VIEW_ON: "View on",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "View frequently asked questions about {{orderType}} orders",

@@ -422,6 +422,7 @@ export const id = {
     EXPIRED: "Berakhir",
     EXTERNAL_WALLET: "Dompet Eksternal",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook hanya mendukung pembaruan RP",
+    FAILED_SWAPS: "Pertukaran Gagal",
     FAILED_TO_CANCEL_ORDER: "Gagal membatalkan pesanan",
     FAILED_TO_CHANGE_LANGUAGE: "Gagal mengubah bahasa",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD: "Gagal mengklaim hadiah kampanye",
@@ -1461,7 +1462,6 @@ export const id = {
       "Jaga pengaturan mata uang dan bahasa Anda, dan atur tema, suara, dan preferensi haptic Anda ke nilai default.",
     RESET_TO_DEFAULTS: "Reset ke Default",
     RESULTS_FOR: "Hasil untuk",
-    FAILED_SWAPS: "Pertukaran Gagal",
     RETRY: "Coba Lagi",
     RETRY_VERIFICATION: "Coba Lagi",
     RETURN_HOME: "Kembali ke Beranda",
@@ -1972,6 +1972,7 @@ export const id = {
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat lebih lanjut",
+    VIEW_MY_STAKE: "Lihat stake Anda",
     VIEW_ON: "Lihat di",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
