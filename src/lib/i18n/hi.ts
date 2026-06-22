@@ -186,7 +186,6 @@ export const hi = {
     CANNOT_RAISE_DISPUTE_TWICE: "विवाद दो बार नहीं उठा सकते",
     CANNOT_VOTE_SELF: "खुद को वोट नहीं दे सकते",
     CANNOT_VOTE_YOURSELF: "खुद को वोट नहीं दे सकते",
-    CASHBACK: "कैशबैक",
     CASHBACK_EARNED: "कैशबैक अर्जित",
     CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर ${{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। ${{tokenSymbol}} होल्डिंग्स देखें",
@@ -868,7 +867,6 @@ export const hi = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "आपको lotpot.fun पर खेलने के लिए {{percentage}}% कैशबैक क्रेडिट मिले हैं। इसे lotpot.fun पर देखें।",
     LOTPOT_CASHBACK_TITLE: "LotPot कैशबैक",
-    LOTPOT_CREDITS: "LotPot क्रेडिट",
     LOTPOT_CREDITS_EARNED: "LotPot क्रेडिट अर्जित",
     LOTPOT_CREDITS_UNIT: "क्रेडिट",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "{{paymentAddressName}} सक्रिय करें",
