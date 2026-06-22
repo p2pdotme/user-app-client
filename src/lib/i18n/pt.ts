@@ -197,6 +197,7 @@ export const pt = {
     CANNOT_RAISE_DISPUTE_TWICE: "Não é possível abrir disputa duas vezes",
     CANNOT_VOTE_SELF: "Não pode votar em si mesmo",
     CANNOT_VOTE_YOURSELF: "Não pode votar em si mesmo",
+    CASHBACK: "Cashback",
     CASHBACK_EARNED: "Cashback ganho",
     CASHBACK_REWARD_DESCRIPTION:
       "Você acabou de receber {{percentage}}% de cashback em ${{tokenSymbol}} por esta transação. Ver posições de ${{tokenSymbol}}",
@@ -912,6 +913,7 @@ export const pt = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "Você acabou de receber {{percentage}}% em créditos de cashback para jogar no lotpot.fun. Confira em lotpot.fun.",
     LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
+    LOTPOT_CREDITS: "Créditos LotPot",
     LOTPOT_CREDITS_EARNED: "Créditos LotPot ganhos",
     LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Tornar {{paymentAddressName}} ativo",
@@ -1626,6 +1628,7 @@ export const pt = {
     SOUNDS_NONE_DESC: "Desativar todos os sons de notificação",
     SOURCE_WALLET_NOT_CONNECTED: "Carteira de origem não conectada",
     SPEI: "SPEI",
+    SPEND_ON_LOTPOT: "Gastar no lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR: "Gaste USDC em qualquer lugar com Scan & Pay",
     STAKE_ALREADY_ACTIVE: "Você já tem um stake ativo",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "Valor de stake deve ser maior que 0",
@@ -1981,6 +1984,7 @@ export const pt = {
     VIDEO_ZK_VERIFICATION_TWITTER_LINK:
       "https://www.youtube.com/watch?v=zk-twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
+    VIEW_HOLDINGS: "Ver ativos",
     VIEW_MORE: "Ver mais",
     VIEW_MORE_DETAILS: "Ver mais detalhes",
     VIEW_MY_STAKE: "Ver meu staking",
