@@ -10,7 +10,7 @@ const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-credits";
 
 const tileClassName =
-  "flex flex-1 flex-col gap-2 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
+  "flex flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
 const iconWrapClassName =
   "flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10";
 const tileTitleClassName = "text-muted-foreground text-xs";
@@ -47,19 +47,21 @@ export function RewardsCard() {
               type="button"
               onClick={handleViewP2P}
               className={tileClassName}>
-              <div className={iconWrapClassName}>
-                <ASSETS.ICONS.Logo className="size-5 text-primary" />
+              <div className="flex items-center gap-3">
+                <div className={iconWrapClassName}>
+                  <ASSETS.ICONS.Logo className="size-5 text-primary" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className={tileTitleClassName}>{t("CASHBACK")}</span>
+                  <span className={tileAmountClassName}>
+                    {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
+                  </span>
+                </div>
               </div>
-              <div className="flex min-w-0 flex-col">
-                <span className={tileTitleClassName}>{t("CASHBACK")}</span>
-                <span className={tileAmountClassName}>
-                  {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
-                </span>
-                <span className={tileActionClassName}>
-                  {t("VIEW_HOLDINGS")}
-                  <ArrowRight className="size-3" />
-                </span>
-              </div>
+              <span className={tileActionClassName}>
+                {t("VIEW_HOLDINGS")}
+                <ArrowRight className="size-3" />
+              </span>
             </button>
           )}
           {hasCredits && (
@@ -67,21 +69,23 @@ export function RewardsCard() {
               type="button"
               onClick={handleOpenLotpot}
               className={tileClassName}>
-              <div className={iconWrapClassName}>
-                <Gift className="size-5 text-primary" />
+              <div className="flex items-center gap-3">
+                <div className={iconWrapClassName}>
+                  <Gift className="size-5 text-primary" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className={tileTitleClassName}>
+                    {t("LOTPOT_CREDITS")}
+                  </span>
+                  <span className={tileAmountClassName}>
+                    {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
+                  </span>
+                </div>
               </div>
-              <div className="flex min-w-0 flex-col">
-                <span className={tileTitleClassName}>
-                  {t("LOTPOT_CREDITS")}
-                </span>
-                <span className={tileAmountClassName}>
-                  {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
-                </span>
-                <span className={tileActionClassName}>
-                  {t("SPEND_ON_LOTPOT")}
-                  <ArrowRight className="size-3" />
-                </span>
-              </div>
+              <span className={tileActionClassName}>
+                {t("SPEND_ON_LOTPOT")}
+                <ArrowRight className="size-3" />
+              </span>
             </button>
           )}
         </div>
