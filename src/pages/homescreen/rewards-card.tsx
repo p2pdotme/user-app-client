@@ -1,39 +1,33 @@
-import { Gift } from "lucide-react";
+import { ArrowRight, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  useLotpotCredits,
-  useP2PTokenInfo,
-  useP2pRewardBalance,
-} from "@/hooks";
+import { useLotpotCredits, useP2pRewardBalance } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 
 const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-credits";
 
 const tileClassName =
-  "flex flex-1 items-center gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
+  "flex flex-1 flex-col gap-2 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
+const iconWrapClassName =
+  "flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10";
+const tileTitleClassName = "text-muted-foreground text-xs";
+const tileAmountClassName = "truncate font-semibold text-base text-foreground";
+const tileActionClassName =
+  "flex items-center gap-1 font-medium text-primary text-xs";
 
 export function RewardsCard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: p2pBalance } = useP2pRewardBalance();
-  const { tokenInfo } = useP2PTokenInfo();
   const { data: credits } = useLotpotCredits();
 
   const hasP2p = !!p2pBalance?.hasBalance;
   const hasCredits = !!credits?.hasCredits;
 
   if (!hasP2p && !hasCredits) return null;
-
-  const price = tokenInfo?.market.usdPrice ?? null;
-  const p2pAmount = p2pBalance
-    ? Number(formatUnits(p2pBalance.rawAmount, 6))
-    : 0;
-  const p2pUsd = price != null ? p2pAmount * price : null;
 
   const handleViewP2P = () => navigate(INTERNAL_HREFS.P2P_TOKEN);
   const handleOpenLotpot = () => {
@@ -53,18 +47,18 @@ export function RewardsCard() {
               type="button"
               onClick={handleViewP2P}
               className={tileClassName}>
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+              <div className={iconWrapClassName}>
                 <ASSETS.ICONS.Logo className="size-5 text-primary" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="truncate font-semibold text-base text-foreground">
+                <span className={tileTitleClassName}>{t("CASHBACK")}</span>
+                <span className={tileAmountClassName}>
                   {p2pBalance?.displayAmount} ${p2pBalance?.tokenSymbol}
                 </span>
-                {p2pUsd != null && (
-                  <span className="text-muted-foreground text-xs">
-                    ≈ ${p2pUsd.toFixed(3)}
-                  </span>
-                )}
+                <span className={tileActionClassName}>
+                  {t("VIEW_HOLDINGS")}
+                  <ArrowRight className="size-3" />
+                </span>
               </div>
             </button>
           )}
@@ -73,18 +67,20 @@ export function RewardsCard() {
               type="button"
               onClick={handleOpenLotpot}
               className={tileClassName}>
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+              <div className={iconWrapClassName}>
                 <Gift className="size-5 text-primary" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="truncate font-semibold text-base text-foreground">
+                <span className={tileTitleClassName}>
+                  {t("LOTPOT_CREDITS")}
+                </span>
+                <span className={tileAmountClassName}>
                   {credits?.displayAmount} {t("LOTPOT_CREDITS_UNIT")}
                 </span>
-                {credits?.formattedUsdValue && (
-                  <span className="text-muted-foreground text-xs">
-                    {credits.formattedUsdValue}
-                  </span>
-                )}
+                <span className={tileActionClassName}>
+                  {t("SPEND_ON_LOTPOT")}
+                  <ArrowRight className="size-3" />
+                </span>
               </div>
             </button>
           )}

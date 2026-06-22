@@ -186,6 +186,7 @@ export const hi = {
     CANNOT_RAISE_DISPUTE_TWICE: "विवाद दो बार नहीं उठा सकते",
     CANNOT_VOTE_SELF: "खुद को वोट नहीं दे सकते",
     CANNOT_VOTE_YOURSELF: "खुद को वोट नहीं दे सकते",
+    CASHBACK: "कैशबैक",
     CASHBACK_EARNED: "कैशबैक अर्जित",
     CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर ${{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। ${{tokenSymbol}} होल्डिंग्स देखें",
@@ -867,6 +868,7 @@ export const hi = {
     LOTPOT_CASHBACK_DESCRIPTION:
       "आपको lotpot.fun पर खेलने के लिए {{percentage}}% कैशबैक क्रेडिट मिले हैं। इसे lotpot.fun पर देखें।",
     LOTPOT_CASHBACK_TITLE: "LotPot कैशबैक",
+    LOTPOT_CREDITS: "LotPot क्रेडिट",
     LOTPOT_CREDITS_EARNED: "LotPot क्रेडिट अर्जित",
     LOTPOT_CREDITS_UNIT: "क्रेडिट",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "{{paymentAddressName}} सक्रिय करें",
@@ -1547,6 +1549,7 @@ export const hi = {
     SOUNDS_NONE_DESC: "सभी आवाज़ नोटिफिकेशन बंद करें",
     SOURCE_WALLET_NOT_CONNECTED: "स्रोत वॉलेट कनेक्ट नहीं है",
     SPEI: "SPEI",
+    SPEND_ON_LOTPOT: "lotpot.fun पर खर्च करें",
     SPEND_USDC_ANYWHERE_SCAN_QR: "स्कैन एंड पे के साथ कहीं भी यूएसडीसी खर्च करें",
     STAKE_ALREADY_ACTIVE: "आपका स्टेक पहले से सक्रिय है",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "स्टेक राशि 0 से अधिक होनी चाहिए",
@@ -1894,6 +1897,7 @@ export const hi = {
     VIDEO_ZK_VERIFICATION_TWITTER_LINK:
       "https://www.youtube.com/watch?v=zk-twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
+    VIEW_HOLDINGS: "होल्डिंग्स देखें",
     VIEW_MORE: "और देखें",
     VIEW_MORE_DETAILS: "अधिक विवरण देखें",
     VIEW_MY_STAKE: "अपनी स्टेकिंग देखें",
