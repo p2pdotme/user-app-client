@@ -8,7 +8,6 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
-import { TgeCountdownBanner } from "@/components/tge-countdown-banner";
 import { Button } from "@/components/ui/button";
 import {
   useAnalytics,
@@ -20,17 +19,17 @@ import {
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { BalanceIndicator } from "./balance-indicator";
-import { CashbackEarnedCard } from "./cashback-earned-card";
 import { ClaimGiftsDrawer } from "./claim-gifts-drawer";
 import { ClaimMonthlyDropCard } from "./claim-monthly-drop-card";
 import { DepositDrawer } from "./deposit-drawer";
 import { Footer } from "./footer";
 import { Header } from "./header";
-import { LotpotCreditsEarnedCard } from "./lotpot-credits-earned-card";
 import { PerTxnLimit } from "./per-txn-limits";
 import { PriceIndicator } from "./price-indicator";
 import { ProcessingTransactions } from "./processing-txns";
 import { Referral } from "./referral";
+import { RewardsCard } from "./rewards-card";
+import { StakingEarnedCard } from "./staking-earned-card";
 import { WithdrawDrawer } from "./withdraw-drawer";
 import { YoureInvitedDrawer } from "./youre-invited-drawer";
 
@@ -217,13 +216,9 @@ export function HomeScreen() {
           <Banner openVideo={openVideo} />
         </section>
 
-        <section className="flex w-full flex-col items-center justify-center py-2">
-          <TgeCountdownBanner />
-        </section>
+        <StakingEarnedCard />
 
-        <CashbackEarnedCard />
-
-        <LotpotCreditsEarnedCard />
+        <RewardsCard />
 
         <ProcessingTransactions />
 
