@@ -4,14 +4,14 @@ import { useNavigate } from "react-router";
 import type { Address } from "thirdweb";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
+import { CollapsibleCard } from "@/components/collapsible-card";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   useCbBtcBalance,
   useCbBtcPrice,
-  useP2pRewardBalance,
   useP2PTokenInfo,
+  useP2pRewardBalance,
   useThirdweb,
 } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -68,8 +68,7 @@ function P2pCashbackRow() {
       <Button
         variant="link"
         onClick={handleViewP2PToken}
-        className="h-auto self-start p-0 no-underline hover:no-underline"
-      >
+        className="h-auto self-start p-0 no-underline hover:no-underline">
         {t("VIEW_P2P_TOKEN_HOLDINGS")}
         <ArrowRight className="size-4" />
       </Button>
@@ -122,8 +121,7 @@ function CbBtcCashbackRow() {
       <Button
         variant="link"
         onClick={handleOpenCoinsMe}
-        className="h-auto self-start p-0 no-underline hover:no-underline"
-      >
+        className="h-auto self-start p-0 no-underline hover:no-underline">
         {t("USE_CBBTC_ON_COINSME")}
         <ArrowRight className="size-4" />
       </Button>
@@ -142,15 +140,14 @@ export function CashbackEarnedCard() {
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-4">
-      <Card className="w-full gap-3 border-none bg-primary/5 px-6 pt-4 pb-4">
-        <CardHeader className="p-0">
-          <CardTitle>{t("CASHBACK_EARNED")}</CardTitle>
-        </CardHeader>
+      <CollapsibleCard
+        title={t("CASHBACK_EARNED")}
+        storageKey="card-collapse:cashback">
         <div className="flex w-full flex-col gap-4">
           <P2pCashbackRow />
           <CbBtcCashbackRow />
         </div>
-      </Card>
+      </CollapsibleCard>
     </div>
   );
 }
