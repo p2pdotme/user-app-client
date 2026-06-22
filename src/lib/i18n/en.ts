@@ -1441,6 +1441,7 @@ export const en = {
     REVOLUT: "Revolut",
     REVOLUT_ID: "Revolut ID",
     REWARD: "Reward",
+    REWARDS: "Rewards",
     REWARDS_BANNER_DESCRIPTION: "Refer friends and earn USDC bonuses",
     REWARDS_BANNER_TITLE: "Earn Rewards",
     REWARD_ALREADY_CLAIMED: "Reward already claimed",
