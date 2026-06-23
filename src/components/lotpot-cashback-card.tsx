@@ -2,7 +2,7 @@ import { ExternalLink, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { CurrencyType } from "@/lib/constants";
+import { CURRENCY, type CurrencyType } from "@/lib/constants";
 
 const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-cashback";
@@ -36,12 +36,18 @@ export function getLotpotCashbackPercent(currency?: CurrencyType): number {
  * 2% by default, 1% for Argentina (ARS) and Mexico (MEX). Pass the order's
  * currency so the card mirrors what the backend actually credits.
  *
- * Renders unconditionally for any caller — the gating happens at the
+ * Renders for any caller except INR markets, where LotPot cashback is not
+ * offered — there the card is hidden entirely. Other gating happens at the
  * call site (BUY/SELL completion only).
  */
 export function LotpotCashbackCard({ currency }: { currency?: CurrencyType }) {
   const { t } = useTranslation();
   const percentage = getLotpotCashbackPercent(currency);
+
+  // LotPot cashback is not available for INR — hide the card entirely.
+  if (currency === CURRENCY.INR) {
+    return null;
+  }
 
   const handleOpenLotpot = () => {
     const base = import.meta.env.VITE_LOTPOT_URL ?? LOTPOT_FALLBACK_URL;
