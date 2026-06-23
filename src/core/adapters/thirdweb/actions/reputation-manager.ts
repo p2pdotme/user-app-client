@@ -37,10 +37,12 @@ import {
   prepareGetIsFacebookVerifiedArgs,
   prepareGetIsGitHubVerifiedArgs,
   prepareGetIsInstagramVerifiedArgs,
+  prepareGetIsKycVerifiedArgs,
   prepareGetIsLinkedInVerifiedArgs,
   prepareGetIsPassportVerifiedArgs,
   prepareGetIsWhitelistedArgs,
   prepareGetIsXVerifiedArgs,
+  prepareGetKycRpArgs,
   prepareGetLinkedInRpArgs,
   prepareGetLyingUserRpArgs,
   prepareGetMaxRpToBeVotedArgs,
@@ -821,6 +823,58 @@ export function getXRp(): ResultAsync<bigint, ThirdwebAdapterError | P2PError> {
           context: { to, args },
         }),
     ),
+  );
+}
+
+export function getKycRp(): ResultAsync<
+  bigint,
+  ThirdwebAdapterError | P2PError
+> {
+  return prepareGetKycRpArgs().asyncAndThen(({ to, functionName, abi, args }) =>
+    ResultAsync.fromPromise(
+      viemPublicClient.readContract({
+        address: to,
+        abi,
+        functionName,
+        args,
+      }),
+      (error) =>
+        createAppError<"ThirdwebAdapter">(
+          "Failed to read KYC RP from contract",
+          {
+            domain: "ThirdwebAdapter",
+            code: "TWReadContractError",
+            cause: error,
+            context: { to, args },
+          },
+        ),
+    ),
+  );
+}
+
+export function isKycVerified(params: {
+  address: Address;
+}): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
+  return prepareGetIsKycVerifiedArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read KYC verification status from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
   );
 }
 
