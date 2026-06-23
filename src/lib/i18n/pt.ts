@@ -1047,7 +1047,7 @@ export const pt = {
     NO_FUNCTION_EXISTS: "Nenhuma função existe!",
     NO_KEEP_ORDER: "Não, manter pedido",
     NO_LIQUIDITY_FOR_ORDER:
-      "Desculpe - não conseguimos liquidez para este pedido agora. Por favor, tente novamente em breve.",
+      "Nenhum comerciante com liquidez suficiente foi encontrado. Por favor, faça um pedido menor.",
     NO_MERCHANTS_TO_MIGRATE: "Não há comerciantes para migrar",
     NO_PENDING_MIGRATION_REQUEST: "Nenhuma solicitação de migração pendente",
     NO_PENDING_UNSTAKE_REQUEST: "Nenhuma solicitação de retirada pendente",

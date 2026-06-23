@@ -1045,7 +1045,7 @@ export const id = {
     NO_FUNCTION_EXISTS: "Tidak ada fungsi yang ada!",
     NO_KEEP_ORDER: "Tidak, jaga pesanan",
     NO_LIQUIDITY_FOR_ORDER:
-      "Maaf - kami tidak dapat menemukan likuiditas untuk pesanan ini saat ini. Silakan coba lagi sebentar lagi.",
+      "Tidak ditemukan merchant dengan likuiditas yang cukup. Silakan buat pesanan yang lebih kecil.",
     NO_MERCHANTS_TO_MIGRATE: "Tidak ada merchant untuk dimigrasikan",
     NO_PENDING_MIGRATION_REQUEST: "Tidak ada permintaan migrasi yang tertunda",
     NO_PENDING_UNSTAKE_REQUEST:
