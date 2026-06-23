@@ -489,6 +489,40 @@ export function prepareGetXRpArgs(): Result<
   }));
 }
 
+export function prepareGetKycRpArgs(): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "kycRp";
+    args: [];
+  },
+  P2PError
+> {
+  return validate(ZodXRpParamsSchema, {}).map(() => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "kycRp" as const,
+    args: [],
+  }));
+}
+
+export function prepareGetIsKycVerifiedArgs(params: UserParams): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "kycVerified";
+    args: [Address];
+  },
+  P2PError
+> {
+  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "kycVerified" as const,
+    args: [validatedParams.address],
+  }));
+}
+
 export function prepareGetFacebookRpArgs(): Result<
   {
     to: Address;
