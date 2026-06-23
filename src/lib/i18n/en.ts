@@ -1028,7 +1028,7 @@ export const en = {
     NO_FUNCTION_EXISTS: "No function exists!",
     NO_KEEP_ORDER: "No, keep order",
     NO_LIQUIDITY_FOR_ORDER:
-      "Sorry - we couldn't source liquidity for this order right now. Please try again shortly.",
+      "No merchant with sufficient liquidity was found. Please place a smaller order.",
     NO_MERCHANTS_TO_MIGRATE: "No merchants to migrate",
     NO_PENDING_MIGRATION_REQUEST: "No pending migration request",
     NO_PENDING_UNSTAKE_REQUEST: "No pending unstake request",
