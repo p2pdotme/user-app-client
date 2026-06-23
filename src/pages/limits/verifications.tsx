@@ -11,13 +11,16 @@ import {
 import { usePrices } from "@p2pdotme/sdk/react";
 import {
   createReclaimFlow,
+  createSimpleKycFlow,
   createZkPassportFlow,
   DEFAULT_RECLAIM_PROVIDER_IDS,
   RECLAIM_APP_LINKS,
   type ReclaimFlowParams,
   type ReclaimProofResult,
   type ReclaimStatus,
+  resumeSimpleKycFlow,
   type ZkPassportStatus as SdkZkPassportStatus,
+  SIMPLE_KYC_DEFAULT_TENANT,
   type SocialPlatform,
   type SocialVerifyParams,
   ZK_PASSPORT_APP_LINKS,
@@ -46,7 +49,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import {
   Drawer,
   DrawerContent,
@@ -55,6 +57,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { Progress } from "@/components/ui/progress";
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
@@ -62,15 +65,22 @@ import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useAadhaarRpReward,
   useAadhaarVerificationStatus,
+  useKycRpReward,
+  useKycVerificationStatus,
   useSocialRpRewards,
   useSocialVerificationStatus,
   useSocialVerify,
   useSubmitAnonAadhaarProof,
+  useSubmitKycAttestation,
   useZkPassportRegister,
   useZkPassportRpReward,
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
-import { RECLAIM_APP } from "@/lib/constants";
+import {
+  KYC_COUNTRY_BY_CURRENCY,
+  RECLAIM_APP,
+  SIMPLE_KYC_BASE_URL,
+} from "@/lib/constants";
 import {
   clearStoredParams,
   getStoredParams,
@@ -95,7 +105,8 @@ type SocialPlatformType =
   | "Facebook"
   | "Binance"
   | "Aadhaar"
-  | "ZKPassport";
+  | "ZKPassport"
+  | "Identity (KYC)";
 
 /**
  * Empty-state CTA shown above the verification list when the user has not yet
@@ -668,8 +679,7 @@ export function Verifications() {
         {SOCIALS.filter(
           (social) =>
             // Binance verification is not offered when the selected country is India
-            social.name !== "Binance" ||
-            settings.currency.country !== "India",
+            social.name !== "Binance" || settings.currency.country !== "India",
         ).map((social) => (
           <VerificationItem
             key={social.name}
@@ -692,6 +702,7 @@ export function Verifications() {
             }
           />
         ))}
+        <KycVerificationCard />
         {!HIDE_AADHAAR_VERIFICATION &&
           settings.currency.country === "India" &&
           isAnySocialVerified && (
@@ -723,8 +734,7 @@ export function Verifications() {
                     className="bg-muted text-foreground hover:bg-muted"
                     onClick={() => {
                       toast.success(t("ALREADY_VERIFIED"));
-                    }}
-                  >
+                    }}>
                     <Check className="mr-2 size-4" />
                     {t("VERIFIED")}
                   </Button>
@@ -791,8 +801,7 @@ export function Verifications() {
                   className="bg-muted text-foreground hover:bg-muted"
                   onClick={() => {
                     toast.success(t("ALREADY_VERIFIED"));
-                  }}
-                >
+                  }}>
                   <Check className="mr-2 size-4" />
                   {t("VERIFIED")}
                 </Button>
@@ -800,8 +809,7 @@ export function Verifications() {
                 <Button
                   variant="outline"
                   onClick={handleZkPassportVerification}
-                  disabled={isZkPassportLoading || isZkPassportRegisterPending}
-                >
+                  disabled={isZkPassportLoading || isZkPassportRegisterPending}>
                   {isZkPassportLoading || isZkPassportRegisterPending ? (
                     <>
                       <Loader2 className="mr-2 size-4 animate-spin" />
@@ -837,8 +845,7 @@ export function Verifications() {
           const StatusDisplay = () =>
             zkPassportStatus ? (
               <div
-                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}
-              >
+                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}>
                 <div className="flex items-center gap-2">
                   {isZkPassportLoading && (
                     <Loader2 className="size-4 animate-spin text-primary" />
@@ -857,8 +864,7 @@ export function Verifications() {
                 if (!open) {
                   handleCancel();
                 }
-              }}
-            >
+              }}>
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>
@@ -916,8 +922,7 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                           }
-                          className="w-full"
-                        >
+                          className="w-full">
                           {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                         </Button>
                       )}
@@ -927,8 +932,7 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.ANDROID, "_blank")
                           }
-                          className="w-full"
-                        >
+                          className="w-full">
                           {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                         </Button>
                       )}
@@ -939,8 +943,7 @@ export function Verifications() {
                             onClick={() =>
                               window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                             }
-                            className="w-full"
-                          >
+                            className="w-full">
                             {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                           </Button>
                           <Button
@@ -951,8 +954,7 @@ export function Verifications() {
                                 "_blank",
                               )
                             }
-                            className="w-full"
-                          >
+                            className="w-full">
                             {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                           </Button>
                         </>
@@ -966,8 +968,7 @@ export function Verifications() {
                     <Button
                       variant="outline"
                       onClick={handleCancel}
-                      className="w-full"
-                    >
+                      className="w-full">
                       {t("CANCEL")}
                     </Button>
                   ) : (
@@ -976,8 +977,7 @@ export function Verifications() {
                       <Button
                         onClick={handleZkPassportContinueToVerification}
                         disabled={isZkPassportLoading}
-                        className="w-full"
-                      >
+                        className="w-full">
                         {isZkPassportLoading ? (
                           <>
                             <Loader2 className="mr-2 size-4 animate-spin" />
@@ -992,8 +992,7 @@ export function Verifications() {
                         onClick={() => {
                           setShowZkPassportTutorial(false);
                         }}
-                        className="w-full"
-                      >
+                        className="w-full">
                         {t("CANCEL")}
                       </Button>
                     </>
@@ -1372,8 +1371,7 @@ function VerificationItem({
             if (!open) {
               clearVerification(t("VERIFICATION_CANCELLED"));
             }
-          }}
-        >
+          }}>
           <DrawerContent className="bg-background">
             <DrawerHeader>
               <DrawerTitle>{t("VERIFICATION_IN_PROGRESS")}</DrawerTitle>
@@ -1402,8 +1400,7 @@ function VerificationItem({
                     window.history.replaceState({}, document.title, "/limits");
                   }
                   handleReclaimVerification();
-                }}
-              >
+                }}>
                 {t("RETRY_VERIFICATION")}
               </Button>
               <Button
@@ -1411,8 +1408,7 @@ function VerificationItem({
                   clearVerification(t("VERIFICATION_CANCELLED"));
                 }}
                 size="sm"
-                className="w-full"
-              >
+                className="w-full">
                 {t("CANCEL_VERIFICATION")}
               </Button>
             </DrawerFooter>
@@ -1426,8 +1422,7 @@ function VerificationItem({
             <Button
               variant="ghost"
               className="absolute top-4 right-4"
-              onClick={() => setShowTutorial(false)}
-            >
+              onClick={() => setShowTutorial(false)}>
               ✕
             </Button>
             <h3 className="mb-4 font-bold text-xl">
@@ -1462,8 +1457,7 @@ function VerificationItem({
                       onClick={() =>
                         window.open(RECLAIM_APP_LINKS.ANDROID, "_blank")
                       }
-                      className="w-full max-w-xs"
-                    >
+                      className="w-full max-w-xs">
                       {t("RECLAIM_DOWNLOAD_ANDROID")}
                     </Button>
                   </div>
@@ -1482,8 +1476,7 @@ function VerificationItem({
               <Button
                 onClick={handleContinueToVerification}
                 className="w-full"
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {t("CONTINUE_TO_VERIFICATION")}
               </Button>
             </div>
@@ -1547,8 +1540,7 @@ function VerificationItem({
                 className="bg-muted text-foreground hover:bg-muted"
                 onClick={() => {
                   toast.success(t("ALREADY_VERIFIED"));
-                }}
-              >
+                }}>
                 <Check className="mr-2 size-4" />
                 {t("VERIFIED")}
               </Button>
@@ -1566,8 +1558,7 @@ function VerificationItem({
               <Button
                 variant="outline"
                 onClick={() => handleVerifySocial()}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {t("GET_VERIFIED")}
               </Button>
             )}
@@ -1575,5 +1566,133 @@ function VerificationItem({
         </CardFooter>
       </Card>
     </>
+  );
+}
+
+/**
+ * Identity (KYC) verification card. Unlike the Reclaim socials (an in-page
+ * modal), this redirects to the hosted simple-kyc wizard (passport + liveness),
+ * which hands back a one-time `code` at `${origin}/limits?code=…&state=kyc-…`.
+ * We redeem the code for the EIP-712 attestation and submit it on-chain, which
+ * credits the KYC rp. Uniqueness is enforced by the face dedup + the on-chain
+ * nullifier, so the reward lands once per human.
+ *
+ * Rendered through `VerificationItem` so it matches the social cards exactly.
+ */
+function KycVerificationCard() {
+  const { t } = useTranslation();
+  const { account } = useThirdweb();
+  const { settings } = useSettings();
+  // simple-kyc requires the passport country up front (the wizard skips that
+  // step). Derive it from the user's selected market; markets we can't map to a
+  // supported KYC country (USD, EUR) don't get the card at all.
+  const kycCountry = KYC_COUNTRY_BY_CURRENCY[settings.currency.currency];
+  const { kycRp, isKycRpLoading, isKycRpError, kycRpError } = useKycRpReward();
+  const {
+    isKycVerified,
+    isKycStatusLoading,
+    kycStatusError,
+    refetchKycStatus,
+  } = useKycVerificationStatus();
+  const submit = useSubmitKycAttestation();
+  const [busy, setBusy] = useState(false);
+  const processed = useRef(false);
+  const reward = kycRp ?? 50;
+
+  // Returning from the hosted wizard: ?code=<one-time>&state=kyc-…
+  useEffect(() => {
+    if (processed.current || !account?.address) return;
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    if (!code || !state || !state.startsWith("kyc")) return;
+    processed.current = true;
+    (async () => {
+      setBusy(true);
+      const att = await resumeSimpleKycFlow({
+        baseUrl: SIMPLE_KYC_BASE_URL,
+        code,
+      });
+      if (att.isErr()) {
+        toast.error(`KYC: ${att.error.message}`);
+        setBusy(false);
+        return;
+      }
+      try {
+        await submit.mutateAsync(att.value);
+        toast.success(`Identity verified — +${reward} rp`);
+        await refetchKycStatus();
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "KYC submission failed");
+      } finally {
+        window.history.replaceState({}, "", window.location.pathname);
+        setBusy(false);
+      }
+    })();
+  }, [account?.address, submit, reward, refetchKycStatus]);
+
+  const start = useCallback(async () => {
+    if (!account?.address) {
+      toast.error("Connect a wallet first");
+      return;
+    }
+    if (!kycCountry) {
+      toast.error("KYC isn't available for your region yet");
+      return;
+    }
+    setBusy(true);
+    const session = await createSimpleKycFlow({
+      baseUrl: SIMPLE_KYC_BASE_URL,
+      walletAddress: account.address as `0x${string}`,
+      tenant: SIMPLE_KYC_DEFAULT_TENANT,
+      redirectUrl: `${window.location.origin}/limits`,
+      country: kycCountry,
+      state: `kyc-${Math.random().toString(36).slice(2)}`,
+    });
+    if (session.isErr()) {
+      toast.error(`KYC: ${session.error.message}`);
+      setBusy(false);
+      return;
+    }
+    session.value.redirect();
+  }, [account?.address, kycCountry]);
+
+  // KYC isn't offered for markets without a supported passport country.
+  if (!kycCountry) return null;
+
+  return (
+    <VerificationItem
+      name="Identity (KYC)"
+      icon={<ShieldCheck className="size-5 text-foreground" />}
+      usdcReward={0}
+      rpReward={isKycRpLoading || isKycRpError || !kycRp ? 0 : kycRp}
+      isVerified={!!isKycVerified}
+      isStatusLoading={isKycStatusLoading || isKycRpLoading}
+      socialStatusError={kycStatusError || kycRpError || null}
+      refetchSocialStatus={refetchKycStatus}
+      customButton={
+        isKycVerified ? (
+          <Button
+            className="bg-muted text-foreground hover:bg-muted"
+            onClick={() => {
+              toast.success(t("ALREADY_VERIFIED"));
+            }}>
+            <Check className="mr-2 size-4" />
+            {t("VERIFIED")}
+          </Button>
+        ) : (
+          <Button variant="outline" onClick={start} disabled={busy}>
+            {busy ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t("VERIFYING")}
+              </>
+            ) : (
+              t("GET_VERIFIED")
+            )}
+          </Button>
+        )
+      }
+    />
   );
 }
