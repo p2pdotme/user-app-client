@@ -28,6 +28,7 @@ export * from "./slippage-drawer";
 export * from "./social-links";
 export * from "./spaceship-speed-indicator";
 export * from "./spaceship-speed-indicator";
+export * from "./support-widget";
 export * from "./sw-checker";
 export * from "./task-ledger";
 export * from "./test-haptic-components";

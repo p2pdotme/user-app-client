@@ -13,6 +13,7 @@ import {
   CurrencyGate,
   PageTransitioner,
   PWABadge,
+  SupportWidget,
   // AuthStatusDebug,
   // PWAStatusDebug,
 } from "@/components";
@@ -141,6 +142,7 @@ function App() {
                       </PageTransitioner>
                     </DynamicProviderWrapper>
                   </AuthGuard>
+                  <SupportWidget />
                 </SettingsProvider>
               </AnonAadhaarProvider>
             </P2pdotmeProvider>
