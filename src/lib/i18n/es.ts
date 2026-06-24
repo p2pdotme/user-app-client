@@ -1,5 +1,6 @@
 export const es = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "La verificación de Aadhaar falló",
     ABOUT_P2P_TOKEN: "Acerca del Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P es el token de gobernanza y utilidad del Protocolo P2P, que impulsa la gobernanza basada en futarquía, el control de tesorería y el staking de confianza ("Círculos de Confianza") para una rampa de entrada/salida fiat-cripto descentralizada y que preserva la privacidad.',
@@ -266,6 +267,7 @@ export const es = {
     CONNECTION_STATUS: "Estado de la Conexión",
     CONNECT_ANY_SERVER_REFRESH: "Conéctate a cualquier servidor y actualiza",
     CONNECT_WALLET: "Conectar Wallet",
+    CONNECT_WALLET_FIRST: "Conecta una wallet primero",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Conecta tu wallet de origen para depositar desde Solana y 5 cadenas EVM.",
     CONTINUE: "Continuar",
@@ -805,6 +807,8 @@ export const es = {
       "Paso 3: Espera a que se complete la generación de la prueba. Serás redirigido automáticamente de vuelta a la aplicación una vez que se complete la verificación.",
     HOW_WAS_YOUR_EXPERIENCE: "¿Cómo te fue? ¿Fue fluido y rápido?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identidad verificada con éxito",
+    IDENTITY_VERIFYING: "Verificando tu identidad...",
     IDLE: "Inactivo",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Incluir transacciones basadas en el estado de la disputa",
@@ -870,6 +874,10 @@ export const es = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "Únete como comerciante. Gana",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "en cada operación.",
     JOIN_MERCHANT_BANNER_TITLE: "Gana como Comerciante",
+    KYC_DESCRIPTION: "Escaneo seguro de pasaporte y verificación de vida",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC aún no está disponible para tu región",
+    KYC_SUBMISSION_FAILED: "Error al enviar el KYC",
     LABEL_IS_REQUIRED: "La etiqueta es obligatoria",
     LANGUAGE: "Idioma",
     LANGUAGE_REQUIRED: "Idioma Requerido",
@@ -1904,6 +1912,7 @@ export const es = {
       "Por favor, inicia sesión de nuevo para continuar la verificación de tu cuenta de {{socialPlatform}}",
     VERIFICATION_PARAMS_DETECTED:
       "Inicia sesión de nuevo para continuar la verificación",
+    VERIFICATION_STEP_1_ALT: "Paso 1 de verificación",
     VERIFICATION_SUCCESS: "Verificación exitosa",
     VERIFIED: "Verificado",
     VERIFIED_SOCIALS_TO_UNLOCK: "Redes sociales verificadas para desbloquear",
@@ -2107,6 +2116,7 @@ export const es = {
     ZK_PASSPORT_PROOF_INVALID: "Prueba ZK Passport inválida",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Prueba enviada, verificando onchain para registro",
+    ZK_PASSPORT_PURPOSE: "Demuestra tu personalidad",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Escanea el código QR con tu aplicación ZK Passport para verificar tu identidad",
     ZK_PASSPORT_REQUEST_RECEIVED:

@@ -32,6 +32,7 @@ import {
   Fingerprint,
   Loader2,
   Monitor,
+  ScanFace,
   ShieldCheck,
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
@@ -274,7 +275,7 @@ export function Verifications() {
       domain: "app.p2p.me",
       name: "ZKPassport",
       logo: "https://app.p2p.lol/favicon.svg",
-      purpose: "Prove your personhood",
+      purpose: t("ZK_PASSPORT_PURPOSE"),
       walletAddress: account.address as `0x${string}`,
       onStatus: (status: SdkZkPassportStatus) => {
         switch (status.type) {
@@ -533,7 +534,7 @@ export function Verifications() {
                 ? err.message
                 : typeof err === "string"
                   ? err
-                  : "Aadhaar verification failed";
+                  : t("AADHAAR_VERIFICATION_FAILED");
             track(EVENTS.VERIFICATION, {
               verification_type: "aadhaar",
               status: "failed",
@@ -676,6 +677,7 @@ export function Verifications() {
       </div>
       <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
+        <KycVerificationCard />
         {SOCIALS.filter(
           (social) =>
             // Binance verification is not offered when the selected country is India
@@ -702,7 +704,6 @@ export function Verifications() {
             }
           />
         ))}
-        <KycVerificationCard />
         {!HIDE_AADHAAR_VERIFICATION &&
           settings.currency.country === "India" &&
           isAnySocialVerified && (
@@ -1008,6 +1009,7 @@ export function Verifications() {
 
 interface VerificationItemProps {
   name: SocialPlatformType;
+  description?: string;
   icon?: React.ReactNode;
   usdcReward: number;
   rpReward: number;
@@ -1030,6 +1032,7 @@ const reclaimConfig: Pick<
 
 function VerificationItem({
   name,
+  description,
   icon,
   usdcReward,
   rpReward,
@@ -1159,7 +1162,7 @@ function VerificationItem({
   );
 
   const loginToGetVerified = () => {
-    toast.info("Connecting wallet...");
+    toast.info(t("CONNECTING_WALLET"));
   };
 
   const handleVerificationSuccess = useCallback(
@@ -1445,7 +1448,7 @@ function VerificationItem({
                           ? ASSETS.IMAGES.APP_CLIP_CLICK_HERE
                           : ASSETS.IMAGES.INSTANT_APP_CLICK_HERE
                       }
-                      alt="Verification step 1"
+                      alt={t("VERIFICATION_STEP_1_ALT")}
                       className="h-48 w-auto rounded-lg object-cover"
                     />
                   ) : null}
@@ -1491,8 +1494,11 @@ function VerificationItem({
               <div className="flex size-10 items-center justify-center rounded-full bg-primary/30">
                 {icon}
               </div>
-              <div className="flex flex-col items-start gap-1">
+              <div className="flex flex-col items-start gap-0.5">
                 <p className="font-medium text-lg">{name}</p>
+                {description && (
+                  <p className="text-muted-foreground text-xs">{description}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col items-end gap-1">
@@ -1614,30 +1620,34 @@ function KycVerificationCard() {
         code,
       });
       if (att.isErr()) {
-        toast.error(`KYC: ${att.error.message}`);
+        toast.error(t("KYC_ERROR", { message: att.error.message }));
         setBusy(false);
         return;
       }
       try {
-        await submit.mutateAsync(att.value);
-        toast.success(`Identity verified — +${reward} rp`);
+        await toast.promise(submit.mutateAsync(att.value), {
+          loading: t("IDENTITY_VERIFYING"),
+          success: t("IDENTITY_VERIFIED_WITH_REWARD"),
+          error: (e) =>
+            e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
+        }).unwrap();
         await refetchKycStatus();
-      } catch (e) {
-        toast.error(e instanceof Error ? e.message : "KYC submission failed");
+      } catch {
+        // toast.promise already surfaced the error to the user
       } finally {
         window.history.replaceState({}, "", window.location.pathname);
         setBusy(false);
       }
     })();
-  }, [account?.address, submit, reward, refetchKycStatus]);
+  }, [account?.address, submit, reward, refetchKycStatus, t]);
 
   const start = useCallback(async () => {
     if (!account?.address) {
-      toast.error("Connect a wallet first");
+      toast.error(t("CONNECT_WALLET_FIRST"));
       return;
     }
     if (!kycCountry) {
-      toast.error("KYC isn't available for your region yet");
+      toast.error(t("KYC_NOT_AVAILABLE_FOR_REGION"));
       return;
     }
     setBusy(true);
@@ -1650,12 +1660,12 @@ function KycVerificationCard() {
       state: `kyc-${Math.random().toString(36).slice(2)}`,
     });
     if (session.isErr()) {
-      toast.error(`KYC: ${session.error.message}`);
+      toast.error(t("KYC_ERROR", { message: session.error.message }));
       setBusy(false);
       return;
     }
     session.value.redirect();
-  }, [account?.address, kycCountry]);
+  }, [account?.address, kycCountry, t]);
 
   // KYC isn't offered for markets without a supported passport country.
   if (!kycCountry) return null;
@@ -1663,7 +1673,8 @@ function KycVerificationCard() {
   return (
     <VerificationItem
       name="Identity (KYC)"
-      icon={<ShieldCheck className="size-5 text-foreground" />}
+      icon={<ScanFace className="size-5 text-foreground" />}
+      description={t("KYC_DESCRIPTION")}
       usdcReward={0}
       rpReward={isKycRpLoading || isKycRpError || !kycRp ? 0 : kycRp}
       isVerified={!!isKycVerified}
