@@ -1,5 +1,6 @@
 export const id = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "Verifikasi Aadhaar gagal",
     ABOUT_P2P_TOKEN: "Tentang Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
@@ -259,6 +260,7 @@ export const id = {
     CONNECTION_STATUS: "Status Koneksi",
     CONNECT_ANY_SERVER_REFRESH: "Hubungkan ke server mana saja dan refresh",
     CONNECT_WALLET: "Hubungkan Dompet",
+    CONNECT_WALLET_FIRST: "Hubungkan dompet terlebih dahulu",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Hubungkan dompet sumber Anda untuk deposit dari Solana dan 5 chain EVM.",
     CONTINUE: "Lanjutkan",
@@ -793,6 +795,8 @@ export const id = {
     HOW_WAS_YOUR_EXPERIENCE:
       "Bagaimana pengalamannya? Apakah lancar dan cepat?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identitas berhasil diverifikasi",
+    IDENTITY_VERIFYING: "Memverifikasi identitas Anda...",
     IDLE: "Menganggur",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Sertakan transaksi berdasarkan status sengketa",
@@ -856,6 +860,10 @@ export const id = {
       "Bergabung sebagai merchant. Dapatkan",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "di setiap transaksi.",
     JOIN_MERCHANT_BANNER_TITLE: "Hasilkan sebagai Merchant",
+    KYC_DESCRIPTION: "Pemindaian paspor & verifikasi keaktifan yang aman",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC belum tersedia untuk wilayah Anda",
+    KYC_SUBMISSION_FAILED: "Pengiriman KYC gagal",
     LABEL_IS_REQUIRED: "Label diperlukan",
     LANGUAGE: "Bahasa",
     LANGUAGE_REQUIRED: "Bahasa Diperlukan",
@@ -1850,6 +1858,7 @@ export const id = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "Silakan login kembali untuk melanjutkan verifikasi akun {{socialPlatform}} Anda",
     VERIFICATION_PARAMS_DETECTED: "Login kembali untuk melanjutkan verifikasi",
+    VERIFICATION_STEP_1_ALT: "Langkah verifikasi 1",
     VERIFICATION_SUCCESS: "Verifikasi berhasil",
     VERIFIED: "Terverifikasi",
     VERIFIED_SOCIALS_TO_UNLOCK: "Akun sosial terverifikasi untuk membuka kunci",
@@ -2051,6 +2060,7 @@ export const id = {
     ZK_PASSPORT_PROOF_INVALID: "Bukti ZK Passport tidak valid",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Bukti dikirim, memverifikasi onchain untuk pendaftaran",
+    ZK_PASSPORT_PURPOSE: "Buktikan kepribadian Anda",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Pindai kode QR dengan aplikasi ZK Passport Anda untuk memverifikasi identitas Anda",
     ZK_PASSPORT_REQUEST_RECEIVED:

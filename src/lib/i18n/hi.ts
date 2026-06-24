@@ -1,5 +1,6 @@
 export const hi = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "आधार सत्यापन विफल",
     ABOUT_P2P_TOKEN: "$P2P टोकन के बारे में",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P, P2P प्रोटोकॉल का गवर्नेंस और यूटिलिटी टोकन है, जो विकेंद्रीकृत, गोपनीयता-संरक्षित फिएट-टू-क्रिप्टो ऑन/ऑफ-रैम्प के लिए फ्यूटार्की-आधारित प्रोटोकॉल गवर्नेंस, ट्रेज़री नियंत्रण और ट्रस्ट स्टेकिंग ("Circles of Trust") को सशक्त बनाता है।',
@@ -250,6 +251,7 @@ export const hi = {
     CONNECTION_STATUS: "कनेक्शन स्थिति",
     CONNECT_ANY_SERVER_REFRESH: "किसी भी सर्वर से कनेक्ट करें और रीफ्रेश करें",
     CONNECT_WALLET: "वॉलेट कनेक्ट करें",
+    CONNECT_WALLET_FIRST: "पहले एक वॉलेट कनेक्ट करें",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Solana और 5 EVM चेन से जमा करने के लिए अपना सोर्स वॉलेट कनेक्ट करें।",
     CONTINUE: "जारी रखें",
@@ -752,6 +754,8 @@ export const hi = {
       "चरण 3: प्रमाण पीढ़ी पूरी होने की प्रतीक्षा करें। सत्यापन पूरा होने के बाद आपको स्वचालित रूप से ऐप पर वापस भेज दिया जाएगा।",
     HOW_WAS_YOUR_EXPERIENCE: "आपका अनुभव कैसा रहा? क्या यह सुगम और त्वरित था?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "पहचान सफलतापूर्वक सत्यापित",
+    IDENTITY_VERIFYING: "आपकी पहचान सत्यापित की जा रही है...",
     IDLE: "निष्क्रिय",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "विवाद स्थिति के आधार पर लेनदेन शामिल करें",
@@ -814,6 +818,10 @@ export const hi = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "मर्चेंट बनें।",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "हर ट्रेड पर कमाएं।",
     JOIN_MERCHANT_BANNER_TITLE: "मर्चेंट के रूप में कमाएं",
+    KYC_DESCRIPTION: "सुरक्षित पासपोर्ट स्कैन और लाइवनेस सत्यापन",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC अभी आपके क्षेत्र के लिए उपलब्ध नहीं है",
+    KYC_SUBMISSION_FAILED: "KYC सबमिशन विफल",
     LABEL_IS_REQUIRED: "लेबल आवश्यक है",
     LANGUAGE: "भाषा",
     LANGUAGE_REQUIRED: "भाषा आवश्यक",
@@ -1774,6 +1782,7 @@ export const hi = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "कृपया अपने {{socialPlatform}} खाते के सत्यापन को जारी रखने के लिए फिर से लॉगिन करें",
     VERIFICATION_PARAMS_DETECTED: "सत्यापन जारी रखने के लिए फिर से लॉगिन करें",
+    VERIFICATION_STEP_1_ALT: "सत्यापन चरण 1",
     VERIFICATION_SUCCESS: "सत्यापन सफल",
     VERIFIED: "सत्यापित",
     VERIFIED_SOCIALS_TO_UNLOCK: "अनलॉक करने के लिए सत्यापित सोशल मीडिया",
@@ -1973,6 +1982,7 @@ export const hi = {
     ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof अमान्य है",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "प्रमाण सबमिट कर दिया गया, पंजीकरण के लिए onchain सत्यापन कर रहे हैं",
+    ZK_PASSPORT_PURPOSE: "अपनी पहचान साबित करें",
     ZK_PASSPORT_QR_DESCRIPTION:
       "अपनी पहचान सत्यापित करने के लिए अपने ZK Passport ऐप से QR कोड स्कैन करें",
     ZK_PASSPORT_REQUEST_RECEIVED:
