@@ -1,5 +1,6 @@
 export const en = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "Aadhaar verification failed",
     ABOUT_P2P_TOKEN: "About $P2P Token",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P is the governance and utility token of the P2P Protocol, powering futarchy-based protocol governance, treasury control, and trust staking ("Circles of Trust") for a decentralized, privacy-preserving fiat-to-crypto on/off-ramp.',
@@ -254,6 +255,7 @@ export const en = {
     CONNECTION_STATUS: "Connection Status",
     CONNECT_ANY_SERVER_REFRESH: "Connect to any server and refresh",
     CONNECT_WALLET: "Connect Wallet",
+    CONNECT_WALLET_FIRST: "Connect a wallet first",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Connect your source wallet to deposit from Solana and 5 EVM chains.",
     CONTINUE: "Continue",
@@ -779,6 +781,8 @@ export const en = {
       "Step 3: Wait for proof generation to complete. You'll be automatically redirected back to the app once verification is done.",
     HOW_WAS_YOUR_EXPERIENCE: "How'd it go? Was it smooth and quick?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identity verified successfully",
+    IDENTITY_VERIFYING: "Verifying your identity...",
     IDLE: "Idle",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Include transactions based on dispute status",
@@ -842,6 +846,10 @@ export const en = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "Join as merchant. Earn",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "on each trade.",
     JOIN_MERCHANT_BANNER_TITLE: "Earn as a Merchant",
+    KYC_DESCRIPTION: "Secure passport & liveness verify",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC isn't available for your region yet",
+    KYC_SUBMISSION_FAILED: "KYC submission failed",
     LABEL_IS_REQUIRED: "Label is required",
     LANGUAGE: "Language",
     LANGUAGE_REQUIRED: "Language Required",
@@ -1813,6 +1821,7 @@ export const en = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "Please login again to continue verification of your {{socialPlatform}} account",
     VERIFICATION_PARAMS_DETECTED: "Login again to continue verification",
+    VERIFICATION_STEP_1_ALT: "Verification step 1",
     VERIFICATION_SUCCESS: "Verification successful",
     VERIFIED: "Verified",
     VERIFIED_SOCIALS_TO_UNLOCK: "Verified socials to unlock",
@@ -2015,6 +2024,7 @@ export const en = {
     ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof is invalid",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Proof submitted, verifying onchain for registration",
+    ZK_PASSPORT_PURPOSE: "Prove your personhood",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Scan the QR code with your ZK Passport app to verify your identity",
     ZK_PASSPORT_REQUEST_RECEIVED:
