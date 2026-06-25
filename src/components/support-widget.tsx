@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSettings } from "@/contexts";
+import { useThirdweb } from "@/hooks";
 
 // Mounts the p2p.me AI support chat (floating launcher + panel) once, globally.
 // The widget is a zero-dependency Shadow-DOM web component from `p2pme-ai-support`
@@ -12,8 +13,13 @@ export const SupportWidget = () => {
   const {
     settings: { currency },
   } = useSettings();
+  const { account, connectionStatus } = useThirdweb();
+  const isLoggedIn = connectionStatus === "connected" && !!account?.address;
 
   useEffect(() => {
+    // Only show the support launcher to authenticated users.
+    if (!isLoggedIn) return;
+
     let handle: { destroy: () => void } | undefined;
     let cancelled = false;
 
@@ -32,7 +38,7 @@ export const SupportWidget = () => {
       cancelled = true;
       handle?.destroy();
     };
-  }, [currency.currency]);
+  }, [currency.currency, isLoggedIn]);
 
   return null;
 };
