@@ -6,9 +6,11 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
 export interface CircleCountdownTimerProps {
-  /** Unix timestamp when the countdown started (in seconds) */
-  startTimestamp: string;
-  /** Duration of the countdown in milliseconds */
+  /** Unix timestamp (seconds) at which the countdown expires — sourced from
+   *  the contract via `getOrderExpiresAt(orderId)`. */
+  expiresAt: string;
+  /** Total duration of the countdown in milliseconds (used to scale the
+   *  progress ring). Should match the contract's order expiry window. */
   countdownDuration: number;
   /** Optional className for styling */
   className?: string;
@@ -17,7 +19,7 @@ export interface CircleCountdownTimerProps {
 }
 
 export const CircleCountdownTimer = ({
-  startTimestamp,
+  expiresAt,
   countdownDuration,
   className,
   onComplete,
@@ -31,11 +33,10 @@ export const CircleCountdownTimer = ({
   const hasCalledComplete = React.useRef(false);
 
   const updateTimer = React.useCallback(() => {
-    // Convert Unix timestamp (seconds) to current Unix timestamp (seconds) for comparison
-    const now = moment().unix(); // Current time in seconds
-    const startTimeUnix = Number(startTimestamp); // Start time in seconds
-    const elapsed = (now - startTimeUnix) * 1000; // Convert to milliseconds for duration comparison
-    const remaining = Math.max(0, countdownDuration - elapsed);
+    // Compare contract-provided absolute expiry (seconds) with current time.
+    const now = moment().unix();
+    const expiresAtUnix = Number(expiresAt);
+    const remaining = Math.max(0, (expiresAtUnix - now) * 1000);
 
     if (remaining <= 0) {
       setProgress(0);
@@ -57,7 +58,7 @@ export const CircleCountdownTimer = ({
 
     setProgress(newProgress);
     setTimeText(newTimeText);
-  }, [startTimestamp, countdownDuration, onComplete]);
+  }, [expiresAt, countdownDuration, onComplete]);
 
   React.useEffect(() => {
     updateTimer(); // Initial update
