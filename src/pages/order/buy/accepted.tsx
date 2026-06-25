@@ -25,7 +25,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
-import { useAcceptedTimestamp, useAnalytics, useOrderFlow } from "@/hooks";
+import { useAnalytics, useOrderExpiresAt, useOrderFlow } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import {
   deserializeCompoundPaymentId,
@@ -179,11 +179,11 @@ export function BuyAccepted({ order }: { order: Order }) {
   >(undefined);
 
   const {
-    data: acceptedTimestamp,
+    data: orderExpiresAt,
     isPending: isLoadingAcceptedTimestamp,
     isError: isErrorAcceptedTimestamp,
     error: errorAcceptedTimestamp,
-  } = useAcceptedTimestamp(Number(order.id));
+  } = useOrderExpiresAt(Number(order.id));
 
   const paymentMethod =
     getPaymentMethodFromOrderDetails(order.id.toString()) ||
@@ -366,9 +366,9 @@ export function BuyAccepted({ order }: { order: Order }) {
             </div>
           </div>
         )}
-        {acceptedTimestamp && (
+        {orderExpiresAt ? (
           <CircleCountdownTimer
-            startTimestamp={acceptedTimestamp.toString()}
+            expiresAt={orderExpiresAt.toString()}
             countdownDuration={COUNTDOWN_DURATION}
             onComplete={() => {
               console.log(t("PAYMENT_TIMEOUT_EXPIRED"));
@@ -383,7 +383,7 @@ export function BuyAccepted({ order }: { order: Order }) {
               });
             }}
           />
-        )}
+        ) : null}
         <h2 className="text-center font-medium text-lg">
           {t("COMPLETE_YOU_PAYMENT_AND_CONFIRM")}...
         </h2>
