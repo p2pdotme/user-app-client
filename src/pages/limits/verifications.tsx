@@ -117,6 +117,7 @@ function VerifySocialCta() {
     isXVerified,
     isInstagramVerified,
     isFacebookVerified,
+    isBinanceVerified,
     isZkPassportVerified,
   } = useSocialVerificationStatus();
   const { isKycVerified } = useKycVerificationStatus();
@@ -127,6 +128,7 @@ function VerifySocialCta() {
     !!isXVerified ||
     !!isInstagramVerified ||
     !!isFacebookVerified ||
+    !!isBinanceVerified ||
     !!isZkPassportVerified ||
     !!isKycVerified;
 
