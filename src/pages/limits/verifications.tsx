@@ -43,6 +43,7 @@ import { useLocation } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -666,6 +667,7 @@ export function Verifications() {
           <VerificationItem
             key={social.name}
             name={social.name}
+            tag={t("TAG_NEEDS_PATIENCE")}
             icon={social.icon}
             usdcReward={0}
             rpReward={isRpLoading || isRpError ? 0 : social.rpReward}
@@ -759,6 +761,7 @@ export function Verifications() {
         {
           <VerificationItem
             name="ZKPassport"
+            tag={t("TAG_RELIABLE_NFC")}
             icon={
               <ASSETS.ICONS.ZkPassport className="size-5 text-foreground" />
             }
@@ -999,6 +1002,8 @@ interface VerificationItemProps {
   refetchSocialStatus: () => void;
   sessionId?: string;
   customButton?: React.ReactNode;
+  /** Small badge shown under the title, e.g. "Quickest", "Needs Patience". */
+  tag?: string;
 }
 
 const reclaimConfig: Pick<
@@ -1022,6 +1027,7 @@ function VerificationItem({
   refetchSocialStatus,
   sessionId,
   customButton,
+  tag,
 }: VerificationItemProps) {
   const { t } = useTranslation();
 
@@ -1479,6 +1485,13 @@ function VerificationItem({
                 {description && (
                   <p className="text-muted-foreground text-xs">{description}</p>
                 )}
+                {tag && (
+                  <Badge
+                    variant="secondary"
+                    className="mt-1 whitespace-normal text-left">
+                    {tag}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className="flex flex-col items-end gap-1">
@@ -1653,6 +1666,7 @@ function KycVerificationCard() {
   return (
     <VerificationItem
       name="Identity (KYC)"
+      tag={t("TAG_QUICKEST")}
       icon={<ScanFace className="size-5 text-foreground" />}
       description={t("KYC_DESCRIPTION")}
       usdcReward={0}
