@@ -44,12 +44,7 @@ import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Drawer,
   DrawerContent,
@@ -58,7 +53,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { Progress } from "@/components/ui/progress";
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
@@ -139,30 +133,12 @@ function VerifySocialCta() {
   return (
     <section className="flex w-full flex-col gap-4 py-2">
       <Card className="w-full border-none bg-primary/10 shadow-none">
-        <CardHeader>
-          <p className="font-medium">
-            {t("VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT")}
-          </p>
-        </CardHeader>
-        <CardContent className="pt-0">
+        <CardContent className="p-4">
           <p className="font-light text-sm">
             {settings.currency.country === "India"
               ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
               : t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
           </p>
-          <p className="mt-4 mb-2 font-light text-xs">
-            {t("VERIFIED_SOCIALS_TO_UNLOCK")}
-          </p>
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-primary px-4 py-0.5 font-medium text-white text-xs">
-              0/1
-            </span>
-            <Progress
-              value={0}
-              className="h-4 flex-1 bg-white"
-              style={{ backgroundColor: "#fff" }}
-            />
-          </div>
         </CardContent>
       </Card>
     </section>
