@@ -119,6 +119,7 @@ function VerifySocialCta() {
     isFacebookVerified,
     isZkPassportVerified,
   } = useSocialVerificationStatus();
+  const { isKycVerified } = useKycVerificationStatus();
 
   const isAnySocialVerified =
     !!isLinkedInVerified ||
@@ -126,14 +127,15 @@ function VerifySocialCta() {
     !!isXVerified ||
     !!isInstagramVerified ||
     !!isFacebookVerified ||
-    !!isZkPassportVerified;
+    !!isZkPassportVerified ||
+    !!isKycVerified;
 
   if (isAnySocialVerified) return null;
 
   return (
     <section className="flex w-full flex-col gap-4 py-2">
-      <Card className="w-full border-none bg-primary/10 shadow-none">
-        <CardContent className="p-4">
+      <Card className="w-full border-none bg-primary/10 py-0 shadow-none">
+        <CardContent className="px-4 py-3">
           <p className="font-light text-sm">
             {settings.currency.country === "India"
               ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
