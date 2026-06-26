@@ -1684,7 +1684,7 @@ export const id = {
     SW_PLEASE_WAIT: "Mohon tunggu dengan sabar.",
     TAG_NEEDS_PATIENCE: "Butuh Kesabaran",
     TAG_QUICKEST: "Tercepat",
-    TAG_RELIABLE_NFC: "Andal - hanya pemegang paspor NFC",
+    TAG_RELIABLE: "Andal",
     TAP_TO_CUSTOMIZE: "Ketuk untuk menyesuaikan",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Ketuk untuk menyesuaikan rentang tanggal",
     TAP_TO_SELECT: "Ketuk untuk memilih",
@@ -2049,6 +2049,7 @@ export const id = {
     ZK_PASSPORT_APP_REQUIRED: "Aplikasi ZK Passport diperlukan",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Silakan instal aplikasi ZK Passport untuk melanjutkan verifikasi.",
+    ZK_PASSPORT_DESCRIPTION: "Hanya pemegang paspor NFC",
     ZK_PASSPORT_DOMAIN_EMPTY: "Domain ZK Passport kosong",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Unduh untuk Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Unduh untuk iOS",

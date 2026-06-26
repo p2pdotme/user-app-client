@@ -1652,7 +1652,7 @@ export const en = {
     SW_PLEASE_WAIT: "Please wait patiently.",
     TAG_NEEDS_PATIENCE: "Needs Patience",
     TAG_QUICKEST: "Quickest",
-    TAG_RELIABLE_NFC: "Reliable - NFC passport holders only",
+    TAG_RELIABLE: "Reliable",
     TAP_TO_CUSTOMIZE: "Tap to customize",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Tap to customize date range",
     TAP_TO_SELECT: "Tap to select",
@@ -2013,6 +2013,7 @@ export const en = {
     ZK_PASSPORT_APP_REQUIRED: "ZK Passport app is required",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Please install the ZK Passport app to continue with verification.",
+    ZK_PASSPORT_DESCRIPTION: "NFC passport holders only",
     ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain is empty",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Download for Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Download for iOS",
