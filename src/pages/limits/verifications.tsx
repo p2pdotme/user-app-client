@@ -761,7 +761,8 @@ export function Verifications() {
         {
           <VerificationItem
             name="ZKPassport"
-            tag={t("TAG_RELIABLE_NFC")}
+            tag={t("TAG_RELIABLE")}
+            description={t("ZK_PASSPORT_DESCRIPTION")}
             icon={
               <ASSETS.ICONS.ZkPassport className="size-5 text-foreground" />
             }

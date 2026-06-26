@@ -1614,7 +1614,7 @@ export const hi = {
     SW_PLEASE_WAIT: "कृपया धैर्यपूर्वक प्रतीक्षा करें।",
     TAG_NEEDS_PATIENCE: "धैर्य चाहिए",
     TAG_QUICKEST: "सबसे तेज़",
-    TAG_RELIABLE_NFC: "विश्वसनीय - केवल NFC पासपोर्ट धारक",
+    TAG_RELIABLE: "विश्वसनीय",
     TAP_TO_CUSTOMIZE: "कस्टमाइज करने के लिए टैप करें",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "तारीख सीमा अनुकूलित करने के लिए टैप करें",
     TAP_TO_SELECT: "चुनने के लिए टैप करें",
@@ -1971,6 +1971,7 @@ export const hi = {
     ZK_PASSPORT_APP_REQUIRED: "ZK Passport ऐप आवश्यक है",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "कृपया सत्यापन जारी रखने के लिए ZK Passport ऐप इंस्टॉल करें।",
+    ZK_PASSPORT_DESCRIPTION: "केवल NFC पासपोर्ट धारक",
     ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain खाली है",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Android के लिए डाउनलोड करें",
     ZK_PASSPORT_DOWNLOAD_IOS: "iOS के लिए डाउनलोड करें",

@@ -1693,7 +1693,7 @@ export const pt = {
     SW_PLEASE_WAIT: "Por favor, aguarde pacientemente.",
     TAG_NEEDS_PATIENCE: "Requer paciência",
     TAG_QUICKEST: "Mais rápido",
-    TAG_RELIABLE_NFC: "Confiável - apenas titulares de passaporte com NFC",
+    TAG_RELIABLE: "Confiável",
     TAP_TO_CUSTOMIZE: "Toque para personalizar",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Toque para personalizar intervalo de datas",
     TAP_TO_SELECT: "Toque para selecionar",
@@ -2063,6 +2063,7 @@ export const pt = {
     ZK_PASSPORT_APP_REQUIRED: "App ZK Passport é necessário",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Por favor, instale o app ZK Passport para continuar com a verificação.",
+    ZK_PASSPORT_DESCRIPTION: "Apenas titulares de passaporte com NFC",
     ZK_PASSPORT_DOMAIN_EMPTY: "Domínio ZK Passport está vazio",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Baixar para Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Baixar para iOS",
