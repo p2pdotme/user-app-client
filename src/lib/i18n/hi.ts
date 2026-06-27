@@ -745,9 +745,9 @@ export const hi = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "चरण 1: पहले अपने Android डिवाइस पर Reclaim ऐप इंस्टॉल करें, फिर अगले स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "चरण 1: अगले स्क्रीन पर QR कोड को अपने फोन से स्कैन करें ताकि सत्यापनकर्ता खुल सके।",
+      "चरण 1: अपने फ़ोन पर Reclaim Verifier ऐप इंस्टॉल करें, फिर सत्यापनकर्ता खोलने के लिए अगली स्क्रीन पर QR कोड को अपने फ़ोन से स्कैन करें।",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "चरण 1: अगले स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
+      "चरण 1: पहले अपने iPhone पर Reclaim Verifier ऐप इंस्टॉल करें, फिर अगली स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
     HOW_TO_VERIFY_YOUR_2:
       "चरण 2: सत्यापनकर्ता में अपने क्रेडेंशियल का उपयोग करके अपने {{title}} खाते में लॉग इन करें।",
     HOW_TO_VERIFY_YOUR_4:
@@ -1371,6 +1371,9 @@ export const hi = {
     RECEIVING_WALLET_ADDRESS: "प्राप्त करने वाला वॉलेट पता",
     RECIPIENT: "प्राप्तकर्ता",
     RECLAIM_DOWNLOAD_ANDROID: "Reclaim ऐप डाउनलोड करें",
+    RECLAIM_DOWNLOAD_IOS: "Reclaim ऐप डाउनलोड करें",
+    RECLAIM_IOS_ALLOW_PASTE:
+      "जब Reclaim Verifier ऐप पहली बार खुले, तो “Allow Paste” पर टैप करें ताकि सत्यापन अपने आप शुरू हो सके।",
     RECLAIM_PROOF_GENERATION_FAILED: "रीक्लेम प्रमाण पीढ़ी विफल",
     RECOMMENDATION_ALREADY_CLAIMED: "सिफारिश पहले ही दावा की जा चुकी है",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "सिफारिश सफलतापूर्वक दावा की गई",
