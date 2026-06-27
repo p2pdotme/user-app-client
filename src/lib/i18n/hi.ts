@@ -1372,8 +1372,7 @@ export const hi = {
     RECIPIENT: "प्राप्तकर्ता",
     RECLAIM_DOWNLOAD_ANDROID: "Reclaim ऐप डाउनलोड करें",
     RECLAIM_DOWNLOAD_IOS: "Reclaim ऐप डाउनलोड करें",
-    RECLAIM_IOS_ALLOW_PASTE:
-      "जब Reclaim Verifier ऐप पहली बार खुले, तो “Allow Paste” पर टैप करें ताकि सत्यापन अपने आप शुरू हो सके।",
+    RECLAIM_IOS_ALLOW_PASTE: "ऐप खुलने पर पेस्ट की अनुमति दें",
     RECLAIM_PROOF_GENERATION_FAILED: "रीक्लेम प्रमाण पीढ़ी विफल",
     RECOMMENDATION_ALREADY_CLAIMED: "सिफारिश पहले ही दावा की जा चुकी है",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "सिफारिश सफलतापूर्वक दावा की गई",

@@ -1433,8 +1433,7 @@ export const id = {
     RECIPIENT: "Penerima",
     RECLAIM_DOWNLOAD_ANDROID: "Unduh aplikasi Reclaim",
     RECLAIM_DOWNLOAD_IOS: "Unduh aplikasi Reclaim",
-    RECLAIM_IOS_ALLOW_PASTE:
-      "Saat aplikasi Reclaim Verifier terbuka untuk pertama kali, ketuk “Allow Paste” agar verifikasi dapat dimulai secara otomatis.",
+    RECLAIM_IOS_ALLOW_PASTE: "Izinkan tempel saat aplikasi terbuka",
     RECLAIM_PROOF_GENERATION_FAILED: "Pembuatan Proof Reclaim Gagal",
     RECOMMENDATION_ALREADY_CLAIMED: "Rekomendasi sudah diklaim",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
