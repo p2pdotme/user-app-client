@@ -1525,6 +1525,12 @@ function VerificationItem({
                       ? t("HOW_TO_VERIFY_YOUR_1_IOS")
                       : t("HOW_TO_VERIFY_YOUR_1_ANDROID")}
                 </p>
+                {isIOS() && (
+                  <p className="flex items-center gap-1 font-medium text-primary text-xs">
+                    <ClipboardCheck className="size-3.5 shrink-0" />
+                    {t("RECLAIM_IOS_ALLOW_PASTE")}
+                  </p>
+                )}
                 <div className="flex justify-center">
                   {getScreenType() !== "desktop" ? (
                     <img
@@ -1561,14 +1567,6 @@ function VerificationItem({
               <p>{t("HOW_TO_VERIFY_YOUR_2", { title: name })}</p>
               <p>{t("HOW_TO_VERIFY_YOUR_4")}</p>
             </div>
-            {isIOS() && (
-              <Alert variant="warning" className="mt-4">
-                <ClipboardCheck className="size-4" />
-                <AlertDescription>
-                  {t("RECLAIM_IOS_ALLOW_PASTE")}
-                </AlertDescription>
-              </Alert>
-            )}
             <Alert variant="warning" className="mt-4">
               <Clock4 className="size-4" />
               <AlertDescription>
