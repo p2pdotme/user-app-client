@@ -798,9 +798,9 @@ export const es = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "Paso 1: Instala la aplicación Reclaim en tu dispositivo Android primero, luego haz clic para abrir el verificador en la siguiente pantalla.",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "Paso 1: Escanea el código QR en la siguiente pantalla con tu teléfono para abrir el verificador.",
+      "Paso 1: Instala la aplicación Reclaim Verifier en tu teléfono, luego escanea el código QR en la siguiente pantalla con tu teléfono para abrir el verificador.",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "Paso 1: Haz clic para abrir el verificador en la siguiente pantalla.",
+      "Paso 1: Primero instala la aplicación Reclaim Verifier en tu iPhone, luego haz clic para abrir el verificador en la siguiente pantalla.",
     HOW_TO_VERIFY_YOUR_2:
       "Paso 2: Inicia sesión en tu cuenta de {{title}} usando tus credenciales en el verificador.",
     HOW_TO_VERIFY_YOUR_4:
@@ -1464,6 +1464,9 @@ export const es = {
     RECEIVING_WALLET_ADDRESS: "Dirección de Wallet de Recepción",
     RECIPIENT: "Destinatario",
     RECLAIM_DOWNLOAD_ANDROID: "Descargar aplicación Reclaim",
+    RECLAIM_DOWNLOAD_IOS: "Descargar aplicación Reclaim",
+    RECLAIM_IOS_ALLOW_PASTE:
+      "Cuando la aplicación Reclaim Verifier se abra por primera vez, toca “Allow Paste” para que la verificación pueda comenzar automáticamente.",
     RECLAIM_PROOF_GENERATION_FAILED:
       "Falló la generación de la prueba de Reclaim",
     RECOMMENDATION_ALREADY_CLAIMED: "Recomendación ya reclamada",

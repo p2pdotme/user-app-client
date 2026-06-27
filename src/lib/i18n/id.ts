@@ -785,9 +785,9 @@ export const id = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "Langkah 1: Instal aplikasi Reclaim di perangkat Android Anda terlebih dahulu, lalu klik untuk membuka verifier di layar berikutnya.",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "Langkah 1: Pindai kode QR di layar berikutnya menggunakan ponsel Anda untuk membuka verifier.",
+      "Langkah 1: Instal aplikasi Reclaim Verifier di ponsel Anda, lalu pindai kode QR di layar berikutnya menggunakan ponsel Anda untuk membuka verifier.",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "Langkah 1: Klik untuk membuka verifier di layar berikutnya.",
+      "Langkah 1: Instal aplikasi Reclaim Verifier di iPhone Anda terlebih dahulu, lalu klik untuk membuka verifier di layar berikutnya.",
     HOW_TO_VERIFY_YOUR_2:
       "Langkah 2: Masuk ke akun {{title}} Anda menggunakan kredensial Anda di verifier.",
     HOW_TO_VERIFY_YOUR_4:
@@ -1432,6 +1432,9 @@ export const id = {
     RECEIVING_WALLET_ADDRESS: "Alamat Dompet Penerima",
     RECIPIENT: "Penerima",
     RECLAIM_DOWNLOAD_ANDROID: "Unduh aplikasi Reclaim",
+    RECLAIM_DOWNLOAD_IOS: "Unduh aplikasi Reclaim",
+    RECLAIM_IOS_ALLOW_PASTE:
+      "Saat aplikasi Reclaim Verifier terbuka untuk pertama kali, ketuk “Allow Paste” agar verifikasi dapat dimulai secara otomatis.",
     RECLAIM_PROOF_GENERATION_FAILED: "Pembuatan Proof Reclaim Gagal",
     RECOMMENDATION_ALREADY_CLAIMED: "Rekomendasi sudah diklaim",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
