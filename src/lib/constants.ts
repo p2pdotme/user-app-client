@@ -158,6 +158,9 @@ export const ZK_PASSPORT_APP_LINKS = {
 export const RECLAIM_APP_LINKS = {
   ANDROID:
     "https://play.google.com/store/apps/details?id=org.reclaimprotocol.app",
+  // Reclaim Verifier on the App Store (App Clip removed; iOS needs the app).
+  // Region-agnostic id link redirects to the user's store front.
+  IOS: "https://apps.apple.com/app/id6503247508",
 } as const;
 
 export const PAY_DISABLED_CURRENCIES = COUNTRY_OPTIONS.filter((c) =>

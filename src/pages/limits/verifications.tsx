@@ -14,7 +14,6 @@ import {
   createSimpleKycFlow,
   createZkPassportFlow,
   DEFAULT_RECLAIM_PROVIDER_IDS,
-  RECLAIM_APP_LINKS,
   type ReclaimFlowParams,
   type ReclaimProofResult,
   type ReclaimSession,
@@ -29,6 +28,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import {
   Check,
+  ClipboardCheck,
   Clock4,
   Fingerprint,
   Loader2,
@@ -76,6 +76,7 @@ import { EVENTS } from "@/lib/analytics";
 import {
   KYC_COUNTRY_BY_CURRENCY,
   RECLAIM_APP,
+  RECLAIM_APP_LINKS,
   SIMPLE_KYC_BASE_URL,
 } from "@/lib/constants";
 import {
@@ -1529,7 +1530,7 @@ function VerificationItem({
                     <img
                       src={
                         isIOS()
-                          ? ASSETS.IMAGES.APP_CLIP_CLICK_HERE
+                          ? ASSETS.IMAGES.IOS_RECLAIM_VERIFIER
                           : ASSETS.IMAGES.INSTANT_APP_CLICK_HERE
                       }
                       alt={t("VERIFICATION_STEP_1_ALT")}
@@ -1537,15 +1538,22 @@ function VerificationItem({
                     />
                   ) : null}
                 </div>
-                {isAndroid() && (
+                {(isAndroid() || isIOS()) && (
                   <div className="flex justify-center">
                     <Button
                       variant="outline"
                       onClick={() =>
-                        window.open(RECLAIM_APP_LINKS.ANDROID, "_blank")
+                        window.open(
+                          isIOS()
+                            ? RECLAIM_APP_LINKS.IOS
+                            : RECLAIM_APP_LINKS.ANDROID,
+                          "_blank",
+                        )
                       }
                       className="w-full max-w-xs">
-                      {t("RECLAIM_DOWNLOAD_ANDROID")}
+                      {isIOS()
+                        ? t("RECLAIM_DOWNLOAD_IOS")
+                        : t("RECLAIM_DOWNLOAD_ANDROID")}
                     </Button>
                   </div>
                 )}
@@ -1553,6 +1561,14 @@ function VerificationItem({
               <p>{t("HOW_TO_VERIFY_YOUR_2", { title: name })}</p>
               <p>{t("HOW_TO_VERIFY_YOUR_4")}</p>
             </div>
+            {isIOS() && (
+              <Alert variant="warning" className="mt-4">
+                <ClipboardCheck className="size-4" />
+                <AlertDescription>
+                  {t("RECLAIM_IOS_ALLOW_PASTE")}
+                </AlertDescription>
+              </Alert>
+            )}
             <Alert variant="warning" className="mt-4">
               <Clock4 className="size-4" />
               <AlertDescription>
