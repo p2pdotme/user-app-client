@@ -1441,8 +1441,7 @@ export const pt = {
     RECIPIENT: "Destinatário",
     RECLAIM_DOWNLOAD_ANDROID: "Baixar aplicativo Reclaim",
     RECLAIM_DOWNLOAD_IOS: "Baixar aplicativo Reclaim",
-    RECLAIM_IOS_ALLOW_PASTE:
-      "Quando o aplicativo Reclaim Verifier abrir pela primeira vez, toque em “Allow Paste” para que a verificação possa começar automaticamente.",
+    RECLAIM_IOS_ALLOW_PASTE: "Permita colar quando o app abrir",
     RECLAIM_PROOF_GENERATION_FAILED: "Falha na Geração da Prova Reclaim",
     RECOMMENDATION_ALREADY_CLAIMED: "Recomendação já reivindicada",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY:
