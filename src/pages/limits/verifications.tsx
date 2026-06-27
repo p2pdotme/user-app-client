@@ -17,6 +17,7 @@ import {
   RECLAIM_APP_LINKS,
   type ReclaimFlowParams,
   type ReclaimProofResult,
+  type ReclaimSession,
   type ReclaimStatus,
   resumeSimpleKycFlow,
   type ZkPassportStatus as SdkZkPassportStatus,
@@ -1059,12 +1060,19 @@ function VerificationItem({
   const [showVerificationOverlay, setShowVerificationOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  // True while a Reclaim session is being preloaded; gates the Continue tap so
+  // it only fires once the session is ready, keeping the trigger inside the tap.
+  const [isPreloading, setIsPreloading] = useState(false);
 
   // Ref to track if polling is already in progress to prevent multiple executions
   const isPollingRef = useRef(false);
   const hasProcessedSessionRef = useRef(false);
   const overlayShownRef = useRef(false);
   const toastShownRef = useRef(false);
+  // A Reclaim session initialized off-gesture (during the tutorial) so the tap
+  // that starts verification can call triggerReclaimFlow synchronously.
+  const preloadedSessionRef = useRef<ReclaimSession | null>(null);
+  const preloadingRef = useRef(false);
 
   const { mutateAsync: socialVerify, isPending: isSocialVerifyLoading } =
     useSocialVerify();
@@ -1243,7 +1251,7 @@ function VerificationItem({
         return;
       }
 
-      const result = await createReclaimFlow({
+      const sessionResult = await createReclaimFlow({
         ...reclaimConfig,
         platform,
         walletAddress: account.address as `0x${string}`,
@@ -1263,9 +1271,19 @@ function VerificationItem({
         },
       });
 
-      result.match(
-        async (reclaimResult) => {
-          await handleVerificationSuccess(reclaimResult);
+      // The SDK split the Reclaim flow into eager init + start():
+      // createReclaimFlow now resolves to a session, and session.start()
+      // runs the in-app flow and resolves the proof result.
+      await sessionResult.match(
+        async (session) => {
+          await session.start().match(
+            async (reclaimResult) => {
+              await handleVerificationSuccess(reclaimResult);
+            },
+            (error) => {
+              handleVerificationError(error.message);
+            },
+          );
         },
         (error) => {
           handleVerificationError(error.message);
@@ -1281,6 +1299,94 @@ function VerificationItem({
       handleVerificationError,
     ],
   );
+
+  // Init a Reclaim session ahead of the user's tap. init()/getRequestUrl() are
+  // network calls that need no user-activation, so running them off-gesture lets
+  // the later trigger fire synchronously inside the tap.
+  const preloadReclaimSession = useCallback(async () => {
+    if (!account?.address) return;
+    if (preloadingRef.current || preloadedSessionRef.current) return;
+    preloadingRef.current = true;
+    setIsPreloading(true);
+    try {
+      const sessionResult = await createReclaimFlow({
+        ...reclaimConfig,
+        platform: name.toLowerCase() as SocialPlatform,
+        walletAddress: account.address as `0x${string}`,
+        redirectUrl: `${window.location.origin}/limits`,
+        contextDescription: t("SOCIAL_VERIFICATION", { name }),
+        onStatus: (status: ReclaimStatus) => {
+          if (status.type === "session_created") {
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_flow_started",
+              platform: name,
+              userAddress: account.address,
+              sessionId: status.sessionId,
+            });
+          }
+        },
+      });
+      sessionResult.match(
+        (session) => {
+          preloadedSessionRef.current = session;
+        },
+        () => {
+          preloadedSessionRef.current = null;
+        },
+      );
+    } finally {
+      preloadingRef.current = false;
+      setIsPreloading(false);
+    }
+  }, [account?.address, name, t, track]);
+
+  // Starts verification from within the user's tap. iOS only grants the
+  // deep-link / clipboard launch its transient user-activation when
+  // triggerReclaimFlow runs with no await between the tap and the call, so we
+  // consume the preloaded session and call session.start() synchronously here.
+  const startPreloadedFlow = useCallback(() => {
+    if (!account?.address) {
+      toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
+      return;
+    }
+    const session = preloadedSessionRef.current;
+    if (!session) {
+      // Preload not ready yet — fall back to init-on-tap. Works, but loses the
+      // iOS user-activation optimization for this attempt.
+      isPollingRef.current = true;
+      setIsLoading(true);
+      void runReclaimFlow(name.toLowerCase() as SocialPlatform).finally(() => {
+        isPollingRef.current = false;
+      });
+      return;
+    }
+    preloadedSessionRef.current = null;
+    // No await before this line — keeps the tap's user-activation intact.
+    const flow = session.start().match(
+      async (reclaimResult) => {
+        await handleVerificationSuccess(reclaimResult);
+      },
+      (error) => {
+        handleVerificationError(error.message);
+      },
+    );
+    isPollingRef.current = true;
+    setIsLoading(true);
+    void flow.finally(() => {
+      isPollingRef.current = false;
+    });
+    // Prepare a fresh session for a possible retry.
+    void preloadReclaimSession();
+  }, [
+    account?.address,
+    name,
+    t,
+    runReclaimFlow,
+    handleVerificationSuccess,
+    handleVerificationError,
+    preloadReclaimSession,
+  ]);
 
   useEffect(() => {
     // Only process sessionId once and when we have both sessionId and account
@@ -1303,23 +1409,15 @@ function VerificationItem({
       hasProcessedSessionRef.current = false;
       overlayShownRef.current = false;
       toastShownRef.current = false;
+      preloadedSessionRef.current = null;
     };
   }, []);
 
-  const handleReclaimVerification = async () => {
-    if (account?.address) {
-      isPollingRef.current = true;
-      await runReclaimFlow(name.toLowerCase() as SocialPlatform);
-      isPollingRef.current = false;
-    } else {
-      toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
-    }
-  };
-
-  const handleVerifySocial = async () => {
+  const handleVerifySocial = () => {
     if (account?.address) {
       if (!showTutorial) {
-        // Show tutorial if no socials are verified
+        // Show the tutorial first, and preload the Reclaim session while the
+        // user reads it so the Continue tap can trigger synchronously.
         setShowTutorial(true);
         // Track tutorial shown
         track(EVENTS.VERIFICATION, {
@@ -1328,17 +1426,17 @@ function VerificationItem({
           platform: name,
           userAddress: account.address,
         });
+        void preloadReclaimSession();
         return;
       }
 
-      setIsLoading(true);
-      await handleReclaimVerification();
+      startPreloadedFlow();
     } else {
       toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
     }
   };
 
-  const handleContinueToVerification = async () => {
+  const handleContinueToVerification = () => {
     setShowTutorial(false);
     // Track verification initiated when user continues from tutorial
     track(EVENTS.VERIFICATION, {
@@ -1347,8 +1445,7 @@ function VerificationItem({
       platform: name,
       userAddress: account?.address,
     });
-    setIsLoading(true);
-    await handleReclaimVerification();
+    startPreloadedFlow();
   };
 
   return (
@@ -1389,7 +1486,7 @@ function VerificationItem({
                   if (typeof window !== "undefined" && window.location) {
                     window.history.replaceState({}, document.title, "/limits");
                   }
-                  handleReclaimVerification();
+                  startPreloadedFlow();
                 }}>
                 {t("RETRY_VERIFICATION")}
               </Button>
@@ -1466,8 +1563,15 @@ function VerificationItem({
               <Button
                 onClick={handleContinueToVerification}
                 className="w-full"
-                disabled={isLoading}>
-                {t("CONTINUE_TO_VERIFICATION")}
+                disabled={isLoading || isPreloading}>
+                {isPreloading ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    {t("LOADING")}
+                  </>
+                ) : (
+                  t("CONTINUE_TO_VERIFICATION")
+                )}
               </Button>
             </div>
           </div>
