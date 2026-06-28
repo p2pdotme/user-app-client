@@ -1,5 +1,6 @@
 import { TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import {
@@ -29,6 +30,7 @@ import { Verifications } from "./verifications";
 
 export function Limits() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { txLimit } = useTxLimits();
 
   const { milestones, isMilestonesLoading, isMilestonesError } =
@@ -136,7 +138,10 @@ export function Limits() {
 
   return (
     <>
-      <NonHomeHeader title={t("MY_LIMITS")} />
+      <NonHomeHeader
+        title={t("MY_LIMITS")}
+        onBack={() => navigate(INTERNAL_HREFS.HOME)}
+      />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
         <section className="flex w-full flex-col gap-4 py-2">
           <Card className="w-full border-none bg-transparent shadow-none">
