@@ -39,9 +39,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--error-border": "var(--destructive)",
 
           // loading
-          "--loading-bg": "var(--accent)",
-          "--loading-text": "var(--accent-foreground)",
-          "--loading-border": "var(--border)",
+          "--loading-bg": "#eab308",
+          "--loading-text": "#ffffff",
+          "--loading-border": "#eab308",
 
           // shape
           "--border-radius": "var(--radius-md)",
@@ -61,7 +61,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           error:
             "border-[color:var(--error-border)] bg-[var(--error-bg)] text-[color:var(--error-text)]",
           loading:
-            "border-[color:var(--loading-border)] bg-[var(--loading-bg)] text-[color:var(--loading-text)]",
+            "!border-[color:var(--loading-border)] !bg-[var(--loading-bg)] !text-[color:var(--loading-text)]",
           default:
             "border-[color:var(--default-border)] bg-[var(--default-bg)] text-[color:var(--default-text)]",
           closeButton: "hover:opacity-100 opacity-70",
