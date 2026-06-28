@@ -130,6 +130,15 @@ export const SIMPLE_KYC_BASE_URL =
   "http://localhost:8000";
 
 /**
+ * simple-kyc tenant slug (one Base contract). Defaults to the Base **mainnet**
+ * reputation tenant; override with VITE_SIMPLE_KYC_TENANT (e.g. "p2p-reputation"
+ * for the Base Sepolia tenant).
+ */
+export const SIMPLE_KYC_TENANT =
+  (import.meta.env.VITE_SIMPLE_KYC_TENANT as string | undefined) ??
+  "p2p-reputation-mainnet";
+
+/**
  * ISO-2 country to prebind for the simple-kyc passport flow, keyed by the user's
  * selected currency. The hosted wizard skips the country step, so the app must
  * supply it, and it must be one of simple-kyc's supported markets. Currencies
