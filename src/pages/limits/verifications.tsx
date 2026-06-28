@@ -11,13 +11,16 @@ import {
 import { usePrices } from "@p2pdotme/sdk/react";
 import {
   createReclaimFlow,
+  createSimpleKycFlow,
   createZkPassportFlow,
   DEFAULT_RECLAIM_PROVIDER_IDS,
-  RECLAIM_APP_LINKS,
   type ReclaimFlowParams,
   type ReclaimProofResult,
+  type ReclaimSession,
   type ReclaimStatus,
+  resumeSimpleKycFlow,
   type ZkPassportStatus as SdkZkPassportStatus,
+  SIMPLE_KYC_DEFAULT_TENANT,
   type SocialPlatform,
   type SocialVerifyParams,
   ZK_PASSPORT_APP_LINKS,
@@ -25,10 +28,12 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import {
   Check,
+  ClipboardCheck,
   Clock4,
   Fingerprint,
   Loader2,
   Monitor,
+  ScanFace,
   ShieldCheck,
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
@@ -39,14 +44,9 @@ import { useLocation } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Drawer,
   DrawerContent,
@@ -62,15 +62,23 @@ import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useAadhaarRpReward,
   useAadhaarVerificationStatus,
+  useKycRpReward,
+  useKycVerificationStatus,
   useSocialRpRewards,
   useSocialVerificationStatus,
   useSocialVerify,
   useSubmitAnonAadhaarProof,
+  useSubmitKycAttestation,
   useZkPassportRegister,
   useZkPassportRpReward,
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
-import { RECLAIM_APP } from "@/lib/constants";
+import {
+  KYC_COUNTRY_BY_CURRENCY,
+  RECLAIM_APP,
+  RECLAIM_APP_LINKS,
+  SIMPLE_KYC_BASE_URL,
+} from "@/lib/constants";
 import {
   clearStoredParams,
   getStoredParams,
@@ -95,7 +103,8 @@ type SocialPlatformType =
   | "Facebook"
   | "Binance"
   | "Aadhaar"
-  | "ZKPassport";
+  | "ZKPassport"
+  | "Identity (KYC)";
 
 /**
  * Empty-state CTA shown above the verification list when the user has not yet
@@ -111,8 +120,10 @@ function VerifySocialCta() {
     isXVerified,
     isInstagramVerified,
     isFacebookVerified,
+    isBinanceVerified,
     isZkPassportVerified,
   } = useSocialVerificationStatus();
+  const { isKycVerified } = useKycVerificationStatus();
 
   const isAnySocialVerified =
     !!isLinkedInVerified ||
@@ -120,37 +131,21 @@ function VerifySocialCta() {
     !!isXVerified ||
     !!isInstagramVerified ||
     !!isFacebookVerified ||
-    !!isZkPassportVerified;
+    !!isBinanceVerified ||
+    !!isZkPassportVerified ||
+    !!isKycVerified;
 
   if (isAnySocialVerified) return null;
 
   return (
     <section className="flex w-full flex-col gap-4 py-2">
-      <Card className="w-full border-none bg-primary/10 shadow-none">
-        <CardHeader>
-          <p className="font-medium">
-            {t("VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT")}
-          </p>
-        </CardHeader>
-        <CardContent className="pt-0">
+      <Card className="w-full border-none bg-primary/10 py-0 shadow-none">
+        <CardContent className="px-4 py-3">
           <p className="font-light text-sm">
             {settings.currency.country === "India"
               ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
               : t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
           </p>
-          <p className="mt-4 mb-2 font-light text-xs">
-            {t("VERIFIED_SOCIALS_TO_UNLOCK")}
-          </p>
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-primary px-4 py-0.5 font-medium text-white text-xs">
-              0/1
-            </span>
-            <Progress
-              value={0}
-              className="h-4 flex-1 bg-white"
-              style={{ backgroundColor: "#fff" }}
-            />
-          </div>
         </CardContent>
       </Card>
     </section>
@@ -263,7 +258,7 @@ export function Verifications() {
       domain: "app.p2p.me",
       name: "ZKPassport",
       logo: "https://app.p2p.lol/favicon.svg",
-      purpose: "Prove your personhood",
+      purpose: t("ZK_PASSPORT_PURPOSE"),
       walletAddress: account.address as `0x${string}`,
       onStatus: (status: SdkZkPassportStatus) => {
         switch (status.type) {
@@ -522,7 +517,7 @@ export function Verifications() {
                 ? err.message
                 : typeof err === "string"
                   ? err
-                  : "Aadhaar verification failed";
+                  : t("AADHAAR_VERIFICATION_FAILED");
             track(EVENTS.VERIFICATION, {
               verification_type: "aadhaar",
               status: "failed",
@@ -665,15 +660,16 @@ export function Verifications() {
       </div>
       <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
+        <KycVerificationCard />
         {SOCIALS.filter(
           (social) =>
             // Binance verification is not offered when the selected country is India
-            social.name !== "Binance" ||
-            settings.currency.country !== "India",
+            social.name !== "Binance" || settings.currency.country !== "India",
         ).map((social) => (
           <VerificationItem
             key={social.name}
             name={social.name}
+            tag={t("TAG_NEEDS_PATIENCE")}
             icon={social.icon}
             usdcReward={0}
             rpReward={isRpLoading || isRpError ? 0 : social.rpReward}
@@ -723,8 +719,7 @@ export function Verifications() {
                     className="bg-muted text-foreground hover:bg-muted"
                     onClick={() => {
                       toast.success(t("ALREADY_VERIFIED"));
-                    }}
-                  >
+                    }}>
                     <Check className="mr-2 size-4" />
                     {t("VERIFIED")}
                   </Button>
@@ -768,6 +763,8 @@ export function Verifications() {
         {
           <VerificationItem
             name="ZKPassport"
+            tag={t("TAG_RELIABLE")}
+            description={t("ZK_PASSPORT_DESCRIPTION")}
             icon={
               <ASSETS.ICONS.ZkPassport className="size-5 text-foreground" />
             }
@@ -791,8 +788,7 @@ export function Verifications() {
                   className="bg-muted text-foreground hover:bg-muted"
                   onClick={() => {
                     toast.success(t("ALREADY_VERIFIED"));
-                  }}
-                >
+                  }}>
                   <Check className="mr-2 size-4" />
                   {t("VERIFIED")}
                 </Button>
@@ -800,8 +796,7 @@ export function Verifications() {
                 <Button
                   variant="outline"
                   onClick={handleZkPassportVerification}
-                  disabled={isZkPassportLoading || isZkPassportRegisterPending}
-                >
+                  disabled={isZkPassportLoading || isZkPassportRegisterPending}>
                   {isZkPassportLoading || isZkPassportRegisterPending ? (
                     <>
                       <Loader2 className="mr-2 size-4 animate-spin" />
@@ -837,8 +832,7 @@ export function Verifications() {
           const StatusDisplay = () =>
             zkPassportStatus ? (
               <div
-                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}
-              >
+                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}>
                 <div className="flex items-center gap-2">
                   {isZkPassportLoading && (
                     <Loader2 className="size-4 animate-spin text-primary" />
@@ -857,8 +851,7 @@ export function Verifications() {
                 if (!open) {
                   handleCancel();
                 }
-              }}
-            >
+              }}>
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>
@@ -916,8 +909,7 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                           }
-                          className="w-full"
-                        >
+                          className="w-full">
                           {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                         </Button>
                       )}
@@ -927,8 +919,7 @@ export function Verifications() {
                           onClick={() =>
                             window.open(ZK_PASSPORT_APP_LINKS.ANDROID, "_blank")
                           }
-                          className="w-full"
-                        >
+                          className="w-full">
                           {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                         </Button>
                       )}
@@ -939,8 +930,7 @@ export function Verifications() {
                             onClick={() =>
                               window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
                             }
-                            className="w-full"
-                          >
+                            className="w-full">
                             {t("ZK_PASSPORT_DOWNLOAD_IOS")}
                           </Button>
                           <Button
@@ -951,8 +941,7 @@ export function Verifications() {
                                 "_blank",
                               )
                             }
-                            className="w-full"
-                          >
+                            className="w-full">
                             {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
                           </Button>
                         </>
@@ -966,8 +955,7 @@ export function Verifications() {
                     <Button
                       variant="outline"
                       onClick={handleCancel}
-                      className="w-full"
-                    >
+                      className="w-full">
                       {t("CANCEL")}
                     </Button>
                   ) : (
@@ -976,8 +964,7 @@ export function Verifications() {
                       <Button
                         onClick={handleZkPassportContinueToVerification}
                         disabled={isZkPassportLoading}
-                        className="w-full"
-                      >
+                        className="w-full">
                         {isZkPassportLoading ? (
                           <>
                             <Loader2 className="mr-2 size-4 animate-spin" />
@@ -992,8 +979,7 @@ export function Verifications() {
                         onClick={() => {
                           setShowZkPassportTutorial(false);
                         }}
-                        className="w-full"
-                      >
+                        className="w-full">
                         {t("CANCEL")}
                       </Button>
                     </>
@@ -1009,6 +995,7 @@ export function Verifications() {
 
 interface VerificationItemProps {
   name: SocialPlatformType;
+  description?: string;
   icon?: React.ReactNode;
   usdcReward: number;
   rpReward: number;
@@ -1018,6 +1005,8 @@ interface VerificationItemProps {
   refetchSocialStatus: () => void;
   sessionId?: string;
   customButton?: React.ReactNode;
+  /** Small badge shown under the title, e.g. "Quickest", "Needs Patience". */
+  tag?: string;
 }
 
 const reclaimConfig: Pick<
@@ -1031,6 +1020,7 @@ const reclaimConfig: Pick<
 
 function VerificationItem({
   name,
+  description,
   icon,
   usdcReward,
   rpReward,
@@ -1040,6 +1030,7 @@ function VerificationItem({
   refetchSocialStatus,
   sessionId,
   customButton,
+  tag,
 }: VerificationItemProps) {
   const { t } = useTranslation();
 
@@ -1070,12 +1061,19 @@ function VerificationItem({
   const [showVerificationOverlay, setShowVerificationOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  // True while a Reclaim session is being preloaded; gates the Continue tap so
+  // it only fires once the session is ready, keeping the trigger inside the tap.
+  const [isPreloading, setIsPreloading] = useState(false);
 
   // Ref to track if polling is already in progress to prevent multiple executions
   const isPollingRef = useRef(false);
   const hasProcessedSessionRef = useRef(false);
   const overlayShownRef = useRef(false);
   const toastShownRef = useRef(false);
+  // A Reclaim session initialized off-gesture (during the tutorial) so the tap
+  // that starts verification can call triggerReclaimFlow synchronously.
+  const preloadedSessionRef = useRef<ReclaimSession | null>(null);
+  const preloadingRef = useRef(false);
 
   const { mutateAsync: socialVerify, isPending: isSocialVerifyLoading } =
     useSocialVerify();
@@ -1160,7 +1158,7 @@ function VerificationItem({
   );
 
   const loginToGetVerified = () => {
-    toast.info("Connecting wallet...");
+    toast.info(t("CONNECTING_WALLET"));
   };
 
   const handleVerificationSuccess = useCallback(
@@ -1254,7 +1252,7 @@ function VerificationItem({
         return;
       }
 
-      const result = await createReclaimFlow({
+      const sessionResult = await createReclaimFlow({
         ...reclaimConfig,
         platform,
         walletAddress: account.address as `0x${string}`,
@@ -1274,9 +1272,19 @@ function VerificationItem({
         },
       });
 
-      result.match(
-        async (reclaimResult) => {
-          await handleVerificationSuccess(reclaimResult);
+      // The SDK split the Reclaim flow into eager init + start():
+      // createReclaimFlow now resolves to a session, and session.start()
+      // runs the in-app flow and resolves the proof result.
+      await sessionResult.match(
+        async (session) => {
+          await session.start().match(
+            async (reclaimResult) => {
+              await handleVerificationSuccess(reclaimResult);
+            },
+            (error) => {
+              handleVerificationError(error.message);
+            },
+          );
         },
         (error) => {
           handleVerificationError(error.message);
@@ -1292,6 +1300,94 @@ function VerificationItem({
       handleVerificationError,
     ],
   );
+
+  // Init a Reclaim session ahead of the user's tap. init()/getRequestUrl() are
+  // network calls that need no user-activation, so running them off-gesture lets
+  // the later trigger fire synchronously inside the tap.
+  const preloadReclaimSession = useCallback(async () => {
+    if (!account?.address) return;
+    if (preloadingRef.current || preloadedSessionRef.current) return;
+    preloadingRef.current = true;
+    setIsPreloading(true);
+    try {
+      const sessionResult = await createReclaimFlow({
+        ...reclaimConfig,
+        platform: name.toLowerCase() as SocialPlatform,
+        walletAddress: account.address as `0x${string}`,
+        redirectUrl: `${window.location.origin}/limits`,
+        contextDescription: t("SOCIAL_VERIFICATION", { name }),
+        onStatus: (status: ReclaimStatus) => {
+          if (status.type === "session_created") {
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_flow_started",
+              platform: name,
+              userAddress: account.address,
+              sessionId: status.sessionId,
+            });
+          }
+        },
+      });
+      sessionResult.match(
+        (session) => {
+          preloadedSessionRef.current = session;
+        },
+        () => {
+          preloadedSessionRef.current = null;
+        },
+      );
+    } finally {
+      preloadingRef.current = false;
+      setIsPreloading(false);
+    }
+  }, [account?.address, name, t, track]);
+
+  // Starts verification from within the user's tap. iOS only grants the
+  // deep-link / clipboard launch its transient user-activation when
+  // triggerReclaimFlow runs with no await between the tap and the call, so we
+  // consume the preloaded session and call session.start() synchronously here.
+  const startPreloadedFlow = useCallback(() => {
+    if (!account?.address) {
+      toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
+      return;
+    }
+    const session = preloadedSessionRef.current;
+    if (!session) {
+      // Preload not ready yet — fall back to init-on-tap. Works, but loses the
+      // iOS user-activation optimization for this attempt.
+      isPollingRef.current = true;
+      setIsLoading(true);
+      void runReclaimFlow(name.toLowerCase() as SocialPlatform).finally(() => {
+        isPollingRef.current = false;
+      });
+      return;
+    }
+    preloadedSessionRef.current = null;
+    // No await before this line — keeps the tap's user-activation intact.
+    const flow = session.start().match(
+      async (reclaimResult) => {
+        await handleVerificationSuccess(reclaimResult);
+      },
+      (error) => {
+        handleVerificationError(error.message);
+      },
+    );
+    isPollingRef.current = true;
+    setIsLoading(true);
+    void flow.finally(() => {
+      isPollingRef.current = false;
+    });
+    // Prepare a fresh session for a possible retry.
+    void preloadReclaimSession();
+  }, [
+    account?.address,
+    name,
+    t,
+    runReclaimFlow,
+    handleVerificationSuccess,
+    handleVerificationError,
+    preloadReclaimSession,
+  ]);
 
   useEffect(() => {
     // Only process sessionId once and when we have both sessionId and account
@@ -1314,23 +1410,15 @@ function VerificationItem({
       hasProcessedSessionRef.current = false;
       overlayShownRef.current = false;
       toastShownRef.current = false;
+      preloadedSessionRef.current = null;
     };
   }, []);
 
-  const handleReclaimVerification = async () => {
-    if (account?.address) {
-      isPollingRef.current = true;
-      await runReclaimFlow(name.toLowerCase() as SocialPlatform);
-      isPollingRef.current = false;
-    } else {
-      toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
-    }
-  };
-
-  const handleVerifySocial = async () => {
+  const handleVerifySocial = () => {
     if (account?.address) {
       if (!showTutorial) {
-        // Show tutorial if no socials are verified
+        // Show the tutorial first, and preload the Reclaim session while the
+        // user reads it so the Continue tap can trigger synchronously.
         setShowTutorial(true);
         // Track tutorial shown
         track(EVENTS.VERIFICATION, {
@@ -1339,17 +1427,17 @@ function VerificationItem({
           platform: name,
           userAddress: account.address,
         });
+        void preloadReclaimSession();
         return;
       }
 
-      setIsLoading(true);
-      await handleReclaimVerification();
+      startPreloadedFlow();
     } else {
       toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
     }
   };
 
-  const handleContinueToVerification = async () => {
+  const handleContinueToVerification = () => {
     setShowTutorial(false);
     // Track verification initiated when user continues from tutorial
     track(EVENTS.VERIFICATION, {
@@ -1358,8 +1446,7 @@ function VerificationItem({
       platform: name,
       userAddress: account?.address,
     });
-    setIsLoading(true);
-    await handleReclaimVerification();
+    startPreloadedFlow();
   };
 
   return (
@@ -1372,8 +1459,7 @@ function VerificationItem({
             if (!open) {
               clearVerification(t("VERIFICATION_CANCELLED"));
             }
-          }}
-        >
+          }}>
           <DrawerContent className="bg-background">
             <DrawerHeader>
               <DrawerTitle>{t("VERIFICATION_IN_PROGRESS")}</DrawerTitle>
@@ -1401,9 +1487,8 @@ function VerificationItem({
                   if (typeof window !== "undefined" && window.location) {
                     window.history.replaceState({}, document.title, "/limits");
                   }
-                  handleReclaimVerification();
-                }}
-              >
+                  startPreloadedFlow();
+                }}>
                 {t("RETRY_VERIFICATION")}
               </Button>
               <Button
@@ -1411,8 +1496,7 @@ function VerificationItem({
                   clearVerification(t("VERIFICATION_CANCELLED"));
                 }}
                 size="sm"
-                className="w-full"
-              >
+                className="w-full">
                 {t("CANCEL_VERIFICATION")}
               </Button>
             </DrawerFooter>
@@ -1426,8 +1510,7 @@ function VerificationItem({
             <Button
               variant="ghost"
               className="absolute top-4 right-4"
-              onClick={() => setShowTutorial(false)}
-            >
+              onClick={() => setShowTutorial(false)}>
               ✕
             </Button>
             <h3 className="mb-4 font-bold text-xl">
@@ -1442,29 +1525,41 @@ function VerificationItem({
                       ? t("HOW_TO_VERIFY_YOUR_1_IOS")
                       : t("HOW_TO_VERIFY_YOUR_1_ANDROID")}
                 </p>
+                {isIOS() && (
+                  <p className="flex items-center gap-1 font-medium text-primary text-xs">
+                    <ClipboardCheck className="size-3.5 shrink-0" />
+                    {t("RECLAIM_IOS_ALLOW_PASTE")}
+                  </p>
+                )}
                 <div className="flex justify-center">
                   {getScreenType() !== "desktop" ? (
                     <img
                       src={
                         isIOS()
-                          ? ASSETS.IMAGES.APP_CLIP_CLICK_HERE
+                          ? ASSETS.IMAGES.IOS_RECLAIM_VERIFIER
                           : ASSETS.IMAGES.INSTANT_APP_CLICK_HERE
                       }
-                      alt="Verification step 1"
+                      alt={t("VERIFICATION_STEP_1_ALT")}
                       className="h-48 w-auto rounded-lg object-cover"
                     />
                   ) : null}
                 </div>
-                {isAndroid() && (
+                {(isAndroid() || isIOS()) && (
                   <div className="flex justify-center">
                     <Button
                       variant="outline"
                       onClick={() =>
-                        window.open(RECLAIM_APP_LINKS.ANDROID, "_blank")
+                        window.open(
+                          isIOS()
+                            ? RECLAIM_APP_LINKS.IOS
+                            : RECLAIM_APP_LINKS.ANDROID,
+                          "_blank",
+                        )
                       }
-                      className="w-full max-w-xs"
-                    >
-                      {t("RECLAIM_DOWNLOAD_ANDROID")}
+                      className="w-full max-w-xs">
+                      {isIOS()
+                        ? t("RECLAIM_DOWNLOAD_IOS")
+                        : t("RECLAIM_DOWNLOAD_ANDROID")}
                     </Button>
                   </div>
                 )}
@@ -1482,9 +1577,15 @@ function VerificationItem({
               <Button
                 onClick={handleContinueToVerification}
                 className="w-full"
-                disabled={isLoading}
-              >
-                {t("CONTINUE_TO_VERIFICATION")}
+                disabled={isLoading || isPreloading}>
+                {isPreloading ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    {t("LOADING")}
+                  </>
+                ) : (
+                  t("CONTINUE_TO_VERIFICATION")
+                )}
               </Button>
             </div>
           </div>
@@ -1498,8 +1599,18 @@ function VerificationItem({
               <div className="flex size-10 items-center justify-center rounded-full bg-primary/30">
                 {icon}
               </div>
-              <div className="flex flex-col items-start gap-1">
+              <div className="flex flex-col items-start gap-0.5">
                 <p className="font-medium text-lg">{name}</p>
+                {description && (
+                  <p className="text-muted-foreground text-xs">{description}</p>
+                )}
+                {tag && (
+                  <Badge
+                    variant="secondary"
+                    className="mt-1 whitespace-normal text-left">
+                    {tag}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className="flex flex-col items-end gap-1">
@@ -1547,8 +1658,7 @@ function VerificationItem({
                 className="bg-muted text-foreground hover:bg-muted"
                 onClick={() => {
                   toast.success(t("ALREADY_VERIFIED"));
-                }}
-              >
+                }}>
                 <Check className="mr-2 size-4" />
                 {t("VERIFIED")}
               </Button>
@@ -1566,8 +1676,7 @@ function VerificationItem({
               <Button
                 variant="outline"
                 onClick={() => handleVerifySocial()}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {t("GET_VERIFIED")}
               </Button>
             )}
@@ -1575,5 +1684,139 @@ function VerificationItem({
         </CardFooter>
       </Card>
     </>
+  );
+}
+
+/**
+ * Identity (KYC) verification card. Unlike the Reclaim socials (an in-page
+ * modal), this redirects to the hosted simple-kyc wizard (passport + liveness),
+ * which hands back a one-time `code` at `${origin}/limits?code=…&state=kyc-…`.
+ * We redeem the code for the EIP-712 attestation and submit it on-chain, which
+ * credits the KYC rp. Uniqueness is enforced by the face dedup + the on-chain
+ * nullifier, so the reward lands once per human.
+ *
+ * Rendered through `VerificationItem` so it matches the social cards exactly.
+ */
+function KycVerificationCard() {
+  const { t } = useTranslation();
+  const { account } = useThirdweb();
+  const { settings } = useSettings();
+  // simple-kyc requires the passport country up front (the wizard skips that
+  // step). Derive it from the user's selected market; markets we can't map to a
+  // supported KYC country (USD, EUR) don't get the card at all.
+  const kycCountry = KYC_COUNTRY_BY_CURRENCY[settings.currency.currency];
+  const { kycRp, isKycRpLoading, isKycRpError, kycRpError } = useKycRpReward();
+  const {
+    isKycVerified,
+    isKycStatusLoading,
+    kycStatusError,
+    refetchKycStatus,
+  } = useKycVerificationStatus();
+  const submit = useSubmitKycAttestation();
+  const [busy, setBusy] = useState(false);
+  const processed = useRef(false);
+  const reward = kycRp ?? 50;
+
+  // Returning from the hosted wizard: ?code=<one-time>&state=kyc-…
+  useEffect(() => {
+    if (processed.current || !account?.address) return;
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    if (!code || !state || !state.startsWith("kyc")) return;
+    processed.current = true;
+    (async () => {
+      setBusy(true);
+      const att = await resumeSimpleKycFlow({
+        baseUrl: SIMPLE_KYC_BASE_URL,
+        code,
+      });
+      if (att.isErr()) {
+        toast.error(t("KYC_ERROR", { message: att.error.message }));
+        setBusy(false);
+        return;
+      }
+      try {
+        await toast.promise(submit.mutateAsync(att.value), {
+          loading: t("IDENTITY_VERIFYING"),
+          success: t("IDENTITY_VERIFIED_WITH_REWARD"),
+          error: (e) =>
+            e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
+        }).unwrap();
+        await refetchKycStatus();
+      } catch {
+        // toast.promise already surfaced the error to the user
+      } finally {
+        window.history.replaceState({}, "", window.location.pathname);
+        setBusy(false);
+      }
+    })();
+  }, [account?.address, submit, reward, refetchKycStatus, t]);
+
+  const start = useCallback(async () => {
+    if (!account?.address) {
+      toast.error(t("CONNECT_WALLET_FIRST"));
+      return;
+    }
+    if (!kycCountry) {
+      toast.error(t("KYC_NOT_AVAILABLE_FOR_REGION"));
+      return;
+    }
+    setBusy(true);
+    const session = await createSimpleKycFlow({
+      baseUrl: SIMPLE_KYC_BASE_URL,
+      walletAddress: account.address as `0x${string}`,
+      tenant: SIMPLE_KYC_DEFAULT_TENANT,
+      redirectUrl: `${window.location.origin}/limits`,
+      country: kycCountry,
+      state: `kyc-${Math.random().toString(36).slice(2)}`,
+    });
+    if (session.isErr()) {
+      toast.error(t("KYC_ERROR", { message: session.error.message }));
+      setBusy(false);
+      return;
+    }
+    session.value.redirect();
+  }, [account?.address, kycCountry, t]);
+
+  // KYC isn't offered for markets without a supported passport country.
+  if (!kycCountry) return null;
+
+  return (
+    <VerificationItem
+      name="Identity (KYC)"
+      tag={t("TAG_QUICKEST")}
+      icon={<ScanFace className="size-5 text-foreground" />}
+      description={t("KYC_DESCRIPTION")}
+      usdcReward={0}
+      rpReward={isKycRpLoading || isKycRpError || !kycRp ? 0 : kycRp}
+      isVerified={!!isKycVerified}
+      isStatusLoading={isKycStatusLoading || isKycRpLoading}
+      socialStatusError={kycStatusError || kycRpError || null}
+      refetchSocialStatus={refetchKycStatus}
+      customButton={
+        isKycVerified ? (
+          <Button
+            className="bg-muted text-foreground hover:bg-muted"
+            onClick={() => {
+              toast.success(t("ALREADY_VERIFIED"));
+            }}>
+            <Check className="mr-2 size-4" />
+            {t("VERIFIED")}
+          </Button>
+        ) : (
+          <Button variant="outline" onClick={start} disabled={busy}>
+            {busy ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t("VERIFYING")}
+              </>
+            ) : (
+              t("GET_VERIFIED")
+            )}
+          </Button>
+        )
+      }
+    />
   );
 }

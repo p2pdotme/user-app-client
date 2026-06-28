@@ -124,6 +124,28 @@ export const RECLAIM_APP = {
   APP_SECRET: import.meta.env.VITE_RECLAIM_APP_SECRET,
 };
 
+/** simple-kyc (Identity/KYC) hosted wizard + API base URL (the kyc-proxy). */
+export const SIMPLE_KYC_BASE_URL =
+  (import.meta.env.VITE_SIMPLE_KYC_BASE_URL as string | undefined) ??
+  "http://localhost:8000";
+
+/**
+ * ISO-2 country to prebind for the simple-kyc passport flow, keyed by the user's
+ * selected currency. The hosted wizard skips the country step, so the app must
+ * supply it, and it must be one of simple-kyc's supported markets. Currencies
+ * with no entry (USD, EUR) can't run KYC, so the card is hidden for them.
+ */
+export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
+  INR: "IN",
+  NGN: "NG",
+  BRL: "BR",
+  MEX: "MX",
+  COP: "CO",
+  ARS: "AR",
+  VEN: "VE",
+  IDR: "ID",
+};
+
 export const CONNECTION_STATUS_TUTORIAL_LINK =
   "https://youtu.be/your-tutorial-link";
 
@@ -136,6 +158,9 @@ export const ZK_PASSPORT_APP_LINKS = {
 export const RECLAIM_APP_LINKS = {
   ANDROID:
     "https://play.google.com/store/apps/details?id=org.reclaimprotocol.app",
+  // Reclaim Verifier on the App Store (App Clip removed; iOS needs the app).
+  // Region-agnostic id link redirects to the user's store front.
+  IOS: "https://apps.apple.com/app/id6503247508",
 } as const;
 
 export const PAY_DISABLED_CURRENCIES = COUNTRY_OPTIONS.filter((c) =>

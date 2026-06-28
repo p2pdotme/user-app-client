@@ -1,5 +1,6 @@
 export const pt = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "Falha na verificação do Aadhaar",
     ABOUT_P2P_TOKEN: "Sobre o Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P é o token de governança e utilidade do Protocolo P2P, impulsionando a governança baseada em futarquia, o controle de tesouraria e o staking de confiança ("Círculos de Confiança") para uma rampa de entrada/saída fiat-cripto descentralizada e que preserva a privacidade.',
@@ -261,6 +262,7 @@ export const pt = {
     CONNECTION_STATUS: "Status de Conexão",
     CONNECT_ANY_SERVER_REFRESH: "Conecte-se a qualquer servidor e atualize",
     CONNECT_WALLET: "Conectar Carteira",
+    CONNECT_WALLET_FIRST: "Conecte uma carteira primeiro",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Conecte sua carteira de origem para depositar de Solana e 5 chains EVM.",
     CONTINUE: "Continuar",
@@ -785,15 +787,17 @@ export const pt = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "Passo 1: Instale o aplicativo Reclaim no seu dispositivo Android primeiro, depois clique para abrir o verificador na próxima tela.",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "Passo 1: Escaneie o código QR na próxima tela usando seu telefone para abrir o verificador.",
+      "Passo 1: Instale o aplicativo Reclaim Verifier no seu telefone, depois escaneie o código QR na próxima tela usando seu telefone para abrir o verificador.",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "Passo 1: Clique para abrir o verificador na próxima tela.",
+      "Passo 1: Primeiro instale o aplicativo Reclaim Verifier no seu iPhone, depois clique para abrir o verificador na próxima tela.",
     HOW_TO_VERIFY_YOUR_2:
       "Passo 2: Faça login na sua conta {{title}} usando suas credenciais no verificador.",
     HOW_TO_VERIFY_YOUR_4:
       "Passo 3: Aguarde a conclusão da geração da prova. Você será redirecionado automaticamente de volta ao aplicativo assim que a verificação for concluída.",
     HOW_WAS_YOUR_EXPERIENCE: "Como foi? Foi tranquilo e rápido?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identidade verificada com sucesso",
+    IDENTITY_VERIFYING: "Verificando sua identidade...",
     IDLE: "Inativo",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Incluir transações baseado no status de disputa",
@@ -857,6 +861,10 @@ export const pt = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "Junte-se como comerciante. Ganhe",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "em cada negociação.",
     JOIN_MERCHANT_BANNER_TITLE: "Ganhe como Comerciante",
+    KYC_DESCRIPTION: "Escaneamento seguro de passaporte e verificação de vivacidade",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC ainda não está disponível para sua região",
+    KYC_SUBMISSION_FAILED: "Falha no envio do KYC",
     LABEL_IS_REQUIRED: "Rótulo é necessário",
     LANGUAGE: "Idioma",
     LANGUAGE_REQUIRED: "Idioma Necessário",
@@ -1432,6 +1440,8 @@ export const pt = {
     RECEIVING_WALLET_ADDRESS: "Endereço da Carteira de Recebimento",
     RECIPIENT: "Destinatário",
     RECLAIM_DOWNLOAD_ANDROID: "Baixar aplicativo Reclaim",
+    RECLAIM_DOWNLOAD_IOS: "Baixar aplicativo Reclaim",
+    RECLAIM_IOS_ALLOW_PASTE: "Permita colar quando o app abrir",
     RECLAIM_PROOF_GENERATION_FAILED: "Falha na Geração da Prova Reclaim",
     RECOMMENDATION_ALREADY_CLAIMED: "Recomendação já reivindicada",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY:
@@ -1683,6 +1693,9 @@ export const pt = {
     SW_INSTALLING_UPDATE: "Instalando atualização",
     SW_MAY_TAKE_UP_TO: "Isso pode levar até 2 minutos.",
     SW_PLEASE_WAIT: "Por favor, aguarde pacientemente.",
+    TAG_NEEDS_PATIENCE: "Requer paciência",
+    TAG_QUICKEST: "Mais rápido",
+    TAG_RELIABLE: "Confiável",
     TAP_TO_CUSTOMIZE: "Toque para personalizar",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Toque para personalizar intervalo de datas",
     TAP_TO_SELECT: "Toque para selecionar",
@@ -1861,6 +1874,7 @@ export const pt = {
       "Por favor, faça login novamente para continuar a verificação da sua conta {{socialPlatform}}",
     VERIFICATION_PARAMS_DETECTED:
       "Login novamente para continuar a verificação",
+    VERIFICATION_STEP_1_ALT: "Etapa 1 de verificação",
     VERIFICATION_SUCCESS: "Verificação realizada com sucesso",
     VERIFIED: "Verificado",
     VERIFIED_SOCIALS_TO_UNLOCK: "Redes sociais verificadas para desbloquear",
@@ -2051,6 +2065,7 @@ export const pt = {
     ZK_PASSPORT_APP_REQUIRED: "App ZK Passport é necessário",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Por favor, instale o app ZK Passport para continuar com a verificação.",
+    ZK_PASSPORT_DESCRIPTION: "Apenas titulares de passaporte com NFC",
     ZK_PASSPORT_DOMAIN_EMPTY: "Domínio ZK Passport está vazio",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Baixar para Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Baixar para iOS",
@@ -2065,6 +2080,7 @@ export const pt = {
     ZK_PASSPORT_PROOF_INVALID: "Prova ZK Passport é inválida",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Prova enviada, verificando onchain para registro",
+    ZK_PASSPORT_PURPOSE: "Comprove sua personalidade",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Escaneie o código QR com seu app ZK Passport para verificar sua identidade",
     ZK_PASSPORT_REQUEST_RECEIVED:
