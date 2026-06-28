@@ -1,4 +1,3 @@
-import { CURRENCY } from "@p2pdotme/sdk/country";
 import {
   AlertTriangle,
   ChevronRight,
@@ -22,6 +21,7 @@ import { useSettings } from "@/contexts";
 import type { SettingsError } from "@/core/client/settings";
 import { useAnalytics, useHaptics, useSounds } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
+import { getCurrencyLabel } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { CurrencyDrawer } from "./currency-drawer";
 import { DevModeDrawer } from "./dev-mode-drawer";
@@ -68,11 +68,10 @@ export function Settings() {
       key: "currency",
       title: t("CURRENCY"),
       icon: DollarSign,
-      value:
-        settings.currency.currency === CURRENCY.USD ||
-        settings.currency.currency === CURRENCY.EUR
-          ? `${settings.currency.country}`
-          : settings.currency.currency,
+      value: getCurrencyLabel(
+        settings.currency.currency,
+        settings.currency.country,
+      ),
       component: CurrencyDrawer,
     },
     {

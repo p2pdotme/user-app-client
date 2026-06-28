@@ -15,6 +15,7 @@ export const id = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "Nomor rekening tidak cocok",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Akun Anda sementara dibatasi. Silakan coba lagi nanti atau hubungi dukungan.",
+    ACCOUNT_TYPE: "Tipe Akun",
     ACTION_NEEDED: "Aksi Diperlukan",
     ACTIVE_ADDRESS_UPDATED: "Alamat aktif diperbarui",
     ADDED_TO_YOUR_BALANCE: "Ditambahkan ke saldo Anda",
@@ -203,6 +204,7 @@ export const id = {
     CASHBACK_TRACK_IN_COINS_ME: "Lacak dan tukarkan di coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Cek di coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
@@ -391,6 +393,7 @@ export const id = {
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinamis kedaluwarsa dengan cepat",
     EARN_REFERRAL_BONUS:
       "Dapatkan {{referralRewardPercentage}}% dari volume mereka",
+    ECU_BANK_DETAILS: "Detail Bank",
     EDIT_PAYMENT_ADDRESS: "Edit Alamat Pembayaran",
     EDIT_WALLET: "Edit dompet",
     ELIGIBILITY_CRITERIA_NOT_MET: "Kriteria kelayakan tidak terpenuhi",
@@ -1773,6 +1776,7 @@ export const id = {
     TRANSACTION_STATUS: "Status Transaksi",
     TRANSACTION_SUCCESSFUL: "Transaksi Berhasil",
     TRANSACTION_TYPES: "Jenis Transaksi",
+    TRANSFERENCIA: "Transfer Bank",
     TRANSFER_FAILED: "Transfer gagal",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer jumlah ke {{paymentAddressName}} di bawah dan klik saya sudah membayar untuk melanjutkan",
