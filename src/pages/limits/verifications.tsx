@@ -20,7 +20,6 @@ import {
   type ReclaimStatus,
   resumeSimpleKycFlow,
   type ZkPassportStatus as SdkZkPassportStatus,
-  SIMPLE_KYC_DEFAULT_TENANT,
   type SocialPlatform,
   type SocialVerifyParams,
   ZK_PASSPORT_APP_LINKS,
@@ -78,6 +77,7 @@ import {
   RECLAIM_APP,
   RECLAIM_APP_LINKS,
   SIMPLE_KYC_BASE_URL,
+  SIMPLE_KYC_TENANT,
 } from "@/lib/constants";
 import {
   clearStoredParams,
@@ -1766,7 +1766,7 @@ function KycVerificationCard() {
     const session = await createSimpleKycFlow({
       baseUrl: SIMPLE_KYC_BASE_URL,
       walletAddress: account.address as `0x${string}`,
-      tenant: SIMPLE_KYC_DEFAULT_TENANT,
+      tenant: SIMPLE_KYC_TENANT,
       redirectUrl: `${window.location.origin}/limits`,
       country: kycCountry,
       state: `kyc-${Math.random().toString(36).slice(2)}`,
