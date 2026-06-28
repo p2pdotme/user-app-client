@@ -1,6 +1,7 @@
 import { useProfile, useZkkyc } from "@p2pdotme/sdk/react";
 import type {
   AnonAadharProofParams,
+  SimpleKycSubmitParams,
   SocialVerifyParams,
   ZkPassportRegisterParams,
 } from "@p2pdotme/sdk/zkkyc";
@@ -15,9 +16,11 @@ import {
 } from "@/core/adapters/thirdweb/actions/p2p-config";
 import {
   getAadhaarRp,
+  getBinanceRp,
   getFacebookRp,
   getGitHubRp,
   getInstagramRp,
+  getKycRp,
   getLinkedInRp,
   getNumTxns,
   getOnChainActivityBase,
@@ -26,6 +29,7 @@ import {
   getRMUser,
   getXRp,
   isAadharVerified,
+  isKycVerified,
   isPassportVerified,
   sendPreparedTx,
 } from "@/core/adapters/thirdweb/actions/reputation-manager";
@@ -89,7 +93,7 @@ export function useSocialVerificationStatus() {
       if (!account?.address) throw new Error("No account connected");
       return getSocialVerified({ address: account.address as Address }).match(
         (result) => {
-          // result: [linkedIn, gitHub, x, instagram, facebook, passport]
+          // result: [linkedIn, gitHub, x, instagram, facebook, passport, binance]
           return {
             isLinkedInVerified: result[0],
             isGitHubVerified: result[1],
@@ -97,6 +101,7 @@ export function useSocialVerificationStatus() {
             isInstagramVerified: result[3],
             isFacebookVerified: result[4],
             isZkPassportVerified: result[5],
+            isBinanceVerified: result[6],
           };
         },
         (error) => {
@@ -288,6 +293,23 @@ export function useSocialRpRewards() {
     },
   });
 
+  const {
+    data: binanceRp,
+    isLoading: isBinanceRpLoading,
+    isError: isBinanceRpError,
+    error: binanceRpError,
+  } = useQuery({
+    queryKey: ["social-rp-reward", "binance"],
+    queryFn: async () => {
+      return getBinanceRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
   return {
     linkedInRp,
     gitHubRp,
@@ -295,27 +317,31 @@ export function useSocialRpRewards() {
     xRp,
     facebookRp,
     zkPassportRp,
+    binanceRp,
     isLoading:
       isLinkedInRpLoading ||
       isGitHubRpLoading ||
       isInstagramRpLoading ||
       isXRpLoading ||
       isFacebookRpLoading ||
-      isZkPassportRpLoading,
+      isZkPassportRpLoading ||
+      isBinanceRpLoading,
     isError:
       isLinkedInRpError ||
       isGitHubRpError ||
       isInstagramRpError ||
       isXRpError ||
       isFacebookRpError ||
-      isZkPassportRpError,
+      isZkPassportRpError ||
+      isBinanceRpError,
     error:
       linkedInRpError ||
       gitHubRpError ||
       instagramRpError ||
       xRpError ||
       facebookRpError ||
-      zkPassportRpError,
+      zkPassportRpError ||
+      binanceRpError,
   };
 }
 
@@ -505,6 +531,99 @@ export function useZkPassportRegister() {
               });
               console.error(
                 "[useZkPassportRegister] Error in zkPassportRegister",
+                error,
+              );
+              throw error;
+            },
+          );
+        },
+      );
+    },
+  });
+  return mutation;
+}
+
+export function useKycRpReward() {
+  const {
+    data: kycRp,
+    isLoading: isKycRpLoading,
+    isError: isKycRpError,
+    error: kycRpError,
+  } = useQuery({
+    queryKey: ["kyc-rp-reward"],
+    queryFn: async () => {
+      return getKycRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
+  return { kycRp, isKycRpLoading, isKycRpError, kycRpError };
+}
+
+export function useKycVerificationStatus() {
+  const { account } = useThirdweb();
+
+  const {
+    data: isKycVerifiedStatus,
+    isLoading: isKycStatusLoading,
+    isError: isKycStatusError,
+    error: kycStatusError,
+    refetch: refetchKycStatus,
+  } = useQuery({
+    queryKey: ["kyc-verification-status", account?.address],
+    queryFn: async () => {
+      if (!account?.address) throw new Error("No account connected");
+      return isKycVerified({ address: account.address as Address }).match(
+        (result) => result,
+        (error) => {
+          console.error(
+            "[useKycVerificationStatus] Error fetching status",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+    enabled: !!account?.address,
+  });
+
+  return {
+    isKycVerified: isKycVerifiedStatus,
+    isKycStatusLoading,
+    isKycStatusError,
+    kycStatusError,
+    refetchKycStatus,
+  };
+}
+
+export function useSubmitKycAttestation() {
+  const { account } = useThirdweb();
+  const zkkyc = useZkkyc();
+  const mutation = useMutation({
+    mutationFn: async (params: SimpleKycSubmitParams) => {
+      if (!account) throw new Error("No account connected");
+      return withSentrySpan(
+        "limits.submit_kyc_attestation",
+        "Submit KYC Attestation",
+        async () => {
+          return sendPreparedTx(
+            zkkyc.prepareSubmitKycAttestation(params),
+            account,
+            "submitKycAttestation",
+          ).match(
+            (txReceipt) => txReceipt,
+            (error) => {
+              captureError(error, {
+                operation: "submit_kyc_attestation",
+                component: "useSubmitKycAttestation",
+                userId: account.address,
+              });
+              console.error(
+                "[useSubmitKycAttestation] Error in submitKycAttestation",
                 error,
               );
               throw error;
