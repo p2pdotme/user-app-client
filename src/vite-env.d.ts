@@ -20,6 +20,8 @@ interface ImportMetaEnv {
 
   // simple-kyc (Identity verification) hosted wizard / API base URL
   readonly VITE_SIMPLE_KYC_BASE_URL?: string;
+  // simple-kyc tenant slug override (defaults to the mainnet reputation tenant)
+  readonly VITE_SIMPLE_KYC_TENANT?: string;
 
   // P2P.me subgraph
   readonly VITE_SUBGRAPH_URL: string;
