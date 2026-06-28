@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
+import { getFiatUnit } from "@/lib/constants";
 import { cn, formatFiatAmount } from "@/lib/utils";
 import { PAY_FLOW_PROGRESS_TEXT } from "../shared";
 
@@ -56,7 +57,7 @@ export function PayPlaced({ order }: { order: Order }) {
         />
         <h2 className="text-center font-medium text-lg">
           {t("CONNECTING_YOU_TO_A_MERCHANT_FOR_YOUR_CURRENCY_PAYMENT", {
-            currency: order.currency,
+            currency: getFiatUnit(order.currency),
           })}
           ...
         </h2>

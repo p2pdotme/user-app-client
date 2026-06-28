@@ -15,6 +15,7 @@ export const en = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "Account number does not match",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Your account is temporarily restricted. Please try again later or contact support.",
+    ACCOUNT_TYPE: "Account Type",
     ACTION_NEEDED: "Action Needed",
     ACTIVE_ADDRESS_UPDATED: "Active address updated",
     ADDED_TO_YOUR_BALANCE: "Added to your balance",
@@ -198,6 +199,7 @@ export const en = {
     CASHBACK_TRACK_IN_COINS_ME: "Track and redeem on coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "You just received {{percentage}}% cashback in {{tokenSymbol}} for this transaction. Check it on coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
@@ -388,6 +390,7 @@ export const en = {
     DURATION_HOURS: "{{count}} hours",
     DYNAMIC_QR_EXPIRES_QUICKLY: "Dynamic QR expires quickly",
     EARN_REFERRAL_BONUS: "Earn {{referralRewardPercentage}}% of their volume",
+    ECU_BANK_DETAILS: "Bank Details",
     EDIT_PAYMENT_ADDRESS: "Edit Payment Address",
     EDIT_WALLET: "Edit wallet",
     ELIGIBILITY_CRITERIA_NOT_MET: "You do not meet the eligibility criteria",
@@ -1740,6 +1743,7 @@ export const en = {
     TRANSACTION_STATUS: "Transaction Status",
     TRANSACTION_SUCCESSFUL: "Transaction Successful",
     TRANSACTION_TYPES: "Transaction Types",
+    TRANSFERENCIA: "Bank Transfer",
     TRANSFER_FAILED: "Transfer failed",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer the amount to the {{paymentAddressName}} below and click I have paid to continue",

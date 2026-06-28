@@ -11,6 +11,25 @@ import { getBaseDomain } from "./utils";
 export { CURRENCY };
 export type { CurrencyType, PaymentIdFieldConfig };
 
+/**
+ * Display label for a currency in the UI: USD/EUR show the provider/country name,
+ * ECU shows "Ecuador USD" (Ecuador is USD-denominated), all others show the code.
+ */
+export function getCurrencyLabel(code: string, country: string): string {
+  if (code === CURRENCY.USD || code === CURRENCY.EUR) return country;
+  if (code === CURRENCY.ECU) return "Ecuador USD";
+  return code;
+}
+
+/**
+ * Raw fiat unit shown next to amounts (e.g. the USDC ⇄ fiat toggle). ECU is
+ * USD-denominated, so it shows "USD"; every other currency shows its own code.
+ */
+export function getFiatUnit(code: string): string {
+  if (code === CURRENCY.ECU) return "USD";
+  return code;
+}
+
 export const ORDER_TYPE = { BUY: 0, SELL: 1, PAY: 2 } as const;
 
 export const INTERNAL_HREFS = {
