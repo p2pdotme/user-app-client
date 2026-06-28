@@ -15,6 +15,7 @@ export const es = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "El número de cuenta no coincide",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Tu cuenta está temporalmente restringida. Por favor intenta más tarde o contacta soporte.",
+    ACCOUNT_TYPE: "Tipo de Cuenta",
     ACTION_NEEDED: "Acción Requerida",
     ACTIVE_ADDRESS_UPDATED: "Dirección activa actualizada",
     ADDED_TO_YOUR_BALANCE: "Añadido a tu saldo",
@@ -210,6 +211,7 @@ export const es = {
     CASHBACK_TRACK_IN_COINS_ME: "Sigue y canjea en coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Si tu dirección de recepción es un CEX, a veces puede tardar más en aparecer. Contacta al soporte de tu CEX si tarda demasiado.",
     CHANGE_DNS: "Cambiar DNS",
@@ -402,6 +404,7 @@ export const es = {
     DUPLICATE_PAYMENT_CHANNEL: "Canal de pago duplicado",
     DYNAMIC_QR_EXPIRES_QUICKLY: "El QR dinámico expira rápidamente",
     EARN_REFERRAL_BONUS: "Gana un {{referralRewardPercentage}}% de su volumen",
+    ECU_BANK_DETAILS: "Datos Bancarios",
     EDIT_PAYMENT_ADDRESS: "Editar Dirección de Pago",
     EDIT_WALLET: "Editar wallet",
     ELIGIBILITY_CRITERIA_NOT_MET:
@@ -1822,6 +1825,7 @@ export const es = {
     TRANSACTION_STATUS: "Estado de la Transacción",
     TRANSACTION_SUCCESSFUL: "Transacción Exitosa",
     TRANSACTION_TYPES: "Tipos de Transacción",
+    TRANSFERENCIA: "Transferencia",
     TRANSFER_FAILED: "Transferencia fallida",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfiere el monto a la {{paymentAddressName}} a continuación y haz clic en 'He pagado' para continuar",

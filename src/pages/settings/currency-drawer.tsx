@@ -16,7 +16,7 @@ import { useSettings } from "@/contexts";
 import type { Currency, SettingsError } from "@/core/client/settings";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { COUNTRY_OPTIONS, CURRENCY } from "@/lib/constants";
+import { COUNTRY_OPTIONS, getCurrencyLabel } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface CurrencyDrawerProps {
@@ -94,10 +94,7 @@ export function CurrencyDrawer({ children }: CurrencyDrawerProps) {
                   <div className="flex flex-col items-start">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">
-                        {currency.currency === CURRENCY.USD ||
-                        currency.currency === CURRENCY.EUR
-                          ? `${currency.country}`
-                          : currency.currency}
+                        {getCurrencyLabel(currency.currency, currency.country)}
                       </span>
                       {currency.isAlpha && (
                         <span className="rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs">

@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { getFiatUnit } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import {
   CURRENCIES,
@@ -340,7 +341,7 @@ function FilterContent({
                   value={currency.value}
                   size="sm"
                   className="text-xs">
-                  {currency.value}
+                  {getFiatUnit(currency.value)}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
