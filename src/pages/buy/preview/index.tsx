@@ -48,7 +48,7 @@ import {
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
-import { INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
+import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
@@ -316,9 +316,7 @@ export function BuyPreview() {
         setFraudStatus("approved");
         toast.success(t("FRAUD_ASSESSMENT_APPROVED"));
 
-        let receipt: Awaited<
-          ReturnType<typeof placeOrderMutation.mutateAsync>
-        >;
+        let receipt: Awaited<ReturnType<typeof placeOrderMutation.mutateAsync>>;
         const cryptoBig = parseUnits(amountAfterFee.toString(), 6);
         const buyPriceBig = parseUnits(
           (priceConfig?.buyPrice ?? 0).toString(),
@@ -457,7 +455,7 @@ export function BuyPreview() {
         <section className="flex w-full items-start justify-start">
           <h2 className="w-3/4 font-medium text-xl">
             {t("CONFIRM_PURCHASE_OF_USDC_WITH_CURRENCY", {
-              currency: currency.currency,
+              currency: getFiatUnit(currency.currency),
             })}
           </h2>
         </section>
