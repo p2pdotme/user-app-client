@@ -1740,6 +1740,7 @@ export const es = {
     TAP_TO_SELECT: "Toca para seleccionar",
     TARGET_IS_LONGER_THAN_DATA: "El objetivo es más largo que los datos",
     TASK_AADHAR_VERIFICATION: "Ganado por verificación de Aadhar.",
+    TASK_BINANCE_VERIFICATION: "Ganado por verificación de Binance",
     TASK_COMPLETED_SELL_ORDER: "Ganado por completar un Pedido de Venta",
     TASK_COMPLETED_TRANSACTION: "Ganado por completar una transacción.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION:
@@ -1747,6 +1748,7 @@ export const es = {
     TASK_FACEBOOK_VERIFICATION: "Ganado por verificación de Facebook",
     TASK_GITHUB_VERIFICATION: "Ganado por verificación de GitHub",
     TASK_INSTAGRAM_VERIFICATION: "Ganado por verificación de Instagram",
+    TASK_KYC_VERIFICATION: "Ganado por verificación de Identidad (KYC)",
     TASK_LINKEDIN_VERIFICATION: "Ganado por verificación de LinkedIn",
     TASK_LYING_PAID_DEDUCTION:
       "Deducido por mentir al marcar un pedido como Pagado",
