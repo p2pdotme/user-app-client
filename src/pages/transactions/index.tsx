@@ -6,7 +6,7 @@ import { FAQAccordion, NonHomeHeader, SectionHeader } from "@/components";
 import { Button } from "@/components/ui/button";
 import type { EnrichedSubgraphOrder } from "@/core/p2pdotme/shared/validation";
 import { useTxnHistory } from "@/hooks";
-import { INTERNAL_HREFS } from "@/lib/constants";
+import { getFiatUnit, INTERNAL_HREFS } from "@/lib/constants";
 import { exportTransactionsToCSV } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
 import {
@@ -177,7 +177,7 @@ export function Transactions() {
       appliedFilters.push({
         key: "currencies",
         label: t("CURRENCY_FILTER", {
-          currencies: filters.currencies.join(", "),
+          currencies: filters.currencies.map((c) => getFiatUnit(c)).join(", "),
         }),
         onClear: () =>
           setFilters({
