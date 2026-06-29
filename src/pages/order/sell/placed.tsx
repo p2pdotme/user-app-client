@@ -19,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
+import { getFiatUnit } from "@/lib/constants";
 import {
   cn,
   formatFiatAmount,
@@ -65,7 +66,7 @@ export function SellPlaced({ order }: { order: Order }) {
         />
         <h2 className="text-center font-medium text-lg">
           {t("CONNECTING_YOU_TO_A_MERCHANT_FOR_YOUR_CURRENCY_PAYOUT", {
-            currency: currency.currency,
+            currency: getFiatUnit(currency.currency),
           })}
           ...
         </h2>

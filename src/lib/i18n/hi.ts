@@ -15,6 +15,7 @@ export const hi = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "खाता संख्या मेल नहीं खाता",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "आपका खाता अस्थायी रूप से प्रतिबंधित है। कृपया बाद में पुनः प्रयास करें या सहायता से संपर्क करें।",
+    ACCOUNT_TYPE: "खाता प्रकार",
     ACTION_NEEDED: "कार्रवाई आवश्यक",
     ACTIVE_ADDRESS_UPDATED: "सक्रिय पता अपडेट किया गया",
     ADDED_TO_YOUR_BALANCE: "आपके बैलेंस में जोड़ा गया",
@@ -194,6 +195,7 @@ export const hi = {
     CASHBACK_TRACK_IN_COINS_ME: "coins.me पर ट्रैक करें और रिडीम करें",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। coins.me पर देखें।",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
@@ -376,6 +378,7 @@ export const hi = {
     DUPLICATE_PAYMENT_CHANNEL: "डुप्लिकेट भुगतान चैनल",
     DYNAMIC_QR_EXPIRES_QUICKLY: "डायनामिक QR जल्दी एक्सपायर हो जाता है",
     EARN_REFERRAL_BONUS: "उनके वॉल्यूम का {{referralRewardPercentage}}% कमाएं",
+    ECU_BANK_DETAILS: "बैंक विवरण",
     EDIT_PAYMENT_ADDRESS: "भुगतान पता संपादित करें",
     EDIT_WALLET: "वॉलेट संपादित करें",
     ELIGIBILITY_CRITERIA_NOT_MET: "आप अनुपात्रता मानदंड पूरा नहीं कर रहे हैं",
@@ -1703,6 +1706,7 @@ export const hi = {
     TRANSACTION_STATUS: "लेन-देन स्थिति",
     TRANSACTION_SUCCESSFUL: "लेन-देन सफल",
     TRANSACTION_TYPES: "लेन-देन प्रकार",
+    TRANSFERENCIA: "बैंक ट्रांसफ़र",
     TRANSFER_FAILED: "स्थानांतरण विफल",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "नीचे दिए गए {{paymentAddressName}} पर राशि ट्रांसफर करें और जारी रखने के लिए मैंने भुगतान कर दिया है पर क्लिक करें",

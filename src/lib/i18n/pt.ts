@@ -15,6 +15,7 @@ export const pt = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "Número da conta não corresponde",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Sua conta está temporariamente restrita. Por favor, tente novamente mais tarde ou entre em contato com o suporte.",
+    ACCOUNT_TYPE: "Tipo de Conta",
     ACTION_NEEDED: "Ação Necessária",
     ACTIVE_ADDRESS_UPDATED: "Endereço ativo atualizado",
     ADDED_TO_YOUR_BALANCE: "Adicionado ao seu saldo",
@@ -205,6 +206,7 @@ export const pt = {
     CASHBACK_TRACK_IN_COINS_ME: "Acompanhe e resgate no coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Você acabou de receber {{percentage}}% de cashback em {{tokenSymbol}} por esta transação. Confira no coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Se o seu endereço de recebimento é uma CEX, pode levar algum tempo para aparecer. Entre em contato com o suporte da sua CEX se estiver demorando muito.",
     CHANGE_DNS: "Alterar DNS",
@@ -396,6 +398,7 @@ export const pt = {
     DUPLICATE_PAYMENT_CHANNEL: "Canal de pagamento duplicado",
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinâmico expira rapidamente",
     EARN_REFERRAL_BONUS: "Ganhe {{referralRewardPercentage}}% do volume deles",
+    ECU_BANK_DETAILS: "Dados Bancários",
     EDIT_PAYMENT_ADDRESS: "Editar endereço de pagamento",
     EDIT_WALLET: "Editar carteira",
     ELIGIBILITY_CRITERIA_NOT_MET: "Critérios de elegibilidade não atendidos",
@@ -862,9 +865,11 @@ export const pt = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "Junte-se como comerciante. Ganhe",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "em cada negociação.",
     JOIN_MERCHANT_BANNER_TITLE: "Ganhe como Comerciante",
-    KYC_DESCRIPTION: "Escaneamento seguro de passaporte e verificação de vivacidade",
+    KYC_DESCRIPTION:
+      "Escaneamento seguro de passaporte e verificação de vivacidade",
     KYC_ERROR: "KYC: {{message}}",
-    KYC_NOT_AVAILABLE_FOR_REGION: "KYC ainda não está disponível para sua região",
+    KYC_NOT_AVAILABLE_FOR_REGION:
+      "KYC ainda não está disponível para sua região",
     KYC_SUBMISSION_FAILED: "Falha no envio do KYC",
     LABEL_IS_REQUIRED: "Rótulo é necessário",
     LANGUAGE: "Idioma",
@@ -1783,6 +1788,7 @@ export const pt = {
     TRANSACTION_STATUS: "Status da Transação",
     TRANSACTION_SUCCESSFUL: "Transação Bem-sucedida",
     TRANSACTION_TYPES: "Tipos de Transação",
+    TRANSFERENCIA: "Transferência Bancária",
     TRANSFER_FAILED: "Transferência falhou",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfira o valor para {{paymentAddressName}} abaixo e clique em 'Eu fiz o pagamento' para continuar",
