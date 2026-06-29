@@ -46,7 +46,7 @@ import {
   getPaymentIdFields,
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
-import { INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
+import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
@@ -354,7 +354,7 @@ export function SellPreview() {
         <section className="flex w-full items-start justify-start">
           <h2 className="w-3/4 font-medium text-xl">
             {t("CONFIRM_SALE_OF_USDC_WITH_CURRENCY", {
-              currency: currency.currency,
+              currency: getFiatUnit(currency.currency),
             })}
           </h2>
         </section>

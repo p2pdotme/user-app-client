@@ -13,7 +13,7 @@ import {
 import { useSettings } from "@/contexts/settings";
 import type { Currency } from "@/core/client/settings";
 import { useThirdweb } from "@/hooks";
-import { COUNTRY_OPTIONS } from "@/lib/constants";
+import { COUNTRY_OPTIONS, getCurrencyLabel } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 /**
@@ -70,7 +70,9 @@ export function CurrencyGate() {
                   </div>
                   <div className="flex flex-col items-start">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">{currency.currency}</span>
+                      <span className="font-medium">
+                        {getCurrencyLabel(currency.currency, currency.country)}
+                      </span>
                       {currency.isAlpha && (
                         <span className="rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs">
                           Alpha

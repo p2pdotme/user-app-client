@@ -17,7 +17,8 @@ import type { Currency, Language } from "@/core/client/settings";
 import { useHapticInteractions, useThirdweb } from "@/hooks";
 import {
   COUNTRY_OPTIONS,
-  CURRENCY,
+  getCurrencyLabel,
+  getFiatUnit,
   LANGUAGE_OPTIONS,
   STORAGE_KEYS,
   URLS,
@@ -260,10 +261,7 @@ export function LoginPage() {
                         <span className="flex items-center gap-2">
                           {c.flag && `${c.flag} • `}
                           {c.symbolNative} •{" "}
-                          {c.currency === CURRENCY.USD ||
-                          c.currency === CURRENCY.EUR
-                            ? `${c.country}`
-                            : c.currency}
+                          {getCurrencyLabel(c.currency, c.country)}
                           {c.isAlpha && (
                             <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs">
                               Alpha
@@ -367,7 +365,7 @@ export function LoginPage() {
             <TextLogo />
             <p className="text-center font-regular text-rg">
               {t("LOGIN_PAGE_TITLE", {
-                currency: currencySymbol || t("YOUR_CURRENCY"),
+                currency: getFiatUnit(currencySymbol) || t("YOUR_CURRENCY"),
               })}
             </p>
           </section>
@@ -401,10 +399,7 @@ export function LoginPage() {
                       <span className="flex items-center gap-2">
                         {c.flag && `${c.flag} • `}
                         {c.symbolNative} •{" "}
-                        {c.currency === CURRENCY.USD ||
-                        c.currency === CURRENCY.EUR
-                          ? `${c.country}`
-                          : c.currency}
+                        {getCurrencyLabel(c.currency, c.country)}
                         {c.isAlpha && (
                           <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs">
                             Alpha

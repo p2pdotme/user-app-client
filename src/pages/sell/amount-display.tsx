@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
 import { useUSDCBalance } from "@/hooks";
+import { getFiatUnit } from "@/lib/constants";
 import { truncateAmount } from "@/lib/utils";
 
 interface AmountDisplayProps {
@@ -32,9 +33,9 @@ export function AmountDisplay({
     useUSDCBalance();
 
   const displayAmount = amount[denomination] || "";
-  const currencySymbol = denomination === "crypto" ? "USDC" : currency.currency;
-  const secondaryCurrencySymbol =
-    denomination === "crypto" ? currency.currency : "USDC";
+  const fiatUnit = getFiatUnit(currency.currency);
+  const currencySymbol = denomination === "crypto" ? "USDC" : fiatUnit;
+  const secondaryCurrencySymbol = denomination === "crypto" ? fiatUnit : "USDC";
 
   const secondaryAmount = amount[denomination === "crypto" ? "fiat" : "crypto"];
   const hasValue = displayAmount && displayAmount !== "0";
