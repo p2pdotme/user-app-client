@@ -26,6 +26,10 @@ export const SupportWidget = () => {
     // Lazy-import so the widget bundle stays out of the initial app chunk.
     import("p2pme-ai-support").then(({ createChatWidget }) => {
       if (cancelled) return;
+      // p2pme-ai-support@0.2.0 adds typewriter reveal, starter-prompt chips, a
+      // "from p2p.me docs" grounding note, 👍/👎 feedback and a Cmd/Ctrl-K
+      // shortcut — all on by default, so no extra config is needed here. Pass
+      // `starterPrompts` / `feedback` / `typewriter` to override.
       handle = createChatWidget({
         apiUrl: SUPPORT_WIDGET_API_URL,
         // Scope the agent's retrieval to the user's selected market.
