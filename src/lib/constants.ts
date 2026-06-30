@@ -11,6 +11,25 @@ import { getBaseDomain } from "./utils";
 export { CURRENCY };
 export type { CurrencyType, PaymentIdFieldConfig };
 
+/**
+ * Display label for a currency in the UI: USD/EUR show the provider/country name,
+ * ECU shows "Ecuador USD" (Ecuador is USD-denominated), all others show the code.
+ */
+export function getCurrencyLabel(code: string, country: string): string {
+  if (code === CURRENCY.USD || code === CURRENCY.EUR) return country;
+  if (code === CURRENCY.ECU) return "Ecuador USD";
+  return code;
+}
+
+/**
+ * Raw fiat unit shown next to amounts (e.g. the USDC ⇄ fiat toggle). ECU is
+ * USD-denominated, so it shows "USD"; every other currency shows its own code.
+ */
+export function getFiatUnit(code: string): string {
+  if (code === CURRENCY.ECU) return "USD";
+  return code;
+}
+
 export const ORDER_TYPE = { BUY: 0, SELL: 1, PAY: 2 } as const;
 
 export const INTERNAL_HREFS = {
@@ -124,6 +143,37 @@ export const RECLAIM_APP = {
   APP_SECRET: import.meta.env.VITE_RECLAIM_APP_SECRET,
 };
 
+/** simple-kyc (Identity/KYC) hosted wizard + API base URL (the kyc-proxy). */
+export const SIMPLE_KYC_BASE_URL =
+  (import.meta.env.VITE_SIMPLE_KYC_BASE_URL as string | undefined) ??
+  "http://localhost:8000";
+
+/**
+ * simple-kyc tenant slug (one Base contract). Defaults to the Base **mainnet**
+ * reputation tenant; override with VITE_SIMPLE_KYC_TENANT (e.g. "p2p-reputation"
+ * for the Base Sepolia tenant).
+ */
+export const SIMPLE_KYC_TENANT =
+  (import.meta.env.VITE_SIMPLE_KYC_TENANT as string | undefined) ??
+  "p2p-reputation-mainnet";
+
+/**
+ * ISO-2 country to prebind for the simple-kyc passport flow, keyed by the user's
+ * selected currency. The hosted wizard skips the country step, so the app must
+ * supply it, and it must be one of simple-kyc's supported markets. Currencies
+ * with no entry (USD, EUR) can't run KYC, so the card is hidden for them.
+ */
+export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
+  INR: "IN",
+  NGN: "NG",
+  BRL: "BR",
+  MEX: "MX",
+  COP: "CO",
+  ARS: "AR",
+  VEN: "VE",
+  IDR: "ID",
+};
+
 export const CONNECTION_STATUS_TUTORIAL_LINK =
   "https://youtu.be/your-tutorial-link";
 
@@ -136,6 +186,9 @@ export const ZK_PASSPORT_APP_LINKS = {
 export const RECLAIM_APP_LINKS = {
   ANDROID:
     "https://play.google.com/store/apps/details?id=org.reclaimprotocol.app",
+  // Reclaim Verifier on the App Store (App Clip removed; iOS needs the app).
+  // Region-agnostic id link redirects to the user's store front.
+  IOS: "https://apps.apple.com/app/id6503247508",
 } as const;
 
 export const PAY_DISABLED_CURRENCIES = COUNTRY_OPTIONS.filter((c) =>

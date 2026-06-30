@@ -1,5 +1,6 @@
 export const id = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "Verifikasi Aadhaar gagal",
     ABOUT_P2P_TOKEN: "Tentang Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
@@ -14,6 +15,7 @@ export const id = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "Nomor rekening tidak cocok",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Akun Anda sementara dibatasi. Silakan coba lagi nanti atau hubungi dukungan.",
+    ACCOUNT_TYPE: "Tipe Akun",
     ACTION_NEEDED: "Aksi Diperlukan",
     ACTIVE_ADDRESS_UPDATED: "Alamat aktif diperbarui",
     ADDED_TO_YOUR_BALANCE: "Ditambahkan ke saldo Anda",
@@ -202,6 +204,7 @@ export const id = {
     CASHBACK_TRACK_IN_COINS_ME: "Lacak dan tukarkan di coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Anda baru saja menerima {{percentage}}% cashback dalam {{tokenSymbol}} untuk transaksi ini. Cek di coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
@@ -259,6 +262,7 @@ export const id = {
     CONNECTION_STATUS: "Status Koneksi",
     CONNECT_ANY_SERVER_REFRESH: "Hubungkan ke server mana saja dan refresh",
     CONNECT_WALLET: "Hubungkan Dompet",
+    CONNECT_WALLET_FIRST: "Hubungkan dompet terlebih dahulu",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Hubungkan dompet sumber Anda untuk deposit dari Solana dan 5 chain EVM.",
     CONTINUE: "Lanjutkan",
@@ -389,6 +393,7 @@ export const id = {
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinamis kedaluwarsa dengan cepat",
     EARN_REFERRAL_BONUS:
       "Dapatkan {{referralRewardPercentage}}% dari volume mereka",
+    ECU_BANK_DETAILS: "Detail Bank",
     EDIT_PAYMENT_ADDRESS: "Edit Alamat Pembayaran",
     EDIT_WALLET: "Edit dompet",
     ELIGIBILITY_CRITERIA_NOT_MET: "Kriteria kelayakan tidak terpenuhi",
@@ -784,9 +789,9 @@ export const id = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "Langkah 1: Instal aplikasi Reclaim di perangkat Android Anda terlebih dahulu, lalu klik untuk membuka verifier di layar berikutnya.",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "Langkah 1: Pindai kode QR di layar berikutnya menggunakan ponsel Anda untuk membuka verifier.",
+      "Langkah 1: Instal aplikasi Reclaim Verifier di ponsel Anda, lalu pindai kode QR di layar berikutnya menggunakan ponsel Anda untuk membuka verifier.",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "Langkah 1: Klik untuk membuka verifier di layar berikutnya.",
+      "Langkah 1: Instal aplikasi Reclaim Verifier di iPhone Anda terlebih dahulu, lalu klik untuk membuka verifier di layar berikutnya.",
     HOW_TO_VERIFY_YOUR_2:
       "Langkah 2: Masuk ke akun {{title}} Anda menggunakan kredensial Anda di verifier.",
     HOW_TO_VERIFY_YOUR_4:
@@ -794,6 +799,8 @@ export const id = {
     HOW_WAS_YOUR_EXPERIENCE:
       "Bagaimana pengalamannya? Apakah lancar dan cepat?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identitas berhasil diverifikasi",
+    IDENTITY_VERIFYING: "Memverifikasi identitas Anda...",
     IDLE: "Menganggur",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Sertakan transaksi berdasarkan status sengketa",
@@ -857,6 +864,10 @@ export const id = {
       "Bergabung sebagai merchant. Dapatkan",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "di setiap transaksi.",
     JOIN_MERCHANT_BANNER_TITLE: "Hasilkan sebagai Merchant",
+    KYC_DESCRIPTION: "Pemindaian paspor & verifikasi keaktifan yang aman",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC belum tersedia untuk wilayah Anda",
+    KYC_SUBMISSION_FAILED: "Pengiriman KYC gagal",
     LABEL_IS_REQUIRED: "Label diperlukan",
     LANGUAGE: "Bahasa",
     LANGUAGE_REQUIRED: "Bahasa Diperlukan",
@@ -1425,6 +1436,8 @@ export const id = {
     RECEIVING_WALLET_ADDRESS: "Alamat Dompet Penerima",
     RECIPIENT: "Penerima",
     RECLAIM_DOWNLOAD_ANDROID: "Unduh aplikasi Reclaim",
+    RECLAIM_DOWNLOAD_IOS: "Unduh aplikasi Reclaim",
+    RECLAIM_IOS_ALLOW_PASTE: "Izinkan tempel saat aplikasi terbuka",
     RECLAIM_PROOF_GENERATION_FAILED: "Pembuatan Proof Reclaim Gagal",
     RECOMMENDATION_ALREADY_CLAIMED: "Rekomendasi sudah diklaim",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
@@ -1676,17 +1689,22 @@ export const id = {
     SW_INSTALLING_UPDATE: "Memasang pembaruan",
     SW_MAY_TAKE_UP_TO: "Ini mungkin memakan waktu hingga 2 menit.",
     SW_PLEASE_WAIT: "Mohon tunggu dengan sabar.",
+    TAG_NEEDS_PATIENCE: "Butuh Kesabaran",
+    TAG_QUICKEST: "Tercepat",
+    TAG_RELIABLE: "Andal",
     TAP_TO_CUSTOMIZE: "Ketuk untuk menyesuaikan",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Ketuk untuk menyesuaikan rentang tanggal",
     TAP_TO_SELECT: "Ketuk untuk memilih",
     TARGET_IS_LONGER_THAN_DATA: "Target lebih panjang dari data",
     TASK_AADHAR_VERIFICATION: "Diperoleh untuk verifikasi Aadhar.",
+    TASK_BINANCE_VERIFICATION: "Diperoleh untuk verifikasi Binance",
     TASK_COMPLETED_SELL_ORDER: "Diperoleh untuk menyelesaikan Pesanan Jual",
     TASK_COMPLETED_TRANSACTION: "Diperoleh untuk menyelesaikan transaksi.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "Dipotong karena penyelesaian sengketa",
     TASK_FACEBOOK_VERIFICATION: "Diperoleh untuk verifikasi Facebook",
     TASK_GITHUB_VERIFICATION: "Diperoleh untuk verifikasi GitHub",
     TASK_INSTAGRAM_VERIFICATION: "Diperoleh untuk verifikasi Instagram",
+    TASK_KYC_VERIFICATION: "Diperoleh untuk verifikasi Identitas (KYC)",
     TASK_LINKEDIN_VERIFICATION: "Diperoleh untuk verifikasi LinkedIn",
     TASK_LYING_PAID_DEDUCTION:
       "Dipotong karena berbohong saat menandai pesanan sebagai Dibayar",
@@ -1760,6 +1778,7 @@ export const id = {
     TRANSACTION_STATUS: "Status Transaksi",
     TRANSACTION_SUCCESSFUL: "Transaksi Berhasil",
     TRANSACTION_TYPES: "Jenis Transaksi",
+    TRANSFERENCIA: "Transfer Bank",
     TRANSFER_FAILED: "Transfer gagal",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer jumlah ke {{paymentAddressName}} di bawah dan klik saya sudah membayar untuk melanjutkan",
@@ -1852,6 +1871,7 @@ export const id = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "Silakan login kembali untuk melanjutkan verifikasi akun {{socialPlatform}} Anda",
     VERIFICATION_PARAMS_DETECTED: "Login kembali untuk melanjutkan verifikasi",
+    VERIFICATION_STEP_1_ALT: "Langkah verifikasi 1",
     VERIFICATION_SUCCESS: "Verifikasi berhasil",
     VERIFIED: "Terverifikasi",
     VERIFIED_SOCIALS_TO_UNLOCK: "Akun sosial terverifikasi untuk membuka kunci",
@@ -2040,6 +2060,7 @@ export const id = {
     ZK_PASSPORT_APP_REQUIRED: "Aplikasi ZK Passport diperlukan",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Silakan instal aplikasi ZK Passport untuk melanjutkan verifikasi.",
+    ZK_PASSPORT_DESCRIPTION: "Hanya pemegang paspor NFC",
     ZK_PASSPORT_DOMAIN_EMPTY: "Domain ZK Passport kosong",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Unduh untuk Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Unduh untuk iOS",
@@ -2054,6 +2075,7 @@ export const id = {
     ZK_PASSPORT_PROOF_INVALID: "Bukti ZK Passport tidak valid",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Bukti dikirim, memverifikasi onchain untuk pendaftaran",
+    ZK_PASSPORT_PURPOSE: "Buktikan kepribadian Anda",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Pindai kode QR dengan aplikasi ZK Passport Anda untuk memverifikasi identitas Anda",
     ZK_PASSPORT_REQUEST_RECEIVED:

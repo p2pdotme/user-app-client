@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
 import { useHapticInteractions } from "@/hooks";
+import { getFiatUnit } from "@/lib/constants";
 
 interface AmountDisplayProps {
   amount: {
@@ -30,9 +31,9 @@ export function AmountDisplay({
   const { t } = useTranslation();
 
   const displayAmount = amount[denomination] || "";
-  const currencySymbol = denomination === "crypto" ? "USDC" : currency.currency;
-  const secondaryCurrencySymbol =
-    denomination === "crypto" ? currency.currency : "USDC";
+  const fiatUnit = getFiatUnit(currency.currency);
+  const currencySymbol = denomination === "crypto" ? "USDC" : fiatUnit;
+  const secondaryCurrencySymbol = denomination === "crypto" ? fiatUnit : "USDC";
 
   const secondaryAmount = amount[denomination === "crypto" ? "fiat" : "crypto"];
   const hasValue = displayAmount && displayAmount !== "0";

@@ -20,6 +20,7 @@ import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
+import { getFiatUnit } from "@/lib/constants";
 import {
   cn,
   formatFiatAmount,
@@ -84,7 +85,7 @@ export function SellPaid({ order }: { order: Order }) {
           {t(
             "THE_MERCHANT_HAS_RECEIVED_YOUR_DETAILS_AND_WILL_SEND_CURRENCY_SHORTLY",
             {
-              currency: currency.currency,
+              currency: getFiatUnit(currency.currency),
             },
           )}
         </p>

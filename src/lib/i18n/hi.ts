@@ -1,5 +1,6 @@
 export const hi = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "आधार सत्यापन विफल",
     ABOUT_P2P_TOKEN: "$P2P टोकन के बारे में",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P, P2P प्रोटोकॉल का गवर्नेंस और यूटिलिटी टोकन है, जो विकेंद्रीकृत, गोपनीयता-संरक्षित फिएट-टू-क्रिप्टो ऑन/ऑफ-रैम्प के लिए फ्यूटार्की-आधारित प्रोटोकॉल गवर्नेंस, ट्रेज़री नियंत्रण और ट्रस्ट स्टेकिंग ("Circles of Trust") को सशक्त बनाता है।',
@@ -14,6 +15,7 @@ export const hi = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "खाता संख्या मेल नहीं खाता",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "आपका खाता अस्थायी रूप से प्रतिबंधित है। कृपया बाद में पुनः प्रयास करें या सहायता से संपर्क करें।",
+    ACCOUNT_TYPE: "खाता प्रकार",
     ACTION_NEEDED: "कार्रवाई आवश्यक",
     ACTIVE_ADDRESS_UPDATED: "सक्रिय पता अपडेट किया गया",
     ADDED_TO_YOUR_BALANCE: "आपके बैलेंस में जोड़ा गया",
@@ -193,6 +195,7 @@ export const hi = {
     CASHBACK_TRACK_IN_COINS_ME: "coins.me पर ट्रैक करें और रिडीम करें",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "आपको इस लेनदेन पर {{tokenSymbol}} में {{percentage}}% कैशबैक मिला है। coins.me पर देखें।",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
@@ -250,6 +253,7 @@ export const hi = {
     CONNECTION_STATUS: "कनेक्शन स्थिति",
     CONNECT_ANY_SERVER_REFRESH: "किसी भी सर्वर से कनेक्ट करें और रीफ्रेश करें",
     CONNECT_WALLET: "वॉलेट कनेक्ट करें",
+    CONNECT_WALLET_FIRST: "पहले एक वॉलेट कनेक्ट करें",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Solana और 5 EVM चेन से जमा करने के लिए अपना सोर्स वॉलेट कनेक्ट करें।",
     CONTINUE: "जारी रखें",
@@ -374,6 +378,7 @@ export const hi = {
     DUPLICATE_PAYMENT_CHANNEL: "डुप्लिकेट भुगतान चैनल",
     DYNAMIC_QR_EXPIRES_QUICKLY: "डायनामिक QR जल्दी एक्सपायर हो जाता है",
     EARN_REFERRAL_BONUS: "उनके वॉल्यूम का {{referralRewardPercentage}}% कमाएं",
+    ECU_BANK_DETAILS: "बैंक विवरण",
     EDIT_PAYMENT_ADDRESS: "भुगतान पता संपादित करें",
     EDIT_WALLET: "वॉलेट संपादित करें",
     ELIGIBILITY_CRITERIA_NOT_MET: "आप अनुपात्रता मानदंड पूरा नहीं कर रहे हैं",
@@ -744,15 +749,17 @@ export const hi = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "चरण 1: पहले अपने Android डिवाइस पर Reclaim ऐप इंस्टॉल करें, फिर अगले स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "चरण 1: अगले स्क्रीन पर QR कोड को अपने फोन से स्कैन करें ताकि सत्यापनकर्ता खुल सके।",
+      "चरण 1: अपने फ़ोन पर Reclaim Verifier ऐप इंस्टॉल करें, फिर सत्यापनकर्ता खोलने के लिए अगली स्क्रीन पर QR कोड को अपने फ़ोन से स्कैन करें।",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "चरण 1: अगले स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
+      "चरण 1: पहले अपने iPhone पर Reclaim Verifier ऐप इंस्टॉल करें, फिर अगली स्क्रीन पर सत्यापनकर्ता खोलने के लिए क्लिक करें।",
     HOW_TO_VERIFY_YOUR_2:
       "चरण 2: सत्यापनकर्ता में अपने क्रेडेंशियल का उपयोग करके अपने {{title}} खाते में लॉग इन करें।",
     HOW_TO_VERIFY_YOUR_4:
       "चरण 3: प्रमाण पीढ़ी पूरी होने की प्रतीक्षा करें। सत्यापन पूरा होने के बाद आपको स्वचालित रूप से ऐप पर वापस भेज दिया जाएगा।",
     HOW_WAS_YOUR_EXPERIENCE: "आपका अनुभव कैसा रहा? क्या यह सुगम और त्वरित था?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "पहचान सफलतापूर्वक सत्यापित",
+    IDENTITY_VERIFYING: "आपकी पहचान सत्यापित की जा रही है...",
     IDLE: "निष्क्रिय",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "विवाद स्थिति के आधार पर लेनदेन शामिल करें",
@@ -815,6 +822,10 @@ export const hi = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "मर्चेंट बनें।",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "हर ट्रेड पर कमाएं।",
     JOIN_MERCHANT_BANNER_TITLE: "मर्चेंट के रूप में कमाएं",
+    KYC_DESCRIPTION: "सुरक्षित पासपोर्ट स्कैन और लाइवनेस सत्यापन",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC अभी आपके क्षेत्र के लिए उपलब्ध नहीं है",
+    KYC_SUBMISSION_FAILED: "KYC सबमिशन विफल",
     LABEL_IS_REQUIRED: "लेबल आवश्यक है",
     LANGUAGE: "भाषा",
     LANGUAGE_REQUIRED: "भाषा आवश्यक",
@@ -1364,6 +1375,8 @@ export const hi = {
     RECEIVING_WALLET_ADDRESS: "प्राप्त करने वाला वॉलेट पता",
     RECIPIENT: "प्राप्तकर्ता",
     RECLAIM_DOWNLOAD_ANDROID: "Reclaim ऐप डाउनलोड करें",
+    RECLAIM_DOWNLOAD_IOS: "Reclaim ऐप डाउनलोड करें",
+    RECLAIM_IOS_ALLOW_PASTE: "ऐप खुलने पर पेस्ट की अनुमति दें",
     RECLAIM_PROOF_GENERATION_FAILED: "रीक्लेम प्रमाण पीढ़ी विफल",
     RECOMMENDATION_ALREADY_CLAIMED: "सिफारिश पहले ही दावा की जा चुकी है",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "सिफारिश सफलतापूर्वक दावा की गई",
@@ -1606,17 +1619,22 @@ export const hi = {
     SW_INSTALLING_UPDATE: "अपडेट इंस्टॉल हो रहा है",
     SW_MAY_TAKE_UP_TO: "इसमें 2 मिनट तक का समय लग सकता है।",
     SW_PLEASE_WAIT: "कृपया धैर्यपूर्वक प्रतीक्षा करें।",
+    TAG_NEEDS_PATIENCE: "धैर्य चाहिए",
+    TAG_QUICKEST: "सबसे तेज़",
+    TAG_RELIABLE: "विश्वसनीय",
     TAP_TO_CUSTOMIZE: "कस्टमाइज करने के लिए टैप करें",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "तारीख सीमा अनुकूलित करने के लिए टैप करें",
     TAP_TO_SELECT: "चुनने के लिए टैप करें",
     TARGET_IS_LONGER_THAN_DATA: "टार्गेट डेटा से लंबा है",
     TASK_AADHAR_VERIFICATION: "आधार सत्यापन के लिए अर्जित किया गया।",
+    TASK_BINANCE_VERIFICATION: "Binance सत्यापन के लिए अर्जित किया गया",
     TASK_COMPLETED_SELL_ORDER: "बिक्री आदेश पूरा करने के लिए अर्जित किया गया",
     TASK_COMPLETED_TRANSACTION: "लेनदेन पूरा करने के लिए अर्जित किया गया।",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "विवाद निपटान के कारण काटा गया",
     TASK_FACEBOOK_VERIFICATION: "Facebook सत्यापन के लिए अर्जित किया गया",
     TASK_GITHUB_VERIFICATION: "GitHub सत्यापन के लिए अर्जित किया गया",
     TASK_INSTAGRAM_VERIFICATION: "Instagram सत्यापन के लिए अर्जित किया गया",
+    TASK_KYC_VERIFICATION: "पहचान (KYC) सत्यापन के लिए अर्जित किया गया",
     TASK_LINKEDIN_VERIFICATION: "LinkedIn सत्यापन के लिए अर्जित किया गया",
     TASK_LYING_PAID_DEDUCTION:
       "आदेश को भुगतान किया गया के रूप में चिह्नित करते समय झूठ बोलने के कारण काटा गया",
@@ -1688,6 +1706,7 @@ export const hi = {
     TRANSACTION_STATUS: "लेन-देन स्थिति",
     TRANSACTION_SUCCESSFUL: "लेन-देन सफल",
     TRANSACTION_TYPES: "लेन-देन प्रकार",
+    TRANSFERENCIA: "बैंक ट्रांसफ़र",
     TRANSFER_FAILED: "स्थानांतरण विफल",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "नीचे दिए गए {{paymentAddressName}} पर राशि ट्रांसफर करें और जारी रखने के लिए मैंने भुगतान कर दिया है पर क्लिक करें",
@@ -1776,6 +1795,7 @@ export const hi = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "कृपया अपने {{socialPlatform}} खाते के सत्यापन को जारी रखने के लिए फिर से लॉगिन करें",
     VERIFICATION_PARAMS_DETECTED: "सत्यापन जारी रखने के लिए फिर से लॉगिन करें",
+    VERIFICATION_STEP_1_ALT: "सत्यापन चरण 1",
     VERIFICATION_SUCCESS: "सत्यापन सफल",
     VERIFIED: "सत्यापित",
     VERIFIED_SOCIALS_TO_UNLOCK: "अनलॉक करने के लिए सत्यापित सोशल मीडिया",
@@ -1962,6 +1982,7 @@ export const hi = {
     ZK_PASSPORT_APP_REQUIRED: "ZK Passport ऐप आवश्यक है",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "कृपया सत्यापन जारी रखने के लिए ZK Passport ऐप इंस्टॉल करें।",
+    ZK_PASSPORT_DESCRIPTION: "केवल NFC पासपोर्ट धारक",
     ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain खाली है",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Android के लिए डाउनलोड करें",
     ZK_PASSPORT_DOWNLOAD_IOS: "iOS के लिए डाउनलोड करें",
@@ -1976,6 +1997,7 @@ export const hi = {
     ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof अमान्य है",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "प्रमाण सबमिट कर दिया गया, पंजीकरण के लिए onchain सत्यापन कर रहे हैं",
+    ZK_PASSPORT_PURPOSE: "अपनी पहचान साबित करें",
     ZK_PASSPORT_QR_DESCRIPTION:
       "अपनी पहचान सत्यापित करने के लिए अपने ZK Passport ऐप से QR कोड स्कैन करें",
     ZK_PASSPORT_REQUEST_RECEIVED:

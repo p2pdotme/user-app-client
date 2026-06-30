@@ -22,6 +22,7 @@ import { ActionDeposit } from "./icons/action-deposit";
 import { ActionSupport } from "./icons/action-support";
 import { ActionWallet } from "./icons/action-wallet";
 import { ActionWithdraw } from "./icons/action-withdraw";
+import { Binance } from "./icons/binance";
 import { Buy } from "./icons/buy";
 import { DepositCross } from "./icons/deposit-cross";
 import { DepositDirect } from "./icons/deposit-direct";
@@ -58,7 +59,8 @@ import { WithdrawCross } from "./icons/withdraw-cross";
 import { WithdrawDirect } from "./icons/withdraw-direct";
 import { ZkPassport } from "./icons/zk-passport";
 
-const APP_CLIP_CLICK_HERE = createAssetUrl("images/appclip-click-here.png");
+// iOS now requires installing the Reclaim Verifier app (App Clip removed).
+const IOS_RECLAIM_VERIFIER = createAssetUrl("images/ios-reclaim-verifier.png");
 const BUY_MERCHANT_ASSIGNMENT = createAssetUrl(
   "images/buy-merchant-assignment.png",
 );
@@ -249,6 +251,7 @@ const ASSETS = {
     Telegram,
     Discord,
     Facebook,
+    Binance,
     DepositDirect,
     DepositCross,
     WithdrawDirect,
@@ -280,7 +283,7 @@ const ASSETS = {
     USDCFiatOverlapped,
     BUY_MERCHANT_ASSIGNMENT,
     LoginPoster,
-    APP_CLIP_CLICK_HERE,
+    IOS_RECLAIM_VERIFIER,
     INSTANT_APP_CLICK_HERE,
     TGE_BANNER,
     P2P_FOUNDATION_LOGO,
@@ -378,7 +381,6 @@ export const CDN_ASSET_URLS = [
   MASCOT_404,
   MASCOT_MAINTENANCE,
   BUY_MERCHANT_ASSIGNMENT,
-  APP_CLIP_CLICK_HERE,
   INSTANT_APP_CLICK_HERE,
   TGE_BANNER,
   P2P_FOUNDATION_LOGO,

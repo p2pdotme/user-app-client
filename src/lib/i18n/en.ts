@@ -1,5 +1,6 @@
 export const en = {
   translation: {
+    AADHAAR_VERIFICATION_FAILED: "Aadhaar verification failed",
     ABOUT_P2P_TOKEN: "About $P2P Token",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P is the governance and utility token of the P2P Protocol, powering futarchy-based protocol governance, treasury control, and trust staking ("Circles of Trust") for a decentralized, privacy-preserving fiat-to-crypto on/off-ramp.',
@@ -14,6 +15,7 @@ export const en = {
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "Account number does not match",
     ACCOUNT_TEMPORARILY_RESTRICTED:
       "Your account is temporarily restricted. Please try again later or contact support.",
+    ACCOUNT_TYPE: "Account Type",
     ACTION_NEEDED: "Action Needed",
     ACTIVE_ADDRESS_UPDATED: "Active address updated",
     ADDED_TO_YOUR_BALANCE: "Added to your balance",
@@ -197,6 +199,7 @@ export const en = {
     CASHBACK_TRACK_IN_COINS_ME: "Track and redeem on coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "You just received {{percentage}}% cashback in {{tokenSymbol}} for this transaction. Check it on coins.me.",
+    CEDULA: "Cédula",
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
@@ -254,6 +257,7 @@ export const en = {
     CONNECTION_STATUS: "Connection Status",
     CONNECT_ANY_SERVER_REFRESH: "Connect to any server and refresh",
     CONNECT_WALLET: "Connect Wallet",
+    CONNECT_WALLET_FIRST: "Connect a wallet first",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Connect your source wallet to deposit from Solana and 5 EVM chains.",
     CONTINUE: "Continue",
@@ -386,6 +390,7 @@ export const en = {
     DURATION_HOURS: "{{count}} hours",
     DYNAMIC_QR_EXPIRES_QUICKLY: "Dynamic QR expires quickly",
     EARN_REFERRAL_BONUS: "Earn {{referralRewardPercentage}}% of their volume",
+    ECU_BANK_DETAILS: "Bank Details",
     EDIT_PAYMENT_ADDRESS: "Edit Payment Address",
     EDIT_WALLET: "Edit wallet",
     ELIGIBILITY_CRITERIA_NOT_MET: "You do not meet the eligibility criteria",
@@ -771,15 +776,17 @@ export const en = {
     HOW_TO_VERIFY_YOUR_1_ANDROID:
       "Step 1: Install the Reclaim app on your Android device first, then click to open the verifier on the next screen.",
     HOW_TO_VERIFY_YOUR_1_DESKTOP:
-      "Step 1: Scan the QR code on the next screen using your phone to open the verifier.",
+      "Step 1: Install the Reclaim Verifier app on your phone, then scan the QR code on the next screen with your phone to open the verifier.",
     HOW_TO_VERIFY_YOUR_1_IOS:
-      "Step 1: Click to open the verifier on the next screen.",
+      "Step 1: Install the Reclaim Verifier app on your iPhone first, then click to open the verifier on the next screen.",
     HOW_TO_VERIFY_YOUR_2:
       "Step 2: Log in to your {{title}} account using your credentials in the verifier.",
     HOW_TO_VERIFY_YOUR_4:
       "Step 3: Wait for proof generation to complete. You'll be automatically redirected back to the app once verification is done.",
     HOW_WAS_YOUR_EXPERIENCE: "How'd it go? Was it smooth and quick?",
     ID: "ID",
+    IDENTITY_VERIFIED_WITH_REWARD: "Identity verified successfully",
+    IDENTITY_VERIFYING: "Verifying your identity...",
     IDLE: "Idle",
     INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
       "Include transactions based on dispute status",
@@ -843,6 +850,10 @@ export const en = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX: "Join as merchant. Earn",
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "on each trade.",
     JOIN_MERCHANT_BANNER_TITLE: "Earn as a Merchant",
+    KYC_DESCRIPTION: "Secure passport & liveness verify",
+    KYC_ERROR: "KYC: {{message}}",
+    KYC_NOT_AVAILABLE_FOR_REGION: "KYC isn't available for your region yet",
+    KYC_SUBMISSION_FAILED: "KYC submission failed",
     LABEL_IS_REQUIRED: "Label is required",
     LANGUAGE: "Language",
     LANGUAGE_REQUIRED: "Language Required",
@@ -1400,6 +1411,8 @@ export const en = {
     RECEIVING_WALLET_ADDRESS: "Receiving Wallet Address",
     RECIPIENT: "Recipient",
     RECLAIM_DOWNLOAD_ANDROID: "Download Reclaim App",
+    RECLAIM_DOWNLOAD_IOS: "Download Reclaim App",
+    RECLAIM_IOS_ALLOW_PASTE: "Allow paste when the app opens",
     RECLAIM_PROOF_GENERATION_FAILED: "Reclaim Proof Generation Failed",
     RECOMMENDATION_ALREADY_CLAIMED: "Recommendation already claimed",
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recommendation claimed successfully",
@@ -1644,17 +1657,22 @@ export const en = {
     SW_INSTALLING_UPDATE: "Installing Update",
     SW_MAY_TAKE_UP_TO: "This may take up to 2 minutes.",
     SW_PLEASE_WAIT: "Please wait patiently.",
+    TAG_NEEDS_PATIENCE: "Needs Patience",
+    TAG_QUICKEST: "Quickest",
+    TAG_RELIABLE: "Reliable",
     TAP_TO_CUSTOMIZE: "Tap to customize",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Tap to customize date range",
     TAP_TO_SELECT: "Tap to select",
     TARGET_IS_LONGER_THAN_DATA: "Target is longer than data",
     TASK_AADHAR_VERIFICATION: "Earned For Aadhar verification.",
+    TASK_BINANCE_VERIFICATION: "Earned for Binance verification",
     TASK_COMPLETED_SELL_ORDER: "Earned for completing Sell Order",
     TASK_COMPLETED_TRANSACTION: "Earned for completing transaction.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "Deducted due to dispute settlement",
     TASK_FACEBOOK_VERIFICATION: "Earned for Facebook verification",
     TASK_GITHUB_VERIFICATION: "Earned for GitHub verification",
     TASK_INSTAGRAM_VERIFICATION: "Earned for Instagram verification",
+    TASK_KYC_VERIFICATION: "Earned for Identity (KYC) verification",
     TASK_LINKEDIN_VERIFICATION: "Earned for LinkedIn verification",
     TASK_LYING_PAID_DEDUCTION:
       "Deducted due to lying while marking order as Paid",
@@ -1727,6 +1745,7 @@ export const en = {
     TRANSACTION_STATUS: "Transaction Status",
     TRANSACTION_SUCCESSFUL: "Transaction Successful",
     TRANSACTION_TYPES: "Transaction Types",
+    TRANSFERENCIA: "Bank Transfer",
     TRANSFER_FAILED: "Transfer failed",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer the amount to the {{paymentAddressName}} below and click I have paid to continue",
@@ -1815,6 +1834,7 @@ export const en = {
     VERIFICATION_PARAMS_DESCRIPTION:
       "Please login again to continue verification of your {{socialPlatform}} account",
     VERIFICATION_PARAMS_DETECTED: "Login again to continue verification",
+    VERIFICATION_STEP_1_ALT: "Verification step 1",
     VERIFICATION_SUCCESS: "Verification successful",
     VERIFIED: "Verified",
     VERIFIED_SOCIALS_TO_UNLOCK: "Verified socials to unlock",
@@ -2004,6 +2024,7 @@ export const en = {
     ZK_PASSPORT_APP_REQUIRED: "ZK Passport app is required",
     ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
       "Please install the ZK Passport app to continue with verification.",
+    ZK_PASSPORT_DESCRIPTION: "NFC passport holders only",
     ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain is empty",
     ZK_PASSPORT_DOWNLOAD_ANDROID: "Download for Android",
     ZK_PASSPORT_DOWNLOAD_IOS: "Download for iOS",
@@ -2018,6 +2039,7 @@ export const en = {
     ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof is invalid",
     ZK_PASSPORT_PROOF_SUBMITTED:
       "Proof submitted, verifying onchain for registration",
+    ZK_PASSPORT_PURPOSE: "Prove your personhood",
     ZK_PASSPORT_QR_DESCRIPTION:
       "Scan the QR code with your ZK Passport app to verify your identity",
     ZK_PASSPORT_REQUEST_RECEIVED:

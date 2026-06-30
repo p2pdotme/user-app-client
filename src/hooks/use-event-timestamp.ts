@@ -32,6 +32,29 @@ export function useCancelledTimestamp(orderId: number) {
   });
 }
 
+/**
+ * Reads the absolute order expiry timestamp (unix seconds) directly from the
+ * Diamond contract via `getOrderExpiresAt(orderId)`. Returns 0 for orders that
+ * are in a terminal state or unplaced. Use this instead of deriving the
+ * timestamp from `OrderAccepted` events and a FE duration constant.
+ */
+export function useOrderExpiresAt(orderId: number) {
+  return useQuery({
+    queryKey: ["order", "expiresAt", orderId],
+    enabled: orderId !== undefined,
+    staleTime: Infinity,
+    queryFn: async () => {
+      const expiresAt = await viemPublicClient.readContract({
+        address: CONTRACT_ADDRESSES.DIAMOND,
+        abi: ABIS.DIAMOND,
+        functionName: "getOrderExpiresAt",
+        args: [BigInt(orderId)],
+      });
+      return Number(expiresAt);
+    },
+  });
+}
+
 export function useAcceptedTimestamp(orderId: number) {
   return useQuery({
     queryKey: ["order", "acceptedTimestamp", orderId],
