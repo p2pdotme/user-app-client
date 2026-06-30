@@ -35,7 +35,7 @@
         "motion": "12.9.2",
         "neverthrow": "8.2.0",
         "next-themes": "0.4.6",
-        "p2pme-ai-support": "0.1.0",
+        "p2pme-ai-support": "0.2.0",
         "prettier": "3.6.2",
         "qr-scanner": "1.4.2",
         "qrcode.react": "4.2.0",
@@ -2836,7 +2836,7 @@
 
     "p-try": ["p-try@2.2.0", "", {}, "sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ=="],
 
-    "p2pme-ai-support": ["p2pme-ai-support@0.1.0", "", {}, "sha512-2o0gmoTv09rPXDUO9mbKOgHuO9uS6Y2jyZofr08/guI3t50qpk3XMpGY0SZ434Tn0kY4Rn3zSLg8jvlXDFc4kA=="],
+    "p2pme-ai-support": ["p2pme-ai-support@0.2.0", "", {}, "sha512-eAeN+tLCa/ykxduureoP1CBZjorO+5ulzPWyyxZpGjxv5YmRuxcFr0fDEqW6ukQpmuPYg4Km50cUuA1ILf/8og=="],
 
     "pac-proxy-agent": ["pac-proxy-agent@7.2.0", "", { "dependencies": { "@tootallnate/quickjs-emscripten": "^0.23.0", "agent-base": "^7.1.2", "debug": "^4.3.4", "get-uri": "^6.0.1", "http-proxy-agent": "^7.0.0", "https-proxy-agent": "^7.0.6", "pac-resolver": "^7.0.1", "socks-proxy-agent": "^8.0.5" } }, "sha512-TEB8ESquiLMc0lV8vcd5Ql/JAKAoyzHFXaStwjkzpOpC5Yv+pIzLfHvjTSdf3vpa2bMiUQrg9i6276yn8666aA=="],
 
