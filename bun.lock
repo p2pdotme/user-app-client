@@ -35,7 +35,7 @@
         "motion": "12.9.2",
         "neverthrow": "8.2.0",
         "next-themes": "0.4.6",
-        "p2pme-ai-support": "0.4.1",
+        "p2pme-ai-support": "0.4.2",
         "prettier": "3.6.2",
         "qr-scanner": "1.4.2",
         "qrcode.react": "4.2.0",
@@ -2682,7 +2682,7 @@
 
     "p-try": ["p-try@2.2.0", "", {}, "sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ=="],
 
-    "p2pme-ai-support": ["p2pme-ai-support@0.4.1", "", {}, "sha512-PrLWLH+Urbc37YJHUWfY4sO/2nX+rFU0jSfqtug3i3jfdDQnmyNTqAvic/Vil9kaiUgGeNZ1BuWGX9b8TBw84Q=="],
+    "p2pme-ai-support": ["p2pme-ai-support@0.4.2", "", {}, "sha512-Gx+tWh5mkBqaMPOrUV47WM9iLaghyc6M9rtJLUxXwuzbpJXXDw9VBx8503p8qPoMTCgIwAKYB2JqlJ6y+3wxpQ=="],
 
     "package-json-from-dist": ["package-json-from-dist@1.0.1", "", {}, "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw=="],
 
