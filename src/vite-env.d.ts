@@ -51,6 +51,12 @@ interface ImportMetaEnv {
 
   // P2P Swap URL
   readonly VITE_P2P_SWAP_URL: string;
+
+  // NEAR Intents 1Click API (POC)
+  readonly VITE_ONECLICK_BASE_URL?: string;
+  readonly VITE_ONECLICK_JWT?: string;
+  readonly VITE_ONECLICK_APP_FEE_RECIPIENT?: string;
+  readonly VITE_ONECLICK_APP_FEE_BPS?: string;
 }
 
 interface ImportMeta {

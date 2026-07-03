@@ -39,6 +39,7 @@ export const INTERNAL_HREFS = {
   LIMITS: "/limits",
   DEPOSIT: "/deposit",
   WITHDRAW: "/withdraw",
+  ONECLICK: "/1click",
   HELP: "/help",
   HELP_FAQS_SEARCH: "/help/faqs-search",
   HELP_HELPFUL_VIDEO_GUIDES: "/help/video-guides",
