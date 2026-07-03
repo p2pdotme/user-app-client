@@ -88,7 +88,10 @@ function DirectOrCross({ onReceiveUSDC }: { onReceiveUSDC: () => void }) {
             <ChevronRight className="size-6" />
           </CardContent>
         </Card>
-        <Link to={INTERNAL_HREFS.DEPOSIT} className="cursor-pointer">
+        <Link
+          to={`${INTERNAL_HREFS.ONECLICK}?mode=deposit`}
+          className="cursor-pointer"
+        >
           <Card className="gap-0 shadow-none">
             <div className="-translate-x-2 -translate-y-3 flex items-center gap-2">
               <CardTitle className="flex w-fit items-center gap-1 rounded-sm bg-primary/30 px-2 py-1 font-medium text-xs">

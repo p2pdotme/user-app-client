@@ -91,7 +91,10 @@ function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
             <ChevronRight className="size-6" />
           </CardContent>
         </Card>
-        <Link to={INTERNAL_HREFS.WITHDRAW} className="cursor-pointer">
+        <Link
+          to={`${INTERNAL_HREFS.ONECLICK}?mode=withdraw`}
+          className="cursor-pointer"
+        >
           <Card className="shadow-none">
             <CardContent className="flex items-center justify-between">
               <div className="flex w-[90%] items-start gap-4">

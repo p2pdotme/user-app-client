@@ -1,5 +1,6 @@
 import { ExternalLinkIcon } from "lucide-react";
 import { useMemo } from "react";
+import { useSearchParams } from "react-router";
 import { NonHomeHeader } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -20,6 +21,50 @@ const EXPLORER_STATUSES = [
   "SUCCESS",
 ];
 
+/** Skeleton mirroring the swap form layout while tokens load. */
+function SwapFormShimmer() {
+  return (
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-5 w-16" />
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Skeleton className="size-10 rounded-full" />
+            <div className="flex flex-col gap-1">
+              <Skeleton className="h-4 w-14" />
+              <Skeleton className="h-3 w-10" />
+            </div>
+          </div>
+          <Skeleton className="h-14 w-48 rounded-xl" />
+        </div>
+      </div>
+      <div className="relative flex items-center justify-center">
+        <Skeleton className="size-11 rounded-xl" />
+      </div>
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-5 w-10" />
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Skeleton className="size-10 rounded-full" />
+            <div className="flex flex-col gap-1">
+              <Skeleton className="h-4 w-14" />
+              <Skeleton className="h-3 w-10" />
+            </div>
+          </div>
+          <Skeleton className="h-9 w-24" />
+        </div>
+        <Skeleton className="h-5 w-20" />
+        <Skeleton className="h-12 w-full rounded-xl" />
+      </div>
+      <div className="flex items-center justify-between pt-2">
+        <Skeleton className="h-5 w-32" />
+        <Skeleton className="h-8 w-20 rounded-lg" />
+      </div>
+      <Skeleton className="h-14 w-full rounded-xl" />
+    </div>
+  );
+}
+
 function getExplorerHistoryUrl(address: string): string {
   const statusParams = EXPLORER_STATUSES.map(
     (status) => `status=${status}`,
@@ -35,6 +80,10 @@ export function OneClick() {
   const { account } = useThirdweb();
   const { tokens, isLoading, error } = useOneClickTokens();
   const { bridges, addBridge } = usePendingBridges(account?.address);
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode");
+  const title =
+    mode === "deposit" ? "DEPOSIT" : mode === "withdraw" ? "WITHDRAW" : "BRIDGE";
 
   // The hub asset itself isn't a valid counter-asset
   const selectableTokens = useMemo(
@@ -44,14 +93,14 @@ export function OneClick() {
 
   return (
     <>
-      <NonHomeHeader title="BRIDGE" />
+      <NonHomeHeader title={title} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto py-8">
         {!account ? (
           <p className="text-muted-foreground text-sm">
             Connect your wallet to use the bridge.
           </p>
         ) : isLoading ? (
-          <Skeleton className="h-64 w-full" />
+          <SwapFormShimmer />
         ) : error ? (
           <p className="text-destructive text-sm">
             Failed to load supported assets: {error.message}
@@ -61,6 +110,7 @@ export function OneClick() {
             account={account}
             tokens={selectableTokens}
             onBridgeCreated={addBridge}
+            initialDirection={mode === "deposit" ? "deposit" : "withdraw"}
           />
         )}
 

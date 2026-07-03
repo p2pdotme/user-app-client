@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ArrowUpDownIcon, SettingsIcon } from "lucide-react";
+import { ArrowDownIcon, SettingsIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "thirdweb";
@@ -55,6 +55,7 @@ type SwapFormProps = {
   account: Account;
   tokens: OneClickToken[];
   onBridgeCreated: (bridge: PendingBridge) => void;
+  initialDirection?: Direction;
 };
 
 /**
@@ -63,8 +64,13 @@ type SwapFormProps = {
  * - withdraw: USDC (from) → token (to), recipient address on the dest chain
  * - deposit:  token (from) → USDC (to), refund address on the origin chain
  */
-export function SwapForm({ account, tokens, onBridgeCreated }: SwapFormProps) {
-  const [direction, setDirection] = useState<Direction>("withdraw");
+export function SwapForm({
+  account,
+  tokens,
+  onBridgeCreated,
+  initialDirection,
+}: SwapFormProps) {
+  const direction: Direction = initialDirection ?? "withdraw";
   const [token, setToken] = useState<OneClickToken | null>(null);
   const [amountText, setAmountText] = useState("");
   const [address, setAddress] = useState(""); // recipient (withdraw) / refundTo (deposit)
@@ -117,11 +123,6 @@ export function SwapForm({ account, tokens, onBridgeCreated }: SwapFormProps) {
       : null;
   const fromSymbol = isWithdraw ? "USDC" : (token?.symbol ?? "…");
   const toSymbol = isWithdraw ? (token?.symbol ?? "…") : "USDC";
-
-  const flip = () => {
-    setDirection(isWithdraw ? "deposit" : "withdraw");
-    setAddress("");
-  };
 
   const swap = useMutation({
     mutationFn: async () => {
@@ -270,17 +271,12 @@ export function SwapForm({ account, tokens, onBridgeCreated }: SwapFormProps) {
         {!isWithdraw && addressInput}
       </div>
 
-      {/* Flip */}
+      {/* Direction indicator */}
       <div className="relative flex items-center justify-center">
         <div className="absolute inset-x-0 border-border border-t" />
-        <button
-          type="button"
-          onClick={flip}
-          className="relative rounded-xl border bg-background p-3"
-          aria-label="Switch direction"
-        >
-          <ArrowUpDownIcon className="size-4" />
-        </button>
+        <div className="relative rounded-xl border bg-background p-3">
+          <ArrowDownIcon className="size-4" />
+        </div>
       </div>
 
       {/* To */}
