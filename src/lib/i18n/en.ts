@@ -118,9 +118,11 @@ export const en = {
     BRIDGE_NO_CHAINS_FOUND: "No chains found",
     BRIDGE_NO_TOKENS_FOUND: "No tokens found",
     BRIDGE_RATE: "Rate",
+    BRIDGE_RECIPIENT_INVALID: "The recipient address isn't valid.",
     BRIDGE_REFUND_ADDRESS: "Refund Address",
     BRIDGE_REFUND_ADDRESS_HINT:
       "Your address on the origin chain, used if the swap is refunded.",
+    BRIDGE_REFUND_ADDRESS_INVALID: "The refund address isn't valid.",
     BRIDGE_REVIEW_QUOTE: "Review Quote",
     BRIDGE_SEARCH_CHAIN: "Search chain…",
     BRIDGE_SEARCH_TOKEN: "Search token or chain…",
