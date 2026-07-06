@@ -120,9 +120,11 @@ export const id = {
     BRIDGE_NO_CHAINS_FOUND: "Tidak ada chain ditemukan",
     BRIDGE_NO_TOKENS_FOUND: "Tidak ada token ditemukan",
     BRIDGE_RATE: "Kurs",
+    BRIDGE_RECIPIENT_INVALID: "Alamat penerima tidak valid.",
     BRIDGE_REFUND_ADDRESS: "Alamat Pengembalian",
     BRIDGE_REFUND_ADDRESS_HINT:
       "Alamat Anda di chain asal, digunakan jika swap dikembalikan.",
+    BRIDGE_REFUND_ADDRESS_INVALID: "Alamat pengembalian dana tidak valid.",
     BRIDGE_REVIEW_QUOTE: "Tinjau Kutipan",
     BRIDGE_SEARCH_CHAIN: "Cari chain…",
     BRIDGE_SEARCH_TOKEN: "Cari token atau chain…",
