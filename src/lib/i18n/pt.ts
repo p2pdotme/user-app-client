@@ -120,9 +120,11 @@ export const pt = {
     BRIDGE_NO_CHAINS_FOUND: "Nenhuma rede encontrada",
     BRIDGE_NO_TOKENS_FOUND: "Nenhum token encontrado",
     BRIDGE_RATE: "Taxa",
+    BRIDGE_RECIPIENT_INVALID: "O endereço do destinatário não é válido.",
     BRIDGE_REFUND_ADDRESS: "Endereço de reembolso",
     BRIDGE_REFUND_ADDRESS_HINT:
       "Seu endereço na rede de origem, usado se o swap for reembolsado.",
+    BRIDGE_REFUND_ADDRESS_INVALID: "O endereço de reembolso não é válido.",
     BRIDGE_REVIEW_QUOTE: "Revisar cotação",
     BRIDGE_SEARCH_CHAIN: "Buscar rede…",
     BRIDGE_SEARCH_TOKEN: "Buscar token ou rede…",
