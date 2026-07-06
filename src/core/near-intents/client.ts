@@ -1,4 +1,5 @@
 import type { ZodType } from "zod";
+import { i18n } from "@/lib/i18n";
 import { ONECLICK_BASE_URL, ONECLICK_JWT } from "./config";
 import {
   type OneClickToken,
@@ -9,6 +10,15 @@ import {
   ZodQuoteResponseSchema,
   ZodStatusResponseSchema,
 } from "./types";
+
+function humanizeError(raw: string): string {
+  const message = raw.trim();
+  if (/refundto is not valid/i.test(message))
+    return i18n.t("BRIDGE_REFUND_ADDRESS_INVALID");
+  if (/recipient is not valid/i.test(message))
+    return i18n.t("BRIDGE_RECIPIENT_INVALID");
+  return message;
+}
 
 async function request<T>(
   path: string,
@@ -29,7 +39,7 @@ async function request<T>(
       body && typeof body === "object" && "message" in body
         ? String((body as { message: unknown }).message)
         : `1Click request failed (${response.status})`;
-    throw new Error(message);
+    throw new Error(humanizeError(message));
   }
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
