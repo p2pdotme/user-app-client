@@ -563,7 +563,7 @@ export const en = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "How can I deposit USDC into my P2P.me wallet?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "You can deposit USDC in two ways:\n• Direct Deposit to your wallet address on the Base network\n• Cross-Chain Deposit using Rango Exchange (if you're sending from other networks)\n\nNote: Only deposit USDC on the Base network. Do not send ETH or other tokens — your funds may be lost.",
+      "You can deposit USDC in two ways:\n• Direct Deposit to your wallet address on the Base network\n• Cross-Chain Deposit using Near Intents (if you're sending from other networks)\n\nNote: Only deposit USDC on the Base network. Do not send ETH or other tokens — your funds may be lost.",
     FAQ_HOW_DO_I_START_EARNING: "How do I start earning?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "To start earning:\n1. Go to the 'Refer & Earn' section in the app.\n2. Generate your referral link.\n3. Share it with trusted friends.\n4. Make sure they sign up and trade using your link.\n\nNote: Each referral link can be used by only one friend.",
@@ -621,7 +621,7 @@ export const en = {
       "You can increase your limits by verifying your social accounts (X, Instagram, LinkedIn, or GitHub) using zk proofs. Powered by Reclaim for secure, privacy-preserving verification without requiring a full app install, making the process fast and easy.\n\nHere's how:\nStep 1: After clicking verify, tap to open the app clip.\nStep 2: Complete the social login (X, Instagram, LinkedIn, or GitHub) and follow the on-screen instructions.\nStep 3: Wait for the proof to generate. Verification will complete automatically once your proof is ready.\n\nNote: If it doesn't work on the first try, please retry patiently. Generating zk proofs may take a moment as the process completes securely.",
     FAQ_HOW_WITHDRAW_FUNDS: "How do I withdraw funds from P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "You can withdraw USDC by:\n• Sending directly to a Base wallet address, or\n• Using Cross-Chain Withdraw via Rango to move funds to other chains.",
+      "You can withdraw USDC by:\n• Sending directly to a Base wallet address, or\n• Using Cross-Chain Withdraw via Near Intents to move funds to other chains.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
       "Is P2P.me compliant with anti-money laundering (AML) laws?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
@@ -662,7 +662,7 @@ export const en = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "What if my cross-chain transaction gets stuck?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "If your Rango transaction is stuck:\n\n1. Visit the Rango Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Rango's support: https://t.me/rangoexchange\n\nNote: Only use verified channels to avoid scams.",
+      "If your Near Intents transaction is stuck:\n\n1. Visit the Near Intents Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Near Intents support: https://t.me/near_intents  Only use verified channels to avoid scams.",
     FAQ_WHAT_IS_P2P_ME: "What is P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.",
@@ -675,7 +675,7 @@ export const en = {
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "What networks are supported for deposits?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "Currently, USDC on Base network is the only supported deposit method. If your funds are on a different chain, use the Cross-Chain Deposit option powered by Rango Exchange. We are expanding soon!!",
+      "Currently, USDC on Base network is the only supported deposit method. If your funds are on a different chain, use the Cross-Chain Deposit option powered by Near Intents.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE: "When do I become eligible to earn?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
       "You can start referring and earning once your Reputation Points (RP) crosses 150.",
@@ -716,7 +716,7 @@ export const en = {
       "You can verify your:\n• Instagram\n• LinkedIn\n• GitHub\n\nNote: Social verification works only on mobile.",
     FAQ_WHO_HANDLES_CROSS_CHAIN: "Who handles cross-chain transactions?",
     FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "All cross-chain actions are powered by Rango Exchange. If there are any delays or issues, you'll need to contact Rango support here.",
+      "All cross-chain actions are powered by Near Intents. If there are any delays or issues, you'll need to contact Near Intents support here.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Who is building and maintaining P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "P2P.me is a public goods protocol developed by a community of open-source contributors from around the world. Built on Base, it's a protocol that thrives on collaboration. It's fully open-source, meaning anyone can peek under the hood and see what's happening. No secrets, just transparency.",
@@ -745,7 +745,7 @@ export const en = {
     FAQ_WITHDRAWAL_HASNT_ARRIVED:
       "What should I do if my withdrawal hasn't arrived?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "For direct Base withdrawals:\n• Check your wallet and Base block explorer.\n\nFor cross-chain withdrawals:\n• Visit the Rango Explorer\n• Contact Rango support if the transaction is stuck",
+      "For direct Base withdrawals:\n• Check your wallet and Base block explorer.\n\nFor cross-chain withdrawals:\n• Visit the Near Intents\n• Contact Near Intents support if the transaction is stuck",
     FDV: "FDV",
     FEATURE_COMING_SOON: "Feature coming soon",
     FEE: "Fee",

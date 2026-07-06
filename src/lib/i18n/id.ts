@@ -569,7 +569,7 @@ export const id = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "Bagaimana cara saya mendepositkan USDC ke wallet P2P.me saya?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "Anda dapat mendepositkan USDC dengan dua cara:\n• Deposit Langsung ke alamat wallet Anda di jaringan Base\n• Deposit Cross-Chain menggunakan Rango Exchange (jika Anda mengirim dari jaringan lain)\n\nCatatan: Hanya deposit USDC di jaringan Base. Jangan kirim ETH atau token lain — dana Anda mungkin hilang.",
+      "Anda dapat mendepositkan USDC dengan dua cara:\n• Deposit Langsung ke alamat wallet Anda di jaringan Base\n• Deposit Cross-Chain menggunakan Near Intents (jika Anda mengirim dari jaringan lain)\n\nCatatan: Hanya deposit USDC di jaringan Base. Jangan kirim ETH atau token lain — dana Anda mungkin hilang.",
     FAQ_HOW_DO_I_START_EARNING: "Bagaimana cara saya mulai menghasilkan?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "Untuk mulai menghasilkan:\n1. Buka bagian 'Referensi & Dapatkan' di aplikasi.\n2. Buat tautan referensi Anda.\n3. Bagikan ke teman tepercaya.\n4. Pastikan mereka mendaftar dan trading menggunakan tautan Anda.\n\nCatatan: Setiap tautan referensi hanya bisa dipakai oleh satu teman.",
@@ -630,7 +630,7 @@ export const id = {
       "Anda bisa menaikkan limit dengan memverifikasi akun sosial Anda (X, Instagram, LinkedIn, atau GitHub) menggunakan zk proofs. Didukung oleh Reclaim untuk verifikasi yang aman dan menjaga privasi tanpa perlu instalasi aplikasi penuh, sehingga prosesnya cepat dan mudah.\n\nCaranya:\nLangkah 1: Setelah klik verifikasi, ketuk untuk membuka app clip.\nLangkah 2: Selesaikan login sosial (X, Instagram, LinkedIn, atau GitHub) dan ikuti instruksi di layar.\nLangkah 3: Tunggu proses proof selesai. Verifikasi akan otomatis selesai begitu proof Anda siap.\n\nCatatan: Jika gagal di percobaan pertama, coba lagi dengan sabar. Proses proof zk bisa memakan waktu agar aman.",
     FAQ_HOW_WITHDRAW_FUNDS: "Bagaimana cara saya menarik dana dari P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "Anda dapat menarik USDC dengan:\n• Mengirim langsung ke alamat wallet Base, atau\n• Menggunakan Cross-Chain Withdraw via Rango untuk memindahkan dana ke chain lain.",
+      "Anda dapat menarik USDC dengan:\n• Mengirim langsung ke alamat wallet Base, atau\n• Menggunakan Cross-Chain Withdraw via Near Intents untuk memindahkan dana ke chain lain.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
       "Apakah P2P.me mematuhi hukum anti-money laundering (AML)?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
@@ -672,7 +672,7 @@ export const id = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "Bagaimana jika transaksi cross-chain saya terjebak?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Jika transaksi Rango Anda terjebak:\n\n1. Kunjungi Rango Explorer dari konfirmasi transaksi Anda.\n2. Salin Request ID Anda dari transaksi.\n3. Hubungi dukungan Rango: https://t.me/rangoexchange\n\nCatatan: Hanya gunakan channel terverifikasi untuk menghindari penipuan.",
+      "Jika transaksi Near Intents Anda terjebak:\n\n1. Kunjungi Near Intents Explorer dari konfirmasi transaksi Anda.\n2. Salin Request ID Anda dari transaksi.\n3. Hubungi dukungan Near Intents: https://t.me/near_intents  Hanya gunakan channel terverifikasi untuk menghindari penipuan.",
     FAQ_WHAT_IS_P2P_ME: "Apa itu P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me adalah platform global yang memungkinkan Anda dengan mudah membeli, menjual, dan membayar menggunakan USDC — dengan aman dan pribadi. Ini mendukung metode pembayaran lokal populer seperti UPI, PIX, dan QRIS, sambil menjaga dana Anda sepenuhnya dalam kendali Anda.",
@@ -685,7 +685,7 @@ export const id = {
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "Jaringan apa yang didukung untuk deposit?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "Saat ini, USDC di jaringan Base adalah satu-satunya metode deposit yang didukung. Jika dana Anda di chain yang berbeda, gunakan opsi Cross-Chain Deposit yang didukung oleh Rango Exchange. Kami akan segera berkembang!!",
+      "Saat ini, USDC di jaringan Base adalah satu-satunya metode deposit yang didukung. Jika dana Anda di chain yang berbeda, gunakan opsi Cross-Chain Deposit yang didukung oleh Near Intents.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE:
       "Kapan saya memenuhi syarat untuk mendapatkan?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
@@ -728,7 +728,7 @@ export const id = {
       "Anda dapat memverifikasi:\n• Instagram\n• LinkedIn\n• GitHub\n\nCatatan: Verifikasi sosial hanya berfungsi di mobile.",
     FAQ_WHO_HANDLES_CROSS_CHAIN: "Siapa yang menangani transaksi cross-chain?",
     FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Semua tindakan cross-chain didukung oleh Rango Exchange. Jika ada penundaan atau masalah, Anda perlu menghubungi dukungan Rango di sini.",
+      "Semua tindakan cross-chain didukung oleh Near Intents. Jika ada penundaan atau masalah, Anda perlu menghubungi dukungan Near Intents di sini.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Siapa yang membangun dan memelihara P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "P2P.me adalah protokol barang publik yang dikembangkan oleh komunitas kontributor open-source dari seluruh dunia. Dibangun di Base, ini adalah protokol yang berkembang melalui kolaborasi. Ini sepenuhnya open-source, artinya siapa pun dapat mengintip di bawah kap dan melihat apa yang terjadi. Tidak ada rahasia, hanya transparansi.",
@@ -757,7 +757,7 @@ export const id = {
     FAQ_WITHDRAWAL_HASNT_ARRIVED:
       "Apa yang harus saya lakukan jika withdrawal saya belum tiba?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "Untuk withdrawal Base langsung:\n• Periksa wallet Anda dan Base block explorer.\n\nUntuk withdrawal cross-chain:\n• Kunjungi Rango Explorer\n• Hubungi dukungan Rango jika transaksi terjebak",
+      "Untuk withdrawal Base langsung:\n• Periksa wallet Anda dan Base block explorer.\n\nUntuk withdrawal cross-chain:\n• Kunjungi Near Intents\n• Hubungi dukungan Near Intents jika transaksi terjebak",
     FDV: "FDV",
     FEATURE_COMING_SOON: "Fitur segera hadir",
     FEE: "Biaya",
