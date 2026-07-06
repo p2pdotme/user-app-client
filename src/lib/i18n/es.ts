@@ -580,7 +580,7 @@ export const es = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "¿Cómo puedo depositar USDC en mi wallet P2P.me?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "Puedes depositar USDC de dos maneras:\n• Depósito Directo a la dirección de tu wallet en la red Base\n• Depósito Cross-Chain usando Rango Exchange (si estás enviando desde otras redes)\n\nNota: Solo deposita USDC en la red Base. No envíes ETH u otros tokens — tus fondos podrían perderse.",
+      "Puedes depositar USDC de dos maneras:\n• Depósito Directo a la dirección de tu wallet en la red Base\n• Depósito Cross-Chain usando Near Intents (si estás enviando desde otras redes)\n\nNota: Solo deposita USDC en la red Base. No envíes ETH u otros tokens — tus fondos podrían perderse.",
     FAQ_HOW_DO_I_START_EARNING: "¿Cómo empiezo a ganar?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "Para empezar a ganar:\n1. Ve a la sección 'Referir y Ganar' en la aplicación.\n2. Genera tu enlace de referido.\n3. Compártelo con amigos de confianza.\n4. Asegúrate de que se registren y operen usando tu enlace.\n\nNota: Cada enlace de referido solo puede ser usado por un amigo.",
@@ -640,7 +640,7 @@ export const es = {
       "Puedes aumentar tus límites verificando tus cuentas sociales (X, Instagram, LinkedIn o GitHub) usando pruebas zk. Impulsado por Reclaim para una verificación segura y que preserva la privacidad sin requerir una instalación completa de la aplicación, haciendo el proceso rápido y fácil.\n\nAsí es como se hace:\nPaso 1: Después de hacer clic en verificar, toca para abrir el app clip.\nPaso 2: Completa el inicio de sesión social (X, Instagram, LinkedIn o GitHub) y sigue las instrucciones en pantalla.\nPaso 3: Espera a que se genere la prueba. La verificación se completará automáticamente una vez que tu prueba esté lista.\n\nNota: Si no funciona al primer intento, por favor, inténtalo de nuevo pacientemente. Generar pruebas zk puede tardar un momento ya que el proceso se completa de forma segura.",
     FAQ_HOW_WITHDRAW_FUNDS: "¿Cómo retiro fondos de P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "Puedes retirar USDC:\n• Enviando directamente a una dirección de wallet Base, o\n• Usando el Retiro Cross-Chain a través de Rango para mover fondos a otras cadenas.",
+      "Puedes retirar USDC:\n• Enviando directamente a una dirección de wallet Base, o\n• Usando el Retiro Cross-Chain a través de Near Intents para mover fondos a otras cadenas.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
       "¿P2P.me cumple con las leyes contra el lavado de dinero (AML)?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
@@ -685,7 +685,7 @@ export const es = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "¿Qué pasa si mi transacción cross-chain se atasca?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Si tu transacción de Rango se atasca:\n\n1. Visita el Explorador de Rango desde la confirmación de tu transacción.\n2. Copia tu ID de Solicitud de la transacción.\n3. Contacta al soporte de Rango: https://t.me/rangoexchange\n\nNota: Solo usa canales verificados para evitar estafas.",
+      "Si tu transacción de Near Intents se atasca:\n\n1. Visita el Explorador de Near Intents desde la confirmación de tu transacción.\n2. Copia tu ID de Solicitud de la transacción.\n3. Contacta al soporte de Near Intents: https://t.me/near_intents  Solo usa canales verificados para evitar estafas.",
     FAQ_WHAT_IS_P2P_ME: "¿Qué es P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me es una plataforma global que te permite comprar, vender y pagar fácilmente usando USDC, de forma segura y privada. Es compatible con métodos de pago locales populares como UPI, PIX y QRIS, mientras mantiene tus fondos completamente bajo tu control.",
@@ -698,7 +698,7 @@ export const es = {
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "¿Qué redes son compatibles para los depósitos?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "Actualmente, USDC en la red Base es el único método de depósito compatible. Si tus fondos están en una cadena diferente, usa la opción de Depósito Cross-Chain impulsada por Rango Exchange. ¡Nos expandiremos pronto!",
+      "Actualmente, USDC en la red Base es el único método de depósito compatible. Si tus fondos están en una cadena diferente, usa la opción de Depósito Cross-Chain impulsada por Near Intents.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE: "¿Cuándo soy elegible para ganar?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
       "Puedes comenzar a referir y ganar una vez que tu Puntuación de Reputación (RP) supere las 150.",
@@ -738,7 +738,7 @@ export const es = {
       "Puedes verificar tu:\n• Instagram\n• LinkedIn\n• GitHub\n\nNota: La verificación social solo funciona en dispositivos móviles.",
     FAQ_WHO_HANDLES_CROSS_CHAIN: "¿Quién maneja las transacciones cross-chain?",
     FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Todas las acciones cross-chain son impulsadas por Rango Exchange. Si hay retrasos o problemas, deberás contactar al soporte de Rango aquí.",
+      "Todas las acciones cross-chain son impulsadas por Near Intents. Si hay retrasos o problemas, deberás contactar al soporte de Near Intents aquí.",
     FAQ_WHO_IS_BUILDING_P2P_ME:
       "¿Quién está construyendo y manteniendo P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
@@ -768,7 +768,7 @@ export const es = {
       "No — no podemos y no lo haremos. P2P.me es un protocolo completamente descentralizado, lo que significa que no tenemos acceso a tus datos en primer lugar. Todos los detalles personales y de pago están encriptados de extremo a extremo y se comparten solo entre tú y el comerciante. Ningún tercero — incluyéndonos — puede acceder o ver esta información.",
     FAQ_WITHDRAWAL_HASNT_ARRIVED: "¿Qué debo hacer si mi retiro no ha llegado?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "Para retiros directos de Base:\n• Revisa tu wallet y el explorador de bloques de Base.\n\nPara retiros cross-chain:\n• Visita el Explorador de Rango\n• Contacta al soporte de Rango si la transacción está atascada",
+      "Para retiros directos de Base:\n• Revisa tu wallet y el explorador de bloques de Base.\n\nPara retiros cross-chain:\n• Visita el Near Intents\n• Contacta al soporte de Near Intents si la transacción está atascada",
     FDV: "FDV",
     FEATURE_COMING_SOON: "Función próximamente disponible",
     FEE: "Tarifa",
