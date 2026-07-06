@@ -93,7 +93,7 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
       <DrawerTrigger asChild>
         <button
           type="button"
-          className="flex h-14 w-full items-center gap-2 rounded-xl bg-muted px-3 text-left"
+          className="flex h-14 w-full items-center gap-2 rounded-xl bg-primary/10 px-3 text-left"
         >
           {selected ? (
             <>
@@ -252,7 +252,7 @@ function TokenSelector({
         <button
           type="button"
           disabled={disabled}
-          className="flex h-14 items-center gap-2 rounded-xl bg-muted px-3 text-left disabled:opacity-50"
+          className="flex h-14 items-center gap-2 rounded-xl bg-primary/10 px-3 text-left disabled:opacity-50"
         >
           {selected ? (
             <>
@@ -333,7 +333,7 @@ function UsdcBadge({
   address?: string;
 }) {
   return (
-    <span className="flex min-h-14 min-w-0 items-center gap-2">
+    <span className="flex min-h-14 min-w-0 items-center gap-2 rounded-xl bg-primary/10 px-3">
       <TokenIcon
         symbol="USDC"
         iconUrl={iconUrl}
@@ -536,7 +536,7 @@ export function SwapForm({
         placeholder="0.00"
         value={amountText}
         onChange={(e) => setAmountText(e.target.value)}
-        className={`h-14 max-w-48 rounded-xl border-0 bg-muted text-right font-semibold text-2xl ${
+        className={`h-14 max-w-34 rounded-xl border-0 bg-primary/10 text-right font-semibold text-2xl ${
           insufficientFunds ? "border border-destructive text-destructive" : ""
         }`}
       />
@@ -571,7 +571,7 @@ export function SwapForm({
         placeholder={`${token ? `${token.blockchain} address` : "Address"}…`}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        className="h-14 rounded-xl border-0 bg-muted placeholder:capitalize"
+        className="h-14 rounded-xl border-0 bg-primary/10 placeholder:capitalize"
       />
       {!isWithdraw && (
         <p className="text-muted-foreground text-sm">
@@ -584,7 +584,7 @@ export function SwapForm({
   return (
     <div className="flex flex-col gap-5">
       {/* From */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-4">
         <div className="flex items-center justify-between">
           <span className="font-medium">From</span>
           {isWithdraw && usdcBalance !== undefined && (
@@ -611,15 +611,14 @@ export function SwapForm({
       </div>
 
       {/* Direction indicator */}
-      <div className="relative flex items-center justify-center">
-        <div className="absolute inset-x-0 border-border border-t" />
-        <div className="relative rounded-xl border bg-background p-3">
+      <div className="-my-3 relative z-10 flex items-center justify-center">
+        <div className="rounded-full bg-primary p-3 text-primary-foreground">
           <ArrowDownIcon className="size-4" />
         </div>
       </div>
 
       {/* To */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-4">
         <span className="font-medium">To</span>
         {isWithdraw && chainSelector}
         {toRow}
