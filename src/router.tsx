@@ -26,16 +26,6 @@ const Limits = lazy(() =>
     default: module.Limits,
   })),
 );
-const Deposit = lazy(() =>
-  import("@/pages/deposit").then((module) => ({
-    default: module.Deposit,
-  })),
-);
-const Withdraw = lazy(() =>
-  import("@/pages/withdraw").then((module) => ({
-    default: module.Withdraw,
-  })),
-);
 const OneClick = lazy(() =>
   import("@/pages/near-intent").then((module) => ({
     default: module.OneClick,
@@ -216,8 +206,6 @@ export function Router() {
         <Route path={INTERNAL_HREFS.REFERRAL} element={<Referral />} />
         <Route path={INTERNAL_HREFS.TRANSACTIONS} element={<Transactions />} />
         <Route path={INTERNAL_HREFS.LIMITS} element={<Limits />} />
-        <Route path={INTERNAL_HREFS.DEPOSIT} element={<Deposit />} />
-        <Route path={INTERNAL_HREFS.WITHDRAW} element={<Withdraw />} />
         <Route path={INTERNAL_HREFS.BRIDGE} element={<OneClick />} />
 
         <Route path={INTERNAL_HREFS.BUY} element={<Buy />} />
