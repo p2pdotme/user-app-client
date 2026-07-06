@@ -37,7 +37,7 @@ const Withdraw = lazy(() =>
   })),
 );
 const OneClick = lazy(() =>
-  import("@/pages/oneclick").then((module) => ({
+  import("@/pages/near-intent").then((module) => ({
     default: module.OneClick,
   })),
 );
