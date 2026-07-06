@@ -13,6 +13,7 @@ export * from "./use-haptics";
 export * from "./use-lotpot-credits";
 export * from "./use-order-cashback";
 export * from "./use-order-flow";
+export * from "./use-oneclick";
 export * from "./use-order-tip";
 export * from "./use-p2p-boost";
 export * from "./use-p2p-reward-balance";

@@ -13,6 +13,7 @@ import { Link } from "react-router";
 import { toast } from "sonner";
 import { isAddress, parseUnits } from "viem";
 import ASSETS from "@/assets";
+import { SupportedNetworksMarquee } from "@/components/supported-networks-marquee";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,33 +32,6 @@ import { transferUSDC } from "@/core/adapters/thirdweb/actions/usdc";
 import { useSounds, useThirdweb, useUSDCBalance } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { cn, truncateAmount } from "@/lib/utils";
-
-const SUPPORTED_NETWORKS = [
-  {
-    name: "Solana",
-    icon: ASSETS.ICONS.NetworkSolana,
-  },
-  {
-    name: "Polygon",
-    icon: ASSETS.ICONS.NetworkPolygon,
-  },
-  {
-    name: "Arbitrum",
-    icon: ASSETS.ICONS.NetworkArbitrum,
-  },
-  {
-    name: "Ethereum",
-    icon: ASSETS.ICONS.NetworkEthereum,
-  },
-  {
-    name: "BSC",
-    icon: ASSETS.ICONS.NetworkBsc,
-  },
-  {
-    name: "Optimism",
-    icon: ASSETS.ICONS.NetworkOptimism,
-  },
-];
 
 function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
   const { t } = useTranslation();
@@ -91,29 +65,28 @@ function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
             <ChevronRight className="size-6" />
           </CardContent>
         </Card>
-        <Link to={INTERNAL_HREFS.WITHDRAW} className="cursor-pointer">
+        <Link
+          to={`${INTERNAL_HREFS.BRIDGE}?mode=withdraw`}
+          className="cursor-pointer"
+        >
           <Card className="shadow-none">
-            <CardContent className="flex items-center justify-between">
-              <div className="flex w-[90%] items-start gap-4">
+            <CardContent className="flex items-center justify-between gap-4">
+              <div className="flex min-w-0 flex-1 items-start gap-4">
                 <div className="flex items-center justify-center rounded-lg bg-primary/20 p-2">
                   <ASSETS.ICONS.WithdrawCross className="size-6 text-primary" />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                   <p className="font-medium">
                     {t("WITHDRAW_USDC_CROSS_CHAIN")}
                   </p>
                   <p className="text-muted-foreground text-sm">
                     {t("WITHDRAW_USDC_TO_SUPPORTED_CHAINS")}
                   </p>
-                  <div className="mt-2 flex flex-col items-start gap-1">
+                  <div className="mt-2 flex min-w-0 flex-col items-start gap-1">
                     <p className="text-muted-foreground text-sm">
                       {t("SUPPORTED_NETWORKS")}
                     </p>
-                    <div className="flex items-center gap-1">
-                      {SUPPORTED_NETWORKS.map((network) => (
-                        <network.icon key={network.name} />
-                      ))}
-                    </div>
+                    <SupportedNetworksMarquee />
                   </div>
                 </div>
               </div>
