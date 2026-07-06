@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { ArrowDownIcon, ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { Address } from "thirdweb";
 import type { Account } from "thirdweb/wallets";
@@ -74,6 +75,7 @@ type ChainSelectorProps = {
 };
 
 function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -103,18 +105,18 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
               </span>
             </>
           ) : (
-            <span className="font-medium text-sm">Select chain</span>
+            <span className="font-medium text-sm">{t("BRIDGE_SELECT_CHAIN")}</span>
           )}
           <ChevronDownIcon className="ml-auto size-4 text-muted-foreground" />
         </button>
       </DrawerTrigger>
       <DrawerContent className="max-h-[80vh]">
         <DrawerHeader>
-          <DrawerTitle>Select chain</DrawerTitle>
+          <DrawerTitle>{t("BRIDGE_SELECT_CHAIN")}</DrawerTitle>
         </DrawerHeader>
         <div className="px-4 pb-2">
           <Input
-            placeholder="Search chain…"
+            placeholder={t("BRIDGE_SEARCH_CHAIN")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -139,7 +141,7 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
           ))}
           {filtered.length === 0 && (
             <p className="px-3 py-6 text-center text-muted-foreground text-sm">
-              No chains found
+              {t("BRIDGE_NO_CHAINS_FOUND")}
             </p>
           )}
         </div>
@@ -226,6 +228,7 @@ function TokenSelector({
   getTokenIconUrl,
   disabled = false,
 }: TokenSelectorProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -270,18 +273,18 @@ function TokenSelector({
               </span>
             </>
           ) : (
-            <span className="font-medium text-sm">Select token</span>
+            <span className="font-medium text-sm">{t("BRIDGE_SELECT_TOKEN")}</span>
           )}
           <ChevronDownIcon className="size-4 text-muted-foreground" />
         </button>
       </DrawerTrigger>
       <DrawerContent className="max-h-[80vh]">
         <DrawerHeader>
-          <DrawerTitle>Select token</DrawerTitle>
+          <DrawerTitle>{t("BRIDGE_SELECT_TOKEN")}</DrawerTitle>
         </DrawerHeader>
         <div className="px-4 pb-2">
           <Input
-            placeholder="Search token or chain…"
+            placeholder={t("BRIDGE_SEARCH_TOKEN")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -314,7 +317,7 @@ function TokenSelector({
           ))}
           {filtered.length === 0 && (
             <p className="px-3 py-6 text-center text-muted-foreground text-sm">
-              No tokens found
+              {t("BRIDGE_NO_TOKENS_FOUND")}
             </p>
           )}
         </div>
@@ -389,6 +392,7 @@ export function SwapForm({
   onBridgeCreated,
   initialDirection,
 }: SwapFormProps) {
+  const { t } = useTranslation();
   const direction: Direction = initialDirection ?? "withdraw";
   const [chain, setChain] = useState<string | null>(null);
   const [token, setToken] = useState<OneClickToken | null>(null);
@@ -565,17 +569,21 @@ export function SwapForm({
   const addressInput = (
     <div className="flex flex-col gap-2">
       <span className="flex items-center gap-1.5 font-medium">
-        {isWithdraw ? "Address" : "Refund Address"}
+        {isWithdraw ? t("ADDRESS") : t("BRIDGE_REFUND_ADDRESS")}
       </span>
       <Input
-        placeholder={`${token ? `${token.blockchain} address` : "Address"}…`}
+        placeholder={`${
+          token
+            ? t("BRIDGE_ADDRESS_PLACEHOLDER", { chain: token.blockchain })
+            : t("ADDRESS")
+        }…`}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         className="h-14 rounded-xl border-0 bg-primary/10 placeholder:capitalize"
       />
       {!isWithdraw && (
         <p className="text-muted-foreground text-sm">
-          Your address on the origin chain, used if the swap is refunded.
+          {t("BRIDGE_REFUND_ADDRESS_HINT")}
         </p>
       )}
     </div>
@@ -586,12 +594,12 @@ export function SwapForm({
       {/* From */}
       <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-4">
         <div className="flex items-center justify-between">
-          <span className="font-medium">From</span>
+          <span className="font-medium">{t("FROM")}</span>
           {isWithdraw && usdcBalance !== undefined && (
             <span
               className={`text-sm ${insufficientFunds ? "text-destructive" : "text-muted-foreground"}`}
             >
-              Spendable: {usdcBalance.toFixed(4)}
+              {t("BRIDGE_SPENDABLE", { balance: usdcBalance.toFixed(4) })}
             </span>
           )}
         </div>
@@ -604,7 +612,9 @@ export function SwapForm({
             </span>
           )}
           {insufficientFunds && (
-            <span className="text-destructive text-sm">Insufficient funds</span>
+            <span className="text-destructive text-sm">
+              {t("BRIDGE_INSUFFICIENT_FUNDS")}
+            </span>
           )}
         </div>
         {!isWithdraw && addressInput}
@@ -619,7 +629,7 @@ export function SwapForm({
 
       {/* To */}
       <div className="flex flex-col gap-3 rounded-2xl bg-primary/10 p-4">
-        <span className="font-medium">To</span>
+        <span className="font-medium">{t("TO")}</span>
         {isWithdraw && chainSelector}
         {toRow}
         {formatUsd(quote?.amountOutUsd) && (
@@ -633,7 +643,9 @@ export function SwapForm({
       {/* Details */}
       <div className="flex flex-col gap-3 pt-2">
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Slippage tolerance</span>
+          <span className="text-muted-foreground">
+            {t("BRIDGE_SLIPPAGE_TOLERANCE")}
+          </span>
           <button
             type="button"
             className="flex items-center gap-1.5 rounded-xl bg-muted px-3 py-1.5 text-sm transition-colors hover:bg-muted/80"
@@ -652,7 +664,7 @@ export function SwapForm({
           />
         )}
         <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">Rate</span>
+          <span className="text-muted-foreground">{t("BRIDGE_RATE")}</span>
           <span className="text-sm">
             {rate ? `1 ${fromSymbol} = ${rate.toFixed(4)} ${toSymbol}` : "—"}
           </span>
@@ -676,9 +688,9 @@ export function SwapForm({
       >
         {swap.isPending
           ? isWithdraw
-            ? "Withdrawing…"
-            : "Creating…"
-          : "Get a Quote"}
+            ? t("BRIDGE_WITHDRAWING")
+            : t("BRIDGE_CREATING")
+          : t("BRIDGE_GET_QUOTE")}
       </Button>
 
       {quote && token && (

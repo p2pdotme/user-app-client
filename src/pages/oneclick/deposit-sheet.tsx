@@ -1,5 +1,6 @@
 import { CopyIcon, TriangleAlertIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
+import { Trans, useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ type DepositSheetProps = {
  * copy/share actions and a wrong-asset warning.
  */
 export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) {
+  const { t } = useTranslation();
   const { tokens } = useOneClickTokens();
   const { getTokenIconUrl } = useTokenIcons(tokens);
   const token = tokens.find((item) => item.assetId === bridge.originAsset);
@@ -41,12 +43,12 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
 
   const copyAddress = async () => {
     await navigator.clipboard.writeText(bridge.depositAddress);
-    toast.success("Address copied");
+    toast.success(t("ADDRESS_COPIED"));
   };
 
   const copyAmount = async () => {
     await navigator.clipboard.writeText(bridge.amountInFormatted);
-    toast.success("Amount copied");
+    toast.success(t("BRIDGE_AMOUNT_COPIED"));
   };
 
   return (
@@ -57,8 +59,12 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
       >
         <DrawerHeader>
           <DrawerTitle className="flex items-center justify-center gap-1.5 text-center">
-            Deposit Amount
-            <button type="button" aria-label="Copy amount" onClick={copyAmount}>
+            {t("BRIDGE_DEPOSIT_AMOUNT")}
+            <button
+              type="button"
+              aria-label={t("BRIDGE_COPY_AMOUNT")}
+              onClick={copyAmount}
+            >
               <CopyIcon className="size-4 text-muted-foreground" />
             </button>
           </DrawerTitle>
@@ -66,7 +72,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
         <div className="no-scrollbar container-narrow flex min-h-0 flex-1 flex-col items-center gap-4 overflow-y-auto pb-8">
           <button
             type="button"
-            aria-label="Copy amount"
+            aria-label={t("BRIDGE_COPY_AMOUNT")}
             className="flex items-center gap-3"
             onClick={copyAmount}
           >
@@ -93,7 +99,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
 
           <button
             type="button"
-            aria-label="Copy address"
+            aria-label={t("BRIDGE_COPY_ADDRESS")}
             className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2 transition-colors hover:bg-muted/80"
             onClick={copyAddress}
           >
@@ -105,20 +111,22 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
           </button>
           {bridge.depositMemo && (
             <p className="text-sm">
-              Memo: <code>{bridge.depositMemo}</code>
+              {t("BRIDGE_MEMO")}: <code>{bridge.depositMemo}</code>
             </p>
           )}
 
           <div className="flex w-full items-start gap-2 rounded-xl bg-yellow-500/10 p-3 mt-4">
             <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-yellow-600 dark:text-yellow-500" />
             <p className="text-sm text-yellow-600 dark:text-yellow-500">
-              Send only{" "}
-              <span className="font-medium capitalize">
-                {bridge.originSymbol} token on the{" "}
-                {token?.blockchain ?? "origin"} network
-              </span>{" "}
-              to this address. Any other asset or network will result in
-              permanent loss of funds.
+              <Trans
+                i18nKey="BRIDGE_SEND_ONLY_WARNING"
+                values={{
+                  token: bridge.originSymbol,
+                  network: token?.blockchain ?? "origin",
+                }}
+              >
+                <span className="font-medium capitalize" />
+              </Trans>
             </p>
           </div>
         </div>
@@ -126,14 +134,14 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
         {/* Fixed footer */}
         <div className="container-narrow flex shrink-0 flex-col gap-3 pt-3 pb-6">
           <Button className="w-full p-6" onClick={() => onOpenChange(false)}>
-            I've sent the funds
+            {t("BRIDGE_SENT_FUNDS")}
           </Button>
           <Button
             variant="outline"
             className="w-full p-6"
             onClick={() => onOpenChange(false)}
           >
-            Cancel
+            {t("CANCEL")}
           </Button>
         </div>
       </DrawerContent>

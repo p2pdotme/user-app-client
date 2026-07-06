@@ -1,15 +1,11 @@
-export const ONECLICK_BASE_URL =
-  import.meta.env.VITE_ONECLICK_BASE_URL ?? "https://1click.chaindefuser.com";
+export const ONECLICK_BASE_URL = "https://1click.chaindefuser.com";
 
-// Optional partner JWT — omit for the POC (default integrator fee applies)
-export const ONECLICK_JWT = import.meta.env.VITE_ONECLICK_JWT;
+// Optional partner JWT
+export const ONECLICK_JWT: string | undefined = undefined;
 
-// App fee routed to our Intents account (bps). Both optional for the POC.
-export const ONECLICK_APP_FEE_RECIPIENT = import.meta.env
-  .VITE_ONECLICK_APP_FEE_RECIPIENT;
-export const ONECLICK_APP_FEE_BPS = Number(
-  import.meta.env.VITE_ONECLICK_APP_FEE_BPS ?? "50",
-);
+// App fee routed to our Intents account (bps)
+export const ONECLICK_APP_FEE_RECIPIENT: string | undefined = undefined;
+export const ONECLICK_APP_FEE_BPS = 50;
 
 // Hub asset: Base USDC
 export const BASE_USDC_ASSET_ID =

@@ -218,7 +218,7 @@ export function Router() {
         <Route path={INTERNAL_HREFS.LIMITS} element={<Limits />} />
         <Route path={INTERNAL_HREFS.DEPOSIT} element={<Deposit />} />
         <Route path={INTERNAL_HREFS.WITHDRAW} element={<Withdraw />} />
-        <Route path={INTERNAL_HREFS.ONECLICK} element={<OneClick />} />
+        <Route path={INTERNAL_HREFS.BRIDGE} element={<OneClick />} />
 
         <Route path={INTERNAL_HREFS.BUY} element={<Buy />} />
         <Route path={INTERNAL_HREFS.BUY_PREVIEW} element={<BuyPreview />} />

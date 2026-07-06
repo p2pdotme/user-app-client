@@ -1,4 +1,5 @@
 import { ArrowRightIcon, InfoIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +44,7 @@ export function NearIntentReviewSheet({
   pending,
   onConfirm,
 }: NearIntentReviewSheetProps) {
+  const { t } = useTranslation();
   const maxLossUsd =
     to.usd !== null && Number.isFinite(Number(to.usd))
       ? new Intl.NumberFormat("en-US", {
@@ -91,7 +93,7 @@ export function NearIntentReviewSheet({
       <DrawerContent className="pb-[env(safe-area-inset-bottom)]">
         <DrawerHeader>
           <DrawerTitle className="text-center text-2xl">
-            Review Quote
+            {t("BRIDGE_REVIEW_QUOTE")}
           </DrawerTitle>
         </DrawerHeader>
 
@@ -108,7 +110,9 @@ export function NearIntentReviewSheet({
           {/* Totals */}
           <div className="flex flex-col">
             <div className="flex items-start justify-between border-b py-3">
-              <span className="text-muted-foreground">Total Amount</span>
+              <span className="text-muted-foreground">
+                {t("BRIDGE_TOTAL_AMOUNT")}
+              </span>
               <span className="flex flex-col items-end">
                 <span className="font-semibold">
                   {from.amount} {from.symbol}
@@ -121,7 +125,7 @@ export function NearIntentReviewSheet({
               </span>
             </div>
             <div className="flex items-center justify-between py-3">
-              <span className="text-muted-foreground">Slippage</span>
+              <span className="text-muted-foreground">{t("SLIPPAGE")}</span>
               <span className="font-semibold">{slippageBps / 100}%</span>
             </div>
           </div>
@@ -130,8 +134,10 @@ export function NearIntentReviewSheet({
             <div className="flex items-start gap-2 rounded-xl bg-muted p-3">
               <InfoIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
               <p className="text-muted-foreground text-sm">
-                You could receive up to {maxLossUsd} less based on the{" "}
-                {slippageBps / 100}% slippage you set.
+                {t("BRIDGE_SLIPPAGE_LOSS_INFO", {
+                  maxLoss: maxLossUsd,
+                  percent: slippageBps / 100,
+                })}
               </p>
             </div>
           )}
@@ -141,7 +147,7 @@ export function NearIntentReviewSheet({
             disabled={pending}
             onClick={onConfirm}
           >
-            {pending ? "Confirming…" : "Confirm"}
+            {pending ? t("BRIDGE_CONFIRMING") : t("CONFIRM")}
           </Button>
         </div>
       </DrawerContent>

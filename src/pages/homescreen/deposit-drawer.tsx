@@ -3,7 +3,6 @@ import {
   ArrowLeftCircle,
   ChevronRight,
   Copy,
-  Monitor,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { QRCodeSVG } from "qrcode.react";
@@ -12,9 +11,10 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { SupportedNetworksMarquee } from "@/components/supported-networks-marquee";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Drawer,
   DrawerClose,
@@ -28,33 +28,6 @@ import {
 import { useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { truncateAddress } from "@/lib/utils";
-
-const SUPPORTED_NETWORKS = [
-  {
-    name: "Solana",
-    icon: ASSETS.ICONS.NetworkSolana,
-  },
-  {
-    name: "Polygon",
-    icon: ASSETS.ICONS.NetworkPolygon,
-  },
-  {
-    name: "Arbitrum",
-    icon: ASSETS.ICONS.NetworkArbitrum,
-  },
-  {
-    name: "Ethereum",
-    icon: ASSETS.ICONS.NetworkEthereum,
-  },
-  {
-    name: "BSC",
-    icon: ASSETS.ICONS.NetworkBsc,
-  },
-  {
-    name: "Optimism",
-    icon: ASSETS.ICONS.NetworkOptimism,
-  },
-];
 
 function DirectOrCross({ onReceiveUSDC }: { onReceiveUSDC: () => void }) {
   const { t } = useTranslation();
@@ -89,42 +62,27 @@ function DirectOrCross({ onReceiveUSDC }: { onReceiveUSDC: () => void }) {
           </CardContent>
         </Card>
         <Link
-          to={`${INTERNAL_HREFS.ONECLICK}?mode=deposit`}
+          to={`${INTERNAL_HREFS.BRIDGE}?mode=deposit`}
           className="cursor-pointer"
         >
           <Card className="gap-0 shadow-none">
-            <div className="-translate-x-2 -translate-y-3 flex items-center gap-2">
-              <CardTitle className="flex w-fit items-center gap-1 rounded-sm bg-primary/30 px-2 py-1 font-medium text-xs">
-                <Monitor className="size-4" />
-                {t("WORKS_ON_DEVICE_ONLY", {
-                  device: t("PC"),
-                })}
-              </CardTitle>
-            </div>
-            <CardContent className="flex items-center justify-between">
-              <div className="flex w-[90%] items-start gap-4">
+            <CardContent className="flex items-center justify-between gap-4">
+              <div className="flex min-w-0 flex-1 items-start gap-4">
                 <div className="flex items-center justify-center rounded-lg bg-primary/20 p-2">
                   <ASSETS.ICONS.DepositCross className="size-6 text-primary" />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                   <p className="font-medium">
                     {t("DEPOSIT_FROM_OTHER_CHAINS")}
                   </p>
                   <p className="text-muted-foreground text-sm">
                     {t("DEPOSIT_USDC_TO_BASE_FROM_SUPPORTED_CHAINS")}
                   </p>
-                  <div className="mt-2 flex flex-col items-start gap-1">
+                  <div className="mt-2 flex min-w-0 flex-col items-start gap-1">
                     <p className="text-muted-foreground text-sm">
                       {t("SUPPORTED_NETWORKS")}
                     </p>
-                    <div className="flex items-center gap-1">
-                      {SUPPORTED_NETWORKS.map((network) => (
-                        <network.icon
-                          key={network.name}
-                          className="size-6 rounded-sm bg-muted"
-                        />
-                      ))}
-                    </div>
+                    <SupportedNetworksMarquee />
                   </div>
                 </div>
               </div>

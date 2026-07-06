@@ -1,5 +1,6 @@
 import { TriangleAlertIcon } from "lucide-react";
 import { useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -26,6 +27,7 @@ export function NearIntentSlippageSheet({
   valueBps,
   onConfirm,
 }: NearIntentSlippageSheetProps) {
+  const { t } = useTranslation();
   const [customMode, setCustomMode] = useState(
     !PRESETS_BPS.includes(valueBps),
   );
@@ -48,11 +50,9 @@ export function NearIntentSlippageSheet({
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="pb-[env(safe-area-inset-bottom)]">
         <DrawerHeader className="container-narrow gap-2 pt-6 pb-4 text-left">
-          <DrawerTitle className="text-2xl">Slippage</DrawerTitle>
+          <DrawerTitle className="text-2xl">{t("SLIPPAGE")}</DrawerTitle>
           <DrawerDescription className="text-left text-sm leading-relaxed">
-            This setting determines the maximum allowable difference between
-            the expected price of a swap and the actual price you pay, which
-            is outside of our control.
+            {t("BRIDGE_SLIPPAGE_DESCRIPTION")}
           </DrawerDescription>
         </DrawerHeader>
 
@@ -85,7 +85,7 @@ export function NearIntentSlippageSheet({
                   value={customText}
                   onChange={(e) => setCustomText(e.target.value)}
                   className="w-10 bg-transparent text-right text-sm outline-none"
-                  aria-label="Custom slippage percent"
+                  aria-label={t("BRIDGE_CUSTOM_SLIPPAGE_LABEL")}
                 />
                 <span className="text-sm">%</span>
               </span>
@@ -95,23 +95,24 @@ export function NearIntentSlippageSheet({
                 className="h-10 flex-1 rounded-lg text-muted-foreground text-sm"
                 onClick={() => setCustomMode(true)}
               >
-                Custom
+                {t("CUSTOM")}
               </button>
             )}
           </div>
 
           {/* Effect summary */}
           <div className="rounded-xl bg-muted p-3 text-center text-sm">
-            You may receive up to{" "}
-            <span className="font-semibold">
-              {draftBps ? formatPercent(draftBps) : "0%"}
-            </span>{" "}
-            less than quoted.
+            <Trans
+              i18nKey="BRIDGE_SLIPPAGE_EFFECT"
+              values={{ percent: draftBps ? formatPercent(draftBps) : "0%" }}
+            >
+              <span className="font-semibold" />
+            </Trans>
           </div>
 
           {invalidCustom && (
             <p className="text-destructive text-sm">
-              Enter a value between 0.01% and 50%.
+              {t("BRIDGE_SLIPPAGE_INVALID")}
             </p>
           )}
 
@@ -120,11 +121,10 @@ export function NearIntentSlippageSheet({
             <div className="flex items-start gap-2 rounded-xl bg-yellow-500/10 p-3">
               <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-yellow-600 dark:text-yellow-500" />
               <p className="text-sm text-yellow-600 dark:text-yellow-500">
-                Slippage <span className="font-medium">under 2%</span>{" "}
-                increases the chance your swap will be unsuccessful and
-                refunded. Consider using{" "}
-                <span className="font-medium">2% or higher</span>, especially
-                for larger amounts.
+                <Trans i18nKey="BRIDGE_SLIPPAGE_WARNING">
+                  <span className="font-medium" />
+                  <span className="font-medium" />
+                </Trans>
               </p>
             </div>
           )}
@@ -135,14 +135,14 @@ export function NearIntentSlippageSheet({
               disabled={!draftBps}
               onClick={confirm}
             >
-              Confirm
+              {t("CONFIRM")}
             </Button>
             <Button
               variant="outline"
               className="w-full p-6"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              {t("CANCEL")}
             </Button>
           </div>
         </div>

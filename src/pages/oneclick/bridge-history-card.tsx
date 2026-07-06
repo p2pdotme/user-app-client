@@ -1,5 +1,6 @@
 import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TokenIcon } from "@/components/token-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,21 +15,22 @@ import {
 } from "@/hooks/use-oneclick";
 import { DepositSheet } from "./deposit-sheet";
 
-const STATUS_LABELS: Record<string, string> = {
-  PENDING_DEPOSIT: "Waiting for deposit",
-  KNOWN_DEPOSIT_TX: "Deposit detected",
-  PROCESSING: "Processing",
-  SUCCESS: "Completed",
-  INCOMPLETE_DEPOSIT: "Incomplete deposit",
-  REFUNDED: "Refunded",
-  FAILED: "Failed",
+// Bridge status → translation key
+const STATUS_LABEL_KEYS: Record<string, string> = {
+  PENDING_DEPOSIT: "BRIDGE_STATUS_PENDING_DEPOSIT",
+  KNOWN_DEPOSIT_TX: "BRIDGE_STATUS_KNOWN_DEPOSIT_TX",
+  PROCESSING: "PROCESSING",
+  SUCCESS: "COMPLETED",
+  INCOMPLETE_DEPOSIT: "BRIDGE_STATUS_INCOMPLETE_DEPOSIT",
+  REFUNDED: "SWAP_REFUNDED",
+  FAILED: "BRIDGE_STATUS_FAILED",
 };
 
 // On withdraw the app sends the USDC itself — no user action needed
-const WITHDRAW_STATUS_LABELS: Record<string, string> = {
-  ...STATUS_LABELS,
-  PENDING_DEPOSIT: "Sending USDC…",
-  KNOWN_DEPOSIT_TX: "USDC sent",
+const WITHDRAW_STATUS_LABEL_KEYS: Record<string, string> = {
+  ...STATUS_LABEL_KEYS,
+  PENDING_DEPOSIT: "BRIDGE_WITHDRAW_STATUS_PENDING_DEPOSIT",
+  KNOWN_DEPOSIT_TX: "BRIDGE_WITHDRAW_STATUS_KNOWN_DEPOSIT_TX",
 };
 
 function statusVariant(
@@ -46,6 +48,7 @@ type BridgeHistoryCardProps = {
 
 /** One in-flight (or finished) 1Click bridge: status, deposit sheet, links. */
 export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
+  const { t } = useTranslation();
   // A deposit that never arrived within 30 min is treated as expired:
   // no deposit sheet, "Expired" badge.
   const expired =
@@ -111,8 +114,12 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
           </span>
 
           <span className="flex min-w-0 flex-1 flex-col leading-tight">
-            <span className="font-semibold text-sm capitalize">
-              {bridge.direction}
+            <span className="font-semibold text-sm">
+              {t(
+                bridge.direction === "withdraw"
+                  ? "BRIDGE_DIRECTION_WITHDRAW"
+                  : "BRIDGE_DIRECTION_DEPOSIT",
+              )}
             </span>
             <span className="flex items-center gap-1 truncate text-muted-foreground text-xs">
               {bridge.amountInFormatted} {bridge.originSymbol}
@@ -124,10 +131,15 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
           <div className="flex shrink-0 items-center gap-1">
             <Badge variant={expired ? "destructive" : statusVariant(bridge.status)}>
               {expired
-                ? "Expired"
-                : ((bridge.direction === "withdraw"
-                    ? WITHDRAW_STATUS_LABELS
-                    : STATUS_LABELS)[bridge.status] ?? bridge.status)}
+                ? t("BRIDGE_EXPIRED")
+                : (() => {
+                    const key = (
+                      bridge.direction === "withdraw"
+                        ? WITHDRAW_STATUS_LABEL_KEYS
+                        : STATUS_LABEL_KEYS
+                    )[bridge.status];
+                    return key ? t(key) : bridge.status;
+                  })()}
             </Badge>
           </div>
         </div>
@@ -140,7 +152,7 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
             className="inline-flex items-center gap-1 text-primary text-xs underline"
             onClick={(e) => e.stopPropagation()}
           >
-            View on NEAR Intents explorer
+            {t("BRIDGE_VIEW_ON_EXPLORER")}
             <ExternalLinkIcon className="size-3" />
           </a>
         </div>
