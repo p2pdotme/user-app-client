@@ -1,4 +1,5 @@
 import { ArrowRightIcon, InfoIcon } from "lucide-react";
+import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -6,7 +7,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { TokenIcon } from "./token-selector";
 
 type ReviewSide = {
   symbol: string;
@@ -23,7 +23,7 @@ function formatUsd(value: string | null): string | null {
   return Number.isFinite(parsed) ? `$${parsed.toFixed(2)}` : null;
 }
 
-type ReviewSheetProps = {
+type NearIntentReviewSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   from: ReviewSide;
@@ -34,7 +34,7 @@ type ReviewSheetProps = {
 };
 
 /** Review Quote bottom sheet shown before executing the bridge. */
-export function ReviewSheet({
+export function NearIntentReviewSheet({
   open,
   onOpenChange,
   from,
@@ -42,7 +42,7 @@ export function ReviewSheet({
   slippageBps,
   pending,
   onConfirm,
-}: ReviewSheetProps) {
+}: NearIntentReviewSheetProps) {
   const maxLossUsd =
     to.usd !== null && Number.isFinite(Number(to.usd))
       ? new Intl.NumberFormat("en-US", {

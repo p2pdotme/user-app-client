@@ -9,7 +9,7 @@ import {
 } from "@/core/near-intents";
 import { useThirdweb } from "@/hooks";
 import { useOneClickTokens, usePendingBridges } from "@/hooks/use-oneclick";
-import { BridgeCard } from "./bridge-card";
+import { BridgeHistoryCard } from "./bridge-history-card";
 import { SwapForm } from "./swap-form";
 
 const EXPLORER_STATUSES = [
@@ -96,7 +96,7 @@ export function OneClick() {
       <NonHomeHeader title={title} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto py-8">
         {!account ? (
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm text-center">
             Connect your wallet to use the bridge.
           </p>
         ) : isLoading ? (
@@ -139,7 +139,7 @@ export function OneClick() {
             </p>
             </div>
             {bridges.map((bridge) => (
-              <BridgeCard key={bridge.depositAddress} bridge={bridge} />
+              <BridgeHistoryCard key={bridge.depositAddress} bridge={bridge} />
             ))}
           </section>
         )}

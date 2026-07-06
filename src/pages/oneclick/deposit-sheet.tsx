@@ -1,6 +1,7 @@
 import { CopyIcon, TriangleAlertIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { toast } from "sonner";
+import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -14,7 +15,6 @@ import {
   useOneClickTokens,
   useTokenIcons,
 } from "@/hooks/use-oneclick";
-import { TokenIcon } from "./token-selector";
 
 type DepositSheetProps = {
   bridge: PendingBridge;

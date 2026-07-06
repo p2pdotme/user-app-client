@@ -1,10 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
-import { ArrowDownIcon, SettingsIcon } from "lucide-react";
-import { useState } from "react";
+import { ArrowDownIcon, ChevronDownIcon, SettingsIcon } from "lucide-react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "thirdweb";
 import type { Account } from "thirdweb/wallets";
+import { parseUnits } from "viem";
+import { NearIntentReviewSheet } from "@/components/near-intent-review-sheet";
+import { NearIntentSlippageSheet } from "@/components/near-intent-slippage-sheet";
+import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { transferUSDC } from "@/core/adapters/thirdweb/actions/usdc";
 import {
@@ -22,10 +33,228 @@ import {
   useTokenIcons,
 } from "@/hooks/use-oneclick";
 import { useUSDCBalance } from "@/hooks/use-usdc";
-import { toBaseUnits } from "./lib";
-import { ReviewSheet } from "./review-sheet";
-import { SlippageSheet } from "./slippage-sheet";
-import { TokenIcon, TokenSelector } from "./token-selector";
+
+// ---------------------------------------------------------------------------
+// Chain selector — pill trigger + searchable bottom drawer
+// ---------------------------------------------------------------------------
+
+function ChainIcon({
+  chain,
+  className = "size-6",
+}: {
+  chain: string;
+  className?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  const url = getChainIconUrl(chain);
+  if (!url || failed) {
+    return (
+      <span
+        className={`${className} flex shrink-0 items-center justify-center rounded-full bg-muted font-semibold text-[10px] uppercase`}
+      >
+        {chain.slice(0, 2)}
+      </span>
+    );
+  }
+  return (
+    <img
+      src={url}
+      alt={chain}
+      className={`${className} shrink-0 rounded-full bg-muted object-cover`}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+type ChainSelectorProps = {
+  chains: string[];
+  selected: string | null;
+  onSelect: (chain: string) => void;
+};
+
+function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return query
+      ? chains.filter((chain) => chain.toLowerCase().includes(query))
+      : chains;
+  }, [chains, search]);
+
+  return (
+    <Drawer open={open} onOpenChange={setOpen}>
+      <DrawerTrigger asChild>
+        <button
+          type="button"
+          className="flex w-full items-center gap-2 rounded-xl bg-muted px-3 py-2.5 text-left"
+        >
+          {selected ? (
+            <>
+              <ChainIcon chain={selected} />
+              <span className="font-semibold text-sm capitalize">
+                {selected}
+              </span>
+            </>
+          ) : (
+            <span className="font-medium text-sm">Select chain</span>
+          )}
+          <ChevronDownIcon className="ml-auto size-4 text-muted-foreground" />
+        </button>
+      </DrawerTrigger>
+      <DrawerContent className="max-h-[80vh]">
+        <DrawerHeader>
+          <DrawerTitle>Select chain</DrawerTitle>
+        </DrawerHeader>
+        <div className="px-4 pb-2">
+          <Input
+            placeholder="Search chain…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="no-scrollbar overflow-y-auto px-2 pb-6">
+          {filtered.map((chain) => (
+            <button
+              key={chain}
+              type="button"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left hover:bg-accent"
+              onClick={() => {
+                onSelect(chain);
+                setSearch("");
+                setOpen(false);
+              }}
+            >
+              <ChainIcon chain={chain} className="size-8" />
+              <span className="font-semibold text-sm capitalize">{chain}</span>
+            </button>
+          ))}
+          {filtered.length === 0 && (
+            <p className="px-3 py-6 text-center text-muted-foreground text-sm">
+              No chains found
+            </p>
+          )}
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Token selector — pill trigger + searchable bottom drawer
+// ---------------------------------------------------------------------------
+
+type TokenSelectorProps = {
+  tokens: OneClickToken[];
+  selected: OneClickToken | null;
+  onSelect: (token: OneClickToken) => void;
+  getTokenIconUrl: (token: OneClickToken) => string | undefined;
+  disabled?: boolean;
+};
+
+function TokenSelector({
+  tokens,
+  selected,
+  onSelect,
+  getTokenIconUrl,
+  disabled = false,
+}: TokenSelectorProps) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    const list = query
+      ? tokens.filter(
+          (token) =>
+            token.symbol.toLowerCase().includes(query) ||
+            token.blockchain.toLowerCase().includes(query),
+        )
+      : tokens;
+    return [...list].sort(
+      (a, b) =>
+        a.symbol.localeCompare(b.symbol) ||
+        a.blockchain.localeCompare(b.blockchain),
+    );
+  }, [tokens, search]);
+
+  return (
+    <Drawer open={open} onOpenChange={disabled ? undefined : setOpen}>
+      <DrawerTrigger asChild>
+        <button
+          type="button"
+          disabled={disabled}
+          className="flex items-center gap-2 rounded-full bg-muted py-1.5 pr-3 pl-1.5 text-left disabled:opacity-50"
+        >
+          {selected ? (
+            <>
+              <TokenIcon
+                symbol={selected.symbol}
+                iconUrl={getTokenIconUrl(selected)}
+                chainIconUrl={getChainIconUrl(selected.blockchain)}
+                className="size-9"
+              />
+              <span className="flex flex-col leading-tight">
+                <span className="font-semibold text-sm">{selected.symbol}</span>
+                <span className="text-muted-foreground text-xs capitalize">
+                  {selected.blockchain}
+                </span>
+              </span>
+            </>
+          ) : (
+            <span className="px-2 font-medium text-sm">Select token</span>
+          )}
+          <ChevronDownIcon className="size-4 text-muted-foreground" />
+        </button>
+      </DrawerTrigger>
+      <DrawerContent className="max-h-[80vh]">
+        <DrawerHeader>
+          <DrawerTitle>Select token</DrawerTitle>
+        </DrawerHeader>
+        <div className="px-4 pb-2">
+          <Input
+            placeholder="Search token or chain…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="no-scrollbar overflow-y-auto px-2 pb-6">
+          {filtered.map((token) => (
+            <button
+              key={token.assetId}
+              type="button"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left hover:bg-accent"
+              onClick={() => {
+                onSelect(token);
+                setSearch("");
+                setOpen(false);
+              }}
+            >
+              <TokenIcon
+                symbol={token.symbol}
+                iconUrl={getTokenIconUrl(token)}
+                chainIconUrl={getChainIconUrl(token.blockchain)}
+                className="size-9"
+              />
+              <span className="flex flex-col">
+                <span className="font-semibold text-sm">{token.symbol}</span>
+                <span className="text-muted-foreground text-xs capitalize">
+                  {token.blockchain}
+                </span>
+              </span>
+            </button>
+          ))}
+          {filtered.length === 0 && (
+            <p className="px-3 py-6 text-center text-muted-foreground text-sm">
+              No tokens found
+            </p>
+          )}
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+}
 
 type Direction = "deposit" | "withdraw";
 
@@ -51,6 +280,15 @@ function formatUsd(value: string | null | undefined): string | null {
   return Number.isFinite(parsed) ? `$${parsed.toFixed(2)}` : null;
 }
 
+// Convert a user-entered decimal amount to base units, guarding to plain
+// decimals and returning null for malformed or zero input so the CTA can gate.
+function toBaseUnits(value: string, decimals: number): string | null {
+  const trimmed = value.trim();
+  if (!/^\d+(?:\.\d+)?$/.test(trimmed)) return null;
+  const units = parseUnits(trimmed, decimals);
+  return units === 0n ? null : units.toString();
+}
+
 type SwapFormProps = {
   account: Account;
   tokens: OneClickToken[];
@@ -71,6 +309,7 @@ export function SwapForm({
   initialDirection,
 }: SwapFormProps) {
   const direction: Direction = initialDirection ?? "withdraw";
+  const [chain, setChain] = useState<string | null>(null);
   const [token, setToken] = useState<OneClickToken | null>(null);
   const [amountText, setAmountText] = useState("");
   const [address, setAddress] = useState(""); // recipient (withdraw) / refundTo (deposit)
@@ -80,6 +319,15 @@ export function SwapForm({
   const { usdcBalance } = useUSDCBalance();
   const { getTokenIconUrl } = useTokenIcons(tokens);
   const usdcIconUrl = getTokenIconUrl({ coingeckoId: "usd-coin" });
+
+  const chains = useMemo(
+    () => [...new Set(tokens.map((t) => t.blockchain))].sort(),
+    [tokens],
+  );
+  const chainTokens = useMemo(
+    () => (chain ? tokens.filter((t) => t.blockchain === chain) : []),
+    [tokens, chain],
+  );
 
   const isWithdraw = direction === "withdraw";
   const amount = isWithdraw
@@ -180,16 +428,28 @@ export function SwapForm({
     onError: (error) => toast.error(error.message),
   });
 
+  const chainSelector = (
+    <ChainSelector
+      chains={chains}
+      selected={chain}
+      onSelect={(next) => {
+        setChain(next);
+        setToken(null);
+      }}
+    />
+  );
+
   const fromRow = (
     <div className="flex items-center justify-between gap-3">
       {isWithdraw ? (
         <UsdcBadge iconUrl={usdcIconUrl} />
       ) : (
         <TokenSelector
-          tokens={tokens}
+          tokens={chainTokens}
           selected={token}
           onSelect={setToken}
           getTokenIconUrl={getTokenIconUrl}
+          disabled={!chain}
         />
       )}
       <Input
@@ -208,10 +468,11 @@ export function SwapForm({
     <div className="flex items-center justify-between gap-3">
       {isWithdraw ? (
         <TokenSelector
-          tokens={tokens}
+          tokens={chainTokens}
           selected={token}
           onSelect={setToken}
           getTokenIconUrl={getTokenIconUrl}
+          disabled={!chain}
         />
       ) : (
         <UsdcBadge iconUrl={usdcIconUrl} />
@@ -255,6 +516,7 @@ export function SwapForm({
             </span>
           )}
         </div>
+        {!isWithdraw && chainSelector}
         {fromRow}
         <div className="flex flex-col items-end gap-1">
           {formatUsd(quote?.amountInUsd) && (
@@ -282,6 +544,7 @@ export function SwapForm({
       {/* To */}
       <div className="flex flex-col gap-3">
         <span className="font-medium">To</span>
+        {isWithdraw && chainSelector}
         {toRow}
         {formatUsd(quote?.amountOutUsd) && (
           <span className="text-right text-muted-foreground text-sm">
@@ -305,7 +568,7 @@ export function SwapForm({
           </button>
         </div>
         {slippageOpen && (
-          <SlippageSheet
+          <NearIntentSlippageSheet
             open={slippageOpen}
             onOpenChange={setSlippageOpen}
             valueBps={slippageBps}
@@ -345,7 +608,7 @@ export function SwapForm({
       </Button>
 
       {quote && token && (
-        <ReviewSheet
+        <NearIntentReviewSheet
           open={reviewOpen}
           onOpenChange={setReviewOpen}
           from={{

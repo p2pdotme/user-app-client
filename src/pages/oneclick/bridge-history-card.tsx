@@ -1,5 +1,6 @@
 import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { TokenIcon } from "@/components/token-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -12,7 +13,6 @@ import {
   useTokenIcons,
 } from "@/hooks/use-oneclick";
 import { DepositSheet } from "./deposit-sheet";
-import { TokenIcon } from "./token-selector";
 
 const STATUS_LABELS: Record<string, string> = {
   PENDING_DEPOSIT: "Waiting for deposit",
@@ -40,12 +40,12 @@ function statusVariant(
   return "secondary";
 }
 
-type BridgeCardProps = {
+type BridgeHistoryCardProps = {
   bridge: PendingBridge;
 };
 
 /** One in-flight (or finished) 1Click bridge: status, deposit sheet, links. */
-export function BridgeCard({ bridge }: BridgeCardProps) {
+export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
   // A deposit that never arrived within 30 min is treated as expired:
   // no deposit sheet, "Expired" badge.
   const expired =

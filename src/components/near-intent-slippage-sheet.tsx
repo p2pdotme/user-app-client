@@ -8,23 +8,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { formatPercent, percentToBps } from "@/lib/bps";
 
 const PRESETS_BPS = [50, 100, 200]; // 0.5%, 1%, 2%
-const MAX_BPS = 5000; // 50%
 
-function formatPercent(bps: number): string {
-  return `${(bps / 100).toString()}%`;
-}
-
-// Parse a human-entered percent (e.g. "1.5") to bps, null if invalid.
-function percentToBps(value: string): number | null {
-  const parsed = Number(value.trim());
-  if (!Number.isFinite(parsed) || parsed <= 0) return null;
-  const bps = Math.round(parsed * 100);
-  return bps > MAX_BPS ? null : bps;
-}
-
-type SlippageSheetProps = {
+type NearIntentSlippageSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   valueBps: number;
@@ -32,12 +20,12 @@ type SlippageSheetProps = {
 };
 
 /** Zashi-style slippage setting sheet: presets, custom %, warning, confirm. */
-export function SlippageSheet({
+export function NearIntentSlippageSheet({
   open,
   onOpenChange,
   valueBps,
   onConfirm,
-}: SlippageSheetProps) {
+}: NearIntentSlippageSheetProps) {
   const [customMode, setCustomMode] = useState(
     !PRESETS_BPS.includes(valueBps),
   );
