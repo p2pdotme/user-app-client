@@ -120,9 +120,11 @@ export const es = {
     BRIDGE_NO_CHAINS_FOUND: "No se encontraron cadenas",
     BRIDGE_NO_TOKENS_FOUND: "No se encontraron tokens",
     BRIDGE_RATE: "Tasa",
+    BRIDGE_RECIPIENT_INVALID: "La dirección del destinatario no es válida.",
     BRIDGE_REFUND_ADDRESS: "Dirección de reembolso",
     BRIDGE_REFUND_ADDRESS_HINT:
       "Tu dirección en la cadena de origen, utilizada si el intercambio es reembolsado.",
+    BRIDGE_REFUND_ADDRESS_INVALID: "La dirección de reembolso no es válida.",
     BRIDGE_REVIEW_QUOTE: "Revisar cotización",
     BRIDGE_SEARCH_CHAIN: "Buscar cadena…",
     BRIDGE_SEARCH_TOKEN: "Buscar token o cadena…",
