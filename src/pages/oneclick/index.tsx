@@ -24,7 +24,7 @@ const EXPLORER_STATUSES = [
 /** Skeleton mirroring the swap form layout while tokens load. */
 function SwapFormShimmer() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 rounded-xl border p-4">
       <div className="flex flex-col gap-3">
         <Skeleton className="h-5 w-16" />
         <div className="flex items-center justify-between gap-3">

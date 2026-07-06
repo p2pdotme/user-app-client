@@ -29,6 +29,7 @@ import {
 import {
   buildQuoteRequest,
   getChainIconUrl,
+  getChainName,
   useOneClickQuote,
   useTokenIcons,
 } from "@/hooks/use-oneclick";
@@ -79,7 +80,11 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
     return query
-      ? chains.filter((chain) => chain.toLowerCase().includes(query))
+      ? chains.filter(
+          (chain) =>
+            chain.toLowerCase().includes(query) ||
+            getChainName(chain).toLowerCase().includes(query),
+        )
       : chains;
   }, [chains, search]);
 
@@ -93,8 +98,8 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
           {selected ? (
             <>
               <ChainIcon chain={selected} />
-              <span className="font-semibold text-sm capitalize">
-                {selected}
+              <span className="font-semibold text-sm">
+                {getChainName(selected)}
               </span>
             </>
           ) : (
@@ -127,7 +132,9 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
               }}
             >
               <ChainIcon chain={chain} className="size-8" />
-              <span className="font-semibold text-sm capitalize">{chain}</span>
+              <span className="font-semibold text-sm">
+                {getChainName(chain)}
+              </span>
             </button>
           ))}
           {filtered.length === 0 && (
@@ -144,6 +151,65 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
 // ---------------------------------------------------------------------------
 // Token selector — pill trigger + searchable bottom drawer
 // ---------------------------------------------------------------------------
+
+// Canonical stablecoin symbols surfaced first in the token list.
+const STABLECOIN_SYMBOLS = new Set([
+  "USDC",
+  "USDT",
+  "DAI",
+  "USDE",
+  "PYUSD",
+  "FDUSD",
+  "TUSD",
+  "USDS",
+  "GHO",
+  "CRVUSD",
+  "USDD",
+  "FRAX",
+  "LUSD",
+  "USD1",
+]);
+
+// 1Click blockchain slug → native token symbol, surfaced right after
+// stablecoins in the token list.
+const NATIVE_SYMBOLS: Record<string, string> = {
+  abs: "ETH",
+  aptos: "APT",
+  arb: "ETH",
+  avax: "AVAX",
+  base: "ETH",
+  bera: "BERA",
+  bsc: "BNB",
+  btc: "BTC",
+  cardano: "ADA",
+  doge: "DOGE",
+  eth: "ETH",
+  gnosis: "XDAI",
+  ltc: "LTC",
+  monad: "MON",
+  movement: "MOVE",
+  near: "NEAR",
+  op: "ETH",
+  plasma: "XPL",
+  pol: "POL",
+  scroll: "ETH",
+  sol: "SOL",
+  stellar: "XLM",
+  sui: "SUI",
+  ton: "TON",
+  tron: "TRX",
+  xlayer: "OKB",
+  xrp: "XRP",
+  zec: "ZEC",
+};
+
+// Ordering group: 0 = stablecoin, 1 = native token, 2 = everything else.
+function tokenSortRank(token: OneClickToken): number {
+  const symbol = token.symbol.toUpperCase();
+  if (STABLECOIN_SYMBOLS.has(symbol)) return 0;
+  if (NATIVE_SYMBOLS[token.blockchain] === symbol) return 1;
+  return 2;
+}
 
 type TokenSelectorProps = {
   tokens: OneClickToken[];
@@ -174,6 +240,7 @@ function TokenSelector({
       : tokens;
     return [...list].sort(
       (a, b) =>
+        tokenSortRank(a) - tokenSortRank(b) ||
         a.symbol.localeCompare(b.symbol) ||
         a.blockchain.localeCompare(b.blockchain),
     );
@@ -197,8 +264,8 @@ function TokenSelector({
               />
               <span className="flex flex-col leading-tight">
                 <span className="font-semibold text-sm">{selected.symbol}</span>
-                <span className="text-muted-foreground text-xs capitalize">
-                  {selected.blockchain}
+                <span className="text-muted-foreground text-xs">
+                  {getChainName(selected.blockchain)}
                 </span>
               </span>
             </>
@@ -239,8 +306,8 @@ function TokenSelector({
               />
               <span className="flex flex-col">
                 <span className="font-semibold text-sm">{token.symbol}</span>
-                <span className="text-muted-foreground text-xs capitalize">
-                  {token.blockchain}
+                <span className="text-muted-foreground text-xs">
+                  {getChainName(token.blockchain)}
                 </span>
               </span>
             </button>
@@ -258,17 +325,28 @@ function TokenSelector({
 
 type Direction = "deposit" | "withdraw";
 
-function UsdcBadge({ iconUrl }: { iconUrl: string | undefined }) {
+function UsdcBadge({
+  iconUrl,
+  address,
+}: {
+  iconUrl: string | undefined;
+  address?: string;
+}) {
   return (
-    <span className="flex items-center gap-2">
+    <span className="flex min-w-0 items-center gap-2">
       <TokenIcon
         symbol="USDC"
         iconUrl={iconUrl}
         chainIconUrl={getChainIconUrl("base")}
       />
-      <span className="flex flex-col leading-tight">
+      <span className="flex min-w-0 flex-col leading-tight">
         <span className="font-semibold text-sm">USDC</span>
         <span className="text-muted-foreground text-xs">Base</span>
+        {address && (
+          <span className="truncate text-muted-foreground text-xs">
+            {`${address.slice(0, 6)}…${address.slice(-4)}`}
+          </span>
+        )}
       </span>
     </span>
   );
@@ -475,7 +553,7 @@ export function SwapForm({
           disabled={!chain}
         />
       ) : (
-        <UsdcBadge iconUrl={usdcIconUrl} />
+        <UsdcBadge iconUrl={usdcIconUrl} address={account.address} />
       )}
       <span className="font-semibold text-3xl">
         {quote?.amountOutFormatted ?? "0.00"}
@@ -604,7 +682,7 @@ export function SwapForm({
           ? isWithdraw
             ? "Withdrawing…"
             : "Creating…"
-          : "Get a quote"}
+          : "Get a Quote"}
       </Button>
 
       {quote && token && (
@@ -613,7 +691,7 @@ export function SwapForm({
           onOpenChange={setReviewOpen}
           from={{
             symbol: fromSymbol,
-            blockchain: isWithdraw ? "base" : token.blockchain,
+            blockchain: getChainName(isWithdraw ? "base" : token.blockchain),
             iconUrl: isWithdraw ? usdcIconUrl : getTokenIconUrl(token),
             chainIconUrl: getChainIconUrl(
               isWithdraw ? "base" : token.blockchain,
@@ -623,7 +701,7 @@ export function SwapForm({
           }}
           to={{
             symbol: toSymbol,
-            blockchain: isWithdraw ? token.blockchain : "base",
+            blockchain: getChainName(isWithdraw ? token.blockchain : "base"),
             iconUrl: isWithdraw ? getTokenIconUrl(token) : usdcIconUrl,
             chainIconUrl: getChainIconUrl(
               isWithdraw ? token.blockchain : "base",

@@ -253,26 +253,21 @@ async function fetchIcons(ids: string[]): Promise<Map<string, string>> {
   return new Map(parsed.data.map((coin) => [coin.id, coin.image]));
 }
 
-// 1Click blockchain slug → DefiLlama chain icon name (verified available)
-const CHAIN_ICON_NAMES: Record<string, string> = {
-  abs: "abstract",
-  aleo: "aleo",
+
+const TRUST_WALLET_CHAINS: Record<string, string> = {
   aptos: "aptos",
   arb: "arbitrum",
-  avax: "avalanche",
+  avax: "avalanchec",
   base: "base",
-  bera: "berachain",
-  bsc: "binance",
+  bch: "bitcoincash",
+  bsc: "smartchain",
   btc: "bitcoin",
   cardano: "cardano",
+  dash: "dash",
   doge: "doge",
   eth: "ethereum",
-  fogo: "fogo",
-  gnosis: "gnosis",
-  hypercore: "hyperliquid",
   ltc: "litecoin",
   monad: "monad",
-  movement: "movement",
   near: "near",
   op: "optimism",
   plasma: "plasma",
@@ -283,15 +278,32 @@ const CHAIN_ICON_NAMES: Record<string, string> = {
   sui: "sui",
   ton: "ton",
   tron: "tron",
-  xlayer: "x layer",
-  xrp: "xrpl",
+  xrp: "ripple",
   zec: "zcash",
 };
 
+// Fallback for chains Trust Wallet doesn't host yet:
+const LLAMA_CHAIN_NAMES: Record<string, string> = {
+  abs: "abstract",
+  adi: "adi",
+  aleo: "aleo",
+  bera: "berachain",
+  fogo: "fogo",
+  gnosis: "gnosis",
+  hypercore: "hyperliquid",
+  movement: "movement",
+  starknet: "starknet",
+  xlayer: "x layer",
+};
+
 export function getChainIconUrl(blockchain: string): string | undefined {
-  const name = CHAIN_ICON_NAMES[blockchain];
-  return name
-    ? `https://icons.llamao.fi/icons/chains/rsz_${encodeURIComponent(name)}.jpg`
+  const trustWallet = TRUST_WALLET_CHAINS[blockchain];
+  if (trustWallet) {
+    return `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/${trustWallet}/info/logo.png`;
+  }
+  const llama = LLAMA_CHAIN_NAMES[blockchain];
+  return llama
+    ? `https://icons.llamao.fi/icons/chains/rsz_${encodeURIComponent(llama)}`
     : undefined;
 }
 
@@ -320,4 +332,54 @@ export function useTokenIcons(tokens: OneClickToken[]) {
   );
 
   return { getTokenIconUrl };
+}
+
+// ---------------------------------------------------------------------------
+// Chain name display
+// ---------------------------------------------------------------------------
+
+
+// 1Click blockchain slug → human-readable chain name. Unknown slugs fall back
+// to a capitalised slug in getChainName().
+const CHAIN_DISPLAY_NAMES: Record<string, string> = {
+  abs: "Abstract",
+  aleo: "Aleo",
+  aptos: "Aptos",
+  arb: "Arbitrum",
+  avax: "Avalanche",
+  base: "Base",
+  bch: "Bitcoin Cash",
+  bera: "Berachain",
+  bsc: "BNB Smart Chain",
+  btc: "Bitcoin",
+  cardano: "Cardano",
+  doge: "Dogecoin",
+  eth: "Ethereum",
+  fogo: "Fogo",
+  gnosis: "Gnosis",
+  hypercore: "Hyperliquid",
+  ltc: "Litecoin",
+  monad: "Monad",
+  movement: "Movement",
+  near: "NEAR",
+  op: "Optimism",
+  plasma: "Plasma",
+  pol: "Polygon",
+  scroll: "Scroll",
+  sol: "Solana",
+  stellar: "Stellar",
+  sui: "Sui",
+  ton: "TON",
+  tron: "Tron",
+  xlayer: "X Layer",
+  xrp: "XRP Ledger",
+  zec: "Zcash",
+};
+
+/** Full chain name for a 1Click blockchain slug (capitalised slug fallback). */
+export function getChainName(blockchain: string): string {
+  return (
+    CHAIN_DISPLAY_NAMES[blockchain] ??
+    blockchain.charAt(0).toUpperCase() + blockchain.slice(1)
+  );
 }
