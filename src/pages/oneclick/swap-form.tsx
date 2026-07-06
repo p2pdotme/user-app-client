@@ -93,7 +93,7 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
       <DrawerTrigger asChild>
         <button
           type="button"
-          className="flex w-full items-center gap-2 rounded-xl bg-muted px-3 py-2.5 text-left"
+          className="flex h-14 w-full items-center gap-2 rounded-xl bg-muted px-3 text-left"
         >
           {selected ? (
             <>
@@ -252,7 +252,7 @@ function TokenSelector({
         <button
           type="button"
           disabled={disabled}
-          className="flex items-center gap-2 rounded-full bg-muted py-1.5 pr-3 pl-1.5 text-left disabled:opacity-50"
+          className="flex h-14 items-center gap-2 rounded-xl bg-muted px-3 text-left disabled:opacity-50"
         >
           {selected ? (
             <>
@@ -270,7 +270,7 @@ function TokenSelector({
               </span>
             </>
           ) : (
-            <span className="px-2 font-medium text-sm">Select token</span>
+            <span className="font-medium text-sm">Select token</span>
           )}
           <ChevronDownIcon className="size-4 text-muted-foreground" />
         </button>
@@ -333,15 +333,18 @@ function UsdcBadge({
   address?: string;
 }) {
   return (
-    <span className="flex min-w-0 items-center gap-2">
+    <span className="flex min-h-14 min-w-0 items-center gap-2">
       <TokenIcon
         symbol="USDC"
         iconUrl={iconUrl}
         chainIconUrl={getChainIconUrl("base")}
       />
       <span className="flex min-w-0 flex-col leading-tight">
-        <span className="font-semibold text-sm">USDC</span>
-        <span className="text-muted-foreground text-xs">Base</span>
+        <div className="flex flex-row items-center gap-1">
+          <span className="font-semibold text-sm">USDC</span>
+          <span className="text-muted-foreground text-xs">(Base)</span>
+        </div>
+
         {address && (
           <span className="truncate text-muted-foreground text-xs">
             {`${address.slice(0, 6)}…${address.slice(-4)}`}
@@ -415,9 +418,7 @@ export function SwapForm({
       : null;
 
   const insufficientFunds =
-    isWithdraw &&
-    usdcBalance !== undefined &&
-    Number(amountText) > usdcBalance;
+    isWithdraw && usdcBalance !== undefined && Number(amountText) > usdcBalance;
 
   const quoteParams =
     token && amount && address
@@ -535,8 +536,8 @@ export function SwapForm({
         placeholder="0.00"
         value={amountText}
         onChange={(e) => setAmountText(e.target.value)}
-        className={`h-14 max-w-48 rounded-xl bg-muted text-right font-semibold text-2xl ${
-          insufficientFunds ? "border-destructive text-destructive" : ""
+        className={`h-14 max-w-48 rounded-xl border-0 bg-muted text-right font-semibold text-2xl ${
+          insufficientFunds ? "border border-destructive text-destructive" : ""
         }`}
       />
     </div>
@@ -570,10 +571,10 @@ export function SwapForm({
         placeholder={`${token ? `${token.blockchain} address` : "Address"}…`}
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        className="h-12 rounded-xl bg-muted placeholder:capitalize"
+        className="h-14 rounded-xl border-0 bg-muted placeholder:capitalize"
       />
       {!isWithdraw && (
-        <p className="text-muted-foreground text-xs">
+        <p className="text-muted-foreground text-sm">
           Your address on the origin chain, used if the swap is refunded.
         </p>
       )}
@@ -603,9 +604,7 @@ export function SwapForm({
             </span>
           )}
           {insufficientFunds && (
-            <span className="text-destructive text-sm">
-              Insufficient funds
-            </span>
+            <span className="text-destructive text-sm">Insufficient funds</span>
           )}
         </div>
         {!isWithdraw && addressInput}
@@ -638,7 +637,7 @@ export function SwapForm({
           <span className="text-muted-foreground">Slippage tolerance</span>
           <button
             type="button"
-            className="flex items-center gap-1.5 rounded-lg bg-muted px-3 py-1.5 text-sm transition-colors hover:bg-muted/80"
+            className="flex items-center gap-1.5 rounded-xl bg-muted px-3 py-1.5 text-sm transition-colors hover:bg-muted/80"
             onClick={() => setSlippageOpen(true)}
           >
             {slippageBps / 100}%
@@ -656,9 +655,7 @@ export function SwapForm({
         <div className="flex items-center justify-between">
           <span className="text-muted-foreground">Rate</span>
           <span className="text-sm">
-            {rate
-              ? `1 ${fromSymbol} = ${rate.toFixed(4)} ${toSymbol}`
-              : "—"}
+            {rate ? `1 ${fromSymbol} = ${rate.toFixed(4)} ${toSymbol}` : "—"}
           </span>
         </div>
         {dryQuote.error && (
