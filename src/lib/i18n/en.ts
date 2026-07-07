@@ -133,7 +133,8 @@ export const en = {
     BRIDGE_SENT_FUNDS: "I've sent the funds",
     BRIDGE_SLIPPAGE_DESCRIPTION:
       "This setting determines the maximum allowable difference between the expected price of a swap and the actual price you pay, which is outside of our control.",
-    BRIDGE_SLIPPAGE_EFFECT: "You may receive up to <0>{{percent}}</0> less than quoted.",
+    BRIDGE_SLIPPAGE_EFFECT:
+      "You may receive up to <0>{{percent}}</0> less than quoted.",
     BRIDGE_SLIPPAGE_INVALID: "Enter a value between 0.01% and 50%.",
     BRIDGE_SLIPPAGE_LOSS_INFO:
       "You could receive up to {{maxLoss}} less based on the {{percent}}% slippage you set.",
@@ -278,10 +279,19 @@ export const en = {
     CLEAR_FILTER: "Clear",
     CLOSE: "Close",
     COINSME_BANNER_ALT: "coins.me",
-    COINSME_BANNER_LIGHTNING_SWAPS: "Lightning Swaps.",
+    COINSME_BANNER_BITCOIN_SIPS: "Bitcoin SIPs.",
+    COINSME_BANNER_BUY_GOLD_STOCKS: "Buy Gold & Stocks.",
     COINSME_BANNER_SAME_WALLET: "Same Wallet",
-    COINSME_BANNER_SWAP_NOW: "Swap Now",
-    COINSME_BANNER_ZERO_GAS_FEES: "Zero Gas Fees.",
+    COINSME_DRAWER_CTA: "Explore coins.me",
+    COINSME_DRAWER_FEATURE_FLOW: "The same easy Buy, Sell & Pay flow",
+    COINSME_DRAWER_FEATURE_SIP: "SIP into BTC and more",
+    COINSME_DRAWER_FEATURE_STOCKS: "Buy & sell US stocks, ETFs and gold",
+    COINSME_DRAWER_FEATURE_TRACK: "Track thousands of cryptos",
+    COINSME_DRAWER_FEATURE_USERNAME: "Send funds with just a username",
+    COINSME_DRAWER_FEATURE_WALLET: "Same wallet & login as p2p.me",
+    COINSME_DRAWER_SUBTITLE:
+      "Sign in with your p2p.me account and it's all set up.",
+    COINSME_DRAWER_TITLE: "Do more with coins.me",
     COMPLETED: "Completed",
     COMPLETED_AT: "Completed at",
     COMPLETED_IN: "Completed in",
@@ -664,7 +674,7 @@ export const en = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "What if my cross-chain transaction gets stuck?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "If your Near Intents transaction is stuck:\n\n1. Visit the Near Intents Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Near Intents support: https://t.me/near_intents  Only use verified channels to avoid scams.",
+      "If your Near Intents transaction is stuck:\n\n1. Visit the Near Intents Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Near Intents support: https://t.me/near_intents Only use verified channels to avoid scams.",
     FAQ_WHAT_IS_P2P_ME: "What is P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.",
@@ -1809,6 +1819,7 @@ export const en = {
     TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer the amount to the UPI ID below and click 'I have made the payment' to continue",
     TRY_AGAIN: "Try Again",
+    TRY_NOW: "Try now",
     TWENTY_FOUR_HOUR: "24h",
     TYPE: "Type",
     TYPE_FILTER: "Type: {{types}}",
