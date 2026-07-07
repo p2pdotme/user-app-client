@@ -115,7 +115,8 @@ export const pt = {
       "Pontes recentes armazenadas neste dispositivo. Para o histórico completo, acesse o explorador NEAR Intents.",
     BRIDGE_HISTORY_TITLE: "Histórico de pontes",
     BRIDGE_INSUFFICIENT_FUNDS: "Fundos insuficientes",
-    BRIDGE_LOAD_ASSETS_FAILED: "Falha ao carregar os ativos suportados: {{message}}",
+    BRIDGE_LOAD_ASSETS_FAILED:
+      "Falha ao carregar os ativos suportados: {{message}}",
     BRIDGE_MEMO: "Memo",
     BRIDGE_NO_CHAINS_FOUND: "Nenhuma rede encontrada",
     BRIDGE_NO_TOKENS_FOUND: "Nenhum token encontrado",
@@ -135,7 +136,8 @@ export const pt = {
     BRIDGE_SENT_FUNDS: "Já enviei os fundos",
     BRIDGE_SLIPPAGE_DESCRIPTION:
       "Esta configuração determina a diferença máxima permitida entre o preço esperado de um swap e o preço real que você paga, o que está fora do nosso controle.",
-    BRIDGE_SLIPPAGE_EFFECT: "Você pode receber até <0>{{percent}}</0> a menos do que o cotado.",
+    BRIDGE_SLIPPAGE_EFFECT:
+      "Você pode receber até <0>{{percent}}</0> a menos do que o cotado.",
     BRIDGE_SLIPPAGE_INVALID: "Insira um valor entre 0,01% e 50%.",
     BRIDGE_SLIPPAGE_LOSS_INFO:
       "Você pode receber até {{maxLoss}} a menos com base no slippage de {{percent}}% que você definiu.",
@@ -285,10 +287,21 @@ export const pt = {
     CLEAR_FILTER: "Limpar",
     CLOSE: "Fechar",
     COINSME_BANNER_ALT: "coins.me",
-    COINSME_BANNER_LIGHTNING_SWAPS: "Swaps rápidos,",
+    COINSME_BANNER_BITCOIN_SIPS: "SIPs de Bitcoin.",
+    COINSME_BANNER_BUY_GOLD_STOCKS: "Compre ouro e ações.",
     COINSME_BANNER_SAME_WALLET: "Mesma carteira,",
-    COINSME_BANNER_SWAP_NOW: "Teste agora!",
-    COINSME_BANNER_ZERO_GAS_FEES: "Sem taxas de gás!",
+    COINSME_DRAWER_CTA: "Explorar coins.me",
+    COINSME_DRAWER_FEATURE_FLOW:
+      "O mesmo fluxo fácil de Comprar, Vender e Pagar",
+    COINSME_DRAWER_FEATURE_SIP: "Invista recorrentemente em BTC e mais",
+    COINSME_DRAWER_FEATURE_STOCKS: "Compre e venda ações dos EUA, ETFs e ouro",
+    COINSME_DRAWER_FEATURE_TRACK: "Acompanhe milhares de criptos",
+    COINSME_DRAWER_FEATURE_USERNAME:
+      "Envie fundos usando apenas um nome de usuário",
+    COINSME_DRAWER_FEATURE_WALLET: "A mesma carteira e login do p2p.me",
+    COINSME_DRAWER_SUBTITLE:
+      "Entre com sua conta do p2p.me e está tudo pronto.",
+    COINSME_DRAWER_TITLE: "Faça mais com o coins.me",
     COMPLETED: "Concluídas",
     COMPLETED_AT: "Concluído em",
     COMPLETED_IN: "Concluído em",
@@ -676,7 +689,7 @@ export const pt = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "E se minha transação cross-chain ficar presa?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Se sua transação Near Intents ficar presa:\n\n1. Visite o Near Intents Explorer da sua confirmação de transação.\n2. Copie seu Request ID da transação.\n3. Contate o suporte Near Intents: https://t.me/near_intents  Use apenas canais verificados para evitar golpes.",
+      "Se sua transação Near Intents ficar presa:\n\n1. Visite o Near Intents Explorer da sua confirmação de transação.\n2. Copie seu Request ID da transação.\n3. Contate o suporte Near Intents: https://t.me/near_intents Use apenas canais verificados para evitar golpes.",
     FAQ_WHAT_IS_P2P_ME: "O que é P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me é uma plataforma global que permite comprar, vender e pagar facilmente usando USDC — com segurança e privacidade. Suporta métodos de pagamento locais populares como PIX e QRIS, mantendo seus fundos totalmente sob seu controle.",
@@ -1852,6 +1865,7 @@ export const pt = {
     TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfira o valor para o ID UPI abaixo e clique 'Eu fiz o pagamento' para continuar",
     TRY_AGAIN: "Tentar novamente",
+    TRY_NOW: "Teste agora",
     TWENTY_FOUR_HOUR: "24h",
     TYPE: "Tipo",
     TYPE_FILTER: "Tipo: {{types}}",
