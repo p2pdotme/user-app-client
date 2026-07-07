@@ -108,6 +108,11 @@ export function Banner({
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
+          {/* CoinsMe Banner */}
+          <CarouselItem>
+            <CoinsMeBanner />
+          </CarouselItem>
+
           {/* Perps Cashback Banner */}
           <CarouselItem>
             <PerpsBanner />
@@ -128,11 +133,6 @@ export function Banner({
           {/* Join Merchant Banner */}
           <CarouselItem>
             <JoinMerchantBanner />
-          </CarouselItem>
-
-          {/* CoinsMe Banner */}
-          <CarouselItem>
-            <CoinsMeBanner />
           </CarouselItem>
 
           {/* PWA Install Banner - Use same logic as InstallPWAButton */}
