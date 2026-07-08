@@ -1,6 +1,11 @@
 import { Code, Menu } from "lucide-react";
 import { useNavigate } from "react-router";
-import { InstallPWAButton, Sidebar, TextLogo } from "@/components";
+import {
+  CoinsmeButton,
+  InstallPWAButton,
+  Sidebar,
+  TextLogo,
+} from "@/components";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -35,6 +40,7 @@ export function Header() {
               <span className="sr-only">Dev Dashboard</span>
             </Button>
           ) : null}
+          <CoinsmeButton />
           <InstallPWAButton />
         </div>
       </div>

@@ -274,10 +274,18 @@ export const hi = {
     CLEAR_FILTER: "साफ़ करें",
     CLOSE: "बंद करें",
     COINSME_BANNER_ALT: "coins.me",
-    COINSME_BANNER_LIGHTNING_SWAPS: "बिजली की स्वैप।",
+    COINSME_BANNER_BITCOIN_SIPS: "बिटकॉइन SIP।",
+    COINSME_BANNER_BUY_GOLD_STOCKS: "सोना और स्टॉक्स खरीदें।",
     COINSME_BANNER_SAME_WALLET: "समान वॉलेट",
-    COINSME_BANNER_SWAP_NOW: "अभी स्वैप करें",
-    COINSME_BANNER_ZERO_GAS_FEES: "शून्य गैस शुल्क।",
+    COINSME_DRAWER_CTA: "coins.me एक्सप्लोर करें",
+    COINSME_DRAWER_FEATURE_FLOW: "वही आसान खरीदें, बेचें और भुगतान करें फ्लो",
+    COINSME_DRAWER_FEATURE_SIP: "BTC और अन्य में SIP करें",
+    COINSME_DRAWER_FEATURE_STOCKS: "US स्टॉक्स, ETFs और सोना खरीदें-बेचें",
+    COINSME_DRAWER_FEATURE_TRACK: "हज़ारों क्रिप्टो ट्रैक करें",
+    COINSME_DRAWER_FEATURE_USERNAME: "सिर्फ यूज़रनेम से फंड भेजें",
+    COINSME_DRAWER_FEATURE_WALLET: "p2p.me वाला ही वॉलेट और लॉगिन",
+    COINSME_DRAWER_SUBTITLE: "अपने p2p.me अकाउंट से साइन इन करें — सब पहले से तैयार है।",
+    COINSME_DRAWER_TITLE: "coins.me के साथ करें और भी बहुत कुछ",
     COMPLETED: "पूर्ण",
     COMPLETED_AT: "इस समय पर पूरा हुआ",
     COMPLETED_IN: "में पूरा हुआ",
@@ -643,7 +651,7 @@ export const hi = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "अगर मेरा क्रॉस-चेन लेन-देन अटक जाता है तो क्या होगा?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "यदि आपका Near Intents लेन-देन अटक जाता है:\n\n1. अपने लेन-देन की पुष्टि से Near Intents Explorer पर जाएँ।\n2. लेन-देन से अपनी Request ID कॉपी करें।\n3. Near Intents के समर्थन से संपर्क करें: https://t.me/near_intents  घोटालों से बचने के लिए केवल सत्यापित चैनलों का उपयोग करें।",
+      "यदि आपका Near Intents लेन-देन अटक जाता है:\n\n1. अपने लेन-देन की पुष्टि से Near Intents Explorer पर जाएँ।\n2. लेन-देन से अपनी Request ID कॉपी करें।\n3. Near Intents के समर्थन से संपर्क करें: https://t.me/near_intents घोटालों से बचने के लिए केवल सत्यापित चैनलों का उपयोग करें।",
     FAQ_WHAT_IS_P2P_ME: "P2P.me क्या है?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me एक वैश्विक प्लेटफ़ॉर्म है जो आपको सुरक्षित और निजी तौर पर USDC का उपयोग करके आसानी से खरीदने, बेचने और भुगतान करने की सुविधा देता है। यह UPI, PIX और QRIS जैसे लोकप्रिय स्थानीय भुगतान विधियों का समर्थन करता है, जबकि आपके धन को पूरी तरह से आपके नियंत्रण में रखता है।",
@@ -1770,6 +1778,7 @@ export const hi = {
     TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "नीचे दिए गए UPI ID में राशि ट्रांसफर करें और जारी रखने के लिए 'मैंने भुगतान किया है' पर क्लिक करें",
     TRY_AGAIN: "पुनः प्रयास करें",
+    TRY_NOW: "आज़माएं",
     TWENTY_FOUR_HOUR: "24घं",
     TYPE: "प्रकार",
     TYPE_FILTER: "प्रकार: {{types}}",
