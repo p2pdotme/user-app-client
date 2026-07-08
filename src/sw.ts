@@ -69,7 +69,14 @@ registerRoute(
   assetStrategy,
 );
 
-self.addEventListener("install", () => self.skipWaiting());
+// IMPORTANT: do NOT skipWaiting on install. A new deploy must not hijack an
+// open session — that swaps in new code mid-session and makes route changes
+// blank out when a lazy chunk with the old build's hash 404s. Instead the new
+// SW stays in "waiting" and only takes over on the next cold start, or when the
+// user explicitly hits "Reload" (which posts SKIP_WAITING below).
+self.addEventListener("message", (event) => {
+  if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
+});
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
