@@ -108,14 +108,14 @@ export function Banner({
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
-          {/* CoinsMe Banner */}
-          <CarouselItem>
-            <CoinsMeBanner />
-          </CarouselItem>
-
           {/* Perps Cashback Banner */}
           <CarouselItem>
             <PerpsBanner />
+          </CarouselItem>
+
+          {/* CoinsMe Banner */}
+          <CarouselItem>
+            <CoinsMeBanner />
           </CarouselItem>
 
           {/* P2P Swap Banner */}
