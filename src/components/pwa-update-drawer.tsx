@@ -99,15 +99,17 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
                   {t("PWA_TURN_ON_VPN")}
                 </p>
 
-                <p className="flex items-center gap-2">
-                  <span className="text-foreground/20">3.</span>
-                  {t("PWA_TRY_MIRROR_LINK")}
-                  <a
-                    href="https://app.p2p.lol/"
-                    className="inline-flex items-center gap-1 text-primary underline underline-offset-2">
-                    app.p2p.lol <Link size={12} />
-                  </a>
-                </p>
+                {window.location.hostname !== "app.p2p.lol" && (
+                  <p className="flex items-center gap-2">
+                    <span className="text-foreground/20">3.</span>
+                    {t("PWA_TRY_MIRROR_LINK")}
+                    <a
+                      href="https://app.p2p.lol/"
+                      className="inline-flex items-center gap-1 text-primary underline underline-offset-2">
+                      app.p2p.lol <Link size={12} />
+                    </a>
+                  </p>
+                )}
               </div>
             </div>
           </DrawerDescription>
