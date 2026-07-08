@@ -109,9 +109,6 @@ export default ({ mode }: { mode: string }) => {
 
       rollupOptions: {
         output: {
-          // Give the main entry a distinct name so it can be cleanly excluded
-          // from the SW precache via globIgnores (route chunks are index-*.js).
-          entryFileNames: "assets/entry-[hash].js",
           manualChunks(id: string) {
             if (!id.includes("node_modules")) return undefined;
 
@@ -133,11 +130,8 @@ export default ({ mode }: { mode: string }) => {
                 "@sentry"
               ],
               "ui-vendor": ["@radix-ui", "lucide-react", "framer-motion"],
-              // thirdweb (unscoped pkg name) splits into ~1000 tiny dynamic-import
-              // chunks by default; consolidate them so the SW precache is a handful
-              // of files instead of ~1200 network requests on install.
-              "thirdweb-vendor": ["thirdweb", "@thirdweb-dev"],
               "web3-vendor": [
+                "@thirdweb-dev",
                 "ethers",
                 "viem",
                 "wagmi",
