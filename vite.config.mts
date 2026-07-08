@@ -45,7 +45,7 @@ export default ({ mode }: { mode: string }) => {
         },
         manifest: {
           name: "P2P.me - Pay with USDC at any QR",
-          short_name: "P2P.me - Testing",
+          short_name: "P2P.me Testing",
           description: "Pay with USDC at any QR code using P2P.me",
           display: "standalone",
         },
@@ -54,16 +54,8 @@ export default ({ mode }: { mode: string }) => {
           config: true,
         },
         injectManifest: {
-          // Precache the full app (JS included) so navigation works offline and
-          // route chunks never fail to load. The install request count is kept
-          // low by consolidating thirdweb into one chunk in rollupOptions above
-          // (~1200 chunks -> ~110), which was the real cause of slow installs.
-          maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB (fits the main entry)
+          maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-          // Only the heavy zk (barretenberg) chunks (~7MB, used rarely for identity
-          // verification) stay out of the atomic install — served by the runtime
-          // CacheFirst route in sw.ts and cached on first use.
-          globIgnores: ["**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({
