@@ -54,8 +54,14 @@ export default ({ mode }: { mode: string }) => {
           config: true,
         },
         injectManifest: {
-          maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
+          // Keep only the small app shell in the atomic install precache.
+          // Large, content-hashed chunks are served via runtime caching in sw.ts,
+          // so a version bump no longer forces a multi-MB download to complete
+          // before the new service worker can activate.
+          maximumFileSizeToCacheInBytes: 2 * 1024 * 1024, // 2MB
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+          // Heavy zk (barretenberg) chunks are lazy/rarely used — never precache them.
+          globIgnores: ["**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({
