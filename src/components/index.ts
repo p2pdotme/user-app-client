@@ -4,6 +4,8 @@ export * from "./banner";
 export * from "./bridge-token-selector-drawer";
 export * from "./cashback-reward-card";
 export * from "./circle-countdown-timer";
+export * from "./coinsme-button";
+export * from "./coinsme-drawer";
 export * from "./comprehensive-haptic-test";
 export * from "./comprehensive-sound-test";
 export * from "./connection-status";
