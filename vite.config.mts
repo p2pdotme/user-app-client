@@ -41,7 +41,6 @@ export default ({ mode }: { mode: string }) => {
         workbox: {
           clientsClaim: true,
           skipWaiting: true,
-          maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
         },
         manifest: {
           name: "P2P.me - Pay with USDC at any QR",
@@ -54,8 +53,17 @@ export default ({ mode }: { mode: string }) => {
           config: true,
         },
         injectManifest: {
-          maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
+          // Keep the glob broad so self.__WB_MANIFEST lists the whole build.
+          // sw.ts atomically precaches ONLY the shell (html + css) and then
+          // background-warms the rest after activation. The limit must sit
+          // above the entry chunk (currently ~10MB) so it lands in the manifest
+          // and gets background-warmed — the app can't boot offline without it.
+          maximumFileSizeToCacheInBytes: 12 * 1024 * 1024, // 12MB
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+          // barretenberg (zk proving, ~3.6MB each, KYC-only) stays out of the
+          // manifest so it is fetched purely on-demand via the runtime route
+          // instead of being background-warmed on every deploy.
+          globIgnores: ["**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({

@@ -12,10 +12,27 @@ import { CacheFirst } from "workbox-strategies";
 
 declare let self: ServiceWorkerGlobalScope;
 
-// self.__WB_MANIFEST is the default injection point
-precacheAndRoute(self.__WB_MANIFEST);
+const RUNTIME_CACHE = "app-assets-v1";
 
-// clean old assets
+// Full build manifest injected by vite-plugin-pwa at build time.
+const manifest = self.__WB_MANIFEST;
+const urlOf = (entry: string | { url: string }) =>
+  typeof entry === "string" ? entry : entry.url;
+
+// Boot-critical shell (index.html + css). Kept tiny so the install event
+// completes near-instantly and rarely fails on slow networks. Everything else
+// is background-warmed after activation — Twitter-style: the update applies
+// instantly, then full offline support fills in quietly afterwards.
+const shell = manifest.filter((e) => {
+  const url = urlOf(e);
+  return url.endsWith(".html") || url.endsWith(".css");
+});
+const rest = manifest.filter((e) => !shell.includes(e));
+
+// Atomic precache of ONLY the shell.
+precacheAndRoute(shell);
+
+// clean old precaches
 cleanupOutdatedCaches();
 
 let allowlist: RegExp[] | undefined;
@@ -27,8 +44,55 @@ registerRoute(
   new NavigationRoute(createHandlerBoundToURL("index.html"), { allowlist }),
 );
 
+// Runtime cache for same-origin build assets (JS chunks, images, fonts, and
+// any css/js not precached). Vite content-hashes these filenames, so they are
+// immutable — CacheFirst fetches each at most once. The ExpirationPlugin LRU
+// evicts stale chunks from previous deploys automatically.
+const assetStrategy = new CacheFirst({
+  cacheName: RUNTIME_CACHE,
+  plugins: [
+    new ExpirationPlugin({
+      maxEntries: 500,
+      maxAgeSeconds: 60 * 60 * 24 * 30,
+      purgeOnQuotaError: true,
+    }),
+  ],
+});
+
+registerRoute(
+  ({ request, sameOrigin }) =>
+    sameOrigin &&
+    (request.destination === "script" ||
+      request.destination === "style" ||
+      request.destination === "image" ||
+      request.destination === "font"),
+  assetStrategy,
+);
+
 self.addEventListener("install", () => self.skipWaiting());
-self.addEventListener("activate", () => clientsClaim());
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      clientsClaim();
+
+      // Background-warm the rest of the build so full offline works within
+      // seconds of an update. Non-blocking for clients, per-asset via the
+      // CacheFirst strategy: already-cached (unchanged-hash) files are skipped,
+      // so only the changed delta is downloaded, and a single slow/failed
+      // request never aborts the warm. Routing through assetStrategy keeps the
+      // ExpirationPlugin's LRU accounting accurate.
+      await Promise.allSettled(
+        rest.map((entry) =>
+          assetStrategy.handle({
+            request: new Request(urlOf(entry)),
+            event,
+          }),
+        ),
+      );
+    })(),
+  );
+});
 
 // Runtime cache for CDN assets (images/audio/animations)
 const CDN_ORIGIN = "https://firebasestorage.googleapis.com";
@@ -49,5 +113,3 @@ registerRoute(
     ],
   }),
 );
-
-// Already called above in install/activate
