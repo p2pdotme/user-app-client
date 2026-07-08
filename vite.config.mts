@@ -45,7 +45,7 @@ export default ({ mode }: { mode: string }) => {
         },
         manifest: {
           name: "P2P.me - Pay with USDC at any QR",
-          short_name: "P2P.me",
+          short_name: "P2P.me - Testing",
           description: "Pay with USDC at any QR code using P2P.me",
           display: "standalone",
         },
