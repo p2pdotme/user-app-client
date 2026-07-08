@@ -113,6 +113,11 @@ export function Banner({
             <PerpsBanner />
           </CarouselItem>
 
+          {/* CoinsMe Banner */}
+          <CarouselItem>
+            <CoinsMeBanner />
+          </CarouselItem>
+
           {/* P2P Swap Banner */}
           <CarouselItem>
             <P2PSwapBanner />
@@ -128,11 +133,6 @@ export function Banner({
           {/* Join Merchant Banner */}
           <CarouselItem>
             <JoinMerchantBanner />
-          </CarouselItem>
-
-          {/* CoinsMe Banner */}
-          <CarouselItem>
-            <CoinsMeBanner />
           </CarouselItem>
 
           {/* PWA Install Banner - Use same logic as InstallPWAButton */}

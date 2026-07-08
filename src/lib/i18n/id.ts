@@ -135,7 +135,8 @@ export const id = {
     BRIDGE_SENT_FUNDS: "Saya sudah mengirim dana",
     BRIDGE_SLIPPAGE_DESCRIPTION:
       "Pengaturan ini menentukan perbedaan maksimum yang diizinkan antara harga swap yang diharapkan dan harga aktual yang Anda bayar, yang berada di luar kendali kami.",
-    BRIDGE_SLIPPAGE_EFFECT: "Anda mungkin menerima hingga <0>{{percent}}</0> lebih sedikit dari yang dikutip.",
+    BRIDGE_SLIPPAGE_EFFECT:
+      "Anda mungkin menerima hingga <0>{{percent}}</0> lebih sedikit dari yang dikutip.",
     BRIDGE_SLIPPAGE_INVALID: "Masukkan nilai antara 0,01% dan 50%.",
     BRIDGE_SLIPPAGE_LOSS_INFO:
       "Anda bisa menerima hingga {{maxLoss}} lebih sedikit berdasarkan slippage {{percent}}% yang Anda atur.",
@@ -283,10 +284,19 @@ export const id = {
     CLEAR_FILTER: "Hapus",
     CLOSE: "Tutup",
     COINSME_BANNER_ALT: "coins.me",
-    COINSME_BANNER_LIGHTNING_SWAPS: "Pertukaran Kilat.",
+    COINSME_BANNER_BITCOIN_SIPS: "SIP Bitcoin.",
+    COINSME_BANNER_BUY_GOLD_STOCKS: "Beli Emas & Saham.",
     COINSME_BANNER_SAME_WALLET: "Dompet Yang Sama",
-    COINSME_BANNER_SWAP_NOW: "Tukar",
-    COINSME_BANNER_ZERO_GAS_FEES: "Nol Biaya Gas.",
+    COINSME_DRAWER_CTA: "Jelajahi coins.me",
+    COINSME_DRAWER_FEATURE_FLOW: "Alur Beli, Jual & Bayar yang sama mudahnya",
+    COINSME_DRAWER_FEATURE_SIP: "SIP ke BTC dan lainnya",
+    COINSME_DRAWER_FEATURE_STOCKS: "Beli & jual saham AS, ETF, dan emas",
+    COINSME_DRAWER_FEATURE_TRACK: "Pantau ribuan kripto",
+    COINSME_DRAWER_FEATURE_USERNAME: "Kirim dana cukup dengan username",
+    COINSME_DRAWER_FEATURE_WALLET: "Dompet & login yang sama dengan p2p.me",
+    COINSME_DRAWER_SUBTITLE:
+      "Masuk dengan akun p2p.me Anda dan semuanya sudah siap.",
+    COINSME_DRAWER_TITLE: "Lakukan lebih banyak dengan coins.me",
     COMPLETED: "Selesai",
     COMPLETED_AT: "Selesai pada",
     COMPLETED_IN: "Selesai dalam",
@@ -674,7 +684,7 @@ export const id = {
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "Bagaimana jika transaksi cross-chain saya terjebak?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Jika transaksi Near Intents Anda terjebak:\n\n1. Kunjungi Near Intents Explorer dari konfirmasi transaksi Anda.\n2. Salin Request ID Anda dari transaksi.\n3. Hubungi dukungan Near Intents: https://t.me/near_intents  Hanya gunakan channel terverifikasi untuk menghindari penipuan.",
+      "Jika transaksi Near Intents Anda terjebak:\n\n1. Kunjungi Near Intents Explorer dari konfirmasi transaksi Anda.\n2. Salin Request ID Anda dari transaksi.\n3. Hubungi dukungan Near Intents: https://t.me/near_intents Hanya gunakan channel terverifikasi untuk menghindari penipuan.",
     FAQ_WHAT_IS_P2P_ME: "Apa itu P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
       "P2P.me adalah platform global yang memungkinkan Anda dengan mudah membeli, menjual, dan membayar menggunakan USDC — dengan aman dan pribadi. Ini mendukung metode pembayaran lokal populer seperti UPI, PIX, dan QRIS, sambil menjaga dana Anda sepenuhnya dalam kendali Anda.",
@@ -1842,6 +1852,7 @@ export const id = {
     TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfer jumlah ke UPI ID di bawah dan klik 'Saya sudah melakukan pembayaran' untuk melanjutkan",
     TRY_AGAIN: "Coba Lagi",
+    TRY_NOW: "Coba sekarang",
     TWENTY_FOUR_HOUR: "24j",
     TYPE: "Tipe",
     TYPE_FILTER: "Jenis: {{types}}",

@@ -35,6 +35,7 @@ import { thirdwebClient } from "@/core/adapters/thirdweb";
 import { useP2PBalance, useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
 import { formatTokenBalance } from "@/lib/utils";
+import { CoinsmeButton } from "./coinsme-button";
 import { SocialLinks } from "./social-links";
 import { TextLogo } from "./text-logo";
 import { VersionBadge } from "./version-badge";
@@ -63,7 +64,7 @@ const P2PTokenButton = () => {
           </div>
           <div className="flex flex-col items-start">
             <p className="font-semibold text-sm">{t("P2P_TOKEN_TITLE")}</p>
-            <p className="text-muted-foreground text-xs whitespace-nowrap">
+            <p className="whitespace-nowrap text-muted-foreground text-xs">
               {t("SEND_RECEIVE_SWAP")}
             </p>
           </div>
@@ -277,18 +278,21 @@ export function Sidebar({ children }: { children: ReactNode }) {
             </Card> */}
             <P2PTokenButton />
             <div className="border-t" />
-            {/* User Info Card */}
-            <Card className="w-full border-none bg-primary/10 py-4 shadow-none">
-              <CardContent className="flex items-center gap-2">
-                {loggedIn.picture}
-                <div className="flex flex-col">
-                  <p className="font-medium text-sm">{t("LOGGED_IN_VIA")}</p>
-                  <p className="text-muted-foreground text-xs">
-                    {loggedIn.via}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* User Info Card + coins.me */}
+            <div className="flex items-center gap-3">
+              <Card className="min-w-0 flex-1 border-none bg-primary/10 py-4 shadow-none">
+                <CardContent className="flex items-center gap-2">
+                  {loggedIn.picture}
+                  <div className="flex min-w-0 flex-col">
+                    <p className="font-medium text-sm">{t("LOGGED_IN_VIA")}</p>
+                    <p className="truncate text-muted-foreground text-xs">
+                      {loggedIn.via}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              <CoinsmeButton location="sidebar" withCaption />
+            </div>
 
             {/* Social Links and Logout */}
             <div className="flex w-full flex-col gap-2">
