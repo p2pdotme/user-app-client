@@ -54,19 +54,16 @@ export default ({ mode }: { mode: string }) => {
           config: true,
         },
         injectManifest: {
-          // Keep only the small app shell in the atomic install precache.
-          // Large, content-hashed chunks are served via runtime caching in sw.ts,
-          // so a version bump no longer forces a multi-MB download to complete
-          // before the new service worker can activate.
+          // Precache ONLY the app shell (HTML + CSS + icons). JS is intentionally
+          // excluded: the app splits into ~1200 hashed JS chunks, and precaching
+          // them makes the SW `install` fire ~1200 network requests (latency-bound
+          // and slow on mobile) as one atomic op. Instead, all JS is served by the
+          // runtime CacheFirst `/assets/` route in sw.ts and cached on first use.
+          // This keeps install tiny (a handful of files) so a version bump can
+          // activate almost instantly. index.html changes every deploy (new entry
+          // hash) so SW update detection still works.
           maximumFileSizeToCacheInBytes: 2 * 1024 * 1024, // 2MB
-          globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-          // Explicitly exclude the large chunks from the atomic install precache.
-          // They are content-hashed and served via a runtime CacheFirst route in
-          // sw.ts, so a version bump no longer forces a multi-MB download to
-          // finish before the new service worker can activate.
-          // - entry-*.js: the main app entry (largest chunk)
-          // - barretenberg*.js: heavy zk chunks, lazy/rarely used
-          globIgnores: ["**/entry-*.js", "**/barretenberg*.js"],
+          globPatterns: ["**/*.{css,html,ico,png,svg,webp}"],
         },
       }),
       sentryVitePlugin({
