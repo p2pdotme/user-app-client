@@ -54,16 +54,16 @@ export default ({ mode }: { mode: string }) => {
           config: true,
         },
         injectManifest: {
-          // Precache ONLY the app shell (HTML + CSS + icons). JS is intentionally
-          // excluded: the app splits into ~1200 hashed JS chunks, and precaching
-          // them makes the SW `install` fire ~1200 network requests (latency-bound
-          // and slow on mobile) as one atomic op. Instead, all JS is served by the
-          // runtime CacheFirst `/assets/` route in sw.ts and cached on first use.
-          // This keeps install tiny (a handful of files) so a version bump can
-          // activate almost instantly. index.html changes every deploy (new entry
-          // hash) so SW update detection still works.
-          maximumFileSizeToCacheInBytes: 2 * 1024 * 1024, // 2MB
-          globPatterns: ["**/*.{css,html,ico,png,svg,webp}"],
+          // Precache the full app (JS included) so navigation works offline and
+          // route chunks never fail to load. The install request count is kept
+          // low by consolidating thirdweb into one chunk in rollupOptions above
+          // (~1200 chunks -> ~110), which was the real cause of slow installs.
+          maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB (fits the main entry)
+          globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+          // Only the heavy zk (barretenberg) chunks (~7MB, used rarely for identity
+          // verification) stay out of the atomic install — served by the runtime
+          // CacheFirst route in sw.ts and cached on first use.
+          globIgnores: ["**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({
@@ -133,8 +133,11 @@ export default ({ mode }: { mode: string }) => {
                 "@sentry"
               ],
               "ui-vendor": ["@radix-ui", "lucide-react", "framer-motion"],
+              // thirdweb (unscoped pkg name) splits into ~1000 tiny dynamic-import
+              // chunks by default; consolidate them so the SW precache is a handful
+              // of files instead of ~1200 network requests on install.
+              "thirdweb-vendor": ["thirdweb", "@thirdweb-dev"],
               "web3-vendor": [
-                "@thirdweb-dev",
                 "ethers",
                 "viem",
                 "wagmi",
