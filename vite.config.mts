@@ -60,8 +60,13 @@ export default ({ mode }: { mode: string }) => {
           // before the new service worker can activate.
           maximumFileSizeToCacheInBytes: 2 * 1024 * 1024, // 2MB
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
-          // Heavy zk (barretenberg) chunks are lazy/rarely used — never precache them.
-          globIgnores: ["**/barretenberg*.js"],
+          // Explicitly exclude the large chunks from the atomic install precache.
+          // They are content-hashed and served via a runtime CacheFirst route in
+          // sw.ts, so a version bump no longer forces a multi-MB download to
+          // finish before the new service worker can activate.
+          // - entry-*.js: the main app entry (largest chunk)
+          // - barretenberg*.js: heavy zk chunks, lazy/rarely used
+          globIgnores: ["**/entry-*.js", "**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({
@@ -107,6 +112,9 @@ export default ({ mode }: { mode: string }) => {
 
       rollupOptions: {
         output: {
+          // Give the main entry a distinct name so it can be cleanly excluded
+          // from the SW precache via globIgnores (route chunks are index-*.js).
+          entryFileNames: "assets/entry-[hash].js",
           manualChunks(id: string) {
             if (!id.includes("node_modules")) return undefined;
 
