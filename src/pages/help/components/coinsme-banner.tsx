@@ -56,10 +56,10 @@ export function CoinsMeBanner() {
               {t("COINSME_BANNER_SAME_WALLET")}
             </p>
             <p className="max-w-[200px] font-medium text-[#91CFFF] text-sm leading-tight">
-              {t("COINSME_BANNER_LIGHTNING_SWAPS")}{" "}
+              {t("COINSME_BANNER_BITCOIN_SIPS")}{" "}
             </p>
             <p className="font-medium text-[#91CFFF] text-sm leading-tight">
-              {t("COINSME_BANNER_ZERO_GAS_FEES")}
+              {t("COINSME_BANNER_BUY_GOLD_STOCKS")}
             </p>
           </div>
         </div>
@@ -67,7 +67,7 @@ export function CoinsMeBanner() {
         {/* Right Side - CTA Button */}
         <div className="flex h-[48px] flex-shrink-0 items-center justify-center gap-1 self-center rounded-md border-2 border-white bg-white/10 px-3 py-4 backdrop-blur-sm transition-all hover:bg-white/20">
           <span className="font-semibold text-md text-white">
-            {t("COINSME_BANNER_SWAP_NOW")}
+            {t("TRY_NOW")}
           </span>
           <ArrowRight className="size-6 text-white" />
         </div>
