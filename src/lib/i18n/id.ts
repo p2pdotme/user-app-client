@@ -78,6 +78,8 @@ export const id = {
     ARIA_SWITCH_CURRENCY: "Ganti mata uang",
     ARIA_VERIFIED_TOKEN: "Token terverifikasi",
     ARRAY_LENGTH_MISMATCH: "Panjang array tidak cocok",
+    ASK_AI_ABOUT: 'Tanya Asisten AI tentang "{{query}}"',
+    ASK_AI_ASSISTANT: "Tanya Asisten AI",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "Minta vendor untuk membuat QR hanya setelah scanner Anda terbuka",
     ATTEMPTED_AMOUNT: "Jumlah yang Dicoba",
@@ -1118,6 +1120,7 @@ export const id = {
     NO_DISPUTED_TRANSACTIONS:
       "Tidak ada transaksi yang disengketakan ditemukan",
     NO_ELIGIBLE_CIRCLES: "Tidak ada lingkaran yang memungkinkan",
+    NO_FAQ_RESULTS: "Tidak ada FAQ yang cocok dengan pencarian Anda.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
       "Tidak ada likuiditas fiat di bursa untuk menyelesaikan pesanan",
     NO_FUNCTION_EXISTS: "Tidak ada fungsi yang ada!",

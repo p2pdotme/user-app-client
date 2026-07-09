@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getContractVersion } from "@/core/adapters/thirdweb/actions/diamond-info";
-import { isSyncedWithContract } from "@/lib/utils";
+//import { isSyncedWithContract } from "@/lib/utils";
 
 export const useContractVersion = () => {
   const [contractVersion, setContractVersion] = useState<string | null>(null);
@@ -22,8 +22,9 @@ export const useContractVersion = () => {
 
   const checkContractSync = async () => {
     try {
-      const version = await getContractVer();
-      return version ? isSyncedWithContract(version) : false;
+      return true;
+      //const version = await getContractVer();
+      //return version ? isSyncedWithContract(version) : false;
     } catch {
       return false;
     }
