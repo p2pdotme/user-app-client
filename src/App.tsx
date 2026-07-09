@@ -4,7 +4,7 @@ import { CONTRACT_ADDRESSES } from "@p2pdotme";
 import { createLocalStorageRelayStore } from "@p2pdotme/sdk/orders";
 import { SdkProvider as P2pdotmeProvider } from "@p2pdotme/sdk/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { type ComponentProps, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ThirdwebProvider } from "thirdweb/react";
 import { CDN_ASSET_URLS } from "@/assets";
@@ -109,7 +109,14 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <ThirdwebProvider>
             <P2pdotmeProvider
-              publicClient={viemPublicClient}
+              // thirdweb bundles a newer viem than the SDK, so its public
+              // client carries an extra deployless `readContract` overload.
+              // Cast to the SDK's expected prop type; runtime shape is valid.
+              publicClient={
+                viemPublicClient as unknown as ComponentProps<
+                  typeof P2pdotmeProvider
+                >["publicClient"]
+              }
               subgraphUrl={import.meta.env.VITE_SUBGRAPH_URL}
               diamondAddress={CONTRACT_ADDRESSES.DIAMOND}
               usdcAddress={CONTRACT_ADDRESSES.USDC}
