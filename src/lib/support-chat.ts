@@ -8,6 +8,13 @@
 // Buy/Pay/Sell footer, so on mobile it overlapped the Sell USDC button. We lift
 // it above the footer (+ the safe-area inset) via a style injected into the
 // widget's shadow root, keeping the launcher visible but out of the way.
+//
+// The floating launcher also sat on top of controls inside modal surfaces —
+// e.g. the copy-address button on the Deposit USDC drawer. Whenever any modal
+// overlay is open (Vaul drawer or a Radix dialog/sheet/alert-dialog) we hide the
+// launcher entirely so it can never overlap in-modal buttons, then restore it on
+// close. A single MutationObserver on <body> makes this generic across every
+// current and future modal surface without per-modal wiring.
 
 const API_URL =
   (import.meta.env.VITE_SUPPORT_WIDGET_API_URL as string | undefined) ??
@@ -20,9 +27,45 @@ type Handle = { open: () => void; close: () => void; destroy: () => void };
 const LAUNCHER_OFFSET_CSS =
   ".launcher{bottom:calc(env(safe-area-inset-bottom, 0px) + 96px)!important}";
 
+// Any element matching this indicates an open modal overlay whose controls the
+// launcher must not sit on top of: Vaul drawers (`[vaul-drawer]`) plus Radix
+// dialogs / sheets / alert-dialogs (`role=dialog|alertdialog`), all of which
+// carry `data-state="open"` while shown.
+const OPEN_MODAL_SELECTOR =
+  '[vaul-drawer][data-state="open"],[role="dialog"][data-state="open"],[role="alertdialog"][data-state="open"]';
+
 let widget: Promise<Handle> | null = null;
 let container: HTMLDivElement | null = null;
 let mountedKey: string | null = null;
+// The <style> tag inside the current widget's shadow root that we toggle to
+// hide/show the launcher. Re-created on each mount (survives rebuilds).
+let hideStyleEl: HTMLStyleElement | null = null;
+let modalObserver: MutationObserver | null = null;
+
+function isModalOpen(): boolean {
+  return !!document.querySelector(OPEN_MODAL_SELECTOR);
+}
+
+// Hide the launcher while a modal is open; restore it otherwise.
+function syncLauncherVisibility() {
+  if (!hideStyleEl) return;
+  hideStyleEl.textContent = isModalOpen()
+    ? ".launcher{display:none!important}"
+    : "";
+}
+
+// Start (once) a body-wide observer that re-checks modal state whenever a
+// dialog/drawer mounts, unmounts, or flips its data-state.
+function ensureModalObserver() {
+  if (modalObserver) return;
+  modalObserver = new MutationObserver(syncLauncherVisibility);
+  modalObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-state"],
+  });
+}
 
 function mount(
   country: string,
@@ -55,13 +98,19 @@ function mount(
         ? { homeScreen: false, starterPrompts: [prompt], openOnLoad: true }
         : {}),
     });
-    // Lift the floating launcher above the sticky Buy/Pay/Sell footer.
+    // Lift the floating launcher above the sticky Buy/Pay/Sell footer, and add a
+    // second (initially empty) style tag we toggle to hide the launcher whenever
+    // a modal overlay is open so it never covers in-modal controls.
     const host = el.querySelector<HTMLElement>("[data-commops-widget]");
     const shadow = host?.shadowRoot;
     if (shadow) {
       const style = document.createElement("style");
       style.textContent = LAUNCHER_OFFSET_CSS;
       shadow.appendChild(style);
+      hideStyleEl = document.createElement("style");
+      shadow.appendChild(hideStyleEl);
+      ensureModalObserver();
+      syncLauncherVisibility();
     }
     return handle as Handle;
   });
@@ -74,6 +123,7 @@ async function rebuildIfNeeded(key: string) {
     container?.remove();
     widget = null;
     container = null;
+    hideStyleEl = null;
   }
 }
 
