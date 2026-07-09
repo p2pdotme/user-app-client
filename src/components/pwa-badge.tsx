@@ -37,45 +37,6 @@ function PWABadge({ force = false }: PWABadgeProps) {
   const location = useLocation();
   const { checkContractSync } = useContractVersion();
 
-  // Auto-restart when a new service worker takes control, but only while the
-  // tab is hidden/not actively used, so we never interrupt an in-progress
-  // session (form input, swaps). Foreground updates fall back to the prompt.
-  useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
-
-    let reloaded = false;
-    let updatePending = false;
-
-    const reloadIfHidden = () => {
-      if (reloaded || !updatePending) return;
-      if (document.visibilityState === "hidden") {
-        reloaded = true;
-        window.location.reload();
-      }
-    };
-
-    const onControllerChange = () => {
-      // A new SW has taken control (new assets available). Restart now if the
-      // tab is already backgrounded, otherwise defer until it is.
-      updatePending = true;
-      reloadIfHidden();
-    };
-
-    navigator.serviceWorker.addEventListener(
-      "controllerchange",
-      onControllerChange,
-    );
-    document.addEventListener("visibilitychange", reloadIfHidden);
-
-    return () => {
-      navigator.serviceWorker.removeEventListener(
-        "controllerchange",
-        onControllerChange,
-      );
-      document.removeEventListener("visibilitychange", reloadIfHidden);
-    };
-  }, []);
-
   // Keep original toast-based flow for service worker update availability
   useEffect(() => {
     if (needRefresh) {
