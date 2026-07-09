@@ -255,7 +255,7 @@ export function Verifications() {
     setZkPassportStatus(null);
 
     const sessionResult = await createZkPassportFlow({
-      domain: "app.p2p.me",
+      domain: "testing-user-app.netlify.app",
       name: "ZKPassport",
       logo: "https://app.p2p.lol/favicon.svg",
       purpose: t("ZK_PASSPORT_PURPOSE"),
