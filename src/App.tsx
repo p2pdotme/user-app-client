@@ -13,6 +13,7 @@ import {
   CurrencyGate,
   PageTransitioner,
   PWABadge,
+  SupportWidget,
   // AuthStatusDebug,
   // PWAStatusDebug,
 } from "@/components";
@@ -136,6 +137,8 @@ function App() {
                         {/* First-run currency confirmation for all users */}
                         <CurrencyGate />
                         <Router />
+                        {/* Global AI support chat launcher (lifted above footer) */}
+                        <SupportWidget />
                         {/* Debug component for development */}
                         {/* <AuthStatusDebug /> */}
                       </PageTransitioner>
