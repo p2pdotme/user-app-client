@@ -37,10 +37,7 @@ export default ({ mode }: { mode: string }) => {
         srcDir: "src",
         filename: "sw.ts",
         injectRegister: false,
-        // "prompt" (not "autoUpdate"): a new deploy is flagged via needRefresh
-        // and applied only when the user hits Reload / on next cold start, so an
-        // active session is never disrupted. See sw.ts (no skipWaiting).
-        registerType: "prompt",
+        registerType: "autoUpdate",
         workbox: {
           clientsClaim: true,
           skipWaiting: true,
