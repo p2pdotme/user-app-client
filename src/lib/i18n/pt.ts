@@ -78,6 +78,8 @@ export const pt = {
     ARIA_SWITCH_CURRENCY: "Alternar moeda",
     ARIA_VERIFIED_TOKEN: "Token verificado",
     ARRAY_LENGTH_MISMATCH: "Tamanho do array não corresponde",
+    ASK_AI_ABOUT: 'Pergunte ao assistente de IA sobre "{{query}}"',
+    ASK_AI_ASSISTANT: "Pergunte ao assistente de IA",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "Peça ao vendedor para gerar QR apenas depois que seu scanner abrir",
     ATTEMPTED_AMOUNT: "Valor tentado",
@@ -1125,6 +1127,7 @@ export const pt = {
     NO_DISPUTE: "Sem Disputa",
     NO_DISPUTED_TRANSACTIONS: "Nenhuma transação disputada encontrada",
     NO_ELIGIBLE_CIRCLES: "Nenhum círculo elegível",
+    NO_FAQ_RESULTS: "Nenhuma FAQ corresponde à sua busca.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
       "Sem liquidez fiduciária na bolsa para concluir o pedido",
     NO_FUNCTION_EXISTS: "Nenhuma função existe!",

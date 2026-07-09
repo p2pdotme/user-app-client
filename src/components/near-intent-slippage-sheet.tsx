@@ -28,9 +28,7 @@ export function NearIntentSlippageSheet({
   onConfirm,
 }: NearIntentSlippageSheetProps) {
   const { t } = useTranslation();
-  const [customMode, setCustomMode] = useState(
-    !PRESETS_BPS.includes(valueBps),
-  );
+  const [customMode, setCustomMode] = useState(!PRESETS_BPS.includes(valueBps));
   const [customText, setCustomText] = useState(
     PRESETS_BPS.includes(valueBps) ? "" : (valueBps / 100).toString(),
   );
@@ -71,8 +69,7 @@ export function NearIntentSlippageSheet({
                 onClick={() => {
                   setCustomMode(false);
                   setSelectedBps(bps);
-                }}
-              >
+                }}>
                 {formatPercent(bps)}
               </button>
             ))}
@@ -93,8 +90,7 @@ export function NearIntentSlippageSheet({
               <button
                 type="button"
                 className="h-10 flex-1 rounded-lg text-muted-foreground text-sm"
-                onClick={() => setCustomMode(true)}
-              >
+                onClick={() => setCustomMode(true)}>
                 {t("CUSTOM")}
               </button>
             )}
@@ -104,8 +100,7 @@ export function NearIntentSlippageSheet({
           <div className="rounded-xl bg-muted p-3 text-center text-sm">
             <Trans
               i18nKey="BRIDGE_SLIPPAGE_EFFECT"
-              values={{ percent: draftBps ? formatPercent(draftBps) : "0%" }}
-            >
+              values={{ percent: draftBps ? formatPercent(draftBps) : "0%" }}>
               <span className="font-semibold" />
             </Trans>
           </div>
@@ -133,15 +128,13 @@ export function NearIntentSlippageSheet({
             <Button
               className="w-full p-6"
               disabled={!draftBps}
-              onClick={confirm}
-            >
+              onClick={confirm}>
               {t("CONFIRM")}
             </Button>
             <Button
               variant="outline"
               className="w-full p-6"
-              onClick={() => onOpenChange(false)}
-            >
+              onClick={() => onOpenChange(false)}>
               {t("CANCEL")}
             </Button>
           </div>
