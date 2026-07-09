@@ -56,6 +56,7 @@ export default ({ mode }: { mode: string }) => {
         injectManifest: {
           maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+          globIgnores: ["**/barretenberg*.js"],
         },
       }),
       sentryVitePlugin({
