@@ -164,7 +164,9 @@ import {
 } from "../client";
 
 export function sendPreparedTx(
-  prepResult: Result<{ to: Address; data: `0x${string}` }, ZkkycError>,
+  // The SDK's zkkyc `prepare*` helpers type `to` as a plain string; it is
+  // narrowed to `Address` below before use.
+  prepResult: Result<{ to: string; data: `0x${string}` }, ZkkycError>,
   account: Account,
   operationName: string,
 ): ResultAsync<TransactionReceipt, ThirdwebAdapterError | ZkkycError> {
