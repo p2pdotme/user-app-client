@@ -7,6 +7,7 @@ import {
   getQuoteDeadline,
   getStatus,
   getTokens,
+  isStellarOrigin,
   isTerminalStatus,
   ONECLICK_APP_FEE_BPS,
   ONECLICK_APP_FEE_RECIPIENT,
@@ -65,6 +66,9 @@ export function useOneClickTokens() {
 
 export type QuoteParams = {
   originAsset: string;
+  // Registry blockchain slug of the origin asset (e.g. "stellar", "base"), used
+  // to pick the right depositMode. Optional — detection falls back to assetId.
+  originBlockchain?: string;
   destinationAsset: string;
   amount: string; // origin-asset base units
   recipient: string;
@@ -82,6 +86,10 @@ export function buildQuoteRequest(
     slippageTolerance: params.slippageBps ?? DEFAULT_SLIPPAGE_BPS,
     originAsset: params.originAsset,
     depositType: "ORIGIN_CHAIN",
+    // Stellar only accepts MEMO mode; all other origins keep the default SIMPLE.
+    ...(isStellarOrigin(params.originAsset, params.originBlockchain)
+      ? { depositMode: "MEMO" as const }
+      : {}),
     destinationAsset: params.destinationAsset,
     amount: params.amount,
     recipient: params.recipient,

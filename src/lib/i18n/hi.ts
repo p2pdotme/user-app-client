@@ -101,6 +101,7 @@ export const hi = {
     BRIDGE_CONNECT_WALLET: "ब्रिज का उपयोग करने के लिए अपना वॉलेट कनेक्ट करें।",
     BRIDGE_COPY_ADDRESS: "पता कॉपी करें",
     BRIDGE_COPY_AMOUNT: "राशि कॉपी करें",
+    BRIDGE_COPY_MEMO: "मेमो कॉपी करें",
     BRIDGE_CREATING: "बनाया जा रहा है…",
     BRIDGE_CUSTOM_SLIPPAGE_LABEL: "कस्टम स्लिपेज प्रतिशत",
     BRIDGE_DEPOSIT_AMOUNT: "जमा राशि",
@@ -114,6 +115,9 @@ export const hi = {
     BRIDGE_INSUFFICIENT_FUNDS: "अपर्याप्त धनराशि",
     BRIDGE_LOAD_ASSETS_FAILED: "समर्थित एसेट लोड करने में विफल: {{message}}",
     BRIDGE_MEMO: "मेमो",
+    BRIDGE_MEMO_COPIED: "मेमो कॉपी किया गया",
+    BRIDGE_MEMO_REQUIRED_WARNING:
+      "आपको अपनी जमा राशि के साथ यह मेमो शामिल करना होगा। इसके बिना भेजी गई धनराशि जमा नहीं की जा सकती और खो जाएगी।",
     BRIDGE_NO_CHAINS_FOUND: "कोई चेन नहीं मिली",
     BRIDGE_NO_TOKENS_FOUND: "कोई टोकन नहीं मिला",
     BRIDGE_RATE: "दर",
@@ -144,6 +148,8 @@ export const hi = {
     BRIDGE_STATUS_INCOMPLETE_DEPOSIT: "अपूर्ण जमा",
     BRIDGE_STATUS_KNOWN_DEPOSIT_TX: "जमा का पता चला",
     BRIDGE_STATUS_PENDING_DEPOSIT: "जमा की प्रतीक्षा है",
+    BRIDGE_STELLAR_MEMO_MISSING:
+      "Stellar जमा के लिए मेमो आवश्यक है, लेकिन कोई नहीं मिला। आगे नहीं बढ़ा जा रहा — मेमो के बिना भेजा गया Stellar जमा क्रेडिट नहीं किया जा सकता।",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "अपना पूरा स्वैप इतिहास देखने के लिए, <0>NEAR Intents एक्सप्लोरर<1></1></0> पर जाएं",
     BRIDGE_TOTAL_AMOUNT: "कुल राशि",

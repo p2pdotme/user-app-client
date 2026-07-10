@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { transferUSDC } from "@/core/adapters/thirdweb/actions/usdc";
 import {
+  assertStellarDepositMemo,
   BASE_USDC_ASSET_ID,
   DEFAULT_SLIPPAGE_BPS,
   getQuote,
@@ -429,6 +430,7 @@ export function SwapForm({
       ? isWithdraw
         ? {
             originAsset: BASE_USDC_ASSET_ID,
+            originBlockchain: "base",
             destinationAsset: token.assetId,
             amount,
             recipient: address,
@@ -437,6 +439,7 @@ export function SwapForm({
           }
         : {
             originAsset: token.assetId,
+            originBlockchain: token.blockchain,
             destinationAsset: BASE_USDC_ASSET_ID,
             amount,
             recipient: account.address,
@@ -461,6 +464,13 @@ export function SwapForm({
       const response = await getQuote(buildQuoteRequest(quoteParams, false));
       const { depositAddress, depositMemo } = response.quote;
       if (!depositAddress) throw new Error("No deposit address returned");
+      // Never surface a Stellar deposit address without its memo — a memo-less
+      // Stellar deposit is never credited by 1Click.
+      assertStellarDepositMemo({
+        originAsset: quoteParams.originAsset,
+        originBlockchain: quoteParams.originBlockchain,
+        depositMemo,
+      });
 
       const bridge: PendingBridge = {
         direction,
