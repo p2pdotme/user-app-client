@@ -104,6 +104,7 @@ export const pt = {
     BRIDGE_CONNECT_WALLET: "Conecte sua carteira para usar a ponte.",
     BRIDGE_COPY_ADDRESS: "Copiar endereço",
     BRIDGE_COPY_AMOUNT: "Copiar valor",
+    BRIDGE_COPY_MEMO: "Copiar memo",
     BRIDGE_CREATING: "Criando…",
     BRIDGE_CUSTOM_SLIPPAGE_LABEL: "Porcentagem de slippage personalizada",
     BRIDGE_DEPOSIT_AMOUNT: "Valor do depósito",
@@ -118,6 +119,9 @@ export const pt = {
     BRIDGE_LOAD_ASSETS_FAILED:
       "Falha ao carregar os ativos suportados: {{message}}",
     BRIDGE_MEMO: "Memo",
+    BRIDGE_MEMO_COPIED: "Memo copiado",
+    BRIDGE_MEMO_REQUIRED_WARNING:
+      "Você precisa incluir este memo no seu depósito. Fundos enviados sem ele não podem ser creditados e serão perdidos.",
     BRIDGE_NO_CHAINS_FOUND: "Nenhuma rede encontrada",
     BRIDGE_NO_TOKENS_FOUND: "Nenhum token encontrado",
     BRIDGE_RATE: "Taxa",
@@ -149,6 +153,8 @@ export const pt = {
     BRIDGE_STATUS_INCOMPLETE_DEPOSIT: "Depósito incompleto",
     BRIDGE_STATUS_KNOWN_DEPOSIT_TX: "Depósito detectado",
     BRIDGE_STATUS_PENDING_DEPOSIT: "Aguardando depósito",
+    BRIDGE_STELLAR_MEMO_MISSING:
+      "Depósitos na Stellar exigem um memo, mas nenhum foi retornado. Não é possível prosseguir: um depósito da Stellar enviado sem memo não pode ser creditado.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "Para ver seu histórico completo de swaps, acesse o <0>explorador NEAR Intents<1></1></0>",
     BRIDGE_TOTAL_AMOUNT: "Valor total",
