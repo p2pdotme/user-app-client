@@ -13,6 +13,12 @@ export const BASE_USDC_ASSET_ID =
 
 export const ONECLICK_EXPLORER_URL = "https://explorer.near-intents.org";
 
+// Chains 1Click lists in /v0/tokens but doesn't support for bridging yet
+// (e.g. Hypercore/Hyperliquid rejects quotes with "Hypercore deposits not
+// supported yet"). Hidden from the deposit and withdraw pickers so users don't
+// pick a chain that fails at quote time.
+export const UNSUPPORTED_CHAINS = new Set<string>(["hypercore"]);
+
 export const DEFAULT_SLIPPAGE_BPS = 200; // 2%
 
 export function getQuoteDeadline(): string {
