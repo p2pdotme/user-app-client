@@ -104,6 +104,7 @@ export const id = {
     BRIDGE_CONNECT_WALLET: "Hubungkan dompet Anda untuk menggunakan bridge.",
     BRIDGE_COPY_ADDRESS: "Salin alamat",
     BRIDGE_COPY_AMOUNT: "Salin jumlah",
+    BRIDGE_COPY_MEMO: "Salin memo",
     BRIDGE_CREATING: "Membuat…",
     BRIDGE_CUSTOM_SLIPPAGE_LABEL: "Persentase slippage kustom",
     BRIDGE_DEPOSIT_AMOUNT: "Jumlah Deposit",
@@ -117,6 +118,9 @@ export const id = {
     BRIDGE_INSUFFICIENT_FUNDS: "Dana tidak cukup",
     BRIDGE_LOAD_ASSETS_FAILED: "Gagal memuat aset yang didukung: {{message}}",
     BRIDGE_MEMO: "Memo",
+    BRIDGE_MEMO_COPIED: "Memo disalin",
+    BRIDGE_MEMO_REQUIRED_WARNING:
+      "Anda harus menyertakan memo ini dengan deposit Anda. Dana yang dikirim tanpa memo tidak dapat dikreditkan dan akan hilang.",
     BRIDGE_NO_CHAINS_FOUND: "Tidak ada chain ditemukan",
     BRIDGE_NO_TOKENS_FOUND: "Tidak ada token ditemukan",
     BRIDGE_RATE: "Kurs",
@@ -148,6 +152,8 @@ export const id = {
     BRIDGE_STATUS_INCOMPLETE_DEPOSIT: "Deposit tidak lengkap",
     BRIDGE_STATUS_KNOWN_DEPOSIT_TX: "Deposit terdeteksi",
     BRIDGE_STATUS_PENDING_DEPOSIT: "Menunggu deposit",
+    BRIDGE_STELLAR_MEMO_MISSING:
+      "Deposit Stellar memerlukan memo, tetapi tidak ada yang dikembalikan. Tidak dilanjutkan — deposit Stellar yang dikirim tanpa memo tidak dapat dikreditkan.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "Untuk melihat riwayat swap lengkap Anda, kunjungi <0>explorer NEAR Intents<1></1></0>",
     BRIDGE_TOTAL_AMOUNT: "Jumlah Total",
