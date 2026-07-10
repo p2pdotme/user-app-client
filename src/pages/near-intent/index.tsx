@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   BASE_USDC_ASSET_ID,
   ONECLICK_EXPLORER_URL,
+  UNSUPPORTED_CHAINS,
 } from "@/core/near-intents";
 import { useThirdweb } from "@/hooks";
 import { useOneClickTokens, usePendingBridges } from "@/hooks/use-oneclick";
@@ -91,9 +92,15 @@ export function OneClick() {
         ? t("WITHDRAW")
         : t("BRIDGE");
 
-  // The hub asset itself isn't a valid counter-asset
+  // The hub asset itself isn't a valid counter-asset, and chains 1Click can't
+  // bridge yet are hidden so the pickers only show usable options.
   const selectableTokens = useMemo(
-    () => tokens.filter((token) => token.assetId !== BASE_USDC_ASSET_ID),
+    () =>
+      tokens.filter(
+        (token) =>
+          token.assetId !== BASE_USDC_ASSET_ID &&
+          !UNSUPPORTED_CHAINS.has(token.blockchain),
+      ),
     [tokens],
   );
 
