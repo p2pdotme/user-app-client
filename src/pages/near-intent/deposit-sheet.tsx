@@ -51,6 +51,12 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
     toast.success(t("BRIDGE_AMOUNT_COPIED"));
   };
 
+  const copyMemo = async () => {
+    if (!bridge.depositMemo) return;
+    await navigator.clipboard.writeText(bridge.depositMemo);
+    toast.success(t("BRIDGE_MEMO_COPIED"));
+  };
+
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent
@@ -110,9 +116,24 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
             <CopyIcon className="size-4 shrink-0 text-muted-foreground" />
           </button>
           {bridge.depositMemo && (
-            <p className="text-sm">
-              {t("BRIDGE_MEMO")}: <code>{bridge.depositMemo}</code>
-            </p>
+            <div className="flex w-full flex-col gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-3">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold text-sm">{t("BRIDGE_MEMO")}</span>
+                <button
+                  type="button"
+                  aria-label={t("BRIDGE_COPY_MEMO")}
+                  className="flex items-center gap-1.5 rounded-lg bg-muted px-3 py-1.5 transition-colors hover:bg-muted/80"
+                  onClick={copyMemo}
+                >
+                  <code className="break-all text-sm">{bridge.depositMemo}</code>
+                  <CopyIcon className="size-4 shrink-0 text-muted-foreground" />
+                </button>
+              </div>
+              <p className="flex items-start gap-2 text-destructive text-sm">
+                <TriangleAlertIcon className="mt-0.5 size-4 shrink-0" />
+                {t("BRIDGE_MEMO_REQUIRED_WARNING")}
+              </p>
+            </div>
           )}
 
           <div className="flex w-full items-start gap-2 rounded-xl bg-yellow-500/10 p-3 mt-4">
