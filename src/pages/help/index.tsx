@@ -11,6 +11,7 @@ import ASSETS from "@/assets";
 import {
   NonHomeHeader,
   SectionHeader,
+  SupportWidget,
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
@@ -83,6 +84,10 @@ export function Help() {
 
   return (
     <>
+      {/* Mount the AI support chat launcher only here, on the Help & Support
+          page — it tears down on navigation away so the floating icon isn't
+          shown across the rest of the app. */}
+      <SupportWidget />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
         <YouTubeVideoDialog
