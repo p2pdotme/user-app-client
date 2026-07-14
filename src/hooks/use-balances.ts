@@ -39,6 +39,9 @@ export function useBalances(currencySymbol?: Currency["currency"]) {
         );
     },
     enabled: !!account?.address && !!symbol,
+    refetchInterval: 1 * 60 * 1000,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
   });
 
   return {

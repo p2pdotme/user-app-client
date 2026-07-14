@@ -28,6 +28,9 @@ export type QuoteRequest = {
   slippageTolerance: number; // bps
   originAsset: string;
   depositType: "ORIGIN_CHAIN";
+  // Stellar only supports "MEMO"; every other chain uses "SIMPLE" (the default
+  // when omitted). Deposits in MEMO mode are matched by depositAddress + memo.
+  depositMode?: "SIMPLE" | "MEMO";
   destinationAsset: string;
   amount: string; // origin-asset base units
   recipient: string;

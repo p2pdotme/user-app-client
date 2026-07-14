@@ -36,6 +36,9 @@ export function usePriceConfig(currencySymbol?: Currency["currency"]) {
       );
     },
     enabled: !!symbol,
+    refetchInterval: 1 * 60 * 1000,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
   });
 
   return {
