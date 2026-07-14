@@ -104,6 +104,7 @@ export const en = {
     BRIDGE_CONNECT_WALLET: "Connect your wallet to use the bridge.",
     BRIDGE_COPY_ADDRESS: "Copy address",
     BRIDGE_COPY_AMOUNT: "Copy amount",
+    BRIDGE_COPY_MEMO: "Copy memo",
     BRIDGE_CREATING: "Creating…",
     BRIDGE_CUSTOM_SLIPPAGE_LABEL: "Custom slippage percent",
     BRIDGE_DEPOSIT_AMOUNT: "Deposit Amount",
@@ -117,6 +118,9 @@ export const en = {
     BRIDGE_INSUFFICIENT_FUNDS: "Insufficient funds",
     BRIDGE_LOAD_ASSETS_FAILED: "Failed to load supported assets: {{message}}",
     BRIDGE_MEMO: "Memo",
+    BRIDGE_MEMO_COPIED: "Memo copied",
+    BRIDGE_MEMO_REQUIRED_WARNING:
+      "You must include this memo with your deposit. Funds sent without it cannot be credited and will be lost.",
     BRIDGE_NO_CHAINS_FOUND: "No chains found",
     BRIDGE_NO_TOKENS_FOUND: "No tokens found",
     BRIDGE_RATE: "Rate",
@@ -148,6 +152,8 @@ export const en = {
     BRIDGE_STATUS_INCOMPLETE_DEPOSIT: "Incomplete deposit",
     BRIDGE_STATUS_KNOWN_DEPOSIT_TX: "Deposit detected",
     BRIDGE_STATUS_PENDING_DEPOSIT: "Waiting for deposit",
+    BRIDGE_STELLAR_MEMO_MISSING:
+      "Stellar deposits require a memo, but none was returned. Not proceeding — a Stellar deposit sent without a memo cannot be credited.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "To see your full swap history, visit the <0>NEAR Intents explorer<1></1></0>",
     BRIDGE_TOTAL_AMOUNT: "Total Amount",
