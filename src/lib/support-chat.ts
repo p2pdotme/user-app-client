@@ -136,6 +136,24 @@ export async function ensureAiSupportWidget(country: string, wallet?: string) {
   return widget;
 }
 
+// Tear the shared instance down entirely: destroy the widget, drop its
+// container + shadow-root styles, and stop the modal observer. Called when the
+// Help page (the only surface that mounts the launcher) unmounts, so the
+// floating icon never lingers on other screens.
+export async function destroyAiSupportWidget() {
+  if (widget) {
+    const handle = await widget;
+    handle.destroy();
+  }
+  container?.remove();
+  modalObserver?.disconnect();
+  widget = null;
+  container = null;
+  mountedKey = null;
+  hideStyleEl = null;
+  modalObserver = null;
+}
+
 // Open the chat panel, optionally prefilled with `prompt` (rebuilds the shared
 // instance if the market, wallet, or the prefilled query changed).
 export async function openAiSupportChat(

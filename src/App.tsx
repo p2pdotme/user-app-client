@@ -13,7 +13,6 @@ import {
   CurrencyGate,
   PageTransitioner,
   PWABadge,
-  SupportWidget,
   // AuthStatusDebug,
   // PWAStatusDebug,
 } from "@/components";
@@ -137,8 +136,9 @@ function App() {
                         {/* First-run currency confirmation for all users */}
                         <CurrencyGate />
                         <Router />
-                        {/* Global AI support chat launcher (lifted above footer) */}
-                        <SupportWidget />
+                        {/* AI support chat launcher is mounted by the Help &
+                            Support page only (see pages/help), not globally —
+                            so the floating icon isn't shown on every screen. */}
                         {/* Debug component for development */}
                         {/* <AuthStatusDebug /> */}
                       </PageTransitioner>
