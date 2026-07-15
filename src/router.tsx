@@ -216,9 +216,15 @@ export function Router() {
         <Route path={INTERNAL_HREFS.PAY} element={<Pay />} />
         <Route path={INTERNAL_HREFS.P2P_TOKEN} element={<P2PToken />} />
         <Route path={INTERNAL_HREFS.P2P_TOKEN_SWAP} element={<P2PSwap />} />
-        <Route path={INTERNAL_HREFS.P2P_TOKEN_SWAP_HISTORY} element={<P2PSwapHistory />} />
+        <Route
+          path={INTERNAL_HREFS.P2P_TOKEN_SWAP_HISTORY}
+          element={<P2PSwapHistory />}
+        />
         <Route path={INTERNAL_HREFS.P2P_TOKEN_STAKE} element={<P2PStake />} />
-        <Route path={INTERNAL_HREFS.P2P_TOKEN_MY_STAKE} element={<P2PMyStake />} />
+        <Route
+          path={INTERNAL_HREFS.P2P_TOKEN_MY_STAKE}
+          element={<P2PMyStake />}
+        />
 
         <Route path={`${INTERNAL_HREFS.ORDER}/:id`} element={<Order />} />
 
