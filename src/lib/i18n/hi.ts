@@ -75,6 +75,8 @@ export const hi = {
     ARIA_SWITCH_CURRENCY: "मुद्रा बदलें",
     ARIA_VERIFIED_TOKEN: "सत्यापित टोकन",
     ARRAY_LENGTH_MISMATCH: "ऐरे की लंबाई मेल नहीं खाती",
+    ASK_AI_ABOUT: 'AI असिस्टेंट से "{{query}}" के बारे में पूछें',
+    ASK_AI_ASSISTANT: "AI असिस्टेंट से पूछें",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "स्कैनर खुलने के बाद ही विक्रेता से QR जनरेट करने को कहें",
     ATTEMPTED_AMOUNT: "प्रयास की गई राशि",
@@ -1076,6 +1078,7 @@ export const hi = {
     NO_DISPUTE: "कोई विवाद नहीं",
     NO_DISPUTED_TRANSACTIONS: "कोई विवादित लेनदेन नहीं मिला",
     NO_ELIGIBLE_CIRCLES: "कोई संभावित सर्कल नहीं",
+    NO_FAQ_RESULTS: "आपकी खोज से कोई FAQ मेल नहीं खाया।",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
       "ऑर्डर पूरा करने के लिए एक्सचेंज पर कोई फिएट तरलता नहीं है",
     NO_FUNCTION_EXISTS: "कोई फ़ंक्शन मौजूद नहीं है!",

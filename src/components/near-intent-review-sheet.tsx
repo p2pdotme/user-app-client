@@ -55,11 +55,9 @@ export function NearIntentReviewSheet({
 
   const side = (data: ReviewSide, align: "left" | "right") => (
     <div
-      className={`flex flex-col gap-3 ${align === "right" ? "items-end" : "items-start"}`}
-    >
+      className={`flex flex-col gap-3 ${align === "right" ? "items-end" : "items-start"}`}>
       <div
-        className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse" : ""}`}
-      >
+        className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse" : ""}`}>
         <TokenIcon
           symbol={data.symbol}
           iconUrl={data.iconUrl}
@@ -67,17 +65,14 @@ export function NearIntentReviewSheet({
           className="size-10"
         />
         <span
-          className={`flex flex-col leading-tight ${align === "right" ? "items-end" : ""}`}
-        >
+          className={`flex flex-col leading-tight ${align === "right" ? "items-end" : ""}`}>
           <span className="font-semibold">{data.symbol}</span>
           <span className="text-muted-foreground text-xs capitalize">
             {data.blockchain}
           </span>
         </span>
       </div>
-      <span
-        className={`flex flex-col ${align === "right" ? "items-end" : ""}`}
-      >
+      <span className={`flex flex-col ${align === "right" ? "items-end" : ""}`}>
         <span className="font-semibold">{data.amount}</span>
         {formatUsd(data.usd) && (
           <span className="text-muted-foreground text-sm">
@@ -145,8 +140,7 @@ export function NearIntentReviewSheet({
           <Button
             className="mt-2 w-full p-6"
             disabled={pending}
-            onClick={onConfirm}
-          >
+            onClick={onConfirm}>
             {pending ? t("BRIDGE_CONFIRMING") : t("CONFIRM")}
           </Button>
         </div>
