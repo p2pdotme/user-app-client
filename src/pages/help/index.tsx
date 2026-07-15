@@ -1,19 +1,27 @@
-import { ArrowRight, MessagesSquare, Rocket, Settings } from "lucide-react";
+import {
+  ArrowRight,
+  Bot,
+  MessagesSquare,
+  Rocket,
+  Settings,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
 import {
   NonHomeHeader,
   SectionHeader,
+  SupportWidget,
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
 import { SocialLinks } from "@/components/social-links";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
-import { useAnalytics } from "@/hooks";
+import { useAnalytics, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { openAiSupportChat } from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
 import { SettingsItem } from "./components/settings-item";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -27,6 +35,7 @@ export function Help() {
   const {
     settings: { currency },
   } = useSettings();
+  const { account } = useThirdweb();
   const { isOpen, videoUrl, title, isPortrait, openVideo, closeVideo } =
     useYouTubeVideoDialog();
 
@@ -75,6 +84,10 @@ export function Help() {
 
   return (
     <>
+      {/* Mount the AI support chat launcher only here, on the Help & Support
+          page — it tears down on navigation away so the floating icon isn't
+          shown across the rest of the app. */}
+      <SupportWidget />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
         <YouTubeVideoDialog
@@ -99,6 +112,20 @@ export function Help() {
               <ArrowRight className="size-3 text-primary" />
             </Button>
           </div>
+          <button
+            type="button"
+            onClick={() =>
+              openAiSupportChat(currency.currency || "global", account?.address)
+            }
+            className="flex w-full items-center justify-between gap-4 rounded-lg bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
+            <div className="flex items-center gap-2">
+              <Bot className="size-4 text-primary" />
+              <span className="font-medium text-primary text-sm">
+                {t("ASK_AI_ASSISTANT")}
+              </span>
+            </div>
+            <ArrowRight className="size-3 text-primary" />
+          </button>
         </section>
 
         <section className="flex w-full flex-col justify-between gap-4">
