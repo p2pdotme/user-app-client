@@ -58,7 +58,13 @@ function QRCodeDrawer({
   orderId: string;
 }) {
   const { t } = useTranslation();
-  const upiLink = generateUPILink(paymentAddress, amount, currency, orderId);
+  // PEN merchant addresses are already a complete EMVCo (Yape/Plin) QR payload,
+  // so render them raw. INR (and other UPI-style) addresses are wrapped into a
+  // upi:// deep link first.
+  const qrValue =
+    currency === "PEN"
+      ? paymentAddress
+      : generateUPILink(paymentAddress, amount, currency, orderId);
 
   return (
     <Drawer>
@@ -73,7 +79,7 @@ function QRCodeDrawer({
 
         <div className="flex flex-col items-center gap-6 px-4 pb-4">
           <div className="rounded-xl border-2 border-primary bg-white p-4 shadow-primary-shadow shadow-xl">
-            <QRCodeSVG value={upiLink} size={200} level="L" />
+            <QRCodeSVG value={qrValue} size={200} level="L" />
           </div>
 
           <div className="flex w-full flex-col items-center gap-2">
@@ -513,25 +519,27 @@ export function BuyAccepted({ order }: { order: Order }) {
                       <Copy className="size-4 text-primary" />
                       <span className="sr-only">{t("COPY_TO_CLIPBOARD")}</span>
                     </Button>
-                    {decryptedPaymentAddress && order.currency === "INR" && (
-                      <QRCodeDrawer
-                        paymentAddress={decryptedPaymentAddress}
-                        amount={
-                          actualFiatAmount
-                            ? formatFiatAmountNumeric(
-                                actualFiatAmount,
-                                order.currency,
-                              )
-                            : ""
-                        }
-                        currency={order.currency}
-                        orderId={order.id.toString()}>
-                        <div className="flex size-6 cursor-pointer items-center justify-center rounded-sm border-primary bg-primary/20">
-                          <QrCode className="size-4 text-primary" />
-                          <span className="sr-only">{t("SHOW_QR_CODE")}</span>
-                        </div>
-                      </QRCodeDrawer>
-                    )}
+                    {decryptedPaymentAddress &&
+                      (order.currency === "INR" ||
+                        order.currency === "PEN") && (
+                        <QRCodeDrawer
+                          paymentAddress={decryptedPaymentAddress}
+                          amount={
+                            actualFiatAmount
+                              ? formatFiatAmountNumeric(
+                                  actualFiatAmount,
+                                  order.currency,
+                                )
+                              : ""
+                          }
+                          currency={order.currency}
+                          orderId={order.id.toString()}>
+                          <div className="flex size-6 cursor-pointer items-center justify-center rounded-sm border-primary bg-primary/20">
+                            <QrCode className="size-4 text-primary" />
+                            <span className="sr-only">{t("SHOW_QR_CODE")}</span>
+                          </div>
+                        </QRCodeDrawer>
+                      )}
                   </div>
                 </div>
               )}
