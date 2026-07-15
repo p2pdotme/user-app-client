@@ -76,6 +76,8 @@ export const en = {
     ARIA_SWITCH_CURRENCY: "Switch currency",
     ARIA_VERIFIED_TOKEN: "Verified token",
     ARRAY_LENGTH_MISMATCH: "Array length mismatch",
+    ASK_AI_ABOUT: 'Ask AI Assistant about "{{query}}"',
+    ASK_AI_ASSISTANT: "Ask AI Assistant",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "Ask the vendor to generate QR only after your scanner opens",
     ATTEMPTED_AMOUNT: "Attempted amount",
@@ -1107,6 +1109,7 @@ export const en = {
     NO_DISPUTE: "No Dispute",
     NO_DISPUTED_TRANSACTIONS: "No disputed transactions found",
     NO_ELIGIBLE_CIRCLES: "No eligible circles",
+    NO_FAQ_RESULTS: "No FAQs matched your search.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
       "No fiat liquidity on exchange to complete order",
     NO_FUNCTION_EXISTS: "No function exists!",
