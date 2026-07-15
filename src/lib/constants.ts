@@ -222,6 +222,7 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     "account-name": "PLACEHOLDER_ACCOUNT_NAME_NGN",
   },
   COP: { alias: "PLACEHOLDER_PAYMENT_ID_COP" },
+  PEN: { paymentId: "PLACEHOLDER_PAYMENT_ID_PEN" },
 };
 
 export const PAYMENT_ID_FIELDS = Object.fromEntries(
