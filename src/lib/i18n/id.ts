@@ -131,6 +131,8 @@ export const id = {
     BRIDGE_REFUND_ADDRESS_HINT:
       "Alamat Anda di chain asal, digunakan jika swap dikembalikan.",
     BRIDGE_REFUND_ADDRESS_INVALID: "Alamat pengembalian dana tidak valid.",
+    BRIDGE_REPORT_ISSUE_PROMPT:
+      "Tidak menerima dana Anda? Ajukan tiket ke <0>NEAR Intents support<1></1></0>",
     BRIDGE_REVIEW_QUOTE: "Tinjau Kutipan",
     BRIDGE_SEARCH_CHAIN: "Cari chain…",
     BRIDGE_SEARCH_TOKEN: "Cari token atau chain…",

@@ -143,6 +143,20 @@ export function OneClick() {
           </p>
         )}
 
+        <p className="text-center text-muted-foreground text-sm">
+          <Trans i18nKey="BRIDGE_REPORT_ISSUE_PROMPT">
+            <a
+              href="https://near.com/support"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-primary underline"
+            >
+              NEAR Intents support
+              <ExternalLinkIcon className="size-3.5" />
+            </a>
+          </Trans>
+        </p>
+
         {bridges.length > 0 && (
           <section className="flex flex-col gap-3 mt-6">
             <div className="flex flex-col gap-1">
