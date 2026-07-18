@@ -132,6 +132,8 @@ export const es = {
     BRIDGE_REFUND_ADDRESS_HINT:
       "Tu dirección en la cadena de origen, utilizada si el intercambio es reembolsado.",
     BRIDGE_REFUND_ADDRESS_INVALID: "La dirección de reembolso no es válida.",
+    BRIDGE_REPORT_ISSUE_PROMPT:
+      "¿No recibiste tus fondos? Abre un ticket con <0>NEAR Intents support<1></1></0>",
     BRIDGE_REVIEW_QUOTE: "Revisar cotización",
     BRIDGE_SEARCH_CHAIN: "Buscar cadena…",
     BRIDGE_SEARCH_TOKEN: "Buscar token o cadena…",
