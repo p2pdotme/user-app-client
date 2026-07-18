@@ -128,6 +128,8 @@ export const hi = {
     BRIDGE_REFUND_ADDRESS_HINT:
       "ओरिजिन चेन पर आपका पता, जिसका उपयोग स्वैप रिफंड होने पर किया जाता है।",
     BRIDGE_REFUND_ADDRESS_INVALID: "रिफंड पता मान्य नहीं है।",
+    BRIDGE_REPORT_ISSUE_PROMPT:
+      "आपको अपनी राशि नहीं मिली? <0>NEAR Intents support<1></1></0> पर टिकट दर्ज करें",
     BRIDGE_REVIEW_QUOTE: "कोट की समीक्षा करें",
     BRIDGE_SEARCH_CHAIN: "चेन खोजें…",
     BRIDGE_SEARCH_TOKEN: "टोकन या चेन खोजें…",
