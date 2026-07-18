@@ -132,6 +132,8 @@ export const pt = {
     BRIDGE_REFUND_ADDRESS_HINT:
       "Seu endereço na rede de origem, usado se o swap for reembolsado.",
     BRIDGE_REFUND_ADDRESS_INVALID: "O endereço de reembolso não é válido.",
+    BRIDGE_REPORT_ISSUE_PROMPT:
+      "Não recebeu seus fundos? Abra um ticket com o <0>NEAR Intents support<1></1></0>",
     BRIDGE_REVIEW_QUOTE: "Revisar cotação",
     BRIDGE_SEARCH_CHAIN: "Buscar rede…",
     BRIDGE_SEARCH_TOKEN: "Buscar token ou rede…",

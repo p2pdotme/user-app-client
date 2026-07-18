@@ -129,6 +129,8 @@ export const en = {
     BRIDGE_REFUND_ADDRESS_HINT:
       "Your address on the origin chain, used if the swap is refunded.",
     BRIDGE_REFUND_ADDRESS_INVALID: "The refund address isn't valid.",
+    BRIDGE_REPORT_ISSUE_PROMPT:
+      "Didn't receive your funds? Raise a ticket with <0>NEAR Intents support<1></1></0>",
     BRIDGE_REVIEW_QUOTE: "Review Quote",
     BRIDGE_SEARCH_CHAIN: "Search chain…",
     BRIDGE_SEARCH_TOKEN: "Search token or chain…",
