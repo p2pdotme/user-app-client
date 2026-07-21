@@ -54,7 +54,6 @@ interface ImportMetaEnv {
 
   // Encrypted payment proof service (optional; feature is off when unset)
   readonly VITE_ENCRYPTED_PROOF_API_URL?: string;
-  readonly VITE_ENCRYPTED_PROOF_DOMAIN?: string;
 }
 
 interface ImportMeta {
