@@ -622,6 +622,149 @@ export function generateUPILink(
   return `upi://pay?${params.toString()}`;
 }
 
+/* ── Pix (BRL) BR Code ──────────────────────────────────────────────────
+ * Brazil's Pix uses EMVCo QRCPS-MPM (Merchant Presented Mode). Unlike PEN —
+ * where the merchant sends a complete EMVCo payload rendered verbatim — a BRL
+ * merchant sends only their Pix key, so we build the scan-to-pay BR Code here.
+ * Ported from @p2pdotme/widgets (src/core/pix-brcode.ts).
+ */
+
+type PixKeyType = "cpf" | "cnpj" | "email" | "phone" | "random";
+
+// One EMVCo TLV field: ID(2) + LENGTH(2, from the value) + VALUE.
+function pixTlv(id: string, value: string): string {
+  return `${id}${value.length.toString().padStart(2, "0")}${value}`;
+}
+
+// CRC-16/CCITT-FALSE: poly 0x1021, init 0xFFFF, no reflect, no xorout.
+function crc16(payload: string): string {
+  let crc = 0xffff;
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let b = 0; b < 8; b++) {
+      crc = crc & 0x8000 ? (crc << 1) ^ 0x1021 : crc << 1;
+      crc &= 0xffff;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+
+// Best-effort key-type detection from the raw key string (the merchant sends
+// only the key, not its type). Phone keys ALWAYS carry a +55 country code, so
+// that check requires it — otherwise a bare 11-digit CPF is misread as a phone.
+function detectPixKeyType(raw: string): PixKeyType {
+  const trimmed = raw.trim();
+  const digits = trimmed.replace(/\D/g, "");
+  if (
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      trimmed,
+    )
+  )
+    return "random";
+  if (trimmed.includes("@")) return "email";
+  if (
+    trimmed.startsWith("+") ||
+    (digits.startsWith("55") && (digits.length === 12 || digits.length === 13))
+  )
+    return "phone";
+  if (digits.length === 14) return "cnpj";
+  if (digits.length === 11) return "cpf";
+  return "random";
+}
+
+// Normalize a key to the canonical form Pix expects for each type. Throws when
+// the key doesn't match its detected shape (caller falls back to the raw key).
+function normalizePixKey(raw: string, keyType: PixKeyType): string {
+  const trimmed = raw.trim();
+  switch (keyType) {
+    case "cpf": {
+      const digits = trimmed.replace(/\D/g, "");
+      if (digits.length !== 11) throw new Error(`CPF key must be 11 digits`);
+      return digits;
+    }
+    case "cnpj": {
+      const digits = trimmed.replace(/\D/g, "");
+      if (digits.length !== 14) throw new Error(`CNPJ key must be 14 digits`);
+      return digits;
+    }
+    case "phone": {
+      const digits = trimmed.replace(/\D/g, "");
+      const withCountry =
+        digits.startsWith("55") && digits.length > 11 ? digits : `55${digits}`;
+      if (withCountry.length < 12 || withCountry.length > 13)
+        throw new Error(`Invalid phone key`);
+      return `+${withCountry}`;
+    }
+    case "email": {
+      const lower = trimmed.toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lower))
+        throw new Error(`Invalid email key`);
+      return lower;
+    }
+    case "random": {
+      const lower = trimmed.toLowerCase();
+      if (
+        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
+          lower,
+        )
+      )
+        throw new Error(`Invalid random/EVP key`);
+      return lower;
+    }
+  }
+}
+
+/**
+ * Builds a static Pix BR Code (scan-to-pay QR payload) from a merchant's Pix
+ * key. `amount` is the fiat string shown in the drawer; it is coerced to the
+ * dot-decimal `NN.NN` the EMV amount field (54) requires. Merchant name/city
+ * (EMV 59/60) fall back to generic values — the payer's bank app shows the
+ * real payee from the key registration, not from the QR. Returns the raw key
+ * unchanged when it can't be turned into a valid payload, so the drawer's copy
+ * field still works.
+ * @param pixKey - The merchant's Pix key (cpf/cnpj/email/phone/random)
+ * @param amount - The fiat amount to pay (may be comma-decimal, pt-BR)
+ * @param orderId - The order id, used as the txid (EMV 62-05)
+ * @returns The BR Code payload string to encode in the QR
+ */
+export function buildPixBrCode(
+  pixKey: string,
+  amount: string,
+  orderId: string,
+): string {
+  try {
+    const keyType = detectPixKeyType(pixKey);
+    const normalizedKey = normalizePixKey(pixKey, keyType);
+
+    // EMV amount (54) is dot-decimal; `amount` may arrive comma-decimal
+    // (pt-BR). Grouping is off upstream, so a lone comma is the decimal mark.
+    const parsed = Number(amount.replace(",", "."));
+    const amountField =
+      Number.isFinite(parsed) && parsed > 0 ? parsed.toFixed(2) : undefined;
+
+    // txid (62-05) is alphanumeric, ≤25 chars; "***" is Bacen's "no txid".
+    const txid = orderId.replace(/[^A-Za-z0-9]/g, "").slice(0, 25) || "***";
+
+    const merchantAccountInfo =
+      pixTlv("00", "BR.GOV.BCB.PIX") + pixTlv("01", normalizedKey);
+    const body =
+      pixTlv("00", "01") +
+      pixTlv("01", "11") +
+      pixTlv("26", merchantAccountInfo) +
+      pixTlv("52", "0000") +
+      pixTlv("53", "986") +
+      (amountField ? pixTlv("54", amountField) : "") +
+      pixTlv("58", "BR") +
+      pixTlv("59", "PIX") +
+      pixTlv("60", "BRASIL") +
+      pixTlv("62", pixTlv("05", txid));
+    return body + "6304" + crc16(body + "6304");
+  } catch {
+    // Unrecognized/invalid key — render it raw so the copy field still helps.
+    return pixKey;
+  }
+}
+
 export function getScreenType() {
   const width =
     window.innerWidth || document.documentElement.clientWidth || screen.width;

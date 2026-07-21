@@ -37,6 +37,7 @@ import {
   formatFiatAmount,
   formatFiatAmountNumeric,
   generateUPILink,
+  buildPixBrCode,
   getPaymentMethodFromOrderDetails,
 } from "@/lib/utils";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
@@ -59,12 +60,15 @@ function QRCodeDrawer({
 }) {
   const { t } = useTranslation();
   // PEN merchant addresses are already a complete EMVCo (Yape/Plin) QR payload,
-  // so render them raw. INR (and other UPI-style) addresses are wrapped into a
+  // so render them raw. BRL (Pix) sends only the key, so we build a scan-to-pay
+  // BR Code from it. INR (and other UPI-style) addresses are wrapped into a
   // upi:// deep link first.
   const qrValue =
     currency === "PEN"
       ? paymentAddress
-      : generateUPILink(paymentAddress, amount, currency, orderId);
+      : currency === "BRL"
+        ? buildPixBrCode(paymentAddress, amount, orderId)
+        : generateUPILink(paymentAddress, amount, currency, orderId);
 
   return (
     <Drawer>
@@ -521,7 +525,8 @@ export function BuyAccepted({ order }: { order: Order }) {
                     </Button>
                     {decryptedPaymentAddress &&
                       (order.currency === "INR" ||
-                        order.currency === "PEN") && (
+                        order.currency === "PEN" ||
+                        order.currency === "BRL") && (
                         <QRCodeDrawer
                           paymentAddress={decryptedPaymentAddress}
                           amount={
