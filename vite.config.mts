@@ -88,7 +88,29 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     optimizeDeps: {
-      include: ["@zkpassport/sdk", "@reclaimprotocol/js-sdk"],
+      // Force every @dynamic-labs package to pre-bundle in ONE optimize pass.
+      // Otherwise Vite lazily re-optimizes them on demand and can split the
+      // wallet-connector-core singleton across chunks, yielding runtime errors
+      // like "registerEvmProviders/registerSolanaProviders is not a function".
+      include: [
+        "@zkpassport/sdk",
+        "@reclaimprotocol/js-sdk",
+        "@dynamic-labs/sdk-react-core",
+        "@dynamic-labs/wallet-connector-core",
+        "@dynamic-labs/ethereum",
+        "@dynamic-labs/ethereum-core",
+        "@dynamic-labs/solana",
+        "@dynamic-labs/solana-core",
+        "@dynamic-labs/multi-wallet",
+        "@dynamic-labs/embedded-wallet",
+        "@dynamic-labs/embedded-wallet-evm",
+        "@dynamic-labs/embedded-wallet-solana",
+        "@dynamic-labs/rpc-providers",
+        "@dynamic-labs/wallet-book",
+        "@dynamic-labs/store",
+        "@dynamic-labs/types",
+        "@dynamic-labs/utils",
+      ],
     },
     define: {
       global: "globalThis",
