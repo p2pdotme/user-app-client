@@ -201,13 +201,10 @@ export function RequestProofCard({
   // Past the request window with no request ever raised → nothing to show or do
   // (the server would reject a new request as WINDOW_EXPIRED). An existing
   // request/proof still renders so the buyer can track/download it.
-  // Use the server's live window (0 disables it) so a single env var controls the
-  // gate; fall back to the built-in default until the config loads.
-  const windowHours = publicConfig?.requestWindowHours ?? REQUEST_WINDOW_HOURS;
   const windowExpired =
-    windowHours > 0 &&
     !!completedTimestamp &&
-    Date.now() / 1000 - Number(completedTimestamp) > windowHours * 3600;
+    Date.now() / 1000 - Number(completedTimestamp) >
+      REQUEST_WINDOW_HOURS * 3600;
   // Nothing to request for a denylisted currency (server returns COUNTRY_DISABLED),
   // so hide the whole card if no request was ever raised. An existing request still
   // renders so the buyer can track/download it.
