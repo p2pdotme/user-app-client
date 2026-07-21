@@ -128,7 +128,7 @@ export const LANGUAGE_OPTIONS: Language[] = [
 // COUNTRY_OPTIONS from SDK — uses `currency` field (not `symbol`)
 export const COUNTRY_OPTIONS = SDK_COUNTRY_OPTIONS.filter(
   (item) => !item.disabled,
-);
+).sort((a, b) => Number(Boolean(a.isAlpha)) - Number(Boolean(b.isAlpha)));
 
 export const SUPPORTED_CURRENCIES = COUNTRY_OPTIONS.map((c) => c.currency) as [
   CurrencyType,
