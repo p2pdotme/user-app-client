@@ -16,6 +16,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { OnchainProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -187,6 +188,10 @@ export function BuyCompleted({ order }: { order: Order }) {
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
+
+        {/* Payment proof — BUY settles on-chain, so this deep-links to the USDC
+            transfer on the block explorer instead of the merchant-upload flow. */}
+        <OnchainProofCard txHash={usdcTxHash} isLoading={isTxHashLoading} />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">
           <CardContent>
