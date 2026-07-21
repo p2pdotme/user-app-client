@@ -1,6 +1,6 @@
 import { useFraudEngine } from "@p2pdotme/sdk/react";
 import { Loader2 } from "lucide-react";
-import { type ReactNode, useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { useThirdweb } from "@/hooks";
@@ -37,13 +37,32 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const fraudEngine = useFraudEngine();
   const loggedLoginRef = useRef<string | null>(null);
 
+  // Stop blocking the app on a wallet auto-connect/connect that never resolves.
+  // After the timeout the navigation effect below is allowed to fall through
+  // (redirecting to login when there's still no account) instead of leaving the
+  // full-screen loader up indefinitely.
+  const [connectTimedOut, setConnectTimedOut] = useState(false);
+  const isConnecting =
+    isAutoConnectLoading || connectionStatus === "connecting";
+
+  useEffect(() => {
+    if (!isConnecting) {
+      setConnectTimedOut(false);
+      return;
+    }
+    const id = setTimeout(() => setConnectTimedOut(true), 10_000);
+    return () => clearTimeout(id);
+  }, [isConnecting]);
+
   useEffect(() => {
     const currentPath = location.pathname;
     const isOnLoginPage = currentPath === INTERNAL_HREFS.LOGIN;
     const isOnMaintenancePage = currentPath === INTERNAL_HREFS.MAINTENANCE;
 
-    // Skip navigation logic during auto-connect loading to prevent flickering
-    if (isAutoConnectLoading) {
+    // Skip navigation logic during auto-connect loading to prevent flickering,
+    // unless the connect attempt has already timed out (then fall through so a
+    // stuck auto-connect still resolves to login instead of hanging).
+    if (isAutoConnectLoading && !connectTimedOut) {
       return;
     }
 
@@ -135,6 +154,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
     account?.address,
     connectionStatus,
     isAutoConnectLoading,
+    connectTimedOut,
     location.pathname,
     navigate,
     wallet,
@@ -148,9 +168,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const isOnMaintenancePage = currentPath === INTERNAL_HREFS.MAINTENANCE;
 
   const shouldShowGlobalLoading =
-    (isAutoConnectLoading || connectionStatus === "connecting") &&
-    !isOnLoginPage &&
-    !isOnMaintenancePage;
+    isConnecting && !connectTimedOut && !isOnLoginPage && !isOnMaintenancePage;
 
   if (shouldShowGlobalLoading) {
     return (
