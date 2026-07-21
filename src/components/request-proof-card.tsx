@@ -40,6 +40,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { viemChain } from "@/core/adapters/thirdweb/chain";
 import {
   createProofClientFor,
+  fetchProofPublicConfig,
   isProofServiceConfigured,
 } from "@/core/encrypted-payment-proof/client";
 import { useThirdweb } from "@/hooks/use-thirdweb";
@@ -68,11 +69,16 @@ function roleLabel(role: ProofFileDto["uploadedByRole"], t: TFunction): string {
 export function RequestProofCard({
   orderId,
   completedTimestamp,
+  currency,
 }: {
   orderId: string;
   // On-chain completion time (unix seconds) — used to hide the request once the
   // 48h window has passed. Optional so callers without it keep the old behavior.
   completedTimestamp?: string;
+  // Order's on-chain currency — checked against the server's denylist so the
+  // request control is hidden for a disabled currency. Optional so callers
+  // without it keep the old behavior.
+  currency?: string;
 }) {
   const { t } = useTranslation();
   const { account } = useThirdweb();
@@ -81,6 +87,22 @@ export function RequestProofCard({
   const queryClient = useQueryClient();
   const queryKey = ["proofRequest", orderId];
   const enabled = isProofServiceConfigured() && !!account;
+
+  // Public feature config (currency denylist). Unauthenticated, cached, and only
+  // fetched when the service is configured — a UX hint; the server still enforces.
+  const { data: publicConfig, isLoading: configLoading } = useQuery({
+    queryKey: ["proofPublicConfig"],
+    enabled: isProofServiceConfigured(),
+    retry: false,
+    staleTime: 5 * 60_000,
+    queryFn: fetchProofPublicConfig,
+  });
+  const currencyDisabled =
+    !!currency &&
+    !!publicConfig &&
+    publicConfig.ignoredCurrencies.some(
+      (c) => c.toUpperCase() === currency.toUpperCase(),
+    );
 
   const { data: request, isLoading } = useQuery({
     queryKey,
@@ -184,7 +206,10 @@ export function RequestProofCard({
     !!completedTimestamp &&
     Date.now() / 1000 - Number(completedTimestamp) >
       REQUEST_WINDOW_HOURS * 3600;
-  if (!request && windowExpired) return null;
+  // Nothing to request for a denylisted currency (server returns COUNTRY_DISABLED),
+  // so hide the whole card if no request was ever raised. An existing request still
+  // renders so the buyer can track/download it.
+  if (!request && (windowExpired || currencyDisabled)) return null;
 
   const statusLabel = request
     ? request.status === "APPROVED"
@@ -218,15 +243,20 @@ export function RequestProofCard({
             </div>
           </div>
           {!request ? (
-            <Button
-              size="sm"
-              className="shrink-0"
-              disabled={isLoading || requestProof.isPending}
-              onClick={() => requestProof.mutate()}>
-              {requestProof.isPending
-                ? t("PROOF_REQUESTING")
-                : t("PROOF_REQUEST")}
-            </Button>
+            // While the currency config is still loading, hold the button back so
+            // we never briefly offer a request for a currency that turns out to be
+            // on the denylist.
+            currency && configLoading ? null : (
+              <Button
+                size="sm"
+                className="shrink-0"
+                disabled={isLoading || requestProof.isPending}
+                onClick={() => requestProof.mutate()}>
+                {requestProof.isPending
+                  ? t("PROOF_REQUESTING")
+                  : t("PROOF_REQUEST")}
+              </Button>
+            )
           ) : hasProof && files?.length ? (
             <Button
               size="sm"

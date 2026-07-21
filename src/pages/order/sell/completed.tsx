@@ -167,6 +167,7 @@ export function SellCompleted({ order }: { order: Order }) {
         <RequestProofCard
           orderId={order.id.toString()}
           completedTimestamp={order.completedTimestamp}
+          currency={order.currency}
         />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">

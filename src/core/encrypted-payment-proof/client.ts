@@ -26,11 +26,34 @@ export function isProofServiceConfigured(): boolean {
   return typeof baseUrl === "string" && baseUrl.length > 0;
 }
 
+export interface ProofPublicConfig {
+  /** On-chain currency codes for which proof requests are disabled (denylist). */
+  ignoredCurrencies: string[];
+  /** How long after completion a proof may still be requested, in hours. */
+  requestWindowHours: number;
+}
+
+/**
+ * Fetch the proof service's public feature config (currency denylist + request
+ * window). Unauthenticated — no wallet prompt — so the card can decide on load
+ * whether to offer the request control for this order's currency. The server
+ * still enforces both, so this is only a UX hint.
+ */
+export async function fetchProofPublicConfig(): Promise<ProofPublicConfig> {
+  if (!baseUrl) throw new Error("Payment proof service is not configured");
+  const res = await fetch(`${baseUrl.replace(/\/$/, "")}/public/config`);
+  if (!res.ok) throw new Error(`proof config ${res.status}`);
+  return (await res.json()) as ProofPublicConfig;
+}
+
 // One bearer-session authorizer per address, so a burst of calls shares ONE
 // signature and reuses the token until it expires.
 const authCache = new Map<string, () => Promise<string>>();
 
-function authorizationFor(account: Account, url: string): () => Promise<string> {
+function authorizationFor(
+  account: Account,
+  url: string,
+): () => Promise<string> {
   const key = account.address.toLowerCase();
   let authorization = authCache.get(key);
   if (!authorization) {
@@ -39,7 +62,8 @@ function authorizationFor(account: Account, url: string): () => Promise<string> 
       address: account.address,
       chainId: chain.id,
       signMessage: (message) => account.signMessage({ message }),
-      storage: typeof sessionStorage !== "undefined" ? sessionStorage : undefined,
+      storage:
+        typeof sessionStorage !== "undefined" ? sessionStorage : undefined,
     });
     authCache.set(key, authorization);
   }
