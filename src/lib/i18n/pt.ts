@@ -1480,6 +1480,17 @@ export const pt = {
     PROCESSING_QR: "Processando código QR",
     PROCESSING_TRANSACTIONS: "Transações em Processamento",
     PROCESSING_USDC: "Processando USDC",
+    PROOF_APPROVED: "Comprovante aprovado",
+    PROOF_DESCRIPTION:
+      "Peça ao lojista para anexar um recibo criptografado a este pedido.",
+    PROOF_PENDING: "Solicitado — aguardando o lojista",
+    PROOF_REQUEST: "Solicitar comprovante",
+    PROOF_REQUESTED: "Comprovante de pagamento solicitado",
+    PROOF_REQUESTING: "Solicitando…",
+    PROOF_REQUEST_FAILED:
+      "Não foi possível solicitar o comprovante de pagamento",
+    PROOF_TITLE: "Comprovante de pagamento",
+    PROOF_UPLOADED: "Comprovante enviado",
     PWA_CHECK_INTERNET: "Verifique sua conexão com a internet.",
     PWA_DOWNLOADING_UPDATE: "Baixando atualização",
     PWA_INSTALL_ACCEPTED: "Instalação de aplicativo aceita",
