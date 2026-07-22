@@ -44,6 +44,29 @@ import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
 
 const COUNTDOWN_DURATION = 5 * 60 * 1000; // 5 minutes
 
+// Builds the value encoded into the scannable QR code for a given currency.
+// PEN merchant addresses are already a complete EMVCo (Yape/Plin) QR payload,
+// so we render them raw. BRL (Pix) sends only the key, so we build a scan-to-pay
+// BR Code from it. INR (and other UPI-style) addresses are wrapped into a
+// upi:// deep link first.
+function buildQrValue({
+  paymentAddress,
+  amount,
+  currency,
+  orderId,
+}: {
+  paymentAddress: string;
+  amount: string;
+  currency: keyof typeof CURRENCY_META_DATA;
+  orderId: string;
+}) {
+  return currency === "PEN"
+    ? paymentAddress
+    : currency === "BRL"
+      ? buildPixBrCode(paymentAddress, amount, orderId)
+      : generateUPILink(paymentAddress, amount, currency, orderId);
+}
+
 // QR Code Drawer Component
 function QRCodeDrawer({
   children,
@@ -59,16 +82,7 @@ function QRCodeDrawer({
   orderId: string;
 }) {
   const { t } = useTranslation();
-  // PEN merchant addresses are already a complete EMVCo (Yape/Plin) QR payload,
-  // so render them raw. BRL (Pix) sends only the key, so we build a scan-to-pay
-  // BR Code from it. INR (and other UPI-style) addresses are wrapped into a
-  // upi:// deep link first.
-  const qrValue =
-    currency === "PEN"
-      ? paymentAddress
-      : currency === "BRL"
-        ? buildPixBrCode(paymentAddress, amount, orderId)
-        : generateUPILink(paymentAddress, amount, currency, orderId);
+  const qrValue = buildQrValue({ paymentAddress, amount, currency, orderId });
 
   return (
     <Drawer>
@@ -523,9 +537,11 @@ export function BuyAccepted({ order }: { order: Order }) {
                       <Copy className="size-4 text-primary" />
                       <span className="sr-only">{t("COPY_TO_CLIPBOARD")}</span>
                     </Button>
+                    {/* PEN addresses are a raw EMVCo payload that can't be
+                        pasted into Yape/Plin, so the QR is shown inline (always
+                        visible) below instead of behind a drawer. */}
                     {decryptedPaymentAddress &&
                       (order.currency === "INR" ||
-                        order.currency === "PEN" ||
                         order.currency === "BRL") && (
                         <QRCodeDrawer
                           paymentAddress={decryptedPaymentAddress}
@@ -546,6 +562,34 @@ export function BuyAccepted({ order }: { order: Order }) {
                         </QRCodeDrawer>
                       )}
                   </div>
+                </div>
+              )}
+
+              {/* Peru (Yape/Plin/CCI): the payment address is a full EMVCo QR
+                  payload that users can't copy-paste into their app, so the QR
+                  is always visible here for them to scan. */}
+              {decryptedPaymentAddress && order.currency === "PEN" && (
+                <div className="flex flex-col items-center gap-2 pt-2">
+                  <div className="rounded-xl border-2 border-primary bg-white p-3 shadow-primary-shadow shadow-xl">
+                    <QRCodeSVG
+                      value={buildQrValue({
+                        paymentAddress: decryptedPaymentAddress,
+                        amount: actualFiatAmount
+                          ? formatFiatAmountNumeric(
+                              actualFiatAmount,
+                              order.currency,
+                            )
+                          : "",
+                        currency: order.currency,
+                        orderId: order.id.toString(),
+                      })}
+                      size={180}
+                      level="L"
+                    />
+                  </div>
+                  <p className="text-center text-muted-foreground text-xs">
+                    {t("SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP")}
+                  </p>
                 </div>
               )}
 
