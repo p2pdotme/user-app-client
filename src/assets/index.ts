@@ -57,7 +57,6 @@ import { Twitter } from "./icons/twitter";
 import { Usdc } from "./icons/usdc";
 import { WithdrawCross } from "./icons/withdraw-cross";
 import { WithdrawDirect } from "./icons/withdraw-direct";
-import { ZkPassport } from "./icons/zk-passport";
 
 // iOS now requires installing the Reclaim Verifier app (App Clip removed).
 const IOS_RECLAIM_VERIFIER = createAssetUrl("images/ios-reclaim-verifier.png");
@@ -190,9 +189,6 @@ const THUMBNAIL_WITHDRAW_DIRECT_PT = createAssetUrl(
 const THUMBNAIL_WITHDRAW_DIRECT_ES = createAssetUrl(
   "images/thumbnails/withdraw-direct-es.png",
 );
-const THUMBNAIL_ZK_VERIFY_AADHAAR = createAssetUrl(
-  "images/thumbnails/zk-verify-aadhaar.png",
-);
 const THUMBNAIL_ZK_VERIFY_GITHUB = createAssetUrl(
   "images/thumbnails/zk-verify-github.png",
 );
@@ -270,7 +266,6 @@ const ASSETS = {
     SidebarTransactions,
     SidebarReferral,
     GoPay,
-    ZkPassport,
   },
   IMAGES: {
     HOME_GUIDE_BANNER_BG,
@@ -315,7 +310,6 @@ const ASSETS = {
       CROSS_CHAIN_DEPOSIT: THUMBNAIL_CROSS_CHAIN_DEPOSIT,
       CROSS_CHAIN_DEPOSIT_PT: THUMBNAIL_CROSS_CHAIN_DEPOSIT_PT,
       CROSS_CHAIN_DEPOSIT_ES: THUMBNAIL_CROSS_CHAIN_DEPOSIT_ES,
-      ZK_VERIFY_AADHAAR: THUMBNAIL_ZK_VERIFY_AADHAAR,
       SCAN_AND_PAY_ORDER: THUMBNAIL_SCAN_AND_PAY_ORDER,
       SCAN_AND_PAY_ORDER_PT: THUMBNAIL_SCAN_AND_PAY_ORDER_PT,
       SCAN_AND_PAY_ORDER_ES: THUMBNAIL_SCAN_AND_PAY_ORDER_ES,
@@ -409,7 +403,6 @@ export const CDN_ASSET_URLS = [
   THUMBNAIL_CROSS_CHAIN_DEPOSIT,
   THUMBNAIL_CROSS_CHAIN_DEPOSIT_PT,
   THUMBNAIL_CROSS_CHAIN_DEPOSIT_ES,
-  THUMBNAIL_ZK_VERIFY_AADHAAR,
   THUMBNAIL_SCAN_AND_PAY_ORDER,
   THUMBNAIL_SCAN_AND_PAY_ORDER_PT,
   THUMBNAIL_SCAN_AND_PAY_ORDER_ES,

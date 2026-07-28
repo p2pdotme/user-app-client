@@ -1,6 +1,5 @@
 export const es = {
   translation: {
-    AADHAAR_VERIFICATION_FAILED: "La verificación de Aadhaar falló",
     ABOUT_P2P_TOKEN: "Acerca del Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P es el token de gobernanza y utilidad del Protocolo P2P, que impulsa la gobernanza basada en futarquía, el control de tesorería y el staking de confianza ("Círculos de Confianza") para una rampa de entrada/salida fiat-cripto descentralizada y que preserva la privacidad.',
@@ -597,10 +596,6 @@ export const es = {
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
       "1. Abre la página del Recibo del Pedido.\n2. Toca el ícono de ayuda (?) en la esquina superior derecha.\n3. Selecciona 'Abrir Disputa' y sigue las instrucciones.",
     FAQ_HOW_CHECK_CURRENT_LIMITS: "¿Cómo puedo verificar mis límites actuales?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION:
-      "¿Cómo completo la verificación de Aadhaar?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION_ANSWER:
-      "La zk-verificación de Aadhaar (India) solo está disponible una vez que hayas completado al menos una zk-verificación social. Sigue las instrucciones cuidadosamente durante el proceso.\n\nNota: Para una experiencia fluida, asegúrate de que tu PC tenga al menos 8GB de RAM.",
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "¿Cómo puedo depositar USDC en mi wallet P2P.me?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
@@ -646,7 +641,7 @@ export const es = {
       "Hay dos formas de ganar en P2P.me:\n\n1. Referir Usuarios: Una vez que tus límites de Compra superen los $150, puedes comenzar a referir usuarios a través de la App P2P.me y ganar el 0.5% de su volumen de operaciones.\n2. Convertirte en un Comerciante Verificado: También puedes ganar convirtiéndote en un Comerciante Verificado en el protocolo lp.p2p.me y cumpliendo pedidos de igual a igual.",
     FAQ_HOW_TO_INCREASE_LIMITS: "¿Cómo aumento mis límites de Compra/Venta?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "Puedes aumentar tus límites de dos maneras:\n\n1. Completa al menos una verificación social zk en tu página de Mis Límites para aumentar instantáneamente tus límites y desbloquear hasta 5 pedidos de compra por día.\n\n2. Verifica tu identidad usando:\n • zk-Aadhaar (Solo escritorio, disponible después de completar al menos una verificación social zk, solo en India)\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nDespués de completar tu primera verificación zk, puedes seguir aumentando tus límites completando más transacciones en P2P.me.\n\nNota: No recopilamos ni compartimos tus datos personales. Todas las verificaciones utilizan pruebas de conocimiento cero, asegurando que tu información permanezca privada y segura mientras se prueba solo lo necesario. Como no almacenamos tus datos, no podemos compartirlos con nadie en el futuro.",
+      "Puedes aumentar tus límites de dos maneras:\n\n1. Completa al menos una verificación social zk en tu página de Mis Límites para aumentar instantáneamente tus límites y desbloquear hasta 5 pedidos de compra por día.\n\n2. Verifica tu identidad usando:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nDespués de completar tu primera verificación zk, puedes seguir aumentando tus límites completando más transacciones en P2P.me.\n\nNota: No recopilamos ni compartimos tus datos personales. Todas las verificaciones utilizan pruebas de conocimiento cero, asegurando que tu información permanezca privada y segura mientras se prueba solo lo necesario. Como no almacenamos tus datos, no podemos compartirlos con nadie en el futuro.",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "¿Cómo pago con Escanear y Pagar en P2P.me?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
       "- Obtén el monto de la factura - Pide a la tienda tu factura y confirma el total.\n- Abre P2P.me - Toca Escanear y Pagar, ingresa el monto de la factura y realiza el pedido. Una vez que se asigne a un comerciante de P2P.me, se abrirá el escáner en la aplicación.\n- Pide a la tienda que genere el código QR de pago - Solicita a la tienda que genere el QR en su máquina POS solo después de que se abra el escáner de P2P.me. (Nota: los QR de POS suelen expirar en ~2 minutos, por lo que el tiempo es crucial.)\n- Escanea y espera - Usa el escáner de P2P.me para escanear el QR. La mayoría de los pagos se procesan en 60 segundos, así que espera pacientemente.\n- QRs estáticos - Si la tienda tiene un código QR estático, es más simple ya que tendrás más tiempo para completar el pago.",
@@ -2023,11 +2018,8 @@ export const es = {
       "Verifica con ZK cualquier cuenta social para reclamar tu recompensa.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifica al menos una cuenta social para aumentar tus límites y sigue aumentándolos a medida que completas transacciones.",
-    VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "Verifica al menos una cuenta social para aumentar tus límites, y sigue aumentándolos a medida que completas transacciones.",
     VERIFY_ZK_PROOF: "Verificar prueba zk",
     VIA_JUPITER: "vía Jupiter",
-    VIDEO_AADHAR_VERIFICATION: "Verificación AADHAR",
     VIDEO_APP_TOUR: "Tour de la App",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
@@ -2105,10 +2097,6 @@ export const es = {
     VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
     VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_AADHAAR: "Verificación ZK - Aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_LINK:
-      "https://www.youtube.com/watch?v=zk-aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_ZK_VERIFICATION_BAD_CASES: "Verificación ZK - Problemas Comunes",
     VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
       "https://www.youtube.com/watch?v=zk-issues",
@@ -2197,41 +2185,6 @@ export const es = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "¡Has recibido una invitación especial! Verifica tus redes sociales para obtener tus recompensas de bono.",
     ZERO_ADDRESS: "Dirección cero",
-    ZK_PASSPORT_AGE_BELOW_MINIMUM: "Edad ZK Passport por debajo del mínimo",
-    ZK_PASSPORT_APP_REQUIRED: "Se requiere la aplicación ZK Passport",
-    ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
-      "Por favor, instala la aplicación ZK Passport para continuar con la verificación.",
-    ZK_PASSPORT_DESCRIPTION: "Solo titulares de pasaporte con NFC",
-    ZK_PASSPORT_DOMAIN_EMPTY: "Dominio ZK Passport está vacío",
-    ZK_PASSPORT_DOWNLOAD_ANDROID: "Descargar para Android",
-    ZK_PASSPORT_DOWNLOAD_IOS: "Descargar para iOS",
-    ZK_PASSPORT_IDENTIFIER_ALREADY_VERIFIED:
-      "Identificador ZK Passport ya verificado",
-    ZK_PASSPORT_INITIALIZATION_FAILED:
-      "Error al inicializar la verificación ZK Passport",
-    ZK_PASSPORT_INVALID_SCOPE: "Alcance ZK Passport inválido",
-    ZK_PASSPORT_MIN_AGE_TOO_HIGH: "Edad mínima ZK Passport demasiado alta",
-    ZK_PASSPORT_PROOF_GENERATED: "Prueba generada, enviando para verificación",
-    ZK_PASSPORT_PROOF_GENERATING: "Generando prueba, por favor espera...",
-    ZK_PASSPORT_PROOF_INVALID: "Prueba ZK Passport inválida",
-    ZK_PASSPORT_PROOF_SUBMITTED:
-      "Prueba enviada, verificando onchain para registro",
-    ZK_PASSPORT_PURPOSE: "Demuestra tu personalidad",
-    ZK_PASSPORT_QR_DESCRIPTION:
-      "Escanea el código QR con tu aplicación ZK Passport para verificar tu identidad",
-    ZK_PASSPORT_REQUEST_RECEIVED:
-      "Solicitud recibida, esperando que completes la verificación",
-    ZK_PASSPORT_SCAN_INSTRUCTIONS:
-      "Abre tu aplicación ZK Passport y escanea este código QR para completar la verificación",
-    ZK_PASSPORT_SCOPE_EMPTY: "Alcance ZK Passport está vacío",
-    ZK_PASSPORT_TUTORIAL_DESCRIPTION:
-      "Para completar la verificación, necesitarás la aplicación ZK Passport instalada en tu dispositivo.",
-    ZK_PASSPORT_TUTORIAL_TITLE: "Cómo verificar con ZK Passport",
-    ZK_PASSPORT_UNEXPECTED_SENDER: "Remitente ZK Passport inesperado",
-    ZK_PASSPORT_VERIFICATION: "Verificación ZK Passport",
-    ZK_PASSPORT_VERIFICATION_ERROR: "Error de verificación ZK Passport",
-    ZK_PASSPORT_VERIFICATION_FAILED: "Verificación ZK Passport fallida",
-    ZK_PASSPORT_VERIFIER_NOT_SET: "Verificador ZK Passport no configurado",
     ZK_VERIFICATION_REQUIRED: "Se requiere verificación ZK",
   },
 };

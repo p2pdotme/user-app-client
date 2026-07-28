@@ -1,4 +1,3 @@
-import { AnonAadhaarProvider } from "@anon-aadhaar/react";
 import { sdk } from "@farcaster/miniapp-sdk";
 import { CONTRACT_ADDRESSES } from "@p2pdotme";
 import { createLocalStorageRelayStore } from "@p2pdotme/sdk/orders";
@@ -135,24 +134,22 @@ function App() {
                 seonRegion: "asia",
               }}
               logger={console}>
-              <AnonAadhaarProvider>
-                <SettingsProvider>
-                  <AuthGuard>
-                    <DynamicProviderWrapper>
-                      <PageTransitioner className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
-                        {/* First-run currency confirmation for all users */}
-                        <CurrencyGate />
-                        <Router />
-                        {/* AI support chat launcher is mounted by the Help &
-                            Support page only (see pages/help), not globally —
-                            so the floating icon isn't shown on every screen. */}
-                        {/* Debug component for development */}
-                        {/* <AuthStatusDebug /> */}
-                      </PageTransitioner>
-                    </DynamicProviderWrapper>
-                  </AuthGuard>
-                </SettingsProvider>
-              </AnonAadhaarProvider>
+              <SettingsProvider>
+                <AuthGuard>
+                  <DynamicProviderWrapper>
+                    <PageTransitioner className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
+                      {/* First-run currency confirmation for all users */}
+                      <CurrencyGate />
+                      <Router />
+                      {/* AI support chat launcher is mounted by the Help &
+                          Support page only (see pages/help), not globally —
+                          so the floating icon isn't shown on every screen. */}
+                      {/* Debug component for development */}
+                      {/* <AuthStatusDebug /> */}
+                    </PageTransitioner>
+                  </DynamicProviderWrapper>
+                </AuthGuard>
+              </SettingsProvider>
             </P2pdotmeProvider>
           </ThirdwebProvider>
         </QueryClientProvider>

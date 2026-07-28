@@ -1,6 +1,5 @@
 export const hi = {
   translation: {
-    AADHAAR_VERIFICATION_FAILED: "आधार सत्यापन विफल",
     ABOUT_P2P_TOKEN: "$P2P टोकन के बारे में",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P, P2P प्रोटोकॉल का गवर्नेंस और यूटिलिटी टोकन है, जो विकेंद्रीकृत, गोपनीयता-संरक्षित फिएट-टू-क्रिप्टो ऑन/ऑफ-रैम्प के लिए फ्यूटार्की-आधारित प्रोटोकॉल गवर्नेंस, ट्रेज़री नियंत्रण और ट्रस्ट स्टेकिंग ("Circles of Trust") को सशक्त बनाता है।',
@@ -556,9 +555,6 @@ export const hi = {
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
       "1. ऑर्डर रसीद पेज खोलें।\n2. ऊपर-दाईं ओर मदद (?) आइकन पर टैप करें।\n3. 'विवाद उठाएँ' चुनें और निर्देशों का पालन करें।",
     FAQ_HOW_CHECK_CURRENT_LIMITS: "मैं अपनी वर्तमान सीमाएँ कैसे देख सकता हूँ?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION: "मैं आधार वेरिफिकेशन कैसे पूरा करूँ?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION_ANSWER:
-      "आधार zk-वेरिफिकेशन (भारत) केवल तभी उपलब्ध है जब आपने कम से कम एक सोशल zk-वेरिफिकेशन पूरा कर लिया हो। प्रक्रिया के दौरान निर्देशों का सावधानीपूर्वक पालन करें।\n\nनोट: सहज अनुभव के लिए, सुनिश्चित करें कि आपके PC में कम से कम 8GB RAM है।",
     FAQ_HOW_DEPOSIT_USDC_WALLET: "मैं अपने P2P.me वॉलेट में USDC कैसे जमा कर सकता हूँ?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
       "आप दो तरीकों से USDC जमा कर सकते हैं:\n• Base नेटवर्क पर अपने वॉलेट पते पर सीधा जमा\n• Near Intents का उपयोग करके क्रॉस-चेन जमा (यदि आप अन्य नेटवर्क से भेज रहे हैं)\n\nध्यान दें: केवल Base नेटवर्क पर USDC जमा करें। ETH या अन्य टोकन न भेजें - आपके फंड खो सकते हैं।",
@@ -601,7 +597,7 @@ export const hi = {
       "P2P.me पर पैसे कमाने के दो तरीके हैं:\n\n1. उपयोगकर्ताओं को रेफर करें: एक बार जब आपकी खरीद सीमाएं $150 से ऊपर हो जाती हैं, तो आप P2P.me ऐप के माध्यम से उपयोगकर्ताओं को रेफर करना शुरू कर सकते हैं और उनके ट्रेडिंग वॉल्यूम का 0.5% कमा सकते हैं।\n2. एक सत्यापित मर्चेंट बनें: आप lp.p2p.me प्रोटोकॉल पर एक सत्यापित मर्चेंट बनकर और पीयर-टू-पीयर ऑर्डर को पूरा करके भी कमा सकते हैं।",
     FAQ_HOW_TO_INCREASE_LIMITS: "मैं अपनी खरीद/बिक्री सीमाएं कैसे बढ़ाऊं?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "आप दो तरीकों से अपनी सीमाएं बढ़ा सकते हैं:\n\n1. अपने मेरी सीमाएं पृष्ठ पर कम से कम एक zk सोशल वेरिफिकेशन पूरा करें ताकि तुरंत अपनी सीमाएं बढ़ा सकें और प्रति दिन 5 खरीद ऑर्डर तक अनलॉक कर सकें।\n\n2. इसके माध्यम से अपनी पहचान सत्यापित करें:\n • zk-Aadhaar (केवल डेस्कटॉप, कम से कम एक zk सोशल वेरिफिकेशन पूरा करने के बाद उपलब्ध, केवल भारत में)\n • zk-सोशल (Instagram, LinkedIn, GitHub, X)\n\nअपनी पहली zk वेरिफिकेशन पूरा करने के बाद, आप P2P.me पर अधिक लेन-देन पूरा करके अपनी सीमाएं बढ़ाते रह सकते हैं।\n\nनोट: हम आपका व्यक्तिगत डेटा एकत्र या साझा नहीं करते हैं। सभी वेरिफिकेशन शून्य-ज्ञान प्रमाणों का उपयोग करते हैं, यह सुनिश्चित करते हुए कि आपकी जानकारी निजी और सुरक्षित रहती है जबकि केवल वही साबित करते हैं जिसकी आवश्यकता है। चूंकि हम आपका डेटा स्टोर नहीं करते हैं, हम भविष्य में इसे किसी के साथ साझा नहीं कर सकते हैं।",
+      "आप दो तरीकों से अपनी सीमाएं बढ़ा सकते हैं:\n\n1. अपने मेरी सीमाएं पृष्ठ पर कम से कम एक zk सोशल वेरिफिकेशन पूरा करें ताकि तुरंत अपनी सीमाएं बढ़ा सकें और प्रति दिन 5 खरीद ऑर्डर तक अनलॉक कर सकें।\n\n2. इसके माध्यम से अपनी पहचान सत्यापित करें:\n • zk-सोशल (Instagram, LinkedIn, GitHub, X)\n\nअपनी पहली zk वेरिफिकेशन पूरा करने के बाद, आप P2P.me पर अधिक लेन-देन पूरा करके अपनी सीमाएं बढ़ाते रह सकते हैं।\n\nनोट: हम आपका व्यक्तिगत डेटा एकत्र या साझा नहीं करते हैं। सभी वेरिफिकेशन शून्य-ज्ञान प्रमाणों का उपयोग करते हैं, यह सुनिश्चित करते हुए कि आपकी जानकारी निजी और सुरक्षित रहती है जबकि केवल वही साबित करते हैं जिसकी आवश्यकता है। चूंकि हम आपका डेटा स्टोर नहीं करते हैं, हम भविष्य में इसे किसी के साथ साझा नहीं कर सकते हैं।",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "मैं P2P.me पर स्कैन एंड पे के साथ कैसे भुगतान करूँ?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
       "- बिल राशि प्राप्त करें - दुकान से अपना बिल मांगें और कुल राशि की पुष्टि करें।\n- P2P.me खोलें - स्कैन एंड पे टैप करें, बिल राशि दर्ज करें, और ऑर्डर दें। एक बार जब यह P2P.me मर्चेंट को असाइन हो जाता है, तो इन-ऐप स्कैनर खुल जाएगा।\n- दुकान से भुगतान QR कोड जनरेट करने को कहें - P2P.me स्कैनर खुलने के बाद ही दुकान से उनकी POS मशीन पर QR जनरेट करने का अनुरोध करें। (नोट: POS QR आमतौर पर ~2 मिनट में एक्सपायर हो जाते हैं, इसलिए टाइमिंग महत्वपूर्ण है।)\n- स्कैन करें और प्रतीक्षा करें - QR स्कैन करने के लिए P2P.me स्कैनर का उपयोग करें। अधिकांश भुगतान 60 सेकंड के भीतर प्रोसेस हो जाते हैं, इसलिए धैर्यपूर्वक प्रतीक्षा करें।\n- स्थिर QR - यदि दुकान के पास स्थिर QR कोड है, तो यह सरल है क्योंकि आपके पास भुगतान पूरा करने के लिए अधिक समय होगा।",
@@ -1886,11 +1882,8 @@ export const hi = {
       "अपना पुरस्कार प्राप्त करने के लिए किसी भी सोशल अकाउंट को ZK सत्यापित करें।",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "अपनी सीमाएं बढ़ाने और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें।",
-    VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "अपनी सीमाएं बढ़ाने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें, और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहें।",
     VERIFY_ZK_PROOF: "zk प्रमाण सत्यापित करें",
     VIA_JUPITER: "Jupiter के माध्यम से",
-    VIDEO_AADHAR_VERIFICATION: "आधार वेरिफिकेशन",
     VIDEO_APP_TOUR: "ऐप टूर",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
@@ -1967,10 +1960,6 @@ export const hi = {
     VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
     VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_AADHAAR: "ZK वेरिफिकेशन - आधार",
-    VIDEO_ZK_VERIFICATION_AADHAAR_LINK:
-      "https://www.youtube.com/watch?v=zk-aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_ZK_VERIFICATION_BAD_CASES: "ZK वेरिफिकेशन - सामान्य समस्याएँ",
     VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
       "https://www.youtube.com/watch?v=zk-issues",
@@ -2056,41 +2045,6 @@ export const hi = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "आपको एक विशेष आमंत्रण मिला है! अपने बोनस पुरस्कार प्राप्त करने के लिए अपने सोशल मीडिया को सत्यापित करें।",
     ZERO_ADDRESS: "शून्य पता",
-    ZK_PASSPORT_AGE_BELOW_MINIMUM: "ZK Passport आयु न्यूनतम से कम है",
-    ZK_PASSPORT_APP_REQUIRED: "ZK Passport ऐप आवश्यक है",
-    ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
-      "कृपया सत्यापन जारी रखने के लिए ZK Passport ऐप इंस्टॉल करें।",
-    ZK_PASSPORT_DESCRIPTION: "केवल NFC पासपोर्ट धारक",
-    ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain खाली है",
-    ZK_PASSPORT_DOWNLOAD_ANDROID: "Android के लिए डाउनलोड करें",
-    ZK_PASSPORT_DOWNLOAD_IOS: "iOS के लिए डाउनलोड करें",
-    ZK_PASSPORT_IDENTIFIER_ALREADY_VERIFIED:
-      "ZK Passport identifier पहले से ही सत्यापित है",
-    ZK_PASSPORT_INITIALIZATION_FAILED: "ZK Passport सत्यापन प्रारंभ करने में विफल",
-    ZK_PASSPORT_INVALID_SCOPE: "ZK Passport अमान्य scope",
-    ZK_PASSPORT_MIN_AGE_TOO_HIGH: "ZK Passport न्यूनतम आयु बहुत अधिक है",
-    ZK_PASSPORT_PROOF_GENERATED:
-      "प्रमाण जेनरेट हो गया, सत्यापन के लिए सबमिट कर रहे हैं",
-    ZK_PASSPORT_PROOF_GENERATING: "प्रमाण जेनरेट हो रहा है, कृपया प्रतीक्षा करें...",
-    ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof अमान्य है",
-    ZK_PASSPORT_PROOF_SUBMITTED:
-      "प्रमाण सबमिट कर दिया गया, पंजीकरण के लिए onchain सत्यापन कर रहे हैं",
-    ZK_PASSPORT_PURPOSE: "अपनी पहचान साबित करें",
-    ZK_PASSPORT_QR_DESCRIPTION:
-      "अपनी पहचान सत्यापित करने के लिए अपने ZK Passport ऐप से QR कोड स्कैन करें",
-    ZK_PASSPORT_REQUEST_RECEIVED:
-      "अनुरोध प्राप्त हुआ, सत्यापन पूरा करने की प्रतीक्षा कर रहे हैं",
-    ZK_PASSPORT_SCAN_INSTRUCTIONS:
-      "अपना ZK Passport ऐप खोलें और सत्यापन पूरा करने के लिए इस QR कोड को स्कैन करें",
-    ZK_PASSPORT_SCOPE_EMPTY: "ZK Passport scope खाली है",
-    ZK_PASSPORT_TUTORIAL_DESCRIPTION:
-      "सत्यापन पूरा करने के लिए, आपको अपने डिवाइस पर ZK Passport ऐप इंस्टॉल करना होगा।",
-    ZK_PASSPORT_TUTORIAL_TITLE: "ZK Passport के साथ कैसे सत्यापित करें",
-    ZK_PASSPORT_UNEXPECTED_SENDER: "ZK Passport अप्रत्याशित sender",
-    ZK_PASSPORT_VERIFICATION: "ZK Passport सत्यापन",
-    ZK_PASSPORT_VERIFICATION_ERROR: "ZK Passport सत्यापन त्रुटि",
-    ZK_PASSPORT_VERIFICATION_FAILED: "ZK Passport सत्यापन विफल",
-    ZK_PASSPORT_VERIFIER_NOT_SET: "ZK Passport verifier सेट नहीं है",
     ZK_VERIFICATION_REQUIRED: "ZK सत्यापन आवश्यक है",
   },
 };

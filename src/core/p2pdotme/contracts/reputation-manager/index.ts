@@ -3,7 +3,6 @@ import type { Address } from "thirdweb";
 import { encodeFunctionData, stringToHex } from "viem";
 import {
   type AddOrUpdateCampaignManagerParams,
-  type AnonAadharProofParams,
   type ClaimCampaignUsdcParams,
   type ClaimRecommendationParams,
   type ClaimRecommendationRevenueParams,
@@ -26,10 +25,7 @@ import {
   type UserParams,
   validate,
   type WhitelistContractParams,
-  type ZkPassportRegisterParams,
-  ZodAadhaarRpParamsSchema,
   ZodAddOrUpdateCampaignManagerParamsSchema,
-  ZodAnonAadharProofParamsSchema,
   ZodBinanceRpParamsSchema,
   ZodClaimCampaignUsdcParamsSchema,
   ZodClaimRecommendationParamsSchema,
@@ -68,8 +64,6 @@ import {
   ZodVotingRpParamsSchema,
   ZodWhitelistContractParamsSchema,
   ZodXRpParamsSchema,
-  ZodZkPassportRegisterParamsSchema,
-  ZodZkPassportRpParamsSchema,
 } from "../../shared";
 import { ABIS, CONTRACT_ADDRESSES } from "../abis";
 
@@ -217,23 +211,6 @@ export function prepareGetUserTaskLedgerArgs(
   );
 }
 
-export function prepareGetIsAadharVerifiedArgs(params: UserParams): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "isAadharVerified";
-    args: [Address];
-  },
-  P2PError
-> {
-  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "isAadharVerified" as const,
-    args: [validatedParams.address],
-  }));
-}
-
 export function prepareGetIsLinkedInVerifiedArgs(params: UserParams): Result<
   {
     to: Address;
@@ -264,23 +241,6 @@ export function prepareGetIsXVerifiedArgs(params: UserParams): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "isXVerified" as const,
-    args: [validatedParams.address],
-  }));
-}
-
-export function prepareGetIsPassportVerifiedArgs(params: UserParams): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "isPassportVerified";
-    args: [Address];
-  },
-  P2PError
-> {
-  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "isPassportVerified" as const,
     args: [validatedParams.address],
   }));
 }
@@ -400,23 +360,6 @@ export function prepareGetOnChainActivityRpArgs(): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "onChainActivityRp" as const,
-    args: [],
-  }));
-}
-
-export function prepareGetAadhaarRpArgs(): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "aadhaarRp";
-    args: [];
-  },
-  P2PError
-> {
-  return validate(ZodAadhaarRpParamsSchema, {}).map(() => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "aadhaarRp" as const,
     args: [],
   }));
 }
@@ -553,23 +496,6 @@ export function prepareGetBinanceRpArgs(): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "binanceRp" as const,
-    args: [],
-  }));
-}
-
-export function prepareGetPassportRpArgs(): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "passportRp";
-    args: [];
-  },
-  P2PError
-> {
-  return validate(ZodZkPassportRpParamsSchema, {}).map(() => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "passportRp" as const,
     args: [],
   }));
 }
@@ -745,23 +671,6 @@ export function prepareGetUpgradeInterfaceVersionArgs(): Result<
   }));
 }
 
-export function prepareGetAadharProofArgs(params: UserParams): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "aadharProof";
-    args: [Address];
-  },
-  P2PError
-> {
-  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "aadharProof" as const,
-    args: [validatedParams.address],
-  }));
-}
-
 export function prepareGetAccruedVotingRewardsArgs(params: UserParams): Result<
   {
     to: Address;
@@ -792,23 +701,6 @@ export function prepareGetAdminVotingRpArgs(): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "adminVotingRp" as const,
-    args: [],
-  }));
-}
-
-export function prepareGetAnonAadhaarVerifierAddrArgs(): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.REPUTATION_MANAGER;
-    functionName: "anonAadhaarVerifierAddr";
-    args: [];
-  },
-  P2PError
-> {
-  return validate(ZodCurrentEpochParamsSchema, {}).map(() => ({
-    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-    abi: ABIS.REPUTATION_MANAGER,
-    functionName: "anonAadhaarVerifierAddr" as const,
     args: [],
   }));
 }
@@ -1392,59 +1284,6 @@ export function prepareGetXMinYearGapArgs(): Result<
     functionName: "xMinYearGap" as const,
     args: [],
   }));
-}
-
-// Write operation - keeping as transaction
-export function prepareSubmitAnonAadharProofTx(
-  params: AnonAadharProofParams,
-): Result<{ to: Address; data: `0x${string}` }, P2PError> {
-  return validate(ZodAnonAadharProofParamsSchema, params).andThen(
-    (validatedParams) =>
-      Result.fromThrowable(
-        () => ({
-          to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-          data: encodeFunctionData({
-            abi: ABIS.REPUTATION_MANAGER,
-            functionName: "submitAnonAadharProof",
-            args: [
-              validatedParams.nullifierSeed,
-              validatedParams.nullifier,
-              validatedParams.timestamp,
-              validatedParams.signal,
-              validatedParams.revealArray,
-              validatedParams.packedGroth16Proof,
-            ],
-          }),
-        }),
-        (error) =>
-          createP2PError(
-            "Failed to prepare submitAnonAadharProof contract call",
-            {
-              domain: "reputation-manager",
-              code: "P2PPrepareFunctionCallError",
-              cause: error,
-              context: {
-                operation: "prepareSubmitAnonAadharProofTx",
-                timestamp: Math.floor(Date.now() / 1000),
-                rawParams: params,
-                validatedParams,
-                encodeFunctionDataArgs: {
-                  abi: "ABIS.REPUTATION_MANAGER",
-                  functionName: "submitAnonAadharProof",
-                  args: [
-                    validatedParams.nullifierSeed,
-                    validatedParams.nullifier,
-                    validatedParams.timestamp,
-                    validatedParams.signal,
-                    validatedParams.revealArray,
-                    validatedParams.packedGroth16Proof,
-                  ],
-                },
-              },
-            },
-          ),
-      )(),
-  );
 }
 
 // Additional write operations
@@ -2086,64 +1925,4 @@ export function prepareGetVolumeMilestoneFourArgs(): Result<
     functionName: "VOLUME_MILESTONE_4" as const,
     args: [],
   }));
-}
-
-export function prepareZkPassportRegisterTx(
-  params: ZkPassportRegisterParams,
-): Result<{ to: Address; data: `0x${string}` }, P2PError> {
-  return validate(ZodZkPassportRegisterParamsSchema, params).andThen(
-    (validatedParams) =>
-      Result.fromThrowable(
-        () => {
-          // Extract from nested SolidityVerifierParameters structure
-          const {
-            proofVerificationData,
-            serviceConfig,
-            committedInputs,
-            version,
-          } = validatedParams.params;
-
-          // Build the ProofVerificationParams struct to match the ABI
-          const proofVerificationParams = {
-            version: version as `0x${string}`,
-            proofVerificationData: {
-              vkeyHash: proofVerificationData.vkeyHash as `0x${string}`,
-              proof: proofVerificationData.proof as `0x${string}`,
-              publicInputs:
-                proofVerificationData.publicInputs as `0x${string}`[],
-            },
-            committedInputs: committedInputs as `0x${string}`,
-            serviceConfig: {
-              validityPeriodInSeconds: BigInt(
-                serviceConfig.validityPeriodInSeconds,
-              ),
-              domain: serviceConfig.domain,
-              scope: serviceConfig.scope,
-              devMode: serviceConfig.devMode,
-            },
-          };
-
-          return {
-            to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
-            data: encodeFunctionData({
-              abi: ABIS.REPUTATION_MANAGER,
-              functionName: "zkPassportRegister",
-              args: [proofVerificationParams, validatedParams.isIDCard],
-            }),
-          };
-        },
-        (error) =>
-          createP2PError("Failed to prepare zkPassportRegister contract call", {
-            domain: "reputation-manager",
-            code: "P2PPrepareFunctionCallError",
-            cause: error,
-            context: {
-              operation: "prepareZkPassportRegisterTx",
-              timestamp: Math.floor(Date.now() / 1000),
-              rawParams: params,
-              validatedParams,
-            },
-          }),
-      )(),
-  );
 }

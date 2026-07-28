@@ -208,38 +208,6 @@ export const rPHelper1Abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "aadhaarRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "aadharProof",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -285,19 +253,6 @@ export const rPHelper1Abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "anonAadhaarVerifierAddr",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -632,25 +587,6 @@ export const rPHelper1Abi = [
       },
     ],
     name: "hasVerified",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "hasVerifiedPassportIdentifier",
     outputs: [
       {
         internalType: "bool",
@@ -1035,19 +971,6 @@ export const rPHelper1Abi = [
         internalType: "address",
         name: "",
         type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "passportRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1567,34 +1490,6 @@ export const rPHelper1Abi = [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "zkPassportConfig",
-    outputs: [
-      {
-        internalType: "address",
-        name: "verifierAddr",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "domain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "scope",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "minAge",
         type: "uint256",
       },
     ],

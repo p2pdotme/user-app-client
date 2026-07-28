@@ -1,4 +1,3 @@
-import type { SolidityVerifierParameters } from "@zkpassport/sdk";
 import { err, ok, type Result } from "neverthrow";
 import { type Address, type Hex, isAddress } from "thirdweb";
 import { formatUnits, hexToString } from "viem";
@@ -165,7 +164,9 @@ export type CashbackPercentageParams = z.infer<
   typeof ZodCashbackPercentageParamsSchema
 >;
 export type MaxBuyTxLimitParams = z.infer<typeof ZodMaxBuyTxLimitParamsSchema>;
-export type MaxSellTxLimitParams = z.infer<typeof ZodMaxSellTxLimitParamsSchema>;
+export type MaxSellTxLimitParams = z.infer<
+  typeof ZodMaxSellTxLimitParamsSchema
+>;
 
 // PROTOCOL-CONFIG
 export const ZodRewardsConfigParamsSchema = z.object({
@@ -186,23 +187,6 @@ export const ZodEpochVotesParamsSchema = z.object({
   address: ZodAddressSchema,
   currentEpoch: z.number().int(),
 });
-export const ZodAnonAadharProofParamsSchema = z.object({
-  nullifierSeed: z.bigint(),
-  nullifier: z.bigint(),
-  timestamp: z.bigint(),
-  signal: z.bigint(),
-  revealArray: z.tuple([z.bigint(), z.bigint(), z.bigint(), z.bigint()]),
-  packedGroth16Proof: z.tuple([
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-    z.bigint(),
-  ]),
-});
 export const ZodCurrentEpochParamsSchema = z.object({});
 export const ZodContractVersionParamsSchema = z.object({});
 export const ZodOrderCompleteRpParamsSchema = z.object({});
@@ -210,14 +194,12 @@ export const ZodVerificationRewardParamsSchema = z.object({});
 export const ZodVotingRpParamsSchema = z.object({});
 export const ZodOnChainActivityBaseParamsSchema = z.object({});
 export const ZodOnChainActivityRpParamsSchema = z.object({});
-export const ZodAadhaarRpParamsSchema = z.object({});
 export const ZodLinkedInRpParamsSchema = z.object({});
 export const ZodGitHubRpParamsSchema = z.object({});
 export const ZodInstagramRpParamsSchema = z.object({});
 export const ZodXRpParamsSchema = z.object({});
 export const ZodFacebookRpParamsSchema = z.object({});
 export const ZodBinanceRpParamsSchema = z.object({});
-export const ZodZkPassportRpParamsSchema = z.object({});
 export const ZodVotesPerEpochParamsSchema = z.object({});
 export const ZodCmVotesPerEpochParamsSchema = z.object({});
 export const ZodVoterSlashRpParamsSchema = z.object({});
@@ -225,9 +207,6 @@ export const ZodMinRpToVoteParamsSchema = z.object({});
 export const ZodMaxRpToBeVotedParamsSchema = z.object({});
 
 export type EpochVotesParams = z.infer<typeof ZodEpochVotesParamsSchema>;
-export type AnonAadharProofParams = z.infer<
-  typeof ZodAnonAadharProofParamsSchema
->;
 export type CurrentEpochParams = z.infer<typeof ZodCurrentEpochParamsSchema>;
 export type OrderCompleteRpParams = z.infer<
   typeof ZodOrderCompleteRpParamsSchema
@@ -242,14 +221,12 @@ export type OnChainActivityBaseParams = z.infer<
 export type OnChainActivityRpParams = z.infer<
   typeof ZodOnChainActivityRpParamsSchema
 >;
-export type AadhaarRpParams = z.infer<typeof ZodAadhaarRpParamsSchema>;
 export type LinkedInRpParams = z.infer<typeof ZodLinkedInRpParamsSchema>;
 export type GitHubRpParams = z.infer<typeof ZodGitHubRpParamsSchema>;
 export type InstagramRpParams = z.infer<typeof ZodInstagramRpParamsSchema>;
 export type XRpParams = z.infer<typeof ZodXRpParamsSchema>;
 export type FacebookRpParams = z.infer<typeof ZodFacebookRpParamsSchema>;
 export type BinanceRpParams = z.infer<typeof ZodBinanceRpParamsSchema>;
-export type ZkPassportRpParams = z.infer<typeof ZodZkPassportRpParamsSchema>;
 export type VotesPerEpochParams = z.infer<typeof ZodVotesPerEpochParamsSchema>;
 export type CmVotesPerEpochParams = z.infer<
   typeof ZodCmVotesPerEpochParamsSchema
@@ -478,10 +455,6 @@ export const ZodGetVotesByParamsSchema = z.object({
   voter: ZodAddressSchema,
 });
 
-export const ZodGetIsAadharVerifiedParamsSchema = z.object({
-  address: ZodAddressSchema,
-});
-
 export const ZodGetIsGitHubVerifiedParamsSchema = z.object({
   address: ZodAddressSchema,
 });
@@ -503,10 +476,6 @@ export const ZodGetIsLinkedInVerifiedParamsSchema = z.object({
 });
 
 export const ZodGetIsXVerifiedParamsSchema = z.object({
-  address: ZodAddressSchema,
-});
-
-export const ZodGetIsZkPassportVerifiedParamsSchema = z.object({
   address: ZodAddressSchema,
 });
 
@@ -575,41 +544,6 @@ export const ZodUpdateSocialParamsParamsSchema = z.object({
 
 export const ZodWhitelistContractParamsSchema = z.object({
   contractAddress: ZodAddressSchema,
-});
-
-// Schema matching SolidityVerifierParameters from @zkpassport/sdk
-export const ZodSolidityVerifierParametersSchema = z.object({
-  version: z.string().refine((val) => val.startsWith("0x"), {
-    message: "Version must be a hex string",
-  }),
-  proofVerificationData: z.object({
-    vkeyHash: z.string().refine((val) => /^0x[a-fA-F0-9]{64}$/.test(val), {
-      message: "Invalid bytes32 hex string",
-    }),
-    proof: z.string().refine((val) => val.startsWith("0x"), {
-      message: "Proof must be a hex string",
-    }),
-    publicInputs: z.array(
-      z.string().refine((val) => /^0x[a-fA-F0-9]{64}$/.test(val), {
-        message: "Each public input must be a valid bytes32 hex string",
-      }),
-    ),
-  }),
-  committedInputs: z.string().refine((val) => val.startsWith("0x"), {
-    message: "Committed inputs must be a hex string",
-  }),
-  serviceConfig: z.object({
-    validityPeriodInSeconds: z.number().int().nonnegative(),
-    domain: z.string(),
-    scope: z.string(),
-    devMode: z.boolean(),
-    oprfPubKeyHash: z.string(),
-  }),
-}) satisfies z.ZodType<SolidityVerifierParameters>;
-
-export const ZodZkPassportRegisterParamsSchema = z.object({
-  params: ZodSolidityVerifierParametersSchema,
-  isIDCard: z.boolean(),
 });
 
 // Additional schemas for missing functions
@@ -689,10 +623,6 @@ export const ZodGetIsCommunityManagerParamsSchema = z.object({
   address: ZodAddressSchema,
 });
 
-export const ZodGetAadharProofParamsSchema = z.object({
-  address: ZodAddressSchema,
-});
-
 export const ZodGetAccruedVotingRewardsParamsSchema = z.object({
   address: ZodAddressSchema,
 });
@@ -748,9 +678,6 @@ export type GetUserTaskLedgerParams = z.infer<
 export type Task = z.infer<typeof ZodTaskSchema>;
 export type GetVotedByParams = z.infer<typeof ZodGetVotedByParamsSchema>;
 export type GetVotesByParams = z.infer<typeof ZodGetVotesByParamsSchema>;
-export type GetIsAadharVerifiedParams = z.infer<
-  typeof ZodGetIsAadharVerifiedParamsSchema
->;
 export type GetIsGitHubVerifiedParams = z.infer<
   typeof ZodGetIsGitHubVerifiedParamsSchema
 >;
@@ -768,9 +695,6 @@ export type GetIsLinkedInVerifiedParams = z.infer<
 >;
 export type GetIsXVerifiedParams = z.infer<
   typeof ZodGetIsXVerifiedParamsSchema
->;
-export type GetIsZkPassportVerifiedParams = z.infer<
-  typeof ZodGetIsZkPassportVerifiedParamsSchema
 >;
 export type MarkUserBlacklistedParams = z.infer<
   typeof ZodMarkUserBlacklistedParamsSchema
@@ -799,10 +723,6 @@ export type UpdateSocialParamsParams = z.infer<
 >;
 export type WhitelistContractParams = z.infer<
   typeof ZodWhitelistContractParamsSchema
->;
-
-export type ZkPassportRegisterParams = z.infer<
-  typeof ZodZkPassportRegisterParamsSchema
 >;
 
 // Export types for the additional schemas
@@ -837,9 +757,6 @@ export type GetTaskLedgerByIndexParams = z.infer<
 >;
 export type GetIsCommunityManagerParams = z.infer<
   typeof ZodGetIsCommunityManagerParamsSchema
->;
-export type GetAadharProofParams = z.infer<
-  typeof ZodGetAadharProofParamsSchema
 >;
 export type GetAccruedVotingRewardsParams = z.infer<
   typeof ZodGetAccruedVotingRewardsParamsSchema
@@ -1102,4 +1019,3 @@ export const ZodGetRecommenderRewardPercentageByCurrencyParamsSchema = z.object(
 export type GetRecommenderRewardPercentageByCurrencyParams = z.infer<
   typeof ZodGetRecommenderRewardPercentageByCurrencyParamsSchema
 >;
-
