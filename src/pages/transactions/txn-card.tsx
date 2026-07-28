@@ -4,7 +4,9 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useOrderProofStatus } from "@/core/encrypted-payment-proof/use-order-proof-status";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { cn, formatFiatAmount, truncateAmount } from "@/lib/utils";
 
@@ -44,6 +46,10 @@ export function TransactionCard({
   const isCancelled = status === "CANCELLED";
   const isDisputeRaised = disputeStatus === "RAISED";
   const isDisputeSettled = disputeStatus === "SETTLED";
+
+  // Payment proofs only apply to completed SELL/PAY orders (BUY settles on-chain).
+  const proofEligible = isCompleted && (type === "SELL" || type === "PAY");
+  const proofStatus = useOrderProofStatus(id, proofEligible);
 
   const handleClick = () => {
     navigate(`${INTERNAL_HREFS.ORDER}/${id}`);
@@ -90,6 +96,23 @@ export function TransactionCard({
               <span>{moment.unix(createdAt).format("DD MMM YYYY")}</span>
               <span className="border-border border-l px-2">ID: {id}</span>
             </div>
+            {proofStatus && (
+              <Badge
+                variant="outline"
+                className={cn(
+                  "mt-1.5 gap-1 border-warning/40 text-warning",
+                  proofStatus !== "PENDING" && "border-success/40 text-success",
+                )}>
+                {proofStatus === "PENDING" ? (
+                  <Clock4 className="size-3" />
+                ) : (
+                  <Shield className="size-3" />
+                )}
+                {proofStatus === "PENDING"
+                  ? t("PROOF_BADGE_REQUESTED", "Proof requested")
+                  : t("PROOF_BADGE_UPLOADED", "Proof ready")}
+              </Badge>
+            )}
           </div>
         </div>
 

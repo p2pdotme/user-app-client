@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { RequestProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
 import { Button } from "@/components/ui/button";
@@ -161,6 +162,13 @@ export function SellCompleted({ order }: { order: Order }) {
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />
+
+        {/* Ask the merchant for an encrypted payment proof */}
+        <RequestProofCard
+          orderId={order.id.toString()}
+          completedTimestamp={order.completedTimestamp}
+          currency={order.currency}
+        />
 
         <Card className="w-full gap-2 shadow-none sm:gap-4">
           <CardContent>

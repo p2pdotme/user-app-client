@@ -51,6 +51,9 @@ interface ImportMetaEnv {
 
   // P2P Swap URL
   readonly VITE_P2P_SWAP_URL: string;
+
+  // Encrypted payment proof service (optional; feature is off when unset)
+  readonly VITE_ENCRYPTED_PROOF_API_URL?: string;
 }
 
 interface ImportMeta {

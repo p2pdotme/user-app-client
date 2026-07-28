@@ -1,3 +1,5 @@
+import { INTERNAL_HREFS } from "@/lib/constants";
+
 const STORAGE_KEY = "@P2PME:URL_PARAMS";
 
 interface URLParams {
@@ -13,6 +15,8 @@ interface URLParams {
   socialPlatform?: string;
   language?: string;
   currency?: string;
+  // Full intended destination (pathname + search) for arbitrary deep links
+  redirectPath?: string;
 }
 
 /**
@@ -40,6 +44,13 @@ export function preserveUrlParams(): void {
       urlParams[key as keyof URLParams] = value;
     }
   });
+
+  // Preserve the full intended destination so any deep link (e.g. /transactions)
+  // is restored after login, not just the special-cased routes below.
+  const pathname = window.location.pathname;
+  if (pathname !== INTERNAL_HREFS.LOGIN && pathname !== INTERNAL_HREFS.HOME) {
+    urlParams.redirectPath = pathname + window.location.search;
+  }
 
   // Store if we have any parameters
   if (Object.keys(urlParams).length > 0) {
@@ -81,6 +92,11 @@ export function restoreUrlParams(): string | null {
       url.searchParams.set("sessionId", params.sessionId);
       url.searchParams.set("socialPlatform", params.socialPlatform);
       return url.pathname + url.search;
+    }
+
+    // Fallback: restore the full intended destination for any other deep link
+    if (params.redirectPath) {
+      return params.redirectPath;
     }
 
     return null;
