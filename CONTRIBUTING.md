@@ -21,14 +21,12 @@ Thank you for your interest in contributing. This document covers everything you
 
 | Tool | Version | Notes |
 |---|---|---|
-| [Bun](https://bun.sh) | >= 1.1 | **Required.** npm/yarn will not work — see below |
+| [Bun](https://bun.sh) | >= 1.1 | **Required.** The lockfile is Bun's — see below |
 | Node.js | >= 20 | Used transitively by some build tools |
 
 ### Why Bun is required
 
-`package.json` uses `patchedDependencies`, which is a Bun-specific feature. It automatically patches `@anon-aadhaar/core@2.4.3` at install time to fix TypeScript type errors in its internal buffer casts. If you run `npm install` or `yarn install`, the patch will not be applied and the build will fail with type errors.
-
-The patch is at `patches/@anon-aadhaar%2Fcore@2.4.3.patch`. It adds `as unknown` casts to resolve incompatible `ArrayBuffer → Buffer` coercions in the upstream package.
+Dependencies are locked in `bun.lock`, and every script in this guide assumes the Bun CLI. Installing with npm or yarn produces a second, divergent lockfile and is not supported.
 
 ---
 
@@ -39,7 +37,7 @@ The patch is at `patches/@anon-aadhaar%2Fcore@2.4.3.patch`. It adds `as unknown`
 git clone https://github.com/p2pdotme/user-app-spa.git
 cd user-app-spa
 
-# 2. Install dependencies (Bun applies the anon-aadhaar patch automatically)
+# 2. Install dependencies
 bun install
 
 # 3. Copy the example env file and fill in your values
