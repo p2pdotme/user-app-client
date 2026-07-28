@@ -1,9 +1,7 @@
 import { useProfile, useZkkyc } from "@p2pdotme/sdk/react";
 import type {
-  AnonAadharProofParams,
   SimpleKycSubmitParams,
   SocialVerifyParams,
-  ZkPassportRegisterParams,
 } from "@p2pdotme/sdk/zkkyc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { Address } from "thirdweb";
@@ -15,7 +13,6 @@ import {
   getMaxSellTxLimit,
 } from "@/core/adapters/thirdweb/actions/p2p-config";
 import {
-  getAadhaarRp,
   getBinanceRp,
   getFacebookRp,
   getGitHubRp,
@@ -25,12 +22,9 @@ import {
   getNumTxns,
   getOnChainActivityBase,
   getOnChainActivityRp,
-  getPassportRp,
   getRMUser,
   getXRp,
-  isAadharVerified,
   isKycVerified,
-  isPassportVerified,
   sendPreparedTx,
 } from "@/core/adapters/thirdweb/actions/reputation-manager";
 import { captureError, withSentrySpan } from "@/lib/sentry";
@@ -100,7 +94,6 @@ export function useSocialVerificationStatus() {
             isXVerified: result[2],
             isInstagramVerified: result[3],
             isFacebookVerified: result[4],
-            isZkPassportVerified: result[5],
             isBinanceVerified: result[6],
           };
         },
@@ -116,41 +109,12 @@ export function useSocialVerificationStatus() {
     enabled: !!account?.address,
   });
 
-  const {
-    data: isZkPassportVerifiedStatus,
-    isLoading: isZkPassportStatusLoading,
-    isError: isZkPassportStatusError,
-    error: zkPassportStatusError,
-    refetch: refetchZkPassportStatus,
-  } = useQuery({
-    queryKey: ["zk-passport-verification-status", account?.address],
-    queryFn: async () => {
-      if (!account?.address) throw new Error("No account connected");
-      return isPassportVerified({ address: account.address as Address }).match(
-        (result: boolean) => result,
-        (error: unknown) => {
-          console.error(
-            "[useZkPassportVerificationStatus] Error fetching status",
-            error,
-          );
-          throw error;
-        },
-      );
-    },
-    enabled: !!account?.address,
-  });
-
   return {
     ...socialStatus,
-    isZkPassportVerified: isZkPassportVerifiedStatus,
     isSocialStatusLoading,
-    isZkPassportStatusLoading,
     isSocialStatusError,
-    isZkPassportStatusError,
     socialStatusError,
-    zkPassportStatusError,
     refetchSocialStatus,
-    refetchZkPassportStatus,
   };
 }
 
@@ -277,23 +241,6 @@ export function useSocialRpRewards() {
   });
 
   const {
-    data: zkPassportRp,
-    isLoading: isZkPassportRpLoading,
-    isError: isZkPassportRpError,
-    error: zkPassportRpError,
-  } = useQuery({
-    queryKey: ["social-rp-reward", "zkpassport"],
-    queryFn: async () => {
-      return getPassportRp().match(
-        (value) => Number(value),
-        (error) => {
-          throw error;
-        },
-      );
-    },
-  });
-
-  const {
     data: binanceRp,
     isLoading: isBinanceRpLoading,
     isError: isBinanceRpError,
@@ -316,7 +263,6 @@ export function useSocialRpRewards() {
     instagramRp,
     xRp,
     facebookRp,
-    zkPassportRp,
     binanceRp,
     isLoading:
       isLinkedInRpLoading ||
@@ -324,7 +270,6 @@ export function useSocialRpRewards() {
       isInstagramRpLoading ||
       isXRpLoading ||
       isFacebookRpLoading ||
-      isZkPassportRpLoading ||
       isBinanceRpLoading,
     isError:
       isLinkedInRpError ||
@@ -332,7 +277,6 @@ export function useSocialRpRewards() {
       isInstagramRpError ||
       isXRpError ||
       isFacebookRpError ||
-      isZkPassportRpError ||
       isBinanceRpError,
     error:
       linkedInRpError ||
@@ -340,207 +284,8 @@ export function useSocialRpRewards() {
       instagramRpError ||
       xRpError ||
       facebookRpError ||
-      zkPassportRpError ||
       binanceRpError,
   };
-}
-
-export function useAadhaarVerificationStatus() {
-  const { account } = useThirdweb();
-
-  const {
-    data: isAadhaarVerified,
-    isLoading: isAadhaarStatusLoading,
-    isError: isAadhaarStatusError,
-    error: aadhaarStatusError,
-    refetch: refetchAadhaarStatus,
-  } = useQuery({
-    queryKey: ["aadhaar-verification-status", account?.address],
-    queryFn: async () => {
-      if (!account?.address) throw new Error("No account connected");
-      return isAadharVerified({ address: account.address as Address }).match(
-        (result) => result,
-        (error) => {
-          console.error(
-            "[useAadhaarVerificationStatus] Error fetching status",
-            error,
-          );
-          throw error;
-        },
-      );
-    },
-    enabled: !!account?.address,
-  });
-
-  return {
-    isAadhaarVerified,
-    isAadhaarStatusLoading,
-    isAadhaarStatusError,
-    aadhaarStatusError,
-    refetchAadhaarStatus,
-  };
-}
-
-export function useZkPassportVerificationStatus() {
-  const { account } = useThirdweb();
-
-  const {
-    data: isZkPassportVerifiedStatus,
-    isLoading: isZkPassportStatusLoading,
-    isError: isZkPassportStatusError,
-    error: zkPassportStatusError,
-    refetch: refetchZkPassportStatus,
-  } = useQuery({
-    queryKey: ["zk-passport-verification-status", account?.address],
-    queryFn: async (): Promise<boolean> => {
-      if (!account?.address) throw new Error("No account connected");
-      return isPassportVerified({ address: account.address as Address }).match(
-        (result: boolean) => result,
-        (error: unknown) => {
-          console.error(
-            "[useZkPassportVerificationStatus] Error fetching status",
-            error,
-          );
-          throw error;
-        },
-      );
-    },
-    enabled: !!account?.address,
-  });
-
-  return {
-    isZkPassportVerified: isZkPassportVerifiedStatus,
-    isZkPassportStatusLoading,
-    isZkPassportStatusError,
-    zkPassportStatusError,
-    refetchZkPassportStatus,
-  };
-}
-
-export function useAadhaarRpReward() {
-  const {
-    data: aadhaarRp,
-    isLoading: isAadhaarRpLoading,
-    isError: isAadhaarRpError,
-    error: aadhaarRpError,
-  } = useQuery({
-    queryKey: ["aadhaar-rp-reward"],
-    queryFn: async () => {
-      return getAadhaarRp().match(
-        (value) => Number(value),
-        (error) => {
-          throw error;
-        },
-      );
-    },
-  });
-
-  return {
-    aadhaarRp,
-    isAadhaarRpLoading,
-    isAadhaarRpError,
-    aadhaarRpError,
-  };
-}
-
-export function useZkPassportRpReward() {
-  const {
-    data: zkPassportRp,
-    isLoading: isZkPassportRpLoading,
-    isError: isZkPassportRpError,
-    error: zkPassportRpError,
-  } = useQuery({
-    queryKey: ["zk-passport-rp-reward"],
-    queryFn: async () => {
-      return getPassportRp().match(
-        (value) => Number(value),
-        (error) => {
-          throw error;
-        },
-      );
-    },
-  });
-
-  return {
-    zkPassportRp,
-    isZkPassportRpLoading,
-    isZkPassportRpError,
-    zkPassportRpError,
-  };
-}
-
-export function useSubmitAnonAadhaarProof() {
-  const { account } = useThirdweb();
-  const zkkyc = useZkkyc();
-  const mutation = useMutation({
-    mutationFn: async (params: AnonAadharProofParams) => {
-      if (!account) throw new Error("No account connected");
-      return withSentrySpan(
-        "limits.submit_anon_aadhaar_proof",
-        "Submit Anon Aadhaar Proof",
-        async () => {
-          return sendPreparedTx(
-            zkkyc.prepareSubmitAnonAadharProof(params),
-            account,
-            "submitAnonAadharProof",
-          ).match(
-            (txReceipt) => txReceipt,
-            (error) => {
-              captureError(error, {
-                operation: "submit_anon_aadhaar_proof",
-                component: "useSubmitAnonAadhaarProof",
-                userId: account.address,
-                extra: { ...params },
-              });
-              console.error(
-                "[useSubmitAnonAadhaarProof] Error in submitAnonAadhaarProof",
-                error,
-              );
-              throw error;
-            },
-          );
-        },
-      );
-    },
-  });
-  return mutation;
-}
-
-export function useZkPassportRegister() {
-  const { account } = useThirdweb();
-  const zkkyc = useZkkyc();
-  const mutation = useMutation({
-    mutationFn: async (params: ZkPassportRegisterParams) => {
-      if (!account) throw new Error("No account connected");
-      return withSentrySpan(
-        "limits.zk_passport_register",
-        "ZKPassport Register",
-        async () => {
-          return sendPreparedTx(
-            zkkyc.prepareZkPassportRegister(params),
-            account,
-            "zkPassportRegister",
-          ).match(
-            (txReceipt) => txReceipt,
-            (error) => {
-              captureError(error, {
-                operation: "zk_passport_register",
-                component: "useZkPassportRegister",
-                userId: account.address,
-                extra: { ...params },
-              });
-              console.error(
-                "[useZkPassportRegister] Error in zkPassportRegister",
-                error,
-              );
-              throw error;
-            },
-          );
-        },
-      );
-    },
-  });
-  return mutation;
 }
 
 export function useKycRpReward() {

@@ -1,117 +1,5 @@
 export const rpHelperAbi = [
   {
-    inputs: [],
-    name: "PassportAlreadyVerified",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportAgeBelowMinimum",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportDomainEmpty",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportIdentifierAlreadyVerified",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportInvalidScope",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportMinAgeTooHigh",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportProofInvalid",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportScopeEmpty",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportUnexpectedSender",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ZKPassportVerifierNotSet",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "bool",
-        name: "verified",
-        type: "bool",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-    ],
-    name: "AadhaarVerified",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "bool",
-        name: "verified",
-        type: "bool",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "rp",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "countryCode",
-        type: "string",
-      },
-    ],
-    name: "PassportVerified",
-    type: "event",
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -341,38 +229,6 @@ export const rpHelperAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "aadhaarRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "aadharProof",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -418,19 +274,6 @@ export const rpHelperAbi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "anonAadhaarVerifierAddr",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -722,25 +565,6 @@ export const rpHelperAbi = [
       },
     ],
     name: "hasVerified",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "hasVerifiedPassportIdentifier",
     outputs: [
       {
         internalType: "bool",
@@ -1138,19 +962,6 @@ export const rpHelperAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "passportRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -1347,19 +1158,6 @@ export const rpHelperAbi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_anonAadhaarVerifier",
-        type: "address",
-      },
-    ],
-    name: "setAnonAadhaarVerifier",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "uint256",
         name: "_cmVotesPerEpoch",
         type: "uint256",
@@ -1423,37 +1221,6 @@ export const rpHelperAbi = [
       },
     ],
     name: "setReclaimAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "domain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "scope",
-        type: "string",
-      },
-    ],
-    name: "setZKPassportScope",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_verifier",
-        type: "address",
-      },
-    ],
-    name: "setZKPassportVerifier",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1604,44 +1371,6 @@ export const rpHelperAbi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "nullifierSeed",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "nullifier",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "signal",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256[4]",
-        name: "revealArray",
-        type: "uint256[4]",
-      },
-      {
-        internalType: "uint256[8]",
-        name: "groth16Proof",
-        type: "uint256[8]",
-      },
-    ],
-    name: "submitAnonAadharProof",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "",
         type: "address",
@@ -1690,45 +1419,6 @@ export const rpHelperAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "newRp",
-        type: "uint256",
-      },
-    ],
-    name: "updateAadhaarRp",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "newMinAge",
-        type: "uint256",
-      },
-    ],
-    name: "updatePassportMinAge",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "newRp",
-        type: "uint256",
-      },
-    ],
-    name: "updatePassportRp",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -2054,113 +1744,6 @@ export const rpHelperAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "zkPassportConfig",
-    outputs: [
-      {
-        internalType: "address",
-        name: "verifierAddr",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "domain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "scope",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "minAge",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "bytes32",
-            name: "version",
-            type: "bytes32",
-          },
-          {
-            components: [
-              {
-                internalType: "bytes32",
-                name: "vkeyHash",
-                type: "bytes32",
-              },
-              {
-                internalType: "bytes",
-                name: "proof",
-                type: "bytes",
-              },
-              {
-                internalType: "bytes32[]",
-                name: "publicInputs",
-                type: "bytes32[]",
-              },
-            ],
-            internalType: "struct ProofVerificationData",
-            name: "proofVerificationData",
-            type: "tuple",
-          },
-          {
-            internalType: "bytes",
-            name: "committedInputs",
-            type: "bytes",
-          },
-          {
-            components: [
-              {
-                internalType: "uint256",
-                name: "validityPeriodInSeconds",
-                type: "uint256",
-              },
-              {
-                internalType: "string",
-                name: "domain",
-                type: "string",
-              },
-              {
-                internalType: "string",
-                name: "scope",
-                type: "string",
-              },
-              {
-                internalType: "bool",
-                name: "devMode",
-                type: "bool",
-              },
-            ],
-            internalType: "struct ServiceConfig",
-            name: "serviceConfig",
-            type: "tuple",
-          },
-        ],
-        internalType: "struct ProofVerificationParams",
-        name: "params",
-        type: "tuple",
-      },
-      {
-        internalType: "bool",
-        name: "isIDCard",
-        type: "bool",
-      },
-    ],
-    name: "zkPassportRegister",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;
