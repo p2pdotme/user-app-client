@@ -1,6 +1,5 @@
 export const id = {
   translation: {
-    AADHAAR_VERIFICATION_FAILED: "Verifikasi Aadhaar gagal",
     ABOUT_P2P_TOKEN: "Tentang Token $P2P",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
@@ -586,10 +585,6 @@ export const id = {
       "1. Buka halaman Tanda Terima Pesanan.\n2. Ketuk ikon bantuan (?) di kanan atas.\n3. Pilih 'Ajukan Sengketa' dan ikuti instruksinya.",
     FAQ_HOW_CHECK_CURRENT_LIMITS:
       "Bagaimana cara saya memeriksa batas saat ini?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION:
-      "Bagaimana menyelesaikan verifikasi Aadhaar?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION_ANSWER:
-      "Verifikasi zk-Aadhaar (India) hanya tersedia setelah Anda menyelesaikan minimal satu verifikasi sosial zk. Ikuti instruksi dengan saksama selama prosesnya.\n\nCatatan: Untuk pengalaman desktop yang mulus, disarankan RAM minimal 8GB.",
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "Bagaimana cara saya mendepositkan USDC ke wallet P2P.me saya?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
@@ -635,7 +630,7 @@ export const id = {
     FAQ_HOW_TO_INCREASE_LIMITS:
       "Bagaimana cara meningkatkan batas Beli/Jual saya?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "Anda dapat meningkatkan limit dengan dua cara:\n\n1. Selesaikan setidaknya satu verifikasi zk sosial di halaman My Limits Anda untuk langsung menaikkan limit dan membuka hingga 5 order pembelian per hari.\n\n2. Verifikasi identitas Anda menggunakan:\n • zk-Aadhaar (Hanya Desktop, tersedia setelah setidaknya satu verifikasi zk sosial, hanya di India)\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nSetelah menyelesaikan verifikasi zk pertama Anda, Anda dapat terus meningkatkan limit dengan menyelesaikan lebih banyak transaksi di P2P.me.\n\nCatatan: Kami tidak mengumpulkan atau membagikan data pribadi Anda. Semua verifikasi menggunakan bukti zero-knowledge, memastikan informasi Anda tetap privat dan aman, hanya membuktikan yang diperlukan. Karena kami tidak menyimpan data Anda, kami tidak dapat membagikannya ke siapa pun di masa depan.",
+      "Anda dapat meningkatkan limit dengan dua cara:\n\n1. Selesaikan setidaknya satu verifikasi zk sosial di halaman My Limits Anda untuk langsung menaikkan limit dan membuka hingga 5 order pembelian per hari.\n\n2. Verifikasi identitas Anda menggunakan:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nSetelah menyelesaikan verifikasi zk pertama Anda, Anda dapat terus meningkatkan limit dengan menyelesaikan lebih banyak transaksi di P2P.me.\n\nCatatan: Kami tidak mengumpulkan atau membagikan data pribadi Anda. Semua verifikasi menggunakan bukti zero-knowledge, memastikan informasi Anda tetap privat dan aman, hanya membuktikan yang diperlukan. Karena kami tidak menyimpan data Anda, kami tidak dapat membagikannya ke siapa pun di masa depan.",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY:
       "Bagaimana cara membayar dengan Scan & Pay di P2P.me?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
@@ -1995,11 +1990,8 @@ export const id = {
       "Verifikasi ZK akun sosial mana saja untuk mengklaim hadiah Anda.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
-    VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda, dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VIA_JUPITER: "via Jupiter",
-    VIDEO_AADHAR_VERIFICATION: "Verifikasi AADHAR",
     VIDEO_APP_TOUR: "Tur Aplikasi",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
@@ -2077,10 +2069,6 @@ export const id = {
     VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
     VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_AADHAAR: "Verifikasi ZK - Aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_LINK:
-      "https://www.youtube.com/watch?v=zk-aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_ZK_VERIFICATION_BAD_CASES: "Verifikasi ZK - Masalah Umum",
     VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
       "https://www.youtube.com/watch?v=zk-issues",
@@ -2167,41 +2155,6 @@ export const id = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "Anda telah menerima undangan khusus! Verifikasi akun sosial Anda untuk mendapatkan bonus reward.",
     ZERO_ADDRESS: "Alamat nol",
-    ZK_PASSPORT_AGE_BELOW_MINIMUM: "Usia ZK Passport di bawah minimum",
-    ZK_PASSPORT_APP_REQUIRED: "Aplikasi ZK Passport diperlukan",
-    ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
-      "Silakan instal aplikasi ZK Passport untuk melanjutkan verifikasi.",
-    ZK_PASSPORT_DESCRIPTION: "Hanya pemegang paspor NFC",
-    ZK_PASSPORT_DOMAIN_EMPTY: "Domain ZK Passport kosong",
-    ZK_PASSPORT_DOWNLOAD_ANDROID: "Unduh untuk Android",
-    ZK_PASSPORT_DOWNLOAD_IOS: "Unduh untuk iOS",
-    ZK_PASSPORT_IDENTIFIER_ALREADY_VERIFIED:
-      "Identifier ZK Passport sudah diverifikasi",
-    ZK_PASSPORT_INITIALIZATION_FAILED:
-      "Gagal menginisialisasi verifikasi ZK Passport",
-    ZK_PASSPORT_INVALID_SCOPE: "Ruang lingkup ZK Passport tidak valid",
-    ZK_PASSPORT_MIN_AGE_TOO_HIGH: "Usia minimum ZK Passport terlalu tinggi",
-    ZK_PASSPORT_PROOF_GENERATED: "Bukti dibuat, mengirim untuk verifikasi",
-    ZK_PASSPORT_PROOF_GENERATING: "Membuat bukti, harap tunggu...",
-    ZK_PASSPORT_PROOF_INVALID: "Bukti ZK Passport tidak valid",
-    ZK_PASSPORT_PROOF_SUBMITTED:
-      "Bukti dikirim, memverifikasi onchain untuk pendaftaran",
-    ZK_PASSPORT_PURPOSE: "Buktikan kepribadian Anda",
-    ZK_PASSPORT_QR_DESCRIPTION:
-      "Pindai kode QR dengan aplikasi ZK Passport Anda untuk memverifikasi identitas Anda",
-    ZK_PASSPORT_REQUEST_RECEIVED:
-      "Permintaan diterima, menunggu Anda menyelesaikan verifikasi",
-    ZK_PASSPORT_SCAN_INSTRUCTIONS:
-      "Buka aplikasi ZK Passport Anda dan pindai kode QR ini untuk menyelesaikan verifikasi",
-    ZK_PASSPORT_SCOPE_EMPTY: "Ruang lingkup ZK Passport kosong",
-    ZK_PASSPORT_TUTORIAL_DESCRIPTION:
-      "Untuk menyelesaikan verifikasi, Anda perlu aplikasi ZK Passport terpasang di perangkat Anda.",
-    ZK_PASSPORT_TUTORIAL_TITLE: "Cara memverifikasi dengan ZK Passport",
-    ZK_PASSPORT_UNEXPECTED_SENDER: "Pengirim ZK Passport tidak terduga",
-    ZK_PASSPORT_VERIFICATION: "Verifikasi ZK Passport",
-    ZK_PASSPORT_VERIFICATION_ERROR: "Kesalahan verifikasi ZK Passport",
-    ZK_PASSPORT_VERIFICATION_FAILED: "Verifikasi ZK Passport gagal",
-    ZK_PASSPORT_VERIFIER_NOT_SET: "Verifier ZK Passport tidak diatur",
     ZK_VERIFICATION_REQUIRED: "Verifikasi ZK diperlukan",
   },
 };

@@ -1,41 +1,25 @@
-import {
-  type AnonAadhaarCore,
-  deserialize,
-  packGroth16Proof,
-} from "@anon-aadhaar/core";
-import {
-  LaunchProveModal,
-  useAnonAadhaar,
-  useProver,
-} from "@anon-aadhaar/react";
 import { usePrices } from "@p2pdotme/sdk/react";
 import {
   createReclaimFlow,
   createSimpleKycFlow,
-  createZkPassportFlow,
   DEFAULT_RECLAIM_PROVIDER_IDS,
   type ReclaimFlowParams,
   type ReclaimProofResult,
   type ReclaimSession,
   type ReclaimStatus,
   resumeSimpleKycFlow,
-  type ZkPassportStatus as SdkZkPassportStatus,
   type SocialPlatform,
   type SocialVerifyParams,
-  ZK_PASSPORT_APP_LINKS,
 } from "@p2pdotme/sdk/zkkyc";
 import { useQuery } from "@tanstack/react-query";
 import {
   Check,
   ClipboardCheck,
   Clock4,
-  Fingerprint,
   Loader2,
-  Monitor,
   ScanFace,
   ShieldCheck,
 } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -59,17 +43,12 @@ import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
 import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
-  useAadhaarRpReward,
-  useAadhaarVerificationStatus,
   useKycRpReward,
   useKycVerificationStatus,
   useSocialRpRewards,
   useSocialVerificationStatus,
   useSocialVerify,
-  useSubmitAnonAadhaarProof,
   useSubmitKycAttestation,
-  useZkPassportRegister,
-  useZkPassportRpReward,
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
@@ -85,9 +64,6 @@ import {
 } from "@/lib/url-param-preservation";
 import { getScreenType, isAndroid, isIOS } from "@/lib/utils";
 
-/** Set to true to temporarily hide Aadhaar verification from the limits page */
-const HIDE_AADHAAR_VERIFICATION = true;
-
 export enum StateStatusEnum {
   IDLE = "IDLE",
   LOADING = "LOADING",
@@ -102,8 +78,6 @@ type SocialPlatformType =
   | "Instagram"
   | "Facebook"
   | "Binance"
-  | "Aadhaar"
-  | "ZKPassport"
   | "Identity (KYC)";
 
 /**
@@ -113,7 +87,6 @@ type SocialPlatformType =
  */
 function VerifySocialCta() {
   const { t } = useTranslation();
-  const { settings } = useSettings();
   const {
     isLinkedInVerified,
     isGitHubVerified,
@@ -121,7 +94,6 @@ function VerifySocialCta() {
     isInstagramVerified,
     isFacebookVerified,
     isBinanceVerified,
-    isZkPassportVerified,
   } = useSocialVerificationStatus();
   const { isKycVerified } = useKycVerificationStatus();
 
@@ -132,7 +104,6 @@ function VerifySocialCta() {
     !!isInstagramVerified ||
     !!isFacebookVerified ||
     !!isBinanceVerified ||
-    !!isZkPassportVerified ||
     !!isKycVerified;
 
   if (isAnySocialVerified) return null;
@@ -142,9 +113,7 @@ function VerifySocialCta() {
       <Card className="w-full border-none bg-primary/10 py-0 shadow-none">
         <CardContent className="px-4 py-3">
           <p className="font-light text-sm">
-            {settings.currency.country === "India"
-              ? t("VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR")
-              : t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
+            {t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
           </p>
         </CardContent>
       </Card>
@@ -168,388 +137,7 @@ export function Verifications() {
     }
   }
 
-  // Aadhaar hooks
-  const [anonAadhaar] = useAnonAadhaar();
-  const [, _latestProof] = useProver();
-
-  const [, setAnonAadhaarCore] = useState<AnonAadhaarCore>();
-
-  // ZkPassport state
-  const [zkPassportUrl, setZkPassportUrl] = useState<string>("");
-  const [showZkPassportTutorial, setShowZkPassportTutorial] = useState(false);
-  const [isZkPassportLoading, setIsZkPassportLoading] = useState(false);
-  const [zkPassportStatus, setZkPassportStatus] = useState<string | null>(null);
-
-  // Aadhaar hooks
-  const {
-    isAadhaarVerified,
-    isAadhaarStatusLoading,
-    aadhaarStatusError,
-    refetchAadhaarStatus,
-  } = useAadhaarVerificationStatus();
-
-  const { aadhaarRp, isAadhaarRpLoading, isAadhaarRpError, aadhaarRpError } =
-    useAadhaarRpReward();
-
-  // Use real hooks for ZkPassport verification status and RP reward
-  const {
-    isZkPassportVerified,
-    isZkPassportStatusLoading,
-    zkPassportStatusError,
-    refetchZkPassportStatus,
-  } = useSocialVerificationStatus();
-
-  const {
-    zkPassportRp: zkPassportRpReward,
-    isZkPassportRpLoading,
-    isZkPassportRpError,
-    zkPassportRpError,
-  } = useZkPassportRpReward();
-
-  const {
-    mutateAsync: submitAnonAadhaarProof,
-    isPending: isAadhaarProofPending,
-    isError: isAadhaarProofError,
-    error: aadhaarProofError,
-  } = useSubmitAnonAadhaarProof();
-
-  const {
-    mutateAsync: registerZkPassport,
-    isPending: isZkPassportRegisterPending,
-  } = useZkPassportRegister();
-
   const { settings } = useSettings();
-
-  const handleZkPassportVerification = async () => {
-    if (!account?.address) {
-      toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
-      return;
-    }
-
-    // Track tutorial shown
-    track(EVENTS.VERIFICATION, {
-      verification_type: "zkpassport",
-      status: "tutorial_shown",
-      userAddress: account.address,
-    });
-
-    // Show tutorial first
-    setShowZkPassportTutorial(true);
-  };
-
-  const handleZkPassportContinueToVerification = async () => {
-    if (!account?.address) {
-      toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
-      return;
-    }
-
-    // Track verification initiated
-    track(EVENTS.VERIFICATION, {
-      verification_type: "zkpassport",
-      status: "initiated",
-      userAddress: account.address,
-    });
-
-    // Keep drawer open, just start loading and show QR when ready
-    setIsZkPassportLoading(true);
-    setZkPassportStatus(null);
-
-    const sessionResult = await createZkPassportFlow({
-      domain: "app.p2p.me",
-      name: "ZKPassport",
-      logo: "https://app.p2p.lol/favicon.svg",
-      purpose: t("ZK_PASSPORT_PURPOSE"),
-      walletAddress: account.address as `0x${string}`,
-      onStatus: (status: SdkZkPassportStatus) => {
-        switch (status.type) {
-          case "request_created": {
-            const screenType = getScreenType();
-            setZkPassportUrl(status.url);
-            if (screenType === "phone") {
-              window.open(status.url, "_blank");
-            }
-            break;
-          }
-          case "request_received":
-            track(EVENTS.VERIFICATION, {
-              verification_type: "zkpassport",
-              status: "request_received",
-              userAddress: account.address,
-            });
-            setZkPassportStatus(t("ZK_PASSPORT_REQUEST_RECEIVED"));
-            break;
-          case "generating_proof":
-            track(EVENTS.VERIFICATION, {
-              verification_type: "zkpassport",
-              status: "proof_generating",
-              userAddress: account.address,
-            });
-            setZkPassportStatus(t("ZK_PASSPORT_PROOF_GENERATING"));
-            break;
-          case "proof_generated":
-            track(EVENTS.VERIFICATION, {
-              verification_type: "zkpassport",
-              status: "proof_generated",
-              userAddress: account.address ?? "",
-            });
-            setZkPassportStatus(t("ZK_PASSPORT_PROOF_GENERATED"));
-            break;
-          case "result_received":
-            setZkPassportStatus(t("ZK_PASSPORT_PROOF_SUBMITTED"));
-            break;
-          case "rejected":
-            track(EVENTS.VERIFICATION, {
-              verification_type: "zkpassport",
-              status: "cancelled",
-              userAddress: account?.address ?? "",
-              errorMessage: "User rejected verification",
-            });
-            setIsZkPassportLoading(false);
-            setShowZkPassportTutorial(false);
-            setZkPassportUrl("");
-            setZkPassportStatus(null);
-            break;
-        }
-      },
-    });
-
-    if (sessionResult.isErr()) {
-      console.error("Failed to initialize ZKPassport:", sessionResult.error);
-
-      track(EVENTS.VERIFICATION, {
-        verification_type: "zkpassport",
-        status: "failed",
-        userAddress: account.address,
-        errorMessage: "Failed to initialize ZKPassport verification",
-      });
-      toast.error(t("ZK_PASSPORT_INITIALIZATION_FAILED"));
-      setIsZkPassportLoading(false);
-      setShowZkPassportTutorial(false);
-      setZkPassportStatus(null);
-      return;
-    }
-
-    const session = sessionResult.value;
-
-    const proofResult = await session.result;
-
-    if (proofResult.isErr()) {
-      const error = proofResult.error;
-      console.error("ZKPassport verification error:", error);
-      const accountAddress = account?.address ?? "";
-      track(EVENTS.VERIFICATION, {
-        verification_type: "zkpassport",
-        status: "failed",
-        userAddress: accountAddress,
-        errorMessage: error.message,
-      });
-      toast.error(
-        t("VERIFICATION_FAILED_MESSAGE", {
-          errorMessage: error.message,
-        }),
-      );
-      setIsZkPassportLoading(false);
-      setShowZkPassportTutorial(false);
-      setZkPassportUrl("");
-      setZkPassportStatus(null);
-      return;
-    }
-
-    const { params: verifierParams, isIDCard } = proofResult.value;
-
-    try {
-      // Track contract call started
-      track(EVENTS.VERIFICATION, {
-        verification_type: "zkpassport",
-        status: "contract_call_started",
-        userAddress: account.address,
-      });
-
-      await registerZkPassport({
-        params: verifierParams,
-        isIDCard,
-      })
-        .then(() => {
-          toast.success(t("VERIFICATION_SUCCESS"));
-          track(EVENTS.VERIFICATION, {
-            verification_type: "zkpassport",
-            status: "completed",
-            userAddress: account.address,
-          });
-        })
-        .catch((error) => {
-          track(EVENTS.VERIFICATION, {
-            verification_type: "zkpassport",
-            status: "contract_call_failed",
-            userAddress: account.address,
-            errorMessage: error.message as string,
-          });
-          toast.error(
-            t("VERIFICATION_FAILED_MESSAGE", {
-              errorMessage: error.message as string,
-            }),
-          );
-        });
-
-      setShowZkPassportTutorial(false);
-      setZkPassportUrl("");
-      setZkPassportStatus(null);
-      refetchZkPassportStatus();
-    } catch (error) {
-      console.error("Failed to register ZKPassport onchain:", error);
-      track(EVENTS.VERIFICATION, {
-        verification_type: "zkpassport",
-        status: "failed",
-        userAddress: account?.address ?? "",
-        errorMessage: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
-    setIsZkPassportLoading(false);
-  };
-
-  const { track } = useAnalytics();
-  const { account } = useThirdweb();
-
-  useEffect(() => {
-    if (isAadhaarProofError) {
-      track(EVENTS.VERIFICATION, {
-        verification_type: "aadhaar",
-        status: "failed",
-        errorMessage: aadhaarProofError.cause as string,
-        userAddress: account?.address,
-      });
-      toast.error(
-        t("VERIFICATION_FAILED_MESSAGE", {
-          errorMessage: aadhaarProofError.cause as string,
-        }),
-      );
-    }
-  }, [isAadhaarProofError, aadhaarProofError, t, track, account]);
-
-  const [aadhaarProofLoading, setAadhaarProofLoading] = useState(false);
-  const aadhaarSubmissionInProgressRef = useRef(false);
-
-  useEffect(() => {
-    // Wait for verification status to load before attempting submission
-    if (isAadhaarStatusLoading) {
-      return;
-    }
-
-    // Don't attempt if already verified
-    if (isAadhaarVerified) {
-      return;
-    }
-
-    // Prevent concurrent submissions
-    if (aadhaarSubmissionInProgressRef.current || isAadhaarProofPending) {
-      return;
-    }
-
-    if (anonAadhaar.status === "logged-in") {
-      console.log("anonAadhaar", anonAadhaar);
-      const aaObj = localStorage.getItem("anonAadhaar");
-      const anonAadhaarProofs = aaObj
-        ? JSON.parse(aaObj).anonAadhaarProofs
-        : undefined;
-      if (anonAadhaarProofs === undefined || anonAadhaarProofs?.length === 0)
-        return;
-      deserialize(
-        anonAadhaarProofs[Object.keys(anonAadhaarProofs)?.length - 1].pcd,
-      ).then(async (result) => {
-        setAnonAadhaarCore(result);
-
-        if (result && !isAadhaarVerified && !isAadhaarProofPending) {
-          // Prevent concurrent submissions
-          if (aadhaarSubmissionInProgressRef.current) {
-            return;
-          }
-
-          aadhaarSubmissionInProgressRef.current = true;
-          setAadhaarProofLoading(true);
-          track(EVENTS.VERIFICATION, {
-            verification_type: "aadhaar",
-            status: "initiated",
-            userAddress: account?.address,
-          });
-          try {
-            const nullifierSeed = BigInt(result.proof.nullifierSeed);
-            const nullifier = BigInt(result.proof.nullifier);
-            const timestamp = BigInt(result.proof.timestamp);
-            const signal = BigInt(1);
-            const revealArray: [bigint, bigint, bigint, bigint] = [
-              BigInt(result.proof.ageAbove18),
-              BigInt(result.proof.gender),
-              BigInt(result.proof.pincode),
-              BigInt(result.proof.state),
-            ];
-            const packedGroth16Proof = packGroth16Proof(
-              result.proof.groth16Proof,
-            ).map((str) => BigInt(str)) as [
-              bigint,
-              bigint,
-              bigint,
-              bigint,
-              bigint,
-              bigint,
-              bigint,
-              bigint,
-            ];
-            await submitAnonAadhaarProof({
-              nullifierSeed,
-              nullifier,
-              timestamp,
-              signal,
-              revealArray,
-              packedGroth16Proof,
-            });
-            refetchAadhaarStatus();
-            track(EVENTS.VERIFICATION, {
-              verification_type: "aadhaar",
-              status: "completed",
-              userAddress: account?.address,
-            });
-
-            toast.success(t("VERIFIED_TOAST_TITLE", { title: "Aadhaar" }));
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } catch (err) {
-            const errorMessage =
-              err instanceof Error
-                ? err.message
-                : typeof err === "string"
-                  ? err
-                  : t("AADHAAR_VERIFICATION_FAILED");
-            track(EVENTS.VERIFICATION, {
-              verification_type: "aadhaar",
-              status: "failed",
-              errorMessage,
-              userAddress: account?.address,
-            });
-            toast.error(
-              t("VERIFICATION_FAILED_MESSAGE", {
-                errorMessage,
-              }),
-            );
-          } finally {
-            // Clear state after submission (success or error) to prevent retries
-            aadhaarSubmissionInProgressRef.current = false;
-            setAadhaarProofLoading(false);
-            // Clear localStorage to prevent retry on refresh
-            localStorage.removeItem("anonAadhaar");
-          }
-        }
-      });
-    }
-  }, [
-    anonAadhaar,
-    isAadhaarVerified,
-    isAadhaarStatusLoading,
-    isAadhaarProofPending,
-    submitAnonAadhaarProof,
-    refetchAadhaarStatus,
-    t,
-    track,
-    account,
-  ]);
 
   const {
     isLinkedInVerified,
@@ -583,7 +171,6 @@ export function Verifications() {
     isInstagramVerified,
     isFacebookVerified,
     isBinanceVerified,
-    isZkPassportVerified,
   };
 
   // Map social names to contract reward values
@@ -594,7 +181,6 @@ export function Verifications() {
     X: xRp,
     Facebook: facebookRp,
     Binance: binanceRp,
-    ZkPassport: zkPassportRpReward,
   };
 
   const SOCIALS = [
@@ -635,15 +221,6 @@ export function Verifications() {
       rpReward: socialRewards.Binance ?? 0,
     },
   ];
-
-  const isAnySocialVerified =
-    !!isLinkedInVerified ||
-    !!isGitHubVerified ||
-    !!isXVerified ||
-    !!isInstagramVerified ||
-    !!isFacebookVerified ||
-    !!isBinanceVerified ||
-    !!isZkPassportVerified;
 
   return (
     <>
@@ -688,307 +265,7 @@ export function Verifications() {
             }
           />
         ))}
-        {!HIDE_AADHAAR_VERIFICATION &&
-          settings.currency.country === "India" &&
-          isAnySocialVerified && (
-            <VerificationItem
-              name="Aadhaar"
-              icon={<Fingerprint className="size-5 text-foreground" />}
-              usdcReward={0}
-              rpReward={
-                isAadhaarRpLoading || isAadhaarRpError || !aadhaarRp
-                  ? 0
-                  : aadhaarRp
-              }
-              isVerified={!!isAadhaarVerified}
-              isStatusLoading={
-                isAadhaarStatusLoading ||
-                aadhaarProofLoading ||
-                isAadhaarRpLoading
-              }
-              socialStatusError={
-                aadhaarStatusError ||
-                aadhaarRpError ||
-                aadhaarProofError ||
-                null
-              }
-              refetchSocialStatus={refetchAadhaarStatus}
-              customButton={
-                isAadhaarVerified ? (
-                  <Button
-                    className="bg-muted text-foreground hover:bg-muted"
-                    onClick={() => {
-                      toast.success(t("ALREADY_VERIFIED"));
-                    }}>
-                    <Check className="mr-2 size-4" />
-                    {t("VERIFIED")}
-                  </Button>
-                ) : anonAadhaar?.status === "logged-out" ||
-                  anonAadhaar?.status === "logged-in" ? (
-                  isAadhaarProofPending ? (
-                    <Button variant="outline" disabled>
-                      <Loader2 className="mr-2 size-4 animate-spin" />
-                      {t("SUBMITTING_PROOF")}
-                    </Button>
-                  ) : (
-                    <div className="launch_prove_modal">
-                      <LaunchProveModal
-                        buttonStyle={{
-                          border: "1px solid var(--primary)",
-                          color: "var(--primary)",
-                          background: "transparent",
-                          borderRadius: "8px",
-                          fontWeight: 500,
-                          fontSize: 14,
-                          boxShadow: "none",
-                        }}
-                        buttonTitle={t("GET_VERIFIED")}
-                        nullifierSeed={0}
-                      />
-                    </div>
-                  )
-                ) : anonAadhaar && anonAadhaar?.status === "logging-in" ? (
-                  <Button variant="outline" disabled>
-                    <Loader2 className="mr-2 size-4 animate-spin" />
-                    {t("GENERATING_PROOF")}
-                  </Button>
-                ) : (
-                  <Button variant="outline" disabled>
-                    {t("ERROR")}
-                  </Button>
-                )
-              }
-            />
-          )}
-        {
-          <VerificationItem
-            name="ZKPassport"
-            tag={t("TAG_RELIABLE")}
-            description={t("ZK_PASSPORT_DESCRIPTION")}
-            icon={
-              <ASSETS.ICONS.ZkPassport className="size-5 text-foreground" />
-            }
-            usdcReward={0}
-            rpReward={
-              isZkPassportRpLoading ||
-              isZkPassportRpError ||
-              !zkPassportRpReward
-                ? 0
-                : zkPassportRpReward
-            }
-            isVerified={!!isZkPassportVerified}
-            isStatusLoading={isZkPassportStatusLoading || isZkPassportRpLoading}
-            socialStatusError={
-              zkPassportStatusError || zkPassportRpError || null
-            }
-            refetchSocialStatus={refetchZkPassportStatus}
-            customButton={
-              isZkPassportVerified ? (
-                <Button
-                  className="bg-muted text-foreground hover:bg-muted"
-                  onClick={() => {
-                    toast.success(t("ALREADY_VERIFIED"));
-                  }}>
-                  <Check className="mr-2 size-4" />
-                  {t("VERIFIED")}
-                </Button>
-              ) : (
-                <Button
-                  variant="outline"
-                  onClick={handleZkPassportVerification}
-                  disabled={isZkPassportLoading || isZkPassportRegisterPending}>
-                  {isZkPassportLoading || isZkPassportRegisterPending ? (
-                    <>
-                      <Loader2 className="mr-2 size-4 animate-spin" />
-                      {isZkPassportRegisterPending
-                        ? t("SUBMITTING_PROOF")
-                        : t("INITIALIZING")}
-                    </>
-                  ) : (
-                    t("GET_VERIFIED")
-                  )}
-                </Button>
-              )
-            }
-          />
-        }
       </div>
-
-      {/* ZK Passport Tutorial/QR Modal */}
-      {showZkPassportTutorial &&
-        (() => {
-          const isPhone = getScreenType() === "phone";
-          const hasUrl = !!zkPassportUrl;
-          const showQR = hasUrl && !isPhone;
-          const showStatus = hasUrl && isPhone;
-
-          const handleCancel = () => {
-            setIsZkPassportLoading(false);
-            setShowZkPassportTutorial(false);
-            setZkPassportUrl("");
-            setZkPassportStatus(null);
-          };
-
-          const StatusDisplay = () =>
-            zkPassportStatus ? (
-              <div
-                className={`w-full rounded-lg border bg-muted/50 p-4 ${showQR ? "mt-4" : ""}`}>
-                <div className="flex items-center gap-2">
-                  {isZkPassportLoading && (
-                    <Loader2 className="size-4 animate-spin text-primary" />
-                  )}
-                  <p className="text-muted-foreground text-sm">
-                    {zkPassportStatus}
-                  </p>
-                </div>
-              </div>
-            ) : null;
-
-          return (
-            <Drawer
-              open={showZkPassportTutorial}
-              onOpenChange={(open) => {
-                if (!open) {
-                  handleCancel();
-                }
-              }}>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>
-                    {hasUrl
-                      ? t("ZK_PASSPORT_VERIFICATION")
-                      : t("ZK_PASSPORT_TUTORIAL_TITLE")}
-                  </DrawerTitle>
-                  {showQR && (
-                    <DrawerDescription>
-                      {t("ZK_PASSPORT_QR_DESCRIPTION")}
-                    </DrawerDescription>
-                  )}
-                  {showStatus && (
-                    <DrawerDescription>
-                      {t("PLEASE_WAIT_WHILE_WE_VERIFY_YOUR", {
-                        title: "Passport",
-                      })}
-                    </DrawerDescription>
-                  )}
-                  {!hasUrl && (
-                    <DrawerDescription>
-                      {t("ZK_PASSPORT_TUTORIAL_DESCRIPTION")}
-                    </DrawerDescription>
-                  )}
-                </DrawerHeader>
-                {showQR ? (
-                  // QR Code View (Desktop/Tablet only)
-                  <div className="flex flex-col items-center p-6">
-                    <div className="mb-4 rounded-lg bg-white p-4">
-                      <QRCodeSVG value={zkPassportUrl} size={200} />
-                    </div>
-                    <StatusDisplay />
-                  </div>
-                ) : showStatus ? (
-                  // Status View (Mobile - after redirect)
-                  <div className="flex flex-col items-center p-6">
-                    <StatusDisplay />
-                  </div>
-                ) : (
-                  // Tutorial View
-                  <div className="flex flex-col gap-4 p-6">
-                    <div className="rounded-lg bg-muted p-4">
-                      <p className="mb-2 font-semibold">
-                        {t("ZK_PASSPORT_APP_REQUIRED")}
-                      </p>
-                      <p className="text-muted-foreground text-sm">
-                        {t("ZK_PASSPORT_APP_REQUIRED_DESCRIPTION")}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      {isIOS() && (
-                        <Button
-                          variant="outline"
-                          onClick={() =>
-                            window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
-                          }
-                          className="w-full">
-                          {t("ZK_PASSPORT_DOWNLOAD_IOS")}
-                        </Button>
-                      )}
-                      {isAndroid() && (
-                        <Button
-                          variant="outline"
-                          onClick={() =>
-                            window.open(ZK_PASSPORT_APP_LINKS.ANDROID, "_blank")
-                          }
-                          className="w-full">
-                          {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
-                        </Button>
-                      )}
-                      {!isIOS() && !isAndroid() && (
-                        <>
-                          <Button
-                            variant="outline"
-                            onClick={() =>
-                              window.open(ZK_PASSPORT_APP_LINKS.IOS, "_blank")
-                            }
-                            className="w-full">
-                            {t("ZK_PASSPORT_DOWNLOAD_IOS")}
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={() =>
-                              window.open(
-                                ZK_PASSPORT_APP_LINKS.ANDROID,
-                                "_blank",
-                              )
-                            }
-                            className="w-full">
-                            {t("ZK_PASSPORT_DOWNLOAD_ANDROID")}
-                          </Button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                )}
-                <DrawerFooter>
-                  {hasUrl ? (
-                    // Cancel button for QR/Status views
-                    <Button
-                      variant="outline"
-                      onClick={handleCancel}
-                      className="w-full">
-                      {t("CANCEL")}
-                    </Button>
-                  ) : (
-                    // Tutorial Footer
-                    <>
-                      <Button
-                        onClick={handleZkPassportContinueToVerification}
-                        disabled={isZkPassportLoading}
-                        className="w-full">
-                        {isZkPassportLoading ? (
-                          <>
-                            <Loader2 className="mr-2 size-4 animate-spin" />
-                            {t("INITIALIZING")}
-                          </>
-                        ) : (
-                          t("CONTINUE_TO_VERIFICATION")
-                        )}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => {
-                          setShowZkPassportTutorial(false);
-                        }}
-                        className="w-full">
-                        {t("CANCEL")}
-                      </Button>
-                    </>
-                  )}
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          );
-        })()}
     </>
   );
 }
@@ -1628,14 +905,7 @@ function VerificationItem({
           </div>
         </CardContent>
         <CardFooter className="flex justify-between px-4">
-          <div className="flex items-center gap-1 text-muted-foreground text-sm">
-            {name === "Aadhaar" ? <Monitor className="size-4" /> : null}
-            {name === "Aadhaar"
-              ? t("WORKS_ON_DEVICE_ONLY", {
-                  device: "PC",
-                })
-              : null}
-          </div>
+          <div className="flex items-center gap-1 text-muted-foreground text-sm" />
           <div>
             {customButton ? (
               customButton
@@ -1715,7 +985,6 @@ function KycVerificationCard() {
   const submit = useSubmitKycAttestation();
   const [busy, setBusy] = useState(false);
   const processed = useRef(false);
-  const reward = kycRp ?? 50;
 
   // Returning from the hosted wizard: ?code=<one-time>&state=kyc-…
   useEffect(() => {
@@ -1737,12 +1006,14 @@ function KycVerificationCard() {
         return;
       }
       try {
-        await toast.promise(submit.mutateAsync(att.value), {
-          loading: t("IDENTITY_VERIFYING"),
-          success: t("IDENTITY_VERIFIED_WITH_REWARD"),
-          error: (e) =>
-            e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
-        }).unwrap();
+        await toast
+          .promise(submit.mutateAsync(att.value), {
+            loading: t("IDENTITY_VERIFYING"),
+            success: t("IDENTITY_VERIFIED_WITH_REWARD"),
+            error: (e) =>
+              e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
+          })
+          .unwrap();
         await refetchKycStatus();
       } catch {
         // toast.promise already surfaced the error to the user
@@ -1751,7 +1022,7 @@ function KycVerificationCard() {
         setBusy(false);
       }
     })();
-  }, [account?.address, submit, reward, refetchKycStatus, t]);
+  }, [account?.address, submit, refetchKycStatus, t]);
 
   const start = useCallback(async () => {
     if (!account?.address) {

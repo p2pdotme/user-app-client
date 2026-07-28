@@ -14,7 +14,7 @@ The user-facing web application for the [P2P.me](https://p2p.me) protocol — a 
 - **Sell USDC** — receive fiat directly to your payment details
 - **Scan & Pay** — scan any merchant QR code and pay with USDC; the merchant receives fiat
 - **Cross-chain Deposit / Withdraw** — bridge in USDC or other tokens from Ethereum, Solana, Polygon, Arbitrum, Optimism, BSC, and HyperEVM via Rango Exchange
-- **ZK Verifications** — increase transaction limits by verifying social accounts (GitHub, LinkedIn, Instagram) or Aadhaar using zero-knowledge proofs — no personal data is stored or shared
+- **ZK Verifications** — increase transaction limits by verifying social accounts (GitHub, LinkedIn, Instagram) using zero-knowledge proofs — no personal data is stored or shared
 
 **Supported currencies:** INR · BRL · IDR · NGN · ARS · MXN · VEN · USD · EUR · COP
 
@@ -32,7 +32,7 @@ The user-facing web application for the [P2P.me](https://p2p.me) protocol — a 
 | Contract Interaction | Thirdweb SDK + viem |
 | Data Layer | The Graph (subgraph) — minimises RPC calls |
 | Bridge | Rango Exchange |
-| ZK Verifications | Reclaim Protocol · AnonAadhaar · ZKPassport |
+| ZK Verifications | Reclaim Protocol |
 | Error Handling | neverthrow (Result/ResultAsync — no thrown errors in core) |
 | Validation | Zod |
 | Analytics | Amplitude |
