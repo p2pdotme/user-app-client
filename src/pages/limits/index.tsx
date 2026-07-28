@@ -114,7 +114,6 @@ export function Limits() {
     isXVerified,
     isInstagramVerified,
     isFacebookVerified,
-    isZkPassportVerified,
   } = useSocialVerificationStatus();
 
   // Check if any social is verified
@@ -123,8 +122,7 @@ export function Limits() {
     !!isGitHubVerified ||
     !!isXVerified ||
     !!isInstagramVerified ||
-    !!isFacebookVerified ||
-    !!isZkPassportVerified;
+    !!isFacebookVerified;
 
   // Campaign USDC claim hook
   const { claimCampaignUsdcReward, claimCampaignUsdcMutation } =
@@ -179,7 +177,7 @@ export function Limits() {
           </Card>
         </section>
         <section className="flex w-full flex-col gap-3 pb-2">
-          <div className="flex items-center justify-start gap-2.5 mb-2">
+          <div className="mb-2 flex items-center justify-start gap-2.5">
             <div className="flex size-7 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/20">
               <TrendingUp className="size-4 text-primary" />
             </div>
@@ -212,8 +210,7 @@ export function Limits() {
                     claimCampaignUsdcMutation.isPending ||
                     isCampaignRewardLoading
                   }
-                  onClick={claimCampaignUsdcReward}
-                >
+                  onClick={claimCampaignUsdcReward}>
                   {claimCampaignUsdcMutation.isPending
                     ? t("CLAIMING")
                     : t("CLAIM_REWARD")}

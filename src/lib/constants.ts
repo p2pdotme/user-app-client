@@ -178,12 +178,6 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
 export const CONNECTION_STATUS_TUTORIAL_LINK =
   "https://youtu.be/your-tutorial-link";
 
-export const ZK_PASSPORT_APP_LINKS = {
-  IOS: "https://apps.apple.com/us/app/zkpassport/id6477371975",
-  ANDROID:
-    "https://play.google.com/store/apps/details?id=app.zkpassport.zkpassport",
-} as const;
-
 export const RECLAIM_APP_LINKS = {
   ANDROID:
     "https://play.google.com/store/apps/details?id=org.reclaimprotocol.app",

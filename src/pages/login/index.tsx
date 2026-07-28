@@ -1,4 +1,4 @@
-import { Fingerprint, Globe, Loader2, MailCheck } from "lucide-react";
+import { Globe, Loader2, MailCheck } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -76,8 +76,6 @@ const getSocialPlatformIcon = (platform: string | undefined) => {
       return (
         <ASSETS.ICONS.Facebook className="size-24 animate-pulse text-foreground" />
       );
-    case "Aadhaar":
-      return <Fingerprint className="size-24 animate-pulse text-foreground" />;
     default:
       return null;
   }

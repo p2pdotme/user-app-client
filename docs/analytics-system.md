@@ -34,9 +34,9 @@ analytics.track(EVENTS.TRANSACTION, {
   currency: "USDC",
 });
 
-// Verification (KYC/Aadhaar/social)
+// Verification (KYC/social)
 analytics.track(EVENTS.VERIFICATION, {
-  status: "aadhaar_initiated", // or "aadhaar_success" | "aadhaar_failed"
+  status: "social_initiated", // or "social_success" | "social_failed"
 });
 
 // Wallet
@@ -67,7 +67,7 @@ analytics.identify(userId, { wallet_type: "thirdweb", connection_time: Date.now(
 - TRANSACTION: buy/sell/pay/deposit/withdraw flow tracking
   - statuses: "initiated", "started" (after on-chain order placed), "completed", "failed", plus domain-specific like "accepted", "paid", "cancelled"
 - VERIFICATION: identity and limits flows
-  - statuses: e.g., "aadhaar_initiated", "aadhaar_success", "aadhaar_failed", "social_initiated", "social_success", "social_failed"
+  - statuses: e.g., "social_initiated", "social_success", "social_failed"
 - WALLET: wallet lifecycle
   - statuses: "connected", "failed"
 - PWA: install and prompt signals
