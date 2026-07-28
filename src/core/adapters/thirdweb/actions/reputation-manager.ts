@@ -8,11 +8,8 @@ import {
   prepareClaimRewardTx,
   prepareClaimVotingRewardsTx,
   prepareCreateCampaignTx,
-  prepareGetAadhaarRpArgs,
-  prepareGetAadharProofArgs,
   prepareGetAccruedVotingRewardsArgs,
   prepareGetAdminVotingRpArgs,
-  prepareGetAnonAadhaarVerifierAddrArgs,
   prepareGetBinanceRpArgs,
   prepareGetCampaignActiveArgs,
   prepareGetCampaignManagersArgs,
@@ -31,7 +28,6 @@ import {
   prepareGetHasVerifiedUsernameArgs,
   prepareGetInstagramMinYearGapArgs,
   prepareGetInstagramRpArgs,
-  prepareGetIsAadharVerifiedArgs,
   prepareGetIsBinanceVerifiedArgs,
   prepareGetIsCommunityManagerArgs,
   prepareGetIsFacebookVerifiedArgs,
@@ -39,7 +35,6 @@ import {
   prepareGetIsInstagramVerifiedArgs,
   prepareGetIsKycVerifiedArgs,
   prepareGetIsLinkedInVerifiedArgs,
-  prepareGetIsPassportVerifiedArgs,
   prepareGetIsWhitelistedArgs,
   prepareGetIsXVerifiedArgs,
   prepareGetKycRpArgs,
@@ -53,7 +48,6 @@ import {
   prepareGetOnChainActivityRpArgs,
   prepareGetOrderCompleteRpArgs,
   prepareGetOrderProcessorArgs,
-  prepareGetPassportRpArgs,
   prepareGetPrimaryRecommenderArgs,
   prepareGetProxiableUUIDArgs,
   prepareGetReclaimAddressArgs,
@@ -109,7 +103,6 @@ import type {
   ClaimRecommendationRevenueParams,
   ClaimRewardParams,
   EpochVotesParams,
-  GetAadharProofParams,
   GetAccruedVotingRewardsParams,
   GetCampaignActiveParams,
   GetCampaignManagersParams,
@@ -117,7 +110,6 @@ import type {
   GetClaimedOnchainActivityParams,
   GetHasVerifiedParams,
   GetHasVerifiedUsernameParams,
-  GetIsAadharVerifiedParams,
   GetIsBinanceVerifiedParams,
   GetIsCommunityManagerParams,
   GetIsFacebookVerifiedParams,
@@ -126,7 +118,6 @@ import type {
   GetIsLinkedInVerifiedParams,
   GetIsWhitelistedParams,
   GetIsXVerifiedParams,
-  GetIsZkPassportVerifiedParams,
   GetNumTxnsParams,
   GetOrderProcessorParams,
   GetPrimaryRecommenderParams,
@@ -408,32 +399,6 @@ export function getUserTaskLedger(params: GetUserTaskLedgerParams) {
   );
 }
 
-export function isAadharVerified(
-  params: GetIsAadharVerifiedParams,
-): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
-  return prepareGetIsAadharVerifiedArgs(params).asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read Aadhar verification status from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { params, to, args },
-            },
-          ),
-      ),
-  );
-}
-
 export function isLinkedInVerified(
   params: GetIsLinkedInVerifiedParams,
 ): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
@@ -475,32 +440,6 @@ export function isXVerified(
         (error) =>
           createAppError<"ThirdwebAdapter">(
             "Failed to read X verification status from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { params, to, args },
-            },
-          ),
-      ),
-  );
-}
-
-export function isPassportVerified(
-  params: GetIsZkPassportVerifiedParams,
-): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
-  return prepareGetIsPassportVerifiedArgs(params).asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read Passport verification status from contract",
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
@@ -700,33 +639,6 @@ export function getOnChainActivityRp(): ResultAsync<
   );
 }
 
-export function getAadhaarRp(): ResultAsync<
-  bigint,
-  ThirdwebAdapterError | P2PError
-> {
-  return prepareGetAadhaarRpArgs().asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read Aadhaar RP from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { to, args },
-            },
-          ),
-      ),
-  );
-}
-
 export function getLinkedInRp(): ResultAsync<
   bigint,
   ThirdwebAdapterError | P2PError
@@ -874,33 +786,6 @@ export function isKycVerified(params: {
               code: "TWReadContractError",
               cause: error,
               context: { params, to, args },
-            },
-          ),
-      ),
-  );
-}
-
-export function getPassportRp(): ResultAsync<
-  bigint,
-  ThirdwebAdapterError | P2PError
-> {
-  return prepareGetPassportRpArgs().asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read Passport RP from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { to, args },
             },
           ),
       ),
@@ -1337,32 +1222,6 @@ export function getUpgradeInterfaceVersion(): ResultAsync<
   );
 }
 
-export function getAadharProof(
-  params: GetAadharProofParams,
-): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
-  return prepareGetAadharProofArgs(params).asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read Aadhar proof from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { params, to, args },
-            },
-          ),
-      ),
-  );
-}
-
 export function getAccruedVotingRewards(
   params: GetAccruedVotingRewardsParams,
 ): ResultAsync<bigint, ThirdwebAdapterError | P2PError> {
@@ -1405,33 +1264,6 @@ export function getAdminVotingRp(): ResultAsync<
         (error) =>
           createAppError<"ThirdwebAdapter">(
             "Failed to read admin voting RP from contract",
-            {
-              domain: "ThirdwebAdapter",
-              code: "TWReadContractError",
-              cause: error,
-              context: { to, args },
-            },
-          ),
-      ),
-  );
-}
-
-export function getAnonAadhaarVerifierAddr(): ResultAsync<
-  string,
-  ThirdwebAdapterError | P2PError
-> {
-  return prepareGetAnonAadhaarVerifierAddrArgs().asyncAndThen(
-    ({ to, functionName, abi, args }) =>
-      ResultAsync.fromPromise(
-        viemPublicClient.readContract({
-          address: to,
-          abi,
-          functionName,
-          args,
-        }),
-        (error) =>
-          createAppError<"ThirdwebAdapter">(
-            "Failed to read anon Aadhaar verifier address from contract",
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",
