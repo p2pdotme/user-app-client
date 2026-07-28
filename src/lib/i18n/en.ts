@@ -1,6 +1,5 @@
 export const en = {
   translation: {
-    AADHAAR_VERIFICATION_FAILED: "Aadhaar verification failed",
     ABOUT_P2P_TOKEN: "About $P2P Token",
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P is the governance and utility token of the P2P Protocol, powering futarchy-based protocol governance, treasury control, and trust staking ("Circles of Trust") for a decentralized, privacy-preserving fiat-to-crypto on/off-ramp.',
@@ -576,10 +575,6 @@ export const en = {
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
       "1. Open the Order Receipt page.\n2. Tap the help (?) icon in the top-right.\n3. Select 'Raise Dispute' and follow the instructions.",
     FAQ_HOW_CHECK_CURRENT_LIMITS: "How can I check my current limits?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION:
-      "How do I complete Aadhaar verification?",
-    FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION_ANSWER:
-      "Aadhaar zk-verification (India) is only available once you've completed at least one social zk-verification. Follow the instructions carefully during the process.\n\nNote: For a smooth experience, ensure your PC has at least 8GB of RAM.",
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "How can I deposit USDC into my P2P.me wallet?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
@@ -623,7 +618,7 @@ export const en = {
       "There are two ways you can earn on P2P.me:\n\n1. Refer Users: Once your Buy limits are above $150, you can start referring users through the P2P.me App and earn 0.5% of their trading volume.\n2. Become a Verified Merchant: You can also earn by becoming a Verified Merchant on the lp.p2p.me protocol and fulfilling peer-to-peer orders.",
     FAQ_HOW_TO_INCREASE_LIMITS: "How do I increase my Buy/Sell limits?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "You can increase your limits in two ways:\n\n1. Complete at least one zk social verification on your My Limits page to instantly increase your limits and unlock up to 5 buy orders per day.\n\n2. Verify your identity using:\n • zk-Aadhaar (Desktop only, available after completing at least one zk social verification, in India only)\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nAfter completing your first zk verification, you can continue increasing your limits by completing more transactions on P2P.me.\n\nNote: We don't collect or share your personal data. All verifications use zero-knowledge proofs, ensuring your information remains private and secure while proving only what's needed. As we don't store your data we cannot share it with anyone in the future.",
+      "You can increase your limits in two ways:\n\n1. Complete at least one zk social verification on your My Limits page to instantly increase your limits and unlock up to 5 buy orders per day.\n\n2. Verify your identity using:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nAfter completing your first zk verification, you can continue increasing your limits by completing more transactions on P2P.me.\n\nNote: We don't collect or share your personal data. All verifications use zero-knowledge proofs, ensuring your information remains private and secure while proving only what's needed. As we don't store your data we cannot share it with anyone in the future.",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "How do I pay with Scan & Pay on P2P.me?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
       "- Get the bill amount - Ask the shop for your bill and confirm the total.\n- Open P2P.me - Tap Scan & Pay, enter the bill amount, and place the order. Once it's assigned to a P2P.me merchant, the in-app scanner will open.\n- Ask the shop to generate the payment QR code - Request the shop to generate the QR on their POS machine only after the P2P.me scanner opens. (Note: POS QRs usually expire in ~2 minutes, so timing is crucial.)\n- Scan & wait - Use the P2P.me scanner to scan the QR. Most payments are processed within 60 seconds, so wait patiently.\n- Static QRs - If the shop has a static QR code, it's simpler since you'll have more time to complete the payment.",
@@ -1927,11 +1922,8 @@ export const en = {
       "ZK Verify any social account to claim your reward.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verify at least one social account to grow your limits and keep increasing limits as you complete transactions.",
-    VERIFY_SOCIAL_TO_GROW_LIMITS_AND_AADHAAR:
-      "Verify at least one social account to grow your limits, and keep increasing limits as you complete transactions.",
     VERIFY_ZK_PROOF: "Verify zk proof",
     VIA_JUPITER: "via Jupiter",
-    VIDEO_AADHAR_VERIFICATION: "AADHAR Verification",
     VIDEO_APP_TOUR: "App Tour",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
@@ -2008,10 +2000,6 @@ export const en = {
     VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
     VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_AADHAAR: "ZK Verification - Aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_LINK:
-      "https://www.youtube.com/watch?v=zk-aadhaar",
-    VIDEO_ZK_VERIFICATION_AADHAAR_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_ZK_VERIFICATION_BAD_CASES: "ZK Verification - Common Issues",
     VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
       "https://www.youtube.com/watch?v=zk-issues",
@@ -2100,41 +2088,6 @@ export const en = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "You've received a special invite! Verify your socials to get your bonus rewards.",
     ZERO_ADDRESS: "Zero address",
-    ZK_PASSPORT_AGE_BELOW_MINIMUM: "ZK Passport age below minimum",
-    ZK_PASSPORT_APP_REQUIRED: "ZK Passport app is required",
-    ZK_PASSPORT_APP_REQUIRED_DESCRIPTION:
-      "Please install the ZK Passport app to continue with verification.",
-    ZK_PASSPORT_DESCRIPTION: "NFC passport holders only",
-    ZK_PASSPORT_DOMAIN_EMPTY: "ZK Passport domain is empty",
-    ZK_PASSPORT_DOWNLOAD_ANDROID: "Download for Android",
-    ZK_PASSPORT_DOWNLOAD_IOS: "Download for iOS",
-    ZK_PASSPORT_IDENTIFIER_ALREADY_VERIFIED:
-      "ZK Passport identifier already verified",
-    ZK_PASSPORT_INITIALIZATION_FAILED:
-      "Failed to initialize ZK Passport verification",
-    ZK_PASSPORT_INVALID_SCOPE: "ZK Passport invalid scope",
-    ZK_PASSPORT_MIN_AGE_TOO_HIGH: "ZK Passport minimum age too high",
-    ZK_PASSPORT_PROOF_GENERATED: "Proof generated, submitting for verification",
-    ZK_PASSPORT_PROOF_GENERATING: "Generating proof, please wait...",
-    ZK_PASSPORT_PROOF_INVALID: "ZK Passport proof is invalid",
-    ZK_PASSPORT_PROOF_SUBMITTED:
-      "Proof submitted, verifying onchain for registration",
-    ZK_PASSPORT_PURPOSE: "Prove your personhood",
-    ZK_PASSPORT_QR_DESCRIPTION:
-      "Scan the QR code with your ZK Passport app to verify your identity",
-    ZK_PASSPORT_REQUEST_RECEIVED:
-      "Request received, waiting for you to complete verification",
-    ZK_PASSPORT_SCAN_INSTRUCTIONS:
-      "Open your ZK Passport app and scan this QR code to complete verification",
-    ZK_PASSPORT_SCOPE_EMPTY: "ZK Passport scope is empty",
-    ZK_PASSPORT_TUTORIAL_DESCRIPTION:
-      "To complete verification, you'll need the ZK Passport app installed on your device.",
-    ZK_PASSPORT_TUTORIAL_TITLE: "How to verify with ZK Passport",
-    ZK_PASSPORT_UNEXPECTED_SENDER: "ZK Passport unexpected sender",
-    ZK_PASSPORT_VERIFICATION: "ZK Passport Verification",
-    ZK_PASSPORT_VERIFICATION_ERROR: "ZK Passport verification error",
-    ZK_PASSPORT_VERIFICATION_FAILED: "ZK Passport verification failed",
-    ZK_PASSPORT_VERIFIER_NOT_SET: "ZK Passport verifier not set",
     ZK_VERIFICATION_REQUIRED: "ZK verification required",
   },
 } as const;
