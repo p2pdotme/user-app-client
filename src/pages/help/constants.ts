@@ -104,7 +104,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "video-zk-verification-instagram",
       "video-zk-verification-linkedin",
       "video-zk-verification-github",
-      "video-zk-verification-aadhaar",
     ],
     faqIds: [
       "limits-1", // What are the default limits?
@@ -112,7 +111,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "limits-3", // Are buy and sell limits tracked separately?
       "limits-4", // Can I lose my increased limits?
       "limits-5", // How do I verify my social accounts with zk proofs to increase my limits?
-      "limits-6", // How do I complete Aadhaar verification?
       "limits-7", // Why am I seeing "Didn't meet eligible criteria" at the end of verification?
       "limits-8", // What will happen if I'm found doing fraudulent activity?
     ],
@@ -511,12 +509,6 @@ export const ALL_FAQS: FAQ[] = [
     answerKey: "FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER",
   },
   {
-    id: "limits-6",
-    questionKey: "FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION",
-    answerKey: "FAQ_HOW_COMPLETE_AADHAAR_VERIFICATION_ANSWER",
-    excludedFrom: ["id", "pt"],
-  },
-  {
     id: "limits-7",
     questionKey: "FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA",
     answerKey: "FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER",
@@ -729,22 +721,6 @@ export const ALL_VIDEO_GUIDES: VideoGuide[] = [
       es: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_GITHUB_ES,
     },
   },
-  {
-    id: "video-zk-verification-aadhaar",
-    titleKey: "VIDEO_AADHAR_VERIFICATION",
-    links: {
-      en: "https://youtu.be/jsnfzUufD0s",
-      pt: "https://youtu.be/jsnfzUufD0s",
-      id: "https://youtu.be/jsnfzUufD0s",
-      hi: "https://youtube.com/watch?v=uvvHZkAnUvE",
-      es: "https://youtu.be/jsnfzUufD0s",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_AADHAAR,
-    },
-    excludedFrom: ["id", "pt", "es"],
-  },
-
   {
     id: "video-claiming-rewards-general",
     titleKey: "VIDEO_CLAIM_REFERRAL_REWARDS",

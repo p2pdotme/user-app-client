@@ -119,31 +119,6 @@ export const reputationManagerAbi = [
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "bool",
-        name: "verified",
-        type: "bool",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-    ],
-    name: "AadhaarVerified",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
         internalType: "uint256",
         name: "campaignId",
         type: "uint256",
@@ -672,38 +647,6 @@ export const reputationManagerAbi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "aadhaarRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "aadharProof",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -815,19 +758,6 @@ export const reputationManagerAbi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "anonAadhaarVerifierAddr",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -1352,25 +1282,6 @@ export const reputationManagerAbi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "hasVerifiedPassportIdentifier",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "string",
         name: "",
         type: "string",
@@ -1460,25 +1371,6 @@ export const reputationManagerAbi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-    ],
-    name: "isAadharVerified",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -1593,25 +1485,6 @@ export const reputationManagerAbi = [
       },
     ],
     name: "isLinkedInVerified",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-    ],
-    name: "isPassportVerified",
     outputs: [
       {
         internalType: "bool",
@@ -1929,19 +1802,6 @@ export const reputationManagerAbi = [
     name: "orderVolumeUpdateRpHook",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "passportRp",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -2714,34 +2574,6 @@ export const reputationManagerAbi = [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "zkPassportConfig",
-    outputs: [
-      {
-        internalType: "address",
-        name: "verifierAddr",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "domain",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "scope",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "minAge",
         type: "uint256",
       },
     ],

@@ -81,7 +81,6 @@ export default ({ mode }: { mode: string }) => {
         "@p2pdotme/sdk/qr-parsers": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/qr-parsers.mjs"),
         "@p2pdotme/sdk/zkkyc": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/zkkyc.mjs"),
         "@p2pdotme/sdk": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/index.mjs"),
-        "@zkpassport/sdk": path.resolve(__dirname, "node_modules/@zkpassport/sdk"),
         "@reclaimprotocol/js-sdk": path.resolve(__dirname, "node_modules/@reclaimprotocol/js-sdk"),
         "@": path.resolve(__dirname, "./src"),
         "@p2pdotme": path.resolve(__dirname, "./src/core/p2pdotme"),
@@ -93,7 +92,6 @@ export default ({ mode }: { mode: string }) => {
       // wallet-connector-core singleton across chunks, yielding runtime errors
       // like "registerEvmProviders/registerSolanaProviders is not a function".
       include: [
-        "@zkpassport/sdk",
         "@reclaimprotocol/js-sdk",
         "@dynamic-labs/sdk-react-core",
         "@dynamic-labs/wallet-connector-core",
