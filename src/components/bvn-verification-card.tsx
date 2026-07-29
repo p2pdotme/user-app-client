@@ -23,10 +23,16 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
+import { usePrices } from "@p2pdotme/sdk/react";
 import type { BvnMethod, BvnOtpMethod } from "@p2pdotme/sdk/zkkyc";
+import { useQuery } from "@tanstack/react-query";
+import { useSettings } from "@/contexts";
 import { useBvnVerification } from "@/hooks/use-bvn";
 import { useThirdweb } from "@/hooks/use-thirdweb";
-import { useBvnVerificationStatus } from "@/hooks/use-tx-limits";
+import {
+  useBvnRpReward,
+  useBvnVerificationStatus,
+} from "@/hooks/use-tx-limits";
 
 /** Icon shown next to each OTP delivery channel. */
 const OTP_METHOD_ICONS: Record<string, typeof Mail> = {
@@ -92,11 +98,13 @@ function BvnCard({
   hasAccount,
   isStatusLoading,
   isVerified,
+  limit,
   onGetVerified,
 }: {
   hasAccount: boolean;
   isStatusLoading: boolean;
   isVerified: boolean | undefined;
+  limit: number;
   onGetVerified: () => void;
 }) {
   const { t } = useTranslation();
@@ -120,6 +128,12 @@ function BvnCard({
                 {t("BVN_TAG")}
               </Badge>
             </div>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <p className="font-medium text-xs">
+              <span className="font-semibold text-2xl">${limit}</span>{" "}
+              {t("LIMIT")}
+            </p>
           </div>
         </div>
       </CardContent>
@@ -333,9 +347,33 @@ function BvnStepDone() {
 export function BvnVerificationCard() {
   const { t } = useTranslation();
   const { account } = useThirdweb();
+  const { settings } = useSettings();
+  const prices = usePrices();
   const [open, setOpen] = useState(false);
   const { isBvnVerified, isBvnStatusLoading, refetchBvnStatus } =
     useBvnVerificationStatus();
+  const { bvnRp, isBvnRpLoading, isBvnRpError } = useBvnRpReward();
+
+  const { data: rpPerUsdtLimit } = useQuery({
+    queryKey: ["rp-per-usdt-limit", settings.currency.currency],
+    queryFn: async () => {
+      return prices
+        .getReputationPerUsdcLimit({ currency: settings.currency.currency })
+        .match(
+          (data) => data.multiplier,
+          (error: unknown) => {
+            console.error(
+              "[BvnVerificationCard] Error fetching RP/USDT limit",
+              error,
+            );
+            return 1;
+          },
+        );
+    },
+  });
+
+  const limit =
+    (isBvnRpLoading || isBvnRpError ? 0 : (bvnRp ?? 0)) * (rpPerUsdtLimit ?? 1);
   const {
     step,
     methods,
@@ -408,6 +446,7 @@ export function BvnVerificationCard() {
         hasAccount={!!account?.address}
         isStatusLoading={isBvnStatusLoading}
         isVerified={isBvnVerified}
+        limit={limit}
         onGetVerified={() => setOpen(true)}
       />
 

@@ -14,6 +14,7 @@ import {
 } from "@/core/adapters/thirdweb/actions/p2p-config";
 import {
   getBinanceRp,
+  getBvnRp,
   getFacebookRp,
   getGitHubRp,
   getInstagramRp,
@@ -308,6 +309,27 @@ export function useKycRpReward() {
   });
 
   return { kycRp, isKycRpLoading, isKycRpError, kycRpError };
+}
+
+export function useBvnRpReward() {
+  const {
+    data: bvnRp,
+    isLoading: isBvnRpLoading,
+    isError: isBvnRpError,
+    error: bvnRpError,
+  } = useQuery({
+    queryKey: ["bvn-rp-reward"],
+    queryFn: async () => {
+      return getBvnRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
+  return { bvnRp, isBvnRpLoading, isBvnRpError, bvnRpError };
 }
 
 export function useKycVerificationStatus() {
