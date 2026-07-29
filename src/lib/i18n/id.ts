@@ -185,6 +185,28 @@ export const id = {
     BUY_USDC: "Beli USDC",
     BUY_USDC_FAQS: "FAQ Beli USDC",
     BUY_VOLUME: "Volume Beli",
+    BVN_ALREADY_VERIFIED: "BVN sudah terverifikasi",
+    BVN_ALTERNATE_PHONE_PLACEHOLDER: "Nomor telepon alternatif",
+    BVN_ATTESTATION_EXPIRED:
+      "Verifikasi BVN ini telah kedaluwarsa. Silakan coba lagi.",
+    BVN_CHOOSE_OTP_METHOD: "Pilih cara menerima OTP Anda",
+    BVN_DESCRIPTION: "Verifikasi Nomor Verifikasi Bank Nigeria Anda",
+    BVN_DRAWER_DESCRIPTION:
+      "Selesaikan langkah-langkah di bawah untuk memverifikasi BVN Anda dan meningkatkan limit.",
+    BVN_ENTER_PHONE_NUMBER: "Masukkan nomor telepon",
+    BVN_INPUT_PLACEHOLDER: "Masukkan BVN 11 digit Anda",
+    BVN_INVALID_SIGNATURE:
+      "Tanda tangan verifikasi BVN tidak valid. Silakan coba lagi.",
+    BVN_NULLIFIER_ALREADY_SPENT:
+      "BVN ini sudah pernah digunakan untuk verifikasi.",
+    BVN_OTP_PLACEHOLDER: "Masukkan OTP",
+    BVN_SIGNER_NOT_SET:
+      "Verifikasi BVN sementara tidak tersedia. Silakan coba lagi nanti.",
+    BVN_TAG: "Hanya Nigeria",
+    BVN_TITLE: "Verifikasi BVN",
+    BVN_VERIFICATION_FAILED: "Verifikasi BVN gagal",
+    BVN_VERIFIED: "BVN terverifikasi",
+    BVN_VERIFIED_DESCRIPTION: "Atestasi BVN Anda telah dikirim on-chain.",
     CAMERA_ACCESS: "Akses Kamera",
     CAMERA_ACCESS_DENIED: "Akses kamera ditolak",
     CAMERA_ACCESS_FAILED: "Akses kamera gagal",
@@ -1805,6 +1827,7 @@ export const id = {
     TARGET_IS_LONGER_THAN_DATA: "Target lebih panjang dari data",
     TASK_AADHAR_VERIFICATION: "Diperoleh untuk verifikasi Aadhar.",
     TASK_BINANCE_VERIFICATION: "Diperoleh untuk verifikasi Binance",
+    TASK_BVN_VERIFICATION: "Diperoleh untuk verifikasi BVN",
     TASK_COMPLETED_SELL_ORDER: "Diperoleh untuk menyelesaikan Pesanan Jual",
     TASK_COMPLETED_TRANSACTION: "Diperoleh untuk menyelesaikan transaksi.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "Dipotong karena penyelesaian sengketa",

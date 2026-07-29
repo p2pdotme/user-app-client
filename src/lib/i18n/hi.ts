@@ -181,6 +181,28 @@ export const hi = {
     BUY_USDC: "USDC खरीदें",
     BUY_USDC_FAQS: "खरीद USDC FAQs",
     BUY_VOLUME: "खरीद वॉल्यूम",
+    BVN_ALREADY_VERIFIED: "BVN पहले से सत्यापित है",
+    BVN_ALTERNATE_PHONE_PLACEHOLDER: "वैकल्पिक फ़ोन नंबर",
+    BVN_ATTESTATION_EXPIRED:
+      "यह BVN सत्यापन समाप्त हो गया है। कृपया पुनः प्रयास करें।",
+    BVN_CHOOSE_OTP_METHOD: "OTP प्राप्त करने का तरीका चुनें",
+    BVN_DESCRIPTION: "अपना नाइजीरियाई बैंक सत्यापन नंबर सत्यापित करें",
+    BVN_DRAWER_DESCRIPTION:
+      "अपना BVN सत्यापित करने और अपनी सीमा बढ़ाने के लिए नीचे दिए गए चरण पूरे करें।",
+    BVN_ENTER_PHONE_NUMBER: "फ़ोन नंबर दर्ज करें",
+    BVN_INPUT_PLACEHOLDER: "अपना 11-अंकीय BVN दर्ज करें",
+    BVN_INVALID_SIGNATURE:
+      "BVN सत्यापन हस्ताक्षर अमान्य है। कृपया पुनः प्रयास करें।",
+    BVN_NULLIFIER_ALREADY_SPENT:
+      "इस BVN का उपयोग पहले ही सत्यापन के लिए किया जा चुका है।",
+    BVN_OTP_PLACEHOLDER: "OTP दर्ज करें",
+    BVN_SIGNER_NOT_SET:
+      "BVN सत्यापन अस्थायी रूप से अनुपलब्ध है। कृपया बाद में प्रयास करें।",
+    BVN_TAG: "केवल नाइजीरिया",
+    BVN_TITLE: "BVN सत्यापन",
+    BVN_VERIFICATION_FAILED: "BVN सत्यापन विफल",
+    BVN_VERIFIED: "BVN सत्यापित",
+    BVN_VERIFIED_DESCRIPTION: "आपका BVN प्रमाणन ऑन-चेन सबमिट किया गया।",
     CAMERA_ACCESS: "कैमरा एक्सेस",
     CAMERA_ACCESS_DENIED: "कैमरा एक्सेस अस्वीकृत",
     CAMERA_ACCESS_FAILED: "कैमरा एक्सेस विफल",
@@ -1733,6 +1755,7 @@ export const hi = {
     TARGET_IS_LONGER_THAN_DATA: "टार्गेट डेटा से लंबा है",
     TASK_AADHAR_VERIFICATION: "आधार सत्यापन के लिए अर्जित किया गया।",
     TASK_BINANCE_VERIFICATION: "Binance सत्यापन के लिए अर्जित किया गया",
+    TASK_BVN_VERIFICATION: "BVN सत्यापन के लिए अर्जित किया गया",
     TASK_COMPLETED_SELL_ORDER: "बिक्री आदेश पूरा करने के लिए अर्जित किया गया",
     TASK_COMPLETED_TRANSACTION: "लेनदेन पूरा करने के लिए अर्जित किया गया।",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "विवाद निपटान के कारण काटा गया",

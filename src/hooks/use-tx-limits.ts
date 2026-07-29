@@ -24,6 +24,7 @@ import {
   getOnChainActivityRp,
   getRMUser,
   getXRp,
+  isBvnVerified,
   isKycVerified,
   sendPreparedTx,
 } from "@/core/adapters/thirdweb/actions/reputation-manager";
@@ -379,6 +380,42 @@ export function useSubmitKycAttestation() {
     },
   });
   return mutation;
+}
+
+export function useBvnVerificationStatus() {
+  const { account } = useThirdweb();
+
+  const {
+    data: isBvnVerifiedStatus,
+    isLoading: isBvnStatusLoading,
+    isError: isBvnStatusError,
+    error: bvnStatusError,
+    refetch: refetchBvnStatus,
+  } = useQuery({
+    queryKey: ["bvn-verification-status", account?.address],
+    queryFn: async () => {
+      if (!account?.address) throw new Error("No account connected");
+      return isBvnVerified({ address: account.address as Address }).match(
+        (result) => result,
+        (error) => {
+          console.error(
+            "[useBvnVerificationStatus] Error fetching status",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+    enabled: !!account?.address,
+  });
+
+  return {
+    isBvnVerified: isBvnVerifiedStatus,
+    isBvnStatusLoading,
+    isBvnStatusError,
+    bvnStatusError,
+    refetchBvnStatus,
+  };
 }
 
 export function useUserOrderProgress() {

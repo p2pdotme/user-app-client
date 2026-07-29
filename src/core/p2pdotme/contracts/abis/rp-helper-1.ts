@@ -1522,4 +1522,23 @@ export const rPHelper1Abi = [
     stateMutability: "view",
     type: "function",
   },
+  { inputs: [], name: "BvnSignerNotSet", type: "error" },
+  { inputs: [], name: "BvnAttestationExpired", type: "error" },
+  { inputs: [], name: "BvnNullifierAlreadySpent", type: "error" },
+  { inputs: [], name: "BvnAlreadyVerified", type: "error" },
+  { inputs: [], name: "BvnInvalidSignature", type: "error" },
+  {
+    inputs: [],
+    name: "bvnRp",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "bvnVerified",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
 ] as const;
