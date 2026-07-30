@@ -43,20 +43,21 @@ export function AddressListView({
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100%", opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
+      className="flex min-h-0 flex-1 flex-col overflow-hidden"
       layout>
-      <DrawerHeader className="text-center">
+      <DrawerHeader className="shrink-0 text-center">
         <DrawerTitle>{t("SAVED_WALLET_ADDRESSES")}</DrawerTitle>
         <DrawerDescription>
           {t("SELECT_ADDRESS_FOR_BUY_ORDER")}
         </DrawerDescription>
       </DrawerHeader>
-      <section className="my-4 flex flex-col p-2">
+      <section className="my-4 flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain p-2">
         {/* P2P.me wallet (built-in) */}
         <ShadButton
           type="button"
           variant="ghost"
           className={cn(
-            "flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-accent/50",
+            "flex shrink-0 cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-accent/50",
             isActiveAddress("") ? "bg-primary/15" : "",
           )}
           onClick={() => handleSelectAddress("")}>
@@ -85,7 +86,7 @@ export function AddressListView({
           </div>
         ) : (
           addressBook?.addresses?.map((address) => (
-            <div key={address.id}>
+            <div key={address.id} className="shrink-0">
               <Separator className="my-2" />
               <ShadButton
                 type="button"
@@ -124,10 +125,10 @@ export function AddressListView({
           ))
         )}
       </section>
-      <Button className="w-full p-6" onClick={handleAddAddress}>
+      <Button className="w-full shrink-0 p-6" onClick={handleAddAddress}>
         {t("ADD_NEW_ADDRESS")}
       </Button>
-      <DrawerClose className="mt-2 w-full">
+      <DrawerClose className="mt-2 w-full shrink-0">
         <div className="w-full rounded-md border border-primary p-2">
           <p className="text-center text-primary">{t("CLOSE")}</p>
         </div>

@@ -829,7 +829,8 @@ export const id = {
     GET_VERIFIED: "Dapatkan verifikasi",
     GIVEN: "Diberikan",
     GOAT_CASH_BANNER_CTA: "Jelajahi",
-    GOAT_CASH_BANNER_DESCRIPTION: "Bayar dengan USDC di QR lokalmu, layaknya GOAT.",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "Bayar dengan USDC di QR lokalmu, layaknya GOAT.",
     GOAT_CASH_BANNER_LABEL: "Baru",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Kembali",
