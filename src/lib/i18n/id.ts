@@ -1550,6 +1550,9 @@ export const id = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Revenue rekomendasi berhasil diklaim",
+    REDATM_BANNER_CTA: "Lihat ATM",
+    REDATM_BANNER_DESCRIPTION: "100% biaya ATM dikembalikan ke dompetmu",
+    REDATM_BANNER_TITLE: "Tarik tunai tanpa biaya",
     REFERRALS: "Referensi",
     REFERRAL_BONUS_WAITING: "Bonus Referral Menunggu",
     REFERRAL_LINK_COPIED: "Link referensi disalin ke clipboard",

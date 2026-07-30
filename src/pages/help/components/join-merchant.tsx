@@ -4,11 +4,13 @@ import { Logo } from "@/assets/icons/logo";
 import { BannerItem } from "@/components";
 import { useAnalytics, useRewardsConfig } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
 export function JoinMerchantBanner() {
   const { track } = useAnalytics();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { rewardsConfig } = useRewardsConfig();
+  const isSpanish = i18n.language?.startsWith("es");
 
   const handleBannerClick = () => {
     track(EVENTS.FEATURE, {
@@ -75,11 +77,21 @@ export function JoinMerchantBanner() {
         <div className="flex flex-col justify-between gap-1.5">
           <div className="flex items-center gap-2">
             <Logo className="size-5 text-primary" />
-            <h3 className="font-semibold text-base text-white leading-tight">
+            <h3
+              className={cn(
+                "font-semibold text-white leading-tight",
+                isSpanish ? "text-sm" : "text-base",
+              )}
+            >
               {t("JOIN_MERCHANT_BANNER_TITLE")}
             </h3>
           </div>
-          <p className="max-w-[220px] text-sm text-white/70 leading-snug">
+          <p
+            className={cn(
+              "max-w-[220px] text-white/70 leading-snug",
+              isSpanish ? "text-xs" : "text-sm",
+            )}
+          >
             {t("JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX")}{" "}
             {rewardsConfig?.merchantRewardPercent ? (
               <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 font-bold text-green-400">

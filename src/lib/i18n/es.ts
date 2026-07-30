@@ -1589,6 +1589,9 @@ export const es = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recomendación reclamada con éxito",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Ingresos por recomendación reclamados con éxito",
+    REDATM_BANNER_CTA: "Ver Cajeros",
+    REDATM_BANNER_DESCRIPTION: "Te devolvemos el 100% de la comisión del cajero",
+    REDATM_BANNER_TITLE: "Retirá efectivo sin costo",
     REFERRALS: "Referidos",
     REFERRAL_BONUS_WAITING: "Bono de Referido en Espera",
     REFERRAL_LINK_COPIED: "Enlace de referido copiado al portapapeles",

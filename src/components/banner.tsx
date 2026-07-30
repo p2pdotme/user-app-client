@@ -18,6 +18,7 @@ import { GoatCashBanner } from "@/pages/help/components/goat-cash-banner";
 import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
+import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
 
@@ -37,6 +38,7 @@ export function Banner({
     settings: { currency },
   } = useSettings();
   const isINR = currency.currency === CURRENCY.INR;
+  const isARS = currency.currency === CURRENCY.ARS;
 
   // Check if app is already installed (running in standalone mode)
   const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
@@ -110,6 +112,13 @@ export function Banner({
         opts={{ loop: true }}
       >
         <CarouselContent>
+          {/* RedATM Banner — ARS users only */}
+          {isARS && (
+            <CarouselItem>
+              <RedAtmBanner />
+            </CarouselItem>
+          )}
+
           {/* Perps Cashback Banner */}
           <CarouselItem>
             <PerpsBanner />
