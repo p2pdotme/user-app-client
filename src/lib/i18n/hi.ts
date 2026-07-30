@@ -1487,6 +1487,9 @@ export const hi = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "सिफारिश सफलतापूर्वक दावा की गई",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "सिफारिश राजस्व सफलतापूर्वक दावा किया गया",
+    REDATM_BANNER_CTA: "ATM देखें",
+    REDATM_BANNER_DESCRIPTION: "ATM शुल्क का 100% आपके वॉलेट में वापस",
+    REDATM_BANNER_TITLE: "बिना शुल्क नकद निकालें",
     REFERRALS: "रेफरल्स",
     REFERRAL_BONUS_WAITING: "रेफरल बोनस प्रतीक्षारत",
     REFERRAL_LINK_COPIED: "रेफरल लिंक क्लिपबोर्ड में कॉपी हो गया",
