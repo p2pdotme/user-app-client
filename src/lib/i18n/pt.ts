@@ -1566,6 +1566,9 @@ export const pt = {
       "Recomendação reivindicada com sucesso",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Receita de recomendação reivindicada com sucesso",
+    REDATM_BANNER_CTA: "Ver Caixas",
+    REDATM_BANNER_DESCRIPTION: "100% da taxa do caixa reembolsada na sua carteira",
+    REDATM_BANNER_TITLE: "Saque dinheiro sem custo",
     REFERRALS: "Indicações",
     REFERRAL_BONUS_WAITING: "Bônus de Indicação Aguardando",
     REFERRAL_LINK_COPIED:
