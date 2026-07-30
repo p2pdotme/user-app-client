@@ -816,7 +816,8 @@ export const en = {
     GET_VERIFIED: "Get verified",
     GIVEN: "Given",
     GOAT_CASH_BANNER_CTA: "Explore",
-    GOAT_CASH_BANNER_DESCRIPTION: "Pay with USDC at your local QR, like a GOAT.",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "Pay with USDC at your local QR, like a GOAT.",
     GOAT_CASH_BANNER_LABEL: "New",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Go back",
