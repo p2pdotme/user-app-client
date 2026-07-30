@@ -1525,6 +1525,9 @@ export const en = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recommendation claimed successfully",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Recommendation revenue claimed successfully",
+    REDATM_BANNER_CTA: "View ATMs",
+    REDATM_BANNER_DESCRIPTION: "100% of the ATM fee refunded to your wallet",
+    REDATM_BANNER_TITLE: "Withdraw cash at no cost",
     REFERRALS: "Referrals",
     REFERRAL_BONUS_WAITING: "Referral Bonus Waiting",
     REFERRAL_LINK_COPIED: "Referral link copied to clipboard",
