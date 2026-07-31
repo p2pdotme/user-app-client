@@ -854,7 +854,8 @@ export const pt = {
     GET_VERIFIED: "Verificar-se",
     GIVEN: "Enviadas",
     GOAT_CASH_BANNER_CTA: "Explorar",
-    GOAT_CASH_BANNER_DESCRIPTION: "Pague com USDC no seu QR local, como um GOAT.",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "Pague com USDC no seu QR local, como um GOAT.",
     GOAT_CASH_BANNER_LABEL: "Novo",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Voltar",

@@ -47,8 +47,9 @@ export function AddressListView({
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100%", opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
+      className="flex min-h-0 flex-1 flex-col overflow-hidden"
       layout>
-      <DrawerHeader className="text-center">
+      <DrawerHeader className="shrink-0 text-center">
         <DrawerTitle>
           {t("SAVED_ADDRESSES", {
             paymentAddressName: t(currency.paymentAddressName),
@@ -58,14 +59,14 @@ export function AddressListView({
           {t("SELECT_ADDRESS_FOR_SELL_ORDER")}
         </DrawerDescription>
       </DrawerHeader>
-      <section className="my-4 flex flex-col p-2">
+      <section className="my-4 flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain p-2">
         {isLoading ? (
           <div className="flex items-center justify-center p-4">
             <Loader2 className="size-4 animate-spin" />
           </div>
         ) : hasAddresses ? (
           addressBook.addresses.map((address, index) => (
-            <div key={address.id}>
+            <div key={address.id} className="shrink-0">
               {index > 0 && <Separator className="my-2" />}
               <ShadButton
                 type="button"
@@ -121,12 +122,12 @@ export function AddressListView({
           </div>
         )}
       </section>
-      <Button className="w-full p-6" onClick={handleAddAddress}>
+      <Button className="w-full shrink-0 p-6" onClick={handleAddAddress}>
         {t("ADD_ADDRESS", {
           paymentAddressName: t(currency.paymentAddressName),
         })}
       </Button>
-      <DrawerClose className="mt-2 w-full">
+      <DrawerClose className="mt-2 w-full shrink-0">
         <div className="w-full rounded-md border border-primary p-2">
           <p className="text-center text-primary">{t("CLOSE")}</p>
         </div>

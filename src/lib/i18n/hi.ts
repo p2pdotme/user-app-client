@@ -812,7 +812,8 @@ export const hi = {
     GET_VERIFIED: "सत्यापित हों",
     GIVEN: "दिया गया",
     GOAT_CASH_BANNER_CTA: "एक्सप्लोर करें",
-    GOAT_CASH_BANNER_DESCRIPTION: "अपने लोकल QR पर USDC से भुगतान करें, एक GOAT की तरह।",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "अपने लोकल QR पर USDC से भुगतान करें, एक GOAT की तरह।",
     GOAT_CASH_BANNER_LABEL: "नया",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "वापस जाएं",
