@@ -211,6 +211,11 @@ export const contractErrors = {
   P2PStakeTokenAlreadySet: "P2P_STAKE_TOKEN_ALREADY_SET",
   UserNotBlacklistedForExtension: "USER_NOT_BLACKLISTED_FOR_EXTENSION",
   InvalidBoostConfig: "INVALID_BOOST_CONFIG",
+  BvnSignerNotSet: "BVN_SIGNER_NOT_SET",
+  BvnAttestationExpired: "BVN_ATTESTATION_EXPIRED",
+  BvnNullifierAlreadySpent: "BVN_NULLIFIER_ALREADY_SPENT",
+  BvnInvalidSignature: "BVN_INVALID_SIGNATURE",
+  BvnAlreadyVerified: "BVN_ALREADY_VERIFIED",
 };
 
 export const errorMessages = {
@@ -419,6 +424,11 @@ export const hexContractErrors = {
   "0xe018b17c": contractErrors.P2PStakeTokenAlreadySet,
   "0x709a7dcd": contractErrors.UserNotBlacklistedForExtension,
   "0xec98d463": contractErrors.InvalidBoostConfig,
+  "0xa0292323": contractErrors.BvnSignerNotSet,
+  "0xb4464a1a": contractErrors.BvnAttestationExpired,
+  "0xc9080ed9": contractErrors.BvnNullifierAlreadySpent,
+  "0x15940c9c": contractErrors.BvnInvalidSignature,
+  "0x27fec7ec": contractErrors.BvnAlreadyVerified,
 };
 
 export function parseContractError(error: unknown) {
