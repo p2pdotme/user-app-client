@@ -455,7 +455,8 @@ export function BvnVerificationCard() {
         onOpenChange={(next) => (next ? setOpen(true) : closeDrawer())}>
         <DrawerContent
           className="mx-auto max-w-md bg-background"
-          autoFocus={true}>
+          autoFocus={true}
+          onInteractOutside={(e) => e.preventDefault()}>
           <div className="w-full">
             <DrawerHeader>
               <DrawerTitle>{t("BVN_TITLE")}</DrawerTitle>
