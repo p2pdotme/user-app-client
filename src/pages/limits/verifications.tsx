@@ -38,6 +38,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { BvnVerificationCard } from "@/components/bvn-verification-card";
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
@@ -52,6 +53,7 @@ import {
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
+  IS_BVN_ENABLED,
   KYC_COUNTRY_BY_CURRENCY,
   RECLAIM_APP,
   RECLAIM_APP_LINKS,
@@ -238,6 +240,9 @@ export function Verifications() {
       <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
         <KycVerificationCard />
+        {IS_BVN_ENABLED && settings.currency.currency === "NGN" && (
+          <BvnVerificationCard />
+        )}
         {SOCIALS.filter(
           (social) =>
             // Binance verification is not offered when the selected country is India

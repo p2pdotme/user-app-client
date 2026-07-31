@@ -14,6 +14,7 @@ import {
 } from "@/core/adapters/thirdweb/actions/p2p-config";
 import {
   getBinanceRp,
+  getBvnRp,
   getFacebookRp,
   getGitHubRp,
   getInstagramRp,
@@ -24,6 +25,7 @@ import {
   getOnChainActivityRp,
   getRMUser,
   getXRp,
+  isBvnVerified,
   isKycVerified,
   sendPreparedTx,
 } from "@/core/adapters/thirdweb/actions/reputation-manager";
@@ -309,6 +311,27 @@ export function useKycRpReward() {
   return { kycRp, isKycRpLoading, isKycRpError, kycRpError };
 }
 
+export function useBvnRpReward() {
+  const {
+    data: bvnRp,
+    isLoading: isBvnRpLoading,
+    isError: isBvnRpError,
+    error: bvnRpError,
+  } = useQuery({
+    queryKey: ["bvn-rp-reward"],
+    queryFn: async () => {
+      return getBvnRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
+  return { bvnRp, isBvnRpLoading, isBvnRpError, bvnRpError };
+}
+
 export function useKycVerificationStatus() {
   const { account } = useThirdweb();
 
@@ -379,6 +402,42 @@ export function useSubmitKycAttestation() {
     },
   });
   return mutation;
+}
+
+export function useBvnVerificationStatus() {
+  const { account } = useThirdweb();
+
+  const {
+    data: isBvnVerifiedStatus,
+    isLoading: isBvnStatusLoading,
+    isError: isBvnStatusError,
+    error: bvnStatusError,
+    refetch: refetchBvnStatus,
+  } = useQuery({
+    queryKey: ["bvn-verification-status", account?.address],
+    queryFn: async () => {
+      if (!account?.address) throw new Error("No account connected");
+      return isBvnVerified({ address: account.address as Address }).match(
+        (result) => result,
+        (error) => {
+          console.error(
+            "[useBvnVerificationStatus] Error fetching status",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+    enabled: !!account?.address,
+  });
+
+  return {
+    isBvnVerified: isBvnVerifiedStatus,
+    isBvnStatusLoading,
+    isBvnStatusError,
+    bvnStatusError,
+    refetchBvnStatus,
+  };
 }
 
 export function useUserOrderProgress() {

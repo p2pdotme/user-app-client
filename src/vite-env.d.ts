@@ -23,6 +23,9 @@ interface ImportMetaEnv {
   // simple-kyc tenant slug override (defaults to the mainnet reputation tenant)
   readonly VITE_SIMPLE_KYC_TENANT?: string;
 
+  // BVN (Nigerian Bank Verification Number) on-chain attestation backend
+  readonly VITE_BVN_API_URL?: string;
+
   // P2P.me subgraph
   readonly VITE_SUBGRAPH_URL: string;
 
