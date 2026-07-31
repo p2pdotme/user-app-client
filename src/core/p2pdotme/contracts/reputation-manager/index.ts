@@ -27,6 +27,7 @@ import {
   type WhitelistContractParams,
   ZodAddOrUpdateCampaignManagerParamsSchema,
   ZodBinanceRpParamsSchema,
+  ZodBvnRpParamsSchema,
   ZodClaimCampaignUsdcParamsSchema,
   ZodClaimRecommendationParamsSchema,
   ZodClaimRecommendationRevenueParamsSchema,
@@ -462,6 +463,40 @@ export function prepareGetIsKycVerifiedArgs(params: UserParams): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "kycVerified" as const,
+    args: [validatedParams.address],
+  }));
+}
+
+export function prepareGetBvnRpArgs(): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "bvnRp";
+    args: [];
+  },
+  P2PError
+> {
+  return validate(ZodBvnRpParamsSchema, {}).map(() => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "bvnRp" as const,
+    args: [],
+  }));
+}
+
+export function prepareGetIsBvnVerifiedArgs(params: UserParams): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "bvnVerified";
+    args: [Address];
+  },
+  P2PError
+> {
+  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "bvnVerified" as const,
     args: [validatedParams.address],
   }));
 }
@@ -1286,7 +1321,6 @@ export function prepareGetXMinYearGapArgs(): Result<
   }));
 }
 
-// Additional write operations
 export function prepareAddOrUpdateCampaignManagerTx(
   params: AddOrUpdateCampaignManagerParams,
 ): Result<{ to: Address; data: `0x${string}` }, P2PError> {

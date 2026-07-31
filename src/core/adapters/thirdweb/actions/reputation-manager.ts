@@ -11,6 +11,7 @@ import {
   prepareGetAccruedVotingRewardsArgs,
   prepareGetAdminVotingRpArgs,
   prepareGetBinanceRpArgs,
+  prepareGetBvnRpArgs,
   prepareGetCampaignActiveArgs,
   prepareGetCampaignManagersArgs,
   prepareGetCampaignUsernamesArgs,
@@ -29,6 +30,7 @@ import {
   prepareGetInstagramMinYearGapArgs,
   prepareGetInstagramRpArgs,
   prepareGetIsBinanceVerifiedArgs,
+  prepareGetIsBvnVerifiedArgs,
   prepareGetIsCommunityManagerArgs,
   prepareGetIsFacebookVerifiedArgs,
   prepareGetIsGitHubVerifiedArgs,
@@ -781,6 +783,58 @@ export function isKycVerified(params: {
         (error) =>
           createAppError<"ThirdwebAdapter">(
             "Failed to read KYC verification status from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function getBvnRp(): ResultAsync<
+  bigint,
+  ThirdwebAdapterError | P2PError
+> {
+  return prepareGetBvnRpArgs().asyncAndThen(({ to, functionName, abi, args }) =>
+    ResultAsync.fromPromise(
+      viemPublicClient.readContract({
+        address: to,
+        abi,
+        functionName,
+        args,
+      }),
+      (error) =>
+        createAppError<"ThirdwebAdapter">(
+          "Failed to read BVN RP from contract",
+          {
+            domain: "ThirdwebAdapter",
+            code: "TWReadContractError",
+            cause: error,
+            context: { to, args },
+          },
+        ),
+    ),
+  );
+}
+
+export function isBvnVerified(params: {
+  address: Address;
+}): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
+  return prepareGetIsBvnVerifiedArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read BVN verification status from contract",
             {
               domain: "ThirdwebAdapter",
               code: "TWReadContractError",

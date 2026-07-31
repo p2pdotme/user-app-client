@@ -27,6 +27,7 @@ const getTaskTitle = (
     14: t("TASK_PASSPORT_VERIFICATION"),
     15: t("TASK_BINANCE_VERIFICATION"),
     16: t("TASK_KYC_VERIFICATION"),
+    17: t("TASK_BVN_VERIFICATION"),
   };
   return taskTitles[taskType] || t("TASK_UNKNOWN", { taskType });
 };

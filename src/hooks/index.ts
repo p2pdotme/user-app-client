@@ -1,5 +1,6 @@
 export * from "./use-analytics";
 export * from "./use-balances";
+export * from "./use-bvn";
 export * from "./use-campaign-claim";
 export * from "./use-cashback-config";
 export * from "./use-cbbtc-balance";
