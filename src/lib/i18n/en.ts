@@ -183,6 +183,28 @@ export const en = {
     BUY_USDC: "Buy USDC",
     BUY_USDC_FAQS: "Buy USDC FAQs",
     BUY_VOLUME: "Buy Volume",
+    BVN_ALREADY_VERIFIED: "BVN already verified",
+    BVN_ALTERNATE_PHONE_PLACEHOLDER: "Alternate phone number",
+    BVN_ATTESTATION_EXPIRED:
+      "This BVN verification has expired. Please try again.",
+    BVN_CHOOSE_OTP_METHOD: "Choose how to receive your OTP",
+    BVN_DESCRIPTION: "Verify your Nigerian Bank Verification Number",
+    BVN_DRAWER_DESCRIPTION:
+      "Complete the steps below to verify your BVN and increase your limits.",
+    BVN_ENTER_PHONE_NUMBER: "Enter a phone number",
+    BVN_INPUT_PLACEHOLDER: "Enter your 11-digit BVN",
+    BVN_INVALID_SIGNATURE:
+      "BVN verification signature is invalid. Please try again.",
+    BVN_NULLIFIER_ALREADY_SPENT:
+      "This BVN has already been used for verification.",
+    BVN_OTP_PLACEHOLDER: "Enter the OTP",
+    BVN_SIGNER_NOT_SET:
+      "BVN verification is temporarily unavailable. Please try again later.",
+    BVN_TAG: "Nigeria only",
+    BVN_TITLE: "BVN Verification",
+    BVN_VERIFICATION_FAILED: "BVN verification failed",
+    BVN_VERIFIED: "BVN verified",
+    BVN_VERIFIED_DESCRIPTION: "Your BVN attestation was submitted on-chain.",
     CAMERA_ACCESS: "Camera Access",
     CAMERA_ACCESS_DENIED: "Camera access denied",
     CAMERA_ACCESS_FAILED: "Camera access failed",
@@ -1776,6 +1798,7 @@ export const en = {
     TARGET_IS_LONGER_THAN_DATA: "Target is longer than data",
     TASK_AADHAR_VERIFICATION: "Earned For Aadhar verification.",
     TASK_BINANCE_VERIFICATION: "Earned for Binance verification",
+    TASK_BVN_VERIFICATION: "Earned for BVN verification",
     TASK_COMPLETED_SELL_ORDER: "Earned for completing Sell Order",
     TASK_COMPLETED_TRANSACTION: "Earned for completing transaction.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION: "Deducted due to dispute settlement",
