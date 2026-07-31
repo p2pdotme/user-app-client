@@ -158,6 +158,17 @@ export const SIMPLE_KYC_TENANT =
   (import.meta.env.VITE_SIMPLE_KYC_TENANT as string | undefined) ??
   "p2p-reputation-mainnet";
 
+/** BVN (Nigerian Bank Verification Number) backend proxy base URL. */
+export const BVN_API_BASE_URL = import.meta.env.VITE_BVN_API_URL as
+  | string
+  | undefined;
+
+/** BVN backend tenant slug (maps to one on-chain contract). */
+export const BVN_TENANT = "user-app";
+
+/** BVN verification is enabled only when both backend URL and tenant are set. */
+export const IS_BVN_ENABLED = Boolean(BVN_API_BASE_URL && BVN_TENANT);
+
 /**
  * ISO-2 country to prebind for the simple-kyc passport flow, keyed by the user's
  * selected currency. The hosted wizard skips the country step, so the app must

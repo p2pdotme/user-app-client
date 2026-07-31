@@ -189,6 +189,27 @@ export const es = {
     BUY_USDC: "Comprar USDC",
     BUY_USDC_FAQS: "FAQs sobre Comprar USDC",
     BUY_VOLUME: "Volumen de Compra",
+    BVN_ALREADY_VERIFIED: "BVN ya verificado",
+    BVN_ALTERNATE_PHONE_PLACEHOLDER: "Número de teléfono alternativo",
+    BVN_ATTESTATION_EXPIRED:
+      "Esta verificación de BVN ha caducado. Inténtalo de nuevo.",
+    BVN_CHOOSE_OTP_METHOD: "Elige cómo recibir tu OTP",
+    BVN_DESCRIPTION: "Verifica tu Número de Verificación Bancaria de Nigeria",
+    BVN_DRAWER_DESCRIPTION:
+      "Completa los siguientes pasos para verificar tu BVN y aumentar tus límites.",
+    BVN_ENTER_PHONE_NUMBER: "Ingresa un número de teléfono",
+    BVN_INPUT_PLACEHOLDER: "Ingresa tu BVN de 11 dígitos",
+    BVN_INVALID_SIGNATURE:
+      "La firma de verificación de BVN no es válida. Inténtalo de nuevo.",
+    BVN_NULLIFIER_ALREADY_SPENT: "Este BVN ya se ha usado para verificación.",
+    BVN_OTP_PLACEHOLDER: "Ingresa el OTP",
+    BVN_SIGNER_NOT_SET:
+      "La verificación de BVN no está disponible temporalmente. Inténtalo más tarde.",
+    BVN_TAG: "Solo Nigeria",
+    BVN_TITLE: "Verificación BVN",
+    BVN_VERIFICATION_FAILED: "La verificación de BVN falló",
+    BVN_VERIFIED: "BVN verificado",
+    BVN_VERIFIED_DESCRIPTION: "Tu certificación BVN se envió on-chain.",
     CAMERA_ACCESS: "Acceso a la Cámara",
     CAMERA_ACCESS_DENIED: "Acceso a la cámara denegado",
     CAMERA_ACCESS_FAILED: "Falló el acceso a la cámara",
@@ -1859,6 +1880,7 @@ export const es = {
     TARGET_IS_LONGER_THAN_DATA: "El objetivo es más largo que los datos",
     TASK_AADHAR_VERIFICATION: "Ganado por verificación de Aadhar.",
     TASK_BINANCE_VERIFICATION: "Ganado por verificación de Binance",
+    TASK_BVN_VERIFICATION: "Ganado por verificación de BVN",
     TASK_COMPLETED_SELL_ORDER: "Ganado por completar un Pedido de Venta",
     TASK_COMPLETED_TRANSACTION: "Ganado por completar una transacción.",
     TASK_DISPUTE_SETTLEMENT_DEDUCTION:
