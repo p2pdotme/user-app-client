@@ -2,27 +2,32 @@ import { ExternalLink, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CURRENCY, type CurrencyType } from "@/lib/constants";
+import type { CurrencyType } from "@/lib/constants";
 
 const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-cashback";
 
 /**
  * LotPot cashback rate (in percent) promised on BUY/SELL completion.
- * Defaults to 2%, with a per-currency fallback to 1% for markets where
- * the backend issues a reduced credit (currently Argentina and Mexico).
- * Keep this in sync with the server-side issuance logic — the credit is
- * issued server-side, so this is a display-only mirror of that rule.
+ * Defaults to 2%, with per-currency overrides for markets where the
+ * backend issues a reduced credit (Argentina and Mexico at 1%) or none
+ * at all (India and Venezuela at 0%). Keep this in sync with the
+ * server-side issuance logic — the credit is issued server-side, so this
+ * is a display-only mirror of that rule.
  */
 const DEFAULT_CASHBACK_PERCENT = 2;
-const REDUCED_CASHBACK_PERCENT = 1;
-const REDUCED_CASHBACK_CURRENCIES: CurrencyType[] = ["ARS", "MEX"];
+const CASHBACK_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
+  ARS: 1,
+  MEX: 1,
+  INR: 0,
+  VEN: 0,
+};
 
 export function getLotpotCashbackPercent(currency?: CurrencyType): number {
-  if (currency && REDUCED_CASHBACK_CURRENCIES.includes(currency)) {
-    return REDUCED_CASHBACK_PERCENT;
+  if (!currency) {
+    return DEFAULT_CASHBACK_PERCENT;
   }
-  return DEFAULT_CASHBACK_PERCENT;
+  return CASHBACK_PERCENT_BY_CURRENCY[currency] ?? DEFAULT_CASHBACK_PERCENT;
 }
 
 /**
@@ -32,20 +37,20 @@ export function getLotpotCashbackPercent(currency?: CurrencyType): number {
  * any Diamond/Integrator hook), so the UI can promise the credit without
  * waiting for an on-chain signal that won't arrive.
  *
- * The displayed rate falls back per currency (see getLotpotCashbackPercent):
- * 2% by default, 1% for Argentina (ARS) and Mexico (MEX). Pass the order's
- * currency so the card mirrors what the backend actually credits.
+ * The displayed rate is per currency (see getLotpotCashbackPercent): 2% by
+ * default, 1% for Argentina (ARS) and Mexico (MEX), 0% for India (INR) and
+ * Venezuela (VEN). Pass the order's currency so the card mirrors what the
+ * backend actually credits.
  *
- * Renders for any caller except INR markets, where LotPot cashback is not
- * offered — there the card is hidden entirely. Other gating happens at the
- * call site (BUY/SELL completion only).
+ * Markets on a 0% rate get no cashback, so the card is hidden entirely there.
+ * Other gating happens at the call site (BUY/SELL completion only).
  */
 export function LotpotCashbackCard({ currency }: { currency?: CurrencyType }) {
   const { t } = useTranslation();
   const percentage = getLotpotCashbackPercent(currency);
 
-  // LotPot cashback is not available for INR — hide the card entirely.
-  if (currency === CURRENCY.INR) {
+  // No cashback issued for this market — hide the card entirely.
+  if (percentage <= 0) {
     return null;
   }
 
