@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSettings } from "@/contexts";
 import { useLotpotCredits, useP2pRewardBalance } from "@/hooks";
-import { CURRENCY, INTERNAL_HREFS } from "@/lib/constants";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
 const LOTPOT_UTM_QUERY = "?utm_source=p2p-credits";
@@ -33,10 +32,6 @@ export function RewardsCard() {
   const navigate = useNavigate();
   const { data: p2pBalance } = useP2pRewardBalance();
   const { data: credits } = useLotpotCredits();
-  const {
-    settings: { currency },
-  } = useSettings();
-  const isINR = currency.currency === CURRENCY.INR;
 
   const handleViewP2P = () => navigate(INTERNAL_HREFS.P2P_TOKEN);
   const handleOpenLotpot = () => {
@@ -54,7 +49,11 @@ export function RewardsCard() {
       onClick: handleViewP2P,
     });
   }
-  if (credits?.hasCredits && !isINR) {
+  // Reads on-chain issuedCredit, so this tile reflects credits the user
+  // actually holds. Not gated on the market's current cashback rate —
+  // already-issued credits stay visible and spendable even where new
+  // issuance has stopped (INR, VEN).
+  if (credits?.hasCredits) {
     rewards.push({
       key: "lotpot",
       icon: <Gift className="size-5 text-primary" />,
