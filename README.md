@@ -129,7 +129,7 @@ Copy `.env.example` to `.env`. Every variable is documented in that file. The ta
 | `VITE_PIX_PROXY_URL` | BRL payments | PIX QR proxy server — required only for Brazil |
 | `VITE_RANGO_API_KEY` | Bridge | Cross-chain deposit/withdraw via Rango Exchange |
 | `VITE_RANGO_REFERRER_ADDRESS` | Bridge fees | **Change to your own wallet** — receives 0.5% bridge referral fees |
-| `VITE_RECLAIM_APP_ID` / `VITE_RECLAIM_APP_SECRET` | ZK verifications | Social account proofs for transaction limits |
+| `VITE_RECLAIM_BASE_URL` | ZK verifications | Social account proofs for transaction limits. Points at the reclaim-session-service, which holds the Reclaim app secret |
 | `VITE_ACTIVITY_LOG_API_URL` / `VITE_ACTIVITY_LOG_ENCRYPTION_KEY` | Fraud detection | SEON-based device fingerprinting |
 | `VITE_FRAUD_ENGINE_REGION` | Fraud detection | SEON region: `asia`, `eu`, or `us` |
 | `VITE_AMPLITUDE_API_KEY` | Analytics | Amplitude event tracking |
