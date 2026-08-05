@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const PARTNER_URL = "https://partner-p2p.netlify.app";
+const PARTNER_URL = "https://partners.p2p.lol";
 
 interface PartnerDrawerProps {
   children: ReactNode;
