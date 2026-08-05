@@ -1,9 +1,10 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerTitle,
   DrawerTrigger,
@@ -26,7 +27,7 @@ export function PartnerDrawer({ children }: PartnerDrawerProps) {
       <DrawerContent className="mx-auto !max-h-[90vh] max-w-md">
         <DrawerTitle className="sr-only">{t("BECOME_A_LIQUIDITY_PARTNER")}</DrawerTitle>
         <div className="flex h-[90vh] w-full flex-col">
-          <div className="flex flex-shrink-0 items-center justify-end px-4 py-2">
+          <div className="flex flex-shrink-0 items-center justify-between px-4 pt-10 pb-2">
             <Button
               type="button"
               variant="outline"
@@ -35,6 +36,15 @@ export function PartnerDrawer({ children }: PartnerDrawerProps) {
               <ExternalLink className="size-4" />
               {t("OPEN_IN_NEW_TAB")}
             </Button>
+            <DrawerClose asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                aria-label={t("CLOSE")}>
+                <X className="size-4" />
+              </Button>
+            </DrawerClose>
           </div>
           <div className="relative min-h-0 flex-1 overflow-hidden">
             {!loaded && (
