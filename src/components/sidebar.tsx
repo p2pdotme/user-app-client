@@ -88,15 +88,15 @@ const LiquidityPartnerButton = () => {
       <button
         type="button"
         className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
-        <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
             <Droplets className="size-5 text-primary" />
           </div>
-          <div className="flex flex-col items-start">
-            <p className="font-semibold text-sm">
+          <div className="flex min-w-0 flex-col items-start text-left">
+            <p className="font-semibold text-sm leading-tight">
               {t("BECOME_A_LIQUIDITY_PARTNER")}
             </p>
-            <p className="whitespace-nowrap text-muted-foreground text-xs">
+            <p className="truncate text-muted-foreground text-xs">
               {t("BECOME_A_LIQUIDITY_PARTNER_SUBTITLE")}
             </p>
           </div>
