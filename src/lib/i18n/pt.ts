@@ -96,6 +96,9 @@ export const pt = {
     BANK_NAME: "Nome do banco",
     BANK_NAME_LABEL: "Bank Name",
     BASE_NETWORK: "BASE",
+    BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
+    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE:
+      "Ganhe recompensas",
     BATCH_TOO_LARGE: "Tamanho do lote muito grande",
     BOUGHT_VIA: "Comprado via",
     BRIDGE: "Ponte",
@@ -1212,6 +1215,7 @@ export const pt = {
       "Apenas pedidos de compra pagos podem ser marcados como completos",
     ON_TIME: "No prazo",
     OPEN_COINS_ME: "Open coins.me",
+    OPEN_IN_NEW_TAB: "Abrir em nova aba",
     OPEN_LOTPOT: "Abrir lotpot.fun",
     ORDER: "Pedido",
     ORDERS_COUNT: "{{count}}+ pedidos",

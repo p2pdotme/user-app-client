@@ -1,6 +1,7 @@
 import {
   ArrowLeftCircle,
   ArrowRight,
+  Droplets,
   Key,
   LogOut,
   Mail,
@@ -36,6 +37,7 @@ import { useP2PBalance, useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
 import { formatTokenBalance } from "@/lib/utils";
 import { CoinsmeButton } from "./coinsme-button";
+import { PartnerDrawer } from "./partner-drawer";
 import { SocialLinks } from "./social-links";
 import { TextLogo } from "./text-logo";
 import { VersionBadge } from "./version-badge";
@@ -75,6 +77,33 @@ const P2PTokenButton = () => {
         </div>
       </button>
     </SheetClose>
+  );
+};
+
+const LiquidityPartnerButton = () => {
+  const { t } = useTranslation();
+
+  return (
+    <PartnerDrawer>
+      <button
+        type="button"
+        className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+            <Droplets className="size-5 text-primary" />
+          </div>
+          <div className="flex min-w-0 flex-col items-start text-left">
+            <p className="font-semibold text-sm leading-tight">
+              {t("BECOME_A_LIQUIDITY_PARTNER")}
+            </p>
+            <p className="truncate text-muted-foreground text-xs">
+              {t("BECOME_A_LIQUIDITY_PARTNER_SUBTITLE")}
+            </p>
+          </div>
+        </div>
+        <ArrowRight className="size-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" />
+      </button>
+    </PartnerDrawer>
   );
 };
 
@@ -276,6 +305,7 @@ export function Sidebar({ children }: { children: ReactNode }) {
                 </CardDescription>
               </CardHeader>
             </Card> */}
+            <LiquidityPartnerButton />
             <P2PTokenButton />
             <div className="border-t" />
             {/* User Info Card + coins.me */}
