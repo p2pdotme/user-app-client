@@ -96,10 +96,9 @@ export const pt = {
     BANK_NAME: "Nome do banco",
     BANK_NAME_LABEL: "Bank Name",
     BASE_NETWORK: "BASE",
-    BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
-    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE:
-      "Ganhe recompensas",
     BATCH_TOO_LARGE: "Tamanho do lote muito grande",
+    BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
+    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Ganhe recompensas",
     BOUGHT_VIA: "Comprado via",
     BRIDGE: "Ponte",
     BRIDGE_ADDRESS_PLACEHOLDER: "Endereço {{chain}}",
@@ -291,6 +290,7 @@ export const pt = {
     CANNOT_RAISE_DISPUTE_TWICE: "Não é possível abrir disputa duas vezes",
     CANNOT_VOTE_SELF: "Não pode votar em si mesmo",
     CANNOT_VOTE_YOURSELF: "Não pode votar em si mesmo",
+    CARD_NUMBER: "Número do Cartão",
     CASHBACK_EARNED: "Cashback ganho",
     CASHBACK_REWARD_DESCRIPTION:
       "Você acabou de receber {{percentage}}% de cashback em ${{tokenSymbol}} por esta transação. Ver posições de ${{tokenSymbol}}",
@@ -857,7 +857,8 @@ export const pt = {
     GET_VERIFIED: "Verificar-se",
     GIVEN: "Enviadas",
     GOAT_CASH_BANNER_CTA: "Explorar",
-    GOAT_CASH_BANNER_DESCRIPTION: "Pague com USDC no seu QR local, como um GOAT.",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "Pague com USDC no seu QR local, como um GOAT.",
     GOAT_CASH_BANNER_LABEL: "Novo",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Voltar",
@@ -1460,8 +1461,10 @@ export const pt = {
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
+    PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
+    PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
     PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
@@ -1592,7 +1595,8 @@ export const pt = {
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Receita de recomendação reivindicada com sucesso",
     REDATM_BANNER_CTA: "Ver Caixas",
-    REDATM_BANNER_DESCRIPTION: "100% da taxa do caixa reembolsada na sua carteira",
+    REDATM_BANNER_DESCRIPTION:
+      "100% da taxa do caixa reembolsada na sua carteira",
     REDATM_BANNER_TITLE: "Saque dinheiro sem custo",
     REFERRALS: "Indicações",
     REFERRAL_BONUS_WAITING: "Bônus de Indicação Aguardando",
@@ -1930,6 +1934,8 @@ export const pt = {
     TRANSACTION_SUCCESSFUL: "Transação Bem-sucedida",
     TRANSACTION_TYPES: "Tipos de Transação",
     TRANSFERENCIA: "Transferência Bancária",
+    TRANSFERMOVIL: "Transfermóvil",
+    TRANSFERMOVIL_DETAILS: "Detalhes do Transfermóvil",
     TRANSFER_FAILED: "Transferência falhou",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfira o valor para {{paymentAddressName}} abaixo e clique em 'Eu fiz o pagamento' para continuar",
