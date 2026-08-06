@@ -463,7 +463,8 @@ export function SellPreview() {
                         <Input
                           className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
                           placeholder={
-                            currency.currency === "NGN"
+                            currency.currency === "NGN" ||
+                            currency.currency === "CUP"
                               ? t(fieldConfig.placeholder)
                               : t("ENTER_PAYMENT_DETAILS", {
                                   paymentAddressName: t(fieldConfig.label),
