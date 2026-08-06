@@ -96,10 +96,9 @@ export const es = {
     BANK_NAME: "Nombre del banco",
     BANK_NAME_LABEL: "Bank Name",
     BASE_NETWORK: "BASE",
-    BECOME_A_LIQUIDITY_PARTNER: "Conviértete en socio de liquidez",
-    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE:
-      "Gana recompensas",
     BATCH_TOO_LARGE: "Tamaño del lote demasiado grande",
+    BECOME_A_LIQUIDITY_PARTNER: "Conviértete en socio de liquidez",
+    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Gana recompensas",
     BOUGHT_VIA: "Comprado a través de",
     BRIDGE: "Puente",
     BRIDGE_ADDRESS_PLACEHOLDER: "Dirección de {{chain}}",
@@ -296,6 +295,7 @@ export const es = {
     CANNOT_RAISE_DISPUTE_TWICE: "No se puede abrir una disputa dos veces",
     CANNOT_VOTE_SELF: "No puedes votarte a ti mismo",
     CANNOT_VOTE_YOURSELF: "No puedes votarte a ti mismo",
+    CARD_NUMBER: "Número de Tarjeta",
     CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en ${{tokenSymbol}} por esta transacción. Ver tenencias de ${{tokenSymbol}}",
@@ -1481,8 +1481,10 @@ export const es = {
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
+    PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
+    PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
     PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
@@ -1615,7 +1617,8 @@ export const es = {
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Ingresos por recomendación reclamados con éxito",
     REDATM_BANNER_CTA: "Ver Cajeros",
-    REDATM_BANNER_DESCRIPTION: "Te devolvemos el 100% de la comisión del cajero",
+    REDATM_BANNER_DESCRIPTION:
+      "Te devolvemos el 100% de la comisión del cajero",
     REDATM_BANNER_TITLE: "Retirá efectivo sin costo",
     REFERRALS: "Referidos",
     REFERRAL_BONUS_WAITING: "Bono de Referido en Espera",
@@ -1969,6 +1972,8 @@ export const es = {
     TRANSACTION_SUCCESSFUL: "Transacción Exitosa",
     TRANSACTION_TYPES: "Tipos de Transacción",
     TRANSFERENCIA: "Transferencia",
+    TRANSFERMOVIL: "Transfermóvil",
+    TRANSFERMOVIL_DETAILS: "Detalles de Transfermóvil",
     TRANSFER_FAILED: "Transferencia fallida",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfiere el monto a la {{paymentAddressName}} a continuación y haz clic en 'He pagado' para continuar",
