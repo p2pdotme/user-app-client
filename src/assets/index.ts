@@ -1,5 +1,5 @@
 // Base URL for assets in the CDN bucket
-const BASE_CDN_URL = "https://cdn.p2p.lol/user-app/v2";
+const BASE_CDN_URL = "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev/user-app/v2";
 
 const createAssetUrl = (path: string) => `${BASE_CDN_URL}/${path}`;
 

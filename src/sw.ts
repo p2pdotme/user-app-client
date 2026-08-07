@@ -31,7 +31,7 @@ self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", () => clientsClaim());
 
 // Runtime cache for CDN assets (images/audio/animations)
-const CDN_ORIGIN = "https://cdn.p2p.lol";
+const CDN_ORIGIN = "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev";
 registerRoute(
   ({ url, request }) =>
     url.origin === CDN_ORIGIN &&
