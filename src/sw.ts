@@ -31,16 +31,16 @@ self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", () => clientsClaim());
 
 // Runtime cache for CDN assets (images/audio/animations)
-const CDN_ORIGIN = "https://firebasestorage.googleapis.com";
+const CDN_ORIGIN = "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev";
 registerRoute(
   ({ url, request }) =>
     url.origin === CDN_ORIGIN &&
-    url.pathname.startsWith("/v0/b/p2px-421205.appspot.com/o/user-app%2Fv2") &&
+    url.pathname.startsWith("/user-app/v2") &&
     (request.destination === "image" ||
       request.destination === "audio" ||
       request.destination === ""),
   new CacheFirst({
-    cacheName: "cdn-assets-v2",
+    cacheName: "cdn-assets-v3",
     plugins: [
       new ExpirationPlugin({
         maxEntries: 200,
