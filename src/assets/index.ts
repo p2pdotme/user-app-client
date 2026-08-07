@@ -1,10 +1,7 @@
 // Base URL for assets in the CDN bucket
-const BASE_CDN_URL =
-  "https://firebasestorage.googleapis.com/v0/b/p2px-421205.appspot.com/o/user-app%2Fv2";
+const BASE_CDN_URL = "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev/user-app/v2";
 
-// Helper function to create CDN URLs with name as alt
-const createAssetUrl = (path: string) =>
-  `${BASE_CDN_URL}%2F${encodeURIComponent(path)}?alt=media`;
+const createAssetUrl = (path: string) => `${BASE_CDN_URL}/${path}`;
 
 // ANIMATIONS (CDN)
 const CANCELLED = createAssetUrl("animations/cancelled.lottie");
