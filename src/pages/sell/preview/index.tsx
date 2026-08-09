@@ -464,7 +464,8 @@ export function SellPreview() {
                           className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
                           placeholder={
                             currency.currency === "NGN" ||
-                            currency.currency === "CUP"
+                            currency.currency === "CUP" ||
+                            currency.currency === "PHP"
                               ? t(fieldConfig.placeholder)
                               : t("ENTER_PAYMENT_DETAILS", {
                                   paymentAddressName: t(fieldConfig.label),

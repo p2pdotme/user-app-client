@@ -232,6 +232,10 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     card: "PLACEHOLDER_CARD_NUMBER_CUP",
   },
   PEN: { paymentId: "PLACEHOLDER_PAYMENT_ID_PEN" },
+  PHP: {
+    phone: "PLACEHOLDER_PAYMENT_ID_PHP",
+    "bank-name": "PLACEHOLDER_BANK_NAME_PHP",
+  },
 };
 
 export const PAYMENT_ID_FIELDS = Object.fromEntries(
