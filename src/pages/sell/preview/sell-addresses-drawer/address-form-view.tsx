@@ -156,7 +156,9 @@ export function AddressFormView({
                     <FormControl>
                       <Input
                         placeholder={
-                          currency.currency === CURRENCY.NGN
+                          currency.currency === CURRENCY.NGN ||
+                          currency.currency === CURRENCY.CUP ||
+                          currency.currency === CURRENCY.PHP
                             ? t(fieldConfig.placeholder)
                             : t("ENTER_PAYMENT_DETAILS", {
                                 paymentAddressName: t(fieldConfig.label),
