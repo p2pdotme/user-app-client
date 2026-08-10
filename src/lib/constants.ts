@@ -158,6 +158,32 @@ export const SIMPLE_KYC_TENANT =
   (import.meta.env.VITE_SIMPLE_KYC_TENANT as string | undefined) ??
   "p2p-reputation-mainnet";
 
+/**
+ * Liveness hosted wizard + API base URL (the liveness proxy). A **different**
+ * host from SIMPLE_KYC_BASE_URL: liveness is its own service, with its own
+ * database, attestor key and EIP-712 domain. Pointing one at the other yields a
+ * signature the contract rejects.
+ */
+export const LIVENESS_BASE_URL =
+  (import.meta.env.VITE_LIVENESS_BASE_URL as string | undefined) ??
+  "https://liveness-proxy.p2p.cool";
+
+/**
+ * Liveness tenant slug (one Base contract). Defaults to the Base **mainnet**
+ * reputation tenant; override with VITE_LIVENESS_TENANT (e.g.
+ * "p2p-reputation-liveness" for the Base Sepolia tenant). Registered on the
+ * liveness service's own tenant table -- a slug on simple-kyc says nothing here.
+ */
+export const LIVENESS_TENANT =
+  (import.meta.env.VITE_LIVENESS_TENANT as string | undefined) ??
+  "p2p-reputation-liveness-mainnet";
+
+/**
+ * Markets where the liveness tier is not offered. India runs the passport
+ * (Identity/KYC) tier only.
+ */
+export const LIVENESS_EXCLUDED_COUNTRIES: readonly string[] = ["India"];
+
 /** BVN (Nigerian Bank Verification Number) backend proxy base URL. */
 export const BVN_API_BASE_URL = import.meta.env.VITE_BVN_API_URL as
   | string

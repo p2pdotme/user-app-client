@@ -96,10 +96,9 @@ export const es = {
     BANK_NAME: "Nombre del banco",
     BANK_NAME_LABEL: "Bank Name",
     BASE_NETWORK: "BASE",
-    BECOME_A_LIQUIDITY_PARTNER: "Conviértete en socio de liquidez",
-    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE:
-      "Gana recompensas",
     BATCH_TOO_LARGE: "Tamaño del lote demasiado grande",
+    BECOME_A_LIQUIDITY_PARTNER: "Conviértete en socio de liquidez",
+    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Gana recompensas",
     BOUGHT_VIA: "Comprado a través de",
     BRIDGE: "Puente",
     BRIDGE_ADDRESS_PLACEHOLDER: "Dirección de {{chain}}",
@@ -1017,6 +1016,11 @@ export const es = {
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn solo admite actualizaciones de RP",
     LIQUIDITY: "Liquidez",
+    LIVENESS_DESCRIPTION: "Verificación facial rápida, sin documentos",
+    LIVENESS_ERROR: "Prueba de vida: {{message}}",
+    LIVENESS_SUBMISSION_FAILED: "Error al enviar la prueba de vida",
+    LIVENESS_VERIFIED_WITH_REWARD: "Prueba de vida verificada con éxito",
+    LIVENESS_VERIFYING: "Verificando tu prueba de vida...",
     LOADING: "Cargando",
     LOADING_APP: "Cargando P2P.ME...",
     LOAD_MORE: "Cargar más",
@@ -1615,7 +1619,8 @@ export const es = {
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Ingresos por recomendación reclamados con éxito",
     REDATM_BANNER_CTA: "Ver Cajeros",
-    REDATM_BANNER_DESCRIPTION: "Te devolvemos el 100% de la comisión del cajero",
+    REDATM_BANNER_DESCRIPTION:
+      "Te devolvemos el 100% de la comisión del cajero",
     REDATM_BANNER_TITLE: "Retirá efectivo sin costo",
     REFERRALS: "Referidos",
     REFERRAL_BONUS_WAITING: "Bono de Referido en Espera",

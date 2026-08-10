@@ -96,10 +96,9 @@ export const pt = {
     BANK_NAME: "Nome do banco",
     BANK_NAME_LABEL: "Bank Name",
     BASE_NETWORK: "BASE",
-    BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
-    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE:
-      "Ganhe recompensas",
     BATCH_TOO_LARGE: "Tamanho do lote muito grande",
+    BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
+    BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Ganhe recompensas",
     BOUGHT_VIA: "Comprado via",
     BRIDGE: "Ponte",
     BRIDGE_ADDRESS_PLACEHOLDER: "Endereço {{chain}}",
@@ -857,7 +856,8 @@ export const pt = {
     GET_VERIFIED: "Verificar-se",
     GIVEN: "Enviadas",
     GOAT_CASH_BANNER_CTA: "Explorar",
-    GOAT_CASH_BANNER_DESCRIPTION: "Pague com USDC no seu QR local, como um GOAT.",
+    GOAT_CASH_BANNER_DESCRIPTION:
+      "Pague com USDC no seu QR local, como um GOAT.",
     GOAT_CASH_BANNER_LABEL: "Novo",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Voltar",
@@ -1005,6 +1005,11 @@ export const pt = {
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn apenas suporta atualizações de RP",
     LIQUIDITY: "Liquidez",
+    LIVENESS_DESCRIPTION: "Verificação facial rápida, sem documentos",
+    LIVENESS_ERROR: "Prova de vida: {{message}}",
+    LIVENESS_SUBMISSION_FAILED: "Falha no envio da prova de vida",
+    LIVENESS_VERIFIED_WITH_REWARD: "Prova de vida verificada com sucesso",
+    LIVENESS_VERIFYING: "Verificando sua prova de vida...",
     LOADING: "Carregando",
     LOADING_APP: "Carregando P2P.ME...",
     LOAD_MORE: "Carregar mais",
@@ -1592,7 +1597,8 @@ export const pt = {
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Receita de recomendação reivindicada com sucesso",
     REDATM_BANNER_CTA: "Ver Caixas",
-    REDATM_BANNER_DESCRIPTION: "100% da taxa do caixa reembolsada na sua carteira",
+    REDATM_BANNER_DESCRIPTION:
+      "100% da taxa do caixa reembolsada na sua carteira",
     REDATM_BANNER_TITLE: "Saque dinheiro sem custo",
     REFERRALS: "Indicações",
     REFERRAL_BONUS_WAITING: "Bônus de Indicação Aguardando",
