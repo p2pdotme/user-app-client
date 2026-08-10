@@ -42,9 +42,17 @@ export function formatTokenBalance(value: number, maxDecimals = 3): string {
 export function formatDateTime(dateStr: string | Date): string {
   const d = new Date(dateStr);
   return (
-    d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) +
+    d.toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }) +
     ", " +
-    d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: true })
+    d.toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
   );
 }
 
@@ -763,6 +771,36 @@ export function buildPixBrCode(
     // Unrecognized/invalid key — render it raw so the copy field still helps.
     return pixKey;
   }
+}
+
+/**
+ * Builds a Cuban Transfermóvil transfer payload from a CUP payment address so
+ * the payer can scan it instead of typing a 16-digit card. CUP addresses are the
+ * compound `phone|card` pair; the payload mirrors the format Transfermóvil
+ * itself emits (`TRANSFERMOVIL_ETECSA,TRANSFERENCIA,<card>,<phone>,<amount>`).
+ * Returns null when the address isn't a usable phone/card pair, so callers can
+ * fall back to the plain text fields.
+ * @param paymentAddress - The compound CUP address (`phone|card`)
+ * @param amount - The fiat amount to pay; omitted from the payload when not positive
+ * @returns The Transfermóvil payload to encode in the QR, or null
+ */
+export function buildTransfermovilQr(
+  paymentAddress: string,
+  amount: string,
+): string | null {
+  const [rawPhone, rawCard] = deserializeCompoundPaymentId(paymentAddress);
+
+  const card = rawCard?.replace(/[\s-]/g, "") ?? "";
+  const phoneDigits = rawPhone?.replace(/\D/g, "") ?? "";
+  const phone = phoneDigits.length === 10 ? phoneDigits.slice(2) : phoneDigits;
+
+  if (!/^\d{16}$/.test(card) || !/^\d{8}$/.test(phone)) return null;
+
+  const parsed = Number(amount.replace(",", "."));
+  const amountField =
+    Number.isFinite(parsed) && parsed > 0 ? parsed.toFixed(2) : "";
+
+  return `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${card},${phone},${amountField}`;
 }
 
 export function getScreenType() {
