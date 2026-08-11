@@ -33,11 +33,12 @@ import {
 } from "@/lib/compound-payment-id";
 import { CURRENCY_META_DATA } from "@/lib/constants";
 import {
+  buildPixBrCode,
+  buildTransfermovilQr,
   cn,
   formatFiatAmount,
   formatFiatAmountNumeric,
   generateUPILink,
-  buildPixBrCode,
   getPaymentMethodFromOrderDetails,
 } from "@/lib/utils";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
@@ -323,6 +324,16 @@ export function BuyAccepted({ order }: { order: Order }) {
       ? deserializeCompoundPaymentId(decryptedPaymentAddress)
       : [];
 
+  const transfermovilQrValue =
+    decryptedPaymentAddress && order.currency === "CUP"
+      ? buildTransfermovilQr(
+          decryptedPaymentAddress,
+          actualFiatAmount
+            ? formatFiatAmountNumeric(actualFiatAmount, order.currency)
+            : "",
+        )
+      : null;
+
   const handleCopyPaymentField = (value: string) => {
     navigator.clipboard.writeText(value);
     toast.success(
@@ -583,6 +594,24 @@ export function BuyAccepted({ order }: { order: Order }) {
                         currency: order.currency,
                         orderId: order.id.toString(),
                       })}
+                      size={180}
+                      level="L"
+                    />
+                  </div>
+                  <p className="text-center text-muted-foreground text-xs">
+                    {t("SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP")}
+                  </p>
+                </div>
+              )}
+
+              {/* Cuba (Transfermóvil): the address is a phone + 16-digit card
+                  that's painful to type, so a scannable transfer payload is
+                  always shown alongside the copyable fields above. */}
+              {transfermovilQrValue && (
+                <div className="flex flex-col items-center gap-2 pt-2">
+                  <div className="rounded-xl border-2 border-primary bg-white p-3 shadow-primary-shadow shadow-xl">
+                    <QRCodeSVG
+                      value={transfermovilQrValue}
                       size={180}
                       level="L"
                     />
