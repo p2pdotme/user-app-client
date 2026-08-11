@@ -1,5 +1,6 @@
 import { usePrices } from "@p2pdotme/sdk/react";
 import {
+  createLivenessFlow,
   createReclaimFlow,
   createSimpleKycFlow,
   DEFAULT_RECLAIM_PROVIDER_IDS,
@@ -7,6 +8,7 @@ import {
   type ReclaimProofResult,
   type ReclaimSession,
   type ReclaimStatus,
+  resumeLivenessFlow,
   resumeSimpleKycFlow,
   type SocialPlatform,
   type SocialVerifyParams,
@@ -19,6 +21,7 @@ import {
   Loader2,
   ScanFace,
   ShieldCheck,
+  SmilePlus,
 } from "lucide-react";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -26,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { BvnVerificationCard } from "@/components/bvn-verification-card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,7 +42,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { BvnVerificationCard } from "@/components/bvn-verification-card";
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
@@ -46,15 +49,21 @@ import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useKycRpReward,
   useKycVerificationStatus,
+  useLivenessRpReward,
+  useLivenessVerificationStatus,
   useSocialRpRewards,
   useSocialVerificationStatus,
   useSocialVerify,
   useSubmitKycAttestation,
+  useSubmitLivenessAttestation,
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
   IS_BVN_ENABLED,
   KYC_COUNTRY_BY_CURRENCY,
+  LIVENESS_BASE_URL,
+  LIVENESS_EXCLUDED_COUNTRIES,
+  LIVENESS_TENANT,
   RECLAIM_APP,
   RECLAIM_APP_LINKS,
   SIMPLE_KYC_BASE_URL,
@@ -80,7 +89,8 @@ type SocialPlatformType =
   | "Instagram"
   | "Facebook"
   | "Binance"
-  | "Identity (KYC)";
+  | "Identity (KYC)"
+  | "Liveness";
 
 /**
  * Empty-state CTA shown above the verification list when the user has not yet
@@ -98,6 +108,7 @@ function VerifySocialCta() {
     isBinanceVerified,
   } = useSocialVerificationStatus();
   const { isKycVerified } = useKycVerificationStatus();
+  const { isLivenessVerified } = useLivenessVerificationStatus();
 
   const isAnySocialVerified =
     !!isLinkedInVerified ||
@@ -106,7 +117,8 @@ function VerifySocialCta() {
     !!isInstagramVerified ||
     !!isFacebookVerified ||
     !!isBinanceVerified ||
-    !!isKycVerified;
+    !!isKycVerified ||
+    !!isLivenessVerified;
 
   if (isAnySocialVerified) return null;
 
@@ -239,6 +251,7 @@ export function Verifications() {
       </div>
       <VerifySocialCta />
       <div className="flex w-full flex-col gap-4">
+        <LivenessVerificationCard />
         <KycVerificationCard />
         {IS_BVN_ENABLED && settings.currency.currency === "NGN" && (
           <BvnVerificationCard />
@@ -959,6 +972,152 @@ function VerificationItem({
         </CardFooter>
       </Card>
     </>
+  );
+}
+
+/**
+ * Liveness verification card — the face-only tier, and the first thing on the
+ * list because it is the cheapest to complete: no passport, no document, just a
+ * short in-browser liveness challenge.
+ *
+ * Runs the same shape as the KYC card (redirect to a hosted wizard, come back
+ * with a one-time `code`), against a **different service**: its own host, its
+ * own tenant registry and its own `LivenessVerifier` EIP-712 domain, redeemed
+ * into `submitLivenessAttestation` rather than `submitKycAttestation`. Both
+ * wizards return to `/limits`, so the `state` prefix is what tells the two
+ * handlers apart — this one only claims `state=liveness-…`.
+ *
+ * Uniqueness is the liveness service's 1:N face dedup plus the on-chain
+ * nullifier, so the RP lands once per human, not once per wallet. Holding a KYC
+ * attestation does not preclude this one: separate services, separate dedup
+ * sets, separate rewards.
+ */
+function LivenessVerificationCard() {
+  const { t } = useTranslation();
+  const { account } = useThirdweb();
+  const { settings } = useSettings();
+  const {
+    livenessRp,
+    isLivenessRpLoading,
+    isLivenessRpError,
+    livenessRpError,
+  } = useLivenessRpReward();
+  const {
+    isLivenessVerified,
+    isLivenessStatusLoading,
+    livenessStatusError,
+    refetchLivenessStatus,
+  } = useLivenessVerificationStatus();
+  const submit = useSubmitLivenessAttestation();
+  const [busy, setBusy] = useState(false);
+  const processed = useRef(false);
+
+  // The liveness tier is offered in every market except the excluded ones.
+  // Unlike KYC it needs no country prebound (no document is read), so there is
+  // no currency→country mapping to gate on.
+  const isOffered = !LIVENESS_EXCLUDED_COUNTRIES.includes(
+    settings.currency.country,
+  );
+
+  // Returning from the hosted wizard: ?code=<one-time>&state=liveness-…
+  useEffect(() => {
+    if (processed.current || !account?.address) return;
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    if (!code || !state || !state.startsWith("liveness")) return;
+    processed.current = true;
+    (async () => {
+      setBusy(true);
+      const att = await resumeLivenessFlow({
+        baseUrl: LIVENESS_BASE_URL,
+        code,
+      });
+      if (att.isErr()) {
+        toast.error(t("LIVENESS_ERROR", { message: att.error.message }));
+        setBusy(false);
+        return;
+      }
+      try {
+        await toast
+          .promise(submit.mutateAsync(att.value), {
+            loading: t("LIVENESS_VERIFYING"),
+            success: t("LIVENESS_VERIFIED_WITH_REWARD"),
+            error: (e) =>
+              e instanceof Error ? e.message : t("LIVENESS_SUBMISSION_FAILED"),
+          })
+          .unwrap();
+        await refetchLivenessStatus();
+      } catch {
+        // toast.promise already surfaced the error to the user
+      } finally {
+        window.history.replaceState({}, "", window.location.pathname);
+        setBusy(false);
+      }
+    })();
+  }, [account?.address, submit, refetchLivenessStatus, t]);
+
+  const start = useCallback(async () => {
+    if (!account?.address) {
+      toast.error(t("CONNECT_WALLET_FIRST"));
+      return;
+    }
+    setBusy(true);
+    const session = await createLivenessFlow({
+      baseUrl: LIVENESS_BASE_URL,
+      walletAddress: account.address as `0x${string}`,
+      tenant: LIVENESS_TENANT,
+      redirectUrl: `${window.location.origin}/limits`,
+      state: `liveness-${Math.random().toString(36).slice(2)}`,
+    });
+    if (session.isErr()) {
+      toast.error(t("LIVENESS_ERROR", { message: session.error.message }));
+      setBusy(false);
+      return;
+    }
+    session.value.redirect();
+  }, [account?.address, t]);
+
+  if (!isOffered) return null;
+
+  return (
+    <VerificationItem
+      name="Liveness"
+      tag={t("TAG_QUICKEST")}
+      icon={<SmilePlus className="size-5 text-foreground" />}
+      description={t("LIVENESS_DESCRIPTION")}
+      usdcReward={0}
+      rpReward={
+        isLivenessRpLoading || isLivenessRpError || !livenessRp ? 0 : livenessRp
+      }
+      isVerified={!!isLivenessVerified}
+      isStatusLoading={isLivenessStatusLoading || isLivenessRpLoading}
+      socialStatusError={livenessStatusError || livenessRpError || null}
+      refetchSocialStatus={refetchLivenessStatus}
+      customButton={
+        isLivenessVerified ? (
+          <Button
+            className="bg-muted text-foreground hover:bg-muted"
+            onClick={() => {
+              toast.success(t("ALREADY_VERIFIED"));
+            }}>
+            <Check className="mr-2 size-4" />
+            {t("VERIFIED")}
+          </Button>
+        ) : (
+          <Button variant="outline" onClick={start} disabled={busy}>
+            {busy ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t("VERIFYING")}
+              </>
+            ) : (
+              t("GET_VERIFIED")
+            )}
+          </Button>
+        )
+      }
+    />
   );
 }
 
