@@ -37,10 +37,12 @@ import {
   prepareGetIsInstagramVerifiedArgs,
   prepareGetIsKycVerifiedArgs,
   prepareGetIsLinkedInVerifiedArgs,
+  prepareGetIsLivenessVerifiedArgs,
   prepareGetIsWhitelistedArgs,
   prepareGetIsXVerifiedArgs,
   prepareGetKycRpArgs,
   prepareGetLinkedInRpArgs,
+  prepareGetLivenessRpArgs,
   prepareGetLyingUserRpArgs,
   prepareGetMaxRpToBeVotedArgs,
   prepareGetMinRpToVoteArgs,
@@ -817,6 +819,59 @@ export function getBvnRp(): ResultAsync<
           },
         ),
     ),
+  );
+}
+
+export function getLivenessRp(): ResultAsync<
+  bigint,
+  ThirdwebAdapterError | P2PError
+> {
+  return prepareGetLivenessRpArgs().asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read liveness RP from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { to, args },
+            },
+          ),
+      ),
+  );
+}
+
+export function isLivenessVerified(params: {
+  address: Address;
+}): ResultAsync<boolean, ThirdwebAdapterError | P2PError> {
+  return prepareGetIsLivenessVerifiedArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read liveness verification status from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
   );
 }
 

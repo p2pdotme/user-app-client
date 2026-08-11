@@ -1,5 +1,6 @@
 import { useProfile, useZkkyc } from "@p2pdotme/sdk/react";
 import type {
+  LivenessSubmitParams,
   SimpleKycSubmitParams,
   SocialVerifyParams,
 } from "@p2pdotme/sdk/zkkyc";
@@ -20,6 +21,7 @@ import {
   getInstagramRp,
   getKycRp,
   getLinkedInRp,
+  getLivenessRp,
   getNumTxns,
   getOnChainActivityBase,
   getOnChainActivityRp,
@@ -27,6 +29,7 @@ import {
   getXRp,
   isBvnVerified,
   isKycVerified,
+  isLivenessVerified,
   sendPreparedTx,
 } from "@/core/adapters/thirdweb/actions/reputation-manager";
 import { captureError, withSentrySpan } from "@/lib/sentry";
@@ -366,6 +369,109 @@ export function useKycVerificationStatus() {
     kycStatusError,
     refetchKycStatus,
   };
+}
+
+export function useLivenessRpReward() {
+  const {
+    data: livenessRp,
+    isLoading: isLivenessRpLoading,
+    isError: isLivenessRpError,
+    error: livenessRpError,
+  } = useQuery({
+    queryKey: ["liveness-rp-reward"],
+    queryFn: async () => {
+      return getLivenessRp().match(
+        (value) => Number(value),
+        (error) => {
+          throw error;
+        },
+      );
+    },
+  });
+
+  return {
+    livenessRp,
+    isLivenessRpLoading,
+    isLivenessRpError,
+    livenessRpError,
+  };
+}
+
+/**
+ * Liveness has its own `livenessVerified` mapping, separate from `kycVerified`:
+ * the two attestations come from different services with different dedup sets,
+ * so a user can hold either, both, or neither.
+ */
+export function useLivenessVerificationStatus() {
+  const { account } = useThirdweb();
+
+  const {
+    data: isLivenessVerifiedStatus,
+    isLoading: isLivenessStatusLoading,
+    isError: isLivenessStatusError,
+    error: livenessStatusError,
+    refetch: refetchLivenessStatus,
+  } = useQuery({
+    queryKey: ["liveness-verification-status", account?.address],
+    queryFn: async () => {
+      if (!account?.address) throw new Error("No account connected");
+      return isLivenessVerified({ address: account.address as Address }).match(
+        (result) => result,
+        (error) => {
+          console.error(
+            "[useLivenessVerificationStatus] Error fetching status",
+            error,
+          );
+          throw error;
+        },
+      );
+    },
+    enabled: !!account?.address,
+  });
+
+  return {
+    isLivenessVerified: isLivenessVerifiedStatus,
+    isLivenessStatusLoading,
+    isLivenessStatusError,
+    livenessStatusError,
+    refetchLivenessStatus,
+  };
+}
+
+export function useSubmitLivenessAttestation() {
+  const { account } = useThirdweb();
+  const zkkyc = useZkkyc();
+  const mutation = useMutation({
+    mutationFn: async (params: LivenessSubmitParams) => {
+      if (!account) throw new Error("No account connected");
+      return withSentrySpan(
+        "limits.submit_liveness_attestation",
+        "Submit Liveness Attestation",
+        async () => {
+          return sendPreparedTx(
+            zkkyc.prepareSubmitLivenessAttestation(params),
+            account,
+            "submitLivenessAttestation",
+          ).match(
+            (txReceipt) => txReceipt,
+            (error) => {
+              captureError(error, {
+                operation: "submit_liveness_attestation",
+                component: "useSubmitLivenessAttestation",
+                userId: account.address,
+              });
+              console.error(
+                "[useSubmitLivenessAttestation] Error in submitLivenessAttestation",
+                error,
+              );
+              throw error;
+            },
+          );
+        },
+      );
+    },
+  });
+  return mutation;
 }
 
 export function useSubmitKycAttestation() {
