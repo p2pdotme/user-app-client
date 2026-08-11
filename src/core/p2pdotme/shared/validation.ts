@@ -549,6 +549,9 @@ export const ZodWhitelistContractParamsSchema = z.object({
 export const ZodBvnRpParamsSchema = z.object({});
 export type BvnRpParams = z.infer<typeof ZodBvnRpParamsSchema>;
 
+export const ZodLivenessRpParamsSchema = z.object({});
+export type LivenessRpParams = z.infer<typeof ZodLivenessRpParamsSchema>;
+
 // Additional schemas for missing functions
 export const ZodGetCampaignActiveParamsSchema = z.object({
   campaignId: z.number().int().nonnegative(),

@@ -1018,6 +1018,11 @@ export const es = {
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn solo admite actualizaciones de RP",
     LIQUIDITY: "Liquidez",
+    LIVENESS_DESCRIPTION: "Verificación facial rápida, sin documentos",
+    LIVENESS_ERROR: "Prueba de vida: {{message}}",
+    LIVENESS_SUBMISSION_FAILED: "Error al enviar la prueba de vida",
+    LIVENESS_VERIFIED_WITH_REWARD: "Prueba de vida verificada con éxito",
+    LIVENESS_VERIFYING: "Verificando tu prueba de vida...",
     LOADING: "Cargando",
     LOADING_APP: "Cargando P2P.ME...",
     LOAD_MORE: "Cargar más",

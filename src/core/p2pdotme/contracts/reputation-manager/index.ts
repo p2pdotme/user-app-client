@@ -44,6 +44,7 @@ import {
   ZodGitHubRpParamsSchema,
   ZodInstagramRpParamsSchema,
   ZodLinkedInRpParamsSchema,
+  ZodLivenessRpParamsSchema,
   ZodMarkUserBlacklistedParamsSchema,
   ZodMaxRpToBeVotedParamsSchema,
   ZodMinRpToVoteParamsSchema,
@@ -497,6 +498,40 @@ export function prepareGetIsBvnVerifiedArgs(params: UserParams): Result<
     to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
     abi: ABIS.REPUTATION_MANAGER,
     functionName: "bvnVerified" as const,
+    args: [validatedParams.address],
+  }));
+}
+
+export function prepareGetLivenessRpArgs(): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "livenessRp";
+    args: [];
+  },
+  P2PError
+> {
+  return validate(ZodLivenessRpParamsSchema, {}).map(() => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "livenessRp" as const,
+    args: [],
+  }));
+}
+
+export function prepareGetIsLivenessVerifiedArgs(params: UserParams): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.REPUTATION_MANAGER;
+    functionName: "livenessVerified";
+    args: [Address];
+  },
+  P2PError
+> {
+  return validate(ZodUserParamsSchema, params).map((validatedParams) => ({
+    to: CONTRACT_ADDRESSES.REPUTATION_MANAGER,
+    abi: ABIS.REPUTATION_MANAGER,
+    functionName: "livenessVerified" as const,
     args: [validatedParams.address],
   }));
 }
