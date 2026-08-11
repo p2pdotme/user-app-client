@@ -23,6 +23,12 @@ interface ImportMetaEnv {
   // simple-kyc tenant slug override (defaults to the mainnet reputation tenant)
   readonly VITE_SIMPLE_KYC_TENANT?: string;
 
+  // Liveness (face-only) hosted wizard / API base URL — a different host from
+  // the simple-kyc one; the two services sign different EIP-712 domains
+  readonly VITE_LIVENESS_BASE_URL?: string;
+  // Liveness tenant slug override (defaults to the mainnet reputation tenant)
+  readonly VITE_LIVENESS_TENANT?: string;
+
   // BVN (Nigerian Bank Verification Number) on-chain attestation backend
   readonly VITE_BVN_API_URL?: string;
 
