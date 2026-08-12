@@ -858,8 +858,9 @@ export const pt = {
     GIVEN: "Enviadas",
     GOAT_CASH_BANNER_CTA: "Explorar",
     GOAT_CASH_BANNER_DESCRIPTION:
-      "Pague com USDC no seu QR local, como um GOAT.",
+      "Ganhe 10 tokens P2P toda semana usando Escanear e Pagar na GOAT.CASH.",
     GOAT_CASH_BANNER_LABEL: "Novo",
+    GOAT_CASH_BANNER_REWARD: "+10 P2P / semana",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Voltar",
     GO_HOME: "Ir para início",
