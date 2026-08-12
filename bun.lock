@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "user-app",
@@ -11,7 +12,7 @@
         "@farcaster/miniapp-sdk": "0.2.1",
         "@hookform/resolvers": "5.0.1",
         "@lottiefiles/dotlottie-react": "0.14.0",
-        "@p2pdotme/sdk": "1.2.13",
+        "@p2pdotme/sdk": "1.2.14",
         "@radix-ui/react-popover": "1.1.14",
         "@radix-ui/react-slot": "1.2.3",
         "@radix-ui/react-toggle": "1.1.9",
@@ -683,7 +684,7 @@
 
     "@nodelib/fs.walk": ["@nodelib/fs.walk@1.2.8", "", { "dependencies": { "@nodelib/fs.scandir": "2.1.5", "fastq": "^1.6.0" } }, "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg=="],
 
-    "@p2pdotme/sdk": ["@p2pdotme/sdk@1.2.13", "", { "dependencies": { "@fingerprintjs/fingerprintjs": "5.1.0", "@seontechnologies/seon-javascript-sdk": "6.10.2", "neverthrow": "8.2.0", "viem": "2.47.6", "zod": "4.3.6" }, "peerDependencies": { "@reclaimprotocol/js-sdk": "^5", "@zkpassport/sdk": ">=0.12.4 <0.15.0", "react": "18 || ^19" }, "optionalPeers": ["@reclaimprotocol/js-sdk", "@zkpassport/sdk"] }, "sha512-A/h7nLM4mSC6F43PG/mfnX16vTinKesaFEms/LEf57T2uM/V8HlrSnEB5Cs8dQYNS7oVaOluO/CVAGuqgr0dig=="],
+    "@p2pdotme/sdk": ["@p2pdotme/sdk@1.2.14", "", { "dependencies": { "@fingerprintjs/fingerprintjs": "5.1.0", "@seontechnologies/seon-javascript-sdk": "6.10.2", "neverthrow": "8.2.0", "viem": "2.47.6", "zod": "4.3.6" }, "peerDependencies": { "@reclaimprotocol/js-sdk": "^5", "@zkpassport/sdk": ">=0.12.4 <0.15.0", "react": "18 || ^19" }, "optionalPeers": ["@reclaimprotocol/js-sdk", "@zkpassport/sdk"] }, "sha512-KlUsSsuxlfPmmD0bpeM9TKZHdfnEppsjMTa2cAESRsOv4UCPDqEMvObwvjgRhdpLzyXBXQWFY0KWx3bmcNbW1g=="],
 
     "@passwordless-id/webauthn": ["@passwordless-id/webauthn@2.3.5", "", {}, "sha512-b/Nrsd9nkkLAKDybUmgQOLcjF5eILO3vjo6uVsvmCGD0XDacGB9b8wFnZGMnBMqvu8eDl5wYGrZ9PoaZ1ODlhw=="],
 
