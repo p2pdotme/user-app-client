@@ -408,18 +408,31 @@ export function validatePaymentAddress(
 export function formatFiatAmount(
   amount: string | number,
   currency: CurrencyType,
+  options?: { hideCurrency?: boolean },
 ) {
   const iso4217Code =
     CURRENCY_META_DATA[currency].internationalFormat ?? currency;
   const locale = CURRENCY_META_DATA[currency].locale;
   const precision = CURRENCY_META_DATA[currency].precision;
 
-  return new Intl.NumberFormat(locale, {
+  const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: iso4217Code,
     trailingZeroDisplay: "auto",
     maximumFractionDigits: precision,
-  }).format(roundAmount(amount));
+  });
+
+  // Drop the currency symbol while keeping locale grouping/precision.
+  if (options?.hideCurrency) {
+    return formatter
+      .formatToParts(roundAmount(amount))
+      .filter((part) => part.type !== "currency")
+      .map((part) => part.value)
+      .join("")
+      .trim();
+  }
+
+  return formatter.format(roundAmount(amount));
 }
 
 /**
