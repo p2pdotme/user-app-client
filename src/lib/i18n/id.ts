@@ -855,8 +855,9 @@ export const id = {
     GIVEN: "Diberikan",
     GOAT_CASH_BANNER_CTA: "Jelajahi",
     GOAT_CASH_BANNER_DESCRIPTION:
-      "Bayar dengan USDC di QR lokalmu, layaknya GOAT.",
+      "Dapatkan 10 token P2P setiap minggu dengan Scan & Bayar di GOAT.CASH.",
     GOAT_CASH_BANNER_LABEL: "Baru",
+    GOAT_CASH_BANNER_REWARD: "+10 P2P / minggu",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "Kembali",
     GO_HOME: "Beranda",

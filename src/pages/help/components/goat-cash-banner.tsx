@@ -14,9 +14,9 @@ const HOOF = "#95F4A2";
 
 // Drifting hoof-prints, tuned to a footstep rhythm (goat.cash home pattern).
 const FOOTPRINTS = [
-  { top: 12, left: 6, rotate: -42, delay: 0 },
-  { top: 54, left: 20, rotate: -52, delay: 0.5, flip: true },
-  { top: 20, left: 34, rotate: -38, delay: 1 },
+  { top: 10, left: 4, rotate: -42, delay: 0 },
+  { top: 52, left: 16, rotate: -52, delay: 0.5, flip: true },
+  { top: 16, left: 28, rotate: -38, delay: 1 },
 ];
 
 function GoatFeet(props: React.SVGProps<SVGSVGElement>) {
@@ -67,6 +67,32 @@ function GoatFace(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+// Small P2P reward coin used in the highlight chip.
+function P2PCoin(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}>
+      <circle
+        cx="12"
+        cy="12"
+        r="10.25"
+        fill={AMBER}
+        stroke={INK}
+        strokeWidth="1.5"
+      />
+      <circle cx="12" cy="12" r="7" fill="none" stroke={INK} strokeWidth="1" opacity="0.35" />
+      <path
+        d="M9.4 15.6V8.4h3.1c1.55 0 2.55.95 2.55 2.4s-1 2.4-2.55 2.4h-1.35v2.4H9.4Zm1.75-3.85h1.1c.6 0 .95-.35.95-.95s-.35-.95-.95-.95h-1.1v1.9Z"
+        fill={INK}
+      />
+    </svg>
+  );
+}
+
 export function GoatCashBanner() {
   const { track } = useAnalytics();
   const { t } = useTranslation();
@@ -85,7 +111,7 @@ export function GoatCashBanner() {
       <style>{`
         @keyframes goat-hoof-step {
           0%, 100% { opacity: 0; transform: scale(0.85); }
-          25%, 60% { opacity: 0.75; transform: scale(1); }
+          25%, 60% { opacity: 0.7; transform: scale(1); }
         }
         @keyframes goat-bob {
           0%, 100% { transform: translateY(0) rotate(-3deg); }
@@ -93,13 +119,47 @@ export function GoatCashBanner() {
         }
         @keyframes goat-badge-pop {
           0%, 100% { transform: scale(1); }
-          50%      { transform: scale(1.08); }
+          50%      { transform: scale(1.06); }
         }
         @keyframes goat-cta-shimmer {
           0%   { background-position: -120% 0; }
           100% { background-position: 220% 0;  }
         }
+        @keyframes goat-coin-spin {
+          0%, 70%, 100% { transform: rotateY(0deg); }
+          85%           { transform: rotateY(180deg); }
+        }
+        @keyframes goat-glow-pulse {
+          0%, 100% { opacity: 0.55; transform: scale(1); }
+          50%      { opacity: 0.85; transform: scale(1.06); }
+        }
       `}</style>
+
+      {/* Warm depth — soft amber + hoof glow blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute rounded-full blur-2xl"
+          style={{
+            top: "-30%",
+            right: "-8%",
+            height: "150%",
+            width: "45%",
+            backgroundColor: AMBER,
+            opacity: 0.35,
+          }}
+        />
+        <div
+          className="absolute rounded-full blur-2xl"
+          style={{
+            bottom: "-40%",
+            left: "-6%",
+            height: "120%",
+            width: "38%",
+            backgroundColor: HOOF,
+            opacity: 0.3,
+          }}
+        />
+      </div>
 
       {/* Hoof-print trail (goat.cash home signature) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -114,7 +174,7 @@ export function GoatCashBanner() {
               animationDelay: `${f.delay}s`,
             }}>
             <GoatFeet
-              className="h-9 w-auto"
+              className="h-8 w-auto"
               style={{
                 transform: `rotate(${f.rotate}deg)${f.flip ? " scaleX(-1)" : ""}`,
               }}
@@ -141,22 +201,40 @@ export function GoatCashBanner() {
             handleBannerClick();
           }
         }}>
-        {/* Left — badge + wordmark + tagline */}
+        {/* Left — badges + wordmark + tagline */}
         <div className="flex min-w-0 flex-col gap-1.5">
-          <span
-            className="inline-flex w-fit items-center gap-1 rounded-full border px-2 py-[2px] font-bold text-[10px] uppercase tracking-wide"
-            style={{
-              backgroundColor: AMBER,
-              borderColor: INK,
-              color: INK,
-              animation: "goat-badge-pop 2.4s ease-in-out infinite",
-            }}>
-            {t("GOAT_CASH_BANNER_LABEL")}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span
+              className="inline-flex w-fit items-center gap-1 rounded-full border px-2 py-[2px] font-bold text-[10px] uppercase tracking-wide"
+              style={{
+                backgroundColor: AMBER,
+                borderColor: INK,
+                color: INK,
+                animation: "goat-badge-pop 2.4s ease-in-out infinite",
+              }}>
+              {t("GOAT_CASH_BANNER_LABEL")}
+            </span>
+
+            {/* Reward highlight — makes the P2P earn pop */}
+            <span
+              className="inline-flex w-fit items-center gap-1 rounded-full border bg-white/70 py-[2px] pr-2 pl-[3px] font-bold text-[10px] tracking-wide backdrop-blur-sm"
+              style={{ borderColor: INK, color: INDIGO }}>
+              <P2PCoin
+                className="size-3.5"
+                style={{
+                  animation: "goat-coin-spin 4s ease-in-out infinite",
+                  transformStyle: "preserve-3d",
+                }}
+              />
+              {t("GOAT_CASH_BANNER_REWARD")}
+            </span>
+          </div>
 
           <h3
-            className="font-extrabold text-xl leading-none tracking-tight"
-            style={{ color: INDIGO }}>
+            className="bg-clip-text font-extrabold text-transparent text-xl leading-none tracking-tight"
+            style={{
+              backgroundImage: `linear-gradient(100deg, ${INDIGO} 0%, #3b52c9 100%)`,
+            }}>
             {t("GOAT_CASH_BANNER_TITLE")}
           </h3>
 
@@ -168,16 +246,28 @@ export function GoatCashBanner() {
         </div>
 
         {/* Right — goat mascot + CTA */}
-        <div className="flex flex-shrink-0 flex-col items-center gap-1.5 self-center">
-          <GoatFace
-            className="size-9"
-            style={{
-              animation: "goat-bob 3s ease-in-out infinite",
-              transformOrigin: "50% 100%",
-            }}
-          />
+        <div className="flex flex-shrink-0 flex-col items-center gap-2 self-center">
+          <div className="relative flex items-center justify-center">
+            <div
+              className="pointer-events-none absolute rounded-full blur-md"
+              style={{
+                height: "150%",
+                width: "150%",
+                backgroundColor: AMBER,
+                animation: "goat-glow-pulse 3s ease-in-out infinite",
+              }}
+              aria-hidden="true"
+            />
+            <GoatFace
+              className="relative size-10"
+              style={{
+                animation: "goat-bob 3s ease-in-out infinite",
+                transformOrigin: "50% 100%",
+              }}
+            />
+          </div>
           <div
-            className="relative flex h-8 items-center gap-1 overflow-hidden rounded-lg border-2 px-2.5 font-semibold text-xs"
+            className="relative flex h-8 items-center gap-1 overflow-hidden rounded-lg border-2 px-2.5 font-semibold text-xs shadow-sm"
             style={{
               backgroundColor: AMBER,
               borderColor: INK,
