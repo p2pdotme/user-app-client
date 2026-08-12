@@ -124,8 +124,15 @@ export function PayAccepted({ order }: { order: Order }) {
         paymentAddress,
         order.currency === "IDR" ? "GO_PAY" : undefined,
       );
+      const orderFiatAmount = Number(
+        formatFiatAmount(order.fiatAmount, order.currency, {
+          hideCurrency: true,
+        }),
+      );
+      const qrFiatAmount = Number(amount?.fiat);
+
       let updatedAmount = Number(order.amount);
-      if (amount) {
+      if (amount && orderFiatAmount !== qrFiatAmount) {
         updatedAmount = truncate6(Number(amount.usdc));
         if (updatedAmount !== Number(order.amount)) {
           toast.success(t("ORDER_AMOUNT_UPDATED"), {
