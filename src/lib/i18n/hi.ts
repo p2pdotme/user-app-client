@@ -813,8 +813,9 @@ export const hi = {
     GIVEN: "दिया गया",
     GOAT_CASH_BANNER_CTA: "एक्सप्लोर करें",
     GOAT_CASH_BANNER_DESCRIPTION:
-      "अपने लोकल QR पर USDC से भुगतान करें, एक GOAT की तरह।",
+      "GOAT.CASH पर Scan & Pay इस्तेमाल करके हर हफ्ते 10 P2P टोकन कमाएँ।",
     GOAT_CASH_BANNER_LABEL: "नया",
+    GOAT_CASH_BANNER_REWARD: "+10 P2P / सप्ताह",
     GOAT_CASH_BANNER_TITLE: "GOAT.CASH",
     GO_BACK: "वापस जाएं",
     GO_HOME: "होम जाएं",
