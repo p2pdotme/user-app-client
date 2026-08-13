@@ -326,12 +326,7 @@ export function BuyAccepted({ order }: { order: Order }) {
 
   const transfermovilQrValue =
     decryptedPaymentAddress && order.currency === "CUP"
-      ? buildTransfermovilQr(
-          decryptedPaymentAddress,
-          actualFiatAmount
-            ? formatFiatAmountNumeric(actualFiatAmount, order.currency)
-            : "",
-        )
+      ? buildTransfermovilQr(decryptedPaymentAddress)
       : null;
 
   const handleCopyPaymentField = (value: string) => {
