@@ -200,6 +200,12 @@ export const IS_BVN_ENABLED = Boolean(BVN_API_BASE_URL && BVN_TENANT);
  * selected currency. The hosted wizard skips the country step, so the app must
  * supply it, and it must be one of simple-kyc's supported markets. Currencies
  * with no entry (USD, EUR) can't run KYC, so the card is hidden for them.
+ *
+ * Every enabled currency in the SDK's COUNTRY_OPTIONS needs an entry here --
+ * a launched market that is missing from this map does not error, it silently
+ * loses the KYC card (see KycVerificationCard's `if (!kycCountry) return null`),
+ * which is how PHP/PEN/ECU/CUP went unverifiable after launch. Only the Revolut
+ * rails (USD, EUR) are meant to be absent: they have no passport country.
  */
 export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   INR: "IN",
@@ -210,6 +216,10 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   ARS: "AR",
   VEN: "VE",
   IDR: "ID",
+  PHP: "PH",
+  PEN: "PE",
+  ECU: "EC",
+  CUP: "CU",
 };
 
 export const CONNECTION_STATUS_TUTORIAL_LINK =
