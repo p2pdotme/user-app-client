@@ -1653,7 +1653,7 @@ export const pt = {
     REWARD_CLAIMED: "Recompensa Resgatada!",
     REWARD_CLAIMED_DESCRIPTION:
       "Você resgatou com sucesso {{amount}} USDC. Compartilhe sua conquista com seus amigos!",
-    RIF_LABEL: "Cedula con V",
+    RIF_LABEL: "Cédula/RIF",
     SAVE: "Salvar",
     SAVED: "Salvo {{paymentAddressName}}",
     SAVED_ADDRESS: "Endereço salvo",
