@@ -407,7 +407,10 @@ export function SwapForm({
   const usdcIconUrl = getTokenIconUrl({ coingeckoId: "usd-coin" });
 
   const chains = useMemo(
-    () => [...new Set(tokens.map((t) => t.blockchain))].sort(),
+    () =>
+      [...new Set(tokens.map((t) => t.blockchain))]
+        .filter((c) => c !== "stellar")
+        .sort(),
     [tokens],
   );
   const chainTokens = useMemo(
