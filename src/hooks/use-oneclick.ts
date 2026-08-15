@@ -47,7 +47,7 @@ export function useOneClickTokens() {
   }, [query.data]);
 
   const chains = useMemo(
-    () => [...tokensByChain.keys()].sort(),
+    () => [...tokensByChain.keys()].filter((c) => c !== "stellar").sort(),
     [tokensByChain],
   );
 
@@ -282,7 +282,6 @@ const TRUST_WALLET_CHAINS: Record<string, string> = {
   pol: "polygon",
   scroll: "scroll",
   sol: "solana",
-  stellar: "stellar",
   sui: "sui",
   ton: "ton",
   tron: "tron",
