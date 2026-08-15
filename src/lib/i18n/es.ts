@@ -1675,7 +1675,7 @@ export const es = {
     REWARD_CLAIMED: "¡Recompensa Reclamada!",
     REWARD_CLAIMED_DESCRIPTION:
       "Has reclamado exitosamente {{amount}} USDC. ¡Comparte tu logro con tus amigos!",
-    RIF_LABEL: "Cédula con V",
+    RIF_LABEL: "Cédula/RIF",
     SAVE: "Guardar",
     SAVED: "{{paymentAddressName}} Guardada",
     SAVED_ADDRESS: "Dirección Guardada",
