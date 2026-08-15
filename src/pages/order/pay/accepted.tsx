@@ -124,12 +124,19 @@ export function PayAccepted({ order }: { order: Order }) {
         paymentAddress,
         order.currency === "IDR" ? "GO_PAY" : undefined,
       );
-      const orderFiatAmount = Number(
-        formatFiatAmount(order.fiatAmount, order.currency, {
+      const orderFiatAmount = formatFiatAmount(
+        order.fiatAmount,
+        order.currency,
+        {
           hideCurrency: true,
-        }),
+        },
       );
-      const qrFiatAmount = Number(amount?.fiat);
+
+      const qrFiatAmount = amount?.fiat
+        ? formatFiatAmount(amount?.fiat, order.currency, {
+            hideCurrency: true,
+          })
+        : "";
 
       let updatedAmount = Number(order.amount);
       if (amount && orderFiatAmount !== qrFiatAmount) {
