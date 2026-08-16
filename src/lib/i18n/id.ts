@@ -1446,6 +1446,18 @@ export const id = {
     PERPS_BANNER_DESCRIPTION:
       "Untung atau rugi, kamu selalu dapat cashback 10%.",
     PERPS_BANNER_YES: "Cashback 10%.",
+    PERU_CCI_INVALID: "Masukkan CCI 20 digit yang valid",
+    PERU_CCI_PLACEHOLDER: "CCI (20 digit)",
+    PERU_NO_QR_ENTER_CCI: "Tidak punya QR? Masukkan CCI",
+    PERU_QR_ACCOUNT: "Akun",
+    PERU_QR_CHANGE: "Ganti QR",
+    PERU_QR_DECODING: "Membaca QR…",
+    PERU_QR_DETECTED: "QR terdeteksi",
+    PERU_QR_INVALID_QR: "Ini bukan QR Yape/Plin yang valid",
+    PERU_QR_READ_ERROR: "Tidak dapat membaca QR itu — coba gambar lain",
+    PERU_QR_UPLOAD_HINT: "Ketuk untuk memilih gambar QR dari perangkat",
+    PERU_QR_UPLOAD_TITLE: "Unggah QR Yape/Plin Anda",
+    PERU_USE_QR_INSTEAD: "Gunakan QR Yape/Plin",
     PER_TRANSACTION_LIMITS: "Batas Per Transaksi",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Batas maksimum USDC yang dapat dibeli, dijual, atau dibayar dalam satu transaksi. Tingkatkan batas Anda untuk melakukan transaksi lebih banyak USDC.",

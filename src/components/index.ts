@@ -22,6 +22,8 @@ export * from "./non-home-header";
 export * from "./numpad-input";
 export * from "./order-progress";
 export * from "./page-transitioner";
+export * from "./peru-qr-upload";
+export * from "./peru-sell-payment-input";
 export * from "./pull-to-refresh";
 export * from "./pwa-badge";
 export * from "./pwa-status-debug";

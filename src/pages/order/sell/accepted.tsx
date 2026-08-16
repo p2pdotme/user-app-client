@@ -23,13 +23,13 @@ import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
 import { useAnalytics, useOrderFlow } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { formatPaymentIdForDisplay } from "@/lib/compound-payment-id";
 import {
   cn,
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
 import { SELL_FLOW_PROGRESS_TEXT } from "../shared";
+import { SellReceivingPaymentRow } from "./sell-receiving-payment-row";
 
 export function SellAccepted({ order }: { order: Order }) {
   const { t } = useTranslation();
@@ -88,28 +88,32 @@ export function SellAccepted({ order }: { order: Order }) {
       return;
     }
 
-    await setSellOrderUpiMutation.mutateAsync(
-      {
-        orderId: BigInt(order.id),
-        paymentAddress: currentOrderPaidTo,
-        merchantPublicKey: order.pubkey,
-        updatedAmount: BigInt(0),
-      },
-      {
-        onSuccess: (receipt) => {
-          console.log(
-            `[ORDER:${order.id}:${order.orderType}:${order.status}] Payment details sent with receipt: `,
-            receipt,
-          );
-          toast.success(t("PAYMENT_DETAILS_SENT"));
+    try {
+      await setSellOrderUpiMutation.mutateAsync(
+        {
+          orderId: BigInt(order.id),
+          paymentAddress: currentOrderPaidTo,
+          merchantPublicKey: order.pubkey,
+          updatedAmount: BigInt(0),
         },
-        onError: (error) => {
-          toast.error(t("FAILED_TO_SEND_PAYMENT_DETAILS"), {
-            description: error.message,
-          });
+        {
+          onSuccess: (receipt) => {
+            console.log(
+              `[ORDER:${order.id}:${order.orderType}:${order.status}] Payment details sent with receipt: `,
+              receipt,
+            );
+            toast.success(t("PAYMENT_DETAILS_SENT"));
+          },
+          onError: (error) => {
+            toast.error(t("FAILED_TO_SEND_PAYMENT_DETAILS"), {
+              description: error.message,
+            });
+          },
         },
-      },
-    );
+      );
+    } catch {
+      // onError already toasted; mutateAsync still rejects — swallow to avoid uncaught.
+    }
   }, [
     order.id,
     order.orderType,
@@ -229,25 +233,25 @@ export function SellAccepted({ order }: { order: Order }) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">
-                  {t("RECEIVING_PAYMENT_ADDRESS", {
-                    paymentAddressName: t(currency.paymentAddressName),
-                  })}{" "}
-                </span>
-                <span className="text-muted-foreground">
-                  {(() => {
-                    const addr = getPaymentAddressFromOrderDetails(
-                      order.id.toString(),
-                    );
-                    if (!addr) return t("NOT_FOUND");
-                    return formatPaymentIdForDisplay(addr, order.currency);
-                  })()}
-                </span>
-              </div>
+              <SellReceivingPaymentRow
+                currency={order.currency}
+                address={getPaymentAddressFromOrderDetails(order.id.toString())}
+                paymentAddressName={currency.paymentAddressName}
+              />
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("PAYMENT_DETAILS")} </span>
-                <span className="text-destructive">{t("NOT_SENT")}</span>
+                <span
+                  className={
+                    setSellOrderUpiMutation.isSuccess
+                      ? "text-success"
+                      : "text-destructive"
+                  }>
+                  {setSellOrderUpiMutation.isSuccess
+                    ? t("PAYMENT_DETAILS_SENT")
+                    : setSellOrderUpiMutation.isPending
+                      ? `${t("SENDING_YOUR_PAYMENT_DETAILS")}...`
+                      : t("NOT_SENT")}
+                </span>
               </div>
             </div>
           </CardContent>

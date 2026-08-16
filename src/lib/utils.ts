@@ -9,6 +9,7 @@ import { z } from "zod";
 import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 import { deserializeCompoundPaymentId } from "./compound-payment-id";
 import { CURRENCY_META_DATA, STORAGE_KEYS } from "./constants";
+import { isValidPeruQrPayload } from "./peru-qr";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -386,11 +387,18 @@ export function validatePaymentAddress(
   address: string,
   currency: string,
 ): boolean {
+  if (!address || address.trim().length === 0) return false;
+
+  // Peru sell/pay: accept Yape/Plin EMVCo QR payloads even if the bundled SDK
+  // field validator still only allows phone/CCI (stale dist).
+  if (currency === "PEN" && isValidPeruQrPayload(address)) {
+    return true;
+  }
+
   const fields = PAYMENT_ID_FIELDS[currency as CurrencyType];
   if (!fields) return false;
 
   if (fields.length === 1) {
-    if (!address || address.trim().length === 0) return false;
     return fields[0].validate(address);
   }
 

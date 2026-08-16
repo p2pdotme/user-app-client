@@ -1457,6 +1457,18 @@ export const pt = {
     PERPS_BANNER_DESCRIPTION:
       "Ganhando ou perdendo, você sempre recebe 10% de cashback.",
     PERPS_BANNER_YES: "10% de Cashback.",
+    PERU_CCI_INVALID: "Digite um CCI válido de 20 dígitos",
+    PERU_CCI_PLACEHOLDER: "CCI (20 dígitos)",
+    PERU_NO_QR_ENTER_CCI: "Não tem QR? Digite o CCI",
+    PERU_QR_ACCOUNT: "Conta",
+    PERU_QR_CHANGE: "Trocar QR",
+    PERU_QR_DECODING: "Lendo QR…",
+    PERU_QR_DETECTED: "QR detectado",
+    PERU_QR_INVALID_QR: "Isso não parece um QR Yape/Plin válido",
+    PERU_QR_READ_ERROR: "Não foi possível ler esse QR — tente outra imagem",
+    PERU_QR_UPLOAD_HINT: "Toque para selecionar uma imagem de QR",
+    PERU_QR_UPLOAD_TITLE: "Envie seu QR do Yape/Plin",
+    PERU_USE_QR_INSTEAD: "Usar QR do Yape/Plin",
     PER_TRANSACTION_LIMITS: "Limites por Transação",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Este é o máximo de USDC que você pode comprar, vender ou pagar em uma transação. Aumente-o para fazer transações maiores.",

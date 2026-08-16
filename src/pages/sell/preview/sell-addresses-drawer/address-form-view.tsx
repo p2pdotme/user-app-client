@@ -1,9 +1,11 @@
+import { CURRENCY } from "@p2pdotme/sdk/country";
 import { ArrowLeftCircle, Clipboard, Trash2, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { PeruSellPaymentInput } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -22,8 +24,8 @@ import {
   getPaymentIdFields,
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
+import { isPeru } from "@/lib/peru-qr";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
-import { CURRENCY } from "@p2pdotme/sdk/country";
 
 interface AddressFormViewProps {
   page: SellAddressesPage;
@@ -186,6 +188,31 @@ export function AddressFormView({
                   )}
                 />
               </>
+            ) : isPeru(currency.currency) ? (
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t(currency.paymentAddressName)}</FormLabel>
+                    <FormControl>
+                      <PeruSellPaymentInput
+                        value={field.value || ""}
+                        onChange={(payload) => {
+                          form.setValue("address", payload, {
+                            shouldValidate: true,
+                            shouldDirty: true,
+                          });
+                          if (payload) {
+                            form.clearErrors("address");
+                          }
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             ) : (
               <FormField
                 control={form.control}

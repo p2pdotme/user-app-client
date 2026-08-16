@@ -11,6 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useSettings } from "@/contexts/settings";
 import { useSellAddressBook } from "@/hooks/use-sell-address-book";
+import { isPeru, isValidPeruQrPayload } from "@/lib/peru-qr";
 import { cn } from "@/lib/utils";
 import { getAvatarContent } from "../shared";
 
@@ -85,8 +86,11 @@ export function AddressListView({
                     <div className="flex items-center gap-2">
                       <p className="font-medium text-sm">{address.label}</p>
                     </div>
-                    <p className="font-light text-muted-foreground text-xs">
-                      {address.address}
+                    <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
+                      {isPeru(currency.currency) &&
+                      isValidPeruQrPayload(address.address)
+                        ? t("YAPE_PLIN_CCI_DETAILS")
+                        : address.address}
                     </p>
                   </div>
                 </div>

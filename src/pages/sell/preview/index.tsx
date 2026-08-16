@@ -17,7 +17,11 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
-import { DashedSeparator, NonHomeHeader } from "@/components";
+import {
+  DashedSeparator,
+  NonHomeHeader,
+  PeruSellPaymentInput,
+} from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
@@ -48,6 +52,11 @@ import {
 } from "@/lib/compound-payment-id";
 import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import {
+  isPeru,
+  isValidPeruQrPayload,
+  isValidPeruvianCci,
+} from "@/lib/peru-qr";
 import {
   addLocalOrderPaymentDetails,
   cn,
@@ -490,6 +499,14 @@ export function SellPreview() {
                       </div>
                     ))}
                   </div>
+                ) : isPeru(currency.currency) ? (
+                  <PeruSellPaymentInput
+                    value={manualAddress}
+                    onChange={(payload) => {
+                      setManualAddress(payload);
+                      setShowInput(true);
+                    }}
+                  />
                 ) : (
                   <div className="relative flex items-center gap-2">
                     <Input
@@ -525,8 +542,14 @@ export function SellPreview() {
                     </div>
                     <div>
                       <p className="font-medium text-sm">{currentLabel}</p>
-                      <p className="font-light text-muted-foreground text-xs">
-                        {currentAddress}
+                      <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
+                        {isPeru(currency.currency) &&
+                        isValidPeruQrPayload(currentAddress)
+                          ? t("YAPE_PLIN_CCI_DETAILS")
+                          : isPeru(currency.currency) &&
+                              isValidPeruvianCci(currentAddress)
+                            ? t("PERU_CCI_PLACEHOLDER")
+                            : currentAddress}
                       </p>
                     </div>
                   </div>
