@@ -45,6 +45,7 @@ import {
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
+import { useLowTrustGate } from "@/hooks/use-low-trust-gate";
 import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useKycRpReward,
@@ -64,6 +65,7 @@ import {
   LIVENESS_BASE_URL,
   LIVENESS_EXCLUDED_COUNTRIES,
   LIVENESS_TENANT,
+  LOW_TRUST_SOCIALS,
   RECLAIM_APP,
   RECLAIM_APP_LINKS,
   SIMPLE_KYC_BASE_URL,
@@ -166,6 +168,10 @@ export function Verifications() {
     refetchSocialStatus,
   } = useSocialVerificationStatus();
 
+  // In India the low-trust methods are held back until the user holds a
+  // high-trust proof; everywhere else this is always false.
+  const { isLowTrustHidden } = useLowTrustGate();
+
   // Fetch RP rewards from contract
   const {
     linkedInRp,
@@ -256,11 +262,21 @@ export function Verifications() {
         {IS_BVN_ENABLED && settings.currency.currency === "NGN" && (
           <BvnVerificationCard />
         )}
-        {SOCIALS.filter(
-          (social) =>
-            // Binance verification is not offered when the selected country is India
-            social.name !== "Binance" || settings.currency.country !== "India",
-        ).map((social) => (
+        {SOCIALS.filter((social) => {
+          // Binance verification is not offered when the selected country is India
+          if (
+            social.name === "Binance" &&
+            settings.currency.country === "India"
+          ) {
+            return false;
+          }
+          // India ranks the low-trust methods behind a high-trust one, so they
+          // stay hidden until Identity/KYC, LinkedIn or GitHub is verified.
+          if (isLowTrustHidden && LOW_TRUST_SOCIALS.includes(social.name)) {
+            return false;
+          }
+          return true;
+        }).map((social) => (
           <VerificationItem
             key={social.name}
             name={social.name}
