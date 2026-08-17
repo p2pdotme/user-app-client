@@ -184,6 +184,31 @@ export const LIVENESS_TENANT =
  */
 export const LIVENESS_EXCLUDED_COUNTRIES: readonly string[] = ["India"];
 
+/**
+ * Verification methods the fraud engine tiers as low-trust, mirroring its
+ * `BLOCK_NEW_ACCOUNTS_LOW_TRUST_SOCIALS` list (instagram, facebook, aadhaar, x,
+ * binance, bvn, liveness). Verifying one of these never bypasses the
+ * new-accounts gate on its own -- they are the cheapest proofs to farm.
+ *
+ * Names match the labels rendered on the limits page. Liveness and BVN are
+ * low-trust too but are not part of this list because they render as their own
+ * cards, not as entries in `SOCIALS`.
+ */
+export const LOW_TRUST_SOCIALS: readonly string[] = [
+  "X",
+  "Instagram",
+  "Facebook",
+  "Binance",
+];
+
+/**
+ * Markets where the low-trust methods are ordered behind a high-trust one: they
+ * stay hidden until the user holds at least one high-trust proof (Identity/KYC,
+ * LinkedIn or GitHub). India only -- every other market offers all methods up
+ * front. See `useLowTrustGate`.
+ */
+export const LOW_TRUST_GATED_COUNTRIES: readonly string[] = ["India"];
+
 /** BVN (Nigerian Bank Verification Number) backend proxy base URL. */
 export const BVN_API_BASE_URL = import.meta.env.VITE_BVN_API_URL as
   | string
