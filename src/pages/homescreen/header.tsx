@@ -47,9 +47,9 @@ export function Header() {
           <EcosystemDrawer>
             <button
               type="button"
-              className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-200 hover:scale-105 active:scale-95"
+              className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-200 hover:scale-105 active:scale-95"
               aria-label={t("P2P_ECOSYSTEM")}>
-              <ASSETS.ICONS.EcosystemLogo className="size-5" />
+              <ASSETS.ICONS.EcosystemLogo className="size-5.5" />
             </button>
           </EcosystemDrawer>
           <CoinsmeButton />
