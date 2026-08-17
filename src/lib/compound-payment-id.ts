@@ -6,6 +6,17 @@
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
 import { PAYMENT_ID_FIELDS, type PaymentIdFieldConfig } from "@/lib/constants";
 
+const VEN_PACKED_SEP = "||";
+
+function compoundSourceForDisplay(
+  paymentId: string,
+  currency: CurrencyType,
+): string {
+  if (currency !== "VEN") return paymentId;
+  const sep = paymentId.indexOf(VEN_PACKED_SEP);
+  return sep >= 0 ? paymentId.slice(sep + VEN_PACKED_SEP.length) : paymentId;
+}
+
 /**
  * Serializes multiple fields into a pipe-separated string.
  * e.g. serializeCompoundPaymentId("04121234567", "V12345678") → "04121234567|V12345678"
@@ -76,7 +87,7 @@ export function formatPaymentIdForDisplay(
     return paymentId;
   }
   return formatCompoundPaymentIdForDisplay(
-    paymentId,
+    compoundSourceForDisplay(paymentId, currency),
     getDisplayLabels(currency),
   );
 }

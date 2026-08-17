@@ -1,4 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AnimatePresence } from "motion/react";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,8 +37,8 @@ export function WalletAddressesDrawer({
 
   // Create form with zod validation
   const form = useForm<WalletAddressFormData>({
-    // @ts-expect-error - zodResolver types are compatible but TypeScript has trouble with complex validation
-    resolver: zodResolver(walletAddressFormSchema),
+    // @ts-expect-error - resolver types are compatible but TypeScript has trouble with complex validation
+    resolver: standardSchemaResolver(walletAddressFormSchema),
     defaultValues: {
       label: "",
       address: "" as Address,
@@ -175,7 +175,7 @@ export function WalletAddressesDrawer({
   return (
     <Drawer autoFocus={true}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="px-6 pb-6">
+      <DrawerContent className="px-6 pb-[max(env(safe-area-inset-bottom),1.5rem)]">
         <DrawerClose ref={closeRef} className="hidden" />
         <AnimatePresence mode="wait" initial={false}>
           {page === "list" && (

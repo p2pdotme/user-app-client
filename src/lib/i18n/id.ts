@@ -1398,6 +1398,7 @@ export const id = {
     PAGE_NOT_FOUND_TITLE: "Halaman tidak ditemukan",
     PAGO_MOVIL: "Pago Móvil",
     PAGO_MOVIL_DETAILS: "Detail Pago Móvil",
+    PAGO_MOVIL_QR_DETAILS: "QR Pago Móvil",
     PAID: "Dibayar",
     PAID_BY: "Dibayar Oleh",
     PAID_MERCHANT: "Merchant telah dibayar",
@@ -2026,6 +2027,20 @@ export const id = {
       "Batas maksimum adalah {{limit}} USDC. Tingkatkan batas untuk menjual lebih banyak.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Silakan masukkan jumlah",
     VALID_PROOF_NOT_FOUND: "Proof valid tidak ditemukan",
+    VEN_NO_QR_ENTER_DETAILS:
+      "Tidak punya QR? Masukkan telepon, cédula, dan bank",
+    VEN_QR_CHANGE: "Ganti QR",
+    VEN_QR_CONFIRM: "Konfirmasi ini QR Pago Móvil Anda",
+    VEN_QR_DECODING: "Membaca QR…",
+    VEN_QR_DETECTED: "QR terdeteksi",
+    VEN_QR_FALLBACK_HINT:
+      "Wajib: telepon, cédula, dan bank jika QR tidak bisa dipindai",
+    VEN_QR_INVALID_QR: "Ini tidak tampak seperti QR Pago Móvil yang valid",
+    VEN_QR_OPTIONAL_QR: "QR opsional — agar bisa dibayar dengan memindai",
+    VEN_QR_READ_ERROR: "Tidak dapat membaca QR itu — coba gambar lain",
+    VEN_QR_UPLOAD_HINT: "Ketuk untuk memilih QR dari aplikasi bank",
+    VEN_QR_UPLOAD_TITLE: "Unggah QR Pago Móvil Anda",
+    VEN_USE_QR_INSTEAD: "Gunakan QR Pago Móvil",
     VERIFICATION_CANCELLED: "Verifikasi dibatalkan",
     VERIFICATION_DURATION_INFO:
       "Verifikasi ini memakan waktu sekitar 3-5 menit secara total.",

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { PeruSellPaymentInput } from "@/components";
+import { PeruSellPaymentInput, VenPaymentInput } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -25,6 +25,7 @@ import {
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
 import { isPeru } from "@/lib/peru-qr";
+import { isVenezuela } from "@/lib/ven-qr";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
 
 interface AddressFormViewProps {
@@ -48,7 +49,7 @@ export function AddressFormView({
   } = useSettings();
 
   const fields = getPaymentIdFields(currency.currency);
-  const isCompound = fields.length > 1;
+  const isCompound = fields.length > 1 && !isVenezuela(currency.currency);
 
   // Compound payment ID local state — one entry per field
   const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
@@ -111,9 +112,8 @@ export function AddressFormView({
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0.5 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      layout
       className="w-full">
-      <DrawerHeader className="w-full text-center">
+      <DrawerHeader className="w-full shrink-0 text-center">
         <div className="flex w-full items-center justify-between">
           <Button variant="ghost" size="icon" onClick={() => setPage("list")}>
             <ArrowLeftCircle className="size-6" />
@@ -131,8 +131,10 @@ export function AddressFormView({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSave)}
-          className="space-y-6 px-4">
-          <section className="space-y-4">
+          className="space-y-6 px-4 pb-4">
+          <section
+            data-vaul-no-drag
+            className="max-h-[min(55dvh,calc(90dvh-14rem))] space-y-4 overflow-y-auto overscroll-contain">
             <FormField
               control={form.control}
               name="label"
@@ -198,15 +200,24 @@ export function AddressFormView({
                     <FormControl>
                       <PeruSellPaymentInput
                         value={field.value || ""}
-                        onChange={(payload) => {
-                          form.setValue("address", payload, {
-                            shouldValidate: true,
-                            shouldDirty: true,
-                          });
-                          if (payload) {
-                            form.clearErrors("address");
-                          }
-                        }}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : isVenezuela(currency.currency) ? (
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t(currency.paymentAddressName)}</FormLabel>
+                    <FormControl>
+                      <VenPaymentInput
+                        value={field.value || ""}
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />

@@ -20,6 +20,7 @@ import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
+import { formatVenReceiptValue } from "@/lib/ven-qr";
 
 export function PayCancelled({ order }: { order: Order }) {
   const { t } = useTranslation();
@@ -54,11 +55,24 @@ export function PayCancelled({ order }: { order: Order }) {
   const [decryptedPaidBy, setDecryptedPaidBy] = useState<string | undefined>(
     undefined,
   );
-  const paidTo =
+  const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
+  const venPaidTo =
     order.currency === "VEN"
-      ? t("QR_CODE_PAYMENT")
-      : getPaymentAddressFromOrderDetails(order.id.toString()) ||
-        t("NOT_FOUND");
+      ? formatVenReceiptValue(storedPaidTo, t("PAGO_MOVIL_QR_DETAILS"))
+      : null;
+  const paidTo = venPaidTo
+    ? venPaidTo.display || t("NOT_FOUND")
+    : storedPaidTo || t("NOT_FOUND");
+  const paidToCopy = venPaidTo?.copyValue ?? (venPaidTo ? null : paidTo);
+  const venPaidBy =
+    order.currency === "VEN" &&
+    decryptedPaidBy &&
+    decryptedPaidBy !== t("NOT_FOUND") &&
+    decryptedPaidBy !== t("SESSION_CHANGED")
+      ? formatVenReceiptValue(decryptedPaidBy, t("PAGO_MOVIL_QR_DETAILS"))
+      : null;
+  const paidByDisplay = venPaidBy?.display || decryptedPaidBy;
+  const paidByCopy = venPaidBy?.copyValue ?? decryptedPaidBy;
   const [showPaidBy, setShowPaidBy] = useState(false);
   const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
 
@@ -155,7 +169,7 @@ export function PayCancelled({ order }: { order: Order }) {
                 <div className="flex min-w-0 items-center justify-end gap-2">
                   <span
                     className={`text-muted-foreground transition-all duration-200 ${!showPaidBy ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {decryptedPaidBy}
+                    {paidByDisplay}
                   </span>
                   <Button
                     variant="ghost"
@@ -173,13 +187,13 @@ export function PayCancelled({ order }: { order: Order }) {
                     size="icon"
                     onClick={async () => {
                       if (
-                        !decryptedPaidBy ||
-                        decryptedPaidBy === t("NOT_FOUND") ||
-                        decryptedPaidBy === t("SESSION_CHANGED")
+                        !paidByCopy ||
+                        paidByCopy === t("NOT_FOUND") ||
+                        paidByCopy === t("SESSION_CHANGED")
                       )
                         return toast.warning(t("NO_ADDRESS_TO_COPY"));
                       try {
-                        await navigator.clipboard.writeText(decryptedPaidBy);
+                        await navigator.clipboard.writeText(paidByCopy);
                         toast.success(
                           t("PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD", {
                             paymentAddressName: t("PAID_BY"),
@@ -222,13 +236,13 @@ export function PayCancelled({ order }: { order: Order }) {
                     size="icon"
                     onClick={async () => {
                       if (
-                        !paidTo ||
-                        paidTo === t("NOT_FOUND") ||
-                        paidTo === t("SESSION_CHANGED")
+                        !paidToCopy ||
+                        paidToCopy === t("NOT_FOUND") ||
+                        paidToCopy === t("SESSION_CHANGED")
                       )
                         return toast.warning(t("NO_ADDRESS_TO_COPY"));
                       try {
-                        await navigator.clipboard.writeText(paidTo);
+                        await navigator.clipboard.writeText(paidToCopy);
                         toast.success(
                           t("PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD", {
                             paymentAddressName: t("PAID_TO"),

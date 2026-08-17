@@ -41,6 +41,7 @@ import {
   generateUPILink,
   getPaymentMethodFromOrderDetails,
 } from "@/lib/utils";
+import { getVenCompoundPaymentId, getVenQrPayload } from "@/lib/ven-qr";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
 
 const COUNTDOWN_DURATION = 5 * 60 * 1000; // 5 minutes
@@ -63,9 +64,11 @@ function buildQrValue({
 }) {
   return currency === "PEN"
     ? paymentAddress
-    : currency === "BRL"
-      ? buildPixBrCode(paymentAddress, amount, orderId)
-      : generateUPILink(paymentAddress, amount, currency, orderId);
+    : currency === "VEN"
+      ? (getVenQrPayload(paymentAddress) ?? paymentAddress)
+      : currency === "BRL"
+        ? buildPixBrCode(paymentAddress, amount, orderId)
+        : generateUPILink(paymentAddress, amount, currency, orderId);
 }
 
 // QR Code Drawer Component
@@ -318,10 +321,18 @@ export function BuyAccepted({ order }: { order: Order }) {
   };
 
   const paymentIdFields = getPaymentIdFields(order.currency);
-  const isCompound = paymentIdFields.length > 1;
+  const venQr = decryptedPaymentAddress
+    ? getVenQrPayload(decryptedPaymentAddress)
+    : null;
+  const venCompound = decryptedPaymentAddress
+    ? getVenCompoundPaymentId(decryptedPaymentAddress)
+    : null;
+  const isVenQr = !!venQr;
+  const isCompound =
+    paymentIdFields.length > 1 && (order.currency !== "VEN" || !!venCompound);
   const compoundParts =
     decryptedPaymentAddress && isCompound
-      ? deserializeCompoundPaymentId(decryptedPaymentAddress)
+      ? deserializeCompoundPaymentId(venCompound ?? decryptedPaymentAddress)
       : [];
 
   const transfermovilQrValue =
@@ -533,7 +544,7 @@ export function BuyAccepted({ order }: { order: Order }) {
                     </div>
                   </div>
                 ))
-              ) : (
+              ) : isVenQr ? null : (
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{t("TO")} </span>
                   <div className="flex items-center gap-2">
@@ -579,30 +590,31 @@ export function BuyAccepted({ order }: { order: Order }) {
               {/* Peru (Yape/Plin/CCI): the payment address is a full EMVCo QR
                   payload that users can't copy-paste into their app, so the QR
                   is always visible here for them to scan. */}
-              {decryptedPaymentAddress && order.currency === "PEN" && (
-                <div className="flex flex-col items-center gap-2 pt-2">
-                  <div className="rounded-xl border-2 border-primary bg-white p-3 shadow-primary-shadow shadow-xl">
-                    <QRCodeSVG
-                      value={buildQrValue({
-                        paymentAddress: decryptedPaymentAddress,
-                        amount: actualFiatAmount
-                          ? formatFiatAmountNumeric(
-                              actualFiatAmount,
-                              order.currency,
-                            )
-                          : "",
-                        currency: order.currency,
-                        orderId: order.id.toString(),
-                      })}
-                      size={180}
-                      level="L"
-                    />
+              {decryptedPaymentAddress &&
+                (order.currency === "PEN" || isVenQr) && (
+                  <div className="flex flex-col items-center gap-2 pt-2">
+                    <div className="rounded-xl border-2 border-primary bg-white p-3 shadow-primary-shadow shadow-xl">
+                      <QRCodeSVG
+                        value={buildQrValue({
+                          paymentAddress: decryptedPaymentAddress,
+                          amount: actualFiatAmount
+                            ? formatFiatAmountNumeric(
+                                actualFiatAmount,
+                                order.currency,
+                              )
+                            : "",
+                          currency: order.currency,
+                          orderId: order.id.toString(),
+                        })}
+                        size={180}
+                        level="L"
+                      />
+                    </div>
+                    <p className="text-center text-muted-foreground text-xs">
+                      {t("SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP")}
+                    </p>
                   </div>
-                  <p className="text-center text-muted-foreground text-xs">
-                    {t("SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP")}
-                  </p>
-                </div>
-              )}
+                )}
 
               {/* Cuba (Transfermóvil): the address is a phone + 16-digit card
                   that's painful to type, so a scannable transfer payload is

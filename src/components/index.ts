@@ -41,5 +41,7 @@ export * from "./test-haptic-components";
 export * from "./text-logo";
 export * from "./tip-merchant-card";
 export * from "./token-icon";
+export * from "./ven-payment-input";
+export * from "./ven-qr-upload";
 export * from "./version-badge";
 export * from "./youtube-video-dialog";

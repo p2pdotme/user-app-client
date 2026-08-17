@@ -21,6 +21,7 @@ import {
   DashedSeparator,
   NonHomeHeader,
   PeruSellPaymentInput,
+  VenPaymentInput,
 } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
@@ -47,6 +48,7 @@ import {
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import {
+  formatPaymentIdForDisplay,
   getPaymentIdFields,
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
@@ -64,6 +66,11 @@ import {
   formatFiatAmount,
   validatePaymentAddress,
 } from "@/lib/utils";
+import {
+  getVenCompoundPaymentId,
+  getVenQrPayload,
+  isVenezuela,
+} from "@/lib/ven-qr";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../../order/help-drawer";
 import { FundProtectionGuidelines } from "./fund-protection-guidelines";
@@ -118,7 +125,8 @@ export function SellPreview() {
 
   // Compound payment ID support (e.g. VEN: phone + RIF)
   const paymentIdFields = getPaymentIdFields(currency.currency);
-  const isCompound = paymentIdFields.length > 1;
+  const isCompound =
+    paymentIdFields.length > 1 && !isVenezuela(currency.currency);
   const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
     {},
   );
@@ -328,7 +336,7 @@ export function SellPreview() {
   };
 
   return (
-    <>
+    <div className="flex h-full min-h-0 w-full flex-col">
       <HelpDrawer
         open={showHelpDrawer}
         onOpenChange={setShowHelpDrawer}
@@ -352,7 +360,7 @@ export function SellPreview() {
       />
       <main
         className={cn(
-          "no-scrollbar container-narrow flex h-full w-full flex-col items-center gap-8 overflow-y-auto py-8 transition-all duration-300",
+          "no-scrollbar container-narrow flex min-h-0 w-full flex-1 flex-col items-center gap-8 overflow-y-auto py-8 transition-all duration-300",
           isPlacingOrder && "pointer-events-none",
         )}>
         <section className="flex w-full items-start justify-start">
@@ -507,6 +515,14 @@ export function SellPreview() {
                       setShowInput(true);
                     }}
                   />
+                ) : isVenezuela(currency.currency) ? (
+                  <VenPaymentInput
+                    value={manualAddress}
+                    onChange={(payload) => {
+                      setManualAddress(payload);
+                      setShowInput(true);
+                    }}
+                  />
                 ) : (
                   <div className="relative flex items-center gap-2">
                     <Input
@@ -549,7 +565,16 @@ export function SellPreview() {
                           : isPeru(currency.currency) &&
                               isValidPeruvianCci(currentAddress)
                             ? t("PERU_CCI_PLACEHOLDER")
-                            : currentAddress}
+                            : isVenezuela(currency.currency) &&
+                                getVenCompoundPaymentId(currentAddress)
+                              ? formatPaymentIdForDisplay(
+                                  currentAddress,
+                                  currency.currency,
+                                )
+                              : isVenezuela(currency.currency) &&
+                                  getVenQrPayload(currentAddress)
+                                ? t("PAGO_MOVIL_QR_DETAILS")
+                                : currentAddress}
                       </p>
                     </div>
                   </div>
@@ -588,6 +613,6 @@ export function SellPreview() {
           )}
         </Button>
       </footer>
-    </>
+    </div>
   );
 }

@@ -10,6 +10,7 @@ import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 import { deserializeCompoundPaymentId } from "./compound-payment-id";
 import { CURRENCY_META_DATA, STORAGE_KEYS } from "./constants";
 import { isValidPeruQrPayload } from "./peru-qr";
+import { isValidVenPaymentId } from "./ven-qr";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -392,6 +393,9 @@ export function validatePaymentAddress(
   // Peru sell/pay: accept Yape/Plin EMVCo QR payloads even if the bundled SDK
   // field validator still only allows phone/CCI (stale dist).
   if (currency === "PEN" && isValidPeruQrPayload(address)) {
+    return true;
+  }
+  if (currency === "VEN" && isValidVenPaymentId(address)) {
     return true;
   }
 
