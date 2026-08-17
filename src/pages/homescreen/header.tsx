@@ -1,11 +1,14 @@
 import { Code, Menu } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import ASSETS from "@/assets";
 import {
   CoinsmeButton,
   InstallPWAButton,
   Sidebar,
   TextLogo,
 } from "@/components";
+import { EcosystemDrawer } from "@/components/p2p-ecosystem";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { INTERNAL_HREFS } from "@/lib/constants";
@@ -13,6 +16,7 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const {
     settings: { devMode },
   } = useSettings();
@@ -40,6 +44,14 @@ export function Header() {
               <span className="sr-only">Dev Dashboard</span>
             </Button>
           ) : null}
+          <EcosystemDrawer>
+            <button
+              type="button"
+              className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-200 hover:scale-105 active:scale-95"
+              aria-label={t("P2P_ECOSYSTEM")}>
+              <ASSETS.ICONS.EcosystemLogo className="size-5" />
+            </button>
+          </EcosystemDrawer>
           <CoinsmeButton />
           <InstallPWAButton />
         </div>

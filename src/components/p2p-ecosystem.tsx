@@ -1,6 +1,7 @@
-import { ArrowRight, Boxes, ExternalLink, X } from "lucide-react";
+import { ArrowRight, ExternalLink, X } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -80,7 +81,7 @@ export function EcosystemCard() {
       <Card className="w-full cursor-pointer border-none bg-primary/5 transition-colors hover:bg-primary/10">
         <CardContent className="flex items-center gap-4 py-2">
           <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
-            <Boxes className="size-6 text-primary" />
+            <ASSETS.ICONS.EcosystemLogo className="size-7 text-primary" />
           </div>
           <div className="flex min-w-0 flex-1 flex-col">
             <p className="font-medium text-sm">{t("ECOSYSTEM_CARD_TITLE")}</p>
