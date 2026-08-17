@@ -535,6 +535,9 @@ export const pt = {
     ESTIMATED_TIME_RANGE: "2 - 5 min",
     EXCHANGE_NOT_OPERATIONAL: "Câmbio não operacional",
     EXPIRED: "Expirado",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "Este app funciona no protocolo P2P. Descubra mais apps da família.",
+    ECOSYSTEM_CARD_TITLE: "Explore o ecossistema P2P",
     EXTERNAL_WALLET: "Carteira Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook só suporta atualizações de RP",
     FAILED_SWAPS: "Trocas Falhadas",
@@ -1246,6 +1249,7 @@ export const pt = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "O pedido com status colocado só pode ser reatribuído",
     OUT_OF_DENOMINATOR: "de {{denominator}}",
+    P2P_ECOSYSTEM: "Ecossistema P2P",
     P2P_HOLDINGS: "Posições de $P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Recibo de Transação P2P.me",
     P2P_ME_UNREACHABLE:
