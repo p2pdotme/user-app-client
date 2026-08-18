@@ -4,11 +4,13 @@ import {
   type PaymentIdFieldConfig,
   COUNTRY_OPTIONS as SDK_COUNTRY_OPTIONS,
   PAYMENT_ID_FIELDS as SDK_PAYMENT_ID_FIELDS,
+  uploadsPaymentQR,
+  usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
 import type { Language } from "@/core/client/settings";
 import { getBaseDomain } from "./utils";
 
-export { CURRENCY };
+export { CURRENCY, uploadsPaymentQR, usesPackedPaymentId };
 export type { CurrencyType, PaymentIdFieldConfig };
 
 /**

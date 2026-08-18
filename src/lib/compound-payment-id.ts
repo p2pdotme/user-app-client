@@ -1,21 +1,17 @@
 /**
  * Generic utilities for compound payment IDs (multiple fields separated by "|").
- * Use this for any currency that requires more than one input (e.g. VEN: phone + RIF).
+ * Packed currencies (`qr||field|field`) go through the SDK catalog helpers.
  */
 
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
+import {
+  assignStoredPaymentIdToFieldValues,
+  COUNTRY_OPTIONS,
+  formatStoredPaymentIdForDisplay,
+  unpackPackedPaymentId,
+  usesPackedPaymentId,
+} from "@p2pdotme/sdk/country";
 import { PAYMENT_ID_FIELDS, type PaymentIdFieldConfig } from "@/lib/constants";
-
-const VEN_PACKED_SEP = "||";
-
-function compoundSourceForDisplay(
-  paymentId: string,
-  currency: CurrencyType,
-): string {
-  if (currency !== "VEN") return paymentId;
-  const sep = paymentId.indexOf(VEN_PACKED_SEP);
-  return sep >= 0 ? paymentId.slice(sep + VEN_PACKED_SEP.length) : paymentId;
-}
 
 /**
  * Serializes multiple fields into a pipe-separated string.
@@ -46,15 +42,12 @@ export function formatCompoundPaymentIdForDisplay(
 ): string {
   const parts = deserializeCompoundPaymentId(paymentId);
   return parts
-    .map((part, i) => (labels[i] ? `${labels[i]}: ${part}` : part))
+    .map((part, i) => {
+      if (!part?.trim()) return null;
+      return labels[i] ? `${labels[i]}: ${part}` : part;
+    })
+    .filter((part): part is string => part !== null)
     .join(" | ");
-}
-
-/**
- * Returns whether the currency has a compound (multi-field) payment ID.
- */
-function isCompoundPaymentId(currency: CurrencyType): boolean {
-  return (PAYMENT_ID_FIELDS[currency]?.length ?? 0) > 1;
 }
 
 /**
@@ -76,18 +69,52 @@ export function getDisplayLabels(currency: CurrencyType): (string | null)[] {
 
 /**
  * Formats a payment ID for display using the currency's config.
- * For single-field currencies, returns the value as-is.
- * For compound currencies, formats with labels.
+ * Packed QR-only ids return "" so callers can substitute a label.
  */
 export function formatPaymentIdForDisplay(
   paymentId: string,
   currency: CurrencyType,
 ): string {
-  if (!isCompoundPaymentId(currency)) {
-    return paymentId;
-  }
-  return formatCompoundPaymentIdForDisplay(
-    compoundSourceForDisplay(paymentId, currency),
-    getDisplayLabels(currency),
-  );
+  const formatted = formatStoredPaymentIdForDisplay(currency, paymentId);
+  if (formatted) return formatted;
+  if (usesPackedPaymentId(currency)) return "";
+  return paymentId;
+}
+
+/**
+ * List/preview string for a stored payment ID. Never dumps a packed QR blob.
+ */
+export function formatPaymentIdPreview(
+  paymentId: string,
+  currency: CurrencyType,
+  labels: { peruQr: string; venQr: string },
+): string {
+  const formatted = formatPaymentIdForDisplay(paymentId, currency);
+  const { qr } = unpackPackedPaymentId(paymentId);
+  const option = COUNTRY_OPTIONS.find((c) => c.currency === currency);
+  const hasQr =
+    !!qr ||
+    (!!option?.validateQr?.(paymentId.trim()) && !paymentId.includes("|"));
+  const qrLabel =
+    currency === "PEN" ? labels.peruQr : currency === "VEN" ? labels.venQr : "";
+  if (hasQr && formatted && qrLabel) return `${qrLabel} · ${formatted}`;
+  if (formatted) return formatted;
+  if (hasQr && qrLabel) return qrLabel;
+  return paymentId;
+}
+
+export function getPaymentIdDisplayParts(
+  paymentId: string,
+  currency: CurrencyType,
+): { key: string; label: string | null; labelKey: string; value: string }[] {
+  const fields = getPaymentIdFields(currency);
+  const values = assignStoredPaymentIdToFieldValues(currency, paymentId);
+  return fields
+    .map((field) => ({
+      key: field.key,
+      label: field.displayLabel,
+      labelKey: field.label,
+      value: values[field.key] || "",
+    }))
+    .filter((part) => part.value.length > 0);
 }

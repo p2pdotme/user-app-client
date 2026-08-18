@@ -23,11 +23,11 @@ import { useAnalytics } from "@/hooks";
 import { useReceiptShare } from "@/hooks/use-receipt-share";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
-import { formatVenReceiptValue } from "@/lib/ven-qr";
 import { getPageFAQs } from "@/pages/help/constants";
 
 export function PayCompleted({ order }: { order: Order }) {
@@ -59,23 +59,23 @@ export function PayCompleted({ order }: { order: Order }) {
     undefined,
   );
   const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
-  const venPaidTo =
-    order.currency === "VEN"
-      ? formatVenReceiptValue(storedPaidTo, t("PAGO_MOVIL_QR_DETAILS"))
-      : null;
-  const paidTo = venPaidTo
-    ? venPaidTo.display || t("NOT_FOUND")
-    : storedPaidTo || t("NOT_FOUND");
-  const paidToCopy = venPaidTo?.copyValue ?? (venPaidTo ? null : paidTo);
-  const venPaidBy =
-    order.currency === "VEN" &&
+  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, {
+    peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+    venQr: t("PAGO_MOVIL_QR_DETAILS"),
+  });
+  const paidTo = packedPaidTo.display || t("NOT_FOUND");
+  const paidToCopy = packedPaidTo.copyValue;
+  const packedPaidBy =
     decryptedPaidBy &&
     decryptedPaidBy !== t("NOT_FOUND") &&
     decryptedPaidBy !== t("SESSION_CHANGED")
-      ? formatVenReceiptValue(decryptedPaidBy, t("PAGO_MOVIL_QR_DETAILS"))
+      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, {
+          peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+          venQr: t("PAGO_MOVIL_QR_DETAILS"),
+        })
       : null;
-  const paidByDisplay = venPaidBy?.display || decryptedPaidBy;
-  const paidByCopy = venPaidBy?.copyValue ?? decryptedPaidBy;
+  const paidByDisplay = packedPaidBy?.display || decryptedPaidBy;
+  const paidByCopy = packedPaidBy ? packedPaidBy.copyValue : decryptedPaidBy;
   const [showPaidBy, setShowPaidBy] = useState(false);
   const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
 
@@ -293,11 +293,13 @@ export function PayCompleted({ order }: { order: Order }) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_TO")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
+              <div className="flex items-center justify-between gap-3">
+                <span className="shrink-0 whitespace-nowrap font-medium">
+                  {t("PAID_TO")}
+                </span>
+                <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
                   <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
+                    className={`min-w-0 truncate text-right text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""}`}>
                     {paidTo}
                   </span>
                   <Button

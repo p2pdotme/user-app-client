@@ -1,56 +1,80 @@
+import {
+  CURRENCY,
+  formatStoredPaymentIdForDisplay,
+  PEN_QR_COMPOUND_SEP,
+  parsePeruvianPaymentId,
+  serializePeruvianPaymentId,
+  uploadsPaymentQR,
+  validatePeruvianCci,
+  validatePeruvianPaymentId,
+  validatePeruvianPaymentKey,
+  validatePeruvianPhone,
+  validatePeruvianQr,
+} from "@p2pdotme/sdk/country";
 import { parseQR } from "@p2pdotme/sdk/qr-parsers";
 import QrScanner from "qr-scanner";
-import { CURRENCY, type CurrencyType } from "@/lib/constants";
+import type { CurrencyType } from "@/lib/constants";
 
-/**
- * Peru (PEN) sell payment details: instead of typing a phone/CCI, the user
- * uploads their Yape/Plin QR image. We decode it to the raw EMVCo payload,
- * validate it, and store that payload as the payment address (same slot other
- * currencies use for their typed value). Merchants later re-render it as a QR.
- */
+export {
+  PEN_QR_COMPOUND_SEP,
+  parsePeruvianPaymentId as parsePeruPaymentId,
+  serializePeruvianPaymentId as serializePeruPaymentId,
+  validatePeruvianPaymentId as isValidPeruPaymentId,
+  validatePeruvianQr as isValidPeruQrPayload,
+  validatePeruvianCci as isValidPeruvianCci,
+  validatePeruvianPhone as isValidPeruvianPhone,
+  validatePeruvianPaymentKey as isValidPeruvianPaymentKey,
+};
 
-/** Whether the given currency uses the Peru Yape/Plin QR-upload flow. */
 export function isPeru(currency: CurrencyType | null | undefined): boolean {
   return currency === CURRENCY.PEN;
 }
 
-/**
- * Computes the EMVCo CRC-16/CCITT-FALSE checksum over `data`.
- * Polynomial 0x1021, initial value 0xFFFF — as required by the EMVCo QR spec.
- */
-function emvcoCrc16(data: string): number {
-  let crc = 0xffff;
-  for (let i = 0; i < data.length; i++) {
-    crc ^= data.charCodeAt(i) << 8;
-    for (let bit = 0; bit < 8; bit++) {
-      crc = crc & 0x8000 ? (crc << 1) ^ 0x1021 : crc << 1;
-      crc &= 0xffff;
-    }
+export function getPeruQrPayload(
+  value: string | null | undefined,
+): string | null {
+  return parsePeruvianPaymentId(value).qr;
+}
+
+export function getPeruFallbackParts(
+  value: string | null | undefined,
+): { key: "phone" | "cci"; value: string }[] {
+  const { phone, cci } = parsePeruvianPaymentId(value);
+  const parts: { key: "phone" | "cci"; value: string }[] = [];
+  if (phone) parts.push({ key: "phone", value: phone });
+  if (cci) parts.push({ key: "cci", value: cci });
+  return parts;
+}
+
+export function formatPeruReceiptValue(
+  value: string | null | undefined,
+  qrLabel: string,
+): { display: string; copyValue: string | null } {
+  if (!value) return { display: "", copyValue: null };
+  const fallback = getPeruFallbackParts(value)
+    .map((part) => part.value)
+    .join(" · ");
+  if (fallback) {
+    return { display: fallback, copyValue: fallback };
   }
-  return crc;
+  const formatted = formatStoredPaymentIdForDisplay("PEN", value);
+  if (formatted) {
+    return { display: formatted, copyValue: formatted };
+  }
+  if (uploadsPaymentQR("PEN") && getPeruQrPayload(value)) {
+    return { display: qrLabel, copyValue: null };
+  }
+  return { display: "", copyValue: null };
 }
 
-/**
- * Synchronous structural check that a string looks like a valid EMVCo merchant
- * QR payload (Yape/Plin). Verifies the payload-format-indicator prefix, the
- * trailing CRC tag, and that the embedded CRC matches the computed one.
- */
-export function isValidPeruQrPayload(value: string): boolean {
-  if (!value || typeof value !== "string") return false;
-  const payload = value.trim();
-  if (!payload.startsWith("0002")) return false;
-  const crcTagIndex = payload.lastIndexOf("6304");
-  if (crcTagIndex === -1 || crcTagIndex !== payload.length - 8) return false;
-  const provided = payload.slice(-4).toUpperCase();
-  if (!/^[0-9A-F]{4}$/.test(provided)) return false;
-  const computed = emvcoCrc16(payload.slice(0, -4))
-    .toString(16)
-    .toUpperCase()
-    .padStart(4, "0");
-  return provided === computed;
+export interface PeruQrDetails {
+  payload: string;
+  accountName?: string;
+  city?: string;
 }
 
-/** Extracts a human-readable field from an EMVCo payload by top-level tag id. */
+export type PeruQrError = "READ_ERROR" | "INVALID_QR";
+
 function readEmvcoTag(payload: string, tagId: string): string | undefined {
   let i = 0;
   while (i + 4 <= payload.length) {
@@ -66,20 +90,6 @@ function readEmvcoTag(payload: string, tagId: string): string | undefined {
   return undefined;
 }
 
-export interface PeruQrDetails {
-  /** Raw EMVCo payload to store as the payment address. */
-  payload: string;
-  /** Account holder name (EMVCo tag 59), for preview. */
-  accountName?: string;
-  /** City (EMVCo tag 60), for preview. */
-  city?: string;
-}
-
-export type PeruQrError = "READ_ERROR" | "INVALID_QR";
-
-/**
- * Decodes an uploaded QR image `File` to its raw EMVCo payload and validates it.
- */
 export async function decodePeruQrImage(file: File): Promise<PeruQrDetails> {
   let payload: string;
   try {
@@ -91,7 +101,7 @@ export async function decodePeruQrImage(file: File): Promise<PeruQrDetails> {
     throw "READ_ERROR" satisfies PeruQrError;
   }
 
-  if (!payload || !isValidPeruQrPayload(payload)) {
+  if (!payload || !validatePeruvianQr(payload)) {
     throw "INVALID_QR" satisfies PeruQrError;
   }
 
@@ -109,19 +119,4 @@ export async function decodePeruQrImage(file: File): Promise<PeruQrDetails> {
     accountName: readEmvcoTag(payload, "59")?.trim() || undefined,
     city: readEmvcoTag(payload, "60")?.trim() || undefined,
   };
-}
-
-/**
- * Validates a 20-digit Peruvian CCI (Código de Cuenta Interbancario).
- * Spaces are ignored.
- */
-export function isValidPeruvianCci(value: string): boolean {
-  if (!value || typeof value !== "string") return false;
-  const cci = value.trim().replace(/\s+/g, "");
-  return /^\d{20}$/.test(cci);
-}
-
-/** Normalizes a CCI to digits-only for storage. */
-export function normalizePeruvianCci(value: string): string {
-  return value.trim().replace(/\s+/g, "");
 }

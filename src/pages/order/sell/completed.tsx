@@ -21,6 +21,7 @@ import { useAnalytics } from "@/hooks";
 import { useReceiptShare } from "@/hooks/use-receipt-share";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
@@ -54,8 +55,24 @@ export function SellCompleted({ order }: { order: Order }) {
   const [decryptedPaidBy, setDecryptedPaidBy] = useState<string | undefined>(
     undefined,
   );
-  const paidTo =
-    getPaymentAddressFromOrderDetails(order.id.toString()) || t("NOT_FOUND");
+  const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
+  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, {
+    peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+    venQr: t("PAGO_MOVIL_QR_DETAILS"),
+  });
+  const paidTo = packedPaidTo.display || t("NOT_FOUND");
+  const paidToCopy = packedPaidTo.copyValue;
+  const packedPaidBy =
+    decryptedPaidBy &&
+    decryptedPaidBy !== t("NOT_FOUND") &&
+    decryptedPaidBy !== t("SESSION_CHANGED")
+      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, {
+          peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+          venQr: t("PAGO_MOVIL_QR_DETAILS"),
+        })
+      : null;
+  const paidByDisplay = packedPaidBy?.display || decryptedPaidBy;
+  const paidByCopy = packedPaidBy ? packedPaidBy.copyValue : decryptedPaidBy;
   const [showPaidBy, setShowPaidBy] = useState(false);
   const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
 
@@ -236,7 +253,7 @@ export function SellCompleted({ order }: { order: Order }) {
                 <div className="flex min-w-0 items-center justify-end gap-2">
                   <span
                     className={`text-muted-foreground transition-all duration-200 ${!showPaidBy ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {decryptedPaidBy}
+                    {paidByDisplay}
                   </span>
                   <Button
                     variant="ghost"
@@ -252,11 +269,13 @@ export function SellCompleted({ order }: { order: Order }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleCopy(decryptedPaidBy, "PAID_BY")}
+                    onClick={() =>
+                      handleCopy(paidByCopy ?? undefined, "PAID_BY")
+                    }
                     disabled={
-                      !decryptedPaidBy ||
-                      decryptedPaidBy === t("NOT_FOUND") ||
-                      decryptedPaidBy === t("SESSION_CHANGED")
+                      !paidByCopy ||
+                      paidByCopy === t("NOT_FOUND") ||
+                      paidByCopy === t("SESSION_CHANGED")
                     }
                     className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
                     <Copy className="size-4" />
@@ -264,18 +283,20 @@ export function SellCompleted({ order }: { order: Order }) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_TO")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
+              <div className="flex items-center justify-between gap-3">
+                <span className="shrink-0 whitespace-nowrap font-medium">
+                  {t("PAID_TO")}
+                </span>
+                <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
                   <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
+                    className={`min-w-0 truncate text-right text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""}`}>
                     {paidTo}
                   </span>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={togglePaidTo}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
+                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
                     {showPaidTo ? (
                       <EyeOff className="size-4" />
                     ) : (
@@ -285,13 +306,9 @@ export function SellCompleted({ order }: { order: Order }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleCopy(paidTo)}
-                    disabled={
-                      !paidTo ||
-                      paidTo === t("NOT_FOUND") ||
-                      paidTo === t("SESSION_CHANGED")
-                    }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
+                    onClick={() => handleCopy(paidToCopy ?? undefined)}
+                    disabled={!paidToCopy}
+                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
                     <Copy className="size-4" />
                   </Button>
                 </div>

@@ -1,4 +1,4 @@
-import { CURRENCY } from "@p2pdotme/sdk/country";
+import { assignPaymentIdToFieldValues, CURRENCY } from "@p2pdotme/sdk/country";
 import { ArrowLeftCircle, Clipboard, Trash2, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -20,11 +20,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { useSettings } from "@/contexts/settings";
 import {
-  deserializeCompoundPaymentId,
   getPaymentIdFields,
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
-import { isPeru } from "@/lib/peru-qr";
+import { uploadsPaymentQR, usesPackedPaymentId } from "@/lib/constants";
 import { isVenezuela } from "@/lib/ven-qr";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
 
@@ -49,20 +48,17 @@ export function AddressFormView({
   } = useSettings();
 
   const fields = getPaymentIdFields(currency.currency);
-  const isCompound = fields.length > 1 && !isVenezuela(currency.currency);
+  const isCompound =
+    fields.length > 1 && !usesPackedPaymentId(currency.currency);
 
   // Compound payment ID local state — one entry per field
   const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
     () => {
       if (!isCompound) return {};
-      const parts = deserializeCompoundPaymentId(
+      return assignPaymentIdToFieldValues(
+        fields,
         form.getValues("address") || "",
       );
-      const initial: Record<string, string> = {};
-      fields.forEach((f, i) => {
-        initial[f.key] = parts[i] || "";
-      });
-      return initial;
     },
   );
 
@@ -162,7 +158,8 @@ export function AddressFormView({
                         placeholder={
                           currency.currency === CURRENCY.NGN ||
                           currency.currency === CURRENCY.CUP ||
-                          currency.currency === CURRENCY.PHP
+                          currency.currency === CURRENCY.PHP ||
+                          currency.currency === CURRENCY.PEN
                             ? t(fieldConfig.placeholder)
                             : t("ENTER_PAYMENT_DETAILS", {
                                 paymentAddressName: t(fieldConfig.label),
@@ -190,7 +187,7 @@ export function AddressFormView({
                   )}
                 />
               </>
-            ) : isPeru(currency.currency) ? (
+            ) : uploadsPaymentQR(currency.currency) ? (
               <FormField
                 control={form.control}
                 name="address"

@@ -31,6 +31,7 @@ import { useUsdcTransferTxHash } from "@/hooks/use-event-timestamp";
 import { useReceiptShare } from "@/hooks/use-receipt-share";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import { formatFiatAmount, truncateAddress } from "@/lib/utils";
 
 export function BuyCompleted({ order }: { order: Order }) {
@@ -139,6 +140,17 @@ export function BuyCompleted({ order }: { order: Order }) {
   const togglePaymentAddress = () => {
     setShowPaymentAddress(!showPaymentAddress);
   };
+
+  const isSentinelAddress =
+    !decryptedPaymentAddress ||
+    decryptedPaymentAddress === t("NOT_FOUND") ||
+    decryptedPaymentAddress === t("SESSION_CHANGED");
+  const paidToReceipt = isSentinelAddress
+    ? { display: decryptedPaymentAddress, copyValue: null as string | null }
+    : formatReceiptPaymentId(decryptedPaymentAddress, order.currency, {
+        peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+        venQr: t("PAGO_MOVIL_QR_DETAILS"),
+      });
 
   // Branding row shows: Bought via P2P.me
 
@@ -261,18 +273,20 @@ export function BuyCompleted({ order }: { order: Order }) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_TO")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
+              <div className="flex items-center justify-between gap-3">
+                <span className="shrink-0 whitespace-nowrap font-medium">
+                  {t("PAID_TO")}
+                </span>
+                <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
                   <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaymentAddress ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {decryptedPaymentAddress}
+                    className={`min-w-0 truncate text-right text-muted-foreground transition-all duration-200 ${!showPaymentAddress ? "select-none blur-sm" : ""}`}>
+                    {paidToReceipt.display}
                   </span>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={togglePaymentAddress}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
+                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
                     {showPaymentAddress ? (
                       <EyeOff className="size-4" />
                     ) : (
@@ -282,13 +296,11 @@ export function BuyCompleted({ order }: { order: Order }) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleCopy(decryptedPaymentAddress)}
-                    disabled={
-                      !decryptedPaymentAddress ||
-                      decryptedPaymentAddress === t("NOT_FOUND") ||
-                      decryptedPaymentAddress === t("SESSION_CHANGED")
+                    onClick={() =>
+                      handleCopy(paidToReceipt.copyValue ?? undefined)
                     }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
+                    disabled={!paidToReceipt.copyValue}
+                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
                     <Copy className="size-4" />
                   </Button>
                 </div>

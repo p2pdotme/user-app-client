@@ -1,17 +1,21 @@
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 import {
-  deserializeCompoundPaymentId,
   formatPaymentIdForDisplay,
-  getPaymentIdFields,
+  getPaymentIdDisplayParts,
 } from "@/lib/compound-payment-id";
-import type { CurrencyType } from "@/lib/constants";
-import { isValidPeruQrPayload, isValidPeruvianCci } from "@/lib/peru-qr";
-import { getVenCompoundPaymentId, getVenQrPayload } from "@/lib/ven-qr";
+import {
+  type CurrencyType,
+  uploadsPaymentQR,
+  usesPackedPaymentId,
+} from "@/lib/constants";
+import { getPeruQrPayload } from "@/lib/peru-qr";
+import { getVenQrPayload } from "@/lib/ven-qr";
 
 /**
  * Sell-order row for the user's receiving payment details.
- * PEN EMVCo → QR only. PEN CCI → 20 digits. VEN → optional QR plus typed fallback.
+ * Catalog fields (CCI, Yape/Plin phone, …) each get their own row, like CUP.
+ * Packed currencies also show the uploaded QR. Never dumps the blob.
  */
 export function SellReceivingPaymentRow({
   currency,
@@ -25,14 +29,15 @@ export function SellReceivingPaymentRow({
 }) {
   const { t } = useTranslation();
   const addr = address?.trim() || "";
-  const isPenQr = currency === "PEN" && !!addr && isValidPeruQrPayload(addr);
-  const venQr = currency === "VEN" ? getVenQrPayload(addr) : null;
-  const venCompound = currency === "VEN" ? getVenCompoundPaymentId(addr) : null;
-  const isPenCci = currency === "PEN" && !!addr && isValidPeruvianCci(addr);
-  const venFields = currency === "VEN" ? getPaymentIdFields("VEN") : [];
-  const venParts = venCompound ? deserializeCompoundPaymentId(venCompound) : [];
+  const code = currency as CurrencyType;
+  const packed = usesPackedPaymentId(code);
+  const penQr =
+    packed && uploadsPaymentQR(code) ? getPeruQrPayload(addr) : null;
+  const venQr = packed ? getVenQrPayload(addr) : null;
+  const catalogParts = addr ? getPaymentIdDisplayParts(addr, code) : [];
+  const qrValue = venQr ?? penQr ?? "";
 
-  if (isPenQr || venQr || venCompound) {
+  if (qrValue || catalogParts.length > 0) {
     return (
       <div className="flex flex-col gap-2">
         <span className="font-medium">
@@ -40,27 +45,25 @@ export function SellReceivingPaymentRow({
             paymentAddressName: t(paymentAddressName),
           })}
         </span>
-        {venQr || isPenQr ? (
+        {qrValue ? (
           <div className="flex flex-col items-center gap-2 pt-1">
             <div className="rounded-xl border-2 border-primary bg-white p-3">
-              <QRCodeSVG value={venQr ?? addr} size={160} level="L" />
+              <QRCodeSVG value={qrValue} size={160} level="L" />
             </div>
           </div>
         ) : null}
-        {venCompound
-          ? venFields.map((field, i) => (
-              <div
-                key={field.key}
-                className="flex items-center justify-between gap-2">
-                <span className="text-muted-foreground text-xs">
-                  {t(field.label)}
-                </span>
-                <span className="max-w-[55%] truncate text-right text-xs">
-                  {venParts[i] || ""}
-                </span>
-              </div>
-            ))
-          : null}
+        {catalogParts.map((part) => (
+          <div
+            key={part.key}
+            className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground text-xs">
+              {t(part.labelKey)}
+            </span>
+            <span className="max-w-[55%] truncate text-right text-xs">
+              {part.value}
+            </span>
+          </div>
+        ))}
       </div>
     );
   }
@@ -73,11 +76,7 @@ export function SellReceivingPaymentRow({
         })}{" "}
       </span>
       <span className="max-w-[55%] truncate text-right text-muted-foreground text-xs">
-        {!addr
-          ? t("NOT_FOUND")
-          : isPenCci
-            ? addr
-            : formatPaymentIdForDisplay(addr, currency as CurrencyType)}
+        {!addr ? t("NOT_FOUND") : formatPaymentIdForDisplay(addr, code)}
       </span>
     </div>
   );

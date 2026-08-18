@@ -11,14 +11,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useSettings } from "@/contexts/settings";
 import { useSellAddressBook } from "@/hooks/use-sell-address-book";
-import { formatPaymentIdForDisplay } from "@/lib/compound-payment-id";
-import { isPeru, isValidPeruQrPayload } from "@/lib/peru-qr";
+import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import { cn } from "@/lib/utils";
-import {
-  getVenCompoundPaymentId,
-  getVenQrPayload,
-  isVenezuela,
-} from "@/lib/ven-qr";
 import { getAvatarContent } from "../shared";
 
 interface AddressListViewProps {
@@ -95,19 +89,14 @@ export function AddressListView({
                       <p className="font-medium text-sm">{address.label}</p>
                     </div>
                     <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
-                      {isPeru(currency.currency) &&
-                      isValidPeruQrPayload(address.address)
-                        ? t("YAPE_PLIN_CCI_DETAILS")
-                        : isVenezuela(currency.currency) &&
-                            getVenCompoundPaymentId(address.address)
-                          ? formatPaymentIdForDisplay(
-                              address.address,
-                              currency.currency,
-                            )
-                          : isVenezuela(currency.currency) &&
-                              getVenQrPayload(address.address)
-                            ? t("PAGO_MOVIL_QR_DETAILS")
-                            : address.address}
+                      {formatPaymentIdPreview(
+                        address.address,
+                        currency.currency,
+                        {
+                          peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+                          venQr: t("PAGO_MOVIL_QR_DETAILS"),
+                        },
+                      )}
                     </p>
                   </div>
                 </button>

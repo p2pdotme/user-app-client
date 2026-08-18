@@ -2,13 +2,14 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useQuery } from "@tanstack/react-query";
 import { Info } from "lucide-react";
 import { motion } from "motion/react";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -30,6 +31,10 @@ import {
 } from "@/lib/utils";
 import { SELL_FLOW_PROGRESS_TEXT } from "../shared";
 import { SellReceivingPaymentRow } from "./sell-receiving-payment-row";
+
+/** Survives React Strict Mode remount so we don't submit two UserOps at once. */
+const sellUpiInFlight = new Set<string>();
+const sellUpiSent = new Set<string>();
 
 export function SellAccepted({ order }: { order: Order }) {
   const { t } = useTranslation();
@@ -59,6 +64,8 @@ export function SellAccepted({ order }: { order: Order }) {
   const actualFiatAmount = orderFeeDetails?.actualFiatAmount;
 
   const { setSellOrderUpiMutation } = useOrderFlow();
+  const orderKey = order.id.toString();
+  const storedPaymentAddress = getPaymentAddressFromOrderDetails(orderKey);
 
   // Track sell transaction accepted view
   useEffect(() => {
@@ -71,33 +78,37 @@ export function SellAccepted({ order }: { order: Order }) {
       fiatAmount: Number(order.fiatAmount),
     });
   }, [order, trackWithDedupe]);
-  const hasInitiatedPaymentDetails = useRef(false);
 
   const handleSendPaymentDetails = useCallback(async () => {
-    console.log(
-      `[ORDER:${order.id}:${order.orderType}:${order.status}] Sending payment details...`,
-    );
+    if (sellUpiSent.has(orderKey) || sellUpiInFlight.has(orderKey)) return;
+    if (!order.pubkey) return;
 
-    const currentOrderPaidTo = getPaymentAddressFromOrderDetails(
-      order.id.toString(),
-    );
+    const currentOrderPaidTo = getPaymentAddressFromOrderDetails(orderKey);
     if (!currentOrderPaidTo) {
       toast.error(t("FAILED_TO_SEND_PAYMENT_DETAILS"), {
-        description: t("Payment details not found for this order"),
+        description: t("PAYMENT_DETAILS_NOT_FOUND"),
       });
       return;
     }
 
+    const paymentAddress = currentOrderPaidTo;
+
+    console.log(
+      `[ORDER:${order.id}:${order.orderType}:${order.status}] Sending payment details...`,
+    );
+
+    sellUpiInFlight.add(orderKey);
     try {
       await setSellOrderUpiMutation.mutateAsync(
         {
           orderId: BigInt(order.id),
-          paymentAddress: currentOrderPaidTo,
+          paymentAddress,
           merchantPublicKey: order.pubkey,
           updatedAmount: BigInt(0),
         },
         {
           onSuccess: (receipt) => {
+            sellUpiSent.add(orderKey);
             console.log(
               `[ORDER:${order.id}:${order.orderType}:${order.status}] Payment details sent with receipt: `,
               receipt,
@@ -113,31 +124,41 @@ export function SellAccepted({ order }: { order: Order }) {
       );
     } catch {
       // onError already toasted; mutateAsync still rejects — swallow to avoid uncaught.
+    } finally {
+      sellUpiInFlight.delete(orderKey);
     }
   }, [
     order.id,
     order.orderType,
     order.pubkey,
     order.status,
+    orderKey,
     setSellOrderUpiMutation,
     t,
   ]);
 
   useEffect(() => {
-    // Only execute once when the component mounts
     if (
-      !hasInitiatedPaymentDetails.current &&
-      !setSellOrderUpiMutation.isPending &&
-      !setSellOrderUpiMutation.isSuccess
+      !order.pubkey ||
+      !storedPaymentAddress ||
+      setSellOrderUpiMutation.isPending ||
+      setSellOrderUpiMutation.isSuccess ||
+      setSellOrderUpiMutation.isError
     ) {
-      hasInitiatedPaymentDetails.current = true;
-      handleSendPaymentDetails();
+      return;
     }
+    void handleSendPaymentDetails();
   }, [
     handleSendPaymentDetails,
+    order.pubkey,
+    storedPaymentAddress,
     setSellOrderUpiMutation.isPending,
     setSellOrderUpiMutation.isSuccess,
+    setSellOrderUpiMutation.isError,
   ]);
+
+  const sendFailed = setSellOrderUpiMutation.isError;
+  const sendPending = setSellOrderUpiMutation.isPending;
 
   return (
     <main className="flex h-full w-full flex-col overflow-y-auto">
@@ -149,11 +170,30 @@ export function SellAccepted({ order }: { order: Order }) {
           loop
         />
         <h2 className="text-center font-medium text-lg">
-          {t("SENDING_YOUR_PAYMENT_DETAILS")}...
+          {sendFailed
+            ? t("FAILED_TO_SEND_PAYMENT_DETAILS")
+            : `${t("SENDING_YOUR_PAYMENT_DETAILS")}...`}
         </h2>
         <p className="text-center text-muted-foreground text-sm">
-          {t("YOUR_PAYMENT_DETAILS_WILL_BE_SENT_SHORTLY_DONT_LEAVE_THE_PAGE")}
+          {sendFailed
+            ? (setSellOrderUpiMutation.error?.message ??
+              t("SOMETHING_WENT_WRONG"))
+            : t(
+                "YOUR_PAYMENT_DETAILS_WILL_BE_SENT_SHORTLY_DONT_LEAVE_THE_PAGE",
+              )}
         </p>
+        {sendFailed ? (
+          <Button
+            className="mt-2"
+            disabled={sendPending}
+            onClick={() => {
+              sellUpiInFlight.delete(orderKey);
+              sellUpiSent.delete(orderKey);
+              void handleSendPaymentDetails();
+            }}>
+            {t("TRY_AGAIN")}
+          </Button>
+        ) : null}
       </section>
 
       <motion.footer
@@ -248,9 +288,11 @@ export function SellAccepted({ order }: { order: Order }) {
                   }>
                   {setSellOrderUpiMutation.isSuccess
                     ? t("PAYMENT_DETAILS_SENT")
-                    : setSellOrderUpiMutation.isPending
+                    : sendPending
                       ? `${t("SENDING_YOUR_PAYMENT_DETAILS")}...`
-                      : t("NOT_SENT")}
+                      : sendFailed
+                        ? t("FAILED_TO_SEND_PAYMENT_DETAILS")
+                        : t("NOT_SENT")}
                 </span>
               </div>
             </div>

@@ -48,17 +48,18 @@ import {
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import {
-  formatPaymentIdForDisplay,
+  formatPaymentIdPreview,
   getPaymentIdFields,
   serializeCompoundPaymentId,
 } from "@/lib/compound-payment-id";
-import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
-import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
-  isPeru,
-  isValidPeruQrPayload,
-  isValidPeruvianCci,
-} from "@/lib/peru-qr";
+  getFiatUnit,
+  INTERNAL_HREFS,
+  ORDER_TYPE,
+  uploadsPaymentQR,
+  usesPackedPaymentId,
+} from "@/lib/constants";
+import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
   cn,
@@ -66,11 +67,7 @@ import {
   formatFiatAmount,
   validatePaymentAddress,
 } from "@/lib/utils";
-import {
-  getVenCompoundPaymentId,
-  getVenQrPayload,
-  isVenezuela,
-} from "@/lib/ven-qr";
+import { isVenezuela } from "@/lib/ven-qr";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../../order/help-drawer";
 import { FundProtectionGuidelines } from "./fund-protection-guidelines";
@@ -126,7 +123,7 @@ export function SellPreview() {
   // Compound payment ID support (e.g. VEN: phone + RIF)
   const paymentIdFields = getPaymentIdFields(currency.currency);
   const isCompound =
-    paymentIdFields.length > 1 && !isVenezuela(currency.currency);
+    paymentIdFields.length > 1 && !usesPackedPaymentId(currency.currency);
   const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
     {},
   );
@@ -482,7 +479,8 @@ export function SellPreview() {
                           placeholder={
                             currency.currency === "NGN" ||
                             currency.currency === "CUP" ||
-                            currency.currency === "PHP"
+                            currency.currency === "PHP" ||
+                            currency.currency === "PEN"
                               ? t(fieldConfig.placeholder)
                               : t("ENTER_PAYMENT_DETAILS", {
                                   paymentAddressName: t(fieldConfig.label),
@@ -507,7 +505,7 @@ export function SellPreview() {
                       </div>
                     ))}
                   </div>
-                ) : isPeru(currency.currency) ? (
+                ) : uploadsPaymentQR(currency.currency) ? (
                   <PeruSellPaymentInput
                     value={manualAddress}
                     onChange={(payload) => {
@@ -559,22 +557,14 @@ export function SellPreview() {
                     <div>
                       <p className="font-medium text-sm">{currentLabel}</p>
                       <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
-                        {isPeru(currency.currency) &&
-                        isValidPeruQrPayload(currentAddress)
-                          ? t("YAPE_PLIN_CCI_DETAILS")
-                          : isPeru(currency.currency) &&
-                              isValidPeruvianCci(currentAddress)
-                            ? t("PERU_CCI_PLACEHOLDER")
-                            : isVenezuela(currency.currency) &&
-                                getVenCompoundPaymentId(currentAddress)
-                              ? formatPaymentIdForDisplay(
-                                  currentAddress,
-                                  currency.currency,
-                                )
-                              : isVenezuela(currency.currency) &&
-                                  getVenQrPayload(currentAddress)
-                                ? t("PAGO_MOVIL_QR_DETAILS")
-                                : currentAddress}
+                        {formatPaymentIdPreview(
+                          currentAddress,
+                          currency.currency,
+                          {
+                            peruQr: t("YAPE_PLIN_CCI_DETAILS"),
+                            venQr: t("PAGO_MOVIL_QR_DETAILS"),
+                          },
+                        )}
                       </p>
                     </div>
                   </div>

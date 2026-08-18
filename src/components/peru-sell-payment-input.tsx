@@ -1,20 +1,21 @@
-import { Clipboard, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { toast } from "sonner";
 import { PeruQrUpload } from "@/components/peru-qr-upload";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CURRENCY, uploadsPaymentQR } from "@/lib/constants";
 import {
-  isValidPeruQrPayload,
-  isValidPeruvianCci,
-  normalizePeruvianCci,
+  getPeruQrPayload,
+  parsePeruPaymentId,
+  serializePeruPaymentId,
 } from "@/lib/peru-qr";
 
-type PeruInputMode = "qr" | "cci";
-
 /**
- * Peru sell payment input: QR upload first, optional CCI (20 digits) fallback.
+ * Peru sell payment input: CCI and/or Yape/Plin phone, plus optional QR
+ * upload when `uploadPaymentQR` is on.
+ *
+ * Local drafts are the source of truth while typing. Serialize only keeps
+ * complete phone/CCI, so we must not re-parse `value` after our own emit or
+ * an incomplete phone gets wiped when the CCI becomes valid.
  */
 export function PeruSellPaymentInput({
   value,
@@ -24,103 +25,76 @@ export function PeruSellPaymentInput({
   onChange: (payload: string) => void;
 }) {
   const { t } = useTranslation();
-  const [mode, setMode] = useState<PeruInputMode>(() =>
-    value && isValidPeruvianCci(value) && !isValidPeruQrPayload(value)
-      ? "cci"
-      : "qr",
-  );
+  const allowQr = uploadsPaymentQR(CURRENCY.PEN);
+  const qr = allowQr ? (getPeruQrPayload(value) ?? "") : "";
+  const parsed = parsePeruPaymentId(value);
+  const [phone, setPhone] = useState(parsed.phone ?? "");
+  const [cci, setCci] = useState(parsed.cci ?? "");
+  const lastEmitted = useRef(value || "");
 
-  // Keep mode in sync when parent clears / loads a saved address.
   useEffect(() => {
-    if (!value) return;
-    if (isValidPeruQrPayload(value)) setMode("qr");
-    else if (isValidPeruvianCci(value)) setMode("cci");
+    if ((value || "") === lastEmitted.current) return;
+    lastEmitted.current = value || "";
+    const next = parsePeruPaymentId(value);
+    setPhone(next.phone ?? "");
+    setCci(next.cci ?? "");
   }, [value]);
 
-  const switchToCci = () => {
-    setMode("cci");
-    if (value && isValidPeruQrPayload(value)) onChange("");
-  };
-
-  const switchToQr = () => {
-    setMode("qr");
-    if (value && isValidPeruvianCci(value)) onChange("");
-  };
-
-  const handleCciChange = (raw: string) => {
-    // Allow spaces while typing; store digits only (max 20).
-    const digits = raw.replace(/\D/g, "").slice(0, 20);
-    onChange(digits);
-  };
-
-  const handlePasteCci = async () => {
-    try {
-      const clipboardText = await navigator.clipboard.readText();
-      const normalized = normalizePeruvianCci(clipboardText);
-      if (!isValidPeruvianCci(normalized)) {
-        toast.error(t("PERU_CCI_INVALID"));
-        return;
-      }
-      onChange(normalized);
-    } catch {
-      toast.error(t("COULD_NOT_ACCESS_CLIPBOARD"));
-    }
-  };
-
-  if (mode === "cci") {
-    return (
-      <div className="flex w-full flex-col gap-2">
-        <div className="relative flex items-center gap-2">
-          <Input
-            className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
-            inputMode="numeric"
-            autoComplete="off"
-            placeholder={t("PERU_CCI_PLACEHOLDER")}
-            value={value && !isValidPeruQrPayload(value) ? value : ""}
-            onChange={(e) => handleCciChange(e.target.value)}
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="absolute right-0"
-            onClick={value ? () => onChange("") : handlePasteCci}>
-            {value && !isValidPeruQrPayload(value) ? (
-              <X className="size-4 text-primary" />
-            ) : (
-              <Clipboard className="size-4 text-primary" />
-            )}
-          </Button>
-        </div>
-        {value &&
-          !isValidPeruQrPayload(value) &&
-          !isValidPeruvianCci(value) && (
-            <p className="text-destructive text-xs">{t("PERU_CCI_INVALID")}</p>
-          )}
-        <button
-          type="button"
-          className="text-left text-primary text-xs underline"
-          onClick={switchToQr}>
-          {t("PERU_USE_QR_INSTEAD")}
-        </button>
-      </div>
+  const emit = (nextQr: string, nextPhone: string, nextCci: string) => {
+    const payload = serializePeruPaymentId(
+      allowQr ? nextQr || null : null,
+      nextPhone,
+      nextCci,
     );
-  }
+    lastEmitted.current = payload;
+    onChange(payload);
+  };
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <PeruQrUpload
-        value={isValidPeruQrPayload(value) ? value : ""}
-        onChange={onChange}
+    <div className="flex w-full flex-col gap-3">
+      {allowQr ? (
+        <>
+          <p className="text-muted-foreground text-xs">
+            {t("PERU_QR_OPTIONAL_QR")}
+          </p>
+          <PeruQrUpload
+            value={qr}
+            onChange={(nextQr) => {
+              const extracted = parsePeruPaymentId(nextQr).phone ?? "";
+              const nextPhone = phone || extracted;
+              if (extracted && !phone) setPhone(extracted);
+              emit(nextQr, nextPhone, cci);
+            }}
+          />
+          <p className="text-muted-foreground text-xs">
+            {t("PERU_QR_FALLBACK_HINT")}
+          </p>
+        </>
+      ) : null}
+      <Input
+        className="rounded-sm bg-background placeholder:text-primary/30"
+        inputMode="tel"
+        autoComplete="off"
+        placeholder={t("PERU_PHONE_PLACEHOLDER")}
+        value={phone}
+        onChange={(e) => {
+          const next = e.target.value.replace(/[^\d+]/g, "").slice(0, 12);
+          setPhone(next);
+          emit(qr, next, cci);
+        }}
       />
-      {!isValidPeruQrPayload(value) && (
-        <button
-          type="button"
-          className="text-left text-muted-foreground text-xs underline hover:text-primary"
-          onClick={switchToCci}>
-          {t("PERU_NO_QR_ENTER_CCI")}
-        </button>
-      )}
+      <Input
+        className="rounded-sm bg-background placeholder:text-primary/30"
+        inputMode="numeric"
+        autoComplete="off"
+        placeholder={t("PERU_CCI_PLACEHOLDER")}
+        value={cci}
+        onChange={(e) => {
+          const next = e.target.value.replace(/\D/g, "").slice(0, 20);
+          setCci(next);
+          emit(qr, phone, next);
+        }}
+      />
     </div>
   );
 }

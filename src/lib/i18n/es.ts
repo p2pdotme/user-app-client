@@ -1479,17 +1479,27 @@ export const es = {
     PERPS_BANNER_DESCRIPTION:
       "Ganes o pierdas, siempre recibes un 10% de cashback.",
     PERPS_BANNER_YES: "10% de Cashback.",
-    PERU_CCI_INVALID: "Ingresa un CCI válido de 20 dígitos",
+    PERU_CCI_INVALID:
+      "Ingresa un CCI de 20 dígitos o un celular Yape/Plin (9XXXXXXXX)",
+    PERU_CCI_LABEL: "CCI",
     PERU_CCI_PLACEHOLDER: "CCI (20 dígitos)",
-    PERU_NO_QR_ENTER_CCI: "¿No tienes QR? Ingresar CCI",
+    PERU_NO_QR_ENTER_CCI: "¿No tienes QR? Ingresar CCI o celular",
+    PERU_PHONE_LABEL: "Celular Yape / Plin",
+    PERU_PHONE_PLACEHOLDER: "Celular Yape/Plin (9XXXXXXXX)",
     PERU_QR_ACCOUNT: "Cuenta",
     PERU_QR_CHANGE: "Cambiar QR",
     PERU_QR_DECODING: "Leyendo QR…",
     PERU_QR_DETECTED: "QR detectado",
+    PERU_QR_FALLBACK_HINT:
+      "Obligatorio: CCI y/o celular Yape/Plin por si no pueden escanear el QR",
     PERU_QR_INVALID_QR: "Esto no parece un QR de Yape/Plin válido",
+    PERU_QR_OPTIONAL_QR:
+      "El QR es opcional — para que te paguen escaneando Yape o Plin",
     PERU_QR_READ_ERROR: "No se pudo leer ese QR — prueba con otra imagen",
+    PERU_QR_UPLOAD: "Subir QR",
     PERU_QR_UPLOAD_HINT: "Toca para seleccionar una imagen de QR",
     PERU_QR_UPLOAD_TITLE: "Sube tu QR de Yape/Plin",
+    PERU_QR_VIEW: "Ver QR",
     PERU_USE_QR_INSTEAD: "Usar QR de Yape/Plin",
     PER_TRANSACTION_LIMITS: "Límites por Transacción",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
@@ -2096,8 +2106,10 @@ export const es = {
     VEN_QR_INVALID_QR: "Esto no parece un QR válido de Pago Móvil",
     VEN_QR_OPTIONAL_QR: "El QR es opcional — para que te paguen escaneando",
     VEN_QR_READ_ERROR: "No se pudo leer ese QR — prueba con otra imagen",
+    VEN_QR_UPLOAD: "Subir QR",
     VEN_QR_UPLOAD_HINT: "Toca para seleccionar el QR de tu app bancaria",
     VEN_QR_UPLOAD_TITLE: "Sube tu QR de Pago Móvil",
+    VEN_QR_VIEW: "Ver QR",
     VEN_USE_QR_INSTEAD: "Usar QR de Pago Móvil",
     VERIFICATION_CANCELLED: "Verificación cancelada",
     VERIFICATION_DURATION_INFO:
