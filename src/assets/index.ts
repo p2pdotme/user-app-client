@@ -30,6 +30,7 @@ import { GoPay } from "./icons/gopay";
 import { Instagram } from "./icons/instagram";
 import { Linkedin } from "./icons/linkedin";
 // ICONS
+import { EcosystemLogo } from "./icons/ecosystem-logo";
 import { Logo } from "./icons/logo";
 import { NetworkArbitrum } from "./icons/network-arbitrum";
 import { NetworkBase } from "./icons/network-base";
@@ -228,6 +229,7 @@ import { USDCFiatOverlapped } from "./images/usdc-fiat-overlapped";
 const ASSETS = {
   ICONS: {
     Logo,
+    EcosystemLogo,
     ActionSupport,
     ActionDeposit,
     ActionWithdraw,
