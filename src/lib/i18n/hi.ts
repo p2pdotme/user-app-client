@@ -506,6 +506,9 @@ export const hi = {
     ESTIMATED_TIME_RANGE: "2 - 5 मिनट",
     EXCHANGE_NOT_OPERATIONAL: "एक्सचेंज परिचालन में नहीं है",
     EXPIRED: "समाप्त",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
+    ECOSYSTEM_CARD_TITLE: "P2P ऐप स्टोर एक्सप्लोर करें",
     EXTERNAL_WALLET: "बाहरी वॉलेट",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook केवल RP अपडेट का समर्थन करता है",
     FAILED_SWAPS: "विफल स्वैप",
@@ -1188,6 +1191,7 @@ export const hi = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "केवल दिए गए स्थिति वाले ऑर्डर को ही फिर से सौंपा जा सकता है",
     OUT_OF_DENOMINATOR: "{{denominator}} में से",
+    P2P_ECOSYSTEM: "P2P इकोसिस्टम",
     P2P_HOLDINGS: "$P2P होल्डिंग्स",
     P2P_ME_TRANSACTION_RECEIPT: "P2P.me लेनदेन रसीद",
     P2P_ME_UNREACHABLE: "p2p.me वर्तमान में अप्राप्य है। कृपया बाद में पुनः प्रयास करें।",
