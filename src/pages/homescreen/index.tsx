@@ -8,6 +8,7 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
+import { EcosystemCard } from "@/components/p2p-ecosystem";
 import { Button } from "@/components/ui/button";
 import {
   useAnalytics,
@@ -228,6 +229,10 @@ export function HomeScreen() {
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <Referral />
+        </section>
+
+        <section className="flex w-full flex-col items-center justify-center py-4">
+          <EcosystemCard />
         </section>
 
         {showInviteDrawer && (
