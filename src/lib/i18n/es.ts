@@ -545,7 +545,7 @@ export const es = {
     EXPIRED: "Expirado",
     ECOSYSTEM_CARD_SUBTITLE:
       "Esta app funciona con el protocolo P2P. Descubre más apps de la familia.",
-    ECOSYSTEM_CARD_TITLE: "Explora el ecosistema P2P",
+    ECOSYSTEM_CARD_TITLE: "Explora la tienda de apps P2P",
     EXTERNAL_WALLET: "Wallet Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook solo admite actualizaciones de RP",
     FAILED_SWAPS: "Intercambios Fallidos",

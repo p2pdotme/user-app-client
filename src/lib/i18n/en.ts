@@ -527,7 +527,7 @@ export const en = {
     EXPIRED: "Expired",
     ECOSYSTEM_CARD_SUBTITLE:
       "This app runs on the P2P protocol. Discover more apps in the family.",
-    ECOSYSTEM_CARD_TITLE: "Explore the P2P Ecosystem",
+    ECOSYSTEM_CARD_TITLE: "Explore the P2P App Store",
     EXTERNAL_WALLET: "External Wallet",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook only supports RP updates",
     FAILED_SWAPS: "Failed Swaps",

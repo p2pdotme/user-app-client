@@ -508,7 +508,7 @@ export const hi = {
     EXPIRED: "समाप्त",
     ECOSYSTEM_CARD_SUBTITLE:
       "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
-    ECOSYSTEM_CARD_TITLE: "P2P इकोसिस्टम एक्सप्लोर करें",
+    ECOSYSTEM_CARD_TITLE: "P2P ऐप स्टोर एक्सप्लोर करें",
     EXTERNAL_WALLET: "बाहरी वॉलेट",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook केवल RP अपडेट का समर्थन करता है",
     FAILED_SWAPS: "विफल स्वैप",

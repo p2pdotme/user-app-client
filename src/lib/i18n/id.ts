@@ -530,7 +530,7 @@ export const id = {
     EXPIRED: "Berakhir",
     ECOSYSTEM_CARD_SUBTITLE:
       "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
-    ECOSYSTEM_CARD_TITLE: "Jelajahi ekosistem P2P",
+    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     EXTERNAL_WALLET: "Dompet Eksternal",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook hanya mendukung pembaruan RP",
     FAILED_SWAPS: "Pertukaran Gagal",

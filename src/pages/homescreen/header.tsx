@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
 import {
-  CoinsmeButton,
   InstallPWAButton,
   Sidebar,
   TextLogo,
@@ -52,7 +51,6 @@ export function Header() {
               <ASSETS.ICONS.EcosystemLogo className="size-5.5" />
             </button>
           </EcosystemDrawer>
-          <CoinsmeButton />
           <InstallPWAButton />
         </div>
       </div>

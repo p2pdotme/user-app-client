@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const ECOSYSTEM_URL = "https://p2p-ecosystem.netlify.app/";
+const ECOSYSTEM_URL = "https://p2p.store";
 
 interface EcosystemDrawerProps {
   children: ReactNode;
