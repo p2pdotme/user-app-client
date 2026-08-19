@@ -27,6 +27,7 @@ export * from "./pull-to-refresh";
 export * from "./pwa-badge";
 export * from "./pwa-status-debug";
 export * from "./qr-scanner";
+export * from "./receipt-payment-id-field";
 export * from "./section-header";
 export * from "./sidebar";
 export * from "./slippage-drawer";

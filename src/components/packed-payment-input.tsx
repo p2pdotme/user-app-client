@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 
 /**
- * Catalog-driven payment input: typed fields, then optional QR upload below.
+ * Catalog-driven payment input: typed fields or optional QR, not both.
  * Local drafts stay in state while typing; pack only keeps valid fields.
  */
 export function PackedPaymentInput({
@@ -39,6 +39,13 @@ export function PackedPaymentInput({
     setManualValues(assignStoredPaymentIdToFieldValues(currency, value));
   }, [currency, value]);
 
+  const hasQr = qr.length > 0;
+  const hasTyped = fields.some(
+    (field) => (manualValues[field.key] || "").trim().length > 0,
+  );
+  const showFields = !hasQr;
+  const showQr = allowQr && (!hasTyped || hasQr);
+
   const emit = (nextQr: string, nextManual: Record<string, string>) => {
     const payload = packStoredPaymentId(
       currency,
@@ -51,28 +58,32 @@ export function PackedPaymentInput({
 
   return (
     <div className="flex w-full flex-col gap-3">
-      {fields.map((field) => (
-        <Input
-          key={field.key}
-          className="rounded-sm bg-background placeholder:text-primary/30"
-          autoComplete="off"
-          placeholder={t(field.placeholder)}
-          value={manualValues[field.key] || ""}
-          onChange={(e) => {
-            const next = {
-              ...manualValues,
-              [field.key]: e.target.value.replace(/\|/g, ""),
-            };
-            setManualValues(next);
-            emit(qr, next);
-          }}
-        />
-      ))}
-      {allowQr ? (
+      {showFields
+        ? fields.map((field) => (
+            <Input
+              key={field.key}
+              className="rounded-sm bg-background placeholder:text-primary/30"
+              autoComplete="off"
+              placeholder={t(field.placeholder)}
+              value={manualValues[field.key] || ""}
+              onChange={(e) => {
+                const next = {
+                  ...manualValues,
+                  [field.key]: e.target.value.replace(/\|/g, ""),
+                };
+                setManualValues(next);
+                emit(qr, next);
+              }}
+            />
+          ))
+        : null}
+      {showQr ? (
         <>
-          <p className="text-muted-foreground text-xs">
-            {t("PAYMENT_QR_OPTIONAL")}
-          </p>
+          {!hasQr ? (
+            <p className="text-muted-foreground text-xs">
+              {t("PAYMENT_QR_OPTIONAL")}
+            </p>
+          ) : null}
           <PaymentQrUpload
             currency={currency}
             value={qr}
@@ -91,9 +102,11 @@ export function PackedPaymentInput({
               emit(nextQr, merged);
             }}
           />
-          <p className="text-muted-foreground text-xs">
-            {t("PAYMENT_QR_FALLBACK_HINT")}
-          </p>
+          {hasQr ? (
+            <p className="text-muted-foreground text-xs">
+              {t("PAYMENT_QR_REMOVE_HINT")}
+            </p>
+          ) : null}
         </>
       ) : null}
     </div>

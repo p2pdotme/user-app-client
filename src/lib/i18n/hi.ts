@@ -1369,6 +1369,8 @@ export const hi = {
     PAYMENT_QR_INVALID: "यह मान्य भुगतान QR नहीं लगता",
     PAYMENT_QR_OPTIONAL: "QR वैकल्पिक है — स्कैन करके भुगतान हो सकता है",
     PAYMENT_QR_READ_ERROR: "QR पढ़ा नहीं जा सका — दूसरी इमेज आज़माएँ",
+    PAYMENT_QR_REMOVE: "QR हटाएँ",
+    PAYMENT_QR_REMOVE_HINT: "विवरण भरने के लिए QR हटाएँ",
     PAYMENT_QR_UPLOAD: "QR अपलोड करें",
     PAYMENT_QR_VIEW: "QR देखें",
     PAYMENT_TIMEOUT_EXPIRED: "भुगतान का समय समाप्त हो गया है",

@@ -53,7 +53,12 @@ export function PaymentQrUpload({
       uploadLabel={t("PAYMENT_QR_UPLOAD")}
       viewLabel={t("PAYMENT_QR_VIEW")}
       changeLabel={t("PAYMENT_QR_CHANGE")}
+      removeLabel={t("PAYMENT_QR_REMOVE")}
       decodingLabel={t("PAYMENT_QR_DECODING")}
+      onRemove={() => {
+        setError(null);
+        onChange("");
+      }}
     />
   );
 }

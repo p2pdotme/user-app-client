@@ -1,13 +1,14 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import { Copy, Eye, EyeOff, X } from "lucide-react";
+import { X } from "lucide-react";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,7 +17,6 @@ import { getOrderFeeDetails } from "@/core/fees";
 import { useAnalytics, useCancelledTimestamp } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
@@ -56,19 +56,8 @@ export function PayCancelled({ order }: { order: Order }) {
     undefined,
   );
   const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
-  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, t);
-  const paidTo = packedPaidTo.display || t("NOT_FOUND");
-  const paidToCopy = packedPaidTo.copyValue;
-  const packedPaidBy =
-    decryptedPaidBy &&
-    decryptedPaidBy !== t("NOT_FOUND") &&
-    decryptedPaidBy !== t("SESSION_CHANGED")
-      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, t)
-      : null;
-  const paidByDisplay = packedPaidBy?.display || decryptedPaidBy;
-  const paidByCopy = packedPaidBy ? packedPaidBy.copyValue : decryptedPaidBy;
   const [showPaidBy, setShowPaidBy] = useState(false);
-  const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
+  const [showPaidTo, setShowPaidTo] = useState(!storedPaidTo);
 
   // Track pay transaction cancelled view
   useEffect(() => {
@@ -103,6 +92,27 @@ export function PayCancelled({ order }: { order: Order }) {
 
   const togglePaidTo = () => {
     setShowPaidTo(!showPaidTo);
+  };
+
+  const handleCopy = async (value?: string, nameKey: string = "PAID_TO") => {
+    if (!value || value === t("NOT_FOUND") || value === t("SESSION_CHANGED")) {
+      toast.warning(t("NO_ADDRESS_TO_COPY"));
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(value);
+      toast.success(
+        t("PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD", {
+          paymentAddressName: t(nameKey),
+        }),
+      );
+    } catch {
+      toast.error(
+        t("FAILED_TO_COPY_PAYMENT_ADDRESS", {
+          paymentAddressName: t(nameKey),
+        }),
+      );
+    }
   };
 
   return (
@@ -158,105 +168,23 @@ export function PayCancelled({ order }: { order: Order }) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_BY")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidBy ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {paidByDisplay}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidBy}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidBy ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={async () => {
-                      if (
-                        !paidByCopy ||
-                        paidByCopy === t("NOT_FOUND") ||
-                        paidByCopy === t("SESSION_CHANGED")
-                      )
-                        return toast.warning(t("NO_ADDRESS_TO_COPY"));
-                      try {
-                        await navigator.clipboard.writeText(paidByCopy);
-                        toast.success(
-                          t("PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD", {
-                            paymentAddressName: t("PAID_BY"),
-                          }),
-                        );
-                      } catch {
-                        toast.error(
-                          t("FAILED_TO_COPY_PAYMENT_ADDRESS", {
-                            paymentAddressName: t("PAID_BY"),
-                          }),
-                        );
-                      }
-                    }}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_BY"
+                paymentId={decryptedPaidBy}
+                currency={order.currency}
+                show={showPaidBy}
+                onToggleShow={togglePaidBy}
+                onCopy={(value) => handleCopy(value, "PAID_BY")}
+              />
 
-              <div className="flex items-center justify-between gap-3">
-                <span className="shrink-0 whitespace-nowrap font-medium">
-                  {t("PAID_TO")}
-                </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {paidTo}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidTo}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidTo ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={async () => {
-                      if (
-                        !paidToCopy ||
-                        paidToCopy === t("NOT_FOUND") ||
-                        paidToCopy === t("SESSION_CHANGED")
-                      )
-                        return toast.warning(t("NO_ADDRESS_TO_COPY"));
-                      try {
-                        await navigator.clipboard.writeText(paidToCopy);
-                        toast.success(
-                          t("PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD", {
-                            paymentAddressName: t("PAID_TO"),
-                          }),
-                        );
-                      } catch {
-                        toast.error(
-                          t("FAILED_TO_COPY_PAYMENT_ADDRESS", {
-                            paymentAddressName: t("PAID_TO"),
-                          }),
-                        );
-                      }
-                    }}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_TO"
+                paymentId={storedPaidTo || t("NOT_FOUND")}
+                currency={order.currency}
+                show={showPaidTo}
+                onToggleShow={togglePaidTo}
+                onCopy={(value) => handleCopy(value, "PAID_TO")}
+              />
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("CANCELLED_AT")} </span>

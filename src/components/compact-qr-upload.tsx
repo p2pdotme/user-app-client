@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
 /**
- * Compact QR file picker: one upload button, then View / Change after a
+ * Compact QR file picker: Upload, then View / Change / Remove after a
  * payload is stored. The QR itself only appears in a preview overlay.
  */
 export function CompactQrUpload({
@@ -14,9 +14,11 @@ export function CompactQrUpload({
   isDecoding,
   error,
   onFile,
+  onRemove,
   uploadLabel,
   viewLabel,
   changeLabel,
+  removeLabel,
   decodingLabel,
   previewCaption,
 }: {
@@ -25,9 +27,11 @@ export function CompactQrUpload({
   isDecoding: boolean;
   error: string | null;
   onFile: (file: File | undefined) => void;
+  onRemove?: () => void;
   uploadLabel: string;
   viewLabel: string;
   changeLabel: string;
+  removeLabel?: string;
   decodingLabel: string;
   previewCaption?: string;
 }) {
@@ -67,24 +71,36 @@ export function CompactQrUpload({
       />
 
       {hasQr ? (
-        <div className="flex w-full gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            className="h-12 flex-1"
-            onClick={() => setPreviewOpen(true)}>
-            <QrCode />
-            {viewLabel}
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            className="h-12 flex-1"
-            disabled={isDecoding}
-            onClick={pickFile}>
-            {isDecoding ? <Loader2 className="animate-spin" /> : <Upload />}
-            {isDecoding ? decodingLabel : changeLabel}
-          </Button>
+        <div className="flex w-full flex-col gap-2">
+          <div className="flex w-full gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="h-12 flex-1"
+              onClick={() => setPreviewOpen(true)}>
+              <QrCode />
+              {viewLabel}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="h-12 flex-1"
+              disabled={isDecoding}
+              onClick={pickFile}>
+              {isDecoding ? <Loader2 className="animate-spin" /> : <Upload />}
+              {isDecoding ? decodingLabel : changeLabel}
+            </Button>
+          </div>
+          {onRemove && removeLabel ? (
+            <Button
+              type="button"
+              variant="ghost"
+              className="h-10 w-full text-muted-foreground"
+              disabled={isDecoding}
+              onClick={onRemove}>
+              {removeLabel}
+            </Button>
+          ) : null}
         </div>
       ) : (
         <Button

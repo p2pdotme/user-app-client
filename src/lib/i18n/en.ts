@@ -1408,6 +1408,8 @@ export const en = {
     PAYMENT_QR_INVALID: "This doesn't look like a valid payment QR",
     PAYMENT_QR_OPTIONAL: "QR is optional — they can pay by scanning",
     PAYMENT_QR_READ_ERROR: "Couldn't read that QR — try another image",
+    PAYMENT_QR_REMOVE: "Remove QR",
+    PAYMENT_QR_REMOVE_HINT: "Remove the QR to enter details instead",
     PAYMENT_QR_UPLOAD: "Upload QR",
     PAYMENT_QR_VIEW: "View QR",
     PAYMENT_TIMEOUT_EXPIRED: "Payment time has expired",

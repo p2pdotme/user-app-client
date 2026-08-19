@@ -1430,6 +1430,8 @@ export const id = {
     PAYMENT_QR_INVALID: "Ini tidak terlihat seperti QR pembayaran yang valid",
     PAYMENT_QR_OPTIONAL: "QR opsional — mereka bisa bayar dengan memindai",
     PAYMENT_QR_READ_ERROR: "QR tidak bisa dibaca — coba gambar lain",
+    PAYMENT_QR_REMOVE: "Hapus QR",
+    PAYMENT_QR_REMOVE_HINT: "Hapus QR untuk mengisi data",
     PAYMENT_QR_UPLOAD: "Unggah QR",
     PAYMENT_QR_VIEW: "Lihat QR",
     PAYMENT_TIMEOUT_EXPIRED: "Waktu pembayaran telah berakhir",

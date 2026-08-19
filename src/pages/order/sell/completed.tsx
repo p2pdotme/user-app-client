@@ -1,7 +1,7 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import { Copy, Eye, EyeOff, Share } from "lucide-react";
+import { Share } from "lucide-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { RequestProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
@@ -21,7 +22,6 @@ import { useAnalytics } from "@/hooks";
 import { useReceiptShare } from "@/hooks/use-receipt-share";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
@@ -56,19 +56,8 @@ export function SellCompleted({ order }: { order: Order }) {
     undefined,
   );
   const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
-  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, t);
-  const paidTo = packedPaidTo.display || t("NOT_FOUND");
-  const paidToCopy = packedPaidTo.copyValue;
-  const packedPaidBy =
-    decryptedPaidBy &&
-    decryptedPaidBy !== t("NOT_FOUND") &&
-    decryptedPaidBy !== t("SESSION_CHANGED")
-      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, t)
-      : null;
-  const paidByDisplay = packedPaidBy?.display || decryptedPaidBy;
-  const paidByCopy = packedPaidBy ? packedPaidBy.copyValue : decryptedPaidBy;
   const [showPaidBy, setShowPaidBy] = useState(false);
-  const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
+  const [showPaidTo, setShowPaidTo] = useState(!storedPaidTo);
 
   // Track sell transaction completed view
   useEffect(() => {
@@ -242,71 +231,23 @@ export function SellCompleted({ order }: { order: Order }) {
                 </>
               )}
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_BY")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidBy ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {paidByDisplay}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidBy}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidBy ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() =>
-                      handleCopy(paidByCopy ?? undefined, "PAID_BY")
-                    }
-                    disabled={
-                      !paidByCopy ||
-                      paidByCopy === t("NOT_FOUND") ||
-                      paidByCopy === t("SESSION_CHANGED")
-                    }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_BY"
+                paymentId={decryptedPaidBy}
+                currency={order.currency}
+                show={showPaidBy}
+                onToggleShow={togglePaidBy}
+                onCopy={(value) => handleCopy(value, "PAID_BY")}
+              />
 
-              <div className="flex items-center justify-between gap-3">
-                <span className="shrink-0 whitespace-nowrap font-medium">
-                  {t("PAID_TO")}
-                </span>
-                <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
-                  <span
-                    className={`min-w-0 truncate text-right text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""}`}>
-                    {paidTo}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidTo}
-                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidTo ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleCopy(paidToCopy ?? undefined)}
-                    disabled={!paidToCopy}
-                    className="export-screenshot-ignore size-4 shrink-0 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_TO"
+                paymentId={storedPaidTo || t("NOT_FOUND")}
+                currency={order.currency}
+                show={showPaidTo}
+                onToggleShow={togglePaidTo}
+                onCopy={(value) => handleCopy(value, "PAID_TO")}
+              />
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("COMPLETED_IN")} </span>
