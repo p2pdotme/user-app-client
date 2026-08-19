@@ -1,6 +1,7 @@
 import {
-  COUNTRY_OPTIONS,
   formatStoredPaymentIdForDisplay,
+  getCountryOption,
+  getStoredQrPayload,
   unpackPackedPaymentId,
   usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
@@ -13,7 +14,7 @@ import type { CurrencyType } from "@/lib/constants";
 export function formatReceiptPaymentId(
   value: string | null | undefined,
   currency: string | null | undefined,
-  labels: { peruQr: string; venQr: string },
+  t: (key: string) => string,
 ): { display: string; copyValue: string | null } {
   if (!value) return { display: "", copyValue: null };
   if (!currency) return { display: value, copyValue: value };
@@ -25,13 +26,12 @@ export function formatReceiptPaymentId(
     return { display: formatted, copyValue: rest.trim() || formatted };
   }
 
-  if (usesPackedPaymentId(code)) {
-    const { qr } = unpackPackedPaymentId(value);
-    const option = COUNTRY_OPTIONS.find((c) => c.currency === code);
-    if (qr || option?.validateQr?.(value.trim())) {
-      const qrLabel = code === "PEN" ? labels.peruQr : labels.venQr;
-      return { display: qrLabel, copyValue: null };
-    }
+  if (usesPackedPaymentId(code) && getStoredQrPayload(code, value)) {
+    const option = getCountryOption(code);
+    return {
+      display: option ? t(option.paymentAddressName) : "",
+      copyValue: null,
+    };
   }
 
   return { display: value, copyValue: value };

@@ -1,3 +1,4 @@
+import { getStoredQrPayload } from "@p2pdotme/sdk/country";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, Copy, Loader2, QrCode } from "lucide-react";
@@ -32,7 +33,6 @@ import {
   getPaymentIdFields,
 } from "@/lib/compound-payment-id";
 import { CURRENCY_META_DATA, uploadsPaymentQR } from "@/lib/constants";
-import { getPeruQrPayload } from "@/lib/peru-qr";
 import {
   buildPixBrCode,
   buildTransfermovilQr,
@@ -42,7 +42,6 @@ import {
   generateUPILink,
   getPaymentMethodFromOrderDetails,
 } from "@/lib/utils";
-import { getVenQrPayload } from "@/lib/ven-qr";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
 
 const COUNTDOWN_DURATION = 5 * 60 * 1000; // 5 minutes
@@ -62,15 +61,13 @@ function buildQrValue({
   currency: keyof typeof CURRENCY_META_DATA;
   orderId: string;
 }) {
-  return currency === "PEN"
-    ? uploadsPaymentQR(currency)
-      ? (getPeruQrPayload(paymentAddress) ?? "")
-      : ""
-    : currency === "VEN"
-      ? (getVenQrPayload(paymentAddress) ?? paymentAddress)
-      : currency === "BRL"
-        ? buildPixBrCode(paymentAddress, amount, orderId)
-        : generateUPILink(paymentAddress, amount, currency, orderId);
+  if (uploadsPaymentQR(currency)) {
+    return getStoredQrPayload(currency, paymentAddress) ?? "";
+  }
+  if (currency === "BRL") {
+    return buildPixBrCode(paymentAddress, amount, orderId);
+  }
+  return generateUPILink(paymentAddress, amount, currency, orderId);
 }
 
 // QR Code Drawer Component
@@ -323,20 +320,15 @@ export function BuyAccepted({ order }: { order: Order }) {
   };
 
   const paymentIdFields = getPaymentIdFields(order.currency);
-  const venQr = decryptedPaymentAddress
-    ? getVenQrPayload(decryptedPaymentAddress)
+  const storedQr = decryptedPaymentAddress
+    ? getStoredQrPayload(order.currency, decryptedPaymentAddress)
     : null;
-  const isVenQr = !!venQr;
-  const penPackedQr =
-    decryptedPaymentAddress && order.currency === "PEN"
-      ? getPeruQrPayload(decryptedPaymentAddress)
-      : null;
-  const penQr = uploadsPaymentQR(order.currency) ? penPackedQr : null;
+  const packedQr = uploadsPaymentQR(order.currency) ? storedQr : null;
   const catalogParts = decryptedPaymentAddress
     ? getPaymentIdDisplayParts(decryptedPaymentAddress, order.currency)
     : [];
   const isMultiField = paymentIdFields.length > 1;
-  const hidePackedToRow = isVenQr || !!penPackedQr || catalogParts.length > 0;
+  const hidePackedToRow = !!storedQr || catalogParts.length > 0;
 
   const transfermovilQrValue =
     decryptedPaymentAddress && order.currency === "CUP"
@@ -586,7 +578,7 @@ export function BuyAccepted({ order }: { order: Order }) {
                 </div>
               )}
 
-              {(penQr || isVenQr) && decryptedPaymentAddress && (
+              {packedQr && decryptedPaymentAddress && (
                 <div className="flex flex-col items-center gap-2 pt-2">
                   <div className="rounded-xl border-2 border-primary bg-white p-3 shadow-primary-shadow shadow-xl">
                     <QRCodeSVG

@@ -20,8 +20,7 @@ import ASSETS from "@/assets";
 import {
   DashedSeparator,
   NonHomeHeader,
-  PeruSellPaymentInput,
-  VenPaymentInput,
+  PackedPaymentInput,
 } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
@@ -47,17 +46,12 @@ import {
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
-import {
-  formatPaymentIdPreview,
-  getPaymentIdFields,
-  serializeCompoundPaymentId,
-} from "@/lib/compound-payment-id";
+import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import {
   getFiatUnit,
   INTERNAL_HREFS,
   ORDER_TYPE,
-  uploadsPaymentQR,
-  usesPackedPaymentId,
+  usesCatalogPaymentForm,
 } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
@@ -67,7 +61,6 @@ import {
   formatFiatAmount,
   validatePaymentAddress,
 } from "@/lib/utils";
-import { isVenezuela } from "@/lib/ven-qr";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../../order/help-drawer";
 import { FundProtectionGuidelines } from "./fund-protection-guidelines";
@@ -120,13 +113,7 @@ export function SellPreview() {
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-  // Compound payment ID support (e.g. VEN: phone + RIF)
-  const paymentIdFields = getPaymentIdFields(currency.currency);
-  const isCompound =
-    paymentIdFields.length > 1 && !usesPackedPaymentId(currency.currency);
-  const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
-    {},
-  );
+  const catalogForm = usesCatalogPaymentForm(currency.currency);
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
@@ -185,7 +172,6 @@ export function SellPreview() {
   const clearAddress = () => {
     setShowInput(true);
     setManualAddress("");
-    setCompoundValues({});
   };
 
   const handleManualAddressChange = (
@@ -193,21 +179,6 @@ export function SellPreview() {
   ) => {
     setManualAddress(e.target.value);
   };
-
-  const updateCompoundValue = (key: string, value: string) => {
-    setCompoundValues((prev) => ({ ...prev, [key]: value.replace(/\|/g, "") }));
-  };
-
-  // Sync compound values to manual address
-  useEffect(() => {
-    if (!isCompound) return;
-    const values = paymentIdFields.map((f) => compoundValues[f.key] || "");
-    if (values.some((v) => v.length > 0)) {
-      setManualAddress(serializeCompoundPaymentId(...values));
-    } else {
-      setManualAddress("");
-    }
-  }, [compoundValues, isCompound, paymentIdFields]);
 
   const handlePasteAddress = async () => {
     try {
@@ -468,53 +439,9 @@ export function SellPreview() {
             ) : null}
             <CardContent className="flex flex-col gap-2">
               {showInput || hasNoSavedPaymentMethods ? (
-                isCompound ? (
-                  <div className="flex flex-col gap-2">
-                    {paymentIdFields.map((fieldConfig) => (
-                      <div
-                        key={fieldConfig.key}
-                        className="relative flex items-center gap-2">
-                        <Input
-                          className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
-                          placeholder={
-                            currency.currency === "NGN" ||
-                            currency.currency === "CUP" ||
-                            currency.currency === "PHP" ||
-                            currency.currency === "PEN"
-                              ? t(fieldConfig.placeholder)
-                              : t("ENTER_PAYMENT_DETAILS", {
-                                  paymentAddressName: t(fieldConfig.label),
-                                })
-                          }
-                          value={compoundValues[fieldConfig.key] || ""}
-                          onChange={(e) =>
-                            updateCompoundValue(fieldConfig.key, e.target.value)
-                          }
-                        />
-                        {manualAddress &&
-                          fieldConfig ===
-                            paymentIdFields[paymentIdFields.length - 1] && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="absolute right-0"
-                              onClick={clearAddress}>
-                              <X className="size-4 text-primary" />
-                            </Button>
-                          )}
-                      </div>
-                    ))}
-                  </div>
-                ) : uploadsPaymentQR(currency.currency) ? (
-                  <PeruSellPaymentInput
-                    value={manualAddress}
-                    onChange={(payload) => {
-                      setManualAddress(payload);
-                      setShowInput(true);
-                    }}
-                  />
-                ) : isVenezuela(currency.currency) ? (
-                  <VenPaymentInput
+                catalogForm ? (
+                  <PackedPaymentInput
+                    currency={currency.currency}
                     value={manualAddress}
                     onChange={(payload) => {
                       setManualAddress(payload);
@@ -560,10 +487,7 @@ export function SellPreview() {
                         {formatPaymentIdPreview(
                           currentAddress,
                           currency.currency,
-                          {
-                            peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-                            venQr: t("PAGO_MOVIL_QR_DETAILS"),
-                          },
+                          t,
                         )}
                       </p>
                     </div>

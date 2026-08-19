@@ -147,10 +147,7 @@ export function BuyCompleted({ order }: { order: Order }) {
     decryptedPaymentAddress === t("SESSION_CHANGED");
   const paidToReceipt = isSentinelAddress
     ? { display: decryptedPaymentAddress, copyValue: null as string | null }
-    : formatReceiptPaymentId(decryptedPaymentAddress, order.currency, {
-        peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-        venQr: t("PAGO_MOVIL_QR_DETAILS"),
-      });
+    : formatReceiptPaymentId(decryptedPaymentAddress, order.currency, t);
 
   // Branding row shows: Bought via P2P.me
 

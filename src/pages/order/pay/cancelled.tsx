@@ -56,20 +56,14 @@ export function PayCancelled({ order }: { order: Order }) {
     undefined,
   );
   const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
-  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, {
-    peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-    venQr: t("PAGO_MOVIL_QR_DETAILS"),
-  });
+  const packedPaidTo = formatReceiptPaymentId(storedPaidTo, order.currency, t);
   const paidTo = packedPaidTo.display || t("NOT_FOUND");
   const paidToCopy = packedPaidTo.copyValue;
   const packedPaidBy =
     decryptedPaidBy &&
     decryptedPaidBy !== t("NOT_FOUND") &&
     decryptedPaidBy !== t("SESSION_CHANGED")
-      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, {
-          peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-          venQr: t("PAGO_MOVIL_QR_DETAILS"),
-        })
+      ? formatReceiptPaymentId(decryptedPaidBy, order.currency, t)
       : null;
   const paidByDisplay = packedPaidBy?.display || decryptedPaidBy;
   const paidByCopy = packedPaidBy ? packedPaidBy.copyValue : decryptedPaidBy;

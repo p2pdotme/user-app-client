@@ -1454,6 +1454,16 @@ export const es = {
     PAYMENT_IN_PROGRESS: "Pago en progreso",
     PAYMENT_METHOD: "Método de Pago",
     PAYMENT_MODE: "Modo de Pago",
+    PAYMENT_QR_CHANGE: "Cambiar QR",
+    PAYMENT_QR_DECODING: "Leyendo QR…",
+    PAYMENT_QR_DETECTED: "QR detectado",
+    PAYMENT_QR_FALLBACK_HINT:
+      "Ingresa los datos abajo por si no pueden escanear el QR",
+    PAYMENT_QR_INVALID: "Esto no parece un QR de pago válido",
+    PAYMENT_QR_OPTIONAL: "El QR es opcional — para que te paguen escaneando",
+    PAYMENT_QR_READ_ERROR: "No se pudo leer ese QR — prueba con otra imagen",
+    PAYMENT_QR_UPLOAD: "Subir QR",
+    PAYMENT_QR_VIEW: "Ver QR",
     PAYMENT_TIMEOUT_EXPIRED: "El tiempo para el pago ha expirado",
     PAY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
       "Se aplica una tarifa fija de {{flatFee}} USDC para pedidos por debajo de {{orderMinimumAmount}} USDC. Pagarás {{deductedAmount}}",

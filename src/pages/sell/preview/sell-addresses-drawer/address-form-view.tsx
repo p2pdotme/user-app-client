@@ -1,11 +1,9 @@
-import { assignPaymentIdToFieldValues, CURRENCY } from "@p2pdotme/sdk/country";
 import { ArrowLeftCircle, Clipboard, Trash2, X } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { PeruSellPaymentInput, VenPaymentInput } from "@/components";
+import { PackedPaymentInput } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -19,12 +17,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSettings } from "@/contexts/settings";
-import {
-  getPaymentIdFields,
-  serializeCompoundPaymentId,
-} from "@/lib/compound-payment-id";
-import { uploadsPaymentQR, usesPackedPaymentId } from "@/lib/constants";
-import { isVenezuela } from "@/lib/ven-qr";
+import { getPaymentIdFields } from "@/lib/compound-payment-id";
+import { usesCatalogPaymentForm } from "@/lib/constants";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
 
 interface AddressFormViewProps {
@@ -48,41 +42,7 @@ export function AddressFormView({
   } = useSettings();
 
   const fields = getPaymentIdFields(currency.currency);
-  const isCompound =
-    fields.length > 1 && !usesPackedPaymentId(currency.currency);
-
-  // Compound payment ID local state — one entry per field
-  const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
-    () => {
-      if (!isCompound) return {};
-      return assignPaymentIdToFieldValues(
-        fields,
-        form.getValues("address") || "",
-      );
-    },
-  );
-
-  // Sync compound local state to hidden address field
-  useEffect(() => {
-    if (!isCompound) return;
-    const values = fields.map((f) => compoundValues[f.key] || "");
-    if (values.some((v) => v.length > 0)) {
-      const serialized = serializeCompoundPaymentId(...values);
-      form.setValue("address", serialized, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    } else {
-      form.setValue("address", "", {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  }, [compoundValues, isCompound, form, fields]);
-
-  const updateCompoundValue = (key: string, value: string) => {
-    setCompoundValues((prev) => ({ ...prev, [key]: value.replace(/\|/g, "") }));
-  };
+  const catalogForm = usesCatalogPaymentForm(currency.currency);
 
   const handleClipboardPaste = async () => {
     try {
@@ -148,46 +108,7 @@ export function AddressFormView({
               )}
             />
 
-            {isCompound ? (
-              <>
-                {fields.map((fieldConfig) => (
-                  <FormItem key={fieldConfig.key}>
-                    <FormLabel>{t(fieldConfig.label)}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={
-                          currency.currency === CURRENCY.NGN ||
-                          currency.currency === CURRENCY.CUP ||
-                          currency.currency === CURRENCY.PHP ||
-                          currency.currency === CURRENCY.PEN
-                            ? t(fieldConfig.placeholder)
-                            : t("ENTER_PAYMENT_DETAILS", {
-                                paymentAddressName: t(fieldConfig.label),
-                              })
-                        }
-                        value={compoundValues[fieldConfig.key] || ""}
-                        onChange={(e) =>
-                          updateCompoundValue(fieldConfig.key, e.target.value)
-                        }
-                      />
-                    </FormControl>
-                  </FormItem>
-                ))}
-                {/* Hidden field to carry the serialized value for form validation */}
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={() => (
-                    <FormItem>
-                      <FormControl>
-                        <input type="hidden" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            ) : uploadsPaymentQR(currency.currency) ? (
+            {catalogForm ? (
               <FormField
                 control={form.control}
                 name="address"
@@ -195,24 +116,8 @@ export function AddressFormView({
                   <FormItem>
                     <FormLabel>{t(currency.paymentAddressName)}</FormLabel>
                     <FormControl>
-                      <PeruSellPaymentInput
-                        value={field.value || ""}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ) : isVenezuela(currency.currency) ? (
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t(currency.paymentAddressName)}</FormLabel>
-                    <FormControl>
-                      <VenPaymentInput
+                      <PackedPaymentInput
+                        currency={currency.currency}
                         value={field.value || ""}
                         onChange={field.onChange}
                       />

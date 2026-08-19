@@ -59,10 +59,7 @@ export function useReceiptShare({
             paymentFrom = formatReceiptPaymentId(
               decrypted.value,
               order.currency,
-              {
-                peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-                venQr: t("PAGO_MOVIL_QR_DETAILS"),
-              },
+              t,
             ).display;
           }
         }
@@ -71,10 +68,7 @@ export function useReceiptShare({
         paymentTo = formatReceiptPaymentId(
           getPaymentAddressFromOrderDetails(order.id.toString()),
           order.currency,
-          {
-            peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-            venQr: t("PAGO_MOVIL_QR_DETAILS"),
-          },
+          t,
         ).display;
       } else if (order.orderType === "BUY") {
         // For BUY orders, decrypt merchant's payment address from encUpi
@@ -91,10 +85,7 @@ export function useReceiptShare({
             paymentTo = formatReceiptPaymentId(
               decrypted.value,
               order.currency,
-              {
-                peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-                venQr: t("PAGO_MOVIL_QR_DETAILS"),
-              },
+              t,
             ).display;
           }
         }

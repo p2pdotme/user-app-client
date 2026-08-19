@@ -92,10 +92,7 @@ export function AddressListView({
                       {formatPaymentIdPreview(
                         address.address,
                         currency.currency,
-                        {
-                          peruQr: t("YAPE_PLIN_CCI_DETAILS"),
-                          venQr: t("PAGO_MOVIL_QR_DETAILS"),
-                        },
+                        t,
                       )}
                     </p>
                   </div>

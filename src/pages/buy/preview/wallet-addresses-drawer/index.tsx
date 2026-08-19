@@ -37,7 +37,6 @@ export function WalletAddressesDrawer({
 
   // Create form with zod validation
   const form = useForm<WalletAddressFormData>({
-    // @ts-expect-error - resolver types are compatible but TypeScript has trouble with complex validation
     resolver: standardSchemaResolver(walletAddressFormSchema),
     defaultValues: {
       label: "",
@@ -191,7 +190,6 @@ export function WalletAddressesDrawer({
             <AddressFormView
               key={page === "add" ? "add-address" : "edit-address"}
               page={page}
-              // @ts-expect-error - form is incompatible with WalletAddressFormValues
               form={form}
               setPage={setPage}
               handleSave={handleSave}

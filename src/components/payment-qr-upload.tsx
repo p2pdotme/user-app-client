@@ -1,42 +1,40 @@
+import type { CurrencyCode } from "@p2pdotme/sdk/country";
+import { getCountryOption } from "@p2pdotme/sdk/country";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { CompactQrUpload } from "@/components/compact-qr-upload";
-import {
-  decodeVenQrImage,
-  isValidVenQrPayload,
-  type VenQrError,
-} from "@/lib/ven-qr";
+import { decodePaymentQrImage, type PaymentQrError } from "@/lib/payment-qr";
 
-/**
- * Venezuela Pago Móvil QR upload: decode the bank image to the raw S7B
- * payload and surface it via `onChange`.
- */
-export function VenQrUpload({
+export function PaymentQrUpload({
+  currency,
   value,
   onChange,
 }: {
+  currency: CurrencyCode;
   value: string;
   onChange: (payload: string) => void;
 }) {
   const { t } = useTranslation();
   const [isDecoding, setIsDecoding] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const hasQr = !!value && isValidVenQrPayload(value);
+  const option = getCountryOption(currency);
+  const hasQr = !!value && !!option?.validateQr?.(value);
 
   const handleFile = async (file: File | undefined) => {
     if (!file) return;
     setError(null);
     setIsDecoding(true);
     try {
-      const details = await decodeVenQrImage(file);
+      const details = await decodePaymentQrImage(file, currency);
       onChange(details.payload);
-      toast.success(t("VEN_QR_DETECTED"));
+      toast.success(t("PAYMENT_QR_DETECTED"));
     } catch (err) {
-      const code = (err as VenQrError) ?? "READ_ERROR";
+      const code = (err as PaymentQrError) ?? "READ_ERROR";
       const message =
-        code === "INVALID_QR" ? t("VEN_QR_INVALID_QR") : t("VEN_QR_READ_ERROR");
+        code === "INVALID_QR"
+          ? t("PAYMENT_QR_INVALID")
+          : t("PAYMENT_QR_READ_ERROR");
       setError(message);
       onChange("");
       toast.error(message);
@@ -52,10 +50,10 @@ export function VenQrUpload({
       isDecoding={isDecoding}
       error={error}
       onFile={handleFile}
-      uploadLabel={t("VEN_QR_UPLOAD")}
-      viewLabel={t("VEN_QR_VIEW")}
-      changeLabel={t("VEN_QR_CHANGE")}
-      decodingLabel={t("VEN_QR_DECODING")}
+      uploadLabel={t("PAYMENT_QR_UPLOAD")}
+      viewLabel={t("PAYMENT_QR_VIEW")}
+      changeLabel={t("PAYMENT_QR_CHANGE")}
+      decodingLabel={t("PAYMENT_QR_DECODING")}
     />
   );
 }

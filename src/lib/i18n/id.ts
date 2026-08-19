@@ -1422,6 +1422,16 @@ export const id = {
     PAYMENT_IN_PROGRESS: "Pembayaran sedang berlangsung",
     PAYMENT_METHOD: "Metode Pembayaran",
     PAYMENT_MODE: "Mode Pembayaran",
+    PAYMENT_QR_CHANGE: "Ganti QR",
+    PAYMENT_QR_DECODING: "Membaca QR…",
+    PAYMENT_QR_DETECTED: "QR terdeteksi",
+    PAYMENT_QR_FALLBACK_HINT:
+      "Isi data di bawah jika mereka tidak bisa memindai QR",
+    PAYMENT_QR_INVALID: "Ini tidak terlihat seperti QR pembayaran yang valid",
+    PAYMENT_QR_OPTIONAL: "QR opsional — mereka bisa bayar dengan memindai",
+    PAYMENT_QR_READ_ERROR: "QR tidak bisa dibaca — coba gambar lain",
+    PAYMENT_QR_UPLOAD: "Unggah QR",
+    PAYMENT_QR_VIEW: "Lihat QR",
     PAYMENT_TIMEOUT_EXPIRED: "Waktu pembayaran telah berakhir",
     PAY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
       "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan di bawah {{orderMinimumAmount}} USDC. Anda akan membayar {{deductedAmount}}",

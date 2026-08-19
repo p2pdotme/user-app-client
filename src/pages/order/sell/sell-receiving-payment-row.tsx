@@ -1,3 +1,4 @@
+import { getStoredQrPayload } from "@p2pdotme/sdk/country";
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,13 +10,11 @@ import {
   uploadsPaymentQR,
   usesPackedPaymentId,
 } from "@/lib/constants";
-import { getPeruQrPayload } from "@/lib/peru-qr";
-import { getVenQrPayload } from "@/lib/ven-qr";
 
 /**
  * Sell-order row for the user's receiving payment details.
- * Catalog fields (CCI, Yape/Plin phone, …) each get their own row, like CUP.
- * Packed currencies also show the uploaded QR. Never dumps the blob.
+ * Catalog fields each get their own row. Packed currencies also show the
+ * uploaded QR when the country flag allows it. Never dumps the blob.
  */
 export function SellReceivingPaymentRow({
   currency,
@@ -24,18 +23,15 @@ export function SellReceivingPaymentRow({
 }: {
   currency: CurrencyType | string;
   address: string | null | undefined;
-  /** i18n key for the payment method name (e.g. currency.paymentAddressName). */
   paymentAddressName: string;
 }) {
   const { t } = useTranslation();
   const addr = address?.trim() || "";
   const code = currency as CurrencyType;
   const packed = usesPackedPaymentId(code);
-  const penQr =
-    packed && uploadsPaymentQR(code) ? getPeruQrPayload(addr) : null;
-  const venQr = packed ? getVenQrPayload(addr) : null;
+  const qrValue =
+    packed && uploadsPaymentQR(code) ? getStoredQrPayload(code, addr) : null;
   const catalogParts = addr ? getPaymentIdDisplayParts(addr, code) : [];
-  const qrValue = venQr ?? penQr ?? "";
 
   if (qrValue || catalogParts.length > 0) {
     return (

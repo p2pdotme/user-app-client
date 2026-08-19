@@ -38,7 +38,6 @@ export function SellAddressesDrawer({
 
   // Create form with currency-aware validation
   const form = useForm<SellAddressFormData>({
-    // @ts-expect-error - resolver types are compatible but TypeScript has trouble with complex validation
     resolver: standardSchemaResolver(formSchema),
     defaultValues: {
       label: "",
@@ -197,7 +196,6 @@ export function SellAddressesDrawer({
             <AddressFormView
               key={page === "add" ? "add-address" : "edit-address"}
               page={page}
-              // @ts-expect-error - form is incompatible with SellAddressFormValues
               form={form}
               setPage={setPage}
               handleSave={handleSave}
