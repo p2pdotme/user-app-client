@@ -19,7 +19,7 @@ export const createSellAddressFormSchema = () => {
       id: z.string().optional(),
       label: z.string().min(1, { error: "Label is required" }),
       address: z.string().min(1, { error: "Payment details are required" }),
-      isActive: z.boolean().default(false),
+      isActive: z.boolean(),
     });
   }
   const currency = settingsResult.value.currency.currency;
@@ -32,7 +32,7 @@ export const createSellAddressFormSchema = () => {
       .refine((val) => validatePaymentAddress(val, currency), {
         error: "Invalid payment details format",
       }),
-    isActive: z.boolean().default(false),
+    isActive: z.boolean(),
   });
 };
 export type SellAddressFormData = z.infer<

@@ -4,11 +4,19 @@ import {
   type PaymentIdFieldConfig,
   COUNTRY_OPTIONS as SDK_COUNTRY_OPTIONS,
   PAYMENT_ID_FIELDS as SDK_PAYMENT_ID_FIELDS,
+  uploadsPaymentQR,
+  usesCatalogPaymentForm,
+  usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
 import type { Language } from "@/core/client/settings";
 import { getBaseDomain } from "./utils";
 
-export { CURRENCY };
+export {
+  CURRENCY,
+  uploadsPaymentQR,
+  usesCatalogPaymentForm,
+  usesPackedPaymentId,
+};
 export type { CurrencyType, PaymentIdFieldConfig };
 
 /**
@@ -292,7 +300,10 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     phone: "PLACEHOLDER_PAYMENT_ID_CUP",
     card: "PLACEHOLDER_CARD_NUMBER_CUP",
   },
-  PEN: { paymentId: "PLACEHOLDER_PAYMENT_ID_PEN" },
+  PEN: {
+    phone: "PERU_PHONE_PLACEHOLDER",
+    cci: "PERU_CCI_PLACEHOLDER",
+  },
   PHP: {
     phone: "PLACEHOLDER_PAYMENT_ID_PHP",
     "bank-name": "PLACEHOLDER_BANK_NAME_PHP",

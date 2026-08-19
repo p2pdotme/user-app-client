@@ -1,14 +1,7 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  AlertTriangle,
-  Copy,
-  ExternalLink,
-  Eye,
-  EyeOff,
-  Share,
-} from "lucide-react";
+import { AlertTriangle, ExternalLink, Share } from "lucide-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,6 +9,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { OnchainProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
@@ -261,38 +255,14 @@ export function BuyCompleted({ order }: { order: Order }) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_TO")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaymentAddress ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {decryptedPaymentAddress}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaymentAddress}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaymentAddress ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleCopy(decryptedPaymentAddress)}
-                    disabled={
-                      !decryptedPaymentAddress ||
-                      decryptedPaymentAddress === t("NOT_FOUND") ||
-                      decryptedPaymentAddress === t("SESSION_CHANGED")
-                    }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_TO"
+                paymentId={decryptedPaymentAddress}
+                currency={order.currency}
+                show={showPaymentAddress}
+                onToggleShow={togglePaymentAddress}
+                onCopy={handleCopy}
+              />
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("TRANSACTION_HASH")} </span>
