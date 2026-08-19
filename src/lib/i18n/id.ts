@@ -528,6 +528,9 @@ export const id = {
     ESTIMATED_TIME_RANGE: "2 - 5 menit",
     EXCHANGE_NOT_OPERATIONAL: "Pertukaran tidak beroperasi",
     EXPIRED: "Berakhir",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
+    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     EXTERNAL_WALLET: "Dompet Eksternal",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook hanya mendukung pembaruan RP",
     FAILED_SWAPS: "Pertukaran Gagal",
@@ -1241,6 +1244,7 @@ export const id = {
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Pesanan dengan status ditempatkan saja yang dapat ditetapkan ulang",
     OUT_OF_DENOMINATOR: "dari {{denominator}}",
+    P2P_ECOSYSTEM: "Ekosistem P2P",
     P2P_HOLDINGS: "Kepemilikan $P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Tanda Terima Transaksi P2P.me",
     P2P_ME_UNREACHABLE:
