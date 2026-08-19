@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import type { Address } from "viem";
 import ASSETS from "@/assets";
-import { Button, Button as ShadButton } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
   DrawerDescription,
@@ -52,11 +52,10 @@ export function AddressListView({
       </DrawerHeader>
       <section className="my-4 flex flex-col p-2">
         {/* P2P.me wallet (built-in) */}
-        <ShadButton
+        <button
           type="button"
-          variant="ghost"
           className={cn(
-            "flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-accent/50",
+            "flex w-full cursor-pointer items-center justify-between rounded-md p-2 text-left transition-colors hover:bg-accent/50",
             isActiveAddress("") ? "bg-primary/15" : "",
           )}
           onClick={() => handleSelectAddress("")}>
@@ -77,7 +76,7 @@ export function AddressListView({
               </p>
             </div>
           </div>
-        </ShadButton>
+        </button>
 
         {isLoading ? (
           <div className="flex items-center justify-center p-4">
@@ -87,16 +86,16 @@ export function AddressListView({
           addressBook?.addresses?.map((address) => (
             <div key={address.id}>
               <Separator className="my-2" />
-              <ShadButton
-                type="button"
-                variant="ghost"
+              <div
                 className={cn(
-                  "flex cursor-pointer items-center justify-between rounded-md p-2 transition-colors hover:bg-accent/50",
+                  "flex items-center justify-between rounded-md p-2 transition-colors hover:bg-accent/50",
                   isActiveAddress(address.id) ? "bg-primary/15" : "",
-                )}
-                onClick={() => handleSelectAddress(address.id)}>
-                <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
+                )}>
+                <button
+                  type="button"
+                  className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 text-left"
+                  onClick={() => handleSelectAddress(address.id)}>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20">
                     <span className="font-medium text-primary text-sm">
                       {getAvatarContent(address.label)}
                     </span>
@@ -109,17 +108,15 @@ export function AddressListView({
                       {truncateAddress(address.address)}
                     </p>
                   </div>
-                </div>
+                </button>
                 <Button
+                  type="button"
                   variant="ghost"
                   size="icon"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEditAddress(address);
-                  }}>
+                  onClick={() => handleEditAddress(address)}>
                   <Edit className="size-4 text-primary" />
                 </Button>
-              </ShadButton>
+              </div>
             </div>
           ))
         )}
