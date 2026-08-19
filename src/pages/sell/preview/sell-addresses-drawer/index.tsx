@@ -1,4 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AnimatePresence } from "motion/react";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -38,8 +38,7 @@ export function SellAddressesDrawer({
 
   // Create form with currency-aware validation
   const form = useForm<SellAddressFormData>({
-    // @ts-expect-error - zodResolver types are compatible but TypeScript has trouble with complex validation
-    resolver: zodResolver(formSchema),
+    resolver: standardSchemaResolver(formSchema),
     defaultValues: {
       label: "",
       address: "",
@@ -181,7 +180,7 @@ export function SellAddressesDrawer({
   return (
     <Drawer autoFocus={true}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="px-6 pb-6">
+      <DrawerContent className="max-h-[90dvh] overflow-hidden px-6 pb-[max(env(safe-area-inset-bottom),1.5rem)]">
         <DrawerClose ref={closeRef} className="hidden" />
         <AnimatePresence mode="wait" initial={false}>
           {page === "list" && (
@@ -197,7 +196,6 @@ export function SellAddressesDrawer({
             <AddressFormView
               key={page === "add" ? "add-address" : "edit-address"}
               page={page}
-              // @ts-expect-error - form is incompatible with SellAddressFormValues
               form={form}
               setPage={setPage}
               handleSave={handleSave}

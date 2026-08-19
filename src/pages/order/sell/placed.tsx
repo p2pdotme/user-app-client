@@ -26,6 +26,7 @@ import {
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
 import { SELL_FLOW_PROGRESS_TEXT } from "../shared";
+import { SellReceivingPaymentRow } from "./sell-receiving-payment-row";
 
 export function SellPlaced({ order }: { order: Order }) {
   const { t } = useTranslation();
@@ -160,14 +161,11 @@ export function SellPlaced({ order }: { order: Order }) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">
-                  {t("RECEIVING_PAYMENT_ADDRESS", {
-                    paymentAddressName: t(currency.paymentAddressName),
-                  })}{" "}
-                </span>
-                <span className="text-muted-foreground">{paidTo}</span>
-              </div>
+              <SellReceivingPaymentRow
+                currency={order.currency}
+                address={paidTo === t("NOT_FOUND") ? null : paidTo}
+                paymentAddressName={currency.paymentAddressName}
+              />
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("PAYMENT_DETAILS")} </span>
                 <span className="text-destructive">{t("NOT_SENT")}</span>

@@ -1,9 +1,9 @@
 import { ArrowLeftCircle, Clipboard, Trash2, X } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { PackedPaymentInput } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -17,13 +17,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useSettings } from "@/contexts/settings";
-import {
-  deserializeCompoundPaymentId,
-  getPaymentIdFields,
-  serializeCompoundPaymentId,
-} from "@/lib/compound-payment-id";
+import { getPaymentIdFields } from "@/lib/compound-payment-id";
+import { usesCatalogPaymentForm } from "@/lib/constants";
 import type { SellAddressesPage, SellAddressFormData } from "../shared";
-import { CURRENCY } from "@p2pdotme/sdk/country";
 
 interface AddressFormViewProps {
   page: SellAddressesPage;
@@ -46,44 +42,7 @@ export function AddressFormView({
   } = useSettings();
 
   const fields = getPaymentIdFields(currency.currency);
-  const isCompound = fields.length > 1;
-
-  // Compound payment ID local state — one entry per field
-  const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
-    () => {
-      if (!isCompound) return {};
-      const parts = deserializeCompoundPaymentId(
-        form.getValues("address") || "",
-      );
-      const initial: Record<string, string> = {};
-      fields.forEach((f, i) => {
-        initial[f.key] = parts[i] || "";
-      });
-      return initial;
-    },
-  );
-
-  // Sync compound local state to hidden address field
-  useEffect(() => {
-    if (!isCompound) return;
-    const values = fields.map((f) => compoundValues[f.key] || "");
-    if (values.some((v) => v.length > 0)) {
-      const serialized = serializeCompoundPaymentId(...values);
-      form.setValue("address", serialized, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    } else {
-      form.setValue("address", "", {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  }, [compoundValues, isCompound, form, fields]);
-
-  const updateCompoundValue = (key: string, value: string) => {
-    setCompoundValues((prev) => ({ ...prev, [key]: value.replace(/\|/g, "") }));
-  };
+  const catalogForm = usesCatalogPaymentForm(currency.currency);
 
   const handleClipboardPaste = async () => {
     try {
@@ -109,9 +68,8 @@ export function AddressFormView({
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0.5 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      layout
       className="w-full">
-      <DrawerHeader className="w-full text-center">
+      <DrawerHeader className="w-full shrink-0 text-center">
         <div className="flex w-full items-center justify-between">
           <Button variant="ghost" size="icon" onClick={() => setPage("list")}>
             <ArrowLeftCircle className="size-6" />
@@ -129,8 +87,10 @@ export function AddressFormView({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSave)}
-          className="space-y-6 px-4">
-          <section className="space-y-4">
+          className="space-y-6 px-4 pb-4">
+          <section
+            data-vaul-no-drag
+            className="max-h-[min(55dvh,calc(90dvh-14rem))] space-y-4 overflow-y-auto overscroll-contain">
             <FormField
               control={form.control}
               name="label"
@@ -148,44 +108,24 @@ export function AddressFormView({
               )}
             />
 
-            {isCompound ? (
-              <>
-                {fields.map((fieldConfig) => (
-                  <FormItem key={fieldConfig.key}>
-                    <FormLabel>{t(fieldConfig.label)}</FormLabel>
+            {catalogForm ? (
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t(currency.paymentAddressName)}</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={
-                          currency.currency === CURRENCY.NGN ||
-                          currency.currency === CURRENCY.CUP ||
-                          currency.currency === CURRENCY.PHP
-                            ? t(fieldConfig.placeholder)
-                            : t("ENTER_PAYMENT_DETAILS", {
-                                paymentAddressName: t(fieldConfig.label),
-                              })
-                        }
-                        value={compoundValues[fieldConfig.key] || ""}
-                        onChange={(e) =>
-                          updateCompoundValue(fieldConfig.key, e.target.value)
-                        }
+                      <PackedPaymentInput
+                        currency={currency.currency}
+                        value={field.value || ""}
+                        onChange={field.onChange}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
-                ))}
-                {/* Hidden field to carry the serialized value for form validation */}
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={() => (
-                    <FormItem>
-                      <FormControl>
-                        <input type="hidden" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
+                )}
+              />
             ) : (
               <FormField
                 control={form.control}
