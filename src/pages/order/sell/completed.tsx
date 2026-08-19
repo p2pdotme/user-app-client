@@ -1,7 +1,7 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import { Copy, Eye, EyeOff, Share } from "lucide-react";
+import { Share } from "lucide-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { RequestProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
 import { TipMerchantCard } from "@/components/tip-merchant-card";
@@ -54,10 +55,9 @@ export function SellCompleted({ order }: { order: Order }) {
   const [decryptedPaidBy, setDecryptedPaidBy] = useState<string | undefined>(
     undefined,
   );
-  const paidTo =
-    getPaymentAddressFromOrderDetails(order.id.toString()) || t("NOT_FOUND");
+  const storedPaidTo = getPaymentAddressFromOrderDetails(order.id.toString());
   const [showPaidBy, setShowPaidBy] = useState(false);
-  const [showPaidTo, setShowPaidTo] = useState(paidTo === t("NOT_FOUND"));
+  const [showPaidTo, setShowPaidTo] = useState(!storedPaidTo);
 
   // Track sell transaction completed view
   useEffect(() => {
@@ -231,71 +231,23 @@ export function SellCompleted({ order }: { order: Order }) {
                 </>
               )}
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_BY")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidBy ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {decryptedPaidBy}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidBy}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidBy ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleCopy(decryptedPaidBy, "PAID_BY")}
-                    disabled={
-                      !decryptedPaidBy ||
-                      decryptedPaidBy === t("NOT_FOUND") ||
-                      decryptedPaidBy === t("SESSION_CHANGED")
-                    }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_BY"
+                paymentId={decryptedPaidBy}
+                currency={order.currency}
+                show={showPaidBy}
+                onToggleShow={togglePaidBy}
+                onCopy={(value) => handleCopy(value, "PAID_BY")}
+              />
 
-              <div className="flex items-center justify-between">
-                <span className="font-medium">{t("PAID_TO")} </span>
-                <div className="flex min-w-0 items-center justify-end gap-2">
-                  <span
-                    className={`text-muted-foreground transition-all duration-200 ${!showPaidTo ? "select-none blur-sm" : ""} min-w-0 flex-1 truncate text-right`}>
-                    {paidTo}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={togglePaidTo}
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    {showPaidTo ? (
-                      <EyeOff className="size-4" />
-                    ) : (
-                      <Eye className="size-4" />
-                    )}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleCopy(paidTo)}
-                    disabled={
-                      !paidTo ||
-                      paidTo === t("NOT_FOUND") ||
-                      paidTo === t("SESSION_CHANGED")
-                    }
-                    className="export-screenshot-ignore size-4 p-0 text-muted-foreground transition-colors hover:text-foreground">
-                    <Copy className="size-4" />
-                  </Button>
-                </div>
-              </div>
+              <ReceiptPaymentIdField
+                labelKey="PAID_TO"
+                paymentId={storedPaidTo || t("NOT_FOUND")}
+                currency={order.currency}
+                show={showPaidTo}
+                onToggleShow={togglePaidTo}
+                onCopy={(value) => handleCopy(value, "PAID_TO")}
+              />
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("COMPLETED_IN")} </span>
