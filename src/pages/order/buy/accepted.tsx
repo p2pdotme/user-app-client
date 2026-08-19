@@ -328,7 +328,10 @@ export function BuyAccepted({ order }: { order: Order }) {
     ? getPaymentIdDisplayParts(decryptedPaymentAddress, order.currency)
     : [];
   const isMultiField = paymentIdFields.length > 1;
-  const hidePackedToRow = !!storedQr || catalogParts.length > 0;
+  // Hide the plain "To" row only when multi-field parts or a packed QR block
+  // already show the destination (INR single-field UPI must keep the To row).
+  const hidePackedToRow =
+    !!packedQr || (isMultiField && catalogParts.length > 0);
 
   const transfermovilQrValue =
     decryptedPaymentAddress && order.currency === "CUP"

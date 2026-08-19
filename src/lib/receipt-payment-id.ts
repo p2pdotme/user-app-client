@@ -1,10 +1,9 @@
 import {
   formatStoredPaymentIdForDisplay,
   getCountryOption,
-  getStoredQrPayload,
   unpackPackedPaymentId,
-  usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
+import { getDisplayQrPayload } from "@/lib/compound-payment-id";
 import type { CurrencyType } from "@/lib/constants";
 
 export type ReceiptPaymentIdDetails = {
@@ -26,9 +25,7 @@ export function formatReceiptPaymentId(
   if (!currency) return { display: value, copyValue: value, qr: null };
 
   const code = currency as CurrencyType;
-  const qr = usesPackedPaymentId(code)
-    ? (getStoredQrPayload(code, value) ?? null)
-    : null;
+  const qr = getDisplayQrPayload(code, value);
   const formatted = formatStoredPaymentIdForDisplay(code, value);
   if (formatted) {
     const { rest } = unpackPackedPaymentId(value);

@@ -493,6 +493,9 @@ export const en = {
     DURATION_HOURS: "{{count}} hours",
     DYNAMIC_QR_EXPIRES_QUICKLY: "Dynamic QR expires quickly",
     EARN_REFERRAL_BONUS: "Earn {{referralRewardPercentage}}% of their volume",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "This app runs on the P2P protocol. Discover more apps in the family.",
+    ECOSYSTEM_CARD_TITLE: "Explore the P2P App Store",
     ECU_BANK_DETAILS: "Bank Details",
     EDIT_PAYMENT_ADDRESS: "Edit Payment Address",
     EDIT_WALLET: "Edit wallet",
@@ -525,9 +528,6 @@ export const en = {
     ESTIMATED_TIME_RANGE: "2 - 5 min",
     EXCHANGE_NOT_OPERATIONAL: "Exchange not operational",
     EXPIRED: "Expired",
-    ECOSYSTEM_CARD_SUBTITLE:
-      "This app runs on the P2P protocol. Discover more apps in the family.",
-    ECOSYSTEM_CARD_TITLE: "Explore the P2P App Store",
     EXTERNAL_WALLET: "External Wallet",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook only supports RP updates",
     FAILED_SWAPS: "Failed Swaps",

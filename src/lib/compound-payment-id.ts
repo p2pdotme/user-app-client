@@ -14,6 +14,7 @@ import {
   serializeCompoundPaymentId,
   usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
+import { isPagoMovilQr } from "@p2pdotme/sdk/qr-parsers";
 import { PAYMENT_ID_FIELDS, type PaymentIdFieldConfig } from "@/lib/constants";
 
 export {
@@ -54,6 +55,23 @@ export function formatPaymentIdForDisplay(
 }
 
 /**
+ * Scannable QR payload for UI. SELL uses catalog `validateQr`; VEN PAY also
+ * accepts the looser Pago Móvil envelope (`base64?…`) so Scan & Pay never
+ * dumps the AES blob as text.
+ */
+export function getDisplayQrPayload(
+  currency: CurrencyType,
+  paymentId: string | null | undefined,
+): string | null {
+  if (!paymentId) return null;
+  const stored = getStoredQrPayload(currency, paymentId);
+  if (stored) return stored;
+  const trimmed = paymentId.trim();
+  if (currency === "VEN" && isPagoMovilQr(trimmed)) return trimmed;
+  return null;
+}
+
+/**
  * List/preview string for a stored payment ID. Never dumps a packed QR blob.
  */
 export function formatPaymentIdPreview(
@@ -62,7 +80,7 @@ export function formatPaymentIdPreview(
   t: (key: string) => string,
 ): string {
   const formatted = formatPaymentIdForDisplay(paymentId, currency);
-  const qr = getStoredQrPayload(currency, paymentId);
+  const qr = getDisplayQrPayload(currency, paymentId);
   const option = getCountryOption(currency);
   const qrLabel = option ? t(option.paymentAddressName) : "";
   if (qr && formatted && qrLabel) return `${qrLabel} · ${formatted}`;

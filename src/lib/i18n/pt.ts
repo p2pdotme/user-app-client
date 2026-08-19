@@ -503,6 +503,9 @@ export const pt = {
     DUPLICATE_PAYMENT_CHANNEL: "Canal de pagamento duplicado",
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinâmico expira rapidamente",
     EARN_REFERRAL_BONUS: "Ganhe {{referralRewardPercentage}}% do volume deles",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "Este app funciona no protocolo P2P. Descubra mais apps da família.",
+    ECOSYSTEM_CARD_TITLE: "Explore a loja de apps P2P",
     ECU_BANK_DETAILS: "Dados Bancários",
     EDIT_PAYMENT_ADDRESS: "Editar endereço de pagamento",
     EDIT_WALLET: "Editar carteira",
@@ -535,9 +538,6 @@ export const pt = {
     ESTIMATED_TIME_RANGE: "2 - 5 min",
     EXCHANGE_NOT_OPERATIONAL: "Câmbio não operacional",
     EXPIRED: "Expirado",
-    ECOSYSTEM_CARD_SUBTITLE:
-      "Este app funciona no protocolo P2P. Descubra mais apps da família.",
-    ECOSYSTEM_CARD_TITLE: "Explore a loja de apps P2P",
     EXTERNAL_WALLET: "Carteira Externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook só suporta atualizações de RP",
     FAILED_SWAPS: "Trocas Falhadas",

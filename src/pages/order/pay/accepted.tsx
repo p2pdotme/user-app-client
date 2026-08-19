@@ -157,7 +157,9 @@ export function PayAccepted({ order }: { order: Order }) {
       await setSellOrderUpiMutation.mutateAsync(
         {
           orderId: BigInt(order.id),
-          paymentAddress: qrString,
+          // VEN Pago Móvil: send the trimmed blob from parseQR, not the raw
+          // scanner string, so the merchant can re-encode a valid QR.
+          paymentAddress: order.currency === "VEN" ? paymentAddress : qrString,
           merchantPublicKey: order.pubkey,
           updatedAmount: parseUnits(updatedAmount.toString(), 6),
         },
@@ -185,6 +187,7 @@ export function PayAccepted({ order }: { order: Order }) {
       order.status,
       order.currency,
       order.amount,
+      order.fiatAmount,
       order.pubkey,
       isPriceConfigError,
       priceConfig?.sellPrice,

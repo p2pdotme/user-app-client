@@ -476,6 +476,8 @@ export const hi = {
     DUPLICATE_PAYMENT_CHANNEL: "डुप्लिकेट भुगतान चैनल",
     DYNAMIC_QR_EXPIRES_QUICKLY: "डायनामिक QR जल्दी एक्सपायर हो जाता है",
     EARN_REFERRAL_BONUS: "उनके वॉल्यूम का {{referralRewardPercentage}}% कमाएं",
+    ECOSYSTEM_CARD_SUBTITLE: "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
+    ECOSYSTEM_CARD_TITLE: "P2P ऐप स्टोर एक्सप्लोर करें",
     ECU_BANK_DETAILS: "बैंक विवरण",
     EDIT_PAYMENT_ADDRESS: "भुगतान पता संपादित करें",
     EDIT_WALLET: "वॉलेट संपादित करें",
@@ -506,9 +508,6 @@ export const hi = {
     ESTIMATED_TIME_RANGE: "2 - 5 मिनट",
     EXCHANGE_NOT_OPERATIONAL: "एक्सचेंज परिचालन में नहीं है",
     EXPIRED: "समाप्त",
-    ECOSYSTEM_CARD_SUBTITLE:
-      "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
-    ECOSYSTEM_CARD_TITLE: "P2P ऐप स्टोर एक्सप्लोर करें",
     EXTERNAL_WALLET: "बाहरी वॉलेट",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook केवल RP अपडेट का समर्थन करता है",
     FAILED_SWAPS: "विफल स्वैप",

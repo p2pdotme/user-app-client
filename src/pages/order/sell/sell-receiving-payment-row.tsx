@@ -1,15 +1,11 @@
-import { getStoredQrPayload } from "@p2pdotme/sdk/country";
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 import {
   formatPaymentIdForDisplay,
+  getDisplayQrPayload,
   getPaymentIdDisplayParts,
 } from "@/lib/compound-payment-id";
-import {
-  type CurrencyType,
-  uploadsPaymentQR,
-  usesPackedPaymentId,
-} from "@/lib/constants";
+import type { CurrencyType } from "@/lib/constants";
 
 /**
  * Sell-order row for the user's receiving payment details.
@@ -28,9 +24,7 @@ export function SellReceivingPaymentRow({
   const { t } = useTranslation();
   const addr = address?.trim() || "";
   const code = currency as CurrencyType;
-  const packed = usesPackedPaymentId(code);
-  const qrValue =
-    packed && uploadsPaymentQR(code) ? getStoredQrPayload(code, addr) : null;
+  const qrValue = getDisplayQrPayload(code, addr);
   const catalogParts = addr ? getPaymentIdDisplayParts(addr, code) : [];
 
   if (qrValue || catalogParts.length > 0) {

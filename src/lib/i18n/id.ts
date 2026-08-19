@@ -496,6 +496,9 @@ export const id = {
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinamis kedaluwarsa dengan cepat",
     EARN_REFERRAL_BONUS:
       "Dapatkan {{referralRewardPercentage}}% dari volume mereka",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
+    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     ECU_BANK_DETAILS: "Detail Bank",
     EDIT_PAYMENT_ADDRESS: "Edit Alamat Pembayaran",
     EDIT_WALLET: "Edit dompet",
@@ -528,9 +531,6 @@ export const id = {
     ESTIMATED_TIME_RANGE: "2 - 5 menit",
     EXCHANGE_NOT_OPERATIONAL: "Pertukaran tidak beroperasi",
     EXPIRED: "Berakhir",
-    ECOSYSTEM_CARD_SUBTITLE:
-      "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
-    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     EXTERNAL_WALLET: "Dompet Eksternal",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook hanya mendukung pembaruan RP",
     FAILED_SWAPS: "Pertukaran Gagal",
