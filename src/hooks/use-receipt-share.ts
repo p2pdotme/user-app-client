@@ -9,6 +9,7 @@ import {
   type ReceiptGeneratorOptions,
   transformOrderToReceipt,
 } from "@/lib/receipt-generator";
+import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 import { ShareService, shareService } from "@/lib/share-service";
 import { getPaymentAddressFromOrderDetails } from "@/lib/utils";
 
@@ -55,12 +56,20 @@ export function useReceiptShare({
               decrypted.error,
             );
           } else {
-            paymentFrom = decrypted.value;
+            paymentFrom = formatReceiptPaymentId(
+              decrypted.value,
+              order.currency,
+              t,
+            ).display;
           }
         }
 
         // Get local payment address
-        paymentTo = getPaymentAddressFromOrderDetails(order.id.toString());
+        paymentTo = formatReceiptPaymentId(
+          getPaymentAddressFromOrderDetails(order.id.toString()),
+          order.currency,
+          t,
+        ).display;
       } else if (order.orderType === "BUY") {
         // For BUY orders, decrypt merchant's payment address from encUpi
         if (order.encUpi) {
@@ -73,7 +82,11 @@ export function useReceiptShare({
               decrypted.error,
             );
           } else {
-            paymentTo = decrypted.value; // User pays TO the merchant
+            paymentTo = formatReceiptPaymentId(
+              decrypted.value,
+              order.currency,
+              t,
+            ).display;
           }
         }
       }

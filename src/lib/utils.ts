@@ -1,4 +1,5 @@
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
+import { validateStoredPaymentId } from "@p2pdotme/sdk/country";
 import { type ClassValue, clsx } from "clsx";
 import type { TFunction } from "i18next";
 import moment from "moment";
@@ -6,7 +7,6 @@ import type { NavigateFunction } from "react-router";
 import { twMerge } from "tailwind-merge";
 import { type Abi, decodeEventLog, formatUnits } from "viem";
 import { z } from "zod";
-import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 import { deserializeCompoundPaymentId } from "./compound-payment-id";
 import { CURRENCY_META_DATA, STORAGE_KEYS } from "./constants";
 
@@ -386,23 +386,7 @@ export function validatePaymentAddress(
   address: string,
   currency: string,
 ): boolean {
-  const fields = PAYMENT_ID_FIELDS[currency as CurrencyType];
-  if (!fields) return false;
-
-  if (fields.length === 1) {
-    if (!address || address.trim().length === 0) return false;
-    return fields[0].validate(address);
-  }
-
-  // Compound payment ID
-  const parts = deserializeCompoundPaymentId(address);
-  if (parts.length !== fields.length) return false;
-
-  return fields.every((field, i) => {
-    const value = parts[i];
-    if (!value || value.trim().length === 0) return false;
-    return field.validate(value);
-  });
+  return validateStoredPaymentId(currency as CurrencyType, address);
 }
 
 export function formatFiatAmount(
@@ -520,9 +504,12 @@ export function addLocalOrderPaymentDetails(
   );
 }
 
+/** Only IDR stores `GO_PAY:address`. Do not split on a raw colon — EMVCo QRs can contain `:`. */
+const ORDER_PAYMENT_METHOD_PREFIXES = ["GO_PAY"] as const;
+
 /**
  * Retrieves payment address, automatically handling prefixed and non-prefixed formats
- * - If stored with prefix: extracts address from "method:address" format
+ * - If stored with a known prefix: extracts address from "method:address" format
  * - If stored without prefix: returns address directly
  */
 export function getPaymentAddressFromOrderDetails(
@@ -535,15 +522,18 @@ export function getPaymentAddressFromOrderDetails(
 
   const storedDetail = orderPaymentDetails[orderId];
 
-  if (typeof storedDetail === "string") {
-    // If it contains a colon, extract the address part (everything after first colon), otherwise return as-is
-    const colonIndex = storedDetail.indexOf(":");
-    return colonIndex !== -1
-      ? storedDetail.substring(colonIndex + 1)
-      : storedDetail;
+  if (typeof storedDetail !== "string") {
+    return undefined;
   }
 
-  return undefined;
+  for (const method of ORDER_PAYMENT_METHOD_PREFIXES) {
+    const prefix = `${method}:`;
+    if (storedDetail.startsWith(prefix)) {
+      return storedDetail.substring(prefix.length);
+    }
+  }
+
+  return storedDetail;
 }
 
 /**
@@ -559,9 +549,14 @@ export function getPaymentMethodFromOrderDetails(
 
   const storedDetail = orderPaymentDetails[orderId];
 
-  // If it contains a colon, extract the method part, otherwise no method was stored
-  if (typeof storedDetail === "string" && storedDetail.includes(":")) {
-    return storedDetail.split(":")[0];
+  if (typeof storedDetail !== "string") {
+    return undefined;
+  }
+
+  for (const method of ORDER_PAYMENT_METHOD_PREFIXES) {
+    if (storedDetail.startsWith(`${method}:`)) {
+      return method;
+    }
   }
 
   return undefined;
@@ -779,7 +774,7 @@ export function buildPixBrCode(
       pixTlv("59", "PIX") +
       pixTlv("60", "BRASIL") +
       pixTlv("62", pixTlv("05", txid));
-    return body + "6304" + crc16(body + "6304");
+    return `${body}6304${crc16(`${body}6304`)}`;
   } catch {
     // Unrecognized/invalid key — render it raw so the copy field still helps.
     return pixKey;
@@ -893,7 +888,13 @@ export function calculateFee(
   return amount <= threshold ? fixedFee : 0;
 }
 export const isSyncedWithContract = (contractVersion: string) => {
-  if (!contractVersion) return true;
+  if (
+    !contractVersion ||
+    contractVersion === "vnull" ||
+    contractVersion === "null"
+  ) {
+    return true;
+  }
 
   const appContractVersion = import.meta.env.CONTRACT_VERSION;
   return appContractVersion === contractVersion;
