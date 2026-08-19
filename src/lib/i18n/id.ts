@@ -496,6 +496,9 @@ export const id = {
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinamis kedaluwarsa dengan cepat",
     EARN_REFERRAL_BONUS:
       "Dapatkan {{referralRewardPercentage}}% dari volume mereka",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
+    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     ECU_BANK_DETAILS: "Detail Bank",
     EDIT_PAYMENT_ADDRESS: "Edit Alamat Pembayaran",
     EDIT_WALLET: "Edit dompet",
@@ -528,9 +531,6 @@ export const id = {
     ESTIMATED_TIME_RANGE: "2 - 5 menit",
     EXCHANGE_NOT_OPERATIONAL: "Pertukaran tidak beroperasi",
     EXPIRED: "Berakhir",
-    ECOSYSTEM_CARD_SUBTITLE:
-      "Aplikasi ini berjalan di protokol P2P. Temukan lebih banyak aplikasi lainnya.",
-    ECOSYSTEM_CARD_TITLE: "Jelajahi App Store P2P",
     EXTERNAL_WALLET: "Dompet Eksternal",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook hanya mendukung pembaruan RP",
     FAILED_SWAPS: "Pertukaran Gagal",
@@ -1458,6 +1458,7 @@ export const id = {
     PIX_ID: "ID PIX",
     PLACED: "Ditempatkan",
     PLACEHOLDER_ACCOUNT_NAME_NGN: "Account name (e.g. Chinedu Okafor)",
+    PLACEHOLDER_ACCOUNT_NUMBER_BOB: "Nomor rekening bank (8–20 digit)",
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
@@ -1556,6 +1557,8 @@ export const id = {
     QR_DATA_EMPTY_OR_INVALID: "Data QR kosong atau tidak valid",
     QR_PARSED_SUCCESSFULLY: "QR berhasil diurai!",
     QR_PROCESSED: "QR diproses",
+    QR_SIMPLE: "QR Simple",
+    QR_SIMPLE_DETAILS: "Detail QR Simple",
     QUICK_APP_TOUR_BANNER_TITLE: "Tur Aplikasi Cepat",
     QUICK_FIXES: "Perbaikan Cepat",
     QUOTE_DETAILS: "Detail Quote",
