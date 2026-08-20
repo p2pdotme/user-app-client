@@ -2110,6 +2110,7 @@ export const es = {
       "El límite máximo es de {{limit}} USDC. Aumenta los límites para pagar más.",
     VALIDATION_MAXIMUM_SELL_LIMIT:
       "El límite máximo es de {{limit}} USDC. Aumenta los límites para vender más.",
+    VALIDATION_MINIMUM_ORDER: "El monto mínimo de la orden es {{amount}}.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Por favor, ingresa un monto",
     VALID_PROOF_NOT_FOUND: "No se encontró una prueba válida",
     VEN_NO_QR_ENTER_DETAILS: "¿No tienes QR? Ingresa teléfono, cédula y banco",

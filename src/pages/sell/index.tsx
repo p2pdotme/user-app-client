@@ -17,7 +17,10 @@ import {
   useUSDCBalance,
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { INTERNAL_HREFS } from "@/lib/constants";
+import {
+  INTERNAL_HREFS,
+  MIN_ORDER_FIAT_BY_CURRENCY,
+} from "@/lib/constants";
 import { calculateFee, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../order/help-drawer";
@@ -306,11 +309,19 @@ export function Sell() {
   const hasExceededLimit =
     Number(amount.crypto) > MAX_SELL_LIMIT && !!amount.crypto;
 
+  const minOrderFiat = MIN_ORDER_FIAT_BY_CURRENCY[currency.currency];
+  const isBelowMinimum =
+    minOrderFiat !== undefined &&
+    !!amount.fiat &&
+    Number(amount.fiat) > 0 &&
+    Number(amount.fiat) < minOrderFiat;
+
   const isContinueDisabled =
     !amount.crypto ||
     Number(amount.crypto) === 0 ||
     isSubmitting ||
     !!error ||
+    isBelowMinimum ||
     isPriceConfigLoading ||
     isTxLimitLoading ||
     isUsdcBalanceLoading;
@@ -357,6 +368,13 @@ export function Sell() {
               limit={txLimit?.sellLimit}
               hasExceededLimit={hasExceededLimit}
             />
+            {isBelowMinimum ? (
+              <p className="mt-3 text-center text-destructive text-sm">
+                {t("VALIDATION_MINIMUM_ORDER", {
+                  amount: `${currency.symbolNative} ${minOrderFiat}`,
+                })}
+              </p>
+            ) : null}
           </div>
         </section>
         <section className="flex h-[45%] w-full shrink-0 flex-col items-center gap-4">
