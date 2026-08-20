@@ -1,50 +1,27 @@
 /**
  * Generic utilities for compound payment IDs (multiple fields separated by "|").
- * Use this for any currency that requires more than one input (e.g. VEN: phone + RIF).
+ * Packed currencies (`qr||field|field`) go through the SDK catalog helpers.
  */
 
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
+import {
+  assignStoredPaymentIdToFieldValues,
+  deserializeCompoundPaymentId,
+  formatCompoundPaymentIdForDisplay,
+  formatStoredPaymentIdForDisplay,
+  getCountryOption,
+  getStoredQrPayload,
+  serializeCompoundPaymentId,
+  usesPackedPaymentId,
+} from "@p2pdotme/sdk/country";
+import { isPagoMovilQr } from "@p2pdotme/sdk/qr-parsers";
 import { PAYMENT_ID_FIELDS, type PaymentIdFieldConfig } from "@/lib/constants";
 
-/**
- * Serializes multiple fields into a pipe-separated string.
- * e.g. serializeCompoundPaymentId("04121234567", "V12345678") → "04121234567|V12345678"
- */
-export function serializeCompoundPaymentId(...fields: string[]): string {
-  return fields.join("|");
-}
-
-/**
- * Deserializes a pipe-separated payment ID into its component fields.
- * e.g. deserializeCompoundPaymentId("04121234567|V12345678") → ["04121234567", "V12345678"]
- */
-export function deserializeCompoundPaymentId(paymentId: string): string[] {
-  return paymentId.split("|");
-}
-
-/**
- * Formats a compound payment ID for display using optional labels.
- * Fields without a label are shown as-is, fields with a label are shown as "Label: value".
- *
- * e.g. formatCompoundPaymentIdForDisplay("04121234567|V12345678", [null, "RIF"])
- *      → "04121234567 | RIF: V12345678"
- */
-export function formatCompoundPaymentIdForDisplay(
-  paymentId: string,
-  labels: (string | null)[],
-): string {
-  const parts = deserializeCompoundPaymentId(paymentId);
-  return parts
-    .map((part, i) => (labels[i] ? `${labels[i]}: ${part}` : part))
-    .join(" | ");
-}
-
-/**
- * Returns whether the currency has a compound (multi-field) payment ID.
- */
-function isCompoundPaymentId(currency: CurrencyType): boolean {
-  return (PAYMENT_ID_FIELDS[currency]?.length ?? 0) > 1;
-}
+export {
+  deserializeCompoundPaymentId,
+  formatCompoundPaymentIdForDisplay,
+  serializeCompoundPaymentId,
+};
 
 /**
  * Returns the payment ID field configs for a currency.
@@ -65,18 +42,65 @@ export function getDisplayLabels(currency: CurrencyType): (string | null)[] {
 
 /**
  * Formats a payment ID for display using the currency's config.
- * For single-field currencies, returns the value as-is.
- * For compound currencies, formats with labels.
+ * Packed QR-only ids return "" so callers can substitute a label.
  */
 export function formatPaymentIdForDisplay(
   paymentId: string,
   currency: CurrencyType,
 ): string {
-  if (!isCompoundPaymentId(currency)) {
-    return paymentId;
-  }
-  return formatCompoundPaymentIdForDisplay(
-    paymentId,
-    getDisplayLabels(currency),
-  );
+  const formatted = formatStoredPaymentIdForDisplay(currency, paymentId);
+  if (formatted) return formatted;
+  if (usesPackedPaymentId(currency)) return "";
+  return paymentId;
+}
+
+/**
+ * Scannable QR payload for UI. SELL uses catalog `validateQr`; VEN PAY also
+ * accepts the looser Pago Móvil envelope (`base64?…`) so Scan & Pay never
+ * dumps the AES blob as text.
+ */
+export function getDisplayQrPayload(
+  currency: CurrencyType,
+  paymentId: string | null | undefined,
+): string | null {
+  if (!paymentId) return null;
+  const stored = getStoredQrPayload(currency, paymentId);
+  if (stored) return stored;
+  const trimmed = paymentId.trim();
+  if (currency === "VEN" && isPagoMovilQr(trimmed)) return trimmed;
+  return null;
+}
+
+/**
+ * List/preview string for a stored payment ID. Never dumps a packed QR blob.
+ */
+export function formatPaymentIdPreview(
+  paymentId: string,
+  currency: CurrencyType,
+  t: (key: string) => string,
+): string {
+  const formatted = formatPaymentIdForDisplay(paymentId, currency);
+  const qr = getDisplayQrPayload(currency, paymentId);
+  const option = getCountryOption(currency);
+  const qrLabel = option ? t(option.paymentAddressName) : "";
+  if (qr && formatted && qrLabel) return `${qrLabel} · ${formatted}`;
+  if (formatted) return formatted;
+  if (qr && qrLabel) return qrLabel;
+  return paymentId;
+}
+
+export function getPaymentIdDisplayParts(
+  paymentId: string,
+  currency: CurrencyType,
+): { key: string; label: string | null; labelKey: string; value: string }[] {
+  const fields = getPaymentIdFields(currency);
+  const values = assignStoredPaymentIdToFieldValues(currency, paymentId);
+  return fields
+    .map((field) => ({
+      key: field.key,
+      label: field.displayLabel,
+      labelKey: field.label,
+      value: values[field.key] || "",
+    }))
+    .filter((part) => part.value.length > 0);
 }

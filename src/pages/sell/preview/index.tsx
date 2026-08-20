@@ -17,7 +17,11 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
-import { DashedSeparator, NonHomeHeader } from "@/components";
+import {
+  DashedSeparator,
+  NonHomeHeader,
+  PackedPaymentInput,
+} from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
@@ -42,11 +46,13 @@ import {
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
+import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import {
-  getPaymentIdFields,
-  serializeCompoundPaymentId,
-} from "@/lib/compound-payment-id";
-import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
+  getFiatUnit,
+  INTERNAL_HREFS,
+  ORDER_TYPE,
+  usesCatalogPaymentForm,
+} from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
   addLocalOrderPaymentDetails,
@@ -107,12 +113,7 @@ export function SellPreview() {
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-  // Compound payment ID support (e.g. VEN: phone + RIF)
-  const paymentIdFields = getPaymentIdFields(currency.currency);
-  const isCompound = paymentIdFields.length > 1;
-  const [compoundValues, setCompoundValues] = useState<Record<string, string>>(
-    {},
-  );
+  const catalogForm = usesCatalogPaymentForm(currency.currency);
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
@@ -171,7 +172,6 @@ export function SellPreview() {
   const clearAddress = () => {
     setShowInput(true);
     setManualAddress("");
-    setCompoundValues({});
   };
 
   const handleManualAddressChange = (
@@ -179,21 +179,6 @@ export function SellPreview() {
   ) => {
     setManualAddress(e.target.value);
   };
-
-  const updateCompoundValue = (key: string, value: string) => {
-    setCompoundValues((prev) => ({ ...prev, [key]: value.replace(/\|/g, "") }));
-  };
-
-  // Sync compound values to manual address
-  useEffect(() => {
-    if (!isCompound) return;
-    const values = paymentIdFields.map((f) => compoundValues[f.key] || "");
-    if (values.some((v) => v.length > 0)) {
-      setManualAddress(serializeCompoundPaymentId(...values));
-    } else {
-      setManualAddress("");
-    }
-  }, [compoundValues, isCompound, paymentIdFields]);
 
   const handlePasteAddress = async () => {
     try {
@@ -319,7 +304,7 @@ export function SellPreview() {
   };
 
   return (
-    <>
+    <div className="flex h-full min-h-0 w-full flex-col">
       <HelpDrawer
         open={showHelpDrawer}
         onOpenChange={setShowHelpDrawer}
@@ -343,7 +328,7 @@ export function SellPreview() {
       />
       <main
         className={cn(
-          "no-scrollbar container-narrow flex h-full w-full flex-col items-center gap-8 overflow-y-auto py-8 transition-all duration-300",
+          "no-scrollbar container-narrow flex min-h-0 w-full flex-1 flex-col items-center gap-8 overflow-y-auto py-8 transition-all duration-300",
           isPlacingOrder && "pointer-events-none",
         )}>
         <section className="flex w-full items-start justify-start">
@@ -454,42 +439,15 @@ export function SellPreview() {
             ) : null}
             <CardContent className="flex flex-col gap-2">
               {showInput || hasNoSavedPaymentMethods ? (
-                isCompound ? (
-                  <div className="flex flex-col gap-2">
-                    {paymentIdFields.map((fieldConfig) => (
-                      <div
-                        key={fieldConfig.key}
-                        className="relative flex items-center gap-2">
-                        <Input
-                          className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
-                          placeholder={
-                            currency.currency === "NGN" ||
-                            currency.currency === "CUP" ||
-                            currency.currency === "PHP"
-                              ? t(fieldConfig.placeholder)
-                              : t("ENTER_PAYMENT_DETAILS", {
-                                  paymentAddressName: t(fieldConfig.label),
-                                })
-                          }
-                          value={compoundValues[fieldConfig.key] || ""}
-                          onChange={(e) =>
-                            updateCompoundValue(fieldConfig.key, e.target.value)
-                          }
-                        />
-                        {manualAddress &&
-                          fieldConfig ===
-                            paymentIdFields[paymentIdFields.length - 1] && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="absolute right-0"
-                              onClick={clearAddress}>
-                              <X className="size-4 text-primary" />
-                            </Button>
-                          )}
-                      </div>
-                    ))}
-                  </div>
+                catalogForm ? (
+                  <PackedPaymentInput
+                    currency={currency.currency}
+                    value={manualAddress}
+                    onChange={(payload) => {
+                      setManualAddress(payload);
+                      setShowInput(true);
+                    }}
+                  />
                 ) : (
                   <div className="relative flex items-center gap-2">
                     <Input
@@ -525,8 +483,12 @@ export function SellPreview() {
                     </div>
                     <div>
                       <p className="font-medium text-sm">{currentLabel}</p>
-                      <p className="font-light text-muted-foreground text-xs">
-                        {currentAddress}
+                      <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
+                        {formatPaymentIdPreview(
+                          currentAddress,
+                          currency.currency,
+                          t,
+                        )}
                       </p>
                     </div>
                   </div>
@@ -565,6 +527,6 @@ export function SellPreview() {
           )}
         </Button>
       </footer>
-    </>
+    </div>
   );
 }
