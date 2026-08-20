@@ -2014,6 +2014,7 @@ export const en = {
       "Maximum limit is {{limit}} USDC. Increase limits to pay more.",
     VALIDATION_MAXIMUM_SELL_LIMIT:
       "Maximum limit is {{limit}} USDC. Increase limits to sell more.",
+    VALIDATION_MINIMUM_ORDER: "Minimum order amount is {{amount}}.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Please enter an amount",
     VALID_PROOF_NOT_FOUND: "Valid proof not found",
     VEN_NO_QR_ENTER_DETAILS: "Don't have a QR? Enter phone, ID, and bank",
