@@ -11,7 +11,7 @@ const LOTPOT_UTM_QUERY = "?utm_source=p2p-cashback";
  * LotPot cashback rate (in percent) promised on BUY/SELL completion.
  * Defaults to 2%, with per-currency overrides for markets where the
  * backend issues a reduced credit (Argentina and Mexico at 1%) or none
- * at all (India and Venezuela at 0%). Keep this in sync with the
+ * at all (India, Venezuela and Bolivia at 0%). Keep this in sync with the
  * server-side issuance logic — the credit is issued server-side, so this
  * is a display-only mirror of that rule.
  */
@@ -21,6 +21,7 @@ const CASHBACK_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
   MEX: 1,
   INR: 0,
   VEN: 0,
+  BOB: 0,
 };
 
 export function getLotpotCashbackPercent(currency?: CurrencyType): number {
@@ -38,8 +39,8 @@ export function getLotpotCashbackPercent(currency?: CurrencyType): number {
  * waiting for an on-chain signal that won't arrive.
  *
  * The displayed rate is per currency (see getLotpotCashbackPercent): 2% by
- * default, 1% for Argentina (ARS) and Mexico (MEX), 0% for India (INR) and
- * Venezuela (VEN). Pass the order's currency so the card mirrors what the
+ * default, 1% for Argentina (ARS) and Mexico (MEX), 0% for India (INR),
+ * Venezuela (VEN) and Bolivia (BOB). Pass the order's currency so the card mirrors what the
  * backend actually credits.
  *
  * Markets on a 0% rate get no cashback, so the card is hidden entirely there.
