@@ -1967,6 +1967,7 @@ export const hi = {
       "अधिकतम लिमिट {{limit}} USDC है। अधिक USDC भुगतान करने के लिए लिमिट बढ़ाएं।",
     VALIDATION_MAXIMUM_SELL_LIMIT:
       "अधिकतम लिमिट {{limit}} USDC है। अधिक USDC बेचने के लिए लिमिट बढ़ाएं।",
+    VALIDATION_MINIMUM_ORDER: "न्यूनतम ऑर्डर राशि {{amount}} है।",
     VALIDATION_PLEASE_ENTER_AMOUNT: "कृपया राशि दर्ज करें",
     VALID_PROOF_NOT_FOUND: "मान्य प्रमाण नहीं मिला",
     VEN_NO_QR_ENTER_DETAILS: "QR नहीं है? फ़ोन, ID और बैंक दर्ज करें",

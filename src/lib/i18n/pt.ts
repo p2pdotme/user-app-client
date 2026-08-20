@@ -2068,6 +2068,7 @@ export const pt = {
       "Limite máximo é {{limit}} USDC. Aumente os limites para pagar mais.",
     VALIDATION_MAXIMUM_SELL_LIMIT:
       "Limite máximo é {{limit}} USDC. Aumente os limites para vender mais.",
+    VALIDATION_MINIMUM_ORDER: "O valor mínimo do pedido é {{amount}}.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Por favor, insira um valor",
     VALID_PROOF_NOT_FOUND: "Prova válida não encontrada",
     VEN_NO_QR_ENTER_DETAILS: "Não tem QR? Informe telefone, cédula e banco",

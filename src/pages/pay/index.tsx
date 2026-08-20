@@ -26,6 +26,7 @@ import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import {
   INTERNAL_HREFS,
+  MIN_ORDER_FIAT_BY_CURRENCY,
   ORDER_TYPE,
   PAY_DISABLED_CURRENCIES,
 } from "@/lib/constants";
@@ -420,11 +421,19 @@ export function Pay() {
   const hasExceededLimit =
     Number(amount.crypto) > MAX_PAY_LIMIT && !!amount.crypto;
 
+  const minOrderFiat = MIN_ORDER_FIAT_BY_CURRENCY[currency.currency];
+  const isBelowMinimum =
+    minOrderFiat !== undefined &&
+    !!amount.fiat &&
+    Number(amount.fiat) > 0 &&
+    Number(amount.fiat) < minOrderFiat;
+
   const isContinueDisabled =
     !amount.crypto ||
     Number(amount.crypto) === 0 ||
     isPlacingOrder ||
     !!error ||
+    isBelowMinimum ||
     isPriceConfigLoading ||
     isTxLimitLoading ||
     isUsdcBalanceLoading;
@@ -462,7 +471,8 @@ export function Pay() {
         className={cn(
           "no-scrollbar container-narrow flex h-full w-full flex-col items-center justify-between gap-2 overflow-hidden py-8",
           isPlacingOrder && "pointer-events-none",
-        )}>
+        )}
+      >
         <section className="no-scrollbar flex w-full flex-1 flex-col justify-between overflow-y-auto py-4">
           <PayNotesDrawer />
           <AmountDisplay
@@ -474,6 +484,13 @@ export function Pay() {
           />
 
           <div>
+            {isBelowMinimum ? (
+              <p className="my-2 text-center text-destructive text-sm">
+                {t("VALIDATION_MINIMUM_ORDER", {
+                  amount: `${currency.symbolNative} ${minOrderFiat}`,
+                })}
+              </p>
+            ) : null}
             <FlatfeeAlert
               amount={Number(amount.crypto)}
               show={showFlatFeeAlert}
@@ -500,7 +517,8 @@ export function Pay() {
         <Button
           className="w-full p-6"
           onClick={handlePlaceOrder}
-          disabled={isContinueDisabled}>
+          disabled={isContinueDisabled}
+        >
           {isPlacingOrder ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

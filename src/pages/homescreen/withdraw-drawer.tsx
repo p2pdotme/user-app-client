@@ -202,7 +202,6 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0.5 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      layout
       className="w-full">
       <DrawerHeader className="w-full text-center">
         <div className="flex w-full items-center justify-between">
@@ -221,7 +220,7 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
         </DrawerDescription>
       </DrawerHeader>
 
-      <section className="flex flex-col items-center gap-6 px-4">
+      <section className="flex max-h-[55vh] flex-col items-center gap-6 overflow-y-auto overscroll-contain px-4 pb-[60vh]">
         <div className="relative flex items-center justify-center gap-2">
           <ASSETS.ICONS.Usdc className="size-20 text-primary" />
           <ASSETS.ICONS.NetworkBase className="-right-1 absolute bottom-0 size-8 rounded-full border-4 border-background bg-background" />
@@ -245,6 +244,15 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
               placeholder="0.00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              onFocus={(e) => {
+                const el = e.currentTarget;
+                // Wait for the soft keyboard to open, then bring the field
+                // into view within the scrollable drawer body.
+                setTimeout(
+                  () => el.scrollIntoView({ block: "start", behavior: "smooth" }),
+                  300,
+                );
+              }}
               disabled={isLoading}
             />
             <p className="px-2 text-muted-foreground text-sm">
@@ -296,6 +304,13 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
               placeholder={"0x0000...0000"}
               value={recipientAddress}
               onChange={(e) => setRecipientAddress(e.target.value)}
+              onFocus={(e) => {
+                const el = e.currentTarget;
+                setTimeout(
+                  () => el.scrollIntoView({ block: "start", behavior: "smooth" }),
+                  300,
+                );
+              }}
               autoComplete="off"
               disabled={isLoading}
             />
