@@ -382,6 +382,8 @@ export const pt = {
       "Não foi possível criptografar o endereço de pagamento",
     COULD_NOT_ACCESS_CLIPBOARD:
       "Não foi possível acessar a área de transferência",
+    CUP_BANDEC_WARNING:
+      "BANDEC está com problemas, por isso sugerimos usar outros bancos para evitar disputas e atrasos em seus pedidos.",
     CURRENCY: "Moeda",
     CURRENCY_FILTER: "Moeda: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "Moeda não suportada",

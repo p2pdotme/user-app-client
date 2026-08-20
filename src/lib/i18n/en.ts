@@ -371,6 +371,8 @@ export const en = {
     COPY_TO_CLIPBOARD: "Copy to clipboard",
     COULDING_ENCRYPT_PAYMENT_ADDRESS: "Couldn't encrypt payment address",
     COULD_NOT_ACCESS_CLIPBOARD: "Could not access clipboard",
+    CUP_BANDEC_WARNING:
+      "BANDEC is having issues, so we suggest using other banks to avoid disputes and delays in your orders.",
     CURRENCY: "Currency",
     CURRENCY_FILTER: "Currency: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "Currency not supported",

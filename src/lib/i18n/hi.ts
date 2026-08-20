@@ -361,6 +361,8 @@ export const hi = {
     COPY_TO_CLIPBOARD: "क्लिपबोर्ड में कॉपी करें",
     COULDING_ENCRYPT_PAYMENT_ADDRESS: "भुगतान पते को एन्क्रिप्ट नहीं कर सका",
     COULD_NOT_ACCESS_CLIPBOARD: "क्लिपबोर्ड तक पहुंच नहीं हो सकी",
+    CUP_BANDEC_WARNING:
+      "BANDEC में समस्याएँ आ रही हैं, इसलिए विवादों और ऑर्डर में देरी से बचने के लिए हम अन्य बैंकों का उपयोग करने का सुझाव देते हैं।",
     CURRENCY: "मुद्रा",
     CURRENCY_FILTER: "मुद्रा: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "मुद्रा समर्थित नहीं है",

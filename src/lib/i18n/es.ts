@@ -388,6 +388,8 @@ export const es = {
     COULDING_ENCRYPT_PAYMENT_ADDRESS:
       "No se pudo encriptar la dirección de pago",
     COULD_NOT_ACCESS_CLIPBOARD: "No se pudo acceder al portapapeles",
+    CUP_BANDEC_WARNING:
+      "BANDEC está teniendo problemas, por lo que sugerimos utilizar otros bancos para evitar disputas y retrasos en sus órdenes.",
     CURRENCY: "Moneda",
     CURRENCY_FILTER: "Moneda: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "Moneda no soportada",
