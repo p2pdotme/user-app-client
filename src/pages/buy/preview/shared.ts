@@ -20,7 +20,7 @@ export const walletAddressFormSchema = z.object({
     .refine((val) => isAddress(val), {
       error: "Address must be a valid EVM address",
     }),
-  isActive: z.boolean().default(false),
+  isActive: z.boolean(),
 });
 
 export type WalletAddressFormData = z.infer<typeof walletAddressFormSchema>;
