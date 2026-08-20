@@ -2053,6 +2053,7 @@ export const id = {
       "Batas maksimum adalah {{limit}} USDC. Tingkatkan batas untuk membayar lebih banyak.",
     VALIDATION_MAXIMUM_SELL_LIMIT:
       "Batas maksimum adalah {{limit}} USDC. Tingkatkan batas untuk menjual lebih banyak.",
+    VALIDATION_MINIMUM_ORDER: "Jumlah pesanan minimum adalah {{amount}}.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Silakan masukkan jumlah",
     VALID_PROOF_NOT_FOUND: "Proof valid tidak ditemukan",
     VEN_NO_QR_ENTER_DETAILS:

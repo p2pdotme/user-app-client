@@ -256,6 +256,16 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   BOB: "BO",
 };
 
+/**
+ * Minimum order value expressed in the local fiat currency. Orders below this
+ * amount are blocked in the SELL and Scan & Pay flows. Currently only Indonesia
+ * (IDR) enforces a floor of Rp 1000.
+ */
+export const MIN_ORDER_FIAT_BY_CURRENCY: Partial<Record<CurrencyType, number>> =
+  {
+    IDR: 1000,
+  };
+
 export const CONNECTION_STATUS_TUTORIAL_LINK =
   "https://youtu.be/your-tutorial-link";
 
