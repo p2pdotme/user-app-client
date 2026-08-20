@@ -25,6 +25,7 @@ import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
+import { SellReceivingPaymentRow } from "../sell/sell-receiving-payment-row";
 import { PAY_FLOW_PROGRESS_TEXT } from "../shared";
 
 export function PayPaid({ order }: { order: Order }) {
@@ -166,18 +167,13 @@ export function PayPaid({ order }: { order: Order }) {
                   ) : null}
                 </span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="font-medium">
-                  {t("RECEIVING_PAYMENT_ADDRESS", {
-                    paymentAddressName: t(
-                      CURRENCY_META_DATA[order.currency].paymentAddressName,
-                    ),
-                  })}{" "}
-                </span>
-                <span className="ml-8 break-all text-muted-foreground">
-                  {paidTo}
-                </span>
-              </div>
+              <SellReceivingPaymentRow
+                currency={order.currency}
+                address={paidTo === t("NOT_FOUND") ? null : paidTo}
+                paymentAddressName={
+                  CURRENCY_META_DATA[order.currency].paymentAddressName
+                }
+              />
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("PAYMENT_DETAILS")} </span>
                 <span className="text-success">{t("SENT")}</span>

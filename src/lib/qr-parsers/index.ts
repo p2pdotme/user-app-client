@@ -1,6 +1,12 @@
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
-import type { ParsedQR, SupportedCurrency } from "@p2pdotme/sdk/qr-parsers";
-import { parseQR } from "@p2pdotme/sdk/qr-parsers";
+import { getCountryOption } from "@p2pdotme/sdk/country";
+import {
+  type ParsedQR,
+  parseQR,
+  QRParserError,
+  type SupportedCurrency,
+} from "@p2pdotme/sdk/qr-parsers";
+import { err } from "neverthrow";
 
 export type { ParsedQR, SupportedCurrency };
 
@@ -10,11 +16,24 @@ export async function parseQRData(
   sellPrice: number,
   orderId: string,
 ) {
-  return parseQR({
+  const parseResult = await parseQR({
     qrData,
     currency: currency as SupportedCurrency,
     sellPrice,
     proxyUrl: import.meta.env.VITE_PIX_PROXY_URL,
     orderId,
   });
+  if (parseResult.isErr()) return parseResult;
+
+  // Same catalog rule as SELL upload (PEN CRC, VEN merchantId). Lives here so
+  // a stale `@p2pdotme/sdk/qr-parsers` prebundle cannot accept a blob that
+  // `validateQr` already rejects.
+  const validateQr = getCountryOption(currency)?.validateQr;
+  if (validateQr && !validateQr(qrData.trim())) {
+    return err(
+      new QRParserError("Not a valid payment QR", { code: "INVALID_QR" }),
+    );
+  }
+
+  return parseResult;
 }
