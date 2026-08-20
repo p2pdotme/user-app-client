@@ -25,7 +25,7 @@ export async function parseQRData(
   });
   if (parseResult.isErr()) return parseResult;
 
-  // Same catalog rule as SELL upload (PEN CRC, VEN merchantId). Lives here so
+  // Same catalog rule as SELL upload (PEN CRC, VEN merchantId, BOB envelope). Lives here so
   // a stale `@p2pdotme/sdk/qr-parsers` prebundle cannot accept a blob that
   // `validateQr` already rejects.
   const validateQr = getCountryOption(currency)?.validateQr;
