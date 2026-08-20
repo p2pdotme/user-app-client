@@ -377,6 +377,8 @@ export const id = {
     COULDING_ENCRYPT_PAYMENT_ADDRESS:
       "Tidak dapat mengenkripsi alamat pembayaran",
     COULD_NOT_ACCESS_CLIPBOARD: "Tidak dapat mengakses clipboard",
+    CUP_BANDEC_WARNING:
+      "BANDEC sedang mengalami masalah, jadi kami sarankan menggunakan bank lain untuk menghindari sengketa dan keterlambatan pesanan.",
     CURRENCY: "Mata Uang",
     CURRENCY_FILTER: "Mata Uang: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "Mata uang tidak didukung",

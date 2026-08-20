@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { PackedPaymentInput } from "@/components";
+import { PackedPaymentInput, TransferWarningAlert } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -91,6 +91,7 @@ export function AddressFormView({
           <section
             data-vaul-no-drag
             className="max-h-[min(55dvh,calc(90dvh-14rem))] space-y-4 overflow-y-auto overscroll-contain">
+            <TransferWarningAlert currency={currency.currency} />
             <FormField
               control={form.control}
               name="label"
