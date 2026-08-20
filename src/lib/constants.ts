@@ -253,6 +253,7 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   PEN: "PE",
   ECU: "EC",
   CUP: "CU",
+  BOB: "BO",
 };
 
 /**
@@ -298,6 +299,7 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     rif: "PLACEHOLDER_RIF",
     bank: "PLACEHOLDER_BANK",
   },
+  BOB: { account: "PLACEHOLDER_ACCOUNT_NUMBER_BOB" },
   USD: { revolut: "PLACEHOLDER_PAYMENT_ID_USD" },
   EUR: { revolut: "PLACEHOLDER_PAYMENT_ID_USD" },
   NGN: {
