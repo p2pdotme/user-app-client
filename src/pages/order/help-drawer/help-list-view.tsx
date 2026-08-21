@@ -16,29 +16,43 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
-import type { Order } from "@/core/adapters/thirdweb/validation";
+import type { DisputeStatus, Order } from "@/core/adapters/thirdweb/validation";
 import { cn } from "@/lib/utils";
 import { canRaiseDispute, getDisputeTimeRemaining } from "./utils";
 
 interface HelpListViewProps {
   order?: Order;
   orderType?: "BUY" | "SELL" | "PAY";
+  disputeStatus?: DisputeStatus;
   onRaiseDispute: () => void;
   onBrowseHelpCenter: () => void;
   onOrderTypeFAQs: () => void;
   onChatWithUs: () => void;
+  onOpenDisputeChat?: () => void;
 }
 
 export function HelpListView({
   order,
   orderType,
+  disputeStatus,
   onRaiseDispute,
   onBrowseHelpCenter,
   onOrderTypeFAQs,
   onChatWithUs,
+  onOpenDisputeChat,
 }: HelpListViewProps) {
   const { t } = useTranslation();
   const canDispute = order ? canRaiseDispute(order) : false;
+  // Exactly one of the two rows renders whenever there is an order. The chat
+  // row needs a dispute AND a handler, because without one it would lead
+  // nowhere. Everything else falls through to the normal "Raise a Dispute"
+  // row, including a disputed order whose gate is shut, where that row shows
+  // in its usual disabled form. Deriving both conditions from one boolean is
+  // what keeps them complementary. Two hand-written conditions drift and
+  // leave a state where neither renders.
+  const hasDispute = Boolean(disputeStatus && disputeStatus !== "DEFAULT");
+  const isSettled = disputeStatus === "SETTLED";
+  const showDisputeChatRow = Boolean(order && hasDispute && onOpenDisputeChat);
   const { timeRemaining, canRaiseNow } = order
     ? getDisputeTimeRemaining(order, t)
     : { timeRemaining: "", canRaiseNow: false };
@@ -71,8 +85,55 @@ export function HelpListView({
       </DrawerHeader>
 
       <div className="space-y-2">
+        {/* Dispute chat - replaces the raise row once a dispute exists */}
+        {showDisputeChatRow && (
+          <>
+            <Button
+              variant="ghost"
+              className="flex h-fit w-full cursor-pointer items-start gap-4 rounded-lg p-4 transition-colors hover:bg-accent/50"
+              onClick={onOpenDisputeChat}>
+              <div
+                className={cn(
+                  "flex size-12 shrink-0 items-center justify-center rounded-lg",
+                  isSettled ? "bg-primary/10" : "bg-destructive/10",
+                )}>
+                <MessageCircle
+                  className={cn(
+                    "size-6",
+                    isSettled ? "text-primary" : "text-destructive",
+                  )}
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-left font-medium text-base">
+                    {isSettled
+                      ? t("DISPUTE_RESOLVED_CHAT_TITLE")
+                      : t("DISPUTE_RAISED_CHAT_TITLE")}
+                  </h3>
+                  <span
+                    className={cn(
+                      "size-2 shrink-0 rounded-full",
+                      isSettled ? "bg-primary" : "bg-destructive",
+                    )}
+                  />
+                </div>
+                <p className="text-left font-light text-muted-foreground text-sm">
+                  {isSettled
+                    ? t("DISPUTE_RESOLVED_CHAT_DESCRIPTION")
+                    : t("DISPUTE_RAISED_CHAT_DESCRIPTION")}
+                </p>
+              </div>
+            </Button>
+
+            <div className="px-4">
+              <Separator className="bg-primary/10" />
+            </div>
+          </>
+        )}
+
         {/* Raise a Dispute - Only show when order exists */}
-        {order && (
+        {order && !showDisputeChatRow && (
           <>
             <Button
               variant="ghost"

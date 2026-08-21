@@ -472,6 +472,12 @@ export const id = {
     DISPUTE_FILTER: "Sengketa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Sengketa tidak diajukan",
     DISPUTE_RAISED: "Diajukan",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Hubungi tim dukungan kami. Mereka akan meninjau dan membalas di sini.",
+    DISPUTE_RAISED_CHAT_TITLE: "Sengketa dibuka",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Lihat percakapan Anda dengan dukungan. Percakapan ini hanya bisa dibaca.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Sengketa selesai",
     DISPUTE_SETTLED: "Diselesaikan",
     DISPUTE_STATUS: "Status Sengketa",
     DISPUTE_SUBMISSION_FAILED: "Gagal mengirim sengketa",
