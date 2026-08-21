@@ -6,14 +6,20 @@ import { toast } from "sonner";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { useSettings } from "@/contexts";
 import type { Order } from "@/core/adapters/thirdweb/validation";
-import { useHapticInteractions, useRaiseDispute } from "@/hooks";
+import {
+  useHapticInteractions,
+  useRaiseDispute,
+  useSupportSigner,
+} from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { getSupportBridgeUrl } from "@/lib/support-bridge";
 import { SUPPORT_PAGE_TITLES } from "../../help/constants";
+import { ChatView } from "./chat-view";
 import { DisputeConfirmationView } from "./dispute-confirmation-view";
 import { DisputeFormView } from "./dispute-form-view";
 import { HelpListView } from "./help-list-view";
 
-export type HelpPage = "list" | "dispute-confirm" | "dispute-form";
+export type HelpPage = "list" | "dispute-confirm" | "dispute-form" | "chat";
 
 export function HelpDrawer({
   open,
@@ -39,6 +45,19 @@ export function HelpDrawer({
     onNavigate,
   } = useHapticInteractions();
   const { raiseDisputeMutation } = useRaiseDispute();
+  const supportSigner = useSupportSigner();
+  const bridgeUrl = getSupportBridgeUrl();
+
+  // The bridge only has a conversation once a dispute exists — the Chatwoot
+  // threads are created by its OrderDispute chain listener, nothing else. Ask
+  // for a thread before that and sign-in returns `conversation_not_ready`,
+  // leaving a composer that silently cannot send. So gate the in-app chat on an
+  // existing dispute (plus bridge url + wallet + order); otherwise "Chat with
+  // us" keeps its existing Telegram behaviour.
+  const hasDispute = order ? order.disputeInfo.status !== "DEFAULT" : false;
+  const canChatInApp = Boolean(
+    bridgeUrl && supportSigner && order && hasDispute,
+  );
 
   const handleRaiseDispute = () => {
     triggerWarningHaptic(); // Warning haptic for dispute action
@@ -102,6 +121,12 @@ export function HelpDrawer({
 
   const handleChatWithUs = () => {
     onNavigate(); // Navigation haptic for chat
+    // Prefer the in-app signed support chat (Chatwoot bridge) when available;
+    // fall back to the Telegram support channel otherwise.
+    if (canChatInApp) {
+      setPage("chat");
+      return;
+    }
     onOpenChange(false);
     window.open(
       currency.telegramSupportChannel,
@@ -151,6 +176,19 @@ export function HelpDrawer({
               isSubmitting={raiseDisputeMutation.isPending}
             />
           )}
+          {page === "chat" &&
+            canChatInApp &&
+            order &&
+            supportSigner &&
+            bridgeUrl && (
+              <ChatView
+                key="support-chat"
+                orderId={order.id}
+                signer={supportSigner}
+                bridgeUrl={bridgeUrl}
+                onBack={handleCancel}
+              />
+            )}
         </AnimatePresence>
       </DrawerContent>
     </Drawer>
