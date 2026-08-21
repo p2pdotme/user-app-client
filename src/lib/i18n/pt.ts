@@ -480,6 +480,12 @@ export const pt = {
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa não aberta",
     DISPUTE_RAISED: "Levantada",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Converse com nossa equipe de suporte. Eles vão analisar e responder aqui.",
+    DISPUTE_RAISED_CHAT_TITLE: "Disputa aberta",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Veja sua conversa com o suporte. Esta conversa é somente leitura.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Disputa resolvida",
     DISPUTE_SETTLED: "Resolvida",
     DISPUTE_STATUS: "Status da Disputa",
     DISPUTE_SUBMISSION_FAILED: "Falha ao enviar disputa",

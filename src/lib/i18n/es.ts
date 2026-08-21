@@ -485,6 +485,12 @@ export const es = {
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa no abierta",
     DISPUTE_RAISED: "Abierta",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Chatea con nuestro equipo de soporte. Lo revisarán y te responderán aquí.",
+    DISPUTE_RAISED_CHAT_TITLE: "Disputa abierta",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Consulta tu conversación con soporte. Este hilo es de solo lectura.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Disputa resuelta",
     DISPUTE_SETTLED: "Resuelta",
     DISPUTE_STATUS: "Estado de la Disputa",
     DISPUTE_SUBMISSION_FAILED: "Error al enviar la disputa",
