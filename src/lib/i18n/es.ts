@@ -401,6 +401,8 @@ export const es = {
       "Límite diario de pedidos de compra excedido",
     DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED:
       "Límite diario de colocación de pedidos de compra excedido",
+    DAILY_SELL_ORDER_PLACEMENT_LIMIT_EXCEEDED:
+      "Límite diario de colocación de pedidos de venta excedido",
     DAILY_VOLUME_LIMIT_EXCEEDED: "Límite de volumen diario excedido",
     DATE: "Fecha",
     DATE_AND_TIME: "Fecha y Hora",
