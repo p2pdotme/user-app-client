@@ -1414,10 +1414,9 @@ export const en = {
     PAYMENT_QR_FALLBACK_HINT:
       "Enter the details below in case they cannot scan the QR",
     PAYMENT_QR_INVALID: "This doesn't look like a valid payment QR",
-    PAYMENT_QR_OPTIONAL: "QR is optional — they can pay by scanning",
     PAYMENT_QR_READ_ERROR: "Couldn't read that QR — try another image",
     PAYMENT_QR_REMOVE: "Remove QR",
-    PAYMENT_QR_REMOVE_HINT: "Remove the QR to enter details instead",
+    PAYMENT_QR_REMOVE_HINT: "Removing the QR does not clear the details below",
     PAYMENT_QR_UPLOAD: "Upload QR",
     PAYMENT_QR_VIEW: "View QR",
     PAYMENT_TIMEOUT_EXPIRED: "Payment time has expired",
@@ -1454,11 +1453,7 @@ export const en = {
     PERU_QR_CHANGE: "Change QR",
     PERU_QR_DECODING: "Reading QR…",
     PERU_QR_DETECTED: "QR detected",
-    PERU_QR_FALLBACK_HINT:
-      "Required: CCI and/or Yape/Plin phone in case they cannot scan the QR",
     PERU_QR_INVALID_QR: "This doesn't look like a valid Yape/Plin QR",
-    PERU_QR_OPTIONAL_QR:
-      "QR is optional — they can pay by scanning Yape or Plin",
     PERU_QR_READ_ERROR: "Couldn't read that QR — try another image",
     PERU_QR_UPLOAD: "Upload QR",
     PERU_QR_UPLOAD_HINT: "Tap to select a QR image from your device",
@@ -2029,10 +2024,7 @@ export const en = {
     VEN_QR_CONFIRM: "Confirm this is your Pago Móvil QR",
     VEN_QR_DECODING: "Reading QR…",
     VEN_QR_DETECTED: "QR detected",
-    VEN_QR_FALLBACK_HINT:
-      "Required: phone, ID, and bank in case they cannot scan the QR",
     VEN_QR_INVALID_QR: "This doesn't look like a valid Pago Móvil QR",
-    VEN_QR_OPTIONAL_QR: "QR is optional — so they can pay by scanning",
     VEN_QR_READ_ERROR: "Couldn't read that QR — try another image",
     VEN_QR_UPLOAD: "Upload QR",
     VEN_QR_UPLOAD_HINT: "Tap to select the QR from your bank app",
