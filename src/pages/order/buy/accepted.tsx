@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
-import { CircleCountdownTimer, OrderProgress } from "@/components";
+import {
+  CircleCountdownTimer,
+  OrderProgress,
+  TransferWarningAlert,
+} from "@/components";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -460,7 +464,8 @@ export function BuyAccepted({ order }: { order: Order }) {
           currentStepKey={order.status}
         />
 
-        <div className="mx-4 pb-2">
+        <div className="mx-4 flex flex-col gap-2 pb-2">
+          <TransferWarningAlert currency={order.currency} />
           <Alert variant="warning" className="w-full">
             <AlertTriangle className="size-4" />
             <AlertDescription className="flex w-full items-center justify-between text-xs">
