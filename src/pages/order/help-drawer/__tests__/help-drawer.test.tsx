@@ -1,6 +1,6 @@
 import { screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { makeDisputedOrder } from "@/test/factories";
+import { makeDisputedOrder, makeOrder } from "@/test/factories";
 import { renderWithProviders } from "@/test/render";
 import { mockActiveAccount, mockActiveWalletChain } from "@/test/thirdweb";
 import { HelpDrawer } from "../index";
@@ -30,6 +30,9 @@ vi.mock("@/hooks/use-raise-dispute", () => ({
 describe("HelpDrawer chat page", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
+    // Undoes the fetch stub the first test below installs with
+    // vi.stubGlobal, or it would leak into every later test in this file.
+    vi.unstubAllGlobals();
     // clearAllMocks in src/test/setup.ts clears call history but leaves a spy
     // installed, so a failing assertion before a manual mockRestore would leak
     // the stub into every later test in this file.
@@ -42,10 +45,18 @@ describe("HelpDrawer chat page", () => {
     // chat page before the gate closes; support-bridge.ts reads it lazily at
     // call time for exactly this reason.
     vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    // The chat page below mounts the real, unmocked UserSupportPanel, which
+    // signs itself in against the bridge on mount. Stub fetch so this unit
+    // suite never makes a real outbound request; nothing here asserts on
+    // that request or its response.
+    vi.stubGlobal("fetch", () =>
+      Promise.reject(new Error("no network in tests")),
+    );
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
       signMessage: async () => "0xsignature",
     });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
 
     const order = makeDisputedOrder();
     const { rerender } = renderWithProviders(
@@ -75,6 +86,10 @@ describe("HelpDrawer chat page", () => {
     // is unambiguous exactly once the list has exited, and seeing it proves the
     // lazy chunk resolved and ChatView mounted with a defined account.
     await screen.findByText("Get assistance with P2P-ing");
+
+    // The in-app chat page opened, so the Telegram fallback must not have
+    // fired alongside it.
+    expect(open).not.toHaveBeenCalled();
 
     mockActiveAccount(undefined);
     rerender(<HelpDrawer open onOpenChange={() => {}} order={order} />);
@@ -134,5 +149,43 @@ describe("HelpDrawer chat page", () => {
 
     expect(open).toHaveBeenCalledTimes(1);
     expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("keeps the Telegram fallback when no bridge url is set", () => {
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={makeDisputedOrder()} />,
+    );
+    expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
+    expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
+    screen.getByText("Chat with us").click();
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the chat row off the list for an undisputed order even with a bridge url", () => {
+    // The bridge url and wallet alone are not enough to open in-app chat.
+    // Without an actual dispute, hasDispute must keep the gate shut and the
+    // list must keep its ordinary "Raise a Dispute" row instead of the
+    // dispute chat row.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={makeOrder()} />,
+    );
+
+    expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
+    expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
+
+    screen.getByText("Chat with us").click();
+    expect(open).toHaveBeenCalledTimes(1);
   });
 });
