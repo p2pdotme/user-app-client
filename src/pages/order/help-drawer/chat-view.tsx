@@ -1,8 +1,12 @@
-import type { SupportSigner } from "@p2pdotme/widgets/support";
-import { UserSupportPanel } from "@p2pdotme/widgets/support";
+import {
+  fromThirdwebAccount,
+  UserSupportPanel,
+} from "@p2pdotme/widgets/support";
 import { ArrowLeftCircle } from "lucide-react";
 import { motion } from "motion/react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import type { Account } from "thirdweb/wallets";
 import { Button } from "@/components/ui/button";
 import {
   DrawerDescription,
@@ -12,18 +16,39 @@ import {
 
 interface ChatViewProps {
   orderId: string;
-  signer: SupportSigner;
+  account: Account;
+  chainId: number;
   bridgeUrl: string;
   onBack: () => void;
 }
 
 export function ChatView({
   orderId,
-  signer,
+  account,
+  chainId,
   bridgeUrl,
   onBack,
 }: ChatViewProps) {
   const { t } = useTranslation();
+
+  // Built here rather than in a hook so that @p2pdotme/widgets/support is
+  // imported by exactly one module, which is lazily loaded. A hook in
+  // src/hooks would be re-exported through the barrel that auth-guard pulls
+  // in, and the whole widget would land in the entry chunk again.
+  //
+  // No fallback chain id. The adapter throws rather than guess when it cannot
+  // resolve one, and the caller already refuses to render this component
+  // until the wallet reports a chain, so an unresolved chain means Telegram
+  // rather than a sign-in message claiming a chain the wallet is not on.
+  const signer = useMemo(
+    () =>
+      fromThirdwebAccount({
+        address: account.address,
+        getChain: () => ({ id: chainId }),
+        signMessage: (args) => account.signMessage(args),
+      }),
+    [account, chainId],
+  );
 
   return (
     <motion.div
