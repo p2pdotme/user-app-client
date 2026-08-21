@@ -391,7 +391,7 @@ export const id = {
     DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED:
       "Batas penempatan pesanan beli harian terlampaui",
     DAILY_SELL_ORDER_PLACEMENT_LIMIT_EXCEEDED:
-      "Batas penempatan pesanan harian terlampaui",
+      "Batas penempatan pesanan jual/bayar harian terlampaui",
     DAILY_VOLUME_LIMIT_EXCEEDED: "Batas volume harian terlampaui",
     DATE: "Tanggal",
     DATE_AND_TIME: "Tanggal & Waktu",

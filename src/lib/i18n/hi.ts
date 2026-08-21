@@ -374,7 +374,7 @@ export const hi = {
     DAILY_BUY_ORDER_PLACEMENT_LIMIT_EXCEEDED:
       "दैनिक खरीद ऑर्डर प्लेसमेंट सीमा पार हो गई",
     DAILY_SELL_ORDER_PLACEMENT_LIMIT_EXCEEDED:
-      "दैनिक ऑर्डर प्लेसमेंट सीमा पार हो गई",
+      "दैनिक बिक्री/भुगतान ऑर्डर प्लेसमेंट सीमा पार हो गई",
     DAILY_VOLUME_LIMIT_EXCEEDED: "दैनिक वॉल्यूम सीमा पार हो गई",
     DATE: "तारीख",
     DATE_AND_TIME: "तारीख और समय",
