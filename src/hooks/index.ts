@@ -33,6 +33,7 @@ export * from "./use-rewards-config";
 export * from "./use-sell-address-book";
 export * from "./use-sounds";
 export * from "./use-support-chat";
+export * from "./use-support-signer";
 export * from "./use-task-ledger";
 export * from "./use-thirdweb";
 export * from "./use-tx-limits";
