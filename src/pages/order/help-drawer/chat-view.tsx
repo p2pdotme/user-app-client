@@ -1,5 +1,6 @@
 import {
   fromThirdwebAccount,
+  themeToCssVars,
   UserSupportPanel,
 } from "@p2pdotme/widgets/support";
 import { ArrowLeftCircle } from "lucide-react";
@@ -13,6 +14,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { SUPPORT_THEME } from "@/lib/support-theme";
 
 interface ChatViewProps {
   orderId: string;
@@ -74,7 +76,9 @@ export function ChatView({
         </div>
       </DrawerHeader>
 
-      <div className="h-[60svh] px-4 pb-2">
+      <div
+        className="h-[60svh] px-4 pb-2"
+        style={themeToCssVars(SUPPORT_THEME)}>
         <UserSupportPanel
           orderId={orderId}
           signer={signer}
