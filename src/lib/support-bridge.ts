@@ -12,7 +12,3 @@ export function getSupportBridgeUrl(): string | undefined {
   const url = import.meta.env.VITE_SUPPORT_BRIDGE_URL as string | undefined;
   return url || undefined;
 }
-
-// Free-form slug tagged on tickets so ops can tell which integrating app an
-// order came from.
-export const SUPPORT_ORIGIN_APP = "user-app";
