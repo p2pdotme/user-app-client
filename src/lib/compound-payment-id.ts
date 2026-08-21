@@ -10,11 +10,10 @@ import {
   formatCompoundPaymentIdForDisplay,
   formatStoredPaymentIdForDisplay,
   getCountryOption,
-  getStoredQrPayload,
+  getPayQrPayload,
   serializeCompoundPaymentId,
   usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
-import { isPagoMovilQr } from "@p2pdotme/sdk/qr-parsers";
 import { PAYMENT_ID_FIELDS, type PaymentIdFieldConfig } from "@/lib/constants";
 
 export {
@@ -50,25 +49,21 @@ export function formatPaymentIdForDisplay(
 ): string {
   const formatted = formatStoredPaymentIdForDisplay(currency, paymentId);
   if (formatted) return formatted;
-  if (usesPackedPaymentId(currency)) return "";
+  if (usesPackedPaymentId(currency) || getPayQrPayload(currency, paymentId)) {
+    return "";
+  }
   return paymentId;
 }
 
 /**
- * Scannable QR payload for UI. SELL uses catalog `validateQr`; VEN PAY also
- * accepts the looser Pago Móvil envelope (`base64?…`) so Scan & Pay never
- * dumps the AES blob as text.
+ * Scannable QR payload for UI. Strict SELL upload first, then the country's
+ * PAY hook (VEN envelope, PEN without CRC, PHP QR Ph).
  */
 export function getDisplayQrPayload(
   currency: CurrencyType,
   paymentId: string | null | undefined,
 ): string | null {
-  if (!paymentId) return null;
-  const stored = getStoredQrPayload(currency, paymentId);
-  if (stored) return stored;
-  const trimmed = paymentId.trim();
-  if (currency === "VEN" && isPagoMovilQr(trimmed)) return trimmed;
-  return null;
+  return getPayQrPayload(currency, paymentId);
 }
 
 /**
