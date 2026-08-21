@@ -42,18 +42,20 @@ export function SellReceivingPaymentRow({
             </div>
           </div>
         ) : null}
-        {catalogParts.map((part) => (
-          <div
-            key={part.key}
-            className="flex items-center justify-between gap-2">
-            <span className="text-muted-foreground text-xs">
-              {t(part.labelKey)}
-            </span>
-            <span className="max-w-[55%] truncate text-right text-xs">
-              {part.value}
-            </span>
-          </div>
-        ))}
+        {catalogParts
+          .filter((part) => !qrValue || part.value !== qrValue)
+          .map((part) => (
+            <div
+              key={part.key}
+              className="flex items-center justify-between gap-2">
+              <span className="text-muted-foreground text-xs">
+                {t(part.labelKey)}
+              </span>
+              <span className="max-w-[55%] truncate text-right text-xs">
+                {part.value}
+              </span>
+            </div>
+          ))}
       </div>
     );
   }

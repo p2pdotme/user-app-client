@@ -377,6 +377,8 @@ export const id = {
     COULDING_ENCRYPT_PAYMENT_ADDRESS:
       "Tidak dapat mengenkripsi alamat pembayaran",
     COULD_NOT_ACCESS_CLIPBOARD: "Tidak dapat mengakses clipboard",
+    CUP_BANDEC_WARNING:
+      "BANDEC sedang mengalami masalah, jadi kami sarankan menggunakan bank lain untuk menghindari sengketa dan keterlambatan pesanan.",
     CURRENCY: "Mata Uang",
     CURRENCY_FILTER: "Mata Uang: {{currencies}}",
     CURRENCY_NOT_SUPPORTED: "Mata uang tidak didukung",
@@ -472,6 +474,12 @@ export const id = {
     DISPUTE_FILTER: "Sengketa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Sengketa tidak diajukan",
     DISPUTE_RAISED: "Diajukan",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Hubungi tim dukungan kami. Mereka akan meninjau dan membalas di sini.",
+    DISPUTE_RAISED_CHAT_TITLE: "Sengketa dibuka",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Lihat percakapan Anda dengan dukungan. Percakapan ini hanya bisa dibaca.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Sengketa selesai",
     DISPUTE_SETTLED: "Diselesaikan",
     DISPUTE_STATUS: "Status Sengketa",
     DISPUTE_SUBMISSION_FAILED: "Gagal mengirim sengketa",
@@ -1434,10 +1442,9 @@ export const id = {
     PAYMENT_QR_FALLBACK_HINT:
       "Isi data di bawah jika mereka tidak bisa memindai QR",
     PAYMENT_QR_INVALID: "Ini tidak terlihat seperti QR pembayaran yang valid",
-    PAYMENT_QR_OPTIONAL: "QR opsional — mereka bisa bayar dengan memindai",
     PAYMENT_QR_READ_ERROR: "QR tidak bisa dibaca — coba gambar lain",
     PAYMENT_QR_REMOVE: "Hapus QR",
-    PAYMENT_QR_REMOVE_HINT: "Hapus QR untuk mengisi data",
+    PAYMENT_QR_REMOVE_HINT: "Menghapus QR tidak menghapus data di bawah",
     PAYMENT_QR_UPLOAD: "Unggah QR",
     PAYMENT_QR_VIEW: "Lihat QR",
     PAYMENT_TIMEOUT_EXPIRED: "Waktu pembayaran telah berakhir",
@@ -1475,11 +1482,7 @@ export const id = {
     PERU_QR_CHANGE: "Ganti QR",
     PERU_QR_DECODING: "Membaca QR…",
     PERU_QR_DETECTED: "QR terdeteksi",
-    PERU_QR_FALLBACK_HINT:
-      "Wajib: CCI dan/atau nomor Yape/Plin jika QR tidak bisa dipindai",
     PERU_QR_INVALID_QR: "Ini bukan QR Yape/Plin yang valid",
-    PERU_QR_OPTIONAL_QR:
-      "QR opsional — agar bisa dibayar dengan memindai Yape/Plin",
     PERU_QR_READ_ERROR: "Tidak dapat membaca QR itu — coba gambar lain",
     PERU_QR_UPLOAD: "Unggah QR",
     PERU_QR_UPLOAD_HINT: "Ketuk untuk memilih gambar QR dari perangkat",
@@ -2064,10 +2067,7 @@ export const id = {
     VEN_QR_CONFIRM: "Konfirmasi ini QR Pago Móvil Anda",
     VEN_QR_DECODING: "Membaca QR…",
     VEN_QR_DETECTED: "QR terdeteksi",
-    VEN_QR_FALLBACK_HINT:
-      "Wajib: telepon, cédula, dan bank jika QR tidak bisa dipindai",
     VEN_QR_INVALID_QR: "Ini tidak tampak seperti QR Pago Móvil yang valid",
-    VEN_QR_OPTIONAL_QR: "QR opsional — agar bisa dibayar dengan memindai",
     VEN_QR_READ_ERROR: "Tidak dapat membaca QR itu — coba gambar lain",
     VEN_QR_UPLOAD: "Unggah QR",
     VEN_QR_UPLOAD_HINT: "Ketuk untuk memilih QR dari aplikasi bank",

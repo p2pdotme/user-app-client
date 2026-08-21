@@ -81,6 +81,9 @@ export default ({ mode }: { mode: string }) => {
         "@p2pdotme/sdk/qr-parsers": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/qr-parsers.mjs"),
         "@p2pdotme/sdk/zkkyc": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/zkkyc.mjs"),
         "@p2pdotme/sdk": path.resolve(__dirname, "node_modules/@p2pdotme/sdk/dist/index.mjs"),
+        // Must sit above the "@p2pdotme" -> ./src/core/p2pdotme catch-all below,
+        // which would otherwise resolve this to src/core/p2pdotme/widgets/support.
+        "@p2pdotme/widgets/support": path.resolve(__dirname, "node_modules/@p2pdotme/widgets/dist/support.js"),
         "@reclaimprotocol/js-sdk": path.resolve(__dirname, "node_modules/@reclaimprotocol/js-sdk"),
         "@": path.resolve(__dirname, "./src"),
         "@p2pdotme": path.resolve(__dirname, "./src/core/p2pdotme"),

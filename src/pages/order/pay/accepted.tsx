@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { parseUnits } from "viem";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress, QrScanner } from "@/components";
+import { TransferWarningAlert } from "@/components/transfer-warning-alert";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -360,6 +361,10 @@ export function PayAccepted({ order }: { order: Order }) {
             })()}
           </CardFooter>
         </Card>
+        <TransferWarningAlert
+          currency={order.currency}
+          className="mx-4 w-[calc(100%-2rem)]"
+        />
         <Alert
           variant="default"
           className="mx-4 w-[calc(100%-2rem)] border-none bg-primary/10 p-3 shadow-none">
