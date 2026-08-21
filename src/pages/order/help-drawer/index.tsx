@@ -191,6 +191,9 @@ export function HelpDrawer({
               isSubmitting={raiseDisputeMutation.isPending}
             />
           )}
+          {/* canChatInApp already implies all four. They are repeated
+              because a boolean does not narrow the optional types for
+              TypeScript. */}
           {page === "chat" &&
             canChatInApp &&
             order &&
