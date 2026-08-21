@@ -22,6 +22,7 @@ import ASSETS from "@/assets";
 import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
+import { TransferWarningAlert } from "@/components/transfer-warning-alert";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -562,6 +563,7 @@ export function BuyPreview() {
           ) : null}
 
           <p className="font-medium text-md">{t("RECEIVING_WALLET_ADDRESS")}</p>
+          <TransferWarningAlert currency={currency.currency} />
           <Alert variant="warning">
             <AlertTriangle className="size-4" />
             <AlertTitle>
