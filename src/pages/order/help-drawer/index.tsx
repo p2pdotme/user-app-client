@@ -1,23 +1,26 @@
 import { AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { useActiveAccount, useActiveWalletChain } from "thirdweb/react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { useSettings } from "@/contexts";
 import type { Order } from "@/core/adapters/thirdweb/validation";
-import {
-  useHapticInteractions,
-  useRaiseDispute,
-  useSupportSigner,
-} from "@/hooks";
+import { useHapticInteractions, useRaiseDispute } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { getSupportBridgeUrl } from "@/lib/support-bridge";
 import { SUPPORT_PAGE_TITLES } from "../../help/constants";
-import { ChatView } from "./chat-view";
 import { DisputeConfirmationView } from "./dispute-confirmation-view";
 import { DisputeFormView } from "./dispute-form-view";
 import { HelpListView } from "./help-list-view";
+
+// Loaded on demand so the support widget stays out of the entry chunk. Only a
+// disputed order with a connected wallet ever reaches it. Mirrors how
+// src/lib/support-chat.ts defers the AI widget.
+const ChatView = lazy(() =>
+  import("./chat-view").then((m) => ({ default: m.ChatView })),
+);
 
 export type HelpPage = "list" | "dispute-confirm" | "dispute-form" | "chat";
 
@@ -45,7 +48,8 @@ export function HelpDrawer({
     onNavigate,
   } = useHapticInteractions();
   const { raiseDisputeMutation } = useRaiseDispute();
-  const supportSigner = useSupportSigner();
+  const account = useActiveAccount();
+  const activeChain = useActiveWalletChain();
   const bridgeUrl = getSupportBridgeUrl();
 
   // The bridge creates a conversation only from its OrderDispute chain
@@ -56,7 +60,7 @@ export function HelpDrawer({
   // an order, and keep the Telegram fallback for everything else.
   const hasDispute = order ? order.disputeInfo.status !== "DEFAULT" : false;
   const canChatInApp = Boolean(
-    bridgeUrl && supportSigner && order && hasDispute,
+    bridgeUrl && account && activeChain && order && hasDispute,
   );
 
   // The chat page is the only branch keyed on page === "chat". If the gate
@@ -188,15 +192,18 @@ export function HelpDrawer({
           {page === "chat" &&
             canChatInApp &&
             order &&
-            supportSigner &&
+            account &&
+            activeChain &&
             bridgeUrl && (
-              <ChatView
-                key="support-chat"
-                orderId={order.id}
-                signer={supportSigner}
-                bridgeUrl={bridgeUrl}
-                onBack={handleCancel}
-              />
+              <Suspense key="support-chat" fallback={null}>
+                <ChatView
+                  orderId={order.id}
+                  account={account}
+                  chainId={activeChain.id}
+                  bridgeUrl={bridgeUrl}
+                  onBack={handleCancel}
+                />
+              </Suspense>
             )}
         </AnimatePresence>
       </DrawerContent>
