@@ -10,6 +10,7 @@ import { NonHomeHeader, NumpadInput } from "@/components";
 import FlatfeeAlert from "@/components/flat-fee-alert";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
+import { TransferWarningAlert } from "@/components/transfer-warning-alert";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { getFeeConfig } from "@/core/fees";
@@ -393,6 +394,7 @@ export function Pay() {
     track,
     denomination,
     checkContractSync,
+    priceConfig?.sellPrice,
   ]);
 
   const handleRetry = () => window.location.reload();
@@ -475,6 +477,11 @@ export function Pay() {
       >
         <section className="no-scrollbar flex w-full flex-1 flex-col justify-between overflow-y-auto py-4">
           <PayNotesDrawer />
+          <TransferWarningAlert
+            currency={currency.currency}
+            className="mt-2"
+            density="compact"
+          />
           <AmountDisplay
             amount={amount}
             denomination={denomination}

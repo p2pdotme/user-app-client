@@ -21,6 +21,7 @@ import {
   DashedSeparator,
   NonHomeHeader,
   PackedPaymentInput,
+  TransferWarningAlert,
 } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
@@ -416,6 +417,7 @@ export function SellPreview() {
             </>
           ) : null}
           <p className="font-medium text-md">{t("CONFIRM_PAYMENT_DETAILS")}</p>
+          <TransferWarningAlert currency={currency.currency} />
           <Card className="w-full gap-0 border-none bg-primary/10 shadow-none">
             {(showInput && manualAddress) || addressBook?.active ? (
               <div className="-translate-x-2 -translate-y-4 w-fit bg-background">
