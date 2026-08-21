@@ -1,5 +1,5 @@
 import { AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -48,16 +48,25 @@ export function HelpDrawer({
   const supportSigner = useSupportSigner();
   const bridgeUrl = getSupportBridgeUrl();
 
-  // The bridge only has a conversation once a dispute exists — the Chatwoot
-  // threads are created by its OrderDispute chain listener, nothing else. Ask
-  // for a thread before that and sign-in returns `conversation_not_ready`,
-  // leaving a composer that silently cannot send. So gate the in-app chat on an
-  // existing dispute (plus bridge url + wallet + order); otherwise "Chat with
-  // us" keeps its existing Telegram behaviour.
+  // The bridge creates a conversation only from its OrderDispute chain
+  // listener, so before a dispute exists there is no thread to open. Asking
+  // early is handled, the widget surfaces an error rather than failing
+  // silently, but there is no point sending someone to a panel that can only
+  // say that. So gate on an existing dispute plus a bridge url, a wallet and
+  // an order, and keep the Telegram fallback for everything else.
   const hasDispute = order ? order.disputeInfo.status !== "DEFAULT" : false;
   const canChatInApp = Boolean(
     bridgeUrl && supportSigner && order && hasDispute,
   );
+
+  // The chat page is the only branch keyed on page === "chat". If the gate
+  // closes while it is open, for instance the wallet session drops, no branch
+  // matches and the drawer renders an empty sheet with no way back.
+  useEffect(() => {
+    if (page === "chat" && !canChatInApp) {
+      setPage("list");
+    }
+  }, [page, canChatInApp]);
 
   const handleRaiseDispute = () => {
     triggerWarningHaptic(); // Warning haptic for dispute action
