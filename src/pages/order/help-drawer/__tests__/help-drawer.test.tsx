@@ -58,8 +58,16 @@ describe("HelpDrawer chat page", () => {
     // instant setPage runs. Wait for the list-only content to be gone before
     // dropping the wallet, or the drop lands before the gate ever opened and
     // the test proves nothing.
+    //
+    // The marker has to be list-only AND has to survive every state the list
+    // can be in for this order. "Raise a Dispute" fails the second half: this
+    // order is disputed and the gate is open, so the list swaps that row for
+    // the dispute chat row and the string is never on screen at all. The wait
+    // would then resolve on its first tick with the list still up. Browse Help
+    // Center renders unconditionally in help-list-view and appears nowhere in
+    // chat-view, so it goes away exactly when the list does.
     await waitFor(() => {
-      expect(screen.queryByText("Raise a Dispute")).not.toBeInTheDocument();
+      expect(screen.queryByText("Browse Help Center")).not.toBeInTheDocument();
     });
 
     // ChatView is lazy, so the wait above only proves the list left, not that
@@ -74,6 +82,26 @@ describe("HelpDrawer chat page", () => {
     await waitFor(() => {
       expect(screen.getByText("Help & Support")).toBeInTheDocument();
     });
+  });
+
+  it("shows the dispute chat row on the list once the gate is open", () => {
+    // The only test of the wiring in index.tsx,
+    // onOpenDisputeChat={canChatInApp ? handleChatWithUs : undefined}.
+    // help-list-view.test.tsx passes that prop by hand, so nothing there can
+    // tell whether the drawer actually supplies it. This is the line that
+    // decides whether any real user ever sees the row.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={() => {}} order={makeDisputedOrder()} />,
+    );
+
+    expect(screen.getByText("Dispute raised")).toBeInTheDocument();
+    expect(screen.queryByText("Raise a Dispute")).not.toBeInTheDocument();
   });
 
   it("sends chat to Telegram when the wallet reports no chain", () => {

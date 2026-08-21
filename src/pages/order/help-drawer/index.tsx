@@ -165,10 +165,12 @@ export function HelpDrawer({
               key="help-list"
               order={order}
               orderType={orderType}
+              disputeStatus={order?.disputeInfo.status}
               onRaiseDispute={handleRaiseDispute}
               onBrowseHelpCenter={handleBrowseHelpCenter}
               onOrderTypeFAQs={handleOrderTypeFAQs}
               onChatWithUs={handleChatWithUs}
+              onOpenDisputeChat={canChatInApp ? handleChatWithUs : undefined}
             />
           )}
           {page === "dispute-confirm" && (
