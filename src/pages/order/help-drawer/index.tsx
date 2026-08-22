@@ -212,6 +212,7 @@ export function HelpDrawer({
               <Suspense key="support-chat" fallback={null}>
                 <ChatView
                   orderId={order.id}
+                  isSettled={order.disputeInfo.status === "SETTLED"}
                   account={account}
                   chainId={activeChain.id}
                   bridgeUrl={bridgeUrl}

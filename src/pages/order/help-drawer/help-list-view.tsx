@@ -242,7 +242,11 @@ export function HelpListView({
           variant="outline"
           className="w-full gap-2 p-6"
           onClick={onChatOnTelegram}>
-          <ASSETS.ICONS.Telegram className="size-4" />
+          {/* size-5, not size-4: telegram.tsx has a non-square viewBox
+              (0 0 23 18) and no preserveAspectRatio, so size-4 renders ~12.5px
+              tall with a 0.84px stroke — a hairline beside the dispute row's
+              icon above. size-5 matches social-links.tsx. */}
+          <ASSETS.ICONS.Telegram className="size-5" />
           {t("CHAT_ON_TELEGRAM")}
         </Button>
       </div>
