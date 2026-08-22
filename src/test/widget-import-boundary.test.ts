@@ -82,6 +82,31 @@ describe("widget import boundary (source-level proxy for the bundle split)", () 
     expect(valueImporters).toEqual(["pages/order/help-drawer/chat-view.tsx"]);
   });
 
+  it("reaches chat-view.tsx only through a dynamic import", () => {
+    // The assertion above says WHO imports the widget, never HOW that importer
+    // is reached. Turning the lazy() below into a static
+    // `import { ChatView } from "./chat-view"` puts the whole widget back in
+    // the entry chunk while the value-importer test stays green, because
+    // chat-view.tsx is still the only file naming the package. This is the
+    // half that actually holds the split.
+    const source = readFileSync(
+      path.join(SRC_ROOT, "pages/order/help-drawer/index.tsx"),
+      "utf8",
+    );
+
+    expect(
+      /lazy\(\s*\(\)\s*=>\s*import\(\s*["']\.\/chat-view["']/.test(source),
+      "help-drawer/index.tsx must load ./chat-view through lazy(() => import(...)); a static import pulls @p2pdotme/widgets into the entry chunk",
+    ).toBe(true);
+
+    expect(
+      /(?:import|export)\s+(?!type\s)[^;]*?from\s*["']\.\/chat-view["']/.test(
+        source,
+      ),
+      "help-drawer/index.tsx must not also import ./chat-view statically",
+    ).toBe(false);
+  });
+
   it("imports the widget in lib/support-theme.ts with a type-only import", () => {
     const file = "lib/support-theme.ts";
     const kinds = widgetImportKinds(
