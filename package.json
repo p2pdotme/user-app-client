@@ -13,7 +13,9 @@
     "check": "biome check --write .",
     "preview": "vite preview",
     "prepare": "husky",
-    "i18n:sort": "bun run scripts/sort-i18n.mts"
+    "i18n:sort": "bun run scripts/sort-i18n.mts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "2.23.5",
@@ -67,18 +69,23 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.2",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.2",
+    "@testing-library/user-event": "14.6.5",
     "@types/node": "22.15.2",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "@vite-pwa/assets-generator": "1.0.0",
     "@vitejs/plugin-react-swc": "3.8.0",
     "husky": "9.1.7",
+    "jsdom": "30.0.1",
     "lint-staged": "16.1.0",
     "tw-animate-css": "1.2.8",
     "typescript": "~5.7.2",
     "vite": "6.3.1",
     "vite-plugin-node-polyfills": "0.24.0",
-    "vite-plugin-pwa": "1.1.0"
+    "vite-plugin-pwa": "1.1.0",
+    "vitest": "3.2.7"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,cts,mts,tsx,jsx,json,css,md}": [
