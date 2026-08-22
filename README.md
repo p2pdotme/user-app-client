@@ -136,6 +136,7 @@ Copy `.env.example` to `.env`. Every variable is documented in that file. The ta
 | `VITE_FINGERPRINTJS_API_KEY` | Device fingerprinting | FingerprintJS Pro |
 | `VITE_SENTRY_DSN` | Error tracking | Sentry error and performance monitoring |
 | `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` | Dynamic proxy | Supabase edge function used as a Dynamic Labs API proxy |
+| `VITE_SUPPORT_BRIDGE_URL` | In-app support chat | Chatwoot bridge for the per-order signed chat on a disputed order, e.g. `https://support.p2p.me/bridge`. Build-time only. Unset leaves the drawer on its Telegram button alone |
 
 ### Branding (for forks)
 

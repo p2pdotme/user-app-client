@@ -295,6 +295,7 @@ export const en = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
+    CHAT_ON_TELEGRAM: "Chat on Telegram",
     CHAT_SUPPORT_COMING_SOON: "Chat support is coming soon",
     CHAT_WITH_US: "Chat with us",
     CHECKING_WALLET_CONNECTION: "Checking wallet connection...",
@@ -469,6 +470,12 @@ export const en = {
     DISPUTE_FILTER: "Dispute: {{disputes}}",
     DISPUTE_NOT_RAISED: "Dispute not raised",
     DISPUTE_RAISED: "Raised",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Chat with our support team. They will review and reply here.",
+    DISPUTE_RAISED_CHAT_TITLE: "Dispute raised",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "View your conversation with support. This thread is read only.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Dispute resolved",
     DISPUTE_SETTLED: "Settled",
     DISPUTE_STATUS: "Dispute Status",
     DISPUTE_SUBMISSION_FAILED: "Failed to submit dispute",

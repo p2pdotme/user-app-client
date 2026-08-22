@@ -302,6 +302,7 @@ export const pt = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Se o seu endereço de recebimento é uma CEX, pode levar algum tempo para aparecer. Entre em contato com o suporte da sua CEX se estiver demorando muito.",
     CHANGE_DNS: "Alterar DNS",
+    CHAT_ON_TELEGRAM: "Converse no Telegram",
     CHAT_SUPPORT_COMING_SOON: "Suporte por chat em breve",
     CHAT_WITH_US: "Chat com a gente",
     CHECKING_WALLET_CONNECTION: "Verificando conexão da carteira...",
@@ -482,6 +483,12 @@ export const pt = {
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa não aberta",
     DISPUTE_RAISED: "Levantada",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Converse com nossa equipe de suporte. Eles vão analisar e responder aqui.",
+    DISPUTE_RAISED_CHAT_TITLE: "Disputa aberta",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Veja sua conversa com o suporte. Esta conversa é somente leitura.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Disputa resolvida",
     DISPUTE_SETTLED: "Resolvida",
     DISPUTE_STATUS: "Status da Disputa",
     DISPUTE_SUBMISSION_FAILED: "Falha ao enviar disputa",
