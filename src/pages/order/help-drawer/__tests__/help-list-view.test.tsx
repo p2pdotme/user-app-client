@@ -10,7 +10,7 @@ describe("HelpListView dispute row", () => {
     onRaiseDispute: noop,
     onBrowseHelpCenter: noop,
     onOrderTypeFAQs: noop,
-    onChatWithUs: noop,
+    onChatOnTelegram: noop,
   };
 
   // HelpListView renders DrawerClose, DrawerTitle and DrawerDescription with
@@ -48,6 +48,42 @@ describe("HelpListView dispute row", () => {
     expect(screen.queryByText("Raise a Dispute")).not.toBeInTheDocument();
     screen.getByText("Dispute raised").click();
     expect(onOpenDisputeChat).toHaveBeenCalledOnce();
+  });
+
+  it("offers Telegram alongside the in-app chat, not instead of it", () => {
+    // The invariant this locks: the two channels are siblings, not
+    // alternatives. Before this, one button routed either in-app or to
+    // Telegram depending on the gate, so a disputed order whose in-app
+    // sign-in failed had no visible way to reach support at all.
+    const onChatOnTelegram = vi.fn();
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        onChatOnTelegram={onChatOnTelegram}
+        order={makeOrder()}
+        disputeStatus="RAISED"
+        onOpenDisputeChat={noop}
+      />,
+      { withDrawer: true },
+    );
+    expect(screen.getByText("Dispute raised")).toBeInTheDocument();
+    screen.getByText("Chat on Telegram").click();
+    expect(onChatOnTelegram).toHaveBeenCalledOnce();
+  });
+
+  it("keeps Telegram reachable when there is no in-app chat", () => {
+    const onChatOnTelegram = vi.fn();
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        onChatOnTelegram={onChatOnTelegram}
+        order={makeOrder()}
+        disputeStatus="DEFAULT"
+      />,
+      { withDrawer: true },
+    );
+    screen.getByText("Chat on Telegram").click();
+    expect(onChatOnTelegram).toHaveBeenCalledOnce();
   });
 
   it("labels a settled dispute as resolved", () => {

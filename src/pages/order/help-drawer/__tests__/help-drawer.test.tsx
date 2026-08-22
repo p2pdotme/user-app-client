@@ -62,7 +62,11 @@ describe("HelpDrawer chat page", () => {
     const { rerender } = renderWithProviders(
       <HelpDrawer open onOpenChange={() => {}} order={order} />,
     );
-    screen.getByText("Chat with us").click();
+    // The dispute row is the in-app entry point. The button at the bottom of
+    // the list is Telegram and always has been since the two channels were
+    // split, so clicking that one would leave the drawer on the list and this
+    // test would prove nothing.
+    screen.getByText("Dispute raised").click();
 
     // AnimatePresence mode="wait" holds the list view on screen until its
     // exit animation finishes, so the chat page is not actually mounted the
@@ -101,7 +105,7 @@ describe("HelpDrawer chat page", () => {
 
   it("shows the dispute chat row on the list once the gate is open", () => {
     // The only test of the wiring in index.tsx,
-    // onOpenDisputeChat={canChatInApp ? handleChatWithUs : undefined}.
+    // onOpenDisputeChat={canChatInApp ? handleOpenDisputeChat : undefined}.
     // help-list-view.test.tsx passes that prop by hand, so nothing there can
     // tell whether the drawer actually supplies it. This is the line that
     // decides whether any real user ever sees the row.
@@ -119,16 +123,41 @@ describe("HelpDrawer chat page", () => {
     expect(screen.queryByText("Raise a Dispute")).not.toBeInTheDocument();
   });
 
-  it("sends chat to Telegram when the wallet reports no chain", () => {
+  it("offers both channels at once when the gate is open", () => {
+    // The invariant of the split: on a disputed order with the bridge
+    // configured the user sees the in-app row AND the Telegram button, and
+    // picks. Previously one control served both and the gate decided, so a
+    // failed in-app sign-in left no visible route to support from here.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={makeDisputedOrder()} />,
+    );
+
+    expect(screen.getByText("Dispute raised")).toBeInTheDocument();
+    expect(screen.getByText("Chat on Telegram")).toBeInTheDocument();
+
+    // And Telegram still goes to Telegram, rather than being swallowed by the
+    // in-app route the way it was when one handler served both.
+    screen.getByText("Chat on Telegram").click();
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the in-app chat shut when the wallet reports no chain", () => {
     // The chain id is bound into the bridge sign-in message and picks the
     // chain the bridge runs ERC-1271 verification on, so an unresolved chain
     // must mean Telegram rather than a sign-in claiming a chain the wallet
     // may not be on. The gate requires a resolved chain for that reason, and
     // there is no fallback to the configured one.
     //
-    // Asserted through the Telegram call rather than through the chat page
-    // staying shut, because the transition is asynchronous and "the chat page
-    // did not appear yet" is true one tick after any click.
+    // Asserted through the absent dispute chat row rather than through a
+    // Telegram call. The Telegram button is unconditional now, so clicking it
+    // proves nothing about the gate; the row's absence is what proves it.
     vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
@@ -145,13 +174,16 @@ describe("HelpDrawer chat page", () => {
         order={makeDisputedOrder()}
       />,
     );
-    screen.getByText("Chat with us").click();
 
+    expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
+
+    // ...and the user is still not stranded.
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
-  it("keeps the Telegram fallback when no bridge url is set", () => {
+  it("keeps Telegram working when no bridge url is set", () => {
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
       signMessage: async () => "0xsignature",
@@ -162,7 +194,7 @@ describe("HelpDrawer chat page", () => {
     );
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
     expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
-    screen.getByText("Chat with us").click();
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
 
@@ -185,7 +217,7 @@ describe("HelpDrawer chat page", () => {
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
     expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
 
-    screen.getByText("Chat with us").click();
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
 });

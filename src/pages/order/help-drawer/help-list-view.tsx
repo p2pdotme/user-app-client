@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -27,7 +28,7 @@ interface HelpListViewProps {
   onRaiseDispute: () => void;
   onBrowseHelpCenter: () => void;
   onOrderTypeFAQs: () => void;
-  onChatWithUs: () => void;
+  onChatOnTelegram: () => void;
   onOpenDisputeChat?: () => void;
 }
 
@@ -38,7 +39,7 @@ export function HelpListView({
   onRaiseDispute,
   onBrowseHelpCenter,
   onOrderTypeFAQs,
-  onChatWithUs,
+  onChatOnTelegram,
   onOpenDisputeChat,
 }: HelpListViewProps) {
   const { t } = useTranslation();
@@ -85,7 +86,9 @@ export function HelpListView({
       </DrawerHeader>
 
       <div className="space-y-2">
-        {/* Dispute chat - replaces the raise row once a dispute exists */}
+        {/* In-app dispute chat - replaces the raise row once a dispute
+            exists. Sits alongside the Telegram button below, not instead of
+            it, so the user can choose either channel. */}
         {showDisputeChatRow && (
           <>
             <Button
@@ -238,9 +241,9 @@ export function HelpListView({
         <Button
           variant="outline"
           className="w-full gap-2 p-6"
-          onClick={onChatWithUs}>
-          <MessageCircle className="size-4" />
-          {t("CHAT_WITH_US")}
+          onClick={onChatOnTelegram}>
+          <ASSETS.ICONS.Telegram className="size-4" />
+          {t("CHAT_ON_TELEGRAM")}
         </Button>
       </div>
     </motion.div>

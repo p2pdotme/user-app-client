@@ -307,6 +307,7 @@ export const es = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Si tu dirección de recepción es un CEX, a veces puede tardar más en aparecer. Contacta al soporte de tu CEX si tarda demasiado.",
     CHANGE_DNS: "Cambiar DNS",
+    CHAT_ON_TELEGRAM: "Chatea en Telegram",
     CHAT_SUPPORT_COMING_SOON: "El soporte por chat estará disponible pronto",
     CHAT_WITH_US: "Chatea con nosotros",
     CHECKING_WALLET_CONNECTION: "Comprobando la conexión de la wallet...",

@@ -287,6 +287,7 @@ export const hi = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
+    CHAT_ON_TELEGRAM: "टेलीग्राम पर चैट करें",
     CHAT_SUPPORT_COMING_SOON: "चैट समर्थन जल्द ही आ रहा है",
     CHAT_WITH_US: "हमारे साथ चैट करें",
     CHECKING_WALLET_CONNECTION: "वॉलेट कनेक्शन की जाँच की जा रही है...",
