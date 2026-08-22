@@ -85,10 +85,24 @@ describe("widget import boundary (source-level proxy for the bundle split)", () 
   it("reaches chat-view.tsx only through a dynamic import", () => {
     // The assertion above says WHO imports the widget, never HOW that importer
     // is reached. Turning the lazy() below into a static
-    // `import { ChatView } from "./chat-view"` puts the whole widget back in
-    // the entry chunk while the value-importer test stays green, because
-    // chat-view.tsx is still the only file naming the package. This is the
-    // half that actually holds the split.
+    // `import { ChatView } from "./chat-view"` defeats the code-splitting
+    // boundary while the value-importer test stays green, because chat-view.tsx
+    // is still the only file naming the package. This is the half that actually
+    // holds the split.
+    //
+    // What that mutation does to the bundle is NOT what you would guess, and is
+    // recorded here so nobody re-derives it. Two builds, same tree, only this
+    // import changed:
+    //
+    //   lazy()        support.p2p.me:sign-in in chat-view-q8nUhLLh.js, 15,087,849 B total JS
+    //   static import that marker in NO chunk at all,        15,071,997 B total JS
+    //
+    // The widget does not relocate to the entry chunk; it leaves the bundle.
+    // The mechanism is unexplained — do not assert one. Either way the split is
+    // gone and what ships changes, which is what this guards.
+    //
+    // Note this is a REGRESSION guard, not a red-before-green test: the lazy()
+    // split predates this branch (9a1c45d), so it is green on base by design.
     const source = readFileSync(
       path.join(SRC_ROOT, "pages/order/help-drawer/index.tsx"),
       "utf8",
@@ -96,7 +110,7 @@ describe("widget import boundary (source-level proxy for the bundle split)", () 
 
     expect(
       /lazy\(\s*\(\)\s*=>\s*import\(\s*["']\.\/chat-view["']/.test(source),
-      "help-drawer/index.tsx must load ./chat-view through lazy(() => import(...)); a static import pulls @p2pdotme/widgets into the entry chunk",
+      "help-drawer/index.tsx must load ./chat-view through lazy(() => import(...)); a static import defeats the code-split boundary and changes what ships",
     ).toBe(true);
 
     expect(

@@ -50,41 +50,12 @@ describe("HelpListView dispute row", () => {
     expect(onOpenDisputeChat).toHaveBeenCalledOnce();
   });
 
-  it("offers Telegram alongside the in-app chat, not instead of it", () => {
-    // The invariant this locks: the two channels are siblings, not
-    // alternatives. Before this, one button routed either in-app or to
-    // Telegram depending on the gate, so a disputed order whose in-app
-    // sign-in failed had no visible way to reach support at all.
-    const onChatOnTelegram = vi.fn();
-    renderWithProviders(
-      <HelpListView
-        {...base}
-        onChatOnTelegram={onChatOnTelegram}
-        order={makeOrder()}
-        disputeStatus="RAISED"
-        onOpenDisputeChat={noop}
-      />,
-      { withDrawer: true },
-    );
-    expect(screen.getByText("Dispute raised")).toBeInTheDocument();
-    screen.getByText("Chat on Telegram").click();
-    expect(onChatOnTelegram).toHaveBeenCalledOnce();
-  });
-
-  it("keeps Telegram reachable when there is no in-app chat", () => {
-    const onChatOnTelegram = vi.fn();
-    renderWithProviders(
-      <HelpListView
-        {...base}
-        onChatOnTelegram={onChatOnTelegram}
-        order={makeOrder()}
-        disputeStatus="DEFAULT"
-      />,
-      { withDrawer: true },
-    );
-    screen.getByText("Chat on Telegram").click();
-    expect(onChatOnTelegram).toHaveBeenCalledOnce();
-  });
+  // No test here for "both channels are offered at once". HelpListView never
+  // conflated them: its bottom button has always rendered unconditionally and
+  // always called its prop, so a test at this level only asserts the label
+  // rename and passes against pre-split source. The conflation lived in
+  // index.tsx's handler, so the invariant is tested there instead —
+  // help-drawer.test.tsx, "offers both channels at once when the gate is open".
 
   it("labels a settled dispute as resolved", () => {
     renderWithProviders(
