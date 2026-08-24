@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -27,7 +28,7 @@ interface HelpListViewProps {
   onRaiseDispute: () => void;
   onBrowseHelpCenter: () => void;
   onOrderTypeFAQs: () => void;
-  onChatWithUs: () => void;
+  onChatOnTelegram: () => void;
   onOpenDisputeChat?: () => void;
 }
 
@@ -38,7 +39,7 @@ export function HelpListView({
   onRaiseDispute,
   onBrowseHelpCenter,
   onOrderTypeFAQs,
-  onChatWithUs,
+  onChatOnTelegram,
   onOpenDisputeChat,
 }: HelpListViewProps) {
   const { t } = useTranslation();
@@ -85,7 +86,9 @@ export function HelpListView({
       </DrawerHeader>
 
       <div className="space-y-2">
-        {/* Dispute chat - replaces the raise row once a dispute exists */}
+        {/* In-app dispute chat - replaces the raise row once a dispute
+            exists. Sits alongside the Telegram button below, not instead of
+            it, so the user can choose either channel. */}
         {showDisputeChatRow && (
           <>
             <Button
@@ -177,6 +180,15 @@ export function HelpListView({
                     </p>
                   </div>
                 )}
+                {/* Shown in both states — while the window counts down and once
+                    it is open — so the user knows support is reachable and that
+                    evidence helps, before they ever raise. Text only. */}
+                <div className="mt-2 flex items-start gap-1">
+                  <MessageCircle className="mt-0.5 size-3 shrink-0 text-muted-foreground" />
+                  <p className="text-left text-muted-foreground text-xs">
+                    {t("DISPUTE_CHAT_SHARE_DETAILS_NOTE")}
+                  </p>
+                </div>
               </div>
             </Button>
 
@@ -238,9 +250,13 @@ export function HelpListView({
         <Button
           variant="outline"
           className="w-full gap-2 p-6"
-          onClick={onChatWithUs}>
-          <MessageCircle className="size-4" />
-          {t("CHAT_WITH_US")}
+          onClick={onChatOnTelegram}>
+          {/* size-5, not size-4: telegram.tsx has a non-square viewBox
+              (0 0 23 18) and no preserveAspectRatio, so size-4 renders ~12.5px
+              tall with a 0.84px stroke — a hairline beside the dispute row's
+              icon above. size-5 matches social-links.tsx. */}
+          <ASSETS.ICONS.Telegram className="size-5" />
+          {t("CHAT_ON_TELEGRAM")}
         </Button>
       </div>
     </motion.div>

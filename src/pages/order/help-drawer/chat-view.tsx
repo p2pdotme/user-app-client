@@ -18,6 +18,8 @@ import { SUPPORT_THEME } from "@/lib/support-theme";
 
 interface ChatViewProps {
   orderId: string;
+  /** Titles the panel to match the row that opened it. */
+  isSettled: boolean;
   account: Account;
   chainId: number;
   bridgeUrl: string;
@@ -26,6 +28,7 @@ interface ChatViewProps {
 
 export function ChatView({
   orderId,
+  isSettled,
   account,
   chainId,
   bridgeUrl,
@@ -67,7 +70,11 @@ export function ChatView({
             <ArrowLeftCircle className="size-6" />
           </Button>
           <div className="flex flex-col gap-2">
-            <DrawerTitle className="flex-1">{t("CHAT_WITH_US")}</DrawerTitle>
+            <DrawerTitle className="flex-1">
+              {isSettled
+                ? t("DISPUTE_RESOLVED_CHAT_TITLE")
+                : t("DISPUTE_RAISED_CHAT_TITLE")}
+            </DrawerTitle>
             <DrawerDescription>
               {t("HELP_AND_SUPPORT_DESCRIPTION")}
             </DrawerDescription>

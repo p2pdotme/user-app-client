@@ -59,7 +59,7 @@ describe("renderWithProviders", () => {
         onRaiseDispute={() => {}}
         onBrowseHelpCenter={() => {}}
         onOrderTypeFAQs={() => {}}
-        onChatWithUs={() => {}}
+        onChatOnTelegram={() => {}}
       />,
       { withDrawer: true },
     );
