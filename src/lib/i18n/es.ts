@@ -307,6 +307,9 @@ export const es = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Si tu dirección de recepción es un CEX, a veces puede tardar más en aparecer. Contacta al soporte de tu CEX si tarda demasiado.",
     CHANGE_DNS: "Cambiar DNS",
+    CHAT_ON_TELEGRAM: "Chatea en Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "Esto está tardando más de lo habitual. Tu disputa fue enviada: vuelve a abrir Ayuda y soporte en un momento, o escríbenos por Telegram.",
     CHAT_SUPPORT_COMING_SOON: "El soporte por chat estará disponible pronto",
     CHAT_WITH_US: "Chatea con nosotros",
     CHECKING_WALLET_CONNECTION: "Comprobando la conexión de la wallet...",
@@ -483,10 +486,26 @@ export const es = {
       "La disputa solo puede abrirse después de 24 horas de haber realizado el pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "La disputa solo puede abrirse después de 30 minutos de haber realizado el pedido",
+    RAISE_DISPUTE_DESCRIPTION_BUY: "Solo abre una disputa si pagaste pero no recibiste tus USDC.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Solo abre una disputa si no recibiste el pago.",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "¿Pagaste pero no recibiste USDC?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "¿No recibiste el pago del comerciante?",
+    DISPUTE_WARNING_PAYMENT_BUY: "Solo abre una disputa si pagaste pero no recibiste tus USDC.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Solo abre una disputa si el comerciante no te ha pagado.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
+      "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como el comprobante de pago.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como tu referencia de pago.",
     DISPUTE_DEFAULT: "Predeterminado",
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa no abierta",
     DISPUTE_RAISED: "Abierta",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Chatea con nuestro equipo de soporte. Lo revisarán y te responderán aquí.",
+    DISPUTE_RAISED_CHAT_TITLE: "Disputa abierta",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Consulta tu conversación con soporte. Este hilo es de solo lectura.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Disputa resuelta",
     DISPUTE_SETTLED: "Resuelta",
     DISPUTE_STATUS: "Estado de la Disputa",
     DISPUTE_SUBMISSION_FAILED: "Error al enviar la disputa",
@@ -495,8 +514,6 @@ export const es = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Disputa enviada con éxito",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Las disputas falsas pueden llevar a acciones contra tu cuenta.",
-    DISPUTE_WARNING_PAYMENT:
-      "Solo abre una disputa si realizaste el pago pero no recibiste un reembolso.",
     DISPUTE_WARNING_REVIEW:
       "Nuestro equipo lo revisará y te responderá rápidamente.",
     DISPUTE_WINDOW_CLOSES_IN_TIME:
@@ -1637,11 +1654,7 @@ export const es = {
     RAISED: "Abierta",
     RAISE_A_DISPUTE: "Abrir una Disputa",
     RAISE_DISPUTE: "Abrir Disputa",
-    RAISE_DISPUTE_DESCRIPTION:
-      "Solo abre una disputa si pagaste pero no recibiste un reembolso.",
     RAISE_DISPUTE_FOR_TRANSACTION: "¿Abrir Disputa?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION:
-      "¿Pagaste pero no recibiste USDC?",
     RANGO_REQUEST_ID: "ID de Solicitud de Rango",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "ID de solicitud de Rango copiado al portapapeles",
@@ -1830,6 +1843,9 @@ export const es = {
     SETTINGS: "Ajustes",
     SETTINGS_RESET_SUCCESS:
       "Los ajustes se han restablecido a los valores predeterminados",
+    SETTING_UP_SUPPORT_CHAT: "Preparando tu chat de soporte...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Tu disputa se está confirmando on-chain: esto tarda unos segundos.",
     SETTLED: "Resuelta",
     SHARE: "Compartir",
     SHARE_FEEDBACK: "Compartir Comentarios",
