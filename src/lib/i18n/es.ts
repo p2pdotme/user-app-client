@@ -486,8 +486,16 @@ export const es = {
       "La disputa solo puede abrirse después de 24 horas de haber realizado el pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "La disputa solo puede abrirse después de 30 minutos de haber realizado el pedido",
-    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+    RAISE_DISPUTE_DESCRIPTION_BUY: "Solo abre una disputa si pagaste pero no recibiste tus USDC.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Solo abre una disputa si no recibiste el pago.",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "¿Pagaste pero no recibiste USDC?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "¿No recibiste el pago del comerciante?",
+    DISPUTE_WARNING_PAYMENT_BUY: "Solo abre una disputa si pagaste pero no recibiste tus USDC.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Solo abre una disputa si el comerciante no te ha pagado.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como el comprobante de pago.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como tu referencia de pago.",
     DISPUTE_DEFAULT: "Predeterminado",
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa no abierta",
@@ -506,8 +514,6 @@ export const es = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Disputa enviada con éxito",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Las disputas falsas pueden llevar a acciones contra tu cuenta.",
-    DISPUTE_WARNING_PAYMENT:
-      "Solo abre una disputa si realizaste el pago pero no recibiste un reembolso.",
     DISPUTE_WARNING_REVIEW:
       "Nuestro equipo lo revisará y te responderá rápidamente.",
     DISPUTE_WINDOW_CLOSES_IN_TIME:
@@ -1648,11 +1654,7 @@ export const es = {
     RAISED: "Abierta",
     RAISE_A_DISPUTE: "Abrir una Disputa",
     RAISE_DISPUTE: "Abrir Disputa",
-    RAISE_DISPUTE_DESCRIPTION:
-      "Solo abre una disputa si pagaste pero no recibiste un reembolso.",
     RAISE_DISPUTE_FOR_TRANSACTION: "¿Abrir Disputa?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION:
-      "¿Pagaste pero no recibiste USDC?",
     RANGO_REQUEST_ID: "ID de Solicitud de Rango",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "ID de solicitud de Rango copiado al portapapeles",
