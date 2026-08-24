@@ -34,9 +34,10 @@ describe("HelpListView dispute row", () => {
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
   });
 
-  it("notes on the raise row that support chat and details are available", () => {
+  it("notes on the raise row that support chat and details are available (BUY)", () => {
     // The note is not gated on the dispute window being open, so it shows in
-    // the pre-raise waiting state too (this order is outside the window).
+    // the pre-raise waiting state too (this order is outside the window). A BUY
+    // user paid fiat, so the note points at proof of payment.
     renderWithProviders(
       <HelpListView
         {...base}
@@ -48,7 +49,55 @@ describe("HelpListView dispute row", () => {
     );
     expect(
       screen.getByText(
-        /chat with our support team and share relevant details/i,
+        /chat with our support team and share relevant details, like proof of payment/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("shows BUY dispute copy on the ready raise row", () => {
+    // A BUY/PAID order inside the window: the description is the BUY variant.
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        order={makeOrder({
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+        })}
+        disputeStatus="DEFAULT"
+        onOpenDisputeChat={noop}
+      />,
+      { withDrawer: true },
+    );
+    expect(
+      screen.getByText(
+        "Only raise a dispute if you paid but didn't receive your USDC.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("shows SELL/PAY dispute copy on the raise row (merchant pays fiat)", () => {
+    // A SELL/COMPLETED order inside the window: description and note flip to the
+    // merchant-pays-fiat wording — the user is owed the payment, not making one.
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        order={makeOrder({
+          orderType: "SELL",
+          status: "COMPLETED",
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+        })}
+        disputeStatus="DEFAULT"
+        onOpenDisputeChat={noop}
+      />,
+      { withDrawer: true },
+    );
+    expect(
+      screen.getByText(
+        "Only raise a dispute if you didn't receive the fiat payment.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details, like your payment reference/i,
       ),
     ).toBeInTheDocument();
   });

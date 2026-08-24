@@ -229,7 +229,7 @@ describe("HelpDrawer chat page", () => {
     screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
-  it("notes support chat and details on the dispute confirmation screen", async () => {
+  it("shows BUY dispute copy on the confirmation screen", async () => {
     const order = makeOrder({
       placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
     });
@@ -237,15 +237,49 @@ describe("HelpDrawer chat page", () => {
       <HelpDrawer open onOpenChange={vi.fn()} order={order} />,
     );
     screen.getByText("Raise a Dispute").click();
-    // The row carries the note too; wait for the list to leave so this lands on
-    // the confirmation copy specifically.
+    // The row carries copy too; wait for the list to leave so this lands on the
+    // confirmation screen specifically.
     await waitForElementToBeRemoved(() =>
       screen.queryByText("Raise a Dispute"),
     );
     expect(screen.getByText("Confirm")).toBeInTheDocument();
+    expect(screen.getByText("Paid but no USDC received?")).toBeInTheDocument();
     expect(
       screen.getByText(
-        /chat with our support team and share relevant details/i,
+        "Only raise a dispute if you paid but didn't receive your USDC.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details, like proof of payment/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("shows SELL/PAY dispute copy on the confirmation screen", async () => {
+    const order = makeOrder({
+      orderType: "SELL",
+      status: "COMPLETED",
+      placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+    });
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={order} />,
+    );
+    screen.getByText("Raise a Dispute").click();
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText("Raise a Dispute"),
+    );
+    expect(
+      screen.getByText("No payment received from the merchant?"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Only raise a dispute if the merchant hasn't paid you.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details, like your payment reference/i,
       ),
     ).toBeInTheDocument();
   });

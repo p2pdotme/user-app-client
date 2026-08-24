@@ -61,6 +61,10 @@ export function HelpListView({
   // Determine the effective order type for FAQ section
   const effectiveOrderType = order?.orderType || orderType;
 
+  // BUY is the only side where the user pays fiat and awaits USDC. On SELL/PAY
+  // the merchant pays fiat to the user, so the dispute copy must flip.
+  const userPaysFiat = effectiveOrderType === "BUY";
+
   return (
     <motion.div
       key="help-list"
@@ -169,7 +173,11 @@ export function HelpListView({
                 </h3>
                 <p className="text-left font-light text-muted-foreground text-sm">
                   {canDispute && canRaiseNow
-                    ? t("RAISE_DISPUTE_DESCRIPTION")
+                    ? t(
+                        userPaysFiat
+                          ? "RAISE_DISPUTE_DESCRIPTION_BUY"
+                          : "RAISE_DISPUTE_DESCRIPTION_SELL_PAY",
+                      )
                     : timeRemaining}
                 </p>
                 {canDispute && canRaiseNow && (
@@ -186,7 +194,11 @@ export function HelpListView({
                 <div className="mt-2 flex items-start gap-1">
                   <MessageCircle className="mt-0.5 size-3 shrink-0 text-muted-foreground" />
                   <p className="text-left text-muted-foreground text-xs">
-                    {t("DISPUTE_CHAT_SHARE_DETAILS_NOTE")}
+                    {t(
+                      userPaysFiat
+                        ? "DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY"
+                        : "DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY",
+                    )}
                   </p>
                 </div>
               </div>
