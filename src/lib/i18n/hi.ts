@@ -287,6 +287,9 @@ export const hi = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
+    CHAT_ON_TELEGRAM: "टेलीग्राम पर चैट करें",
+    CHAT_SETUP_TAKING_LONGER:
+      "इसमें सामान्य से अधिक समय लग रहा है। आपका विवाद सबमिट हो गया है — कुछ देर बाद सहायता एवं समर्थन फिर से खोलें, या टेलीग्राम पर हमसे संपर्क करें।",
     CHAT_SUPPORT_COMING_SOON: "चैट समर्थन जल्द ही आ रहा है",
     CHAT_WITH_US: "हमारे साथ चैट करें",
     CHECKING_WALLET_CONNECTION: "वॉलेट कनेक्शन की जाँच की जा रही है...",
@@ -452,10 +455,29 @@ export const hi = {
       "ऑर्डर देने के 24 घंटे बाद ही विवाद उठाया जा सकता है",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "ऑर्डर देने के 30 मिनट बाद ही विवाद उठाया जा सकता है",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "विवाद केवल तभी उठाएं जब आपको भुगतान नहीं मिला।",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "भुगतान किया लेकिन USDC नहीं मिला?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "व्यापारी से भुगतान नहीं मिला?",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY:
+      "विवाद केवल तभी उठाएं जब व्यापारी ने आपको भुगतान नहीं किया है।",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
+      "आप हमारी सहायता टीम के साथ चैट कर सकते हैं और प्रासंगिक जानकारी साझा कर सकते हैं, जैसे भुगतान का प्रमाण।",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "आप हमारी सहायता टीम के साथ चैट कर सकते हैं और प्रासंगिक जानकारी साझा कर सकते हैं, जैसे आपका भुगतान संदर्भ।",
     DISPUTE_DEFAULT: "डिफ़ॉल्ट",
     DISPUTE_FILTER: "विवाद: {{disputes}}",
     DISPUTE_NOT_RAISED: "विवाद नहीं उठाया गया",
     DISPUTE_RAISED: "उठाया गया",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "हमारी सहायता टीम से बात करें। वे समीक्षा करके यहीं जवाब देंगे।",
+    DISPUTE_RAISED_CHAT_TITLE: "विवाद दर्ज",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "सहायता के साथ अपनी बातचीत देखें। यह बातचीत केवल पढ़ने के लिए है।",
+    DISPUTE_RESOLVED_CHAT_TITLE: "विवाद हल",
     DISPUTE_SETTLED: "निपटारा किया गया",
     DISPUTE_STATUS: "विवाद की स्थिति",
     DISPUTE_SUBMISSION_FAILED: "विवाद सबमिट करने में विफल",
@@ -464,8 +486,6 @@ export const hi = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "झूठे विवादों से आपके खाते के विरुद्ध कार्रवाई हो सकती है।",
-    DISPUTE_WARNING_PAYMENT:
-      "यदि आपने भुगतान किया है लेकिन धनवापसी नहीं मिली है तो ही विवाद उठाएँ।",
     DISPUTE_WARNING_REVIEW: "हमारी टीम समीक्षा करेगी और आपसे जल्दी ही संपर्क करेगी।",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "विवाद विंडो {{time}} में बंद हो जाएगी",
     DISPUTE_WINDOW_EXPIRED: "विवाद विंडो समाप्त हो गई है ({{time}})",
@@ -1532,11 +1552,7 @@ export const hi = {
     RAISED: "उठाया गया",
     RAISE_A_DISPUTE: "विवाद उठाएँ",
     RAISE_DISPUTE: "विवाद उठाएँ",
-    RAISE_DISPUTE_DESCRIPTION:
-      "यदि आपने भुगतान किया है लेकिन धनवापसी नहीं मिली है तो ही विवाद उठाएँ।",
     RAISE_DISPUTE_FOR_TRANSACTION: "विवाद उठाएँ?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION:
-      "भुगतान किया लेकिन कोई USDC प्राप्त नहीं हुआ?",
     RANGO_REQUEST_ID: "Rango रिक्वेस्ट ID",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "Rango रिक्वेस्ट ID क्लिपबोर्ड में कॉपी हो गया",
@@ -1706,6 +1722,9 @@ export const hi = {
     SESSION_NOT_FOUND: "सत्र नहीं मिला",
     SETTINGS: "सेटिंग्स",
     SETTINGS_RESET_SUCCESS: "सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गई हैं",
+    SETTING_UP_SUPPORT_CHAT: "आपका सहायता चैट तैयार किया जा रहा है...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "आपका विवाद ऑन-चेन पुष्टि किया जा रहा है — इसमें कुछ सेकंड लगते हैं।",
     SETTLED: "सुलझा हुआ",
     SHARE: "शेयर करें",
     SHARE_FEEDBACK: "फ़ीडबैक शेयर करें",

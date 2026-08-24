@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -16,35 +17,53 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
-import type { Order } from "@/core/adapters/thirdweb/validation";
+import type { DisputeStatus, Order } from "@/core/adapters/thirdweb/validation";
 import { cn } from "@/lib/utils";
 import { canRaiseDispute, getDisputeTimeRemaining } from "./utils";
 
 interface HelpListViewProps {
   order?: Order;
   orderType?: "BUY" | "SELL" | "PAY";
+  disputeStatus?: DisputeStatus;
   onRaiseDispute: () => void;
   onBrowseHelpCenter: () => void;
   onOrderTypeFAQs: () => void;
-  onChatWithUs: () => void;
+  onChatOnTelegram: () => void;
+  onOpenDisputeChat?: () => void;
 }
 
 export function HelpListView({
   order,
   orderType,
+  disputeStatus,
   onRaiseDispute,
   onBrowseHelpCenter,
   onOrderTypeFAQs,
-  onChatWithUs,
+  onChatOnTelegram,
+  onOpenDisputeChat,
 }: HelpListViewProps) {
   const { t } = useTranslation();
   const canDispute = order ? canRaiseDispute(order) : false;
+  // Exactly one of the two rows renders whenever there is an order. The chat
+  // row needs a dispute AND a handler, because without one it would lead
+  // nowhere. Everything else falls through to the normal "Raise a Dispute"
+  // row, including a disputed order whose gate is shut, where that row shows
+  // in its usual disabled form. Deriving both conditions from one boolean is
+  // what keeps them complementary. Two hand-written conditions drift and
+  // leave a state where neither renders.
+  const hasDispute = Boolean(disputeStatus && disputeStatus !== "DEFAULT");
+  const isSettled = disputeStatus === "SETTLED";
+  const showDisputeChatRow = Boolean(order && hasDispute && onOpenDisputeChat);
   const { timeRemaining, canRaiseNow } = order
     ? getDisputeTimeRemaining(order, t)
     : { timeRemaining: "", canRaiseNow: false };
 
   // Determine the effective order type for FAQ section
   const effectiveOrderType = order?.orderType || orderType;
+
+  // BUY is the only side where the user pays fiat and awaits USDC. On SELL/PAY
+  // the merchant pays fiat to the user, so the dispute copy must flip.
+  const userPaysFiat = effectiveOrderType === "BUY";
 
   return (
     <motion.div
@@ -71,8 +90,57 @@ export function HelpListView({
       </DrawerHeader>
 
       <div className="space-y-2">
+        {/* In-app dispute chat - replaces the raise row once a dispute
+            exists. Sits alongside the Telegram button below, not instead of
+            it, so the user can choose either channel. */}
+        {showDisputeChatRow && (
+          <>
+            <Button
+              variant="ghost"
+              className="flex h-fit w-full cursor-pointer items-start gap-4 rounded-lg p-4 transition-colors hover:bg-accent/50"
+              onClick={onOpenDisputeChat}>
+              <div
+                className={cn(
+                  "flex size-12 shrink-0 items-center justify-center rounded-lg",
+                  isSettled ? "bg-primary/10" : "bg-destructive/10",
+                )}>
+                <MessageCircle
+                  className={cn(
+                    "size-6",
+                    isSettled ? "text-primary" : "text-destructive",
+                  )}
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-left font-medium text-base">
+                    {isSettled
+                      ? t("DISPUTE_RESOLVED_CHAT_TITLE")
+                      : t("DISPUTE_RAISED_CHAT_TITLE")}
+                  </h3>
+                  <span
+                    className={cn(
+                      "size-2 shrink-0 rounded-full",
+                      isSettled ? "bg-primary" : "bg-destructive",
+                    )}
+                  />
+                </div>
+                <p className="text-left font-light text-muted-foreground text-sm">
+                  {isSettled
+                    ? t("DISPUTE_RESOLVED_CHAT_DESCRIPTION")
+                    : t("DISPUTE_RAISED_CHAT_DESCRIPTION")}
+                </p>
+              </div>
+            </Button>
+
+            <div className="px-4">
+              <Separator className="bg-primary/10" />
+            </div>
+          </>
+        )}
+
         {/* Raise a Dispute - Only show when order exists */}
-        {order && (
+        {order && !showDisputeChatRow && (
           <>
             <Button
               variant="ghost"
@@ -105,7 +173,11 @@ export function HelpListView({
                 </h3>
                 <p className="text-left font-light text-muted-foreground text-sm">
                   {canDispute && canRaiseNow
-                    ? t("RAISE_DISPUTE_DESCRIPTION")
+                    ? t(
+                        userPaysFiat
+                          ? "RAISE_DISPUTE_DESCRIPTION_BUY"
+                          : "RAISE_DISPUTE_DESCRIPTION_SELL_PAY",
+                      )
                     : timeRemaining}
                 </p>
                 {canDispute && canRaiseNow && (
@@ -116,6 +188,19 @@ export function HelpListView({
                     </p>
                   </div>
                 )}
+                {/* Shown in both states — while the window counts down and once
+                    it is open — so the user knows support is reachable and that
+                    evidence helps, before they ever raise. Text only. */}
+                <div className="mt-2 flex items-start gap-1">
+                  <MessageCircle className="mt-0.5 size-3 shrink-0 text-muted-foreground" />
+                  <p className="text-left text-muted-foreground text-xs">
+                    {t(
+                      userPaysFiat
+                        ? "DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY"
+                        : "DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY",
+                    )}
+                  </p>
+                </div>
               </div>
             </Button>
 
@@ -177,9 +262,13 @@ export function HelpListView({
         <Button
           variant="outline"
           className="w-full gap-2 p-6"
-          onClick={onChatWithUs}>
-          <MessageCircle className="size-4" />
-          {t("CHAT_WITH_US")}
+          onClick={onChatOnTelegram}>
+          {/* size-5, not size-4: telegram.tsx has a non-square viewBox
+              (0 0 23 18) and no preserveAspectRatio, so size-4 renders ~12.5px
+              tall with a 0.84px stroke — a hairline beside the dispute row's
+              icon above. size-5 matches social-links.tsx. */}
+          <ASSETS.ICONS.Telegram className="size-5" />
+          {t("CHAT_ON_TELEGRAM")}
         </Button>
       </div>
     </motion.div>

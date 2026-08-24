@@ -300,6 +300,9 @@ export const id = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
+    CHAT_ON_TELEGRAM: "Chat di Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "Ini memakan waktu lebih lama dari biasanya. Sengketa Anda sudah dikirim — buka kembali Bantuan & Dukungan sebentar lagi, atau hubungi kami di Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Dukungan chat segera hadir",
     CHAT_WITH_US: "Chat dengan kami",
     CHECKING_WALLET_CONNECTION: "Memeriksa koneksi dompet...",
@@ -470,10 +473,28 @@ export const id = {
       "Sengketa hanya dapat diajukan setelah 24 jam penempatan pesanan",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Sengketa hanya dapat diajukan setelah 30 menit penempatan pesanan",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Ajukan sengketa hanya jika Anda tidak menerima pembayaran.",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Sudah bayar tapi USDC belum diterima?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "Belum menerima pembayaran dari merchant?",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Ajukan sengketa hanya jika merchant belum membayar Anda.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
+      "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti bukti pembayaran.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti referensi pembayaran Anda.",
     DISPUTE_DEFAULT: "Default",
     DISPUTE_FILTER: "Sengketa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Sengketa tidak diajukan",
     DISPUTE_RAISED: "Diajukan",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Hubungi tim dukungan kami. Mereka akan meninjau dan membalas di sini.",
+    DISPUTE_RAISED_CHAT_TITLE: "Sengketa dibuka",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "Lihat percakapan Anda dengan dukungan. Percakapan ini hanya bisa dibaca.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Sengketa selesai",
     DISPUTE_SETTLED: "Diselesaikan",
     DISPUTE_STATUS: "Status Sengketa",
     DISPUTE_SUBMISSION_FAILED: "Gagal mengirim sengketa",
@@ -482,8 +503,6 @@ export const id = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Sengketa berhasil dikirim",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Sengketa palsu dapat menyebabkan tindakan terhadap akun Anda.",
-    DISPUTE_WARNING_PAYMENT:
-      "Hanya ajukan sengketa jika Anda telah melakukan pembayaran tapi tidak menerima pengembalian dana.",
     DISPUTE_WARNING_REVIEW:
       "Tim kami akan meninjau dan menghubungi Anda dengan cepat.",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "Jendela sengketa tutup dalam {{time}}",
@@ -1599,11 +1618,7 @@ export const id = {
     RAISED: "Diajukan",
     RAISE_A_DISPUTE: "Ajukan Sengketa",
     RAISE_DISPUTE: "Ajukan Sengketa",
-    RAISE_DISPUTE_DESCRIPTION:
-      "Hanya ajukan sengketa jika Anda telah membayar tapi tidak mendapat pengembalian dana.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Ajukan Sengketa?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION:
-      "Pembayaran dilakukan tapi tidak menerima USDC?",
     RANGO_REQUEST_ID: "ID Request Rango",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "ID request Rango disalin ke clipboard",
@@ -1781,6 +1796,9 @@ export const id = {
     SESSION_NOT_FOUND: "Sesi tidak ditemukan",
     SETTINGS: "Pengaturan",
     SETTINGS_RESET_SUCCESS: "Pengaturan telah diatur ulang ke nilai default",
+    SETTING_UP_SUPPORT_CHAT: "Menyiapkan obrolan dukungan Anda...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Sengketa Anda sedang dikonfirmasi on-chain — ini butuh beberapa detik.",
     SETTLED: "Diselesaikan",
     SHARE: "Bagikan",
     SHARE_FEEDBACK: "Bagikan Umpan Balik",
