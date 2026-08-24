@@ -295,6 +295,9 @@ export const en = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
+    CHAT_ON_TELEGRAM: "Chat on Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "This is taking longer than usual. Your dispute is submitted — reopen Help & Support shortly, or reach us on Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Chat support is coming soon",
     CHAT_WITH_US: "Chat with us",
     CHECKING_WALLET_CONNECTION: "Checking wallet connection...",
@@ -465,6 +468,8 @@ export const en = {
       "Dispute can only be raised after 24 hours of order placement",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Dispute can only be raised after 30 minutes of order placement",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "You can chat with our support team and share relevant details, like proof of payment.",
     DISPUTE_DEFAULT: "Default",
     DISPUTE_FILTER: "Dispute: {{disputes}}",
     DISPUTE_NOT_RAISED: "Dispute not raised",
@@ -1757,6 +1762,9 @@ export const en = {
     SESSION_NOT_FOUND: "Session not found",
     SETTINGS: "Settings",
     SETTINGS_RESET_SUCCESS: "Settings have been reset to defaults",
+    SETTING_UP_SUPPORT_CHAT: "Setting up your support chat...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Your dispute is being confirmed on-chain — this takes a few seconds.",
     SETTLED: "Settled",
     SHARE: "Share",
     SHARE_FEEDBACK: "Share Feedback",
