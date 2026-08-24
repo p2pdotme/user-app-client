@@ -24,6 +24,10 @@ export function DisputeConfirmationView({
 }: DisputeConfirmationViewProps) {
   const { t } = useTranslation();
 
+  // BUY is the only side where the user pays fiat and awaits USDC. On SELL/PAY
+  // the merchant pays fiat to the user, so the dispute copy must flip.
+  const userPaysFiat = order?.orderType === "BUY";
+
   return (
     <motion.div
       key="dispute-confirmation"
@@ -47,7 +51,11 @@ export function DisputeConfirmationView({
               {t("RAISE_DISPUTE_FOR_TRANSACTION")}
             </DrawerTitle>
             <DrawerDescription>
-              {t("RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION")}
+              {t(
+                userPaysFiat
+                  ? "RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY"
+                  : "RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY",
+              )}
             </DrawerDescription>
           </div>
           <div className="w-6" />
@@ -64,11 +72,27 @@ export function DisputeConfirmationView({
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-muted-foreground">•</span>
-                <span>{t("DISPUTE_WARNING_PAYMENT")}</span>
+                <span>
+                  {t(
+                    userPaysFiat
+                      ? "DISPUTE_WARNING_PAYMENT_BUY"
+                      : "DISPUTE_WARNING_PAYMENT_SELL_PAY",
+                  )}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-muted-foreground">•</span>
                 <span>{t("DISPUTE_WARNING_REVIEW")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 text-muted-foreground">•</span>
+                <span>
+                  {t(
+                    userPaysFiat
+                      ? "DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY"
+                      : "DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY",
+                  )}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-muted-foreground">•</span>

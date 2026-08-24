@@ -295,6 +295,9 @@ export const en = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
+    CHAT_ON_TELEGRAM: "Chat on Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "This is taking longer than usual. Your dispute is submitted — reopen Help & Support shortly, or reach us on Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Chat support is coming soon",
     CHAT_WITH_US: "Chat with us",
     CHECKING_WALLET_CONNECTION: "Checking wallet connection...",
@@ -465,10 +468,28 @@ export const en = {
       "Dispute can only be raised after 24 hours of order placement",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Dispute can only be raised after 30 minutes of order placement",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "Only raise a dispute if you paid but didn't receive your USDC.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Only raise a dispute if you didn't receive the fiat payment.",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Paid but no USDC received?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "No payment received from the merchant?",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "Only raise a dispute if you paid but didn't receive your USDC.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Only raise a dispute if the merchant hasn't paid you.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
+      "You can chat with our support team and share relevant details, like proof of payment.",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "You can chat with our support team and share relevant details, like your payment reference.",
     DISPUTE_DEFAULT: "Default",
     DISPUTE_FILTER: "Dispute: {{disputes}}",
     DISPUTE_NOT_RAISED: "Dispute not raised",
     DISPUTE_RAISED: "Raised",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "Chat with our support team. They will review and reply here.",
+    DISPUTE_RAISED_CHAT_TITLE: "Dispute raised",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "View your conversation with support. This thread is read only.",
+    DISPUTE_RESOLVED_CHAT_TITLE: "Dispute resolved",
     DISPUTE_SETTLED: "Settled",
     DISPUTE_STATUS: "Dispute Status",
     DISPUTE_SUBMISSION_FAILED: "Failed to submit dispute",
@@ -477,8 +498,6 @@ export const en = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Dispute submitted successfully",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "False disputes may lead to action against your account.",
-    DISPUTE_WARNING_PAYMENT:
-      "Only raise a dispute if you made the payment but didn't receive refund.",
     DISPUTE_WARNING_REVIEW: "Our team will review and get back to you quickly.",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "Dispute window closes in {{time}}",
     DISPUTE_WINDOW_EXPIRED: "Dispute window has expired ({{time}})",
@@ -1576,10 +1595,7 @@ export const en = {
     RAISED: "Raised",
     RAISE_A_DISPUTE: "Raise a Dispute",
     RAISE_DISPUTE: "Raise Dispute",
-    RAISE_DISPUTE_DESCRIPTION:
-      "Only raise a dispute if you paid but didn't get a refund.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Raise Dispute?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION: "Paid but no USDC received?",
     RANGO_REQUEST_ID: "Rango Request ID",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "Rango request ID copied to clipboard",
@@ -1751,6 +1767,9 @@ export const en = {
     SESSION_NOT_FOUND: "Session not found",
     SETTINGS: "Settings",
     SETTINGS_RESET_SUCCESS: "Settings have been reset to defaults",
+    SETTING_UP_SUPPORT_CHAT: "Setting up your support chat...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Your dispute is being confirmed on-chain — this takes a few seconds.",
     SETTLED: "Settled",
     SHARE: "Share",
     SHARE_FEEDBACK: "Share Feedback",
