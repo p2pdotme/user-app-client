@@ -57,7 +57,9 @@ export function HelpDrawer({
   // early is handled, the widget surfaces an error rather than failing
   // silently, but there is no point sending someone to a panel that can only
   // say that. So gate on an existing dispute plus a bridge url, a wallet and
-  // an order, and keep the Telegram fallback for everything else.
+  // an order. This gates the in-app row only; Telegram renders regardless.
+  // Note this is an existence check, not proof that sign-in will succeed —
+  // which is exactly why Telegram is not conditioned on it.
   const hasDispute = order ? order.disputeInfo.status !== "DEFAULT" : false;
   const canChatInApp = Boolean(
     bridgeUrl && account && activeChain && order && hasDispute,
@@ -97,8 +99,16 @@ export function HelpDrawer({
       {
         onSuccess: () => {
           triggerSuccessHaptic(); // Success haptic for successful dispute submission
+          // Point the user at in-app chat only when the channel is actually
+          // reachable. This cannot use canChatInApp: the `order` prop still
+          // carries the pre-dispute DEFAULT status here (it updates on refetch),
+          // so hasDispute is false at this instant. The dispute is now raised,
+          // so the only open question is whether the bridge channel is wired.
+          const chatChannelReady = Boolean(bridgeUrl && account && activeChain);
           toast.success(t("DISPUTE_SUBMITTED_SUCCESSFULLY"), {
-            description: t("DISPUTE_SUBMITTED_DESCRIPTION"),
+            description: chatChannelReady
+              ? t("DISPUTE_SUBMITTED_CHAT_DESCRIPTION")
+              : t("DISPUTE_SUBMITTED_DESCRIPTION"),
           });
         },
         onError: (error) => {
@@ -132,20 +142,25 @@ export function HelpDrawer({
     navigate(`${INTERNAL_HREFS.HELP}/${SUPPORT_PAGE_TITLES.TRANSACTIONS}`);
   };
 
-  const handleChatWithUs = () => {
+  // The two support channels sit side by side rather than one shadowing the
+  // other, so the user picks. Telegram is unconditional: a user whose in-app
+  // sign-in fails still has a way to reach us from this same screen, instead of
+  // being stranded on the widget's auth error with only a retry that keeps
+  // failing. The in-app chat is the dispute row above, which appears only once
+  // there is a thread to open.
+  const handleChatOnTelegram = () => {
     onNavigate(); // Navigation haptic for chat
-    // Prefer the in-app signed support chat (Chatwoot bridge) when available;
-    // fall back to the Telegram support channel otherwise.
-    if (canChatInApp) {
-      setPage("chat");
-      return;
-    }
     onOpenChange(false);
     window.open(
       currency.telegramSupportChannel,
       "_blank",
       "noopener,noreferrer",
     );
+  };
+
+  const handleOpenDisputeChat = () => {
+    onNavigate(); // Navigation haptic for chat
+    setPage("chat");
   };
 
   // Reset page when drawer closes
@@ -169,8 +184,10 @@ export function HelpDrawer({
               onRaiseDispute={handleRaiseDispute}
               onBrowseHelpCenter={handleBrowseHelpCenter}
               onOrderTypeFAQs={handleOrderTypeFAQs}
-              onChatWithUs={handleChatWithUs}
-              onOpenDisputeChat={canChatInApp ? handleChatWithUs : undefined}
+              onChatOnTelegram={handleChatOnTelegram}
+              onOpenDisputeChat={
+                canChatInApp ? handleOpenDisputeChat : undefined
+              }
             />
           )}
           {page === "dispute-confirm" && (
@@ -203,6 +220,7 @@ export function HelpDrawer({
               <Suspense key="support-chat" fallback={null}>
                 <ChatView
                   orderId={order.id}
+                  isSettled={order.disputeInfo.status === "SETTLED"}
                   account={account}
                   chainId={activeChain.id}
                   bridgeUrl={bridgeUrl}

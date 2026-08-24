@@ -287,6 +287,7 @@ export const hi = {
     CEX_DEPOSITS_TAKE_10_15_MINUTES_TO_CONFIRM:
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
+    CHAT_ON_TELEGRAM: "टेलीग्राम पर चैट करें",
     CHAT_SUPPORT_COMING_SOON: "चैट समर्थन जल्द ही आ रहा है",
     CHAT_WITH_US: "हमारे साथ चैट करें",
     CHECKING_WALLET_CONNECTION: "वॉलेट कनेक्शन की जाँच की जा रही है...",
@@ -465,6 +466,8 @@ export const hi = {
     DISPUTE_SETTLED: "निपटारा किया गया",
     DISPUTE_STATUS: "विवाद की स्थिति",
     DISPUTE_SUBMISSION_FAILED: "विवाद सबमिट करने में विफल",
+    DISPUTE_SUBMITTED_CHAT_DESCRIPTION:
+      "अब आप इस ऑर्डर से हमारी सहायता टीम के साथ सीधे चैट कर सकते हैं। टेलीग्राम भी उपलब्ध है।",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "हम आपके विवाद की समीक्षा करेंगे और जल्द ही आपसे संपर्क करेंगे",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",

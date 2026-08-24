@@ -10,7 +10,7 @@ describe("HelpListView dispute row", () => {
     onRaiseDispute: noop,
     onBrowseHelpCenter: noop,
     onOrderTypeFAQs: noop,
-    onChatWithUs: noop,
+    onChatOnTelegram: noop,
   };
 
   // HelpListView renders DrawerClose, DrawerTitle and DrawerDescription with
@@ -49,6 +49,13 @@ describe("HelpListView dispute row", () => {
     screen.getByText("Dispute raised").click();
     expect(onOpenDisputeChat).toHaveBeenCalledOnce();
   });
+
+  // No test here for "both channels are offered at once". HelpListView never
+  // conflated them: its bottom button has always rendered unconditionally and
+  // always called its prop, so a test at this level only asserts the label
+  // rename and passes against pre-split source. The conflation lived in
+  // index.tsx's handler, so the invariant is tested there instead —
+  // help-drawer.test.tsx, "offers both channels at once when the gate is open".
 
   it("labels a settled dispute as resolved", () => {
     renderWithProviders(
