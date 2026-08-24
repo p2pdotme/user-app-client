@@ -288,6 +288,8 @@ export const hi = {
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
     CHAT_ON_TELEGRAM: "टेलीग्राम पर चैट करें",
+    CHAT_SETUP_TAKING_LONGER:
+      "इसमें सामान्य से अधिक समय लग रहा है। आपका विवाद सबमिट हो गया है — कुछ देर बाद सहायता एवं समर्थन फिर से खोलें, या टेलीग्राम पर हमसे संपर्क करें।",
     CHAT_SUPPORT_COMING_SOON: "चैट समर्थन जल्द ही आ रहा है",
     CHAT_WITH_US: "हमारे साथ चैट करें",
     CHECKING_WALLET_CONNECTION: "वॉलेट कनेक्शन की जाँच की जा रही है...",
@@ -466,8 +468,6 @@ export const hi = {
     DISPUTE_SETTLED: "निपटारा किया गया",
     DISPUTE_STATUS: "विवाद की स्थिति",
     DISPUTE_SUBMISSION_FAILED: "विवाद सबमिट करने में विफल",
-    DISPUTE_SUBMITTED_CHAT_DESCRIPTION:
-      "अब आप इस ऑर्डर से हमारी सहायता टीम के साथ सीधे चैट कर सकते हैं। टेलीग्राम भी उपलब्ध है।",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "हम आपके विवाद की समीक्षा करेंगे और जल्द ही आपसे संपर्क करेंगे",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",
@@ -1715,6 +1715,9 @@ export const hi = {
     SESSION_NOT_FOUND: "सत्र नहीं मिला",
     SETTINGS: "सेटिंग्स",
     SETTINGS_RESET_SUCCESS: "सेटिंग्स डिफ़ॉल्ट पर रीसेट हो गई हैं",
+    SETTING_UP_SUPPORT_CHAT: "आपका सहायता चैट तैयार किया जा रहा है...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "आपका विवाद ऑन-चेन पुष्टि किया जा रहा है — इसमें कुछ सेकंड लगते हैं।",
     SETTLED: "सुलझा हुआ",
     SHARE: "शेयर करें",
     SHARE_FEEDBACK: "फ़ीडबैक शेयर करें",

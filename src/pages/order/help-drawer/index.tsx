@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,6 +12,7 @@ import { useHapticInteractions, useRaiseDispute } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { getSupportBridgeUrl } from "@/lib/support-bridge";
 import { SUPPORT_PAGE_TITLES } from "../../help/constants";
+import { ChatPendingView } from "./chat-pending-view";
 import { DisputeConfirmationView } from "./dispute-confirmation-view";
 import { DisputeFormView } from "./dispute-form-view";
 import { HelpListView } from "./help-list-view";
@@ -22,7 +24,18 @@ const ChatView = lazy(() =>
   import("./chat-view").then((m) => ({ default: m.ChatView })),
 );
 
-export type HelpPage = "list" | "dispute-confirm" | "dispute-form" | "chat";
+export type HelpPage =
+  | "list"
+  | "dispute-confirm"
+  | "dispute-form"
+  | "chat-pending"
+  | "chat";
+
+// While in "chat-pending" the order is refetched until it reports the dispute,
+// which is also when the bridge has a thread to open. Poll rate and how long we
+// wait before showing the slower-path copy.
+const CHAT_PENDING_POLL_MS = 3000;
+const CHAT_PENDING_TIMEOUT_MS = 40000;
 
 export function HelpDrawer({
   open,
@@ -51,6 +64,8 @@ export function HelpDrawer({
   const account = useActiveAccount();
   const activeChain = useActiveWalletChain();
   const bridgeUrl = getSupportBridgeUrl();
+  const queryClient = useQueryClient();
+  const [chatPendingTimedOut, setChatPendingTimedOut] = useState(false);
 
   // The bridge creates a conversation only from its OrderDispute chain
   // listener, so before a dispute exists there is no thread to open. Asking
@@ -74,6 +89,38 @@ export function HelpDrawer({
     }
   }, [page, canChatInApp]);
 
+  // While waiting for a freshly raised dispute to index, refetch the order so
+  // the parent's query picks up the DEFAULT -> RAISED flip. Its refetchInterval
+  // does not poll a disputed SELL/COMPLETED order, and the one invalidation the
+  // mutation fires can land before the subgraph has indexed the event, so drive
+  // it here until the flip arrives (or the budget elapses, then show the slower
+  // copy). invalidateQueries refetches the active order query regardless of its
+  // refetchInterval.
+  useEffect(() => {
+    if (page !== "chat-pending") return;
+    setChatPendingTimedOut(false);
+    const poll = setInterval(() => {
+      queryClient.invalidateQueries({ queryKey: ["order", "getOrderById"] });
+    }, CHAT_PENDING_POLL_MS);
+    const timeout = setTimeout(() => {
+      setChatPendingTimedOut(true);
+      clearInterval(poll);
+    }, CHAT_PENDING_TIMEOUT_MS);
+    return () => {
+      clearInterval(poll);
+      clearTimeout(timeout);
+    };
+  }, [page, queryClient]);
+
+  // Once the refetch reports the dispute, canChatInApp opens and the bridge has
+  // a thread, so leave the pending view for the live chat.
+  useEffect(() => {
+    if (page === "chat-pending" && canChatInApp) {
+      setChatPendingTimedOut(false);
+      setPage("chat");
+    }
+  }, [page, canChatInApp]);
+
   const handleRaiseDispute = () => {
     triggerWarningHaptic(); // Warning haptic for dispute action
     setPage("dispute-confirm");
@@ -91,35 +138,36 @@ export function HelpDrawer({
       return;
     }
 
-    await raiseDisputeMutation.mutateAsync(
-      {
+    try {
+      await raiseDisputeMutation.mutateAsync({
         orderId: parseInt(order.id, 10),
         redactTransId: BigInt(transactionId),
-      },
-      {
-        onSuccess: () => {
-          triggerSuccessHaptic(); // Success haptic for successful dispute submission
-          // Point the user at in-app chat only when the channel is actually
-          // reachable. This cannot use canChatInApp: the `order` prop still
-          // carries the pre-dispute DEFAULT status here (it updates on refetch),
-          // so hasDispute is false at this instant. The dispute is now raised,
-          // so the only open question is whether the bridge channel is wired.
-          const chatChannelReady = Boolean(bridgeUrl && account && activeChain);
-          toast.success(t("DISPUTE_SUBMITTED_SUCCESSFULLY"), {
-            description: chatChannelReady
-              ? t("DISPUTE_SUBMITTED_CHAT_DESCRIPTION")
-              : t("DISPUTE_SUBMITTED_DESCRIPTION"),
-          });
-        },
-        onError: (error) => {
-          triggerErrorHaptic(); // Error haptic for dispute submission failure
-          toast.error(t("DISPUTE_SUBMISSION_FAILED"), {
-            description: error.message,
-          });
-        },
-      },
-    );
+      });
+    } catch (error) {
+      triggerErrorHaptic(); // Error haptic for dispute submission failure
+      toast.error(t("DISPUTE_SUBMISSION_FAILED"), {
+        description: error instanceof Error ? error.message : undefined,
+      });
+      return; // Stay on the form so the user can retry.
+    }
 
+    triggerSuccessHaptic(); // Success haptic for successful dispute submission
+
+    // Keep the drawer open and take the user straight into support chat when
+    // the channel is reachable. Deliberately NOT canChatInApp: the `order` prop
+    // still reports DEFAULT at this instant (it updates on the refetch the
+    // mutation triggers), so the in-app gate is not open yet. The chat-pending
+    // view waits for it; if the bridge is not wired we keep the Telegram path.
+    const chatChannelReady = Boolean(bridgeUrl && account && activeChain);
+    if (chatChannelReady) {
+      toast.success(t("DISPUTE_SUBMITTED_SUCCESSFULLY"));
+      setPage("chat-pending");
+      return;
+    }
+
+    toast.success(t("DISPUTE_SUBMITTED_SUCCESSFULLY"), {
+      description: t("DISPUTE_SUBMITTED_DESCRIPTION"),
+    });
     onOpenChange(false);
     // Reset page state when drawer closes
     setTimeout(() => setPage("list"), 200);
@@ -127,6 +175,7 @@ export function HelpDrawer({
 
   const handleCancel = () => {
     onNavigate(); // Navigation haptic for cancel action
+    setChatPendingTimedOut(false);
     setPage("list");
   };
 
@@ -206,6 +255,14 @@ export function HelpDrawer({
               onCancel={handleCancel}
               order={order}
               isSubmitting={raiseDisputeMutation.isPending}
+            />
+          )}
+          {page === "chat-pending" && (
+            <ChatPendingView
+              key="chat-pending"
+              timedOut={chatPendingTimedOut}
+              onChatOnTelegram={handleChatOnTelegram}
+              onBack={handleCancel}
             />
           )}
           {/* canChatInApp already implies all four. They are repeated

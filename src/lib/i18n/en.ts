@@ -296,6 +296,8 @@ export const en = {
       "If your receiving address is a CEX, it may sometimes take longer to show up. Contact your CEX support if it's taking too long.",
     CHANGE_DNS: "Change DNS",
     CHAT_ON_TELEGRAM: "Chat on Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "This is taking longer than usual. Your dispute is submitted — reopen Help & Support shortly, or reach us on Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Chat support is coming soon",
     CHAT_WITH_US: "Chat with us",
     CHECKING_WALLET_CONNECTION: "Checking wallet connection...",
@@ -479,8 +481,6 @@ export const en = {
     DISPUTE_SETTLED: "Settled",
     DISPUTE_STATUS: "Dispute Status",
     DISPUTE_SUBMISSION_FAILED: "Failed to submit dispute",
-    DISPUTE_SUBMITTED_CHAT_DESCRIPTION:
-      "You can now chat directly with our support team from this order. Telegram is still available too.",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "We'll review your dispute and get back to you soon",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Dispute submitted successfully",
@@ -1760,6 +1760,9 @@ export const en = {
     SESSION_NOT_FOUND: "Session not found",
     SETTINGS: "Settings",
     SETTINGS_RESET_SUCCESS: "Settings have been reset to defaults",
+    SETTING_UP_SUPPORT_CHAT: "Setting up your support chat...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Your dispute is being confirmed on-chain — this takes a few seconds.",
     SETTLED: "Settled",
     SHARE: "Share",
     SHARE_FEEDBACK: "Share Feedback",

@@ -301,6 +301,8 @@ export const id = {
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
     CHAT_ON_TELEGRAM: "Chat di Telegram",
+    CHAT_SETUP_TAKING_LONGER:
+      "Ini memakan waktu lebih lama dari biasanya. Sengketa Anda sudah dikirim — buka kembali Bantuan & Dukungan sebentar lagi, atau hubungi kami di Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Dukungan chat segera hadir",
     CHAT_WITH_US: "Chat dengan kami",
     CHECKING_WALLET_CONNECTION: "Memeriksa koneksi dompet...",
@@ -484,8 +486,6 @@ export const id = {
     DISPUTE_SETTLED: "Diselesaikan",
     DISPUTE_STATUS: "Status Sengketa",
     DISPUTE_SUBMISSION_FAILED: "Gagal mengirim sengketa",
-    DISPUTE_SUBMITTED_CHAT_DESCRIPTION:
-      "Anda kini dapat mengobrol langsung dengan tim dukungan kami dari pesanan ini. Telegram juga masih tersedia.",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "Kami akan meninjau sengketa Anda dan segera menghubungi Anda",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Sengketa berhasil dikirim",
@@ -1790,6 +1790,9 @@ export const id = {
     SESSION_NOT_FOUND: "Sesi tidak ditemukan",
     SETTINGS: "Pengaturan",
     SETTINGS_RESET_SUCCESS: "Pengaturan telah diatur ulang ke nilai default",
+    SETTING_UP_SUPPORT_CHAT: "Menyiapkan obrolan dukungan Anda...",
+    SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
+      "Sengketa Anda sedang dikonfirmasi on-chain — ini butuh beberapa detik.",
     SETTLED: "Diselesaikan",
     SHARE: "Bagikan",
     SHARE_FEEDBACK: "Bagikan Umpan Balik",

@@ -221,71 +221,102 @@ describe("HelpDrawer chat page", () => {
     screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
-  // Suggestion #1: the raise-success toast should tell the user in-app chat is
-  // now open, but only when that channel can actually be reached. It cannot
-  // gate on canChatInApp: the `order` prop still holds the pre-dispute DEFAULT
-  // status at this instant (it updates on the next refetch), so hasDispute is
-  // false here. The dispute is raised, so the only live question is whether the
-  // bridge channel is wired -- bridge url + wallet + resolved chain.
-  const raiseADispute = () => {
+  // Suggestion #1: raising a dispute should take the user into support chat,
+  // not just toast and close. It cannot route straight to chat: at success the
+  // `order` prop still reports DEFAULT (it updates on the refetch the mutation
+  // triggers), so canChatInApp is false. So the raise lands on a "setting up"
+  // view that waits for the order to report the dispute, then advances to chat.
+  // The gate for taking this path is bridge url + wallet + resolved chain.
+  const raiseADispute = async ({ bridge }: { bridge: boolean }) => {
+    if (bridge) vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    // activeChain defaults to { id: 8453 } per src/test/thirdweb.ts.
+    const onOpenChange = vi.fn();
     // A BUY/PAID order placed an hour ago sits inside the 15m..24h window, so
     // the list row is live and clickable rather than the greyed "wait" state.
     const order = makeOrder({
       placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
     });
-    renderWithProviders(
-      <HelpDrawer open onOpenChange={vi.fn()} order={order} />,
+    const { rerender } = renderWithProviders(
+      <HelpDrawer open onOpenChange={onOpenChange} order={order} />,
     );
     screen.getByText("Raise a Dispute").click();
+    (await screen.findByText("Confirm")).click();
+    fireEvent.change(await screen.findByPlaceholderText("XXXX"), {
+      target: { value: "1234" },
+    });
+    (await screen.findByRole("button", { name: "Raise Dispute" })).click();
+    return { onOpenChange, rerender };
   };
 
-  it("points to in-app chat on raise when the bridge channel is configured", async () => {
-    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
-    mockActiveAccount({
-      address: "0x1111111111111111111111111111111111111111",
-      signMessage: async () => "0xsignature",
-    });
-    // activeChain defaults to { id: 8453 } per test in src/test/thirdweb.ts.
-    const success = vi.spyOn(toast, "success").mockReturnValue("t");
+  it("keeps the drawer open on a setup state, then advances to chat once the dispute indexes", async () => {
+    // The chat page mounts the real UserSupportPanel, which signs in against the
+    // bridge on mount; stub fetch so this unit test makes no outbound request.
+    vi.stubGlobal("fetch", () =>
+      Promise.reject(new Error("no network in tests")),
+    );
 
-    raiseADispute();
-    (await screen.findByText("Confirm")).click();
-    fireEvent.change(await screen.findByPlaceholderText("XXXX"), {
-      target: { value: "1234" },
-    });
-    (
-      await screen.findByRole("button", { name: "Raise Dispute" })
-    ).click();
+    const { onOpenChange, rerender } = await raiseADispute({ bridge: true });
 
-    await waitFor(() => expect(success).toHaveBeenCalledTimes(1));
-    expect(success).toHaveBeenCalledWith("Dispute submitted successfully", {
-      description:
-        "You can now chat directly with our support team from this order. Telegram is still available too.",
-    });
+    // The drawer stays open on the setup state rather than closing with a toast.
+    expect(
+      await screen.findByText("Setting up your support chat..."),
+    ).toBeInTheDocument();
+    expect(onOpenChange).not.toHaveBeenCalledWith(false);
+    // The Telegram escape is always available while waiting.
+    expect(screen.getByText("Chat on Telegram")).toBeInTheDocument();
+
+    // The order refetch reports the dispute -> canChatInApp opens -> live chat.
+    // Modelled by re-rendering with the now-disputed order the parent would
+    // supply once its query refetches.
+    rerender(
+      <HelpDrawer
+        open
+        onOpenChange={onOpenChange}
+        order={makeDisputedOrder({
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+        })}
+      />,
+    );
+    expect(
+      await screen.findByRole("heading", { name: "Dispute raised" }),
+    ).toBeInTheDocument();
   });
 
-  it("keeps the passive raise toast when no bridge url is set", async () => {
-    // No VITE_SUPPORT_BRIDGE_URL, so in-app chat is unreachable and the toast
-    // must not promise it -- the user keeps the existing "we'll get back to
-    // you" copy and Telegram remains their path.
-    mockActiveAccount({
-      address: "0x1111111111111111111111111111111111111111",
-      signMessage: async () => "0xsignature",
-    });
+  it("offers a Telegram escape from the setup state", async () => {
+    vi.stubGlobal("fetch", () =>
+      Promise.reject(new Error("no network in tests")),
+    );
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+
+    await raiseADispute({ bridge: true });
+
+    expect(
+      await screen.findByText("Setting up your support chat..."),
+    ).toBeInTheDocument();
+    screen.getByText("Chat on Telegram").click();
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the passive toast and closes when no bridge url is set", async () => {
+    // No VITE_SUPPORT_BRIDGE_URL, so in-app chat is unreachable: the user keeps
+    // the "we'll get back to you" copy, the drawer closes, and Telegram remains
+    // their path. No setup view.
     const success = vi.spyOn(toast, "success").mockReturnValue("t");
 
-    raiseADispute();
-    (await screen.findByText("Confirm")).click();
-    fireEvent.change(await screen.findByPlaceholderText("XXXX"), {
-      target: { value: "1234" },
-    });
-    (
-      await screen.findByRole("button", { name: "Raise Dispute" })
-    ).click();
+    const { onOpenChange } = await raiseADispute({ bridge: false });
 
-    await waitFor(() => expect(success).toHaveBeenCalledTimes(1));
-    expect(success).toHaveBeenCalledWith("Dispute submitted successfully", {
-      description: "We'll review your dispute and get back to you soon",
-    });
+    await waitFor(() =>
+      expect(success).toHaveBeenCalledWith("Dispute submitted successfully", {
+        description: "We'll review your dispute and get back to you soon",
+      }),
+    );
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(
+      screen.queryByText("Setting up your support chat..."),
+    ).not.toBeInTheDocument();
   });
 });
