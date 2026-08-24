@@ -12,6 +12,23 @@ export type ReceiptPaymentIdDetails = {
   qr: string | null;
 };
 
+/** India UPI PAY intent. Do not treat EMVCo `000201` here — ARS/BRL/IDR
+ * still dump that blob as text until they get `getPayQrPayload`. */
+function looksLikeUpiPayIntent(value: string): boolean {
+  return /^upi:\/\//i.test(value.trim());
+}
+
+function upiPaFromIntent(intent: string): string {
+  const trimmed = intent.trim();
+  const query = /^upi:\/\/pay\?/i.test(trimmed)
+    ? trimmed.replace(/^upi:\/\/pay\?/i, "")
+    : trimmed.includes("?")
+      ? (trimmed.split("?")[1] ?? "")
+      : "";
+  if (!query) return "";
+  return new URLSearchParams(query).get("pa")?.trim() ?? "";
+}
+
 /**
  * Human-readable payment ID for receipts. Packed QRs never dump the raw
  * payload; `qr` holds the scannable value when present.
@@ -22,26 +39,40 @@ export function formatReceiptPaymentId(
   t: (key: string) => string,
 ): ReceiptPaymentIdDetails {
   if (!value) return { display: "", copyValue: null, qr: null };
-  if (!currency) return { display: value, copyValue: value, qr: null };
+  if (!currency) {
+    if (looksLikeUpiPayIntent(value)) {
+      const pa = upiPaFromIntent(value);
+      return { display: pa, copyValue: pa || null, qr: value.trim() };
+    }
+    return { display: value, copyValue: value, qr: null };
+  }
 
   const code = currency as CurrencyType;
-  const qr = getDisplayQrPayload(code, value);
+  const qr =
+    getDisplayQrPayload(code, value) ??
+    (looksLikeUpiPayIntent(value) ? value.trim() : null);
   const formatted = formatStoredPaymentIdForDisplay(code, value);
-  if (formatted) {
-    const { rest } = unpackPackedPaymentId(value);
+  if (qr) {
+    const option = getCountryOption(code);
+    const short =
+      formatted &&
+      formatted !== value.trim() &&
+      !looksLikeUpiPayIntent(formatted)
+        ? formatted
+        : upiPaFromIntent(qr);
     return {
-      display: formatted,
-      copyValue: rest.trim() || formatted,
+      display: short || (option ? t(option.paymentAddressName) : ""),
+      copyValue: short || null,
       qr,
     };
   }
 
-  if (qr) {
-    const option = getCountryOption(code);
+  if (formatted && !looksLikeUpiPayIntent(formatted)) {
+    const { rest } = unpackPackedPaymentId(value);
     return {
-      display: option ? t(option.paymentAddressName) : "",
-      copyValue: null,
-      qr,
+      display: formatted,
+      copyValue: rest.trim() || formatted,
+      qr: null,
     };
   }
 

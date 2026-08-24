@@ -468,14 +468,6 @@ export const en = {
       "Dispute can only be raised after 24 hours of order placement",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Dispute can only be raised after 30 minutes of order placement",
-    RAISE_DISPUTE_DESCRIPTION_BUY:
-      "Only raise a dispute if you paid but didn't receive your USDC.",
-    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Only raise a dispute if you didn't receive the fiat payment.",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Paid but no USDC received?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "No payment received from the merchant?",
-    DISPUTE_WARNING_PAYMENT_BUY:
-      "Only raise a dispute if you paid but didn't receive your USDC.",
-    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Only raise a dispute if the merchant hasn't paid you.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "You can chat with our support team and share relevant details, like proof of payment.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
@@ -498,6 +490,10 @@ export const en = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Dispute submitted successfully",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "False disputes may lead to action against your account.",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "Only raise a dispute if you paid but didn't receive your USDC.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY:
+      "Only raise a dispute if the merchant hasn't paid you.",
     DISPUTE_WARNING_REVIEW: "Our team will review and get back to you quickly.",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "Dispute window closes in {{time}}",
     DISPUTE_WINDOW_EXPIRED: "Dispute window has expired ({{time}})",
@@ -1595,7 +1591,14 @@ export const en = {
     RAISED: "Raised",
     RAISE_A_DISPUTE: "Raise a Dispute",
     RAISE_DISPUTE: "Raise Dispute",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "Only raise a dispute if you paid but didn't receive your USDC.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY:
+      "Only raise a dispute if you didn't receive the fiat payment.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Raise Dispute?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Paid but no USDC received?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY:
+      "No payment received from the merchant?",
     RANGO_REQUEST_ID: "Rango Request ID",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "Rango request ID copied to clipboard",
