@@ -1,6 +1,11 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  fireEvent,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { toast } from "sonner";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { makeDisputedOrder, makeOrder } from "@/test/factories";
 import { renderWithProviders } from "@/test/render";
 import { mockActiveAccount, mockActiveWalletChain } from "@/test/thirdweb";
@@ -185,6 +190,9 @@ describe("HelpDrawer chat page", () => {
   });
 
   it("keeps Telegram working when no bridge url is set", () => {
+    // Explicit so the ambient .env(.local) cannot leak a bridge url in and open
+    // the in-app row this test asserts is absent. "" reads as unset.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "");
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
       signMessage: async () => "0xsignature",
@@ -221,6 +229,27 @@ describe("HelpDrawer chat page", () => {
     screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
+  it("notes support chat and details on the dispute confirmation screen", async () => {
+    const order = makeOrder({
+      placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+    });
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={order} />,
+    );
+    screen.getByText("Raise a Dispute").click();
+    // The row carries the note too; wait for the list to leave so this lands on
+    // the confirmation copy specifically.
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText("Raise a Dispute"),
+    );
+    expect(screen.getByText("Confirm")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
   // Suggestion #1: raising a dispute should take the user into support chat,
   // not just toast and close. It cannot route straight to chat: at success the
   // `order` prop still reports DEFAULT (it updates on the refetch the mutation
@@ -228,7 +257,9 @@ describe("HelpDrawer chat page", () => {
   // view that waits for the order to report the dispute, then advances to chat.
   // The gate for taking this path is bridge url + wallet + resolved chain.
   const raiseADispute = async ({ bridge }: { bridge: boolean }) => {
-    if (bridge) vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    // Stub either way so an ambient .env(.local) bridge url cannot flip the
+    // no-bridge path into the in-app one. "" reads as unset.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", bridge ? "https://bridge.test" : "");
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
       signMessage: async () => "0xsignature",

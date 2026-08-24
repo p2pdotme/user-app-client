@@ -486,6 +486,8 @@ export const es = {
       "La disputa solo puede abrirse después de 24 horas de haber realizado el pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "La disputa solo puede abrirse después de 30 minutos de haber realizado el pedido",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como el comprobante de pago.",
     DISPUTE_DEFAULT: "Predeterminado",
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa no abierta",

@@ -455,6 +455,8 @@ export const hi = {
       "ऑर्डर देने के 24 घंटे बाद ही विवाद उठाया जा सकता है",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "ऑर्डर देने के 30 मिनट बाद ही विवाद उठाया जा सकता है",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "आप हमारी सहायता टीम के साथ चैट कर सकते हैं और प्रासंगिक जानकारी साझा कर सकते हैं, जैसे भुगतान का प्रमाण।",
     DISPUTE_DEFAULT: "डिफ़ॉल्ट",
     DISPUTE_FILTER: "विवाद: {{disputes}}",
     DISPUTE_NOT_RAISED: "विवाद नहीं उठाया गया",

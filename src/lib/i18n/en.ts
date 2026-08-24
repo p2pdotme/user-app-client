@@ -468,6 +468,8 @@ export const en = {
       "Dispute can only be raised after 24 hours of order placement",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Dispute can only be raised after 30 minutes of order placement",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "You can chat with our support team and share relevant details, like proof of payment.",
     DISPUTE_DEFAULT: "Default",
     DISPUTE_FILTER: "Dispute: {{disputes}}",
     DISPUTE_NOT_RAISED: "Dispute not raised",

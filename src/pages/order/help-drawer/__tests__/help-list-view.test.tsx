@@ -34,6 +34,25 @@ describe("HelpListView dispute row", () => {
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
   });
 
+  it("notes on the raise row that support chat and details are available", () => {
+    // The note is not gated on the dispute window being open, so it shows in
+    // the pre-raise waiting state too (this order is outside the window).
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        order={makeOrder()}
+        disputeStatus="DEFAULT"
+        onOpenDisputeChat={noop}
+      />,
+      { withDrawer: true },
+    );
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("swaps in a chat row once a dispute is raised", () => {
     const onOpenDisputeChat = vi.fn();
     renderWithProviders(

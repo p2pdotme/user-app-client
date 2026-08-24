@@ -72,6 +72,10 @@ export function DisputeConfirmationView({
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-muted-foreground">•</span>
+                <span>{t("DISPUTE_CHAT_SHARE_DETAILS_NOTE")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 text-muted-foreground">•</span>
                 <span>{t("DISPUTE_WARNING_FALSE_DISPUTES")}</span>
               </li>
             </ul>

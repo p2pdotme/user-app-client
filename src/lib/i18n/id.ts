@@ -473,6 +473,8 @@ export const id = {
       "Sengketa hanya dapat diajukan setelah 24 jam penempatan pesanan",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Sengketa hanya dapat diajukan setelah 30 menit penempatan pesanan",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti bukti pembayaran.",
     DISPUTE_DEFAULT: "Default",
     DISPUTE_FILTER: "Sengketa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Sengketa tidak diajukan",

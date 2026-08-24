@@ -481,6 +481,8 @@ export const pt = {
       "A disputa só pode ser levantada após 24 horas da colocação do pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "A disputa só pode ser levantada após 30 minutos da colocação do pedido",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE:
+      "Você pode conversar com nossa equipe de suporte e compartilhar detalhes relevantes, como o comprovante de pagamento.",
     DISPUTE_DEFAULT: "Padrão",
     DISPUTE_FILTER: "Disputa: {{disputes}}",
     DISPUTE_NOT_RAISED: "Disputa não aberta",

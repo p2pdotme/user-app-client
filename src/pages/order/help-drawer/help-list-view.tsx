@@ -180,6 +180,15 @@ export function HelpListView({
                     </p>
                   </div>
                 )}
+                {/* Shown in both states — while the window counts down and once
+                    it is open — so the user knows support is reachable and that
+                    evidence helps, before they ever raise. Text only. */}
+                <div className="mt-2 flex items-start gap-1">
+                  <MessageCircle className="mt-0.5 size-3 shrink-0 text-muted-foreground" />
+                  <p className="text-left text-muted-foreground text-xs">
+                    {t("DISPUTE_CHAT_SHARE_DETAILS_NOTE")}
+                  </p>
+                </div>
               </div>
             </Button>
 
