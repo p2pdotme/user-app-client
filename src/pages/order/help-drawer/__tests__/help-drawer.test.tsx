@@ -1,4 +1,10 @@
-import { screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
+import { toast } from "sonner";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { makeDisputedOrder, makeOrder } from "@/test/factories";
 import { renderWithProviders } from "@/test/render";
@@ -62,7 +68,11 @@ describe("HelpDrawer chat page", () => {
     const { rerender } = renderWithProviders(
       <HelpDrawer open onOpenChange={() => {}} order={order} />,
     );
-    screen.getByText("Chat with us").click();
+    // The dispute row is the in-app entry point. The button at the bottom of
+    // the list is Telegram and always has been since the two channels were
+    // split, so clicking that one would leave the drawer on the list and this
+    // test would prove nothing.
+    screen.getByText("Dispute raised").click();
 
     // AnimatePresence mode="wait" holds the list view on screen until its
     // exit animation finishes, so the chat page is not actually mounted the
@@ -101,7 +111,7 @@ describe("HelpDrawer chat page", () => {
 
   it("shows the dispute chat row on the list once the gate is open", () => {
     // The only test of the wiring in index.tsx,
-    // onOpenDisputeChat={canChatInApp ? handleChatWithUs : undefined}.
+    // onOpenDisputeChat={canChatInApp ? handleOpenDisputeChat : undefined}.
     // help-list-view.test.tsx passes that prop by hand, so nothing there can
     // tell whether the drawer actually supplies it. This is the line that
     // decides whether any real user ever sees the row.
@@ -119,16 +129,41 @@ describe("HelpDrawer chat page", () => {
     expect(screen.queryByText("Raise a Dispute")).not.toBeInTheDocument();
   });
 
-  it("sends chat to Telegram when the wallet reports no chain", () => {
+  it("offers both channels at once when the gate is open", () => {
+    // The invariant of the split: on a disputed order with the bridge
+    // configured the user sees the in-app row AND the Telegram button, and
+    // picks. Previously one control served both and the gate decided, so a
+    // failed in-app sign-in left no visible route to support from here.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={makeDisputedOrder()} />,
+    );
+
+    expect(screen.getByText("Dispute raised")).toBeInTheDocument();
+    expect(screen.getByText("Chat on Telegram")).toBeInTheDocument();
+
+    // And Telegram still goes to Telegram, rather than being swallowed by the
+    // in-app route the way it was when one handler served both.
+    screen.getByText("Chat on Telegram").click();
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the in-app chat shut when the wallet reports no chain", () => {
     // The chain id is bound into the bridge sign-in message and picks the
     // chain the bridge runs ERC-1271 verification on, so an unresolved chain
     // must mean Telegram rather than a sign-in claiming a chain the wallet
     // may not be on. The gate requires a resolved chain for that reason, and
     // there is no fallback to the configured one.
     //
-    // Asserted through the Telegram call rather than through the chat page
-    // staying shut, because the transition is asynchronous and "the chat page
-    // did not appear yet" is true one tick after any click.
+    // Asserted through the absent dispute chat row rather than through a
+    // Telegram call. The Telegram button is unconditional now, so clicking it
+    // proves nothing about the gate; the row's absence is what proves it.
     vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "https://bridge.test");
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
@@ -145,13 +180,19 @@ describe("HelpDrawer chat page", () => {
         order={makeDisputedOrder()}
       />,
     );
-    screen.getByText("Chat with us").click();
 
+    expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
+
+    // ...and the user is still not stranded.
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
-  it("keeps the Telegram fallback when no bridge url is set", () => {
+  it("keeps Telegram working when no bridge url is set", () => {
+    // Explicit so the ambient .env(.local) cannot leak a bridge url in and open
+    // the in-app row this test asserts is absent. "" reads as unset.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", "");
     mockActiveAccount({
       address: "0x1111111111111111111111111111111111111111",
       signMessage: async () => "0xsignature",
@@ -162,7 +203,7 @@ describe("HelpDrawer chat page", () => {
     );
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
     expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
-    screen.getByText("Chat with us").click();
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
   });
 
@@ -185,7 +226,128 @@ describe("HelpDrawer chat page", () => {
     expect(screen.queryByText("Dispute raised")).not.toBeInTheDocument();
     expect(screen.getByText("Raise a Dispute")).toBeInTheDocument();
 
-    screen.getByText("Chat with us").click();
+    screen.getByText("Chat on Telegram").click();
     expect(open).toHaveBeenCalledTimes(1);
+  });
+  it("notes support chat and details on the dispute confirmation screen", async () => {
+    const order = makeOrder({
+      placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+    });
+    renderWithProviders(
+      <HelpDrawer open onOpenChange={vi.fn()} order={order} />,
+    );
+    screen.getByText("Raise a Dispute").click();
+    // The row carries the note too; wait for the list to leave so this lands on
+    // the confirmation copy specifically.
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText("Raise a Dispute"),
+    );
+    expect(screen.getByText("Confirm")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /chat with our support team and share relevant details/i,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  // Suggestion #1: raising a dispute should take the user into support chat,
+  // not just toast and close. It cannot route straight to chat: at success the
+  // `order` prop still reports DEFAULT (it updates on the refetch the mutation
+  // triggers), so canChatInApp is false. So the raise lands on a "setting up"
+  // view that waits for the order to report the dispute, then advances to chat.
+  // The gate for taking this path is bridge url + wallet + resolved chain.
+  const raiseADispute = async ({ bridge }: { bridge: boolean }) => {
+    // Stub either way so an ambient .env(.local) bridge url cannot flip the
+    // no-bridge path into the in-app one. "" reads as unset.
+    vi.stubEnv("VITE_SUPPORT_BRIDGE_URL", bridge ? "https://bridge.test" : "");
+    mockActiveAccount({
+      address: "0x1111111111111111111111111111111111111111",
+      signMessage: async () => "0xsignature",
+    });
+    // activeChain defaults to { id: 8453 } per src/test/thirdweb.ts.
+    const onOpenChange = vi.fn();
+    // A BUY/PAID order placed an hour ago sits inside the 15m..24h window, so
+    // the list row is live and clickable rather than the greyed "wait" state.
+    const order = makeOrder({
+      placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+    });
+    const { rerender } = renderWithProviders(
+      <HelpDrawer open onOpenChange={onOpenChange} order={order} />,
+    );
+    screen.getByText("Raise a Dispute").click();
+    (await screen.findByText("Confirm")).click();
+    fireEvent.change(await screen.findByPlaceholderText("XXXX"), {
+      target: { value: "1234" },
+    });
+    (await screen.findByRole("button", { name: "Raise Dispute" })).click();
+    return { onOpenChange, rerender };
+  };
+
+  it("keeps the drawer open on a setup state, then advances to chat once the dispute indexes", async () => {
+    // The chat page mounts the real UserSupportPanel, which signs in against the
+    // bridge on mount; stub fetch so this unit test makes no outbound request.
+    vi.stubGlobal("fetch", () =>
+      Promise.reject(new Error("no network in tests")),
+    );
+
+    const { onOpenChange, rerender } = await raiseADispute({ bridge: true });
+
+    // The drawer stays open on the setup state rather than closing with a toast.
+    expect(
+      await screen.findByText("Setting up your support chat..."),
+    ).toBeInTheDocument();
+    expect(onOpenChange).not.toHaveBeenCalledWith(false);
+    // The Telegram escape is always available while waiting.
+    expect(screen.getByText("Chat on Telegram")).toBeInTheDocument();
+
+    // The order refetch reports the dispute -> canChatInApp opens -> live chat.
+    // Modelled by re-rendering with the now-disputed order the parent would
+    // supply once its query refetches.
+    rerender(
+      <HelpDrawer
+        open
+        onOpenChange={onOpenChange}
+        order={makeDisputedOrder({
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+        })}
+      />,
+    );
+    expect(
+      await screen.findByRole("heading", { name: "Dispute raised" }),
+    ).toBeInTheDocument();
+  });
+
+  it("offers a Telegram escape from the setup state", async () => {
+    vi.stubGlobal("fetch", () =>
+      Promise.reject(new Error("no network in tests")),
+    );
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+
+    await raiseADispute({ bridge: true });
+
+    expect(
+      await screen.findByText("Setting up your support chat..."),
+    ).toBeInTheDocument();
+    screen.getByText("Chat on Telegram").click();
+    expect(open).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps the passive toast and closes when no bridge url is set", async () => {
+    // No VITE_SUPPORT_BRIDGE_URL, so in-app chat is unreachable: the user keeps
+    // the "we'll get back to you" copy, the drawer closes, and Telegram remains
+    // their path. No setup view.
+    const success = vi.spyOn(toast, "success").mockReturnValue("t");
+
+    const { onOpenChange } = await raiseADispute({ bridge: false });
+
+    await waitFor(() =>
+      expect(success).toHaveBeenCalledWith("Dispute submitted successfully", {
+        description: "We'll review your dispute and get back to you soon",
+      }),
+    );
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(
+      screen.queryByText("Setting up your support chat..."),
+    ).not.toBeInTheDocument();
   });
 });
