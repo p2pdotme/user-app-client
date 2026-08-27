@@ -35,7 +35,7 @@
         "neverthrow": "8.2.0",
         "next-themes": "0.4.6",
         "p2pme-ai-support": "0.7.0",
-        "p2pme-encrypted-payment-proof": "1.5.0",
+        "p2pme-encrypted-payment-proof": "1.6.0",
         "prettier": "3.6.2",
         "qr-scanner": "1.4.2",
         "qrcode.react": "4.2.0",
@@ -2532,7 +2532,7 @@
 
     "p2pme-ai-support": ["p2pme-ai-support@0.7.0", "", {}, "sha512-cjRaEtO4hLy6JIsiyppQnQFJcnOJULN90rGV/9eTjLzrQk/pvAXFC4X4PUAKnHjs1XAaC6+zfOyf8YX6xTp4Zw=="],
 
-    "p2pme-encrypted-payment-proof": ["p2pme-encrypted-payment-proof@1.5.0", "", {}, "sha512-j17HvMr5LDrYCArU0wuLDgv4C8XxojGBTNQGzbKlfN4eTgJGdk2X0OAxX4rVLsANCt16dPGGTRKor/ygWAMUGA=="],
+    "p2pme-encrypted-payment-proof": ["p2pme-encrypted-payment-proof@1.6.0", "", {}, "sha512-/FkyBjxcR/pBQ+qjryZ0pnQr3lkM/jj6awyjp5AXP7RONAER5FU7p3GGW6QIlkA8aUEdEJkCWOC5LDqE1jVOLg=="],
 
     "package-json-from-dist": ["package-json-from-dist@1.0.1", "", {}, "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw=="],
 
