@@ -455,15 +455,6 @@ export const hi = {
       "ऑर्डर देने के 24 घंटे बाद ही विवाद उठाया जा सकता है",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "ऑर्डर देने के 30 मिनट बाद ही विवाद उठाया जा सकता है",
-    RAISE_DISPUTE_DESCRIPTION_BUY:
-      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
-    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "विवाद केवल तभी उठाएं जब आपको भुगतान नहीं मिला।",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "भुगतान किया लेकिन USDC नहीं मिला?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "व्यापारी से भुगतान नहीं मिला?",
-    DISPUTE_WARNING_PAYMENT_BUY:
-      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
-    DISPUTE_WARNING_PAYMENT_SELL_PAY:
-      "विवाद केवल तभी उठाएं जब व्यापारी ने आपको भुगतान नहीं किया है।",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "आप हमारी सहायता टीम के साथ चैट कर सकते हैं और प्रासंगिक जानकारी साझा कर सकते हैं, जैसे भुगतान का प्रमाण।",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
@@ -486,6 +477,10 @@ export const hi = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "झूठे विवादों से आपके खाते के विरुद्ध कार्रवाई हो सकती है।",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY:
+      "विवाद केवल तभी उठाएं जब व्यापारी ने आपको भुगतान नहीं किया है।",
     DISPUTE_WARNING_REVIEW: "हमारी टीम समीक्षा करेगी और आपसे जल्दी ही संपर्क करेगी।",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "विवाद विंडो {{time}} में बंद हो जाएगी",
     DISPUTE_WINDOW_EXPIRED: "विवाद विंडो समाप्त हो गई है ({{time}})",
@@ -1552,7 +1547,15 @@ export const hi = {
     RAISED: "उठाया गया",
     RAISE_A_DISPUTE: "विवाद उठाएँ",
     RAISE_DISPUTE: "विवाद उठाएँ",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "विवाद केवल तभी उठाएं जब आपने भुगतान किया लेकिन आपको अपने USDC नहीं मिले।",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY:
+      "विवाद केवल तभी उठाएं जब आपको भुगतान नहीं मिला।",
     RAISE_DISPUTE_FOR_TRANSACTION: "विवाद उठाएँ?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY:
+      "भुगतान किया लेकिन USDC नहीं मिला?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY:
+      "व्यापारी से भुगतान नहीं मिला?",
     RANGO_REQUEST_ID: "Rango रिक्वेस्ट ID",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "Rango रिक्वेस्ट ID क्लिपबोर्ड में कॉपी हो गया",
