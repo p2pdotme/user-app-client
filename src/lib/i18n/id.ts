@@ -473,14 +473,6 @@ export const id = {
       "Sengketa hanya dapat diajukan setelah 24 jam penempatan pesanan",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Sengketa hanya dapat diajukan setelah 30 menit penempatan pesanan",
-    RAISE_DISPUTE_DESCRIPTION_BUY:
-      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
-    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Ajukan sengketa hanya jika Anda tidak menerima pembayaran.",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Sudah bayar tapi USDC belum diterima?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "Belum menerima pembayaran dari merchant?",
-    DISPUTE_WARNING_PAYMENT_BUY:
-      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
-    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Ajukan sengketa hanya jika merchant belum membayar Anda.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti bukti pembayaran.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
@@ -503,6 +495,10 @@ export const id = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Sengketa berhasil dikirim",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Sengketa palsu dapat menyebabkan tindakan terhadap akun Anda.",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY:
+      "Ajukan sengketa hanya jika merchant belum membayar Anda.",
     DISPUTE_WARNING_REVIEW:
       "Tim kami akan meninjau dan menghubungi Anda dengan cepat.",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "Jendela sengketa tutup dalam {{time}}",
@@ -1152,6 +1148,11 @@ export const id = {
       "Anda memerlukan setidaknya 150 RP untuk membuat link referensi",
     NEED_AT_LEAST_150_RP: "Memerlukan minimal 150 RP",
     NEED_HELP: "Butuh bantuan?",
+    NEPAL_RELIEF_BANNER_NOTE:
+      "Pastikan INR sudah dipilih di pengaturan aplikasi Anda.",
+    NEPAL_RELIEF_BANNER_SUBTITLE:
+      "Buka pmdrf.nchl.com.np, pilih QR FonePay, lalu bayar.",
+    NEPAL_RELIEF_BANNER_TITLE: "Bantu korban banjir Nepal",
     NETWORK: "Jaringan",
     NETWORK_ISSUE_DESCRIPTION:
       "Ini mungkin disebabkan oleh pembatasan DNS di wilayah Anda. Tapi jangan khawatir — mudah untuk diperbaiki.",
@@ -1618,7 +1619,15 @@ export const id = {
     RAISED: "Diajukan",
     RAISE_A_DISPUTE: "Ajukan Sengketa",
     RAISE_DISPUTE: "Ajukan Sengketa",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "Ajukan sengketa hanya jika Anda sudah membayar tetapi tidak menerima USDC Anda.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY:
+      "Ajukan sengketa hanya jika Anda tidak menerima pembayaran.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Ajukan Sengketa?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY:
+      "Sudah bayar tapi USDC belum diterima?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY:
+      "Belum menerima pembayaran dari merchant?",
     RANGO_REQUEST_ID: "ID Request Rango",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "ID request Rango disalin ke clipboard",
