@@ -481,12 +481,6 @@ export const pt = {
       "A disputa só pode ser levantada após 24 horas da colocação do pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "A disputa só pode ser levantada após 30 minutos da colocação do pedido",
-    RAISE_DISPUTE_DESCRIPTION_BUY: "Só abra uma disputa se você pagou mas não recebeu seu USDC.",
-    RAISE_DISPUTE_DESCRIPTION_SELL_PAY: "Só abra uma disputa se você não recebeu o pagamento.",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY: "Pagou mas não recebeu USDC?",
-    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY: "Não recebeu o pagamento do comerciante?",
-    DISPUTE_WARNING_PAYMENT_BUY: "Só abra uma disputa se você pagou mas não recebeu seu USDC.",
-    DISPUTE_WARNING_PAYMENT_SELL_PAY: "Só abra uma disputa se o comerciante não te pagou.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "Você pode conversar com nossa equipe de suporte e compartilhar detalhes relevantes, como o comprovante de pagamento.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
@@ -509,6 +503,10 @@ export const pt = {
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Disputa enviada com sucesso",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Reclamações falsas podem resultar em ação contra sua conta.",
+    DISPUTE_WARNING_PAYMENT_BUY:
+      "Só abra uma disputa se você pagou mas não recebeu seu USDC.",
+    DISPUTE_WARNING_PAYMENT_SELL_PAY:
+      "Só abra uma disputa se o comerciante não te pagou.",
     DISPUTE_WARNING_REVIEW: "Nossa equipe irá revisar e retornar rapidamente.",
     DISPUTE_WINDOW_CLOSES_IN_TIME: "Janela de disputa fecha em {{time}}",
     DISPUTE_WINDOW_EXPIRED: "Janela de disputa expirou ({{time}})",
@@ -1156,6 +1154,11 @@ export const pt = {
       "Você precisa de pelo menos 150 RP para gerar um link de indicação",
     NEED_AT_LEAST_150_RP: "Precisa de pelo menos 150 RP",
     NEED_HELP: "Precisa de ajuda?",
+    NEPAL_RELIEF_BANNER_NOTE:
+      "Certifique-se de que o INR esteja selecionado nas configurações do app.",
+    NEPAL_RELIEF_BANNER_SUBTITLE:
+      "Acesse pmdrf.nchl.com.np, selecione o QR da FonePay e pague.",
+    NEPAL_RELIEF_BANNER_TITLE: "Ajude as vítimas no Nepal",
     NETWORK: "Rede",
     NETWORK_ISSUE_DESCRIPTION:
       "Isso pode ser devido a restrições de DNS em sua região. Mas não se preocupe — é fácil de corrigir.",
@@ -1631,7 +1634,15 @@ export const pt = {
     RAISED: "Iniciada",
     RAISE_A_DISPUTE: "Abrir uma Reclamação",
     RAISE_DISPUTE: "Abrir Reclamação",
+    RAISE_DISPUTE_DESCRIPTION_BUY:
+      "Só abra uma disputa se você pagou mas não recebeu seu USDC.",
+    RAISE_DISPUTE_DESCRIPTION_SELL_PAY:
+      "Só abra uma disputa se você não recebeu o pagamento.",
     RAISE_DISPUTE_FOR_TRANSACTION: "Abrir uma Reclamação?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_BUY:
+      "Pagou mas não recebeu USDC?",
+    RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY:
+      "Não recebeu o pagamento do comerciante?",
     RANGO_REQUEST_ID: "ID da Solicitação Rango",
     RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
       "ID da solicitação Rango copiado para a área de transferência",
