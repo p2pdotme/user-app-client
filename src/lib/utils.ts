@@ -629,6 +629,11 @@ export function generateUPILink(
   currency: string,
   orderId: string,
 ): string {
+  // Fonepay (Nepal) QRs are complete EMVCo payloads that Indian UPI apps can
+  // pay via the NPCI–Fonepay cross-border link. Render them verbatim so the
+  // exact merchant QR is scannable, instead of wrapping the blob in upi://.
+  if (upiId.includes("fonepay.com")) return upiId;
+
   const params = new URLSearchParams();
   params.append("pa", upiId); // Payee address (UPI ID)
   params.append("tr", orderId); // Transaction reference
