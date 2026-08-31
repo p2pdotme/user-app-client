@@ -50,9 +50,8 @@ interface ImportMetaEnv {
   readonly VITE_SENTRY_DSN: string;
   readonly VITE_SENTRY_AUTH_TOKEN: string;
 
-  // Reclaim
-  readonly VITE_RECLAIM_APP_ID: string;
-  readonly VITE_RECLAIM_APP_SECRET: string;
+  // Reclaim session service (holds the app secret; never expose it here)
+  readonly VITE_RECLAIM_BASE_URL: string;
 
   // Activity Log / Fraud Engine
   readonly VITE_ACTIVITY_LOG_API_URL: string;
