@@ -147,10 +147,16 @@ export const CURRENCY_META_DATA = Object.fromEntries(
   COUNTRY_OPTIONS.map((c) => [c.currency, c]),
 ) as Record<CurrencyType, (typeof COUNTRY_OPTIONS)[number]>;
 
-export const RECLAIM_APP = {
-  APP_ID: import.meta.env.VITE_RECLAIM_APP_ID,
-  APP_SECRET: import.meta.env.VITE_RECLAIM_APP_SECRET,
-};
+/**
+ * reclaim-session-service base URL. It holds the Reclaim app secret and mints
+ * the signed proof-request config the client rebuilds with `fromJsonString`.
+ *
+ * The secret is a private key whose address is the Reclaim appId, so it must
+ * never be a `VITE_*` var — Vite inlines those into the shipped bundle.
+ */
+export const RECLAIM_BASE_URL =
+  (import.meta.env.VITE_RECLAIM_BASE_URL as string | undefined) ??
+  "http://localhost:8000";
 
 /** simple-kyc (Identity/KYC) hosted wizard + API base URL (the kyc-proxy). */
 export const SIMPLE_KYC_BASE_URL =
