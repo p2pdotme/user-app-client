@@ -16,6 +16,7 @@ import { cn, isIOS } from "@/lib/utils";
 import { CoinsMeBanner } from "@/pages/help/components/coinsme-banner";
 import { GoatCashBanner } from "@/pages/help/components/goat-cash-banner";
 import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
+import { NepalReliefBanner } from "@/pages/help/components/nepal-relief-banner";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
 import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
@@ -122,6 +123,11 @@ export function Banner({
           {/* Perps Cashback Banner */}
           <CarouselItem>
             <PerpsBanner />
+          </CarouselItem>
+
+          {/* Nepal flood relief donation Banner — INR users only */}
+          <CarouselItem>
+            <NepalReliefBanner />
           </CarouselItem>
 
           {/* GOAT.CASH Banner */}
