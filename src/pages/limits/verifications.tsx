@@ -3,8 +3,8 @@ import {
   createLivenessFlow,
   createReclaimFlow,
   createSimpleKycFlow,
-  DEFAULT_RECLAIM_PROVIDER_IDS,
   type ReclaimFlowParams,
+  type ReclaimLocale,
   type ReclaimProofResult,
   type ReclaimSession,
   type ReclaimStatus,
@@ -66,8 +66,8 @@ import {
   LIVENESS_EXCLUDED_COUNTRIES,
   LIVENESS_TENANT,
   LOW_TRUST_SOCIALS,
-  RECLAIM_APP,
   RECLAIM_APP_LINKS,
+  RECLAIM_BASE_URL,
   SIMPLE_KYC_BASE_URL,
   SIMPLE_KYC_TENANT,
 } from "@/lib/constants";
@@ -320,14 +320,28 @@ interface VerificationItemProps {
   tag?: string;
 }
 
-const reclaimConfig: Pick<
-  ReclaimFlowParams,
-  "appId" | "appSecret" | "providerIds"
-> = {
-  appId: RECLAIM_APP.APP_ID,
-  appSecret: RECLAIM_APP.APP_SECRET,
-  providerIds: DEFAULT_RECLAIM_PROVIDER_IDS,
+const reclaimConfig: Pick<ReclaimFlowParams, "sessionEndpoint" | "tenant"> = {
+  sessionEndpoint: RECLAIM_BASE_URL,
+  tenant: "p2p",
 };
+
+const RECLAIM_LOCALES: readonly ReclaimLocale[] = [
+  "en",
+  "es",
+  "hi",
+  "id",
+  "pt",
+];
+
+/**
+ * The message shown inside the Reclaim Verifier app is rendered by the session
+ * service, not here — it appears under our app identity, so the service owns the
+ * wording and the client only picks a language.
+ */
+function toReclaimLocale(language: string): ReclaimLocale {
+  const base = language.slice(0, 2).toLowerCase() as ReclaimLocale;
+  return RECLAIM_LOCALES.includes(base) ? base : "en";
+}
 
 function VerificationItem({
   name,
@@ -343,7 +357,7 @@ function VerificationItem({
   customButton,
   tag,
 }: VerificationItemProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { account } = useThirdweb();
   const { settings } = useSettings();
@@ -569,7 +583,7 @@ function VerificationItem({
         walletAddress: account.address as `0x${string}`,
         redirectUrl: `${window.location.origin}/limits`,
         sessionId: existingSessionId,
-        contextDescription: t("SOCIAL_VERIFICATION", { name }),
+        locale: toReclaimLocale(i18n.language),
         onStatus: (status: ReclaimStatus) => {
           if (status.type === "session_created") {
             track(EVENTS.VERIFICATION, {
@@ -606,6 +620,7 @@ function VerificationItem({
       account?.address,
       name,
       t,
+      i18n.language,
       track,
       handleVerificationSuccess,
       handleVerificationError,
@@ -626,7 +641,7 @@ function VerificationItem({
         platform: name.toLowerCase() as SocialPlatform,
         walletAddress: account.address as `0x${string}`,
         redirectUrl: `${window.location.origin}/limits`,
-        contextDescription: t("SOCIAL_VERIFICATION", { name }),
+        locale: toReclaimLocale(i18n.language),
         onStatus: (status: ReclaimStatus) => {
           if (status.type === "session_created") {
             track(EVENTS.VERIFICATION, {
@@ -651,7 +666,7 @@ function VerificationItem({
       preloadingRef.current = false;
       setIsPreloading(false);
     }
-  }, [account?.address, name, t, track]);
+  }, [account?.address, name, i18n.language, track]);
 
   // Starts verification from within the user's tap. iOS only grants the
   // deep-link / clipboard launch its transient user-activation when
