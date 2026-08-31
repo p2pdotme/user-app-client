@@ -83,8 +83,7 @@ Copy `.env.example` to `.env` and fill in the values. The table below explains e
 | `VITE_RANGO_API_KEY` | Rango Exchange API key — enables cross-chain deposit/withdraw |
 | `VITE_RANGO_REFERRER_CODE` | Your Rango referral code |
 | `VITE_RANGO_REFERRER_ADDRESS` | Wallet address to receive 0.5% bridge referral fees. **Change this to your own address** — if left as the default it sends fees to the P2P.me wallet |
-| `VITE_RECLAIM_APP_ID` | Reclaim Protocol app ID — enables ZK social verifications for transaction limits |
-| `VITE_RECLAIM_APP_SECRET` | Reclaim Protocol app secret. **Never commit this.** Treat it as a private key |
+| `VITE_RECLAIM_BASE_URL` | Base URL of the reclaim-session-service — enables ZK social verifications for transaction limits. The Reclaim app secret lives on that service, never in this app: it is a private key whose address is the appId, and every `VITE_*` var is inlined into the shipped bundle |
 | `VITE_ACTIVITY_LOG_API_URL` | Fraud detection API endpoint |
 | `VITE_ACTIVITY_LOG_ENCRYPTION_KEY` | 32-byte hex AES-256 key for fraud payload encryption. **Never commit this** |
 | `VITE_FRAUD_ENGINE_REGION` | SEON API region: `asia`, `eu`, or `us`. Defaults to `asia` |
