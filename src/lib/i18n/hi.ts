@@ -533,6 +533,12 @@ export const hi = {
     ENTER_TIP_AMOUNT: "Enter tip amount (USDC)",
     ENTER_WALLET_NAME: "वॉलेट नाम दर्ज करें",
     ERROR: "त्रुटि",
+    ERROR_BOUNDARY_COPIED: "त्रुटि कॉपी की गई",
+    ERROR_BOUNDARY_COPY: "त्रुटि कॉपी करें",
+    ERROR_BOUNDARY_DESCRIPTION:
+      "एक अप्रत्याशित त्रुटि हुई। आप विवरण कॉपी कर सकते हैं या ऐप को फिर से लोड कर सकते हैं।",
+    ERROR_BOUNDARY_RELOAD: "फिर से लोड करें",
+    ERROR_BOUNDARY_TITLE: "कुछ गलत हो गया",
     ERROR_FETCHING_LIMITS: "सीमाएँ लाने में त्रुटि",
     ERROR_FETCHING_PRICE: "मूल्य लाने में त्रुटि",
     ERROR_LOADING_ADDRESS_BOOK: "पता पुस्तिका लोड करने में त्रुटि",
