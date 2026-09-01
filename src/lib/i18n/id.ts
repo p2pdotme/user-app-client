@@ -538,6 +538,12 @@ export const id = {
     ENTER_TIP_AMOUNT: "Enter tip amount (USDC)",
     ENTER_WALLET_NAME: "Masukkan nama dompet",
     ERROR: "Error",
+    ERROR_BOUNDARY_COPIED: "Error disalin",
+    ERROR_BOUNDARY_COPY: "Salin error",
+    ERROR_BOUNDARY_DESCRIPTION:
+      "Terjadi kesalahan yang tidak terduga. Anda dapat menyalin detailnya atau memuat ulang aplikasi.",
+    ERROR_BOUNDARY_RELOAD: "Muat ulang",
+    ERROR_BOUNDARY_TITLE: "Terjadi kesalahan",
     ERROR_FETCHING_LIMITS: "Gagal mengambil batas",
     ERROR_FETCHING_PRICE: "Gagal mengambil harga",
     ERROR_LOADING_ADDRESS_BOOK: "Error memuat buku alamat",
