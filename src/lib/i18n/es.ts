@@ -553,6 +553,12 @@ export const es = {
     ENTER_TIP_AMOUNT: "Ingresa el monto de la propina (USDC)",
     ENTER_WALLET_NAME: "Ingresa el nombre de la wallet",
     ERROR: "Error",
+    ERROR_BOUNDARY_COPIED: "Error copiado",
+    ERROR_BOUNDARY_COPY: "Copiar error",
+    ERROR_BOUNDARY_DESCRIPTION:
+      "Ocurrió un error inesperado. Puedes copiar los detalles o recargar la aplicación.",
+    ERROR_BOUNDARY_RELOAD: "Recargar",
+    ERROR_BOUNDARY_TITLE: "Algo salió mal",
     ERROR_FETCHING_LIMITS: "Error al obtener los límites",
     ERROR_FETCHING_PRICE: "Error al obtener el precio",
     ERROR_LOADING_ADDRESS_BOOK: "Error al cargar la libreta de direcciones",
