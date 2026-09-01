@@ -535,6 +535,12 @@ export const en = {
     ENTER_TIP_AMOUNT: "Enter tip amount (USDC)",
     ENTER_WALLET_NAME: "Enter wallet name",
     ERROR: "Error",
+    ERROR_BOUNDARY_COPIED: "Error copied",
+    ERROR_BOUNDARY_COPY: "Copy error",
+    ERROR_BOUNDARY_DESCRIPTION:
+      "An unexpected error occurred. You can copy the details or reload the app.",
+    ERROR_BOUNDARY_RELOAD: "Reload",
+    ERROR_BOUNDARY_TITLE: "Something went wrong",
     ERROR_FETCHING_LIMITS: "Error fetching limits",
     ERROR_FETCHING_PRICE: "Error fetching price",
     ERROR_LOADING_ADDRESS_BOOK: "Error loading address book",
