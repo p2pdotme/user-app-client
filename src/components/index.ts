@@ -13,6 +13,7 @@ export * from "./countdown-timer";
 export * from "./currency-gate";
 export * from "./dashed-separator";
 export * from "./dev-route-guard";
+export * from "./error-boundary";
 export * from "./faq-accordion";
 export * from "./gauge-progress";
 export * from "./install-pwa-button";

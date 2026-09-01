@@ -10,6 +10,7 @@ import { CDN_ASSET_URLS } from "@/assets";
 import {
   AuthGuard,
   CurrencyGate,
+  ErrorBoundary,
   PageTransitioner,
   PWABadge,
   // AuthStatusDebug,
@@ -140,7 +141,9 @@ function App() {
                     <PageTransitioner className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
                       {/* First-run currency confirmation for all users */}
                       <CurrencyGate />
-                      <Router />
+                      <ErrorBoundary>
+                        <Router />
+                      </ErrorBoundary>
                       {/* AI support chat launcher is mounted by the Help &
                           Support page only (see pages/help), not globally —
                           so the floating icon isn't shown on every screen. */}

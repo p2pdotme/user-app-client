@@ -545,6 +545,12 @@ export const pt = {
     ENTER_TIP_AMOUNT: "Digite o valor da gorjeta (USDC)",
     ENTER_WALLET_NAME: "Digite o nome da carteira",
     ERROR: "Erro",
+    ERROR_BOUNDARY_COPIED: "Erro copiado",
+    ERROR_BOUNDARY_COPY: "Copiar erro",
+    ERROR_BOUNDARY_DESCRIPTION:
+      "Ocorreu um erro inesperado. Você pode copiar os detalhes ou recarregar o aplicativo.",
+    ERROR_BOUNDARY_RELOAD: "Recarregar",
+    ERROR_BOUNDARY_TITLE: "Algo deu errado",
     ERROR_FETCHING_LIMITS: "Erro ao buscar limites",
     ERROR_FETCHING_PRICE: "Erro ao buscar preço",
     ERROR_LOADING_ADDRESS_BOOK: "Erro ao carregar o catálogo de endereços",
