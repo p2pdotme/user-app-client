@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import {
   Accordion,
   AccordionContent,
@@ -15,6 +16,8 @@ interface FAQ {
   answerKey: string;
   excludedFrom?: string[];
   onlyForCurrencies?: string[];
+  linkHref?: string;
+  linkLabelKey?: string;
 }
 
 interface FAQAccordionProps {
@@ -74,6 +77,13 @@ export const FAQAccordion = ({ faqs, showAll = false, slice = 3 }: FAQAccordionP
                 currency.currency,
               ).toLocaleString(),
             })}
+            {faq.linkHref && faq.linkLabelKey && (
+              <Link
+                to={faq.linkHref}
+                className="mt-2 block font-medium text-primary underline underline-offset-2">
+                {t(faq.linkLabelKey)}
+              </Link>
+            )}
           </AccordionContent>
         </AccordionItem>
       ))}
