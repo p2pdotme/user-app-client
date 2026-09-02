@@ -701,6 +701,10 @@ export const en = {
     FAQ_IS_P2P_ME_SAFE: "Is P2P.me safe to use?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
       "Yes. P2P.me is designed with user safety at its core. All merchants on the platform are personally verified. Before onboarding, they must submit zero-knowledge proofs (ZK-proofs) of their banking activity to prove that they are legitimate, active users with no history of bank freezes or fraudulent behavior. This makes merchant funds secure and transactions trustworthy.",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY:
+      "How do I recover funds using my private key?",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
+      "If you lost access to your account but still have your wallet's private key, you can recover your USDC.\n\n1. Open the \"Recover Funds\" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "The shopkeeper is asking to see the payment – what should I do?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1634,6 +1638,18 @@ export const en = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recommendation claimed successfully",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Recommendation revenue claimed successfully",
+    RECOVER_CONNECT_FAILED:
+      "Could not connect to a wallet with that key. Please check the private key and try again.",
+    RECOVER_ENTER_PRIVATE_KEY: "Enter your wallet's private key",
+    RECOVER_FIND_FUNDS: "Find funds",
+    RECOVER_FUNDS: "Recover funds",
+    RECOVER_INVALID_PRIVATE_KEY:
+      "Invalid private key. It should be 0x followed by 64 hex characters.",
+    RECOVER_PRIVATE_KEY_WARNING:
+      "Never share your private key. Only paste it here to recover funds, then move to another P2P.me wallet.",
+    RECOVER_WALLET: "Recover Funds",
+    RECOVER_WALLET_ADDRESS: "Smart wallet address",
+    RECOVER_WALLET_WITH_PRIVATE_KEY: "Recover a wallet with a private key",
     REDATM_BANNER_CTA: "View ATMs",
     REDATM_BANNER_DESCRIPTION: "100% of the ATM fee refunded to your wallet",
     REDATM_BANNER_TITLE: "Withdraw cash at no cost",
