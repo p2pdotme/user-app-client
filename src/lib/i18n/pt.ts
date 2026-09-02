@@ -714,6 +714,10 @@ export const pt = {
     FAQ_IS_P2P_ME_SAFE: "P2P.me é seguro para usar?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
       "Sim. P2P.me é projetado com a segurança do usuário como núcleo. Todos os comerciantes da plataforma são verificados pessoalmente. Antes da integração, eles devem enviar provas de conhecimento zero (ZK-proofs) de sua atividade bancária para provar que são usuários legítimos e ativos sem histórico de congelamento bancário ou comportamento fraudulento. Isso torna os fundos dos comerciantes seguros e as transações confiáveis.",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY:
+      "Como recupero fundos usando minha chave privada?",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
+      "Se você perdeu o acesso à sua conta mas ainda tem a chave privada da sua carteira, pode recuperar seus USDC.\n\n1. Abra a página \"Recuperar Fundos\".\n2. Cole sua chave privada para carregar sua carteira inteligente.\n3. Insira o endereço de outra carteira P2P.me e o valor.\n4. Toque em Recuperar fundos para enviar.\n\nNunca compartilhe sua chave privada com ninguém.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "O lojista está pedindo para ver o pagamento – o que devo fazer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1675,6 +1679,19 @@ export const pt = {
       "Recomendação reivindicada com sucesso",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Receita de recomendação reivindicada com sucesso",
+    RECOVER_CONNECT_FAILED:
+      "Não foi possível conectar a uma carteira com essa chave. Verifique a chave privada e tente novamente.",
+    RECOVER_ENTER_PRIVATE_KEY: "Insira a chave privada da sua carteira",
+    RECOVER_FIND_FUNDS: "Localizar fundos",
+    RECOVER_FUNDS: "Recuperar fundos",
+    RECOVER_INVALID_PRIVATE_KEY:
+      "Chave privada inválida. Deve ser 0x seguido de 64 caracteres hexadecimais.",
+    RECOVER_PRIVATE_KEY_WARNING:
+      "Nunca compartilhe sua chave privada. Cole-a aqui apenas para recuperar fundos e depois mova-os para outra carteira P2P.me.",
+    RECOVER_WALLET: "Recuperar Fundos",
+    RECOVER_WALLET_ADDRESS: "Endereço da carteira inteligente",
+    RECOVER_WALLET_WITH_PRIVATE_KEY:
+      "Recuperar uma carteira com uma chave privada",
     REDATM_BANNER_CTA: "Ver Caixas",
     REDATM_BANNER_DESCRIPTION:
       "100% da taxa do caixa reembolsada na sua carteira",

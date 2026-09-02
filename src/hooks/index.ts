@@ -28,6 +28,7 @@ export * from "./use-rango-fetch";
 export * from "./use-rango-quote";
 export * from "./use-rango-swap";
 export * from "./use-receipt-share";
+export * from "./use-recover-wallet";
 export * from "./use-referral-link";
 export * from "./use-rewards-config";
 export * from "./use-sell-address-book";

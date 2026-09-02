@@ -710,6 +710,10 @@ export const id = {
     FAQ_IS_P2P_ME_SAFE: "Apakah P2P.me aman digunakan?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
       "Ya. P2P.me dirancang dengan keamanan pengguna sebagai intinya. Semua merchant di platform diverifikasi secara personal. Sebelum onboarding, mereka harus mengirimkan zero-knowledge proofs (ZK-proofs) dari aktivitas perbankan mereka untuk membuktikan bahwa mereka adalah pengguna yang sah dan aktif tanpa riwayat pembekuan bank atau perilaku penipuan. Ini membuat dana merchant aman dan transaksi dapat dipercaya.",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY:
+      "Bagaimana cara memulihkan dana menggunakan kunci pribadi saya?",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
+      "Jika Anda kehilangan akses ke akun tetapi masih memiliki kunci pribadi dompet Anda, Anda dapat memulihkan USDC Anda.\n\n1. Buka halaman \"Pulihkan Dana\".\n2. Tempel kunci pribadi Anda untuk memuat dompet pintar Anda.\n3. Masukkan alamat dompet P2P.me lainnya dan jumlahnya.\n4. Ketuk Pulihkan dana untuk mengirim.\n\nJangan pernah membagikan kunci pribadi Anda kepada siapa pun.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "Penjaga toko meminta untuk melihat pembayaran – apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1658,6 +1662,18 @@ export const id = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Revenue rekomendasi berhasil diklaim",
+    RECOVER_CONNECT_FAILED:
+      "Tidak dapat terhubung ke dompet dengan kunci tersebut. Periksa kunci pribadi dan coba lagi.",
+    RECOVER_ENTER_PRIVATE_KEY: "Masukkan kunci pribadi dompet Anda",
+    RECOVER_FIND_FUNDS: "Cari dana",
+    RECOVER_FUNDS: "Pulihkan dana",
+    RECOVER_INVALID_PRIVATE_KEY:
+      "Kunci pribadi tidak valid. Harus 0x diikuti 64 karakter heksadesimal.",
+    RECOVER_PRIVATE_KEY_WARNING:
+      "Jangan pernah membagikan kunci pribadi Anda. Tempel di sini hanya untuk memulihkan dana, lalu pindahkan ke dompet P2P.me lainnya.",
+    RECOVER_WALLET: "Pulihkan Dana",
+    RECOVER_WALLET_ADDRESS: "Alamat dompet pintar",
+    RECOVER_WALLET_WITH_PRIVATE_KEY: "Pulihkan dompet dengan kunci pribadi",
     REDATM_BANNER_CTA: "Lihat ATM",
     REDATM_BANNER_DESCRIPTION: "100% biaya ATM dikembalikan ke dompetmu",
     REDATM_BANNER_TITLE: "Tarik tunai tanpa biaya",

@@ -723,6 +723,10 @@ export const es = {
     FAQ_IS_P2P_ME_SAFE: "¿Es seguro usar P2P.me?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
       "Sí. P2P.me está diseñado con la seguridad del usuario como su núcleo. Todos los comerciantes en la plataforma son verificados personalmente. Antes de ser incorporados, deben presentar pruebas de conocimiento cero (ZK-proofs) de su actividad bancaria para demostrar que son usuarios legítimos y activos sin historial de congelamientos bancarios o comportamiento fraudulento. Esto hace que los fondos de los comerciantes sean seguros y las transacciones confiables.",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY:
+      "¿Cómo recupero fondos usando mi clave privada?",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
+      "Si perdiste el acceso a tu cuenta pero aún tienes la clave privada de tu billetera, puedes recuperar tus USDC.\n\n1. Abre la página \"Recuperar fondos\".\n2. Pega tu clave privada para cargar tu billetera inteligente.\n3. Ingresa la dirección de otra billetera P2P.me y el monto.\n4. Toca Recuperar fondos para enviar.\n\nNunca compartas tu clave privada con nadie.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "El comerciante me pide una prueba de pago, ¿qué debo hacer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1697,6 +1701,19 @@ export const es = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recomendación reclamada con éxito",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Ingresos por recomendación reclamados con éxito",
+    RECOVER_CONNECT_FAILED:
+      "No se pudo conectar a una billetera con esa clave. Verifica la clave privada e inténtalo de nuevo.",
+    RECOVER_ENTER_PRIVATE_KEY: "Ingresa la clave privada de tu billetera",
+    RECOVER_FIND_FUNDS: "Buscar fondos",
+    RECOVER_FUNDS: "Recuperar fondos",
+    RECOVER_INVALID_PRIVATE_KEY:
+      "Clave privada no válida. Debe ser 0x seguido de 64 caracteres hexadecimales.",
+    RECOVER_PRIVATE_KEY_WARNING:
+      "Nunca compartas tu clave privada. Pégala aquí solo para recuperar fondos y luego muévelos a otra billetera de P2P.me.",
+    RECOVER_WALLET: "Recuperar fondos",
+    RECOVER_WALLET_ADDRESS: "Dirección de la billetera inteligente",
+    RECOVER_WALLET_WITH_PRIVATE_KEY:
+      "Recuperar una billetera con una clave privada",
     REDATM_BANNER_CTA: "Ver Cajeros",
     REDATM_BANNER_DESCRIPTION:
       "Te devolvemos el 100% de la comisión del cajero",

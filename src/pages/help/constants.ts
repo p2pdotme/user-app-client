@@ -1,4 +1,5 @@
 import ASSETS from "@/assets";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 export interface VideoGuide {
   id: string;
@@ -28,6 +29,10 @@ export interface FAQ {
   answerKey: string;
   excludedFrom?: string[];
   onlyForCurrencies?: string[];
+  /** Optional in-app route rendered as a link below the answer. */
+  linkHref?: string;
+  /** i18n key for the link label; required when linkHref is set. */
+  linkLabelKey?: string;
 }
 
 export interface SupportPageSection {
@@ -167,6 +172,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "deposits-withdrawals-9", // Are there any withdrawal limits?
       "deposits-withdrawals-10", // What should I do if my withdrawal hasn't arrived?
       "deposits-withdrawals-11", // How do I recover my funds if I sent the wrong token or used the wrong network?
+      "deposits-withdrawals-12", // How do I recover funds using my private key?
     ],
   },
 };
@@ -572,6 +578,13 @@ export const ALL_FAQS: FAQ[] = [
     id: "deposits-withdrawals-11",
     questionKey: "FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK",
     answerKey: "FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER",
+  },
+  {
+    id: "deposits-withdrawals-12",
+    questionKey: "FAQ_RECOVER_FUNDS_PRIVATE_KEY",
+    answerKey: "FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER",
+    linkHref: INTERNAL_HREFS.RECOVER,
+    linkLabelKey: "RECOVER_WALLET",
   },
 ];
 
