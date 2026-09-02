@@ -37,7 +37,8 @@ export type ErrorCode =
   | "RangoApproveError"
   | "RangoDepositError"
   | "RangoWithdrawError"
-  | "AccountAddressNotAvailable";
+  | "AccountAddressNotAvailable"
+  | "TWRecoverConnectError";
 
 export interface AppError<D extends Domain = Domain> {
   readonly domain: D; // where the error occurred
