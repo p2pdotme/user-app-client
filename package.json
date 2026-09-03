@@ -1,7 +1,7 @@
 {
   "name": "user-app",
   "private": true,
-  "version": "3.2.8",
+  "version": "3.2.9",
   "license": "MIT",
   "type": "module",
   "contractVersion": "0.0.10",
@@ -25,7 +25,7 @@
     "@farcaster/miniapp-sdk": "0.2.1",
     "@hookform/resolvers": "5.0.1",
     "@lottiefiles/dotlottie-react": "0.14.0",
-    "@p2pdotme/sdk": "1.2.23",
+    "@p2pdotme/sdk": "1.2.24",
     "@p2pdotme/widgets": "1.8.1",
     "@radix-ui/react-popover": "1.1.14",
     "@radix-ui/react-slot": "1.2.3",

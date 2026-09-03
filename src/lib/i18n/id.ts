@@ -713,7 +713,7 @@ export const id = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "Bagaimana cara memulihkan dana menggunakan kunci pribadi saya?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      "Jika Anda kehilangan akses ke akun tetapi masih memiliki kunci pribadi dompet Anda, Anda dapat memulihkan USDC Anda.\n\n1. Buka halaman \"Pulihkan Dana\".\n2. Tempel kunci pribadi Anda untuk memuat dompet pintar Anda.\n3. Masukkan alamat dompet P2P.me lainnya dan jumlahnya.\n4. Ketuk Pulihkan dana untuk mengirim.\n\nJangan pernah membagikan kunci pribadi Anda kepada siapa pun.",
+      'Jika Anda kehilangan akses ke akun tetapi masih memiliki kunci pribadi dompet Anda, Anda dapat memulihkan USDC Anda.\n\n1. Buka halaman "Pulihkan Dana".\n2. Tempel kunci pribadi Anda untuk memuat dompet pintar Anda.\n3. Masukkan alamat dompet P2P.me lainnya dan jumlahnya.\n4. Ketuk Pulihkan dana untuk mengirim.\n\nJangan pernah membagikan kunci pribadi Anda kepada siapa pun.',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "Penjaga toko meminta untuk melihat pembayaran – apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1110,6 +1110,11 @@ export const id = {
       "Selamat! Anda adalah salah satu dari 1000 pengguna teratas kami berdasarkan volume bulan ini.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Batas volume bulanan terlampaui",
     MOST_TIPPED: "PALING BANYAK TIP",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "nomor telepon atau till",
+    MPESA_ID: "Nomor telepon atau till M-Pesa",
+    MPESA_PHONE_NUMBER: "Nomor telepon",
+    MPESA_TILL_NUMBER: "Nomor till",
     MY_LIMITS: "Limit Saya",
     MY_STAKE: "Stake Saya",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Cooldown diperpanjang",
@@ -1527,6 +1532,7 @@ export const id = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Bank atau e-wallet (mis. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 atau 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",

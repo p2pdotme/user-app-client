@@ -706,7 +706,7 @@ export const hi = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "मैं अपनी निजी कुंजी का उपयोग करके फंड कैसे पुनर्प्राप्त करूं?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      "यदि आपने अपने खाते तक पहुंच खो दी है लेकिन आपके पास अभी भी आपके वॉलेट की निजी कुंजी है, तो आप अपने USDC को पुनर्प्राप्त कर सकते हैं।\n\n1. \"फंड पुनर्प्राप्त करें\" पेज खोलें।\n2. अपने स्मार्ट वॉलेट को लोड करने के लिए अपनी निजी कुंजी पेस्ट करें।\n3. किसी अन्य P2P.me वॉलेट पता और राशि दर्ज करें।\n4. भेजने के लिए फंड पुनर्प्राप्त करें पर टैप करें।\n\nअपनी निजी कुंजी किसी के साथ साझा न करें।",
+      'यदि आपने अपने खाते तक पहुंच खो दी है लेकिन आपके पास अभी भी आपके वॉलेट की निजी कुंजी है, तो आप अपने USDC को पुनर्प्राप्त कर सकते हैं।\n\n1. "फंड पुनर्प्राप्त करें" पेज खोलें।\n2. अपने स्मार्ट वॉलेट को लोड करने के लिए अपनी निजी कुंजी पेस्ट करें।\n3. किसी अन्य P2P.me वॉलेट पता और राशि दर्ज करें।\n4. भेजने के लिए फंड पुनर्प्राप्त करें पर टैप करें।\n\nअपनी निजी कुंजी किसी के साथ साझा न करें।',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "दुकानदार भुगतान का प्रमाण देखने के लिए कह रहा है - मुझे क्या करना चाहिए?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1099,6 +1099,11 @@ export const hi = {
       "बधाई हो! आप इस महीने सबसे अधिक वॉल्यूम वाले हमारे टॉप 1000 उपयोगकर्ताओं में से एक हैं।",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "मासिक वॉल्यूम सीमा पार हो गई",
     MOST_TIPPED: "सबसे ज़्यादा टिप",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "फ़ोन या टिल नंबर",
+    MPESA_ID: "M-Pesa फ़ोन या टिल नंबर",
+    MPESA_PHONE_NUMBER: "फ़ोन नंबर",
+    MPESA_TILL_NUMBER: "टिल नंबर",
     MY_LIMITS: "मेरी लिमिट",
     MY_STAKE: "मेरा स्टेक",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "कूलडाउन बढ़ाया गया",
@@ -1512,6 +1517,7 @@ export const hi = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "बैंक या ई-वॉलेट (जैसे GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 या 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",

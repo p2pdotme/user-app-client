@@ -14,6 +14,7 @@ import {
   TransferWarningAlert,
 } from "@/components";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -37,6 +38,7 @@ import {
   getPaymentIdFields,
 } from "@/lib/compound-payment-id";
 import { CURRENCY_META_DATA, uploadsPaymentQR } from "@/lib/constants";
+import { getKenyanPaymentTypeLabel } from "@/lib/receipt-payment-id";
 import {
   buildPixBrCode,
   buildTransfermovilQr,
@@ -336,6 +338,12 @@ export function BuyAccepted({ order }: { order: Order }) {
   // already show the destination (INR single-field UPI must keep the To row).
   const hidePackedToRow =
     !!packedQr || (isMultiField && catalogParts.length > 0);
+  // KES only: label the destination as a phone number or Buy Goods till number.
+  const kenyanTypeLabel = getKenyanPaymentTypeLabel(
+    decryptedPaymentAddress,
+    order.currency,
+    t,
+  );
 
   const transfermovilQrValue =
     decryptedPaymentAddress && order.currency === "CUP"
@@ -548,7 +556,14 @@ export function BuyAccepted({ order }: { order: Order }) {
                 ))
               ) : hidePackedToRow ? null : (
                 <div className="flex items-start justify-between gap-2">
-                  <span className="shrink-0 font-medium">{t("TO")} </span>
+                  <span className="flex shrink-0 items-center gap-2 font-medium">
+                    {t("TO")}
+                    {kenyanTypeLabel ? (
+                      <Badge variant="outline" className="font-normal">
+                        {kenyanTypeLabel}
+                      </Badge>
+                    ) : null}
+                  </span>
                   <div className="flex min-w-0 items-start gap-2">
                     <span className="min-w-0 break-all text-right text-muted-foreground">
                       {decryptedPaymentAddress ?? "..."}
