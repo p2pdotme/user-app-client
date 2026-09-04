@@ -548,7 +548,7 @@ export function BuyAccepted({ order }: { order: Order }) {
                 ))
               ) : hidePackedToRow ? null : (
                 <div className="flex items-start justify-between gap-2">
-                  <span className="shrink-0 font-medium">{t("TO")} </span>
+                  <span className="shrink-0 font-medium">{t("TO")}</span>
                   <div className="flex min-w-0 items-start gap-2">
                     <span className="min-w-0 break-all text-right text-muted-foreground">
                       {decryptedPaymentAddress ?? "..."}

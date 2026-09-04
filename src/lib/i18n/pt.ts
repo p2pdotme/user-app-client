@@ -717,7 +717,7 @@ export const pt = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "Como recupero fundos usando minha chave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      "Se você perdeu o acesso à sua conta mas ainda tem a chave privada da sua carteira, pode recuperar seus USDC.\n\n1. Abra a página \"Recuperar Fundos\".\n2. Cole sua chave privada para carregar sua carteira inteligente.\n3. Insira o endereço de outra carteira P2P.me e o valor.\n4. Toque em Recuperar fundos para enviar.\n\nNunca compartilhe sua chave privada com ninguém.",
+      'Se você perdeu o acesso à sua conta mas ainda tem a chave privada da sua carteira, pode recuperar seus USDC.\n\n1. Abra a página "Recuperar Fundos".\n2. Cole sua chave privada para carregar sua carteira inteligente.\n3. Insira o endereço de outra carteira P2P.me e o valor.\n4. Toque em Recuperar fundos para enviar.\n\nNunca compartilhe sua chave privada com ninguém.',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "O lojista está pedindo para ver o pagamento – o que devo fazer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1116,6 +1116,9 @@ export const pt = {
       "Parabéns! Você é um dos nossos 1000 principais usuários por volume este mês.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Limite de volume mensal excedido",
     MOST_TIPPED: "MAIS GORJETA",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "número de telefone ou till",
+    MPESA_ID: "Número de telefone ou till M-Pesa",
     MY_LIMITS: "Meus Limites",
     MY_STAKE: "Meu Stake",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Resfriamento estendido",
@@ -1262,6 +1265,7 @@ export const pt = {
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir em nova aba",
     OPEN_LOTPOT: "Abrir lotpot.fun",
+    OR: "ou",
     ORDER: "Pedido",
     ORDERS_COUNT: "{{count}}+ pedidos",
     ORDER_ALREADY_MARKED_COMPLETED: "Pedido já marcado como concluído",
@@ -1539,6 +1543,7 @@ export const pt = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Banco ou carteira (ex. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 ou 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
@@ -1995,6 +2000,7 @@ export const pt = {
       "Isso garante que você possa escanear a tempo para que o pedido seja concluído com sucesso",
     THIS_MONTH: "Este Mês",
     THIS_MONTH_SHORT: "Mês",
+    TILL_NUMBER: "Número Till",
     TIME_REMAINING: "Time remaining",
     TIP_ALREADY_GIVEN:
       "Você já deu gorjeta para este comerciante. Obrigado pela sua generosidade!",
