@@ -1102,8 +1102,6 @@ export const hi = {
     MPESA: "M-Pesa",
     MPESA_DETAILS: "फ़ोन या टिल नंबर",
     MPESA_ID: "M-Pesa फ़ोन या टिल नंबर",
-    MPESA_PHONE_NUMBER: "फ़ोन नंबर",
-    MPESA_TILL_NUMBER: "टिल नंबर",
     MY_LIMITS: "मेरी लिमिट",
     MY_STAKE: "मेरा स्टेक",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "कूलडाउन बढ़ाया गया",
@@ -1248,6 +1246,7 @@ export const hi = {
     OPEN_COINS_ME: "coins.me खोलें",
     OPEN_IN_NEW_TAB: "नए टैब में खोलें",
     OPEN_LOTPOT: "lotpot.fun खोलें",
+    OR: "या",
     ORDER: "ऑर्डर",
     ORDERS_COUNT: "{{count}}+ ऑर्डर",
     ORDER_ALREADY_MARKED_COMPLETED:
@@ -1966,6 +1965,7 @@ export const hi = {
       "यह सुनिश्चित करता है कि आप समय पर स्कैन कर सकें और ऑर्डर सफलतापूर्वक पूरा हो जाए",
     THIS_MONTH: "इस महीने",
     THIS_MONTH_SHORT: "महीना",
+    TILL_NUMBER: "टिल नंबर",
     TIME_REMAINING: "शेष समय",
     TIP_ALREADY_GIVEN:
       "You've already tipped this merchant. Thank you for your generosity!",

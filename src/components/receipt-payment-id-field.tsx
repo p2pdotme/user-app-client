@@ -1,12 +1,8 @@
 import { Copy, Eye, EyeOff } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  formatReceiptPaymentId,
-  getKenyanPaymentTypeLabel,
-} from "@/lib/receipt-payment-id";
+import { formatReceiptPaymentId } from "@/lib/receipt-payment-id";
 
 /**
  * Receipt row for a payment ID. Renders a packed QR when present; typed
@@ -31,18 +27,12 @@ export function ReceiptPaymentIdField({
   const details = formatReceiptPaymentId(paymentId, currency, t);
   const hasQr = !!details.qr;
   const showInlineText = !hasQr || !show;
-  const kenyanTypeLabel = getKenyanPaymentTypeLabel(paymentId, currency, t);
 
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-3">
-        <span className="flex shrink-0 items-center gap-2 whitespace-nowrap font-medium">
+        <span className="shrink-0 whitespace-nowrap font-medium">
           {t(labelKey)}
-          {kenyanTypeLabel ? (
-            <Badge variant="outline" className="font-normal">
-              {kenyanTypeLabel}
-            </Badge>
-          ) : null}
         </span>
         <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
           {showInlineText ? (
