@@ -261,6 +261,7 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   ECU: "EC",
   CUP: "CU",
   BOB: "BO",
+  KES: "KE",
 };
 
 /**
@@ -327,6 +328,7 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     phone: "PLACEHOLDER_PAYMENT_ID_PHP",
     "bank-name": "PLACEHOLDER_BANK_NAME_PHP",
   },
+  KES: { mpesa: "PLACEHOLDER_MPESA_KES" },
 };
 
 export const PAYMENT_ID_FIELDS = Object.fromEntries(
