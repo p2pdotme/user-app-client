@@ -704,7 +704,7 @@ export const en = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "How do I recover funds using my private key?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      "If you lost access to your account but still have your wallet's private key, you can recover your USDC.\n\n1. Open the \"Recover Funds\" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.",
+      'If you lost access to your account but still have your wallet\'s private key, you can recover your USDC.\n\n1. Open the "Recover Funds" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "The shopkeeper is asking to see the payment – what should I do?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1094,6 +1094,9 @@ export const en = {
       "Congratulations! You're one of our top 1000 users by volume this month.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Monthly volume limit exceeded",
     MOST_TIPPED: "MOST TIPPED",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "phone or till number",
+    MPESA_ID: "M-Pesa phone or till number",
     MY_LIMITS: "My Limits",
     MY_STAKE: "My Stake",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Cooldown extended",
@@ -1238,6 +1241,7 @@ export const en = {
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Open in new tab",
     OPEN_LOTPOT: "Open lotpot.fun",
+    OR: "or",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ orders",
     ORDER_ALREADY_MARKED_COMPLETED: "Order already marked completed",
@@ -1504,6 +1508,7 @@ export const en = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Bank or e-wallet (e.g. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 or 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
@@ -1946,6 +1951,7 @@ export const en = {
       "This ensures you can scan in time so order gets completed successfully",
     THIS_MONTH: "This Month",
     THIS_MONTH_SHORT: "Month",
+    TILL_NUMBER: "Till Number",
     TIME_REMAINING: "Time remaining",
     TIP_ALREADY_GIVEN:
       "You've already tipped this merchant. Thank you for your generosity!",

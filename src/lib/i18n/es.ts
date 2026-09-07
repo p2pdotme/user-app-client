@@ -726,7 +726,7 @@ export const es = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "¿Cómo recupero fondos usando mi clave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      "Si perdiste el acceso a tu cuenta pero aún tienes la clave privada de tu billetera, puedes recuperar tus USDC.\n\n1. Abre la página \"Recuperar fondos\".\n2. Pega tu clave privada para cargar tu billetera inteligente.\n3. Ingresa la dirección de otra billetera P2P.me y el monto.\n4. Toca Recuperar fondos para enviar.\n\nNunca compartas tu clave privada con nadie.",
+      'Si perdiste el acceso a tu cuenta pero aún tienes la clave privada de tu billetera, puedes recuperar tus USDC.\n\n1. Abre la página "Recuperar fondos".\n2. Pega tu clave privada para cargar tu billetera inteligente.\n3. Ingresa la dirección de otra billetera P2P.me y el monto.\n4. Toca Recuperar fondos para enviar.\n\nNunca compartas tu clave privada con nadie.',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "El comerciante me pide una prueba de pago, ¿qué debo hacer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1129,6 +1129,9 @@ export const es = {
       "¡Felicidades! Eres uno de nuestros 1000 usuarios con mayor volumen este mes.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Límite de volumen mensual excedido",
     MOST_TIPPED: "MÁS POPULAR",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "número de teléfono o comercio",
+    MPESA_ID: "Número de teléfono o comercio M-Pesa",
     MY_LIMITS: "Mis Límites",
     MY_STAKE: "Mi Stake",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Enfriamiento extendido",
@@ -1275,6 +1278,7 @@ export const es = {
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir en nueva pestaña",
     OPEN_LOTPOT: "Abrir lotpot.fun",
+    OR: "o",
     ORDER: "Pedido",
     ORDERS_COUNT: "+{{count}} pedidos",
     ORDER_ALREADY_MARKED_COMPLETED: "El pedido ya está marcado como completado",
@@ -1560,6 +1564,7 @@ export const es = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Banco o billetera (ej. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 o 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
@@ -2031,6 +2036,7 @@ export const es = {
       "Esto asegura que puedas escanear a tiempo para que el pedido se complete con éxito",
     THIS_MONTH: "Este Mes",
     THIS_MONTH_SHORT: "Mes",
+    TILL_NUMBER: "Número de comercio (till)",
     TIME_REMAINING: "Tiempo restante",
     TIP_ALREADY_GIVEN:
       "Ya le has dado propina a este comerciante. ¡Gracias por tu generosidad!",
