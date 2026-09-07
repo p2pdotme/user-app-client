@@ -1,11 +1,13 @@
-import { ChevronDown, EqualApproximately } from "lucide-react";
+import { ChevronDown, EqualApproximately, Eye, EyeOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { CountryFlag } from "@/components/country-flag";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
-import { useBalances } from "@/hooks";
+import { useBalances, useBalanceVisibility } from "@/hooks";
 import { formatFiatAmount, truncateAmount } from "@/lib/utils";
 import { CurrencyDrawer } from "../settings/currency-drawer";
+
+const MASKED_BALANCE = "••••••";
 
 export function BalanceIndicator() {
   const { t } = useTranslation();
@@ -14,22 +16,39 @@ export function BalanceIndicator() {
   } = useSettings();
   const { balances, isBalancesLoading, isBalancesError, balancesError } =
     useBalances();
+  const { isHidden, toggle } = useBalanceVisibility();
+  const VisibilityIcon = isHidden ? EyeOff : Eye;
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
-      <p className="text-md text-muted-foreground">{t("AVAILABLE_BALANCE")}</p>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-pressed={isHidden}
+        aria-label={t(isHidden ? "SHOW_BALANCE" : "HIDE_BALANCE")}
+        className="flex items-center gap-1.5 text-md text-muted-foreground transition-transform active:scale-95">
+        <span>{t("AVAILABLE_BALANCE")}</span>
+        <VisibilityIcon className="size-4" />
+      </button>
       <div className="flex h-12 w-full items-center justify-center">
         {isBalancesLoading && <Skeleton className="w-full" />}
         {isBalancesError && (
           <p className="text-destructive">{balancesError?.message}</p>
         )}
         {balances && (
-          <p className="font-bold text-4xl">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(truncateAmount(balances.usdc))}
-          </p>
+          <button
+            type="button"
+            onClick={toggle}
+            aria-pressed={isHidden}
+            aria-label={t(isHidden ? "SHOW_BALANCE" : "HIDE_BALANCE")}
+            className="font-bold text-4xl transition-transform active:scale-95">
+            {isHidden
+              ? MASKED_BALANCE
+              : new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(truncateAmount(balances.usdc))}
+          </button>
         )}
       </div>
       <CurrencyDrawer>
@@ -46,7 +65,9 @@ export function BalanceIndicator() {
           )}
           {balances && (
             <span className="text-md">
-              {formatFiatAmount(balances.fiat, currency.currency)}
+              {isHidden
+                ? MASKED_BALANCE
+                : formatFiatAmount(balances.fiat, currency.currency)}
             </span>
           )}
           <CountryFlag flag={currency.flag} flagUrl={currency.flagUrl} />

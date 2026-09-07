@@ -901,6 +901,7 @@ export const en = {
     HELP_AND_SUPPORT: "Help & Support",
     HELP_AND_SUPPORT_DESCRIPTION: "Get assistance with P2P-ing",
     HELP_CENTER_COMING_SOON: "Help center is coming soon",
+    HIDE_BALANCE: "Hide balance",
     HIDE_DETAILS: "Hide details",
     HISTORY_AND_SUPPORT: "History & Support",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
@@ -1818,6 +1819,7 @@ export const en = {
     SHARE_TEXT_SELL:
       "Converted {{amount}} USDC to {{fiatAmount}} instantly with P2P.me!",
     SHOWING_SANE_DEFAULTS: "All transactions from this month",
+    SHOW_BALANCE: "Show balance",
     SHOW_MORE: "Show more",
     SHOW_QR_CODE: "Show QR code",
     SIGNATURE_VALIDATION_FAILED: "Signature validation failed",
