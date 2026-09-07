@@ -40,6 +40,7 @@ const CurrencySchema = z.object({
   currency: z.enum(SUPPORTED_CURRENCIES),
   internationalFormat: z.string().optional(),
   flag: z.enum(enumFrom("flag")),
+  flagUrl: z.string().optional(),
   symbolNative: z.enum(enumFrom("symbolNative")),
   locale: z.enum(enumFrom("locale")),
   paymentMethod: z.enum(enumFrom("paymentMethod")),
