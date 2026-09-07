@@ -1,9 +1,11 @@
-import { EqualApproximately } from "lucide-react";
+import { ChevronDown, EqualApproximately } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { CountryFlag } from "@/components/country-flag";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
 import { useBalances } from "@/hooks";
 import { formatFiatAmount, truncateAmount } from "@/lib/utils";
+import { CurrencyDrawer } from "../settings/currency-drawer";
 
 export function BalanceIndicator() {
   const { t } = useTranslation();
@@ -30,18 +32,27 @@ export function BalanceIndicator() {
           </p>
         )}
       </div>
-      <div className="flex items-center gap-1 text-muted-foreground">
-        <EqualApproximately className="size-3" />
-        {isBalancesLoading && <Skeleton className="h-4" />}
-        {isBalancesError && (
-          <p className="text-destructive">{balancesError?.message}</p>
-        )}
-        {balances && (
-          <p className="text-md">
-            {formatFiatAmount(balances.fiat, currency.currency)}
-          </p>
-        )}
-      </div>
+      <CurrencyDrawer>
+        <button
+          type="button"
+          className="flex h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 text-muted-foreground transition-colors hover:bg-muted active:scale-95"
+          aria-label={t("SELECT_CURRENCY")}>
+          <EqualApproximately className="size-3" />
+          {isBalancesLoading && (
+            <span className="h-4 w-20 animate-pulse rounded-md bg-accent" />
+          )}
+          {isBalancesError && (
+            <span className="text-destructive">{balancesError?.message}</span>
+          )}
+          {balances && (
+            <span className="text-md">
+              {formatFiatAmount(balances.fiat, currency.currency)}
+            </span>
+          )}
+          <CountryFlag flag={currency.flag} flagUrl={currency.flagUrl} />
+          <ChevronDown className="size-4" />
+        </button>
+      </CurrencyDrawer>
     </div>
   );
 }
