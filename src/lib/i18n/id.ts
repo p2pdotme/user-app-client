@@ -914,6 +914,7 @@ export const id = {
     HELP_AND_SUPPORT_DESCRIPTION:
       "Dapatkan bantuan dengan akun P2P.me dan P2P-ing Anda.",
     HELP_CENTER_COMING_SOON: "Pusat bantuan segera hadir",
+    HIDE_BALANCE: "Sembunyikan saldo",
     HIDE_DETAILS: "Sembunyikan detail",
     HISTORY_AND_SUPPORT: "Riwayat & Dukungan",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
@@ -1848,6 +1849,7 @@ export const id = {
     SHARE_TEXT_SELL:
       "Berhasil mengubah {{amount}} USDC menjadi {{fiatAmount}} dengan P2P.me!",
     SHOWING_SANE_DEFAULTS: "Semua transaksi bulan ini",
+    SHOW_BALANCE: "Tampilkan saldo",
     SHOW_MORE: "Tampilkan lebih banyak",
     SHOW_QR_CODE: "Tampilkan kode QR",
     SIGNATURE_VALIDATION_FAILED: "Validasi tanda tangan gagal",

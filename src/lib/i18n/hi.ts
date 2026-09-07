@@ -906,6 +906,7 @@ export const hi = {
     HELP_AND_SUPPORT: "सहायता और समर्थन",
     HELP_AND_SUPPORT_DESCRIPTION: "पी2पी-इंग के साथ सहायता प्राप्त करें",
     HELP_CENTER_COMING_SOON: "सहायता केंद्र जल्द ही आ रहा है",
+    HIDE_BALANCE: "बैलेंस छुपाएं",
     HIDE_DETAILS: "विवरण छिपाएँ",
     HISTORY_AND_SUPPORT: "इतिहास और सहायता",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
@@ -1832,6 +1833,7 @@ export const hi = {
     SHARE_TEXT_SELL:
       "P2P.me के साथ {{amount}} USDC को {{fiatAmount}} में तुरंत परिवर्तित किया!",
     SHOWING_SANE_DEFAULTS: "इस महीने के सभी लेनदेन",
+    SHOW_BALANCE: "बैलेंस दिखाएं",
     SHOW_MORE: "और दिखाएं",
     SHOW_QR_CODE: "QR कोड दिखाएं",
     SIGNATURE_VALIDATION_FAILED: "हस्ताक्षर सत्यापन विफल",
