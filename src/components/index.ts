@@ -10,6 +10,7 @@ export * from "./comprehensive-haptic-test";
 export * from "./comprehensive-sound-test";
 export * from "./connection-status";
 export * from "./countdown-timer";
+export * from "./country-flag";
 export * from "./currency-gate";
 export * from "./dashed-separator";
 export * from "./dev-route-guard";
