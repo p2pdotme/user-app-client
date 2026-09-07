@@ -7,7 +7,7 @@ import {
   uploadsPaymentQR,
   validateCatalogPaymentDraft,
 } from "@p2pdotme/sdk/country";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PaymentQrUpload } from "@/components/payment-qr-upload";
 import { Input } from "@/components/ui/input";
@@ -106,31 +106,46 @@ export function PackedPaymentInput({
           </p>
         </>
       ) : null}
-      {fields.map((field) => {
+      {fields.map((field, index) => {
         const error = fieldError(field, manualValues, showFieldErrors);
+        const showOr =
+          index < fields.length - 1 &&
+          field.optional === true &&
+          fields[index + 1]?.optional === true;
         return (
-          <div key={field.key} className="flex flex-col gap-1">
-            <Input
-              className="rounded-sm bg-background placeholder:text-primary/30"
-              autoComplete="off"
-              placeholder={t(field.placeholder)}
-              value={manualValues[field.key] || ""}
-              aria-invalid={!!error}
-              onChange={(e) => {
-                const next = {
-                  ...manualValues,
-                  [field.key]: e.target.value.replace(/\|/g, ""),
-                };
-                setManualValues(next);
-                emit(qr, next);
-              }}
-            />
-            {error ? (
-              <p className="text-destructive text-xs">
-                {t(error, { defaultValue: error })}
-              </p>
+          <Fragment key={field.key}>
+            <div className="flex flex-col gap-1">
+              <Input
+                className="rounded-sm bg-background placeholder:text-primary/30"
+                autoComplete="off"
+                placeholder={`${t(field.label)} (${t(field.placeholder)})`}
+                value={manualValues[field.key] || ""}
+                aria-invalid={!!error}
+                onChange={(e) => {
+                  const next = {
+                    ...manualValues,
+                    [field.key]: e.target.value.replace(/\|/g, ""),
+                  };
+                  setManualValues(next);
+                  emit(qr, next);
+                }}
+              />
+              {error ? (
+                <p className="text-destructive text-xs">
+                  {t(error, { defaultValue: error })}
+                </p>
+              ) : null}
+            </div>
+            {showOr ? (
+              <div className="flex items-center gap-3">
+                <span className="bg-border h-px flex-1" />
+                <span className="text-muted-foreground text-xs uppercase">
+                  {t("OR")}
+                </span>
+                <span className="bg-border h-px flex-1" />
+              </div>
             ) : null}
-          </div>
+          </Fragment>
         );
       })}
     </div>
