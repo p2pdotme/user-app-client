@@ -6,6 +6,7 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
+import { usePageMeta } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { ChatButton } from "./components/chat-button";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -18,6 +19,10 @@ import {
 
 export function SupportPage({ title }: { title: string }) {
   const { t } = useTranslation();
+  usePageMeta({
+    title: t("HELP_AND_SUPPORT"),
+    description: t("SEO_DESCRIPTION_HELP"),
+  });
   const faqs = getSupportPageFAQs(title as SupportPageTitle);
   const videoGuides = getSupportPageVideoGuides(title as SupportPageTitle);
   const {

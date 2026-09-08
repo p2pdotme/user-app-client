@@ -1,0 +1,50 @@
+# P2P.me
+
+> Pay with USDC at any QR code using P2P.me. P2P.me is a self-custodial, peer-to-peer platform on Base (Ethereum L2) that lets you buy USDC with local currency, sell USDC to your bank or mobile-money account, and pay any merchant QR code with USDC. No KYC is required to start.
+
+Official app: https://app.p2p.me
+Website: https://p2p.me
+Docs: https://docs.p2p.foundation
+
+## What P2P.me does
+
+- Buy USDC: send local currency via UPI, PIX, QRIS, M-Pesa, bank transfer and more, and receive USDC in your own wallet.
+- Sell USDC: receive local currency directly to your bank, UPI, PIX or mobile-money details.
+- Scan & Pay: scan any merchant QR code and pay with USDC; the merchant receives local currency.
+- Deposit / Withdraw: bridge USDC and other tokens in and out from Ethereum, Solana, Polygon, Arbitrum, Optimism, BSC and more.
+- Limits: increase transaction limits with zero-knowledge verifications of social accounts; no personal data is stored.
+- $P2P token: governance and utility token of the P2P Protocol, with trust staking ("Circles of Trust").
+
+## Supported countries and payment rails
+
+- India (INR) - UPI
+- Indonesia (IDR) - QRIS
+- Brazil (BRL) - PIX
+- Argentina (ARS) - Alias / CBU
+- Venezuela (VES) - Pago Movil
+- Bolivia (BOB) - QR Simple
+- Nigeria (NGN) - NIP bank transfer
+- Colombia (COP) - Transferencia
+- Cuba (CUP) - Transfermovil
+- Ecuador (USD) - Transferencia
+- Peru (PEN) - Yape / Plin / CCI
+- Philippines (PHP) - InstaPay
+- Kenya (KES) - M-Pesa
+
+## Key facts
+
+- Self-custodial: users hold their own funds; P2P.me never takes custody.
+- Network: USDC on Base. Transactions are gasless via EIP-4337 account abstraction.
+- Merchants are verified with zero-knowledge proofs of banking history before onboarding.
+- No KYC to start; optional privacy-preserving verification for higher limits.
+- Languages: English, Spanish, Portuguese (Brazil), Indonesian, Hindi.
+
+## Links
+
+- App: https://app.p2p.me
+- Login: https://app.p2p.me/login
+- Website: https://p2p.me
+- Docs: https://docs.p2p.foundation
+- X / Twitter: https://x.com/P2Pdotme
+- Discord: https://discord.com/invite/q3EngGyTrZ
+- GitHub: https://github.com/p2pdotme

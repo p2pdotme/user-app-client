@@ -1855,6 +1855,18 @@ export const pt = {
     SEND_TIP: "Enviar Gorjeta",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Envie USDC da sua carteira p2p.me",
     SENT: "Enviado",
+    SEO_DESCRIPTION_BUY:
+      "Compre USDC com sua moeda local via PIX, transferência bancária, UPI, M-Pesa e mais. Rápido, com autocustódia e sem gas na Base.",
+    SEO_DESCRIPTION_DEFAULT:
+      "O P2P.me é um app de autocustódia para comprar e vender USDC com moeda local e pagar em qualquer código QR com USDC. Trocas rápidas de fiat para cripto na Base, sem risco de bloqueio bancário.",
+    SEO_DESCRIPTION_HELP:
+      "Perguntas frequentes, guias em vídeo e suporte para comprar, vender e pagar com USDC no P2P.me.",
+    SEO_DESCRIPTION_LOGIN:
+      "Entre no P2P.me com e-mail, telefone, Google ou passkey para comprar, vender e pagar com USDC em qualquer código QR.",
+    SEO_DESCRIPTION_PAY:
+      "Escaneie qualquer código QR de um comerciante e pague com USDC. O comerciante recebe moeda local na hora.",
+    SEO_DESCRIPTION_SELL:
+      "Venda USDC e receba moeda local diretamente na sua conta bancária, PIX, UPI ou carteira móvel em minutos.",
     SESSION_CHANGED: "Sessão alterada",
     SESSION_NOT_FOUND: "Sessão não encontrada",
     SETTINGS: "Configurações",
