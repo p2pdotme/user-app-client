@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { useSettings } from "@/contexts/settings";
 import type { Currency, Language } from "@/core/client/settings";
-import { useHapticInteractions, useThirdweb } from "@/hooks";
+import { useHapticInteractions, usePageMeta, useThirdweb } from "@/hooks";
 import {
   COUNTRY_OPTIONS,
   getCurrencyLabel,
@@ -83,6 +83,7 @@ const getSocialPlatformIcon = (platform: string | undefined) => {
 
 export function LoginPage() {
   const { t, i18n } = useTranslation();
+  usePageMeta({ title: t("LOGIN"), description: t("SEO_DESCRIPTION_LOGIN") });
   const [language, setLanguage] = React.useState<string>("");
   const { connect, connectionStatus, isAutoConnectLoading } = useThirdweb();
 

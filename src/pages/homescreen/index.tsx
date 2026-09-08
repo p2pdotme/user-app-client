@@ -14,6 +14,7 @@ import {
   useAnalytics,
   useCampaignClaim,
   useHapticInteractions,
+  usePageMeta,
   useRecommendationUrlParams,
   useThirdweb,
 } from "@/hooks";
@@ -36,6 +37,7 @@ import { YoureInvitedDrawer } from "./youre-invited-drawer";
 
 export function HomeScreen() {
   const { t } = useTranslation();
+  usePageMeta();
   const navigate = useNavigate();
   const location = useLocation();
   const { openDetailsModal, connect, account } = useThirdweb();
