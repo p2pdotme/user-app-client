@@ -5,7 +5,7 @@ import { NonHomeHeader } from "@/components";
 import { FAQAccordion } from "@/components/faq-accordion";
 import { SectionHeader } from "@/components/section-header";
 import { useSettings } from "@/contexts";
-import { useAnalytics, useThirdweb } from "@/hooks";
+import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { openAiSupportChat } from "@/lib/support-chat";
 import { SearchInput } from "./components/search-input";
@@ -13,6 +13,10 @@ import { ALL_FAQS } from "./constants";
 
 export function FAQsSearch() {
   const { t } = useTranslation();
+  usePageMeta({
+    title: t("SEARCH_FAQS"),
+    description: t("SEO_DESCRIPTION_HELP"),
+  });
   const { track } = useAnalytics();
   const {
     settings: { currency },

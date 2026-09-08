@@ -19,7 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/contexts";
 import type { SettingsError } from "@/core/client/settings";
-import { useAnalytics, useHaptics, useSounds } from "@/hooks";
+import { useAnalytics, useHaptics, usePageMeta, useSounds } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { getCurrencyLabel } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -32,6 +32,7 @@ import { ThemeDrawer } from "./theme-drawer";
 
 export function Settings() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("SETTINGS") });
   const { settings, isLoading, setSounds } = useSettings();
   const { supportInfo } = useHaptics();
   const sounds = useSounds();
