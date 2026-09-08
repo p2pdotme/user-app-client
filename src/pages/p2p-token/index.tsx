@@ -20,6 +20,7 @@ import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
 import { SendP2PDrawer } from "@/components/p2p-token/send-p2p-drawer";
+import { JUP_URL } from "@/components/tge-countdown-banner";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -35,13 +36,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   useP2PBalance,
   useP2PTokenInfo,
+  usePageMeta,
   useStakeBoostMetrics,
   useThirdweb,
   useUserStake,
 } from "@/hooks";
-import { cn, formatTokenBalance, truncateAddress } from "@/lib/utils";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { JUP_URL } from "@/components/tge-countdown-banner";
+import { cn, formatTokenBalance, truncateAddress } from "@/lib/utils";
 
 interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -65,8 +66,7 @@ function ActionButton({
         "flex w-full cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl bg-primary/10 px-4 py-4 text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
-      {...rest}
-    >
+      {...rest}>
       <div className="flex size-9 items-center justify-center rounded-full bg-background text-primary">
         {icon}
       </div>
@@ -108,8 +108,7 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
                     toast.error(t("FAILED_TO_COPY"));
                   }
                 }}
-                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15"
-              >
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm transition-colors hover:bg-primary/15">
                 <p className="font-mono text-muted-foreground">
                   {truncateAddress(address, 12)}
                 </p>
@@ -123,8 +122,7 @@ function ReceiveDrawer({ address }: { address: string | undefined }) {
             <Button
               variant="outline"
               size="lg"
-              className="h-12 w-full text-base"
-            >
+              className="h-12 w-full text-base">
               {t("CLOSE")}
             </Button>
           </DrawerClose>
@@ -148,8 +146,7 @@ function StakedSummaryCard({
     <button
       type="button"
       onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_MY_STAKE)}
-      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60"
-    >
+      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60">
       <div className="flex h-4 items-center gap-1.5">
         <Lock className="size-3 text-primary" />
         <p className="font-medium text-[10px] text-muted-foreground uppercase tracking-[0.08em]">
@@ -191,8 +188,7 @@ function StakeCtaCard() {
     <button
       type="button"
       onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_STAKE)}
-      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60"
-    >
+      className="group flex cursor-pointer flex-col gap-1.5 rounded-xl border border-primary/25 bg-background/30 p-3 text-left transition-colors hover:border-primary/40 hover:bg-background/60">
       {/* Kicker row (mirrors Available's label row) */}
       <div className="flex h-4 items-center gap-1.5">
         <Lock className="size-3 text-primary" />
@@ -251,8 +247,7 @@ function TokenHoldingInfo() {
   return (
     <section
       aria-label={t("ARIA_P2P_TOKEN_HOLDINGS")}
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6"
-    >
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 p-6">
       {/* Ambient glow */}
       <div
         aria-hidden
@@ -276,8 +271,7 @@ function TokenHoldingInfo() {
         onClick={handleRefresh}
         aria-label={t("ARIA_REFRESH_BALANCE")}
         disabled={isLoading || spinning}
-        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
-      >
+        className="absolute top-3 right-3 z-10 flex size-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground backdrop-blur-sm transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50">
         <RefreshCw
           className={cn("size-3.5", (spinning || isLoading) && "animate-spin")}
         />
@@ -410,8 +404,7 @@ function TokenHoldingInfo() {
                 changeIsUp
                   ? "bg-success/15 text-success"
                   : "bg-destructive/15 text-destructive",
-              )}
-            >
+              )}>
               {changeIsUp ? (
                 <ArrowUpRight className="size-3" />
               ) : (
@@ -432,6 +425,7 @@ function TokenHoldingInfo() {
 // $P2P token landing page: holdings, send/receive actions, and Solana CTA.
 export function P2PToken() {
   const { t } = useTranslation();
+  usePageMeta({ title: "$P2P" });
   const { account } = useThirdweb();
   const navigate = useNavigate();
 
@@ -546,8 +540,7 @@ function AboutToken() {
   return (
     <section
       aria-label={t("ABOUT_P2P_TOKEN")}
-      className="rounded-2xl border border-border/60 bg-card/40 p-4"
-    >
+      className="rounded-2xl border border-border/60 bg-card/40 p-4">
       <h2 className="mb-2 font-semibold text-foreground text-base">
         {t("ABOUT_P2P_TOKEN")}
       </h2>
@@ -561,8 +554,7 @@ function AboutToken() {
           href="https://docs.p2p.foundation/for-token-holders/start-here"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
-        >
+          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline">
           docs.p2p.foundation
           <ArrowUpRight className="size-3.5" />
         </a>
@@ -573,8 +565,7 @@ function AboutToken() {
           href="https://dexscreener.com/solana/cfymvueyikv8dakdns6wshc5uaxg6t7kqfbcsaebacfu"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline"
-        >
+          className="inline-flex items-center gap-1 font-medium text-primary underline-offset-2 hover:underline">
           dexscreener.com
           <ArrowUpRight className="size-3.5" />
         </a>
@@ -600,8 +591,7 @@ function SolanaTradeFooter() {
         href={JUP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25"
-      >
+        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#9945FF]/15 to-[#14F195]/15 px-4 py-1.5 transition-all hover:from-[#9945FF]/25 hover:to-[#14F195]/25">
         <ASSETS.ICONS.NetworkSolana className="size-4" />
         <span className="font-semibold text-foreground text-xs">
           {t("TRADE_ON_SOLANA")}

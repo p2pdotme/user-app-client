@@ -18,6 +18,7 @@ import { ABIS } from "@/core/p2pdotme";
 import {
   useAnalytics,
   useOrderFlow,
+  usePageMeta,
   usePriceConfig,
   useThirdweb,
   useTxLimits,
@@ -47,6 +48,7 @@ import { PayNotesDrawer } from "./pay-notes-drawer";
 
 export function Pay() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("PAY"), description: t("SEO_DESCRIPTION_PAY") });
   const navigate = useNavigate();
   const {
     settings: { currency },
@@ -473,8 +475,7 @@ export function Pay() {
         className={cn(
           "no-scrollbar container-narrow flex h-full w-full flex-col items-center justify-between gap-2 overflow-hidden py-8",
           isPlacingOrder && "pointer-events-none",
-        )}
-      >
+        )}>
         <section className="no-scrollbar flex w-full flex-1 flex-col justify-between overflow-y-auto py-4">
           <PayNotesDrawer />
           <TransferWarningAlert
@@ -524,8 +525,7 @@ export function Pay() {
         <Button
           className="w-full p-6"
           onClick={handlePlaceOrder}
-          disabled={isContinueDisabled}
-        >
+          disabled={isContinueDisabled}>
           {isPlacingOrder ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

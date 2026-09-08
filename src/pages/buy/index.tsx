@@ -12,6 +12,7 @@ import { getFeeConfig } from "@/core/fees";
 import {
   useAnalytics,
   useHapticInteractions,
+  usePageMeta,
   usePriceConfig,
   useTxLimits,
 } from "@/hooks";
@@ -26,6 +27,7 @@ import { LimitBanner } from "./limit-banner";
 
 export function Buy() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("BUY"), description: t("SEO_DESCRIPTION_BUY") });
   const navigate = useNavigate();
   const { onValidationError, triggerTapHaptic } = useHapticInteractions();
   const { track } = useAnalytics();
