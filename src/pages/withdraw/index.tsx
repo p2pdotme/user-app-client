@@ -24,6 +24,7 @@ import type {
 } from "@/core/rango/types";
 import {
   useAnalytics,
+  usePageMeta,
   useRangoQuote,
   useRangoSwap,
   useSounds,
@@ -40,6 +41,7 @@ import { isValidAddressForChain, type WithdrawState } from "./shared";
 
 export function Withdraw() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("WITHDRAW") });
   const { account } = useThirdweb();
   const sounds = useSounds();
   const { track } = useAnalytics();

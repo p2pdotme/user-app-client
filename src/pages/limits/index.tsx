@@ -17,6 +17,7 @@ import {
   useClaimCampaignUsdc,
   useHasUnclaimedCampaignRewards,
   useOnChainActivityRp,
+  usePageMeta,
   useSocialVerificationStatus,
   useTaskLedger,
   useTxLimits,
@@ -30,6 +31,7 @@ import { Verifications } from "./verifications";
 
 export function Limits() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("MY_LIMITS") });
   const navigate = useNavigate();
   const { txLimit } = useTxLimits();
 

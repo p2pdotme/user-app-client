@@ -12,15 +12,13 @@ import { getSellQuizState } from "@/core/client";
 import { getFeeConfig } from "@/core/fees";
 import {
   useAnalytics,
+  usePageMeta,
   usePriceConfig,
   useTxLimits,
   useUSDCBalance,
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import {
-  INTERNAL_HREFS,
-  MIN_ORDER_FIAT_BY_CURRENCY,
-} from "@/lib/constants";
+import { INTERNAL_HREFS, MIN_ORDER_FIAT_BY_CURRENCY } from "@/lib/constants";
 import { calculateFee, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../order/help-drawer";
@@ -30,6 +28,7 @@ import { SellErrorState } from "./sell-error-state";
 
 export function Sell() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("SELL"), description: t("SEO_DESCRIPTION_SELL") });
   const navigate = useNavigate();
   const { track } = useAnalytics();
   const {

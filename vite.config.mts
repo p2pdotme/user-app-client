@@ -44,10 +44,15 @@ export default ({ mode }: { mode: string }) => {
           maximumFileSizeToCacheInBytes: 16 * 1024 * 1024, // 16MB
         },
         manifest: {
+          id: "/",
           name: "P2P.me - Pay with USDC at any QR",
           short_name: "P2P.me",
           description: "Pay with USDC at any QR code using P2P.me",
           display: "standalone",
+          start_url: "/",
+          scope: "/",
+          lang: "en",
+          categories: ["finance"],
         },
         pwaAssets: {
           disabled: false,
