@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Logo } from "@/assets/icons/logo";
 import { BannerItem } from "@/components";
+import { PartnerDrawer } from "@/components/partner-drawer";
 import { useAnalytics, useRewardsConfig } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -12,18 +13,13 @@ export function JoinMerchantBanner() {
   const { rewardsConfig } = useRewardsConfig();
   const isSpanish = i18n.language?.startsWith("es");
 
+  // Opening the drawer is handled by PartnerDrawer's trigger; this only tracks.
   const handleBannerClick = () => {
     track(EVENTS.FEATURE, {
       status: "banner_clicked",
       bannerName: "join_merchant",
       location: "help_section",
     });
-
-    window.open(
-      "https://linktr.ee/p2p.foundation",
-      "_blank",
-      "noopener,noreferrer",
-    );
   };
 
   return (
@@ -62,56 +58,57 @@ export function JoinMerchantBanner() {
       {/* Gradient overlay for depth */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
 
-      <div
-        className="relative flex h-full w-full cursor-pointer items-center justify-between gap-4 px-5 py-4"
-        onClick={handleBannerClick}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            handleBannerClick();
-          }
-        }}>
-        {/* Left Side - Text Content */}
-        <div className="flex flex-col justify-between gap-1.5">
-          <div className="flex items-center gap-2">
-            <Logo className="size-5 text-primary" />
-            <h3
+      <PartnerDrawer>
+        <div
+          className="relative flex h-full w-full cursor-pointer items-center justify-between gap-4 px-5 py-4"
+          onClick={handleBannerClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              // Fire the composed click so the drawer trigger opens too
+              e.currentTarget.click();
+            }
+          }}>
+          {/* Left Side - Text Content */}
+          <div className="flex flex-col justify-between gap-1.5">
+            <div className="flex items-center gap-2">
+              <Logo className="size-5 text-primary" />
+              <h3
+                className={cn(
+                  "font-semibold text-white leading-tight",
+                  isSpanish ? "text-sm" : "text-base",
+                )}>
+                {t("JOIN_MERCHANT_BANNER_TITLE")}
+              </h3>
+            </div>
+            <p
               className={cn(
-                "font-semibold text-white leading-tight",
-                isSpanish ? "text-sm" : "text-base",
-              )}
-            >
-              {t("JOIN_MERCHANT_BANNER_TITLE")}
-            </h3>
+                "max-w-[220px] text-white/70 leading-snug",
+                isSpanish ? "text-xs" : "text-sm",
+              )}>
+              {t("JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX")}{" "}
+              {rewardsConfig?.merchantRewardPercent ? (
+                <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 font-bold text-green-400">
+                  {rewardsConfig.merchantRewardPercent}%+
+                </span>
+              ) : (
+                <span className="inline-block h-4 w-8 animate-pulse rounded-full bg-white/20" />
+              )}{" "}
+              {t("JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX")}
+            </p>
           </div>
-          <p
-            className={cn(
-              "max-w-[220px] text-white/70 leading-snug",
-              isSpanish ? "text-xs" : "text-sm",
-            )}
-          >
-            {t("JOIN_MERCHANT_BANNER_DESCRIPTION_PREFIX")}{" "}
-            {rewardsConfig?.merchantRewardPercent ? (
-              <span className="inline-flex items-center rounded-full bg-green-500/20 px-2 py-0.5 font-bold text-green-400">
-                {rewardsConfig.merchantRewardPercent}%+
-              </span>
-            ) : (
-              <span className="inline-block h-4 w-8 animate-pulse rounded-full bg-white/20" />
-            )}{" "}
-            {t("JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX")}
-          </p>
-        </div>
 
-        {/* Right Side - CTA Button */}
-        <div className="flex h-10 flex-shrink-0 items-center gap-1.5 self-center rounded-lg border-2 border-white bg-white/10 px-4 backdrop-blur-sm transition-all hover:bg-white/20">
-          <span className="whitespace-nowrap font-semibold text-sm text-white">
-            {t("JOIN_MERCHANT_BANNER_CTA")}
-          </span>
-          <ArrowRight className="size-4 text-white" />
+          {/* Right Side - CTA Button */}
+          <div className="flex h-10 flex-shrink-0 items-center gap-1.5 self-center rounded-lg border-2 border-white bg-white/10 px-4 backdrop-blur-sm transition-all hover:bg-white/20">
+            <span className="whitespace-nowrap font-semibold text-sm text-white">
+              {t("JOIN_MERCHANT_BANNER_CTA")}
+            </span>
+            <ArrowRight className="size-4 text-white" />
+          </div>
         </div>
-      </div>
+      </PartnerDrawer>
     </BannerItem>
   );
 }

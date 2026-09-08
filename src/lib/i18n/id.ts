@@ -99,6 +99,11 @@ export const id = {
     BATCH_TOO_LARGE: "Ukuran batch terlalu besar",
     BECOME_A_LIQUIDITY_PARTNER: "Jadi mitra likuiditas",
     BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Dapatkan hadiah",
+    BENEFITS_BANNER_CTA: "Lihat manfaat",
+    BENEFITS_BANNER_DESCRIPTION:
+      "Bayar dengan QR di toko mitra dan dapatkan USDC kembali.",
+    BENEFITS_BANNER_LABEL: "Manfaat",
+    BENEFITS_BANNER_TITLE: "Cashback hingga {{cashbackPercent}}%",
     BOUGHT_VIA: "Dibeli via",
     BRIDGE: "Bridge",
     BRIDGE_ADDRESS_PLACEHOLDER: "Alamat {{chain}}",
