@@ -13,6 +13,7 @@ import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { CURRENCY } from "@/lib/constants";
 import { cn, isIOS } from "@/lib/utils";
+import { BenefitsBanner } from "@/pages/help/components/benefits-banner";
 import { CoinsMeBanner } from "@/pages/help/components/coinsme-banner";
 import { GoatCashBanner } from "@/pages/help/components/goat-cash-banner";
 import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
@@ -110,9 +111,15 @@ export function Banner({
         plugins={[AutoPlay({ delay: 5000 })]}
         setApi={setApi}
         className="w-full"
-        opts={{ loop: true }}
-      >
+        opts={{ loop: true }}>
         <CarouselContent>
+          {/* Benefits Banner — ARS users only */}
+          {isARS && (
+            <CarouselItem>
+              <BenefitsBanner />
+            </CarouselItem>
+          )}
+
           {/* RedATM Banner — ARS users only */}
           {isARS && (
             <CarouselItem>
@@ -165,8 +172,7 @@ export function Banner({
                   className="flex h-full w-full cursor-pointer items-center justify-between gap-4 px-5 py-6"
                   onClick={handlePWAInstallClick}
                   role="button"
-                  tabIndex={0}
-                >
+                  tabIndex={0}>
                   <div className="flex flex-col gap-1">
                     <h3 className="font-semibold text-lg text-white">
                       {t("PWA_INSTALL_BANNER_TITLE")}
@@ -193,8 +199,7 @@ export function Banner({
         {Array.from({ length: count }).map((_, index) => (
           <div
             key={index}
-            className="h-1.5 w-5 overflow-hidden rounded-full bg-primary/20"
-          >
+            className="h-1.5 w-5 overflow-hidden rounded-full bg-primary/20">
             <div
               className="h-full rounded-full bg-primary"
               style={{
@@ -232,8 +237,7 @@ interface BannerItemProps {
 export function BannerItem({ bgImage, bgColor, children }: BannerItemProps) {
   return (
     <div
-      className={`relative flex h-28 w-full flex-col items-center justify-center overflow-hidden rounded-xl shadow-md ${bgColor}`}
-    >
+      className={`relative flex h-28 w-full flex-col items-center justify-center overflow-hidden rounded-xl shadow-md ${bgColor}`}>
       {bgImage && (
         <img
           src={bgImage}
