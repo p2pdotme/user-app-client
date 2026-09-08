@@ -99,6 +99,11 @@ export const pt = {
     BATCH_TOO_LARGE: "Tamanho do lote muito grande",
     BECOME_A_LIQUIDITY_PARTNER: "Torne-se um parceiro de liquidez",
     BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Ganhe recompensas",
+    BENEFITS_BANNER_CTA: "Ver benefícios",
+    BENEFITS_BANNER_DESCRIPTION:
+      "Pague com QR em lojas parceiras e receba USDC de volta.",
+    BENEFITS_BANNER_LABEL: "Benefícios",
+    BENEFITS_BANNER_TITLE: "Até {{cashbackPercent}}% de cashback",
     BOUGHT_VIA: "Comprado via",
     BRIDGE: "Ponte",
     BRIDGE_ADDRESS_PLACEHOLDER: "Endereço {{chain}}",

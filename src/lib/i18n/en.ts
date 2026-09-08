@@ -97,6 +97,11 @@ export const en = {
     BATCH_TOO_LARGE: "Batch size too large",
     BECOME_A_LIQUIDITY_PARTNER: "Become a Liquidity Partner",
     BECOME_A_LIQUIDITY_PARTNER_SUBTITLE: "Earn rewards",
+    BENEFITS_BANNER_CTA: "See benefits",
+    BENEFITS_BANNER_DESCRIPTION:
+      "Pay with QR at partner stores and get USDC back.",
+    BENEFITS_BANNER_LABEL: "Benefits",
+    BENEFITS_BANNER_TITLE: "Up to {{cashbackPercent}}% cashback",
     BOUGHT_VIA: "Bought via",
     BRIDGE: "Bridge",
     BRIDGE_ADDRESS_PLACEHOLDER: "{{chain}} address",
