@@ -4,12 +4,17 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
+import { usePageMeta } from "@/hooks";
 import { getScreenType } from "@/lib/utils";
 import { VideoGuideCard } from "./components/video-guide-card";
 import { ALL_VIDEO_GUIDES } from "./constants";
 
 export function HelpfulVideoGuides() {
   const { t } = useTranslation();
+  usePageMeta({
+    title: t("HELPFUL_VIDEO_GUIDES"),
+    description: t("SEO_DESCRIPTION_HELP"),
+  });
   const { isOpen, videoUrl, title, isPortrait, openVideo, closeVideo } =
     useYouTubeVideoDialog();
   const isPhone = getScreenType() === "phone";

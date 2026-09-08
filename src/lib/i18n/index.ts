@@ -46,12 +46,20 @@ i18n.use(initReactI18next).init({
   },
 });
 
-// Set initial moment locale
-setMomentLocale(initialLanguage);
+const syncDocumentLanguage = (lng: string) => {
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = lng;
+  }
+};
 
-// Sync moment locale when i18n language changes
+// Set initial moment locale and <html lang>
+setMomentLocale(initialLanguage);
+syncDocumentLanguage(initialLanguage);
+
+// Sync moment locale and <html lang> when i18n language changes
 i18n.on("languageChanged", (lng: string) => {
   setMomentLocale(lng);
+  syncDocumentLanguage(lng);
 });
 
 export { i18n };

@@ -42,6 +42,7 @@ import {
   useCmVotesPerEpoch,
   useCurrentMonthRecommendationsGiven,
   useIsCommunityManager,
+  usePageMeta,
   useRecommendationsGiven,
   useRecommendationsReceived,
   useRecommenderReward,
@@ -58,6 +59,7 @@ import { getPageFAQs } from "@/pages/help/constants";
 
 export function Referral() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("REFER_AND_EARN") });
   const { account } = useThirdweb();
   const { txLimit } = useTxLimits();
   // const {

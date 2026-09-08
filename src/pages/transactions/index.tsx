@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { FAQAccordion, NonHomeHeader, SectionHeader } from "@/components";
 import { Button } from "@/components/ui/button";
 import type { EnrichedSubgraphOrder } from "@/core/p2pdotme/shared/validation";
-import { useTxnHistory } from "@/hooks";
+import { usePageMeta, useTxnHistory } from "@/hooks";
 import { getFiatUnit, INTERNAL_HREFS } from "@/lib/constants";
 import { exportTransactionsToCSV } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
@@ -32,6 +32,7 @@ const renderSkeletons = (count: number) => (
 
 export function Transactions() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("TRANSACTIONS") });
 
   // Initialize filters with sane defaults (non-cancelled + this month)
   const [filters, setFilters] = useState<TransactionFilters>(() => {

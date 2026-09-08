@@ -1804,6 +1804,18 @@ export const en = {
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Send USDC from your P2P.me wallet",
     SENT: "Sent",
+    SEO_DESCRIPTION_BUY:
+      "Buy USDC with your local currency via UPI, PIX, M-Pesa, bank transfer and more. Fast, self-custodial and gasless on Base.",
+    SEO_DESCRIPTION_DEFAULT:
+      "P2P.me is a self-custodial app to buy and sell USDC with local currency and pay at any QR code with USDC. Fast fiat to crypto swaps on Base, no bank freeze worries.",
+    SEO_DESCRIPTION_HELP:
+      "FAQs, video guides and support for buying, selling and paying with USDC on P2P.me.",
+    SEO_DESCRIPTION_LOGIN:
+      "Log in to P2P.me with email, phone, Google or passkey to buy, sell and pay with USDC at any QR code.",
+    SEO_DESCRIPTION_PAY:
+      "Scan any merchant QR code and pay with USDC. The merchant receives local currency instantly.",
+    SEO_DESCRIPTION_SELL:
+      "Sell USDC and receive local currency directly to your bank, UPI, PIX or mobile money account in minutes.",
     SESSION_CHANGED: "Session changed",
     SESSION_NOT_FOUND: "Session not found",
     SETTINGS: "Settings",

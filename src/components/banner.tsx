@@ -20,7 +20,7 @@ import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
 import { NepalReliefBanner } from "@/pages/help/components/nepal-relief-banner";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
-// import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
+import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
 
@@ -131,11 +131,11 @@ export function Banner({
           )}
 
           {/* RedATM Banner — ARS users only */}
-          {/* {isARS && (
+          {isARS && (
             <CarouselItem>
               <RedAtmBanner />
             </CarouselItem>
-          )} */}
+          )}
 
           {/* Perps Cashback Banner */}
           <CarouselItem>
