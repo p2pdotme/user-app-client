@@ -22,6 +22,7 @@ const CASHBACK_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
   INR: 0,
   VEN: 0,
   BOB: 0,
+  BRL: 1,
 };
 
 export function getLotpotCashbackPercent(currency?: CurrencyType): number {

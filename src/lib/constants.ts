@@ -99,6 +99,7 @@ export const STORAGE_KEYS = {
   RELAY_IDENTITY: "@P2PME:RELAY_IDENTITY",
   ORDER_PAYMENT_DETAILS: "@P2PME:ORDER_PAYMENT_DETAILS",
   SELL_QUIZ: "@P2PME:SELL_QUIZ",
+  BALANCE_HIDDEN: "@P2PME:BALANCE_HIDDEN",
 };
 
 export const LANGUAGE_OPTIONS: Language[] = [
@@ -261,6 +262,7 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   ECU: "EC",
   CUP: "CU",
   BOB: "BO",
+  KES: "KE",
 };
 
 /**
@@ -327,6 +329,7 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     phone: "PLACEHOLDER_PAYMENT_ID_PHP",
     "bank-name": "PLACEHOLDER_BANK_NAME_PHP",
   },
+  KES: { mpesa: "PLACEHOLDER_MPESA_KES" },
 };
 
 export const PAYMENT_ID_FIELDS = Object.fromEntries(

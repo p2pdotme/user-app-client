@@ -1,4 +1,5 @@
 export * from "./use-analytics";
+export * from "./use-balance-visibility";
 export * from "./use-balances";
 export * from "./use-bvn";
 export * from "./use-campaign-claim";

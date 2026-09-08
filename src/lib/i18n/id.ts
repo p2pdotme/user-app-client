@@ -919,6 +919,7 @@ export const id = {
     HELP_AND_SUPPORT_DESCRIPTION:
       "Dapatkan bantuan dengan akun P2P.me dan P2P-ing Anda.",
     HELP_CENTER_COMING_SOON: "Pusat bantuan segera hadir",
+    HIDE_BALANCE: "Sembunyikan saldo",
     HIDE_DETAILS: "Sembunyikan detail",
     HISTORY_AND_SUPPORT: "Riwayat & Dukungan",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
@@ -1115,6 +1116,9 @@ export const id = {
       "Selamat! Anda adalah salah satu dari 1000 pengguna teratas kami berdasarkan volume bulan ini.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Batas volume bulanan terlampaui",
     MOST_TIPPED: "PALING BANYAK TIP",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "nomor telepon atau till",
+    MPESA_ID: "Nomor telepon atau till M-Pesa",
     MY_LIMITS: "Limit Saya",
     MY_STAKE: "Stake Saya",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Cooldown diperpanjang",
@@ -1261,6 +1265,7 @@ export const id = {
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Buka di tab baru",
     OPEN_LOTPOT: "Buka lotpot.fun",
+    OR: "atau",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ pesanan",
     ORDER_ALREADY_MARKED_COMPLETED: "Pesanan sudah ditandai selesai",
@@ -1532,6 +1537,7 @@ export const id = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Bank atau e-wallet (mis. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 atau 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
@@ -1848,6 +1854,7 @@ export const id = {
     SHARE_TEXT_SELL:
       "Berhasil mengubah {{amount}} USDC menjadi {{fiatAmount}} dengan P2P.me!",
     SHOWING_SANE_DEFAULTS: "Semua transaksi bulan ini",
+    SHOW_BALANCE: "Tampilkan saldo",
     SHOW_MORE: "Tampilkan lebih banyak",
     SHOW_QR_CODE: "Tampilkan kode QR",
     SIGNATURE_VALIDATION_FAILED: "Validasi tanda tangan gagal",
@@ -1982,6 +1989,7 @@ export const id = {
       "Ini memastikan Anda dapat scan tepat waktu sehingga pesanan selesai dengan sukses",
     THIS_MONTH: "Bulan Ini",
     THIS_MONTH_SHORT: "Bulan",
+    TILL_NUMBER: "Nomor Till",
     TIME_REMAINING: "Time remaining",
     TIP_ALREADY_GIVEN:
       "You've already tipped this merchant. Thank you for your generosity!",

@@ -923,6 +923,7 @@ export const pt = {
     HELP_AND_SUPPORT_DESCRIPTION:
       "Obtenha assistência com sua conta P2P.me e P2P-ing.",
     HELP_CENTER_COMING_SOON: "Central de ajuda em breve",
+    HIDE_BALANCE: "Ocultar saldo",
     HIDE_DETAILS: "Ocultar detalhes",
     HISTORY_AND_SUPPORT: "Histórico & Suporte",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
@@ -1121,6 +1122,9 @@ export const pt = {
       "Parabéns! Você é um dos nossos 1000 principais usuários por volume este mês.",
     MONTHLY_VOLUME_LIMIT_EXCEEDED: "Limite de volume mensal excedido",
     MOST_TIPPED: "MAIS GORJETA",
+    MPESA: "M-Pesa",
+    MPESA_DETAILS: "número de telefone ou till",
+    MPESA_ID: "Número de telefone ou till M-Pesa",
     MY_LIMITS: "Meus Limites",
     MY_STAKE: "Meu Stake",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Resfriamento estendido",
@@ -1267,6 +1271,7 @@ export const pt = {
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir em nova aba",
     OPEN_LOTPOT: "Abrir lotpot.fun",
+    OR: "ou",
     ORDER: "Pedido",
     ORDERS_COUNT: "{{count}}+ pedidos",
     ORDER_ALREADY_MARKED_COMPLETED: "Pedido já marcado como concluído",
@@ -1544,6 +1549,7 @@ export const pt = {
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
     PLACEHOLDER_BANK_NAME_PHP: "Banco ou carteira (ex. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
+    PLACEHOLDER_MPESA_KES: "0712345678 ou 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
@@ -1869,6 +1875,7 @@ export const pt = {
     SHARE_TEXT_SELL:
       "Converti {{amount}} USDC em {{fiatAmount}} instantaneamente com P2P.me!",
     SHOWING_SANE_DEFAULTS: "Todas as transações deste mês",
+    SHOW_BALANCE: "Mostrar saldo",
     SHOW_MORE: "Mostrar mais",
     SHOW_QR_CODE: "Mostrar código QR",
     SIGNATURE_VALIDATION_FAILED: "Falha na validação da assinatura",
@@ -2000,6 +2007,7 @@ export const pt = {
       "Isso garante que você possa escanear a tempo para que o pedido seja concluído com sucesso",
     THIS_MONTH: "Este Mês",
     THIS_MONTH_SHORT: "Mês",
+    TILL_NUMBER: "Número Till",
     TIME_REMAINING: "Time remaining",
     TIP_ALREADY_GIVEN:
       "Você já deu gorjeta para este comerciante. Obrigado pela sua generosidade!",
