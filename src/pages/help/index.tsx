@@ -18,7 +18,7 @@ import {
 import { SocialLinks } from "@/components/social-links";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
-import { useAnalytics, useThirdweb } from "@/hooks";
+import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { openAiSupportChat } from "@/lib/support-chat";
@@ -30,6 +30,10 @@ import { ALL_VIDEO_GUIDES } from "./constants";
 
 export function Help() {
   const { t } = useTranslation();
+  usePageMeta({
+    title: t("HELP_AND_SUPPORT"),
+    description: t("SEO_DESCRIPTION_HELP"),
+  });
   const navigate = useNavigate();
   const { track } = useAnalytics();
   const {

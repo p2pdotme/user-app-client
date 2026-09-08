@@ -1834,6 +1834,18 @@ export const id = {
     SEND_TIP: "Send Tip",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Kirim USDC dari dompet p2p.me Anda",
     SENT: "Dikirim",
+    SEO_DESCRIPTION_BUY:
+      "Beli USDC dengan mata uang lokal lewat GoPay, transfer bank, UPI, PIX, dan lainnya. Cepat, self-custody, dan tanpa gas di Base.",
+    SEO_DESCRIPTION_DEFAULT:
+      "P2P.me adalah aplikasi self-custody untuk membeli dan menjual USDC dengan mata uang lokal serta membayar di kode QR mana pun dengan USDC. Tukar fiat ke kripto dengan cepat di Base, tanpa khawatir rekening dibekukan.",
+    SEO_DESCRIPTION_HELP:
+      "FAQ, panduan video, dan dukungan untuk membeli, menjual, dan membayar dengan USDC di P2P.me.",
+    SEO_DESCRIPTION_LOGIN:
+      "Masuk ke P2P.me dengan email, nomor telepon, Google, atau passkey untuk membeli, menjual, dan membayar dengan USDC di kode QR mana pun.",
+    SEO_DESCRIPTION_PAY:
+      "Pindai kode QR merchant mana pun dan bayar dengan USDC. Merchant langsung menerima mata uang lokal.",
+    SEO_DESCRIPTION_SELL:
+      "Jual USDC dan terima mata uang lokal langsung ke rekening bank, GoPay, atau dompet digital Anda dalam hitungan menit.",
     SESSION_CHANGED: "Sesi berubah",
     SESSION_NOT_FOUND: "Sesi tidak ditemukan",
     SETTINGS: "Pengaturan",

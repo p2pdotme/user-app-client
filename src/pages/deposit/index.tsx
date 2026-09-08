@@ -20,6 +20,7 @@ import { handleDeposit as executeDepositTransaction } from "@/core/rango/bridgeH
 import type { RangoSwapResponse } from "@/core/rango/types";
 import {
   useAnalytics,
+  usePageMeta,
   useRangoQuote,
   useRangoSwap,
   useSounds,
@@ -37,6 +38,7 @@ import type { DepositState } from "./shared";
 
 export function Deposit() {
   const { t } = useTranslation();
+  usePageMeta({ title: t("DEPOSIT") });
   const { isAvailable: isDynamicAvailable, primaryWallet } =
     useSafeDynamicContext();
   const { account } = useThirdweb();
