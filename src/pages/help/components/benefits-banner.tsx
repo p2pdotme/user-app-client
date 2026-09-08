@@ -4,7 +4,7 @@ import { BannerItem } from "@/components";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 
-const BENEFITS_URL = "https://p2p-beneficios.vercel.app/#benefits";
+const BENEFITS_URL = "https://p2p.me/offers";
 
 /** Merchant logos drifting in the background — mirrors the benefits page. */
 const FLOATING_LOGOS = [
