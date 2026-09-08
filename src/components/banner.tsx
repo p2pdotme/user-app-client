@@ -20,7 +20,7 @@ import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
 import { NepalReliefBanner } from "@/pages/help/components/nepal-relief-banner";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
-import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
+// import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
 
@@ -41,6 +41,9 @@ export function Banner({
   } = useSettings();
   const isINR = currency.currency === CURRENCY.INR;
   const isARS = currency.currency === CURRENCY.ARS;
+  const isBRL = currency.currency === CURRENCY.BRL;
+  // Latam users see the merchant banner first
+  const showMerchantBannerFirst = isARS || isBRL;
 
   // Check if app is already installed (running in standalone mode)
   const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
@@ -113,6 +116,13 @@ export function Banner({
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
+          {/* Join Merchant Banner — first slide for ARS/BRL users */}
+          {showMerchantBannerFirst && (
+            <CarouselItem>
+              <JoinMerchantBanner />
+            </CarouselItem>
+          )}
+
           {/* Benefits Banner — ARS users only */}
           {isARS && (
             <CarouselItem>
@@ -121,11 +131,11 @@ export function Banner({
           )}
 
           {/* RedATM Banner — ARS users only */}
-          {isARS && (
+          {/* {isARS && (
             <CarouselItem>
               <RedAtmBanner />
             </CarouselItem>
-          )}
+          )} */}
 
           {/* Perps Cashback Banner */}
           <CarouselItem>
@@ -159,10 +169,12 @@ export function Banner({
             </CarouselItem>
           )}
 
-          {/* Join Merchant Banner */}
-          <CarouselItem>
-            <JoinMerchantBanner />
-          </CarouselItem>
+          {/* Join Merchant Banner — other users (ARS/BRL already saw it first) */}
+          {!showMerchantBannerFirst && (
+            <CarouselItem>
+              <JoinMerchantBanner />
+            </CarouselItem>
+          )}
 
           {/* PWA Install Banner - Use same logic as InstallPWAButton */}
           {shouldShowPWABanner && (
