@@ -17,6 +17,8 @@ export * from "./dev-route-guard";
 export * from "./error-boundary";
 export * from "./faq-accordion";
 export * from "./gauge-progress";
+export * from "./idr-payment-id-input";
+export * from "./idr-payment-method-select";
 export * from "./install-pwa-button";
 export * from "./near-intent-review-sheet";
 export * from "./near-intent-slippage-sheet";

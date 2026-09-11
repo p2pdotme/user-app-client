@@ -11,6 +11,7 @@ import {
   formatStoredPaymentIdForDisplay,
   getCountryOption,
   getPayQrPayload,
+  resolveIndonesianStoredPaymentIdDisplay,
   serializeCompoundPaymentId,
   usesPackedPaymentId,
 } from "@p2pdotme/sdk/country";
@@ -47,6 +48,9 @@ export function formatPaymentIdForDisplay(
   paymentId: string,
   currency: CurrencyType,
 ): string {
+  // IDR-specific: stored id is `Provider|number`, show it as `Provider · number`.
+  const idr = resolveIndonesianStoredPaymentIdDisplay(currency, paymentId);
+  if (idr) return idr.display;
   const formatted = formatStoredPaymentIdForDisplay(currency, paymentId);
   if (formatted) return formatted;
   if (usesPackedPaymentId(currency) || getPayQrPayload(currency, paymentId)) {
@@ -88,6 +92,9 @@ export function getPaymentIdDisplayParts(
   paymentId: string,
   currency: CurrencyType,
 ): { key: string; label: string | null; labelKey: string; value: string }[] {
+  // IDR-specific: split `Provider|number` into "Payment Method" + number rows.
+  const idr = resolveIndonesianStoredPaymentIdDisplay(currency, paymentId);
+  if (idr) return [...idr.parts];
   const fields = getPaymentIdFields(currency);
   const values = assignStoredPaymentIdToFieldValues(currency, paymentId);
   return fields
