@@ -37,6 +37,16 @@ const OPEN_MODAL_SELECTOR =
 let widget: Promise<Handle> | null = null;
 let container: HTMLDivElement | null = null;
 let mountedKey: string | null = null;
+// Handler the Help page registers to open the human general-support chat when
+// the AI widget's "Talk to a human" action fires. Null when no surface is
+// mounted, so escalation is a quiet no-op rather than an error.
+let escalateHandler: (() => void) | null = null;
+
+/** Register (or clear, with null) the "talk to a human" escalation target. The
+ *  Help page sets this to open its GeneralSupportPanel drawer. */
+export function setSupportEscalateHandler(fn: (() => void) | null) {
+  escalateHandler = fn;
+}
 // The <style> tag inside the current widget's shadow root that we toggle to
 // hide/show the launcher. Re-created on each mount (survives rebuilds).
 let hideStyleEl: HTMLStyleElement | null = null;
@@ -91,6 +101,10 @@ function mount(
       ...(wallet ? { wallet } : {}),
       title: "p2p.me support",
       target: el,
+      // AI-first, human-fallback: the widget renders a "Talk to a human" action
+      // that hands off to the general Chatwoot support chat (mounted by the Help
+      // page). No handler registered → the action is inert.
+      onEscalate: () => escalateHandler?.(),
       // When a query is supplied (e.g. FAQ search returned nothing), open the
       // panel straight away and offer the query as a one-tap starter chip that
       // submits it into the chat — the 0.4.2 widget has no prefill API.
