@@ -4,7 +4,6 @@ import {
 } from "@p2pdotme/sdk/country";
 import { Landmark, Wallet } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import ASSETS from "@/assets";
 import {
   Select,
   SelectContent,
@@ -28,13 +27,12 @@ function ProviderIcon({
 }: {
   provider: IndonesianPaymentProviderOption;
 }) {
-  if (provider.name === "GoPay") {
-    return <ASSETS.ICONS.GoPay className="size-4" />;
-  }
-  if (provider.type === "bank") {
-    return <Landmark className="size-4 text-muted-foreground" />;
-  }
-  return <Wallet className="size-4 text-muted-foreground" />;
+  const Icon = provider.type === "bank" ? Landmark : Wallet;
+  return (
+    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary">
+      <Icon className="size-4 text-primary-foreground" />
+    </span>
+  );
 }
 
 /** Payment method picker for Indonesia, listing every SDK `IDR_PAYMENT_PROVIDERS` entry. */
@@ -50,13 +48,19 @@ export function IdrPaymentMethodSelect({
       <Select
         value={value}
         onValueChange={(next) => onChange(next as IdrPaymentMethod)}>
-        <SelectTrigger className="h-10 w-full border-none bg-primary/10">
+        <SelectTrigger className="h-10 w-full border-none bg-primary/10 py-6">
           <SelectValue placeholder={t("SELECT_PAYMENT_METHOD")} />
         </SelectTrigger>
-        <SelectContent className="rounded-md border-none">
+        <SelectContent
+          side="bottom"
+          avoidCollisions={false}
+          className="max-h-[200px] rounded-md border-none">
           {IDR_PAYMENT_PROVIDERS.map((provider) => (
-            <SelectItem key={provider.name} value={provider.name}>
-              <div className="flex items-center gap-2">
+            <SelectItem
+              key={provider.name}
+              value={provider.name}
+              className="py-2.5">
+              <div className="flex items-center gap-3">
                 <ProviderIcon provider={provider} />
                 <p className="font-medium text-sm">{provider.name}</p>
               </div>
