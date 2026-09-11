@@ -863,6 +863,11 @@ export const en = {
     FUNCTION_NOT_FOUND: "Function not found",
     FUND_PROTECTION_GUIDELINES: "Fund Protection Guidelines",
     GENERAL: "General",
+    GENERAL_SUPPORT_CONNECT_WALLET:
+      "Connect your wallet to start a support chat.",
+    GENERAL_SUPPORT_DESCRIPTION:
+      "Chat with our support team. We'll reply here — you can close this and come back anytime.",
+    GENERAL_SUPPORT_TITLE: "Talk to support",
     GENERATE_LINK: "Generate Link",
     GENERATE_REFERRAL_LINK: "Generate Referral Link",
     GENERATING_LINK: "Generating Link...",
