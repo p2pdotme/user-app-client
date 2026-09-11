@@ -1,5 +1,9 @@
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
-import { validateStoredPaymentId } from "@p2pdotme/sdk/country";
+import {
+  CURRENCY,
+  validateIndonesianStoredPaymentId,
+  validateStoredPaymentId,
+} from "@p2pdotme/sdk/country";
 import { type ClassValue, clsx } from "clsx";
 import type { TFunction } from "i18next";
 import moment from "moment";
@@ -386,6 +390,10 @@ export function validatePaymentAddress(
   address: string,
   currency: string,
 ): boolean {
+  // IDR-specific: `Provider|number` validates by provider type.
+  if (currency === CURRENCY.IDR) {
+    return validateIndonesianStoredPaymentId(address);
+  }
   return validateStoredPaymentId(currency as CurrencyType, address);
 }
 
@@ -504,7 +512,7 @@ export function addLocalOrderPaymentDetails(
   );
 }
 
-/** Only IDR stores `GO_PAY:address`. Do not split on a raw colon — EMVCo QRs can contain `:`. */
+/** Legacy IDR orders stored `GO_PAY:address` (new IDR orders store `Provider|number`). Do not split on a raw colon — EMVCo QRs can contain `:`. */
 const ORDER_PAYMENT_METHOD_PREFIXES = ["GO_PAY"] as const;
 
 /**

@@ -1,3 +1,4 @@
+import { resolveIndonesianStoredPaymentIdDisplay } from "@p2pdotme/sdk/country";
 import { QRCodeSVG } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 import {
@@ -26,13 +27,17 @@ export function SellReceivingPaymentRow({
   const code = currency as CurrencyType;
   const qrValue = getDisplayQrPayload(code, addr);
   const catalogParts = addr ? getPaymentIdDisplayParts(addr, code) : [];
+  // IDR-specific: heading label follows the provider type (bank → Account Number).
+  const headingKey =
+    resolveIndonesianStoredPaymentIdDisplay(code, addr)?.paymentAddressName ??
+    paymentAddressName;
 
   if (qrValue || catalogParts.length > 0) {
     return (
       <div className="flex flex-col gap-2">
         <span className="font-medium">
           {t("RECEIVING_PAYMENT_ADDRESS", {
-            paymentAddressName: t(paymentAddressName),
+            paymentAddressName: t(headingKey),
           })}
         </span>
         {qrValue ? (
