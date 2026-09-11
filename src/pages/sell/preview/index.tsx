@@ -1,4 +1,5 @@
 import { ABIS } from "@p2pdotme";
+import { CURRENCY } from "@p2pdotme/sdk/country";
 import {
   AlertTriangle,
   ArrowDownCircle,
@@ -23,18 +24,16 @@ import {
   PackedPaymentInput,
   TransferWarningAlert,
 } from "@/components";
+import {
+  DEFAULT_IDR_PAYMENT_METHOD,
+  type IdrPaymentMethod,
+  IdrPaymentMethodSelect,
+} from "@/components/idr-payment-method-select";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts/settings";
 import {
@@ -55,12 +54,12 @@ import {
   usesCatalogPaymentForm,
 } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { resolveManualPaymentAddress } from "@/lib/manual-payment-address";
 import {
   addLocalOrderPaymentDetails,
   cn,
   extractOrderIdFromOrderPlaced,
   formatFiatAmount,
-  validatePaymentAddress,
 } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../../order/help-drawer";
@@ -113,8 +112,19 @@ export function SellPreview() {
   const [manualAddress, setManualAddress] = useState<string>("");
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  // IDR-specific: provider picked in the Payment Method dropdown (banks + e-wallets).
+  const [idrPaymentMethod, setIdrPaymentMethod] = useState<IdrPaymentMethod>(
+    DEFAULT_IDR_PAYMENT_METHOD,
+  );
 
   const catalogForm = usesCatalogPaymentForm(currency.currency);
+  const isIDR = currency.currency === CURRENCY.IDR;
+  // IDR-specific inside: label/validator follow the provider, id packs as `Provider|number`.
+  const {
+    paymentAddressName,
+    isValid: isManualAddressValid,
+    paymentId: manualPaymentId,
+  } = resolveManualPaymentAddress({ currency, manualAddress, idrPaymentMethod });
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
@@ -143,7 +153,7 @@ export function SellPreview() {
   // Get the current active address, either from addressBook or manual input
   const getCurrentAddress = () => {
     if (showInput && manualAddress) {
-      return manualAddress;
+      return manualPaymentId;
     }
 
     if (addressBook?.active) {
@@ -209,7 +219,7 @@ export function SellPreview() {
   const isPlacingOrderDisabled =
     isPlacingOrder ||
     (!addressBook?.active && !manualAddress.trim()) || // No saved method and no manual input
-    (showInput && !validatePaymentAddress(manualAddress, currency.currency)) || // Manual input mode but invalid
+    (showInput && !isManualAddressValid) || // Manual input mode but invalid
     (addressBook?.active && !addressBook.active.address.trim()); // Saved method but invalid
 
   const handlePlaceOrder = async () => {
@@ -263,12 +273,8 @@ export function SellPreview() {
             currency: currency.currency,
             paymentChannel: 0,
           });
-          // Store payment details (IDR gets GO_PAY prefix, others store address directly)
-          addLocalOrderPaymentDetails(
-            orderId.toString(),
-            currentAddress,
-            currency.currency === "IDR" ? "GO_PAY" : undefined,
-          );
+          // Store payment details; IDR is already packed as `Provider|number`
+          addLocalOrderPaymentDetails(orderId.toString(), currentAddress);
           navigate(`${INTERNAL_HREFS.ORDER}/${orderId}`);
         },
         onError: (error) => {
@@ -398,23 +404,12 @@ export function SellPreview() {
           dashGap="10px"
         />
         <section className="flex w-full flex-col gap-3">
-          {currency.currency === "IDR" ? (
-            <>
-              <p className="font-medium text-md">{t("PAYMENT_METHOD")}</p>
-              <Select defaultValue="GO_PAY">
-                <SelectTrigger className="h-10 w-full border-none bg-primary/10">
-                  <SelectValue placeholder={t("SELECT_PAYMENT_METHOD")} />
-                </SelectTrigger>
-                <SelectContent className="h-10 rounded-md border-none bg-primary/10">
-                  <SelectItem value="GO_PAY">
-                    <div className="flex items-center gap-2">
-                      <ASSETS.ICONS.GoPay className="size-4" />
-                      <p className="font-medium text-sm">{t("GO_PAY")}</p>
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </>
+          {/* IDR-specific: provider dropdown above the payment details input */}
+          {isIDR ? (
+            <IdrPaymentMethodSelect
+              value={idrPaymentMethod}
+              onChange={setIdrPaymentMethod}
+            />
           ) : null}
           <p className="font-medium text-md">{t("CONFIRM_PAYMENT_DETAILS")}</p>
           <TransferWarningAlert currency={currency.currency} />
@@ -430,7 +425,7 @@ export function SellPreview() {
                   <p className="rounded-sm font-medium text-xs">
                     {showInput
                       ? t("ONE_TIME_PAYMENT_ADDRESS", {
-                          paymentAddressName: t(currency.paymentAddressName),
+                          paymentAddressName: t(paymentAddressName),
                         })
                       : t("SAVED_PAYMENT_ADDRESS", {
                           paymentAddressName: t(currency.paymentAddressName),
@@ -455,7 +450,7 @@ export function SellPreview() {
                     <Input
                       className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
                       placeholder={t("ENTER_PAYMENT_DETAILS", {
-                        paymentAddressName: t(currency.paymentAddressName),
+                        paymentAddressName: t(paymentAddressName),
                       })}
                       value={manualAddress}
                       onChange={handleManualAddressChange}

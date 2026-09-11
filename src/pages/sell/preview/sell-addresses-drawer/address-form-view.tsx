@@ -3,7 +3,12 @@ import { motion } from "motion/react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { PackedPaymentInput, TransferWarningAlert } from "@/components";
+import { CURRENCY } from "@p2pdotme/sdk/country";
+import {
+  IdrPaymentIdInput,
+  PackedPaymentInput,
+  TransferWarningAlert,
+} from "@/components";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
@@ -43,6 +48,8 @@ export function AddressFormView({
 
   const fields = getPaymentIdFields(currency.currency);
   const catalogForm = usesCatalogPaymentForm(currency.currency);
+  // IDR-specific: provider dropdown + number, saved packed as `Provider|number`.
+  const isIDR = currency.currency === CURRENCY.IDR;
 
   const handleClipboardPaste = async () => {
     try {
@@ -109,7 +116,23 @@ export function AddressFormView({
               )}
             />
 
-            {catalogForm ? (
+            {isIDR ? (
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <IdrPaymentIdInput
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : catalogForm ? (
               <FormField
                 control={form.control}
                 name="address"
