@@ -84,7 +84,7 @@ export function ChatView({
       </DrawerHeader>
 
       <div
-        className="h-[60svh] px-4 pb-2"
+        className="h-[60dvh] px-4 pb-2"
         style={themeToCssVars(SUPPORT_THEME)}>
         <UserSupportPanel
           orderId={orderId}
