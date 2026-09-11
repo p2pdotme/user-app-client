@@ -861,6 +861,11 @@ export const id = {
     FUNCTION_NOT_FOUND: "Fungsi tidak ditemukan",
     FUND_PROTECTION_GUIDELINES: "Panduan Perlindungan Dana",
     GENERAL: "Umum",
+    GENERAL_SUPPORT_CONNECT_WALLET:
+      "Hubungkan dompetmu untuk memulai chat dukungan.",
+    GENERAL_SUPPORT_DESCRIPTION:
+      "Ngobrol dengan tim dukungan kami. Kami akan membalas di sini — kamu bisa menutup ini dan kembali kapan saja.",
+    GENERAL_SUPPORT_TITLE: "Bicara dengan dukungan",
     GENERATE_LINK: "Buat Link",
     GENERATE_REFERRAL_LINK: "Buat Link Referensi",
     GENERATING_LINK: "Membuat Link...",

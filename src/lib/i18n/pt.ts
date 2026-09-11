@@ -863,6 +863,11 @@ export const pt = {
     FUNCTION_NOT_FOUND: "Função não encontrada",
     FUND_PROTECTION_GUIDELINES: "Diretrizes de Proteção de Fundos",
     GENERAL: "Geral",
+    GENERAL_SUPPORT_CONNECT_WALLET:
+      "Conecte sua carteira para iniciar um chat de suporte.",
+    GENERAL_SUPPORT_DESCRIPTION:
+      "Converse com nossa equipe de suporte. Responderemos aqui — você pode fechar e voltar quando quiser.",
+    GENERAL_SUPPORT_TITLE: "Falar com o suporte",
     GENERATE_LINK: "Gerar Link",
     GENERATE_REFERRAL_LINK: "Gerar Link de Indicação",
     GENERATING_LINK: "Gerando Link...",

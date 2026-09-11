@@ -875,6 +875,11 @@ export const es = {
     FUNCTION_NOT_FOUND: "Función no encontrada",
     FUND_PROTECTION_GUIDELINES: "Guías de Protección de Fondos",
     GENERAL: "General",
+    GENERAL_SUPPORT_CONNECT_WALLET:
+      "Conecta tu billetera para iniciar un chat de soporte.",
+    GENERAL_SUPPORT_DESCRIPTION:
+      "Chatea con nuestro equipo de soporte. Te responderemos aquí — puedes cerrar esto y volver cuando quieras.",
+    GENERAL_SUPPORT_TITLE: "Hablar con soporte",
     GENERATE_LINK: "Generar Enlace",
     GENERATE_REFERRAL_LINK: "Generar Enlace de Referido",
     GENERATING_LINK: "Generando Enlace...",
