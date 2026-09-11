@@ -1,6 +1,7 @@
 import {
   formatStoredPaymentIdForDisplay,
   getCountryOption,
+  resolveIndonesianStoredPaymentIdDisplay,
   unpackPackedPaymentId,
 } from "@p2pdotme/sdk/country";
 import { getDisplayQrPayload } from "@/lib/compound-payment-id";
@@ -25,6 +26,10 @@ export function formatReceiptPaymentId(
   if (!currency) return { display: value, copyValue: value, qr: null };
 
   const code = currency as CurrencyType;
+  // IDR-specific: `Provider|number` → display both, copy only the number.
+  const idr = resolveIndonesianStoredPaymentIdDisplay(code, value);
+  if (idr) return { display: idr.display, copyValue: idr.copyValue, qr: null };
+
   const qr = getDisplayQrPayload(code, value);
   const formatted = formatStoredPaymentIdForDisplay(code, value);
   if (formatted) {
