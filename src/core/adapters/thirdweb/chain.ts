@@ -61,10 +61,16 @@ type SmsCountryCode = NonNullable<
   >["allowedSmsCountryCodes"]
 >[number];
 
+// SMS country codes that must not be offered for phone login
+const EXCLUDED_SMS_COUNTRY_CODES: readonly string[] = ["PE"];
+
+const isSmsCountryCodeAllowed = (code: string): boolean =>
+  !EXCLUDED_SMS_COUNTRY_CODES.includes(code);
+
 // Derive allowed SMS country codes from currency config
 const ALLOWED_SMS_COUNTRY_CODES = [
   ...new Set(COUNTRY_OPTIONS.flatMap((c) => c.smsCountryCodes ?? [])),
-] as SmsCountryCode[];
+].filter(isSmsCountryCodeAllowed) as SmsCountryCode[];
 
 /**
  * Creates thirdweb wallet config with dynamic SMS country code based on currency
@@ -75,7 +81,7 @@ export function createConnectWalletConfig(
 ): Omit<UseConnectModalOptions, "client"> {
   const smsCountryCodes = COUNTRY_OPTIONS.find(
     (c) => c.currency === currencySymbol,
-  )?.smsCountryCodes;
+  )?.smsCountryCodes?.filter(isSmsCountryCodeAllowed);
   const defaultSmsCountryCode = smsCountryCodes?.[0] as
     | SmsCountryCode
     | undefined;
