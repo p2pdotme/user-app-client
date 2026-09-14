@@ -222,7 +222,7 @@ export function HelpDrawer({
 
   return (
     <Drawer open={open} onOpenChange={handleOpenChange}>
-      <DrawerContent className="px-6 pb-[max(env(safe-area-inset-bottom),1.5rem)]">
+      <DrawerContent className="px-6 pb-6">
         <AnimatePresence mode="wait" initial={false}>
           {page === "list" && (
             <HelpListView
