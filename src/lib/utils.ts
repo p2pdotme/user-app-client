@@ -798,17 +798,15 @@ export function buildPixBrCode(
  * Builds a Cuban Transfermóvil transfer payload from a CUP payment address so
  * the payer can scan it instead of typing a 16-digit card. CUP addresses are the
  * compound `phone|card` pair; the payload mirrors the format Transfermóvil
- * itself emits (`TRANSFERMOVIL_ETECSA,TRANSFERENCIA,<card>,<phone>,<amount>`).
+ * itself emits (`TRANSFERMOVIL_ETECSA,TRANSFERENCIA,<card>,<phone>,`).
+ * The trailing amount field is intentionally left empty: Transfermóvil rejects
+ * QRs that carry a prefilled amount, so the payer enters it in the app.
  * Returns null when the address isn't a usable phone/card pair, so callers can
  * fall back to the plain text fields.
  * @param paymentAddress - The compound CUP address (`phone|card`)
- * @param amount - The fiat amount to pay; omitted from the payload when not positive
  * @returns The Transfermóvil payload to encode in the QR, or null
  */
-export function buildTransfermovilQr(
-  paymentAddress: string,
-  amount: string,
-): string | null {
+export function buildTransfermovilQr(paymentAddress: string): string | null {
   const [rawPhone, rawCard] = deserializeCompoundPaymentId(paymentAddress);
 
   const card = rawCard?.replace(/[\s-]/g, "") ?? "";
@@ -817,11 +815,7 @@ export function buildTransfermovilQr(
 
   if (!/^\d{16}$/.test(card) || !/^\d{8}$/.test(phone)) return null;
 
-  const parsed = Number(amount.replace(",", "."));
-  const amountField =
-    Number.isFinite(parsed) && parsed > 0 ? parsed.toFixed(2) : "";
-
-  return `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${card},${phone},${amountField}`;
+  return `TRANSFERMOVIL_ETECSA,TRANSFERENCIA,${card},${phone},`;
 }
 
 export function getScreenType() {
