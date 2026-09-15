@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { useActiveWalletChain } from "thirdweb/react";
 import { useSettings } from "@/contexts";
 import { useThirdweb } from "@/hooks";
+import { getSupportBridgeUrl } from "@/lib/support-bridge";
 import {
   destroyAiSupportWidget,
   ensureAiSupportWidget,
+  setSupportChatSigner,
 } from "@/lib/support-chat";
 
 // Mounts the p2p.me AI support chat floating launcher ONLY while the Help &
@@ -18,18 +21,38 @@ export const SupportWidget = () => {
     settings: { currency },
   } = useSettings();
   const { account, connectionStatus } = useThirdweb();
+  const activeChain = useActiveWalletChain();
+  const bridgeUrl = getSupportBridgeUrl();
   const isLoggedIn = connectionStatus === "connected" && !!account?.address;
+
+  // Wallet signer for the widget's built-in "Talk to a human" chat. Needs a live
+  // chain id (bound into the bridge sign-in); without one, no signer → the human
+  // action stays hidden and the AI is the only surface.
+  const signer = useMemo(() => {
+    if (!account || !activeChain) return null;
+    return {
+      address: account.address as `0x${string}`,
+      signMessage: (message: string) => account.signMessage({ message }),
+      getChainId: () => activeChain.id,
+    };
+  }, [account, activeChain]);
 
   useEffect(() => {
     // Only show the support launcher to authenticated users. The widget derives
     // its default language from the selected currency; the wallet lets the
     // agent answer order questions directly (no address ask).
     if (!isLoggedIn) return;
+    // Register the signer + bridge URL BEFORE mounting so the widget picks up the
+    // built-in human chat on creation.
+    setSupportChatSigner(signer, bridgeUrl ?? null);
     void ensureAiSupportWidget(currency.currency || "global", account?.address);
     // Leaving the Help page destroys the launcher so it's not a floating icon
     // everywhere else in the app.
-    return () => void destroyAiSupportWidget();
-  }, [currency.currency, account?.address, isLoggedIn]);
+    return () => {
+      setSupportChatSigner(null, null);
+      void destroyAiSupportWidget();
+    };
+  }, [currency.currency, account?.address, isLoggedIn, signer, bridgeUrl]);
 
   return null;
 };

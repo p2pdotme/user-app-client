@@ -23,7 +23,6 @@ import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { openAiSupportChat } from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
-import { GeneralSupportDrawer } from "./components/general-support-drawer";
 import { SettingsItem } from "./components/settings-item";
 import { VideoGuideBanner } from "./components/video-guide-banner";
 import { VideoGuideCard } from "./components/video-guide-card";
@@ -92,11 +91,9 @@ export function Help() {
       {/* Mount the AI support chat launcher only here, on the Help & Support
           page — it tears down on navigation away so the floating icon isn't
           shown across the rest of the app. */}
+      {/* Mounts the AI launcher and wires the wallet signer so its built-in
+          "Talk to a human" action opens a live order-less support thread. */}
       <SupportWidget />
-      {/* Human-support fallback: the AI widget's "Talk to a human" action opens
-          this drawer (general, order-less Chatwoot thread). Renders nothing
-          until escalated. */}
-      <GeneralSupportDrawer />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
         <YouTubeVideoDialog
