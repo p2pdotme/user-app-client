@@ -833,10 +833,6 @@ export const hi = {
     FUNCTION_NOT_FOUND: "फंक्शन नहीं मिला",
     FUND_PROTECTION_GUIDELINES: "फंड सुरक्षा दिशानिर्देश",
     GENERAL: "सामान्य",
-    GENERAL_SUPPORT_CONNECT_WALLET: "सपोर्ट चैट शुरू करने के लिए अपना वॉलेट कनेक्ट करें।",
-    GENERAL_SUPPORT_DESCRIPTION:
-      "हमारी सपोर्ट टीम से चैट करें। हम यहीं जवाब देंगे — आप इसे बंद करके कभी भी वापस आ सकते हैं।",
-    GENERAL_SUPPORT_TITLE: "सपोर्ट से बात करें",
     GENERATE_LINK: "लिंक जेनरेट करें",
     GENERATE_REFERRAL_LINK: "रेफरल लिंक जेनरेट करें",
     GENERATING_LINK: "लिंक जेनरेट हो रहा है...",
