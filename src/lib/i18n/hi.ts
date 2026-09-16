@@ -1526,6 +1526,7 @@ export const hi = {
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
+    PLACEHOLDER_PAYMENT_ID_EGP: "01012345678",
     PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
@@ -2251,6 +2252,8 @@ export const hi = {
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
     VIEW_P2P_TOKEN_HOLDINGS: "अपनी $P2P होल्डिंग्स देखें",
+    VODAFONE_CASH: "Vodafone Cash",
+    VODAFONE_CASH_DETAILS: "Vodafone Cash विवरण",
     VOTES_PER_EPOCH_EXCEEDED: "प्रति एपॉक वोट सीमा पार हो गई",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER:
       "मर्चेंट द्वारा ऑर्डर स्वीकार करने की प्रतीक्षा",

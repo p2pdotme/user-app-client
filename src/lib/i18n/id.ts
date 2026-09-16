@@ -1541,6 +1541,7 @@ export const id = {
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
+    PLACEHOLDER_PAYMENT_ID_EGP: "01012345678",
     PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
@@ -2272,6 +2273,8 @@ export const id = {
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
     VIEW_P2P_TOKEN_HOLDINGS: "Lihat kepemilikan $P2P Anda",
+    VODAFONE_CASH: "Vodafone Cash",
+    VODAFONE_CASH_DETAILS: "Detail Vodafone Cash",
     VOTES_PER_EPOCH_EXCEEDED: "Suara per epoch terlampaui",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER: "Menunggu merchant menerima order",
     WALLET: "Dompet",
