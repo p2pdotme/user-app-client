@@ -44,6 +44,7 @@ export const FAQAccordion = ({ faqs, showAll = false, slice = 3 }: FAQAccordionP
       VEN: 50000,
       BOB: 50000,
       KES: 50000,
+      EGP: 50000,
     };
     return limits[currencySymbol] || 50000; // Default fallback
   };
