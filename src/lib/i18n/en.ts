@@ -1518,6 +1518,7 @@ export const en = {
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
+    PLACEHOLDER_PAYMENT_ID_EGP: "01012345678",
     PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
@@ -2234,6 +2235,8 @@ export const en = {
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "View frequently asked questions about {{orderType}} orders",
     VIEW_P2P_TOKEN_HOLDINGS: "View your $P2P holdings",
+    VODAFONE_CASH: "Vodafone Cash",
+    VODAFONE_CASH_DETAILS: "Vodafone Cash Details",
     VOTES_PER_EPOCH_EXCEEDED: "Votes per epoch exceeded",
     WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER:
       "Waiting for merchant to accept order",
