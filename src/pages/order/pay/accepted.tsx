@@ -29,19 +29,13 @@ import {
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { parseQRData } from "@/lib/qr-parsers";
-import {
-  addLocalOrderPaymentDetails,
-  cn,
-  formatFiatAmount,
-  truncate6,
-  truncateAmount,
-} from "@/lib/utils";
+import { addLocalOrderPaymentDetails, cn, formatFiatAmount } from "@/lib/utils";
 import { PAY_FLOW_PROGRESS_TEXT } from "../shared";
 
 export function PayAccepted({ order }: { order: Order }) {
   const { t } = useTranslation();
   const [isProcessingQR, setIsProcessingQR] = useState(false);
-  const { setSellOrderUpiMutation } = useOrderFlow();
+  const { setSellOrderUpiWithFiatMutation } = useOrderFlow();
   const { priceConfig, isPriceConfigError, priceConfigError } = usePriceConfig(
     order.currency,
   );
@@ -139,30 +133,37 @@ export function PayAccepted({ order }: { order: Order }) {
           })
         : "";
 
-      let updatedAmount = Number(order.amount);
-      if (amount && orderFiatAmount !== qrFiatAmount) {
-        updatedAmount = truncate6(Number(amount.usdc));
-        if (updatedAmount !== Number(order.amount)) {
-          toast.success(t("ORDER_AMOUNT_UPDATED"), {
-            description: t("ORDER_AMOUNT_UPDATED_DESCRIPTION", {
-              from: order.amount,
-              to: truncateAmount(updatedAmount, 6),
-            }),
-          });
-        }
+      // A PAY order is a fiat invoice, so when the QR carries a total that
+      // differs from what the order was placed with we pin the order to the
+      // QR's *fiat* figure via `setSellOrderUpiWithFiat`. The Diamond writes
+      // that fiat exactly and derives the USDC to pull from the order's own
+      // rate (rounded up so it always covers the fiat) — no client-side
+      // USDC math, so settlement lands on precisely what the payee quoted.
+      // Compare on the display-formatted strings (currency precision) so float
+      // noise from the QR parser isn't treated as a change. `0n` = keep as is.
+      let updatedFiatAmount = 0n;
+      if (amount && amount.fiat > 0 && orderFiatAmount !== qrFiatAmount) {
+        // parseUnits rejects >6 decimals; fix the float to the on-chain scale.
+        updatedFiatAmount = parseUnits(amount.fiat.toFixed(6), 6);
+        toast.success(t("ORDER_AMOUNT_UPDATED"), {
+          description: t("ORDER_AMOUNT_UPDATED_DESCRIPTION", {
+            from: formatFiatAmount(order.fiatAmount, order.currency),
+            to: formatFiatAmount(amount.fiat, order.currency),
+          }),
+        });
       }
 
       // QR processing complete, now sending to server
       setIsProcessingQR(false);
 
-      await setSellOrderUpiMutation.mutateAsync(
+      await setSellOrderUpiWithFiatMutation.mutateAsync(
         {
           orderId: BigInt(order.id),
           // VEN Pago Móvil: send the trimmed blob from parseQR, not the raw
           // scanner string, so the merchant can re-encode a valid QR.
           paymentAddress: order.currency === "VEN" ? paymentAddress : qrString,
           merchantPublicKey: order.pubkey,
-          updatedAmount: parseUnits(updatedAmount.toString(), 6),
+          updatedFiatAmount,
         },
         {
           onSuccess: (receipt) => {
@@ -187,12 +188,11 @@ export function PayAccepted({ order }: { order: Order }) {
       order.orderType,
       order.status,
       order.currency,
-      order.amount,
       order.fiatAmount,
       order.pubkey,
       isPriceConfigError,
       priceConfig?.sellPrice,
-      setSellOrderUpiMutation,
+      setSellOrderUpiWithFiatMutation,
       t,
       priceConfigError?.message,
       onQRScanned,
@@ -218,17 +218,17 @@ export function PayAccepted({ order }: { order: Order }) {
       currency: order.currency,
     });
 
-    if (!setSellOrderUpiMutation.isPending) {
+    if (!setSellOrderUpiWithFiatMutation.isPending) {
       await handleSendPaymentDetails(data);
     }
   };
 
   // Determine current loading state and message
   const getLoadingState = () => {
-    if (isProcessingQR && !setSellOrderUpiMutation.isPending) {
+    if (isProcessingQR && !setSellOrderUpiWithFiatMutation.isPending) {
       return { isLoading: true, message: t("PROCESSING_QR") };
     }
-    if (setSellOrderUpiMutation.isPending) {
+    if (setSellOrderUpiWithFiatMutation.isPending) {
       return { isLoading: true, message: t("SENDING_PAYMENT_DETAILS") };
     }
     return { isLoading: false, message: "" };

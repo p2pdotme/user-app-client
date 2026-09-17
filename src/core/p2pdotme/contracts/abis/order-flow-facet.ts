@@ -65,6 +65,14 @@ export const orderFlowFacetAbi = [
     type: "error",
   },
   {
+    inputs: [
+      { internalType: "uint256", name: "minimum", type: "uint256" },
+      { internalType: "uint256", name: "actual", type: "uint256" },
+    ],
+    name: "FiatAmountBelowMinimum",
+    type: "error",
+  },
+  {
     inputs: [],
     name: "OrderStatusInvalid",
     type: "error",
@@ -1309,6 +1317,29 @@ export const orderFlowFacetAbi = [
       },
     ],
     name: "setSellOrderUpi",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_orderId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_userEncUpi",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_updatedFiatAmount",
+        type: "uint256",
+      },
+    ],
+    name: "setSellOrderUpiWithFiat",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
