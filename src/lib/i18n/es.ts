@@ -859,6 +859,8 @@ export const es = {
     FEEDBACK_FEATURE_COMING_SOON:
       "La función de comentarios estará disponible pronto",
     FIAT_AMOUNT: "Monto Fiat",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "El monto del pedido está por debajo del mínimo para esta moneda",
     FILTERS: "Filtros",
     FILTERS_ACTIVE: "filtros activos",
     FILTERS_APPLIED: "Filtros Aplicados",

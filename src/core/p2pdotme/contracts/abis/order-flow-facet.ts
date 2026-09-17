@@ -65,6 +65,14 @@ export const orderFlowFacetAbi = [
     type: "error",
   },
   {
+    inputs: [
+      { internalType: "uint256", name: "minimum", type: "uint256" },
+      { internalType: "uint256", name: "actual", type: "uint256" },
+    ],
+    name: "FiatAmountBelowMinimum",
+    type: "error",
+  },
+  {
     inputs: [],
     name: "OrderStatusInvalid",
     type: "error",

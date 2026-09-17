@@ -832,6 +832,8 @@ export const en = {
     FEE: "Fee",
     FEEDBACK_FEATURE_COMING_SOON: "Feedback feature is coming soon",
     FIAT_AMOUNT: "Fiat Amount",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "Order amount is below the minimum for this currency",
     FILTERS: "Filters",
     FILTERS_ACTIVE: "filters active",
     FILTERS_APPLIED: "Filters Applied",

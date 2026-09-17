@@ -835,6 +835,7 @@ export const hi = {
     FEE: "शुल्क",
     FEEDBACK_FEATURE_COMING_SOON: "फ़ीडबैक सुविधा जल्द ही आ रही है",
     FIAT_AMOUNT: "फ़िएट राशि",
+    FIAT_AMOUNT_BELOW_MINIMUM: "ऑर्डर राशि इस मुद्रा के लिए न्यूनतम से कम है",
     FILTERS: "फ़िल्टर",
     FILTERS_ACTIVE: "फ़िल्टर सक्रिय",
     FILTERS_APPLIED: "फ़िल्टर लगाए गए",

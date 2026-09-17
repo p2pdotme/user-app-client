@@ -844,6 +844,8 @@ export const id = {
     FEE: "Biaya",
     FEEDBACK_FEATURE_COMING_SOON: "Fitur umpan balik segera hadir",
     FIAT_AMOUNT: "Jumlah Fiat",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "Jumlah pesanan di bawah minimum untuk mata uang ini",
     FILTERS: "Filter",
     FILTERS_ACTIVE: "filter aktif",
     FILTERS_APPLIED: "Filter Diterapkan",

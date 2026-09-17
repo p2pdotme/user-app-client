@@ -847,6 +847,8 @@ export const pt = {
     FEE: "Taxa",
     FEEDBACK_FEATURE_COMING_SOON: "Recurso de feedback em breve",
     FIAT_AMOUNT: "Valor em Fiat",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "O valor do pedido está abaixo do mínimo para esta moeda",
     FILTERS: "Filtros",
     FILTERS_ACTIVE: "filtros ativos",
     FILTERS_APPLIED: "Filtros Aplicados",
