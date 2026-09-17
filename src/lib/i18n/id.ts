@@ -1271,8 +1271,7 @@ export const id = {
     ORDER_ALREADY_MARKED_COMPLETED: "Pesanan sudah ditandai selesai",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "Jumlah pesanan melebihi batas",
     ORDER_AMOUNT_UPDATED: "Jumlah pesanan diperbarui",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION:
-      "Diperbarui dari {{from}} menjadi {{to}} USDC",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Diperbarui dari {{from}} menjadi {{to}}",
     ORDER_CANCELLED: "Pesanan dibatalkan",
     ORDER_DETAILS: "Detail Order",
     ORDER_ERROR_DESCRIPTION:

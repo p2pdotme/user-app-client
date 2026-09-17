@@ -1316,6 +1316,29 @@ export const orderFlowFacetAbi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_orderId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_userEncUpi",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_updatedFiatAmount",
+        type: "uint256",
+      },
+    ],
+    name: "setSellOrderUpiWithFiat",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_user",
         type: "address",

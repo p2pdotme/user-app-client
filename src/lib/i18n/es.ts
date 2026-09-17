@@ -1290,7 +1290,7 @@ export const es = {
     ORDER_ALREADY_MARKED_COMPLETED: "El pedido ya está marcado como completado",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "El monto del pedido excede el límite",
     ORDER_AMOUNT_UPDATED: "Monto del pedido actualizado",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Actualizado de {{from}} a {{to}} USDC",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Actualizado de {{from}} a {{to}}",
     ORDER_CANCELLED: "Pedido cancelado",
     ORDER_DETAILS: "Detalles del Pedido",
     ORDER_ERROR_DESCRIPTION:

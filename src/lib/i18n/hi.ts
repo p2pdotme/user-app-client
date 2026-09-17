@@ -1259,8 +1259,7 @@ export const hi = {
       "ऑर्डर पहले ही पूरा चिह्नित किया जा चुका है",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "ऑर्डर राशि सीमा से अधिक है",
     ORDER_AMOUNT_UPDATED: "ऑर्डर राशि अपडेट की गई",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION:
-      "{{from}} से {{to}} USDC में अपडेट किया गया",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "{{from}} से {{to}} में अपडेट किया गया",
     ORDER_CANCELLED: "ऑर्डर रद्द कर दिया गया",
     ORDER_DETAILS: "ऑर्डर विवरण",
     ORDER_ERROR_DESCRIPTION:
