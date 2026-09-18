@@ -42,22 +42,38 @@ type Handle = { open: () => void; close: () => void; destroy: () => void };
 const LAUNCHER_OFFSET_CSS =
   ".launcher{bottom:calc(env(safe-area-inset-bottom, 0px) + 96px)!important}";
 
-// Telegram row, styled to sit UNDER the widget's "Chat with support" card as
-// the secondary option: no border, muted text, and the widget's own CSS custom
-// properties so it tracks the panel's light/dark surface instead of hardcoding
-// a colour. Margins match `.support-card` (16px gutters) so the two line up.
-const TELEGRAM_ROW_CSS = `
-.p2pme-tg-row{display:flex;align-items:center;gap:10px;width:calc(100% - 32px);
-margin:0 16px 4px;padding:10px 14px;border-radius:12px;background:transparent;
-color:var(--cw-muted);font-family:inherit;font-size:13px;font-weight:500;
-text-decoration:none;cursor:pointer;transition:background .15s ease,color .15s ease}
-.p2pme-tg-row:hover{background:var(--cw-bot-bg);color:var(--cw-fg)}
-.p2pme-tg-row:focus-visible{outline:2px solid var(--cw-accent);outline-offset:2px}
-.p2pme-tg-label{flex:1}
-.p2pme-tg-icon{display:flex;align-items:center;color:#229ED9}
-.p2pme-tg-icon svg{width:18px;height:18px}
-.p2pme-tg-arrow{display:flex;align-items:center;opacity:.55}
-.p2pme-tg-arrow svg{width:14px;height:14px}`;
+// Telegram entry, rendered as a card that PAIRS with the widget's own "Chat
+// with support" card: same 16px gutters, same 14px radius, same border token —
+// so the two read as one stack of two doors rather than a card with a stray
+// link glued under it.
+//
+// Subordinate by weight, not by shrinking it into a caption: no box-shadow
+// (the support card has one), a muted second line, and the brand colour
+// confined to a 30px badge. Everything else tracks the widget's CSS custom
+// properties, so it follows the panel into dark mode instead of hardcoding a
+// surface that goes wrong the moment the theme flips.
+const TELEGRAM_CARD_CSS = `
+.p2pme-tg-card{box-sizing:border-box;display:flex;align-items:center;gap:12px;
+width:calc(100% - 32px);margin:8px 16px 4px;padding:13px 16px;
+border:1px solid var(--cw-border);
+border-radius:14px;background:var(--cw-bg);color:var(--cw-fg);
+font-family:inherit;text-decoration:none;cursor:pointer;
+transition:border-color .15s ease,background .15s ease}
+.p2pme-tg-card:hover{border-color:#229ED9;background:var(--cw-bot-bg)}
+.p2pme-tg-card:hover .p2pme-tg-arrow{color:#229ED9}
+.p2pme-tg-card:focus-visible{outline:2px solid var(--cw-accent);outline-offset:2px}
+.p2pme-tg-badge{display:flex;align-items:center;justify-content:center;flex:none;
+width:30px;height:30px;border-radius:50%;background:rgba(34,158,217,.14);color:#229ED9}
+.p2pme-tg-badge svg{width:17px;height:17px}
+.p2pme-tg-text{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+.p2pme-tg-title{font-size:14px;font-weight:600;color:var(--cw-fg);line-height:1.3}
+.p2pme-tg-sub{font-size:12px;font-weight:400;color:var(--cw-muted);line-height:1.3}
+.p2pme-tg-arrow{display:flex;align-items:center;flex:none;color:var(--cw-muted)}
+.p2pme-tg-arrow svg{width:15px;height:15px}
+/* In the support thread the card is a footer under the transcript, not an item
+   in a list — pin it to the bottom and give it a divider so it never reads as
+   part of the conversation. */
+.human .p2pme-tg-card{margin:4px 16px 10px}`;
 
 // Telegram's own mark — filled, because it is a brand glyph rather than a UI
 // stroke icon like the rest of the widget's chrome.
@@ -70,55 +86,75 @@ const EXTERNAL_ICON_SVG =
 // package upgrade that renames them has a single place to follow.
 const SUPPORT_CARD_SELECTOR = ".support-card";
 const HOME_SELECTOR = ".home";
+const HUMAN_SELECTOR = ".human";
+const HUMAN_STATUS_SELECTOR = ".human-status";
+const TG_CARD_SELECTOR = ".p2pme-tg-card";
 
-// Render the Telegram row into the widget's home screen, directly after the
-// "Chat with support" card. No-ops when the widget has no home screen, no
-// support card (the human chat needs a signer + bridgeUrl), or the host never
-// supplied a group URL.
-function injectTelegramRow(shadow: ShadowRoot) {
+function widgetShadow(): ShadowRoot | null {
+  return (
+    container?.querySelector<HTMLElement>("[data-commops-widget]")
+      ?.shadowRoot ?? null
+  );
+}
+
+// Build one Telegram card. Two are rendered — see injectTelegramCards.
+function telegramCard(telegram: { url: string; label: string; sub: string }) {
+  const card = document.createElement("a");
+  card.className = "p2pme-tg-card";
+  card.href = telegram.url;
+  card.target = "_blank";
+  card.rel = "noopener noreferrer";
+
+  const badge = document.createElement("span");
+  badge.className = "p2pme-tg-badge";
+  badge.innerHTML = TELEGRAM_ICON_SVG;
+
+  const text = document.createElement("span");
+  text.className = "p2pme-tg-text";
+  const title = document.createElement("span");
+  title.className = "p2pme-tg-title";
+  // textContent, not innerHTML — both lines are translated strings.
+  title.textContent = telegram.label;
+  const sub = document.createElement("span");
+  sub.className = "p2pme-tg-sub";
+  sub.textContent = telegram.sub;
+  text.append(title, sub);
+
+  const arrow = document.createElement("span");
+  arrow.className = "p2pme-tg-arrow";
+  arrow.innerHTML = EXTERNAL_ICON_SVG;
+
+  card.append(badge, text, arrow);
+  return card;
+}
+
+// Render the Telegram card in BOTH places the user can be after tapping "Chat
+// with us": under the home screen's "Chat with support" card, and at the foot
+// of the support thread itself. One copy on home only would vanish the moment
+// the button did its job and dropped the user into the thread — exactly where
+// "this is taking a while, is there another way to reach you?" gets asked.
+//
+// No-ops when the widget has no home screen, no support card (the human chat
+// needs a signer + bridgeUrl), or the host supplied no group URL.
+function injectTelegramCards(shadow: ShadowRoot) {
   if (!supportTelegram) return;
   const card = shadow.querySelector(SUPPORT_CARD_SELECTOR);
   const home = shadow.querySelector(HOME_SELECTOR);
   if (!card || !home) return;
 
   const style = document.createElement("style");
-  style.textContent = TELEGRAM_ROW_CSS;
+  style.textContent = TELEGRAM_CARD_CSS;
   shadow.appendChild(style);
 
-  const row = document.createElement("a");
-  row.className = "p2pme-tg-row";
-  row.href = supportTelegram.url;
-  row.target = "_blank";
-  row.rel = "noopener noreferrer";
-  const icon = document.createElement("span");
-  icon.className = "p2pme-tg-icon";
-  icon.innerHTML = TELEGRAM_ICON_SVG;
-  const label = document.createElement("span");
-  label.className = "p2pme-tg-label";
-  // textContent, not innerHTML — the label is a translated string.
-  label.textContent = supportTelegram.label;
-  const arrow = document.createElement("span");
-  arrow.className = "p2pme-tg-arrow";
-  arrow.innerHTML = EXTERNAL_ICON_SVG;
-  row.append(icon, label, arrow);
-  card.after(row);
+  card.after(telegramCard(supportTelegram));
+
+  // Foot of the support thread, after the status line (which carries the
+  // "connecting…" / "resolved" notes) so the card is the last thing in the view.
+  const human = shadow.querySelector(HUMAN_SELECTOR);
+  const status = human?.querySelector(HUMAN_STATUS_SELECTOR);
+  if (status) status.after(telegramCard(supportTelegram));
+  else human?.appendChild(telegramCard(supportTelegram));
 }
-
-// Any element matching this indicates an open modal overlay whose controls the
-// launcher must not sit on top of: Vaul drawers (`[vaul-drawer]`) plus Radix
-// dialogs / sheets / alert-dialogs (`role=dialog|alertdialog`), all of which
-// carry `data-state="open"` while shown.
-const OPEN_MODAL_SELECTOR =
-  '[vaul-drawer][data-state="open"],[role="dialog"][data-state="open"],[role="alertdialog"][data-state="open"]';
-
-// Minimal wallet interface the widget's built-in human chat signs in with. Kept
-// local so this module doesn't import a type from the widget package (whose
-// shape it matches structurally).
-type SupportSigner = {
-  address: `0x${string}`;
-  signMessage: (message: string) => Promise<string>;
-  getChainId: () => number;
-};
 
 let widget: Promise<Handle> | null = null;
 let container: HTMLDivElement | null = null;
@@ -133,7 +169,7 @@ let supportBridgeUrl: string | null = null;
 // widget's "Chat with support" card. Null → no row. Held here rather than
 // passed through `mount` because the label comes from i18n inside React while
 // the injection happens in this module.
-let supportTelegram: { url: string; label: string } | null = null;
+let supportTelegram: { url: string; label: string; sub: string } | null = null;
 
 /** Provide (or clear, with nulls) the wallet signer + bridge URL that power the
  *  widget's built-in human support chat. Call before mounting/opening. */
@@ -149,24 +185,28 @@ export function setSupportChatSigner(
  *  screen under "Chat with support". Pass null to drop it. Set before
  *  mounting — the row is injected at widget creation. */
 export function setSupportChatTelegram(
-  telegram: { url: string; label: string } | null,
+  telegram: { url: string; label: string; sub: string } | null,
 ) {
   supportTelegram = telegram;
-  // Also patch a row that is already on screen. The widget is only rebuilt when
-  // the market or wallet changes, so without this an in-app language switch
-  // would leave the row in the previous language until the next rebuild.
-  const row = container
-    ?.querySelector<HTMLElement>("[data-commops-widget]")
-    ?.shadowRoot?.querySelector<HTMLAnchorElement>(".p2pme-tg-row");
-  if (!row) return;
-  if (!telegram) {
-    row.remove();
-    return;
+  // Also patch cards already on screen. The widget is only rebuilt when the
+  // market or wallet changes, so without this an in-app language switch would
+  // leave them in the previous language until the next rebuild.
+  const cards =
+    widgetShadow()?.querySelectorAll<HTMLAnchorElement>(TG_CARD_SELECTOR);
+  if (!cards) return;
+  for (const card of cards) {
+    if (!telegram) {
+      card.remove();
+      continue;
+    }
+    card.href = telegram.url;
+    const title = card.querySelector<HTMLElement>(".p2pme-tg-title");
+    if (title) title.textContent = telegram.label;
+    const sub = card.querySelector<HTMLElement>(".p2pme-tg-sub");
+    if (sub) sub.textContent = telegram.sub;
   }
-  row.href = telegram.url;
-  const label = row.querySelector<HTMLElement>(".p2pme-tg-label");
-  if (label) label.textContent = telegram.label;
 }
+
 // The <style> tag inside the current widget's shadow root that we toggle to
 // hide/show the launcher. Re-created on each mount (survives rebuilds).
 let hideStyleEl: HTMLStyleElement | null = null;
@@ -246,7 +286,7 @@ function mount(
       shadow.appendChild(style);
       hideStyleEl = document.createElement("style");
       shadow.appendChild(hideStyleEl);
-      injectTelegramRow(shadow);
+      injectTelegramCards(shadow);
       ensureModalObserver();
       syncLauncherVisibility();
     }
@@ -320,8 +360,22 @@ export async function openSupportHumanChat(country: string, wallet?: string) {
   await rebuildIfNeeded(`${scope}::${wallet ?? ""}::`);
   if (!widget) widget = mount(scope, wallet);
   (await widget).open();
-  container
-    ?.querySelector<HTMLElement>("[data-commops-widget]")
-    ?.shadowRoot?.querySelector<HTMLElement>(SUPPORT_CARD_SELECTOR)
-    ?.click();
+
+  // The card is built synchronously with the rest of the widget, so it is
+  // normally there the moment `mount` resolves. Give it a few frames anyway
+  // rather than silently landing on home if a future version defers the home
+  // screen — a missed click here is invisible, and the user just sees the
+  // button not doing what it says.
+  for (let frame = 0; frame < 10; frame++) {
+    const card = widgetShadow()?.querySelector<HTMLElement>(
+      SUPPORT_CARD_SELECTOR,
+    );
+    if (card) {
+      card.click();
+      return;
+    }
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+  }
+  // Still no card after ~10 frames: the widget hid the human chat (no wallet
+  // signer). The panel is open on home, which is the right fallback.
 }

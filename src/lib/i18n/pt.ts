@@ -308,6 +308,7 @@ export const pt = {
       "Se o seu endereço de recebimento é uma CEX, pode levar algum tempo para aparecer. Entre em contato com o suporte da sua CEX se estiver demorando muito.",
     CHANGE_DNS: "Alterar DNS",
     CHAT_ON_TELEGRAM: "Converse no Telegram",
+    CHAT_ON_TELEGRAM_SUBTITLE: "Entre no grupo da comunidade",
     CHAT_SETUP_TAKING_LONGER:
       "Isto está a demorar mais do que o habitual. A sua disputa foi enviada — reabra Ajuda e suporte em breve, ou fale connosco no Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Suporte por chat em breve",

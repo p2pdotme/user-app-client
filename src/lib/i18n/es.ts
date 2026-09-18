@@ -313,6 +313,7 @@ export const es = {
       "Si tu dirección de recepción es un CEX, a veces puede tardar más en aparecer. Contacta al soporte de tu CEX si tarda demasiado.",
     CHANGE_DNS: "Cambiar DNS",
     CHAT_ON_TELEGRAM: "Chatea en Telegram",
+    CHAT_ON_TELEGRAM_SUBTITLE: "Únete al grupo de la comunidad",
     CHAT_SETUP_TAKING_LONGER:
       "Esto está tardando más de lo habitual. Tu disputa fue enviada: vuelve a abrir Ayuda y soporte en un momento, o escríbenos por Telegram.",
     CHAT_SUPPORT_COMING_SOON: "El soporte por chat estará disponible pronto",
