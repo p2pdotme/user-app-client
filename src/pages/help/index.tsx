@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   Bot,
+  ExternalLink,
   MessagesSquare,
   Rocket,
   Settings,
@@ -49,7 +50,24 @@ export function Help() {
   // attached. The group is still one tap away — the widget renders it as a row
   // under the "Chat with support" card (see lib/support-chat.ts).
   const handleChatWithUs = () => {
+    track(EVENTS.HELP, { status: "chat_with_us_clicked" });
     void openSupportHumanChat(currency.currency || "global", account?.address);
+  };
+
+  // The market's Telegram group, kept beside "Chat with us" rather than behind
+  // it. Both doors are on the card; the styling is what separates them —
+  // "Chat with us" carries the primary border because it lands in the ops
+  // support queue as a ticket, Telegram is the neutral community fallback.
+  const handleTelegramSupport = () => {
+    track(EVENTS.HELP, {
+      status: "telegram_support_clicked",
+      url: currency.telegramSupportChannel,
+    });
+    window.open(
+      currency.telegramSupportChannel,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   const settingsItems = [
@@ -108,16 +126,30 @@ export function Help() {
           <div className="my-4 w-full">
             <VideoGuideBanner onVideoOpen={openVideo} />
           </div>
-          <div className="flex w-full items-center justify-between gap-4 rounded-lg bg-muted px-4 py-3">
+          {/* flex-wrap, not a fixed row: "Chat with us" + "Chat on Telegram"
+              side by side overflow a narrow phone next to the label, so the
+              button pair drops to its own full-width line instead of squashing
+              both labels to an ellipsis. */}
+          <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-lg bg-muted px-4 py-3">
             <span className="font-medium text-sm">{t("NEED_HELP")}</span>
-            <Button
-              variant="outline"
-              onClick={handleChatWithUs}
-              className="flex items-center gap-2 rounded-lg border border-primary px-3 py-2 font-medium text-gray-900 text-sm transition-colors hover:bg-gray-50">
-              <MessagesSquare className="size-4 text-primary" />
-              <span className="text-primary">{t("CHAT_WITH_US")}</span>
-              <ArrowRight className="size-3 text-primary" />
-            </Button>
+            <div className="flex flex-1 flex-wrap items-center justify-end gap-2">
+              <Button
+                variant="outline"
+                onClick={handleChatWithUs}
+                className="flex items-center gap-2 rounded-lg border border-primary px-3 py-2 font-medium text-gray-900 text-sm transition-colors hover:bg-gray-50">
+                <MessagesSquare className="size-4 text-primary" />
+                <span className="text-primary">{t("CHAT_WITH_US")}</span>
+                <ArrowRight className="size-3 text-primary" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleTelegramSupport}
+                className="flex items-center gap-2 rounded-lg border border-border px-3 py-2 font-medium text-muted-foreground text-sm transition-colors hover:border-primary/50 hover:text-foreground">
+                <ASSETS.ICONS.Telegram className="size-4" />
+                <span>{t("CHAT_ON_TELEGRAM")}</span>
+                <ExternalLink className="size-3" />
+              </Button>
+            </div>
           </div>
           <button
             type="button"
