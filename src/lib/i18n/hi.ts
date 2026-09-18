@@ -304,6 +304,7 @@ export const hi = {
       "यदि आपका संप्राप्त पता CEX है, तो यह कभी-कभी अधिक समय ले सकता है। यदि यह बहुत अधिक समय ले रहा है, तो आपको CEX समर्थन से संपर्क करना चाहिए।",
     CHANGE_DNS: "डीएनएस बदलें",
     CHAT_ON_TELEGRAM: "टेलीग्राम पर चैट करें",
+    CHAT_ON_TELEGRAM_SUBTITLE: "कम्युनिटी ग्रुप से जुड़ें",
     CHAT_SETUP_TAKING_LONGER:
       "इसमें सामान्य से अधिक समय लग रहा है। आपका विवाद सबमिट हो गया है — कुछ देर बाद सहायता एवं समर्थन फिर से खोलें, या टेलीग्राम पर हमसे संपर्क करें।",
     CHAT_SUPPORT_COMING_SOON: "चैट समर्थन जल्द ही आ रहा है",
@@ -1963,6 +1964,7 @@ export const hi = {
     TASK_UNKNOWN: "कार्य {{taskType}}",
     TASK_USER_MIGRATION: "उपयोगकर्ता प्रवास के लिए अर्जित किया गया",
     TASK_X_VERIFICATION: "X सत्यापन के लिए अर्जित किया गया",
+    TELEGRAM: "टेलीग्राम",
     TERMS_AND_CONDITIONS: "नियम और शर्तें",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "पंजीकरण करें",
