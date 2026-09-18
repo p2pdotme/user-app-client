@@ -21,7 +21,7 @@ import { useSettings } from "@/contexts";
 import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { openAiSupportChat } from "@/lib/support-chat";
+import { openAiSupportChat, openSupportHumanChat } from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
 import { SettingsItem } from "./components/settings-item";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -43,12 +43,13 @@ export function Help() {
   const { isOpen, videoUrl, title, isPortrait, openVideo, closeVideo } =
     useYouTubeVideoDialog();
 
+  // "Chat with us" opens the support widget on its human thread, not Telegram.
+  // A Telegram group is a room ops may or may not be watching; the widget's
+  // thread lands in the ops support queue as a ticket with the user's wallet
+  // attached. The group is still one tap away — the widget renders it as a row
+  // under the "Chat with support" card (see lib/support-chat.ts).
   const handleChatWithUs = () => {
-    window.open(
-      currency.telegramSupportChannel,
-      "_blank",
-      "noopener,noreferrer",
-    );
+    void openSupportHumanChat(currency.currency || "global", account?.address);
   };
 
   const settingsItems = [

@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useActiveWalletChain } from "thirdweb/react";
 import { useSettings } from "@/contexts";
 import { useThirdweb } from "@/hooks";
@@ -7,6 +8,7 @@ import {
   destroyAiSupportWidget,
   ensureAiSupportWidget,
   setSupportChatSigner,
+  setSupportChatTelegram,
 } from "@/lib/support-chat";
 
 // Mounts the p2p.me AI support chat floating launcher ONLY while the Help &
@@ -17,6 +19,7 @@ import {
 // on demand from the Help page's "Ask AI Assistant" button / FAQ search. On
 // unmount (leaving Help) the widget is torn down so it never lingers elsewhere.
 export const SupportWidget = () => {
+  const { t } = useTranslation();
   const {
     settings: { currency },
   } = useSettings();
@@ -45,14 +48,34 @@ export const SupportWidget = () => {
     // Register the signer + bridge URL BEFORE mounting so the widget picks up the
     // built-in human chat on creation.
     setSupportChatSigner(signer, bridgeUrl ?? null);
+    // The market's Telegram group, shown as a secondary row inside the widget
+    // under "Chat with support" — the community door stays open now that the
+    // Help page's "Chat with us" button leads to the support thread instead.
+    setSupportChatTelegram(
+      currency.telegramSupportChannel
+        ? {
+            url: currency.telegramSupportChannel,
+            label: t("CHAT_ON_TELEGRAM"),
+          }
+        : null,
+    );
     void ensureAiSupportWidget(currency.currency || "global", account?.address);
     // Leaving the Help page destroys the launcher so it's not a floating icon
     // everywhere else in the app.
     return () => {
       setSupportChatSigner(null, null);
+      setSupportChatTelegram(null);
       void destroyAiSupportWidget();
     };
-  }, [currency.currency, account?.address, isLoggedIn, signer, bridgeUrl]);
+  }, [
+    currency.currency,
+    currency.telegramSupportChannel,
+    account?.address,
+    isLoggedIn,
+    signer,
+    bridgeUrl,
+    t,
+  ]);
 
   return null;
 };
