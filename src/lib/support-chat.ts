@@ -42,25 +42,39 @@ type Handle = { open: () => void; close: () => void; destroy: () => void };
 const LAUNCHER_OFFSET_CSS =
   ".launcher{bottom:calc(env(safe-area-inset-bottom, 0px) + 96px)!important}";
 
-// Telegram entry, rendered as a card that PAIRS with the widget's own "Chat
-// with support" card: same 16px gutters, same 14px radius, same border token —
-// so the two read as one stack of two doors rather than a card with a stray
-// link glued under it.
+// Any element matching this indicates an open modal overlay whose controls the
+// launcher must not sit on top of: Vaul drawers (`[vaul-drawer]`) plus Radix
+// dialogs / sheets / alert-dialogs (`role=dialog|alertdialog`), all of which
+// carry `data-state="open"` while shown.
+const OPEN_MODAL_SELECTOR =
+  '[vaul-drawer][data-state="open"],[role="dialog"][data-state="open"],[role="alertdialog"][data-state="open"]';
+
+// Telegram entry. On the home screen it is a TILE sitting beside the widget's
+// own "Chat with support" card, not a row under it: the two are peers — one
+// reaches the p2p.me team, the other the community group — and stacking them
+// made Telegram read as a footnote on the card above it.
 //
-// Subordinate by weight, not by shrinking it into a caption: no box-shadow
-// (the support card has one), a muted second line, and the brand colour
-// confined to a 30px badge. Everything else tracks the widget's CSS custom
-// properties, so it follows the panel into dark mode instead of hardcoding a
-// surface that goes wrong the moment the theme flips.
+// Side by side means neither tile has room for a card's worth of content, so
+// both collapse to the same two-part shape: icon on top, label under it. The
+// support card's own markup is reused and re-laid-out from here (`order: -1`
+// lifts its send glyph above the label) so the two tiles match exactly rather
+// than approximately — same padding, same 14px/600 label, same line-height.
+//
+// In the SUPPORT THREAD it stays a full-width row with its subtitle, pinned to
+// the foot of the view. There is no second tile to pair with there, and a lone
+// half-width tile under a transcript looks like a mistake.
+//
+// Everything tracks the widget's CSS custom properties, so it follows the panel
+// into dark mode instead of hardcoding a surface that goes wrong on a theme flip.
 const TELEGRAM_CARD_CSS = `
+.p2pme-help-row{display:flex;align-items:stretch;gap:10px;margin:16px 16px 4px}
+
 .p2pme-tg-card{box-sizing:border-box;display:flex;align-items:center;gap:12px;
 width:calc(100% - 32px);margin:8px 16px 4px;padding:13px 16px;
-border:1px solid var(--cw-border);
-border-radius:14px;background:var(--cw-bg);color:var(--cw-fg);
-font-family:inherit;text-decoration:none;cursor:pointer;
+border:1px solid var(--cw-border);border-radius:14px;background:var(--cw-bg);
+color:var(--cw-fg);font-family:inherit;text-decoration:none;cursor:pointer;
 transition:border-color .15s ease,background .15s ease}
 .p2pme-tg-card:hover{border-color:#229ED9;background:var(--cw-bot-bg)}
-.p2pme-tg-card:hover .p2pme-tg-arrow{color:#229ED9}
 .p2pme-tg-card:focus-visible{outline:2px solid var(--cw-accent);outline-offset:2px}
 .p2pme-tg-badge{display:flex;align-items:center;justify-content:center;flex:none;
 width:30px;height:30px;border-radius:50%;background:rgba(34,158,217,.14);color:#229ED9}
@@ -70,9 +84,41 @@ width:30px;height:30px;border-radius:50%;background:rgba(34,158,217,.14);color:#
 .p2pme-tg-sub{font-size:12px;font-weight:400;color:var(--cw-muted);line-height:1.3}
 .p2pme-tg-arrow{display:flex;align-items:center;flex:none;color:var(--cw-muted)}
 .p2pme-tg-arrow svg{width:15px;height:15px}
+.p2pme-tg-card:hover .p2pme-tg-arrow{color:#229ED9}
+
+/* ---- tile mode: the two home-screen cards, side by side ----
+   Two class selectors, and declared after the base .p2pme-tg-card rule above:
+   the row's own margin positions the pair, so each tile has to give up the
+   width + margin it carries as a standalone card. A '.p2pme-help-row > *'
+   override ties on specificity with .p2pme-tg-card and loses on order — the
+   tiles kept their 16px side margins and sat unequal. */
+.p2pme-help-row .support-card,
+.p2pme-help-row .p2pme-tg-card{flex:1 1 0;min-width:0;width:auto;margin:0;
+position:relative;flex-direction:column;align-items:flex-start;
+justify-content:flex-start;gap:10px;padding:14px;
+font-size:14px;font-weight:600;line-height:1.3;box-shadow:none}
+/* Lift the support card's send glyph above its label so both tiles read
+   icon-then-label. Its markup is label-then-icon; 'order' avoids moving nodes
+   the widget owns. */
+/* Height matched to the Telegram badge (28px) so both labels share a baseline
+   — otherwise the 18px glyph sits the support label 10px higher than its
+   neighbour, which reads as a misalignment rather than a difference in icons. */
+.p2pme-help-row .support-card-icon{order:-1;height:28px;align-items:center}
+.p2pme-help-row .support-card-icon svg{width:18px;height:18px}
+.p2pme-help-row .support-card-label{flex:none}
+.p2pme-help-row .p2pme-tg-badge{width:28px;height:28px}
+.p2pme-help-row .p2pme-tg-badge svg{width:16px;height:16px}
+.p2pme-help-row .p2pme-tg-text{flex:none}
+/* No room for the second line in half a panel — the tile is a label, not a
+   card. The subtitle survives in the support-thread row below. */
+.p2pme-help-row .p2pme-tg-sub{display:none}
+/* Top-right, mirroring where a card's trailing glyph would sit, so "this one
+   leaves the app" still reads without stealing a line. */
+.p2pme-help-row .p2pme-tg-arrow{position:absolute;top:14px;right:14px}
+.p2pme-help-row .p2pme-tg-arrow svg{width:14px;height:14px}
+
 /* In the support thread the card is a footer under the transcript, not an item
-   in a list — pin it to the bottom and give it a divider so it never reads as
-   part of the conversation. */
+   in a list — tighten it to the bottom edge of the view. */
 .human .p2pme-tg-card{margin:4px 16px 10px}`;
 
 // Telegram's own mark — filled, because it is a brand glyph rather than a UI
@@ -146,7 +192,13 @@ function injectTelegramCards(shadow: ShadowRoot) {
   style.textContent = TELEGRAM_CARD_CSS;
   shadow.appendChild(style);
 
-  card.after(telegramCard(supportTelegram));
+  // Wrap the widget's support card and ours in one flex row so they sit as
+  // equal tiles. `before` + `append` moves the existing node rather than
+  // cloning it, so the widget's own click handler travels with it.
+  const row = document.createElement("div");
+  row.className = "p2pme-help-row";
+  card.before(row);
+  row.append(card, telegramCard(supportTelegram));
 
   // Foot of the support thread, after the status line (which carries the
   // "connecting…" / "resolved" notes) so the card is the last thing in the view.
@@ -155,6 +207,15 @@ function injectTelegramCards(shadow: ShadowRoot) {
   if (status) status.after(telegramCard(supportTelegram));
   else human?.appendChild(telegramCard(supportTelegram));
 }
+
+// Minimal wallet interface the widget's built-in human chat signs in with. Kept
+// local so this module doesn't import a type from the widget package (whose
+// shape it matches structurally).
+type SupportSigner = {
+  address: `0x${string}`;
+  signMessage: (message: string) => Promise<string>;
+  getChainId: () => number;
+};
 
 let widget: Promise<Handle> | null = null;
 let container: HTMLDivElement | null = null;
