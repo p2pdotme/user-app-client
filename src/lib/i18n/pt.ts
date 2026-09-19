@@ -308,6 +308,7 @@ export const pt = {
       "Se o seu endereço de recebimento é uma CEX, pode levar algum tempo para aparecer. Entre em contato com o suporte da sua CEX se estiver demorando muito.",
     CHANGE_DNS: "Alterar DNS",
     CHAT_ON_TELEGRAM: "Converse no Telegram",
+    CHAT_ON_TELEGRAM_SUBTITLE: "Entre no grupo da comunidade",
     CHAT_SETUP_TAKING_LONGER:
       "Isto está a demorar mais do que o habitual. A sua disputa foi enviada — reabra Ajuda e suporte em breve, ou fale connosco no Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Suporte por chat em breve",
@@ -1998,6 +1999,7 @@ export const pt = {
     TASK_UNKNOWN: "Tarefa {{taskType}}",
     TASK_USER_MIGRATION: "Ganho por migração de usuário",
     TASK_X_VERIFICATION: "Ganho por verificação X",
+    TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Termos e Condições",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "Registre-se",
