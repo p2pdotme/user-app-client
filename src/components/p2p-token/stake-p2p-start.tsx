@@ -39,11 +39,13 @@ export function StakeBoostPreviewCard({
   const { t } = useTranslation();
   const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostConfig } =
     useStakeBoostPreview(amount);
+  // Hooks must run unconditionally — calling this after the early return
+  // below changes the hook count between renders (React error #310).
+  const { maxBoostUsd, usdPerToken, progressPct } =
+    useStakeBoostMetrics(amount);
 
   if (!stakeBoostConfig) return null;
 
-  const { maxBoostUsd, usdPerToken, progressPct } =
-    useStakeBoostMetrics(amount);
   const resolvedLabel = label ?? t("P2P_STAKE_YOU_UNLOCK_LIMIT");
 
   const unlocked = buyLimitBoost ?? 0;
