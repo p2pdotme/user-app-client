@@ -1904,6 +1904,7 @@ export const hi = {
     TASK_UNKNOWN: "कार्य {{taskType}}",
     TASK_USER_MIGRATION: "उपयोगकर्ता प्रवास के लिए अर्जित किया गया",
     TASK_X_VERIFICATION: "X सत्यापन के लिए अर्जित किया गया",
+    TELEGRAM: "टेलीग्राम",
     TERMS_AND_CONDITIONS: "नियम और शर्तें",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "पंजीकरण करें",

@@ -1999,6 +1999,7 @@ export const pt = {
     TASK_UNKNOWN: "Tarefa {{taskType}}",
     TASK_USER_MIGRATION: "Ganho por migração de usuário",
     TASK_X_VERIFICATION: "Ganho por verificação X",
+    TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Termos e Condições",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "Registre-se",

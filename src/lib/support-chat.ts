@@ -98,12 +98,18 @@ width:30px;height:30px;border-radius:50%;background:rgba(34,158,217,.14);color:#
    it carries standalone. A '.p2pme-help-row > *' override ties on specificity
    with .p2pme-tg-card and loses on source order — that left both keeping their
    16px side margins and rendering unequal. */
-/* 150px basis + wrap, not 'flex:1 1 0': below ~310px of row the pair cannot
-   hold both labels and they truncate to "Chat with s…" / "Chat on Te…". Past
-   that point they wrap to one full-width button each — still 42px tall, still
-   compact, and both labels readable. */
+/* Wrap decided by the CONTENT, not by a px guess: 'flex: 1 1 <n>px' means
+   choosing a number for when two labels stop fitting, and any number is wrong
+   for some panel width in some locale — which is how "Chat on Telegr…"
+   shipped. 'min-width: max-content' never shrinks a button below its own
+   label, so the pair wraps to one full-width button each instead of
+   truncating. (NOT 'min(max-content, 100%)' — min() rejects intrinsic
+   keywords, so that declaration is invalid and dropped silently, leaving
+   'min-width: auto' and the very truncation it was meant to prevent. Verified
+   with CSS.supports in the live panel.) */
 .p2pme-help-row .support-card,
-.p2pme-help-row .p2pme-tg-card{flex:1 1 150px;min-width:0;width:auto;margin:0;
+.p2pme-help-row .p2pme-tg-card{flex:1 1 auto;min-width:max-content;
+max-width:100%;width:auto;margin:0;
 flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;
 padding:10px 12px;border-radius:12px;
 font-size:13px;font-weight:600;line-height:1.3;box-shadow:none}
@@ -120,11 +126,16 @@ font-size:13px;font-weight:600;line-height:1.3;box-shadow:none}
 border-radius:0;background:none}
 .p2pme-help-row .support-card-icon svg,
 .p2pme-help-row .p2pme-tg-badge svg{width:18px;height:18px}
-/* Truncate rather than wrap: a second line would reopen the height the button
-   layout just closed, and these labels are short in every locale we ship. */
+/* font-size/line-height restated on the LABELS, not just on the buttons. The
+   support card's label inherits its button's 13px, but '.p2pme-tg-title' sets
+   14px directly on the element, and a direct rule always beats an inherited
+   value — so the two labels rendered 13px/16.9 and 14px/18.2 next to each
+   other. Truncation is a last resort that should never fire at these widths;
+   it is here so a long translation clips instead of overflowing the panel. */
 .p2pme-help-row .support-card-label,
 .p2pme-help-row .p2pme-tg-title{flex:1;min-width:0;overflow:hidden;
-text-overflow:ellipsis;white-space:nowrap}
+text-overflow:ellipsis;white-space:nowrap;
+font-size:13px;font-weight:600;line-height:1.3;color:var(--cw-fg)}
 .p2pme-help-row .p2pme-tg-text{flex:1;min-width:0}
 /* Both dropped: no room for a second line, and the trailing arrow costs width
    the label needs. The subtitle survives in the support-thread row below, and
@@ -159,7 +170,10 @@ function widgetShadow(): ShadowRoot | null {
 }
 
 // Build one Telegram card. Two are rendered — see injectTelegramCards.
-function telegramCard(telegram: { url: string; label: string; sub: string }) {
+function telegramCard(
+  telegram: { url: string; label: string; sub: string; short: string },
+  variant: "button" | "card",
+) {
   const card = document.createElement("a");
   card.className = "p2pme-tg-card";
   card.href = telegram.url;
@@ -175,7 +189,12 @@ function telegramCard(telegram: { url: string; label: string; sub: string }) {
   const title = document.createElement("span");
   title.className = "p2pme-tg-title";
   // textContent, not innerHTML — both lines are translated strings.
-  title.textContent = telegram.label;
+  // Short form in the button; the full label only where there is room for it.
+  // "Chat on Telegram" beside "Chat with support" needs 351-395px depending on
+  // locale (measured across all five) and the widget's row is 339px, so the
+  // long label cannot sit side by side without truncating. The brand name plus
+  // the Telegram mark says the same thing in half the width.
+  title.textContent = variant === "button" ? telegram.short : telegram.label;
   const sub = document.createElement("span");
   sub.className = "p2pme-tg-sub";
   sub.textContent = telegram.sub;
@@ -213,14 +232,14 @@ function injectTelegramCards(shadow: ShadowRoot) {
   const row = document.createElement("div");
   row.className = "p2pme-help-row";
   card.before(row);
-  row.append(card, telegramCard(supportTelegram));
+  row.append(card, telegramCard(supportTelegram, "button"));
 
   // Foot of the support thread, after the status line (which carries the
   // "connecting…" / "resolved" notes) so the card is the last thing in the view.
   const human = shadow.querySelector(HUMAN_SELECTOR);
   const status = human?.querySelector(HUMAN_STATUS_SELECTOR);
-  if (status) status.after(telegramCard(supportTelegram));
-  else human?.appendChild(telegramCard(supportTelegram));
+  if (status) status.after(telegramCard(supportTelegram, "card"));
+  else human?.appendChild(telegramCard(supportTelegram, "card"));
 }
 
 // Minimal wallet interface the widget's built-in human chat signs in with. Kept
@@ -245,7 +264,12 @@ let supportBridgeUrl: string | null = null;
 // widget's "Chat with support" card. Null → no row. Held here rather than
 // passed through `mount` because the label comes from i18n inside React while
 // the injection happens in this module.
-let supportTelegram: { url: string; label: string; sub: string } | null = null;
+let supportTelegram: {
+  url: string;
+  label: string;
+  sub: string;
+  short: string;
+} | null = null;
 
 /** Provide (or clear, with nulls) the wallet signer + bridge URL that power the
  *  widget's built-in human support chat. Call before mounting/opening. */
@@ -261,7 +285,7 @@ export function setSupportChatSigner(
  *  screen under "Chat with support". Pass null to drop it. Set before
  *  mounting — the row is injected at widget creation. */
 export function setSupportChatTelegram(
-  telegram: { url: string; label: string; sub: string } | null,
+  telegram: { url: string; label: string; sub: string; short: string } | null,
 ) {
   supportTelegram = telegram;
   // Also patch cards already on screen. The widget is only rebuilt when the
@@ -277,7 +301,11 @@ export function setSupportChatTelegram(
     }
     card.href = telegram.url;
     const title = card.querySelector<HTMLElement>(".p2pme-tg-title");
-    if (title) title.textContent = telegram.label;
+    if (title) {
+      title.textContent = card.closest(".p2pme-help-row")
+        ? telegram.short
+        : telegram.label;
+    }
     const sub = card.querySelector<HTMLElement>(".p2pme-tg-sub");
     if (sub) sub.textContent = telegram.sub;
   }

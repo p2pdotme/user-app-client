@@ -1950,6 +1950,7 @@ export const en = {
     TASK_UNKNOWN: "Task {{taskType}}",
     TASK_USER_MIGRATION: "Earned for user migration",
     TASK_X_VERIFICATION: "Earned for X verification",
+    TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Terms & Conditions",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "Register",

@@ -1981,6 +1981,7 @@ export const id = {
     TASK_UNKNOWN: "Tugas {{taskType}}",
     TASK_USER_MIGRATION: "Diperoleh untuk migrasi pengguna",
     TASK_X_VERIFICATION: "Diperoleh untuk verifikasi X",
+    TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Syarat & Ketentuan",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "Daftar",

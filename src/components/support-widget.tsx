@@ -57,6 +57,7 @@ export const SupportWidget = () => {
             url: currency.telegramSupportChannel,
             label: t("CHAT_ON_TELEGRAM"),
             sub: t("CHAT_ON_TELEGRAM_SUBTITLE"),
+            short: t("TELEGRAM"),
           }
         : null,
     );
