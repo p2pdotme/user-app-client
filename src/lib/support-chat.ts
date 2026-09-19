@@ -67,7 +67,8 @@ const OPEN_MODAL_SELECTOR =
 // Everything tracks the widget's CSS custom properties, so it follows the panel
 // into dark mode instead of hardcoding a surface that goes wrong on a theme flip.
 const TELEGRAM_CARD_CSS = `
-.p2pme-help-row{display:flex;align-items:stretch;gap:10px;margin:16px 16px 4px}
+.p2pme-help-row{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;
+margin:16px 16px 4px}
 
 .p2pme-tg-card{box-sizing:border-box;display:flex;align-items:center;gap:12px;
 width:calc(100% - 32px);margin:8px 16px 4px;padding:13px 16px;
@@ -86,36 +87,50 @@ width:30px;height:30px;border-radius:50%;background:rgba(34,158,217,.14);color:#
 .p2pme-tg-arrow svg{width:15px;height:15px}
 .p2pme-tg-card:hover .p2pme-tg-arrow{color:#229ED9}
 
-/* ---- tile mode: the two home-screen cards, side by side ----
-   Two class selectors, and declared after the base .p2pme-tg-card rule above:
-   the row's own margin positions the pair, so each tile has to give up the
-   width + margin it carries as a standalone card. A '.p2pme-help-row > *'
-   override ties on specificity with .p2pme-tg-card and loses on order — the
-   tiles kept their 16px side margins and sat unequal. */
+/* ---- button mode: the two home-screen actions, side by side ----
+   They hold one short label each, so they are BUTTONS, not cards: icon and
+   label on one line, 12px/10px padding, ~42px tall. Stacking the icon above
+   the label made two 86px boxes mostly full of empty space — a card's
+   footprint for a card's worth of content it does not have.
+
+   Two class selectors, declared after the base .p2pme-tg-card rule above: the
+   row's margin positions the pair, so each child gives up the width + margin
+   it carries standalone. A '.p2pme-help-row > *' override ties on specificity
+   with .p2pme-tg-card and loses on source order — that left both keeping their
+   16px side margins and rendering unequal. */
+/* 150px basis + wrap, not 'flex:1 1 0': below ~310px of row the pair cannot
+   hold both labels and they truncate to "Chat with s…" / "Chat on Te…". Past
+   that point they wrap to one full-width button each — still 42px tall, still
+   compact, and both labels readable. */
 .p2pme-help-row .support-card,
-.p2pme-help-row .p2pme-tg-card{flex:1 1 0;min-width:0;width:auto;margin:0;
-position:relative;flex-direction:column;align-items:flex-start;
-justify-content:flex-start;gap:10px;padding:14px;
-font-size:14px;font-weight:600;line-height:1.3;box-shadow:none}
-/* Lift the support card's send glyph above its label so both tiles read
-   icon-then-label. Its markup is label-then-icon; 'order' avoids moving nodes
-   the widget owns. */
-/* Height matched to the Telegram badge (28px) so both labels share a baseline
-   — otherwise the 18px glyph sits the support label 10px higher than its
-   neighbour, which reads as a misalignment rather than a difference in icons. */
-.p2pme-help-row .support-card-icon{order:-1;height:28px;align-items:center}
-.p2pme-help-row .support-card-icon svg{width:18px;height:18px}
-.p2pme-help-row .support-card-label{flex:none}
-.p2pme-help-row .p2pme-tg-badge{width:28px;height:28px}
-.p2pme-help-row .p2pme-tg-badge svg{width:16px;height:16px}
-.p2pme-help-row .p2pme-tg-text{flex:none}
-/* No room for the second line in half a panel — the tile is a label, not a
-   card. The subtitle survives in the support-thread row below. */
-.p2pme-help-row .p2pme-tg-sub{display:none}
-/* Top-right, mirroring where a card's trailing glyph would sit, so "this one
-   leaves the app" still reads without stealing a line. */
-.p2pme-help-row .p2pme-tg-arrow{position:absolute;top:14px;right:14px}
-.p2pme-help-row .p2pme-tg-arrow svg{width:14px;height:14px}
+.p2pme-help-row .p2pme-tg-card{flex:1 1 150px;min-width:0;width:auto;margin:0;
+flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;
+padding:10px 12px;border-radius:12px;
+font-size:13px;font-weight:600;line-height:1.3;box-shadow:none}
+/* Bare glyphs at a shared 18px. The Telegram badge's tinted disc is the right
+   weight on a full-width card and too heavy inside a 42px button, where it
+   crowds the label and makes the two sides look unmatched. */
+/* 'order: -1' puts the support card's glyph before its label. Its markup is
+   label-then-icon, so without this the two buttons mirror each other — one
+   icon left, one icon right — which reads as a mistake. Reordering via CSS
+   leaves the widget's own nodes (and its click handler) untouched. */
+.p2pme-help-row .support-card-icon{order:-1}
+.p2pme-help-row .support-card-icon,
+.p2pme-help-row .p2pme-tg-badge{flex:none;width:18px;height:18px;
+border-radius:0;background:none}
+.p2pme-help-row .support-card-icon svg,
+.p2pme-help-row .p2pme-tg-badge svg{width:18px;height:18px}
+/* Truncate rather than wrap: a second line would reopen the height the button
+   layout just closed, and these labels are short in every locale we ship. */
+.p2pme-help-row .support-card-label,
+.p2pme-help-row .p2pme-tg-title{flex:1;min-width:0;overflow:hidden;
+text-overflow:ellipsis;white-space:nowrap}
+.p2pme-help-row .p2pme-tg-text{flex:1;min-width:0}
+/* Both dropped: no room for a second line, and the trailing arrow costs width
+   the label needs. The subtitle survives in the support-thread row below, and
+   the link still opens in a new tab. */
+.p2pme-help-row .p2pme-tg-sub,
+.p2pme-help-row .p2pme-tg-arrow{display:none}
 
 /* In the support thread the card is a footer under the transcript, not an item
    in a list — tighten it to the bottom edge of the view. */
