@@ -151,6 +151,13 @@ font-size:13px;font-weight:600;line-height:1.3;color:var(--cw-fg)}
 // stroke icon like the rest of the widget's chrome.
 const TELEGRAM_ICON_SVG =
   '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16l-1.861 8.77c-.14.63-.51.78-1.032.486l-2.85-2.1-1.374 1.322c-.152.152-.28.28-.573.28l.204-2.9 5.28-4.77c.23-.204-.05-.318-.356-.114l-6.526 4.11-2.81-.88c-.61-.19-.625-.61.128-.903l10.98-4.23c.508-.19.953.114.79.92z"/></svg>';
+// lucide `messages-square`, the same icon the Help page's "Chat with us"
+// button renders — path data copied from lucide-react 0.503.0 with its default
+// attributes (24x24, fill none, stroke currentColor, width 2, round caps), so
+// the two are the same mark rather than two similar ones. Inlined because the
+// widget lives in a shadow root and takes markup, not React elements.
+const MESSAGES_SQUARE_SVG =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg>';
 const EXTERNAL_ICON_SVG =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
 
@@ -206,6 +213,28 @@ function telegramCard(
 
   card.append(badge, text, arrow);
   return card;
+}
+
+// Re-skin the widget's own support card so it matches the Help page's "Chat
+// with us" button: same lucide `messages-square` mark, same words. Two entry
+// points to one action reading "Chat with us / paper plane" on the page and
+// "Chat with support / send glyph" in the panel looks like two different
+// features, and the send glyph in particular reads as "submit", not "talk to
+// someone".
+//
+// Safe to run more than once (a locale change re-applies it), and a no-op when
+// the card is absent — no signer, so the widget hid the human chat. The
+// widget's own `setLanguage` never rewrites this label (verified against
+// 1.1.1: `chatWithSupport` is read once, at construction), so the override
+// is not fighting anything for it.
+function applyPrimaryAction(shadow: ShadowRoot) {
+  const card = shadow.querySelector(SUPPORT_CARD_SELECTOR);
+  if (!card) return;
+  const icon = card.querySelector<HTMLElement>(".support-card-icon");
+  if (icon) icon.innerHTML = MESSAGES_SQUARE_SVG;
+  const label = card.querySelector<HTMLElement>(".support-card-label");
+  // textContent, not innerHTML — the label is a translated string.
+  if (label && supportPrimaryLabel) label.textContent = supportPrimaryLabel;
 }
 
 // Render the Telegram card in BOTH places the user can be after tapping "Chat
@@ -270,6 +299,10 @@ let supportTelegram: {
   sub: string;
   short: string;
 } | null = null;
+// Label for the widget's own "Chat with support" card. Overridden so the button
+// matches the Help page's "Chat with us" — one action, one name, one icon,
+// whichever surface the user reached it from. Null leaves the widget's wording.
+let supportPrimaryLabel: string | null = null;
 
 /** Provide (or clear, with nulls) the wallet signer + bridge URL that power the
  *  widget's built-in human support chat. Call before mounting/opening. */
@@ -279,6 +312,17 @@ export function setSupportChatSigner(
 ) {
   supportSigner = signer;
   supportBridgeUrl = bridgeUrl;
+}
+
+/**
+ * Label for the widget's primary support action, so it reads the same as the
+ * Help page button that opens it. Set before mounting; also patches a card
+ * already on screen.
+ */
+export function setSupportChatPrimaryLabel(label: string | null) {
+  supportPrimaryLabel = label;
+  const shadow = widgetShadow();
+  if (shadow) applyPrimaryAction(shadow);
 }
 
 /** Market Telegram group, rendered as a secondary row inside the widget's home
@@ -390,6 +434,7 @@ function mount(
       shadow.appendChild(style);
       hideStyleEl = document.createElement("style");
       shadow.appendChild(hideStyleEl);
+      applyPrimaryAction(shadow);
       injectTelegramCards(shadow);
       ensureModalObserver();
       syncLauncherVisibility();

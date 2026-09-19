@@ -7,6 +7,7 @@ import { getSupportBridgeUrl } from "@/lib/support-bridge";
 import {
   destroyAiSupportWidget,
   ensureAiSupportWidget,
+  setSupportChatPrimaryLabel,
   setSupportChatSigner,
   setSupportChatTelegram,
 } from "@/lib/support-chat";
@@ -48,6 +49,9 @@ export const SupportWidget = () => {
     // Register the signer + bridge URL BEFORE mounting so the widget picks up the
     // built-in human chat on creation.
     setSupportChatSigner(signer, bridgeUrl ?? null);
+    // One action, one name: the widget's support card says exactly what the
+    // Help page button that opens it says.
+    setSupportChatPrimaryLabel(t("CHAT_WITH_US"));
     // The market's Telegram group, shown as a secondary row inside the widget
     // under "Chat with support" — the community door stays open now that the
     // Help page's "Chat with us" button leads to the support thread instead.
@@ -66,6 +70,7 @@ export const SupportWidget = () => {
     // everywhere else in the app.
     return () => {
       setSupportChatSigner(null, null);
+      setSupportChatPrimaryLabel(null);
       setSupportChatTelegram(null);
       void destroyAiSupportWidget();
     };
