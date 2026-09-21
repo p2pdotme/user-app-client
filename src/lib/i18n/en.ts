@@ -832,6 +832,8 @@ export const en = {
     FEE: "Fee",
     FEEDBACK_FEATURE_COMING_SOON: "Feedback feature is coming soon",
     FIAT_AMOUNT: "Fiat Amount",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "Order amount is below the minimum for this currency",
     FILTERS: "Filters",
     FILTERS_ACTIVE: "filters active",
     FILTERS_APPLIED: "Filters Applied",
@@ -1253,7 +1255,7 @@ export const en = {
     ORDER_ALREADY_MARKED_COMPLETED: "Order already marked completed",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "Order amount exceeds limit",
     ORDER_AMOUNT_UPDATED: "Order amount updated",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Updated from {{from}} to {{to}} USDC",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Updated from {{from}} to {{to}}",
     ORDER_CANCELLED: "Order cancelled",
     ORDER_DETAILS: "Order Details",
     ORDER_ERROR_DESCRIPTION:

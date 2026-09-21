@@ -859,6 +859,8 @@ export const es = {
     FEEDBACK_FEATURE_COMING_SOON:
       "La función de comentarios estará disponible pronto",
     FIAT_AMOUNT: "Monto Fiat",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "El monto del pedido está por debajo del mínimo para esta moneda",
     FILTERS: "Filtros",
     FILTERS_ACTIVE: "filtros activos",
     FILTERS_APPLIED: "Filtros Aplicados",
@@ -1290,7 +1292,7 @@ export const es = {
     ORDER_ALREADY_MARKED_COMPLETED: "El pedido ya está marcado como completado",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "El monto del pedido excede el límite",
     ORDER_AMOUNT_UPDATED: "Monto del pedido actualizado",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Actualizado de {{from}} a {{to}} USDC",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Actualizado de {{from}} a {{to}}",
     ORDER_CANCELLED: "Pedido cancelado",
     ORDER_DETAILS: "Detalles del Pedido",
     ORDER_ERROR_DESCRIPTION:
