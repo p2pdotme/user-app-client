@@ -24,10 +24,10 @@ import {
   type ReleaseMerchantFundsParams,
   type ReleaseRevenueShareParams,
   type RPPerUsdLimitParams,
-  type SetSellOrderUpiParams,
+  type SetSellOrderUpiWithFiatParams,
   type SmallOrderFixedFeeBuyParams,
-  type SmallOrderFixedFeePayParams,
   type SmallOrderFixedFeeParams,
+  type SmallOrderFixedFeePayParams,
   type SmallOrderFixedFeeSellParams,
   type SmallOrderThresholdParams,
   type TipMerchantParams,
@@ -64,7 +64,7 @@ import {
   ZodRPPerUsdLimitParamsSchema,
   ZodSellOrderUserCompletedParamsSchema,
   ZodSetReputationManagerParamsSchema,
-  ZodSetSellOrderUpiParamsSchema,
+  ZodSetSellOrderUpiWithFiatParamsSchema,
   ZodSmallOrderFixedFeeBuyParamsSchema,
   ZodSmallOrderFixedFeeParamsSchema,
   ZodSmallOrderFixedFeePayParamsSchema,
@@ -814,36 +814,39 @@ export function prepareSellOrderUserCompletedTx(
   );
 }
 
-export function prepareSetSellOrderUpiTx(
-  params: SetSellOrderUpiParams,
+export function prepareSetSellOrderUpiWithFiatTx(
+  params: SetSellOrderUpiWithFiatParams,
 ): Result<{ to: Address; data: Hex }, P2PError> {
-  return validate(ZodSetSellOrderUpiParamsSchema, params).andThen(
+  return validate(ZodSetSellOrderUpiWithFiatParamsSchema, params).andThen(
     (validatedParams) =>
       Result.fromThrowable(
         () => ({
           to: CONTRACT_ADDRESSES.DIAMOND,
           data: encodeFunctionData({
             abi: ABIS.DIAMOND,
-            functionName: "setSellOrderUpi",
+            functionName: "setSellOrderUpiWithFiat",
             args: [
               BigInt(validatedParams.orderId),
               validatedParams.userEncUpi,
-              validatedParams.updatedAmount,
+              validatedParams.updatedFiatAmount,
             ],
           }),
         }),
         (error) =>
-          createP2PError("Failed to prepare setSellOrderUpi transaction", {
-            domain: "order",
-            code: "P2PPrepareFunctionCallError",
-            cause: error,
-            context: {
-              operation: "prepareSetSellOrderUpiTx",
-              timestamp: Math.floor(Date.now() / 1000),
-              rawParams: params,
-              validatedParams,
+          createP2PError(
+            "Failed to prepare setSellOrderUpiWithFiat transaction",
+            {
+              domain: "order",
+              code: "P2PPrepareFunctionCallError",
+              cause: error,
+              context: {
+                operation: "prepareSetSellOrderUpiWithFiatTx",
+                timestamp: Math.floor(Date.now() / 1000),
+                rawParams: params,
+                validatedParams,
+              },
             },
-          }),
+          ),
       )(),
   );
 }

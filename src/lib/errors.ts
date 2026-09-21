@@ -219,6 +219,10 @@ export const contractErrors = {
   BvnNullifierAlreadySpent: "BVN_NULLIFIER_ALREADY_SPENT",
   BvnInvalidSignature: "BVN_INVALID_SIGNATURE",
   BvnAlreadyVerified: "BVN_ALREADY_VERIFIED",
+  // Diamond R6.1: order fiat would land under the currency's configured
+  // minimum. Raised on placement and on a PAY-order amount update via
+  // setSellOrderUpiWithFiat, so a QR total can't duck the floor.
+  FiatAmountBelowMinimum: "FIAT_AMOUNT_BELOW_MINIMUM",
 };
 
 export const errorMessages = {
@@ -433,6 +437,7 @@ export const hexContractErrors = {
   "0xc9080ed9": contractErrors.BvnNullifierAlreadySpent,
   "0x15940c9c": contractErrors.BvnInvalidSignature,
   "0x27fec7ec": contractErrors.BvnAlreadyVerified,
+  "0x56391615": contractErrors.FiatAmountBelowMinimum, // FiatAmountBelowMinimum(uint256 minimum, uint256 actual)
 };
 
 export function parseContractError(error: unknown) {
