@@ -63,7 +63,7 @@ export function SellAccepted({ order }: { order: Order }) {
   const actualUsdcAmount = orderFeeDetails?.actualUsdtAmount;
   const actualFiatAmount = orderFeeDetails?.actualFiatAmount;
 
-  const { setSellOrderUpiMutation } = useOrderFlow();
+  const { setSellOrderUpiWithFiatMutation } = useOrderFlow();
   const orderKey = order.id.toString();
   const storedPaymentAddress = getPaymentAddressFromOrderDetails(orderKey);
 
@@ -99,12 +99,15 @@ export function SellAccepted({ order }: { order: Order }) {
 
     sellUpiInFlight.add(orderKey);
     try {
-      await setSellOrderUpiMutation.mutateAsync(
+      await setSellOrderUpiWithFiatMutation.mutateAsync(
         {
           orderId: BigInt(order.id),
           paymentAddress,
           merchantPublicKey: order.pubkey,
-          updatedAmount: BigInt(0),
+          // SELL orders never change amount after acceptance — 0n keeps the
+          // order's USDC/fiat legs untouched (see useOrderFlow for why the
+          // fiat-denominated variant is used across the board).
+          updatedFiatAmount: 0n,
         },
         {
           onSuccess: (receipt) => {
@@ -133,7 +136,7 @@ export function SellAccepted({ order }: { order: Order }) {
     order.pubkey,
     order.status,
     orderKey,
-    setSellOrderUpiMutation,
+    setSellOrderUpiWithFiatMutation,
     t,
   ]);
 
@@ -141,9 +144,9 @@ export function SellAccepted({ order }: { order: Order }) {
     if (
       !order.pubkey ||
       !storedPaymentAddress ||
-      setSellOrderUpiMutation.isPending ||
-      setSellOrderUpiMutation.isSuccess ||
-      setSellOrderUpiMutation.isError
+      setSellOrderUpiWithFiatMutation.isPending ||
+      setSellOrderUpiWithFiatMutation.isSuccess ||
+      setSellOrderUpiWithFiatMutation.isError
     ) {
       return;
     }
@@ -152,13 +155,13 @@ export function SellAccepted({ order }: { order: Order }) {
     handleSendPaymentDetails,
     order.pubkey,
     storedPaymentAddress,
-    setSellOrderUpiMutation.isPending,
-    setSellOrderUpiMutation.isSuccess,
-    setSellOrderUpiMutation.isError,
+    setSellOrderUpiWithFiatMutation.isPending,
+    setSellOrderUpiWithFiatMutation.isSuccess,
+    setSellOrderUpiWithFiatMutation.isError,
   ]);
 
-  const sendFailed = setSellOrderUpiMutation.isError;
-  const sendPending = setSellOrderUpiMutation.isPending;
+  const sendFailed = setSellOrderUpiWithFiatMutation.isError;
+  const sendPending = setSellOrderUpiWithFiatMutation.isPending;
 
   return (
     <main className="flex h-full w-full flex-col overflow-y-auto">
@@ -176,7 +179,7 @@ export function SellAccepted({ order }: { order: Order }) {
         </h2>
         <p className="text-center text-muted-foreground text-sm">
           {sendFailed
-            ? (setSellOrderUpiMutation.error?.message ??
+            ? (setSellOrderUpiWithFiatMutation.error?.message ??
               t("SOMETHING_WENT_WRONG"))
             : t(
                 "YOUR_PAYMENT_DETAILS_WILL_BE_SENT_SHORTLY_DONT_LEAVE_THE_PAGE",
@@ -282,11 +285,11 @@ export function SellAccepted({ order }: { order: Order }) {
                 <span className="font-medium">{t("PAYMENT_DETAILS")} </span>
                 <span
                   className={
-                    setSellOrderUpiMutation.isSuccess
+                    setSellOrderUpiWithFiatMutation.isSuccess
                       ? "text-success"
                       : "text-destructive"
                   }>
-                  {setSellOrderUpiMutation.isSuccess
+                  {setSellOrderUpiWithFiatMutation.isSuccess
                     ? t("PAYMENT_DETAILS_SENT")
                     : sendPending
                       ? `${t("SENDING_YOUR_PAYMENT_DETAILS")}...`

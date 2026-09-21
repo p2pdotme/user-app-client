@@ -297,10 +297,10 @@ export const ZodSellOrderUserCompletedParamsSchema = z.object({
   orderId: z.number().int().nonnegative(),
 });
 
-export const ZodSetSellOrderUpiParamsSchema = z.object({
+export const ZodSetSellOrderUpiWithFiatParamsSchema = z.object({
   orderId: z.number().int().nonnegative(),
   userEncUpi: z.string(),
-  updatedAmount: z.bigint(),
+  updatedFiatAmount: z.bigint().nonnegative(),
 });
 
 export const ZodFetchMerchantOrdersParamsSchema = z.object({
@@ -374,8 +374,8 @@ export type AssignMerchantsParams = z.infer<
 export type SellOrderUserCompletedParams = z.infer<
   typeof ZodSellOrderUserCompletedParamsSchema
 >;
-export type SetSellOrderUpiParams = z.infer<
-  typeof ZodSetSellOrderUpiParamsSchema
+export type SetSellOrderUpiWithFiatParams = z.infer<
+  typeof ZodSetSellOrderUpiWithFiatParamsSchema
 >;
 export type FetchMerchantOrdersParams = z.infer<
   typeof ZodFetchMerchantOrdersParamsSchema

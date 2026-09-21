@@ -23,8 +23,8 @@ import {
   prepareGetOrderExpiryArgs,
   prepareGetOrderFixedFeePaidArgs,
   prepareGetRPPerUsdLimitArgs,
-  prepareGetSmallOrderFixedFeeBuyArgs,
   prepareGetSmallOrderFixedFeeArgs,
+  prepareGetSmallOrderFixedFeeBuyArgs,
   prepareGetSmallOrderFixedFeePayArgs,
   prepareGetSmallOrderFixedFeeSellArgs,
   prepareGetSmallOrderThresholdArgs,
@@ -41,14 +41,14 @@ import {
   prepareReleaseRevenueShareTx,
   prepareSellOrderUserCompletedTx,
   prepareSetReputationManagerTx,
-  prepareSetSellOrderUpiTx,
+  prepareSetSellOrderUpiWithFiatTx,
   prepareTipMerchantTx,
   prepareUpdateRpPerUsdtLimitTx,
   type RaiseDisputeParams,
   type ReduceExchangeFiatBalanceParams,
   type ReleaseMerchantFundsParams,
   type ReleaseRevenueShareParams,
-  type SetSellOrderUpiParams,
+  type SetSellOrderUpiWithFiatParams,
   type TipMerchantParams,
   type UpdateRpPerUsdtLimitParams,
 } from "@p2pdotme";
@@ -894,14 +894,19 @@ export const sellOrderUserCompleted = (
     );
 };
 
-export const setSellOrderUpi = (
-  params: SetSellOrderUpiParams,
+/**
+ * Sends `setSellOrderUpiWithFiat` (fiat-denominated sibling of `setSellOrderUpi`)
+ * from the given account. Pass `updatedFiatAmount: 0n` to keep the order's
+ * amounts as placed.
+ */
+export const setSellOrderUpiWithFiat = (
+  params: SetSellOrderUpiWithFiatParams,
   account: Account,
 ): ResultAsync<
   TransactionReceipt,
   ThirdwebAdapterError | P2PError<P2PErrorDomain>
 > => {
-  return prepareSetSellOrderUpiTx(params)
+  return prepareSetSellOrderUpiWithFiatTx(params)
     .asyncAndThen((tx) =>
       estimatedPrepareTransaction({
         from: account.address as Address,
@@ -921,7 +926,7 @@ export const setSellOrderUpi = (
           createAppError<"ThirdwebAdapter">(
             i18n.t(
               parseContractError(error) ??
-                "Failed to sendAndConfirm setSellOrderUpi transaction",
+                "Failed to sendAndConfirm setSellOrderUpiWithFiat transaction",
             ),
             {
               domain: "ThirdwebAdapter",
