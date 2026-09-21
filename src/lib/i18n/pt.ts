@@ -847,6 +847,8 @@ export const pt = {
     FEE: "Taxa",
     FEEDBACK_FEATURE_COMING_SOON: "Recurso de feedback em breve",
     FIAT_AMOUNT: "Valor em Fiat",
+    FIAT_AMOUNT_BELOW_MINIMUM:
+      "O valor do pedido está abaixo do mínimo para esta moeda",
     FILTERS: "Filtros",
     FILTERS_ACTIVE: "filtros ativos",
     FILTERS_APPLIED: "Filtros Aplicados",
@@ -1277,7 +1279,7 @@ export const pt = {
     ORDER_ALREADY_MARKED_COMPLETED: "Pedido já marcado como concluído",
     ORDER_AMOUNT_EXCEEDS_LIMIT: "Valor do pedido excede o limite",
     ORDER_AMOUNT_UPDATED: "Valor do pedido atualizado",
-    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Atualizado de {{from}} para {{to}} USDC",
+    ORDER_AMOUNT_UPDATED_DESCRIPTION: "Atualizado de {{from}} para {{to}}",
     ORDER_CANCELLED: "Pedido cancelado",
     ORDER_DETAILS: "Detalhes do Pedido",
     ORDER_ERROR_DESCRIPTION:

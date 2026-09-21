@@ -2,7 +2,7 @@ import { CONTRACT_ADDRESSES } from "@p2pdotme";
 import type {
   PlaceOrderParams,
   PreparedTx,
-  SetSellOrderUpiParams,
+  SetSellOrderUpiWithFiatParams,
 } from "@p2pdotme/sdk/orders";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -191,39 +191,45 @@ export function useOrderFlow() {
     },
   });
 
-  // SET SELL ORDER UPI - Enhanced with Sentry
-  const setSellOrderUpiMutation = useMutation({
-    mutationKey: ["order", "setSellOrderUpi"],
-    mutationFn: async (params: SetSellOrderUpiParams) => {
+  // SET SELL ORDER UPI (fiat-denominated) - Enhanced with Sentry
+  const setSellOrderUpiWithFiatMutation = useMutation({
+    mutationKey: ["order", "setSellOrderUpiWithFiat"],
+    mutationFn: async (params: SetSellOrderUpiWithFiatParams) => {
       if (!account) {
         throw new Error("WALLET_NOT_CONNECTED");
       }
 
       return withSentrySpan(
-        "transaction.set_sell_order_upi",
-        "Set Sell Order UPI",
+        "transaction.set_sell_order_upi_with_fiat",
+        "Set Sell Order UPI (fiat)",
         async () => {
           return ensureUSDCApproval()
             .andThen(() =>
-              orders.setSellOrderUpi
+              orders.setSellOrderUpiWithFiat
                 .prepare(params)
                 .andThen((prepared) => submitPreparedTx(prepared, account)),
             )
             .match(
               (value) => {
-                console.log("[useOrderFlow] setSellOrderUpi success", value);
+                console.log(
+                  "[useOrderFlow] setSellOrderUpiWithFiat success",
+                  value,
+                );
                 return value;
               },
               (error) => {
-                console.error("[useOrderFlow] setSellOrderUpi error", error);
+                console.error(
+                  "[useOrderFlow] setSellOrderUpiWithFiat error",
+                  error,
+                );
 
                 captureError(error, {
-                  operation: "set_sell_order_upi",
+                  operation: "set_sell_order_upi_with_fiat",
                   component: "useOrderFlow",
                   userId: account.address,
                   extra: {
                     orderId: params.orderId.toString(),
-                    updatedAmount: params.updatedAmount.toString(),
+                    updatedFiatAmount: params.updatedFiatAmount.toString(),
                   },
                 });
 
@@ -327,7 +333,7 @@ export function useOrderFlow() {
   return {
     placeOrderMutation,
     paidBuyOrderMutation,
-    setSellOrderUpiMutation,
+    setSellOrderUpiWithFiatMutation,
     cancelOrderMutation,
     tipMerchantMutation,
   };
