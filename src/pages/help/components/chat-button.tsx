@@ -20,7 +20,7 @@ export const ChatButton = ({ className, onClick }: ChatButtonProps) => {
       onClick={onClick ?? openSupportChat}>
       <div className="flex items-center gap-2">
         <MessageCircle className="size-4" />
-        <span>{t("CHAT_WITH_US")}</span>
+        <span>{t("CHAT_ON_TELEGRAM")}</span>
       </div>
       <ArrowRight className="size-4" />
     </Button>
