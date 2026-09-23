@@ -45,7 +45,15 @@ export const SupportWidget = () => {
     // Only show the support launcher to authenticated users. The widget derives
     // its default language from the selected currency; the wallet lets the
     // agent answer order questions directly (no address ask).
-    if (!isLoggedIn) return;
+    //
+    // Logged out, nothing is mounted here — but the Help page's "Ask AI
+    // Assistant" can still mount the shared widget. Register the teardown on
+    // this path too, or leaving Help strands that launcher on every screen.
+    if (!isLoggedIn) {
+      return () => {
+        void destroyAiSupportWidget();
+      };
+    }
     // Register the signer + bridge URL BEFORE mounting so the widget picks up the
     // built-in human chat on creation.
     setSupportChatSigner(signer, bridgeUrl ?? null);
@@ -65,7 +73,10 @@ export const SupportWidget = () => {
           }
         : null,
     );
-    void ensureAiSupportWidget(currency.currency || "global", account?.address);
+    ensureAiSupportWidget(
+      currency.currency || "global",
+      account?.address,
+    ).catch((err) => console.warn("[support] widget failed to load", err));
     // Leaving the Help page destroys the launcher so it's not a floating icon
     // everywhere else in the app.
     return () => {

@@ -393,6 +393,19 @@ function ensureModalObserver() {
   });
 }
 
+// Whether the widget will be built with the human chat: both a wallet signer
+// and a bridge URL are registered.
+function hasHumanChat(): boolean {
+  return !!(supportSigner && supportBridgeUrl);
+}
+
+// Identity of a mount. The signer's presence is part of it: a widget built
+// without one has no human chat, so once a signer is registered the next
+// open must rebuild rather than reuse the signer-less instance forever.
+function mountKey(country: string, wallet?: string, prompt?: string): string {
+  return `${country}::${wallet ?? ""}::${prompt ?? ""}::${hasHumanChat() ? "human" : "ai"}`;
+}
+
 function mount(
   country: string,
   wallet?: string,
@@ -401,9 +414,9 @@ function mount(
   const el = document.createElement("div");
   document.body.appendChild(el);
   container = el;
-  mountedKey = `${country}::${wallet ?? ""}::${prompt ?? ""}`;
+  mountedKey = mountKey(country, wallet, prompt);
   // Lazy-import so the widget bundle stays out of the initial app chunk.
-  return import("p2pme-ai-support").then(({ createChatWidget }) => {
+  const mounting = import("p2pme-ai-support").then(({ createChatWidget }) => {
     const handle = createChatWidget({
       apiUrl: API_URL,
       // Scope the agent's retrieval to the user's selected market. The widget
@@ -457,6 +470,14 @@ function mount(
     }
     return handle as Handle;
   });
+  // A failed chunk fetch (flaky network, a deploy that rotated the chunk)
+  // must not latch the module dead: `widget` would hold the rejected promise
+  // and every later open would re-await it. Clear this mount so the next call
+  // imports again, then let the caller see the failure.
+  mounting.catch(() => {
+    if (container === el) teardown();
+  });
+  return mounting;
 }
 
 // Detach the current mount, synchronously. A mount whose import has not landed
@@ -471,7 +492,7 @@ function teardown() {
   hideStyleEl = null;
 }
 
-async function rebuildIfNeeded(key: string) {
+function rebuildIfNeeded(key: string) {
   if (widget && mountedKey !== key) teardown();
 }
 
@@ -479,7 +500,7 @@ async function rebuildIfNeeded(key: string) {
 // if the market or the logged-in wallet changed since the last mount.
 export async function ensureAiSupportWidget(country: string, wallet?: string) {
   const scope = country || "global";
-  await rebuildIfNeeded(`${scope}::${wallet ?? ""}::`);
+  rebuildIfNeeded(mountKey(scope, wallet));
   if (!widget) widget = mount(scope, wallet);
   return widget;
 }
@@ -502,9 +523,16 @@ export async function openAiSupportChat(
   prompt?: string,
 ) {
   const scope = country || "global";
-  await rebuildIfNeeded(`${scope}::${wallet ?? ""}::${prompt ?? ""}`);
+  rebuildIfNeeded(mountKey(scope, wallet, prompt));
   if (!widget) widget = mount(scope, wallet, prompt);
   (await widget).open();
+}
+
+/** True when "Chat with us" can reach the human chat: a wallet signer and
+ *  bridge URL are registered, so the widget builds its support card. Checked
+ *  synchronously so a caller can fall back inside the same user gesture. */
+export function canOpenSupportHumanChat(): boolean {
+  return hasHumanChat();
 }
 
 // Open the panel straight into the built-in human support thread, skipping the
@@ -514,30 +542,39 @@ export async function openAiSupportChat(
 //
 // Done by clicking the widget's own "Chat with support" card rather than
 // driving the view directly: the handle exposes only open/close/toggle, and the
-// card already runs the widget's full sign-in + thread-open path. If the card
-// isn't there — no wallet signer, so the widget hid the human chat — the panel
-// simply stays on home, which is the right fallback.
-export async function openSupportHumanChat(country: string, wallet?: string) {
+// card already runs the widget's full sign-in + thread-open path.
+//
+// Resolves true once the card was clicked. False when there is no human chat
+// to open (no signer — check canOpenSupportHumanChat first), when this mount
+// was replaced while waiting, or when the card never appeared; the caller
+// decides the fallback instead of the button silently doing nothing.
+export async function openSupportHumanChat(
+  country: string,
+  wallet?: string,
+): Promise<boolean> {
+  if (!hasHumanChat()) return false;
   const scope = country || "global";
-  await rebuildIfNeeded(`${scope}::${wallet ?? ""}::`);
+  rebuildIfNeeded(mountKey(scope, wallet));
   if (!widget) widget = mount(scope, wallet);
+  const mine = container;
   (await widget).open();
 
   // The card is built synchronously with the rest of the widget, so it is
-  // normally there the moment `mount` resolves. Give it a few frames anyway
-  // rather than silently landing on home if a future version defers the home
-  // screen — a missed click here is invisible, and the user just sees the
-  // button not doing what it says.
+  // normally there the moment `mount` resolves. Give it a few frames anyway in
+  // case a future version defers the home screen. Every frame re-checks that
+  // this is still the same mount: a teardown or rebuild in between (the Help
+  // page unmounting, a market or wallet switch) must not have us click a card
+  // on a different widget.
   for (let frame = 0; frame < 10; frame++) {
+    if (container !== mine) return false;
     const card = widgetShadow()?.querySelector<HTMLElement>(
       SUPPORT_CARD_SELECTOR,
     );
     if (card) {
       card.click();
-      return;
+      return true;
     }
     await new Promise((resolve) => requestAnimationFrame(resolve));
   }
-  // Still no card after ~10 frames: the widget hid the human chat (no wallet
-  // signer). The panel is open on home, which is the right fallback.
+  return false;
 }
