@@ -306,6 +306,7 @@ export const id = {
       "Jika alamat penerima Anda adalah CEX, mungkin memerlukan waktu lebih lama untuk muncul. Hubungi dukungan CEX Anda jika ini terjadi.",
     CHANGE_DNS: "Alterar DNS",
     CHAT_ON_TELEGRAM: "Chat di Telegram",
+    CHAT_ON_TELEGRAM_SUBTITLE: "Gabung grup komunitas",
     CHAT_SETUP_TAKING_LONGER:
       "Ini memakan waktu lebih lama dari biasanya. Sengketa Anda sudah dikirim — buka kembali Bantuan & Dukungan sebentar lagi, atau hubungi kami di Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Dukungan chat segera hadir",
@@ -1981,6 +1982,7 @@ export const id = {
     TASK_UNKNOWN: "Tugas {{taskType}}",
     TASK_USER_MIGRATION: "Diperoleh untuk migrasi pengguna",
     TASK_X_VERIFICATION: "Diperoleh untuk verifikasi X",
+    TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Syarat & Ketentuan",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
     TGE_BANNER_GET_P2P: "Daftar",
