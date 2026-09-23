@@ -214,7 +214,7 @@ export function BuyCancelled({ order }: { order: Order }) {
               variant="outline"
               onClick={openSupportChat}>
               <MessageCircle className="size-4" />
-              <p className="font-medium text-sm">{t("CHAT_WITH_US")}</p>
+              <p className="font-medium text-sm">{t("CHAT_ON_TELEGRAM")}</p>
             </Button>
           </CardFooter>
         </Card>
