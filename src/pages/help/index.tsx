@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import ASSETS from "@/assets";
 import {
   NonHomeHeader,
@@ -22,7 +23,11 @@ import { useSettings } from "@/contexts";
 import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { openAiSupportChat, openSupportHumanChat } from "@/lib/support-chat";
+import {
+  canOpenSupportHumanChat,
+  openAiSupportChat,
+  openSupportHumanChat,
+} from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
 import { SettingsItem } from "./components/settings-item";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -49,9 +54,19 @@ export function Help() {
   // thread lands in the ops support queue as a ticket with the user's wallet
   // attached. The group is still one tap away — the widget renders it as a row
   // under the "Chat with support" card (see lib/support-chat.ts).
+  //
+  // No human chat to open (logged out, or no chain id yet so no signer): fall
+  // back to the Telegram group, synchronously, so the popup stays inside the
+  // click gesture. A failed widget load says so rather than doing nothing.
   const handleChatWithUs = () => {
     track(EVENTS.HELP, { status: "chat_with_us_clicked" });
-    void openSupportHumanChat(currency.currency || "global", account?.address);
+    if (!canOpenSupportHumanChat()) {
+      handleTelegramSupport();
+      return;
+    }
+    openSupportHumanChat(currency.currency || "global", account?.address).catch(
+      () => toast.error(t("SOMETHING_WENT_WRONG")),
+    );
   };
 
   // The market's Telegram group, kept beside "Chat with us" rather than behind
