@@ -283,6 +283,14 @@ type SupportSigner = {
 let widget: Promise<Handle> | null = null;
 let container: HTMLDivElement | null = null;
 let mountedKey: string | null = null;
+// The resolved handle of the CURRENT mount, set once its lazy import lands.
+// Teardown destroys this synchronously instead of awaiting `widget`: awaiting
+// let a re-run in the same tick (SupportWidget's effect cleans up and re-runs
+// on every signer / label / bridge change) pick up the old promise from
+// ensureAiSupportWidget, after which the resumed teardown destroyed the very
+// widget the new run had just adopted — the launcher vanished until the next
+// click.
+let mountedHandle: Handle | null = null;
 // Wallet signer + bridge URL for the widget's built-in "Talk to a human"
 // (order-less) chat. Set by SupportWidget once a wallet is connected; when both
 // are present the widget opens a live support thread itself, over the bridge.
@@ -423,6 +431,14 @@ function mount(
         ? { homeScreen: false, starterPrompts: [prompt], openOnLoad: true }
         : {}),
     });
+    // Superseded while the import was in flight: a teardown (or a rebuild for
+    // another market / wallet) already detached this mount. Destroy it here —
+    // nothing else holds it — and leave the module state to the newer mount.
+    if (container !== el) {
+      handle.destroy();
+      return handle as Handle;
+    }
+    mountedHandle = handle as Handle;
     // Lift the floating launcher above the sticky Buy/Pay/Sell footer, and add a
     // second (initially empty) style tag we toggle to hide the launcher whenever
     // a modal overlay is open so it never covers in-modal controls.
@@ -443,15 +459,20 @@ function mount(
   });
 }
 
+// Detach the current mount, synchronously. A mount whose import has not landed
+// yet sees `container` move on and destroys itself (see `mount`).
+function teardown() {
+  mountedHandle?.destroy();
+  mountedHandle = null;
+  container?.remove();
+  widget = null;
+  container = null;
+  mountedKey = null;
+  hideStyleEl = null;
+}
+
 async function rebuildIfNeeded(key: string) {
-  if (widget && mountedKey !== key) {
-    const previous = await widget;
-    previous.destroy();
-    container?.remove();
-    widget = null;
-    container = null;
-    hideStyleEl = null;
-  }
+  if (widget && mountedKey !== key) teardown();
 }
 
 // Mount the persistent floating launcher once, globally, at app start. Rebuilds
@@ -468,16 +489,8 @@ export async function ensureAiSupportWidget(country: string, wallet?: string) {
 // Help page (the only surface that mounts the launcher) unmounts, so the
 // floating icon never lingers on other screens.
 export async function destroyAiSupportWidget() {
-  if (widget) {
-    const handle = await widget;
-    handle.destroy();
-  }
-  container?.remove();
+  teardown();
   modalObserver?.disconnect();
-  widget = null;
-  container = null;
-  mountedKey = null;
-  hideStyleEl = null;
   modalObserver = null;
 }
 
