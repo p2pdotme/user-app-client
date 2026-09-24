@@ -1189,11 +1189,6 @@ export const es = {
       "Necesitas al menos 150 RP para generar un enlace de referido",
     NEED_AT_LEAST_150_RP: "Necesitas al menos 150 RP",
     NEED_HELP: "¿Necesitas ayuda?",
-    NEPAL_RELIEF_BANNER_NOTE:
-      "Asegúrate de que INR esté seleccionado en los ajustes de la app.",
-    NEPAL_RELIEF_BANNER_SUBTITLE:
-      "Ve a pmdrf.nchl.com.np, selecciona el QR de FonePay y luego paga.",
-    NEPAL_RELIEF_BANNER_TITLE: "Ayuda a las víctimas en Nepal",
     NETWORK: "Red",
     NETWORK_ISSUE_DESCRIPTION:
       "Esto podría deberse a restricciones de DNS en tu región. Pero no te preocupes, es fácil de solucionar.",

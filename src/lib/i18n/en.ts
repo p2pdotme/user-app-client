@@ -1153,11 +1153,6 @@ export const en = {
       "You need at least 150 RP to generate a referral link",
     NEED_AT_LEAST_150_RP: "Need atleast 150 RP",
     NEED_HELP: "Need help?",
-    NEPAL_RELIEF_BANNER_NOTE:
-      "Please make sure INR is selected in your app settings.",
-    NEPAL_RELIEF_BANNER_SUBTITLE:
-      "Go to pmdrf.nchl.com.np, select the FonePay QR, then pay.",
-    NEPAL_RELIEF_BANNER_TITLE: "Help Nepal flood victims",
     NETWORK: "Network",
     NETWORK_ISSUE_DESCRIPTION:
       "This might be due to DNS restrictions in your region. But don't worry — it's easy to fix.",
