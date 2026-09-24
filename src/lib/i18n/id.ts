@@ -1170,11 +1170,6 @@ export const id = {
       "Anda memerlukan setidaknya 150 RP untuk membuat link referensi",
     NEED_AT_LEAST_150_RP: "Memerlukan minimal 150 RP",
     NEED_HELP: "Butuh bantuan?",
-    NEPAL_RELIEF_BANNER_NOTE:
-      "Pastikan INR sudah dipilih di pengaturan aplikasi Anda.",
-    NEPAL_RELIEF_BANNER_SUBTITLE:
-      "Buka pmdrf.nchl.com.np, pilih QR FonePay, lalu bayar.",
-    NEPAL_RELIEF_BANNER_TITLE: "Bantu korban banjir Nepal",
     NETWORK: "Jaringan",
     NETWORK_ISSUE_DESCRIPTION:
       "Ini mungkin disebabkan oleh pembatasan DNS di wilayah Anda. Tapi jangan khawatir — mudah untuk diperbaiki.",
