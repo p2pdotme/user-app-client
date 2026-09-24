@@ -1119,11 +1119,6 @@ export const hi = {
       "रेफरल लिंक जेनरेट करने के लिए आपको कम से कम 150 आरपी चाहिए",
     NEED_AT_LEAST_150_RP: "कम से कम 150 आरपी की आवश्यकता है",
     NEED_HELP: "मदद चाहिए?",
-    NEPAL_RELIEF_BANNER_NOTE:
-      "कृपया सुनिश्चित करें कि आपकी ऐप सेटिंग्स में INR चुना गया है।",
-    NEPAL_RELIEF_BANNER_SUBTITLE:
-      "pmdrf.nchl.com.np पर जाएं, FonePay QR चुनें, फिर भुगतान करें।",
-    NEPAL_RELIEF_BANNER_TITLE: "नेपाल बाढ़ पीड़ितों की मदद करें",
     NETWORK: "नेटवर्क",
     NETWORK_ISSUE_DESCRIPTION:
       "यह आपके क्षेत्र में डीएनएस प्रतिबंधों के कारण हो सकता है। लेकिन चिंता न करें - इसे ठीक करना आसान है।",
