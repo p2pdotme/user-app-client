@@ -30,6 +30,7 @@ export const en = {
     ADDRESS_NOT_FOUND_IN_SELL_ADDRESS_BOOK:
       "Address not found in sell address book",
     ADDRESS_PASTED: "Address pasted",
+    ADDRESS_SCANNED: "Address scanned",
     ADDRESS_UPDATED_SUCCESSFULLY: "Address updated successfully",
     ADD_ADDRESS: "Add {{paymentAddressName}}",
     ADD_ADDRESS_DESCRIPTION:

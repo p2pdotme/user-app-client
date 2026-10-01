@@ -31,6 +31,7 @@ export const es = {
     ADDRESS_NOT_FOUND_IN_SELL_ADDRESS_BOOK:
       "Dirección no encontrada en la libreta de direcciones de venta",
     ADDRESS_PASTED: "Dirección pegada",
+    ADDRESS_SCANNED: "Dirección escaneada",
     ADDRESS_UPDATED_SUCCESSFULLY: "Dirección actualizada correctamente",
     ADD_ADDRESS: "Añadir {{paymentAddressName}}",
     ADD_ADDRESS_DESCRIPTION:
