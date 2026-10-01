@@ -5,6 +5,7 @@ import {
   ChevronRight,
   Clipboard,
   Loader2,
+  ScanLine,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
@@ -13,6 +14,7 @@ import { Link } from "react-router";
 import { toast } from "sonner";
 import { isAddress, parseUnits } from "viem";
 import ASSETS from "@/assets";
+import { QrScanner } from "@/components/qr-scanner";
 import { SupportedNetworksMarquee } from "@/components/supported-networks-marquee";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -31,6 +33,7 @@ import { Input } from "@/components/ui/input";
 import { transferUSDC } from "@/core/adapters/thirdweb/actions/usdc";
 import { useSounds, useThirdweb, useUSDCBalance } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { extractEvmAddressFromQr } from "@/lib/evm-address-qr";
 import { cn, truncateAmount } from "@/lib/utils";
 
 function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
@@ -99,7 +102,17 @@ function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
   );
 }
 
-function DirectWithdraw({ onBack }: { onBack: () => void }) {
+interface DirectWithdrawProps {
+  onBack: () => void;
+  isScanning: boolean;
+  onScanningChange: (isScanning: boolean) => void;
+}
+
+function DirectWithdraw({
+  onBack,
+  isScanning,
+  onScanningChange,
+}: DirectWithdrawProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { account } = useThirdweb();
@@ -140,6 +153,23 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
     } finally {
       setIsPasting(false);
     }
+  };
+
+  const handleOpenScanner = () => {
+    setRecipientAddress("");
+    onScanningChange(true);
+  };
+
+  const handleScan = (data: string) => {
+    const address = extractEvmAddressFromQr(data);
+    if (!address) {
+      toast.warning(t("INVALID_ADDRESS_FORMAT"));
+      return;
+    }
+
+    setRecipientAddress(address);
+    onScanningChange(false);
+    toast.success(t("ADDRESS_SCANNED"));
   };
 
   const handleSend = async () => {
@@ -195,6 +225,35 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
       setIsLoading(false);
     }
   };
+
+  if (isScanning) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="w-full pb-6">
+        <DrawerHeader className="w-full text-center">
+          <div className="flex w-full items-center justify-between">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onScanningChange(false)}>
+              <ArrowLeftCircle className="size-6" />
+            </Button>
+            <DrawerTitle>{t("SCAN_UPLOAD_QR")}</DrawerTitle>
+            <div className="w-6" />
+          </div>
+          <DrawerDescription className="hidden">
+            {t("ENTER_RECIPIENT_ADDRESS")}
+          </DrawerDescription>
+        </DrawerHeader>
+        <section className="flex justify-center px-4">
+          <QrScanner onScan={handleScan} className="w-full max-w-sm" />
+        </section>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -297,7 +356,7 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
             <Input
               type="text"
               className={cn(
-                "h-10 p-4 pr-12 text-primary placeholder:text-primary/50",
+                "h-10 p-4 pr-20 text-primary placeholder:text-primary/50",
                 isValidAddress === true && "border-success",
                 isValidAddress === false && "border-destructive",
               )}
@@ -315,19 +374,32 @@ function DirectWithdraw({ onBack }: { onBack: () => void }) {
               disabled={isLoading}
             />
 
-            {/* Paste Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="-translate-y-1/2 absolute top-1/2 right-1 h-8 w-8 p-0"
-              onClick={handlePaste}
-              disabled={isLoading || isPasting}>
-              {isPasting ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <Clipboard className="size-4 text-primary" />
-              )}
-            </Button>
+            <div className="-translate-y-1/2 absolute top-1/2 right-1 flex items-center">
+              {/* Scan Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0"
+                aria-label={t("SCAN_UPLOAD_QR")}
+                onClick={handleOpenScanner}
+                disabled={isLoading}>
+                <ScanLine className="size-4 text-primary" />
+              </Button>
+
+              {/* Paste Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0"
+                onClick={handlePaste}
+                disabled={isLoading || isPasting}>
+                {isPasting ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <Clipboard className="size-4 text-primary" />
+                )}
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -357,11 +429,22 @@ export function WithdrawDrawer({ children }: { children: React.ReactNode }) {
     "directOrCross",
   );
 
+  const [isScanning, setIsScanning] = useState(false);
+
   const handleSendUSDC = () => setPage("directWithdraw");
-  const handleBack = () => setPage("directOrCross");
+  const handleBack = () => {
+    setIsScanning(false);
+    setPage("directOrCross");
+  };
 
   return (
-    <Drawer autoFocus={true} onClose={() => setPage("directOrCross")}>
+    <Drawer
+      autoFocus={true}
+      // Reset only after the close animation finishes — resetting on close
+      // triggers the inner page's sideways exit while the drawer slides down.
+      onAnimationEnd={(open) => {
+        if (!open) handleBack();
+      }}>
       <DrawerTrigger>{children}</DrawerTrigger>
       <DrawerContent>
         <AnimatePresence mode="wait" initial={false}>
@@ -369,14 +452,21 @@ export function WithdrawDrawer({ children }: { children: React.ReactNode }) {
             <DirectOrCross key="direct-or-cross" onSendUSDC={handleSendUSDC} />
           )}
           {page === "directWithdraw" && (
-            <DirectWithdraw key="direct-withdraw" onBack={handleBack} />
+            <DirectWithdraw
+              key="direct-withdraw"
+              onBack={handleBack}
+              isScanning={isScanning}
+              onScanningChange={setIsScanning}
+            />
           )}
         </AnimatePresence>
-        <DrawerFooter>
-          <DrawerClose className="w-full cursor-pointer rounded-md bg-primary p-4 text-primary-foreground">
-            {t("CLOSE")}
-          </DrawerClose>
-        </DrawerFooter>
+        {!isScanning && (
+          <DrawerFooter>
+            <DrawerClose className="w-full cursor-pointer rounded-md bg-primary p-4 text-primary-foreground">
+              {t("CLOSE")}
+            </DrawerClose>
+          </DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   );
