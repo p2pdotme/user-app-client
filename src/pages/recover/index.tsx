@@ -10,12 +10,19 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { isAddress } from "viem";
+import { formatUnits, isAddress } from "viem";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRecoverWallet } from "@/hooks";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  RECOVER_TOKEN_DECIMALS,
+  type RecoverToken,
+  useRecoverWallet,
+} from "@/hooks";
 import { cn, truncateAmount } from "@/lib/utils";
+
+const RECOVER_TOKENS: RecoverToken[] = ["USDC", "P2P"];
 
 export function RecoverWallet() {
   const { t } = useTranslation();
@@ -23,7 +30,7 @@ export function RecoverWallet() {
   const {
     step,
     address,
-    balanceFormatted,
+    balances,
     isConnecting,
     isRecovering,
     connect,
@@ -35,8 +42,16 @@ export function RecoverWallet() {
   const [showKey, setShowKey] = useState(false);
   const [destination, setDestination] = useState("");
   const [amount, setAmount] = useState("");
+  const [token, setToken] = useState<RecoverToken>("USDC");
 
-  const balance = Number(balanceFormatted);
+  const balance = Number(
+    formatUnits(balances[token], RECOVER_TOKEN_DECIMALS[token]),
+  );
+
+  const handleTokenChange = (value: string) => {
+    setToken(value as RecoverToken);
+    setAmount("");
+  };
   const isValidDestination = destination.trim()
     ? isAddress(destination.trim())
     : null;
@@ -61,6 +76,7 @@ export function RecoverWallet() {
       setPrivateKey("");
       setDestination("");
       setAmount("");
+      setToken("USDC");
       return;
     }
     navigate(-1);
@@ -151,6 +167,20 @@ export function RecoverWallet() {
         </section>
       ) : (
         <section className="flex flex-col gap-4">
+          <Tabs value={token} onValueChange={handleTokenChange}>
+            <TabsList className="gap-2 bg-transparent p-0">
+              {RECOVER_TOKENS.map((item) => (
+                <TabsTrigger
+                  key={item}
+                  value={item}
+                  disabled={isRecovering}
+                  className="w-24 cursor-pointer rounded-full border border-border data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  {item}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+
           <div className="flex flex-col gap-2 rounded-lg bg-primary/10 p-4">
             <p className="text-muted-foreground text-sm">
               {t("RECOVER_WALLET_ADDRESS")}
@@ -158,7 +188,7 @@ export function RecoverWallet() {
             <p className="break-all font-mono text-sm">{address}</p>
             <p className="mt-2 text-muted-foreground text-sm">{t("BALANCE")}</p>
             <p className="font-bold text-2xl text-primary">
-              {truncateAmount(balance)} USDC
+              {truncateAmount(balance)} {token}
             </p>
           </div>
 
@@ -216,7 +246,7 @@ export function RecoverWallet() {
 
           <Button
             className="h-12 w-full"
-            onClick={() => recover(destination, amount)}
+            onClick={() => recover(token, destination, amount)}
             disabled={
               !destination ||
               !amount ||
