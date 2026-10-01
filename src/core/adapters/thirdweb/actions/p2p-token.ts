@@ -49,6 +49,29 @@ export const transferP2PToken = (
     );
 };
 
+export const getP2PTokenBalance = (
+  address: Address,
+): ResultAsync<bigint, ThirdwebAdapterError> => {
+  return ResultAsync.fromPromise(
+    viemPublicClient.readContract({
+      address: CONTRACT_ADDRESSES.P2P_TOKEN,
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: [address],
+    }),
+    (error) =>
+      createAppError<"ThirdwebAdapter">(
+        "Failed to read P2P token balance from contract",
+        {
+          domain: "ThirdwebAdapter",
+          code: "TWReadContractError",
+          cause: error,
+          context: { address },
+        },
+      ),
+  );
+};
+
 export const getP2PTokenAllowance = (params: {
   owner: Address;
   spender: Address;
