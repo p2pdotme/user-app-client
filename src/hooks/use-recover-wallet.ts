@@ -1,15 +1,40 @@
+import { ResultAsync } from "neverthrow";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { Account } from "thirdweb/wallets";
-import { formatUnits, isAddress, parseUnits } from "viem";
+import { isAddress, parseUnits } from "viem";
 import { connectSmartWalletFromPrivateKey } from "@/core/adapters/thirdweb";
+import {
+  getP2PTokenBalance,
+  transferP2PToken,
+} from "@/core/adapters/thirdweb/actions/p2p-token";
 import {
   getUSDCBalance,
   transferUSDC,
 } from "@/core/adapters/thirdweb/actions/usdc";
 
-const USDC_DECIMALS = 6;
+export type RecoverToken = "USDC" | "P2P";
+
+/** Both USDC and the P2P token use 6 decimals on Base. */
+export const RECOVER_TOKEN_DECIMALS: Record<RecoverToken, number> = {
+  USDC: 6,
+  P2P: 6,
+};
+
+const RECOVER_TOKEN_TRANSFER = {
+  USDC: transferUSDC,
+  P2P: transferP2PToken,
+} as const;
+
+const RECOVER_TOKEN_SUCCESS_KEY: Record<RecoverToken, string> = {
+  USDC: "USDC_SENT_SUCCESSFULLY",
+  P2P: "P2P_SENT_SUCCESSFULLY",
+};
+
+type Balances = Record<RecoverToken, bigint>;
+
+const EMPTY_BALANCES: Balances = { USDC: 0n, P2P: 0n };
 
 /** A raw private key: 0x followed by 64 hex chars. */
 function isPrivateKey(value: string): boolean {
@@ -22,18 +47,17 @@ type Step = "input" | "review";
  * Recover funds from a smart wallet using its admin private key.
  *
  * Step 1 (`connect`): derive the smart account from the key and read its USDC
- * balance. Step 2 (`recover`): transfer USDC out to a destination address.
- * The key lives only in this hook's memory and is never persisted.
+ * and P2P token balances. Step 2 (`recover`): transfer the chosen token out to
+ * a destination address. The key lives only in this hook's memory and is never
+ * persisted.
  */
 export function useRecoverWallet() {
   const { t } = useTranslation();
   const [step, setStep] = useState<Step>("input");
   const [account, setAccount] = useState<Account | null>(null);
-  const [balance, setBalance] = useState<bigint>(0n);
+  const [balances, setBalances] = useState<Balances>(EMPTY_BALANCES);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isRecovering, setIsRecovering] = useState(false);
-
-  const balanceFormatted = formatUnits(balance, USDC_DECIMALS);
 
   const connect = useCallback(
     async (privateKey: string) => {
@@ -45,20 +69,23 @@ export function useRecoverWallet() {
 
       setIsConnecting(true);
       const result = await connectSmartWalletFromPrivateKey(key).andThen(
-        (connectedAccount) =>
-          getUSDCBalance(connectedAccount.address as `0x${string}`).map(
-            (raw) => ({
-              connectedAccount,
-              raw,
-            }),
-          ),
+        (connectedAccount) => {
+          const owner = connectedAccount.address as `0x${string}`;
+          return ResultAsync.combine([
+            getUSDCBalance(owner),
+            getP2PTokenBalance(owner),
+          ] as const).map(([usdc, p2p]) => ({
+            connectedAccount,
+            fetched: { USDC: usdc, P2P: p2p },
+          }));
+        },
       );
       setIsConnecting(false);
 
       result.match(
-        ({ connectedAccount, raw }) => {
+        ({ connectedAccount, fetched }) => {
           setAccount(connectedAccount);
-          setBalance(raw);
+          setBalances(fetched);
           setStep("review");
         },
         () => toast.error(t("RECOVER_CONNECT_FAILED")),
@@ -68,7 +95,7 @@ export function useRecoverWallet() {
   );
 
   const recover = useCallback(
-    async (destination: string, amount: string) => {
+    async (token: RecoverToken, destination: string, amount: string) => {
       if (!account) return;
 
       const to = destination.trim();
@@ -77,14 +104,14 @@ export function useRecoverWallet() {
         return;
       }
 
-      const amountUnits = parseUnits(amount, USDC_DECIMALS);
-      if (amountUnits <= 0n || amountUnits > balance) {
+      const amountUnits = parseUnits(amount, RECOVER_TOKEN_DECIMALS[token]);
+      if (amountUnits <= 0n || amountUnits > balances[token]) {
         toast.warning(t("INVALID_AMOUNT"));
         return;
       }
 
       setIsRecovering(true);
-      const result = await transferUSDC(
+      const result = await RECOVER_TOKEN_TRANSFER[token](
         { address: to as `0x${string}`, amount: amountUnits },
         account,
       );
@@ -92,26 +119,28 @@ export function useRecoverWallet() {
 
       result.match(
         () => {
-          toast.success(t("USDC_SENT_SUCCESSFULLY", { amount }));
-          setBalance((prev) => prev - amountUnits);
+          toast.success(t(RECOVER_TOKEN_SUCCESS_KEY[token], { amount }));
+          setBalances((prev) => ({
+            ...prev,
+            [token]: prev[token] - amountUnits,
+          }));
         },
         () => toast.error(t("TRANSFER_FAILED")),
       );
     },
-    [account, balance, t],
+    [account, balances, t],
   );
 
   const reset = useCallback(() => {
     setStep("input");
     setAccount(null);
-    setBalance(0n);
+    setBalances(EMPTY_BALANCES);
   }, []);
 
   return {
     step,
     address: account?.address,
-    balance,
-    balanceFormatted,
+    balances,
     isConnecting,
     isRecovering,
     connect,
