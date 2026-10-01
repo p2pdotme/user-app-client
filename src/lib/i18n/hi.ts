@@ -29,6 +29,7 @@ export const hi = {
     ADDRESS_NOT_FOUND_IN_ADDRESS_BOOK: "पता, पता पुस्तिका में नहीं मिला",
     ADDRESS_NOT_FOUND_IN_SELL_ADDRESS_BOOK: "सेल एड्रेस बुक में पता नहीं मिला",
     ADDRESS_PASTED: "पता पेस्ट किया गया",
+    ADDRESS_SCANNED: "पता स्कैन किया गया",
     ADDRESS_UPDATED_SUCCESSFULLY: "पता सफलतापूर्वक अपडेट किया गया",
     ADD_ADDRESS: "{{paymentAddressName}} जोड़ें",
     ADD_ADDRESS_DESCRIPTION:

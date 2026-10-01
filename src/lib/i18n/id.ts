@@ -31,6 +31,7 @@ export const id = {
     ADDRESS_NOT_FOUND_IN_SELL_ADDRESS_BOOK:
       "Alamat tidak ditemukan dalam buku alamat penjualan",
     ADDRESS_PASTED: "Alamat disalin",
+    ADDRESS_SCANNED: "Alamat dipindai",
     ADDRESS_UPDATED_SUCCESSFULLY: "Alamat berhasil diperbarui",
     ADD_ADDRESS: "Tambah {{paymentAddressName}}",
     ADD_ADDRESS_DESCRIPTION:
