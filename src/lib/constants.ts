@@ -135,10 +135,31 @@ export const LANGUAGE_OPTIONS: Language[] = [
   },
 ];
 
+/**
+ * Customer Telegram groups the pinned SDK gets wrong. SDK <= 1.3.1 sends BOB to
+ * t.me/p2pme_bolivia_merchants ("P2P.me Merchants Bolivia"), so every "Chat on
+ * Telegram" entry -- Help page, order help drawer, the row inside the support
+ * widget -- put Bolivian customers in the merchants group. The clients group is
+ * t.me/p2pmebolivia. Fixed upstream in p2pdotme-sdk#104; drop the entry once the
+ * pinned SDK ships it.
+ *
+ * Applied here, where the SDK list enters the app, so the settings schema and
+ * CURRENCY_META_DATA see the corrected link too: a saved BOB setting holding the
+ * old URL is overwritten with this one on the next load (migrateSettings).
+ */
+const TELEGRAM_SUPPORT_OVERRIDES: Partial<Record<CurrencyType, string>> = {
+  BOB: "https://t.me/p2pmebolivia",
+};
+
 // COUNTRY_OPTIONS from SDK — uses `currency` field (not `symbol`)
 export const COUNTRY_OPTIONS = SDK_COUNTRY_OPTIONS.filter(
   (item) => !item.disabled,
-).sort((a, b) => Number(Boolean(a.isAlpha)) - Number(Boolean(b.isAlpha)));
+)
+  .map((item) => {
+    const telegramSupportChannel = TELEGRAM_SUPPORT_OVERRIDES[item.currency];
+    return telegramSupportChannel ? { ...item, telegramSupportChannel } : item;
+  })
+  .sort((a, b) => Number(Boolean(a.isAlpha)) - Number(Boolean(b.isAlpha)));
 
 export const SUPPORTED_CURRENCIES = COUNTRY_OPTIONS.map((c) => c.currency) as [
   CurrencyType,
