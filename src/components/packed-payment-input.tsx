@@ -2,6 +2,7 @@ import {
   assignStoredPaymentIdToFieldValues,
   type CurrencyCode,
   getStoredQrPayload,
+  isPaymentIdFieldRequired,
   type PaymentIdFieldConfig,
   packStoredPaymentId,
   uploadsPaymentQR,
@@ -14,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { PAYMENT_ID_FIELDS } from "@/lib/constants";
 
 function fieldError(
+  fields: readonly PaymentIdFieldConfig[],
   field: PaymentIdFieldConfig,
   values: Record<string, string>,
   showErrors: boolean,
@@ -21,7 +23,8 @@ function fieldError(
   if (!showErrors) return null;
   const value = (values[field.key] || "").trim();
   if (value) return field.validate(value) ? null : field.validationErrorMessage;
-  if (field.optional === true) return null;
+  // Paired fields (KES paybill + account) become required once a partner is filled.
+  if (!isPaymentIdFieldRequired(fields, field, values)) return null;
   return field.validationErrorMessage;
 }
 
@@ -107,11 +110,13 @@ export function PackedPaymentInput({
         </>
       ) : null}
       {fields.map((field, index) => {
-        const error = fieldError(field, manualValues, showFieldErrors);
+        const error = fieldError(fields, field, manualValues, showFieldErrors);
+        const next = fields[index + 1];
         const showOr =
           index < fields.length - 1 &&
           field.optional === true &&
-          fields[index + 1]?.optional === true;
+          next?.optional === true &&
+          !field.requires?.includes(next.key);
         return (
           <Fragment key={field.key}>
             <div className="flex flex-col gap-1">
