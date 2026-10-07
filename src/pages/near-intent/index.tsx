@@ -12,6 +12,7 @@ import {
 import { useThirdweb } from "@/hooks";
 import { useOneClickTokens, usePendingBridges } from "@/hooks/use-oneclick";
 import { BridgeHistoryCard } from "./bridge-history-card";
+import { BridgeTerms } from "./bridge-terms";
 import { SwapForm } from "./swap-form";
 
 const EXPLORER_STATUSES = [
@@ -134,8 +135,7 @@ export function OneClick() {
                 href={getExplorerHistoryUrl(account.address)}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-primary underline"
-              >
+                className="inline-flex items-center gap-1 text-primary underline">
                 NEAR Intents explorer
                 <ExternalLinkIcon className="size-3.5" />
               </a>
@@ -143,33 +143,23 @@ export function OneClick() {
           </p>
         )}
 
-        <p className="text-center text-muted-foreground text-sm">
-          <Trans i18nKey="BRIDGE_REPORT_ISSUE_PROMPT">
-            <a
-              href="https://near.com/support"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-primary underline"
-            >
-              NEAR Intents support
-              <ExternalLinkIcon className="size-3.5" />
-            </a>
-          </Trans>
-        </p>
-
         {bridges.length > 0 && (
           <section className="flex flex-col gap-3 mt-6">
             <div className="flex flex-col gap-1">
-            <h2 className="font-medium text-lg">{t("BRIDGE_HISTORY_TITLE")}</h2>
-            <p className="text-muted-foreground text-sm">
-              {t("BRIDGE_HISTORY_DESCRIPTION")}
-            </p>
+              <h2 className="font-medium text-lg">
+                {t("BRIDGE_HISTORY_TITLE")}
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                {t("BRIDGE_HISTORY_DESCRIPTION")}
+              </p>
             </div>
             {bridges.map((bridge) => (
               <BridgeHistoryCard key={bridge.depositAddress} bridge={bridge} />
             ))}
           </section>
         )}
+
+        <BridgeTerms isWithdraw={mode !== "deposit"} />
       </main>
     </>
   );
