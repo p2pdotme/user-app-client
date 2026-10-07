@@ -167,6 +167,11 @@ export const id = {
       "Deposit Stellar memerlukan memo, tetapi tidak ada yang dikembalikan. Tidak dilanjutkan — deposit Stellar yang dikirim tanpa memo tidak dapat dikreditkan.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "Untuk melihat riwayat swap lengkap Anda, kunjungi <0>explorer NEAR Intents<1></1></0>",
+    BRIDGE_TERMS_NEAR_INTENTS:
+      "Deposit di halaman ini dijembatani menggunakan NEAR Intents. Dana Anda dirutekan melalui NEAR Intents dan tiba sebagai USDC di Base. P2P.me tidak memproses bridge secara langsung, jadi setiap masalah bridge harus dilaporkan ke dukungan NEAR Intents.",
+    BRIDGE_TERMS_NEAR_INTENTS_WITHDRAW:
+      "Penarikan di halaman ini dijembatani menggunakan NEAR Intents. USDC Anda di Base dirutekan melalui NEAR Intents dan tiba di chain tujuan yang Anda pilih. P2P.me tidak memproses bridge secara langsung, jadi setiap masalah bridge harus dilaporkan ke dukungan NEAR Intents.",
+    BRIDGE_TERMS_TITLE: "Ketentuan & Dukungan Bridge",
     BRIDGE_TOTAL_AMOUNT: "Jumlah Total",
     BRIDGE_VIEW_ON_EXPLORER: "Lihat di explorer NEAR Intents",
     BRIDGE_WITHDRAWING: "Menarik…",
@@ -1454,6 +1459,8 @@ export const id = {
     PASSPORT_ALREADY_VERIFIED: "Passport sudah diverifikasi",
     PATH: "Jalur",
     PAY: "Bayar",
+    PAYBILL_ACCOUNT_NUMBER: "Nomor Akun",
+    PAYBILL_NUMBER: "Nomor Paybill",
     PAYMENT_ADDRESS_ALREADY_SENT: "Alamat pembayaran sudah dikirim",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} disalin ke clipboard",
@@ -2002,8 +2009,6 @@ export const id = {
     THIS_MONTH: "Bulan Ini",
     THIS_MONTH_SHORT: "Bulan",
     TILL_NUMBER: "Nomor Till",
-    PAYBILL_NUMBER: "Nomor Paybill",
-    PAYBILL_ACCOUNT_NUMBER: "Nomor Akun",
     TIME_REMAINING: "Time remaining",
     TIP_ALREADY_GIVEN:
       "You've already tipped this merchant. Thank you for your generosity!",
