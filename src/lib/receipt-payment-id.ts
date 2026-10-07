@@ -1,17 +1,26 @@
 import {
+  assignStoredPaymentIdToFieldValues,
   formatStoredPaymentIdForDisplay,
   getCountryOption,
   resolveIndonesianStoredPaymentIdDisplay,
   unpackPackedPaymentId,
 } from "@p2pdotme/sdk/country";
 import { getDisplayQrPayload } from "@/lib/compound-payment-id";
-import type { CurrencyType } from "@/lib/constants";
+import { type CurrencyType, PAYMENT_ID_FIELDS } from "@/lib/constants";
 
 export type ReceiptPaymentIdDetails = {
   display: string;
   copyValue: string | null;
   qr: string | null;
 };
+
+function filledFieldValues(currency: CurrencyType, value: string): string {
+  const values = assignStoredPaymentIdToFieldValues(currency, value);
+  return (PAYMENT_ID_FIELDS[currency] ?? [])
+    .map((field) => (values[field.key] || "").trim())
+    .filter((part) => part.length > 0)
+    .join(" | ");
+}
 
 /**
  * Human-readable payment ID for receipts. Packed QRs never dump the raw
@@ -33,10 +42,14 @@ export function formatReceiptPaymentId(
   const qr = getDisplayQrPayload(code, value);
   const formatted = formatStoredPaymentIdForDisplay(code, value);
   if (formatted) {
-    const { rest } = unpackPackedPaymentId(value);
+    // Without a QR, `||` may just be adjacent empty fields (KES `phone|||`),
+    // so copy the filled values rather than the raw packed rest.
+    const rest = qr
+      ? unpackPackedPaymentId(value).rest.trim()
+      : filledFieldValues(code, value);
     return {
       display: formatted,
-      copyValue: rest.trim() || formatted,
+      copyValue: rest || formatted,
       qr,
     };
   }
