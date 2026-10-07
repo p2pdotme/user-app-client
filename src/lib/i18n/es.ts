@@ -168,6 +168,11 @@ export const es = {
       "Los depósitos en Stellar requieren un memo, pero no se recibió ninguno. No se continúa: un depósito de Stellar enviado sin memo no se puede acreditar.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "Para ver tu historial completo de intercambios, visita el <0>explorador de NEAR Intents<1></1></0>",
+    BRIDGE_TERMS_NEAR_INTENTS:
+      "Los depósitos en esta página se transfieren mediante NEAR Intents. Tus fondos se enrutan a través de NEAR Intents y llegan como USDC en Base. P2P.me no procesa el puente directamente, por lo que cualquier problema debe reportarse al soporte de NEAR Intents.",
+    BRIDGE_TERMS_NEAR_INTENTS_WITHDRAW:
+      "Los retiros en esta página se transfieren mediante NEAR Intents. Tu USDC en Base se enruta a través de NEAR Intents y llega a la cadena de destino que elijas. P2P.me no procesa el puente directamente, por lo que cualquier problema debe reportarse al soporte de NEAR Intents.",
+    BRIDGE_TERMS_TITLE: "Términos y soporte del puente",
     BRIDGE_TOTAL_AMOUNT: "Importe total",
     BRIDGE_VIEW_ON_EXPLORER: "Ver en el explorador de NEAR Intents",
     BRIDGE_WITHDRAWING: "Retirando…",
@@ -1487,6 +1492,8 @@ export const es = {
     PASSPORT_ALREADY_VERIFIED: "Passport ya verificado",
     PATH: "Ruta",
     PAY: "Pagar",
+    PAYBILL_ACCOUNT_NUMBER: "Número de cuenta",
+    PAYBILL_NUMBER: "Número de paybill",
     PAYMENT_ADDRESS_ALREADY_SENT: "La dirección de pago ya fue enviada",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} copiada al portapapeles",
@@ -2057,8 +2064,6 @@ export const es = {
     THIS_MONTH: "Este Mes",
     THIS_MONTH_SHORT: "Mes",
     TILL_NUMBER: "Número de comercio (till)",
-    PAYBILL_NUMBER: "Número de paybill",
-    PAYBILL_ACCOUNT_NUMBER: "Número de cuenta",
     TIME_REMAINING: "Tiempo restante",
     TIP_ALREADY_GIVEN:
       "Ya le has dado propina a este comerciante. ¡Gracias por tu generosidad!",
