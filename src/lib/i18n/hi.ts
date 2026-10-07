@@ -163,6 +163,11 @@ export const hi = {
       "Stellar जमा के लिए मेमो आवश्यक है, लेकिन कोई नहीं मिला। आगे नहीं बढ़ा जा रहा — मेमो के बिना भेजा गया Stellar जमा क्रेडिट नहीं किया जा सकता।",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "अपना पूरा स्वैप इतिहास देखने के लिए, <0>NEAR Intents एक्सप्लोरर<1></1></0> पर जाएं",
+    BRIDGE_TERMS_NEAR_INTENTS:
+      "इस पेज पर जमा राशि NEAR Intents के ज़रिए ब्रिज की जाती है। आपकी राशि NEAR Intents से होकर Base पर USDC के रूप में पहुँचती है। P2P.me खुद ब्रिज प्रोसेस नहीं करता, इसलिए ब्रिज से जुड़ी किसी भी समस्या की रिपोर्ट NEAR Intents support को करें।",
+    BRIDGE_TERMS_NEAR_INTENTS_WITHDRAW:
+      "इस पेज पर निकासी NEAR Intents के ज़रिए ब्रिज की जाती है। Base पर आपका USDC NEAR Intents से होकर आपकी चुनी हुई चेन पर पहुँचता है। P2P.me खुद ब्रिज प्रोसेस नहीं करता, इसलिए ब्रिज से जुड़ी किसी भी समस्या की रिपोर्ट NEAR Intents support को करें।",
+    BRIDGE_TERMS_TITLE: "ब्रिज नियम और सहायता",
     BRIDGE_TOTAL_AMOUNT: "कुल राशि",
     BRIDGE_VIEW_ON_EXPLORER: "NEAR Intents एक्सप्लोरर पर देखें",
     BRIDGE_WITHDRAWING: "निकाला जा रहा है…",
@@ -1394,6 +1399,8 @@ export const hi = {
     PASSPORT_ALREADY_VERIFIED: "Passport पहले से ही सत्यापित है",
     PATH: "पथ",
     PAY: "भुगतान",
+    PAYBILL_ACCOUNT_NUMBER: "खाता नंबर",
+    PAYBILL_NUMBER: "पेबिल नंबर",
     PAYMENT_ADDRESS_ALREADY_SENT: "भुगतान पता पहले ही भेजा जा चुका है",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} को क्लिपबोर्ड पर कॉपी किया गया",
@@ -1925,8 +1932,6 @@ export const hi = {
     THIS_MONTH: "इस महीने",
     THIS_MONTH_SHORT: "महीना",
     TILL_NUMBER: "टिल नंबर",
-    PAYBILL_NUMBER: "पेबिल नंबर",
-    PAYBILL_ACCOUNT_NUMBER: "खाता नंबर",
     TIME_REMAINING: "शेष समय",
     TIP_ALREADY_GIVEN:
       "You've already tipped this merchant. Thank you for your generosity!",
