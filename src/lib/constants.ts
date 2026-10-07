@@ -330,7 +330,11 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
     phone: "PLACEHOLDER_PAYMENT_ID_PHP",
     "bank-name": "PLACEHOLDER_BANK_NAME_PHP",
   },
-  KES: { mpesa: "PLACEHOLDER_MPESA_KES" },
+  KES: {
+    mpesa: "PLACEHOLDER_MPESA_KES",
+    paybill: "PLACEHOLDER_PAYBILL_KES",
+    paybillAccount: "PLACEHOLDER_PAYBILL_ACCOUNT_KES",
+  },
   EGP: { phone: "PLACEHOLDER_PAYMENT_ID_EGP" },
 };
 
