@@ -9,6 +9,7 @@ export * from "./use-cbbtc-price";
 export * from "./use-dev-mode";
 export * from "./use-event-listeners";
 export * from "./use-event-timestamp";
+export * from "./use-geo-locale";
 export * from "./use-get-order-by-id";
 export * from "./use-haptic-interactions";
 export * from "./use-haptics";
