@@ -14,7 +14,12 @@ import {
 } from "@/components/ui/select";
 import { useSettings } from "@/contexts/settings";
 import type { Currency, Language } from "@/core/client/settings";
-import { useHapticInteractions, usePageMeta, useThirdweb } from "@/hooks";
+import {
+  useGeoLocale,
+  useHapticInteractions,
+  usePageMeta,
+  useThirdweb,
+} from "@/hooks";
 import {
   COUNTRY_OPTIONS,
   getCurrencyLabel,
@@ -29,26 +34,23 @@ import {
   hasStoredParams,
 } from "@/lib/url-param-preservation";
 
-// Helper function to detect browser language
-const getBrowserLanguage = (): string => {
-  const browserLang = navigator.language?.split("-")[0] || "en";
-  return (
-    LANGUAGE_OPTIONS.find((lang) => lang.code === browserLang)?.code || "en"
-  );
-};
-
-// Helper function to get initial language
-const getInitialLanguage = (): string => {
+// Choices a returning (logged-out) user already made. Empty when this is a
+// first run — geolocation then supplies the defaults (see useGeoLocale below).
+const getStoredSelections = (): { language: string; currency: string } => {
   const existingSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-  if (existingSettings) {
-    try {
-      const settings = JSON.parse(existingSettings);
-      return settings.language?.code || "en";
-    } catch {
-      return "en";
-    }
+  if (!existingSettings) return { language: "", currency: "" };
+  try {
+    const settings = JSON.parse(existingSettings);
+    return {
+      language: settings.language?.code || "",
+      // Only a consciously confirmed currency counts as the user's choice.
+      currency: settings.isCurrencyConfirmed
+        ? settings.currency?.currency || ""
+        : "",
+    };
+  } catch {
+    return { language: "", currency: "" };
   }
-  return getBrowserLanguage();
 };
 
 // Social platform icon mapping
@@ -94,18 +96,36 @@ export function LoginPage() {
   // Local currency selection for login; must be consciously selected by user
   const [currencySymbol, setCurrencySymbol] = React.useState<string>("");
 
-  // Initialize language on mount
-  React.useEffect(() => {
-    const initialLanguage = getInitialLanguage();
-    setLanguage(initialLanguage);
+  // Once the user (or their stored settings / a deep link) has set a value,
+  // geolocation must not override it.
+  const userChose = React.useRef({ currency: false, language: false });
 
-    const languageOption = LANGUAGE_OPTIONS.find(
-      (l) => l.code === initialLanguage,
-    );
-    if (languageOption) {
-      i18n.changeLanguage(languageOption.code);
+  // Initialize from stored settings on mount
+  React.useEffect(() => {
+    const stored = getStoredSelections();
+    if (stored.language) {
+      userChose.current.language = true;
+      setLanguage(stored.language);
+      i18n.changeLanguage(stored.language);
+    }
+    if (stored.currency) {
+      userChose.current.currency = true;
+      setCurrencySymbol(stored.currency);
     }
   }, [i18n]);
+
+  // Default currency and language to the user's market: local timezone/locale
+  // guess immediately, refined by Netlify edge geolocation once it answers.
+  const geo = useGeoLocale();
+  React.useEffect(() => {
+    if (!userChose.current.currency && geo.currency) {
+      setCurrencySymbol(geo.currency.currency);
+    }
+    if (!userChose.current.language) {
+      setLanguage(geo.language.code);
+      i18n.changeLanguage(geo.language.code);
+    }
+  }, [geo.currency, geo.language, i18n]);
 
   // Check for stored parameters on mount
   const [pendingAction, setPendingAction] = React.useState<{
@@ -127,11 +147,13 @@ export function LoginPage() {
         }
         // Check for verification parameters
         else if (params.sessionId && params.socialPlatform) {
+          userChose.current.language = true;
           setLanguage(params.language || "en");
           const currencyOption = COUNTRY_OPTIONS.find(
             (c) => c.currency === (params.currency || ""),
           );
           if (currencyOption) {
+            userChose.current.currency = true;
             setCurrencySymbol(currencyOption.currency);
           }
           const languageOption = LANGUAGE_OPTIONS.find(
@@ -150,12 +172,14 @@ export function LoginPage() {
   }, [i18n.changeLanguage]);
 
   const handleLanguageChange = (language: Language) => {
+    userChose.current.language = true;
     setLanguage(language.code);
     i18n.changeLanguage(language.code);
     // Note: Select component already provides haptic feedback for selection changes
   };
 
   const handleCurrencyChange = (currency: Currency) => {
+    userChose.current.currency = true;
     setCurrencySymbol(currency.currency);
     // Note: Select component already provides haptic feedback for selection changes
   };

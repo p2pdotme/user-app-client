@@ -13,6 +13,7 @@ import {
   loadFromStorageWithMigrations,
   saveStrictToStorage,
 } from "@/lib/storage-model";
+import { detectCurrency, detectLanguage } from "./locale-detection";
 
 export type SettingsError = AppError<"Settings">;
 
@@ -105,18 +106,12 @@ export function getResolvedTheme(theme: Theme): Exclude<Theme, "system"> {
  * Create default settings
  */
 export const createDefaultSettings = (): Settings => {
-  // Resolve language from browser, fallback to English
-  const browserLang =
-    typeof navigator !== "undefined" && navigator.language
-      ? navigator.language.split("-")[0]
-      : "en";
-  const languageMeta =
-    LANGUAGE_OPTIONS.find((l) => l.code === browserLang) ?? LANGUAGE_OPTIONS[0];
-
   return {
-    // Use a safe placeholder currency object; it will NOT be used until confirmed
-    currency: COUNTRY_OPTIONS[0],
-    language: languageMeta,
+    // Detected from timezone/locale (geo-IP refines it in SettingsProvider);
+    // still needs explicit confirmation before use.
+    currency: detectCurrency() ?? COUNTRY_OPTIONS[0],
+    // Browser language, then the detected market's language, then English.
+    language: detectLanguage(),
     theme: "system",
     sounds: true,
     haptics: "all",
