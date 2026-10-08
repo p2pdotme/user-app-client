@@ -2,6 +2,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type React from "react";
 import { createContext, useContext, useEffect } from "react";
 import {
+  currencyForCountry,
+  resolveLanguage,
+} from "@/core/client/locale-detection";
+import {
   type Currency,
   createDefaultSettings,
   getResolvedTheme,
@@ -18,6 +22,7 @@ import {
   updateSounds,
   updateTheme,
 } from "@/core/client/settings";
+import { geoCountryQuery } from "@/lib/geo";
 import { i18n } from "@/lib/i18n";
 import { setMomentLocale } from "@/lib/moment-locale";
 import { updatePWATheme } from "@/lib/utils";
@@ -212,6 +217,54 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
       queryClient.invalidateQueries({ queryKey: ["settings"] });
     },
   });
+
+  // Default currency and language from Netlify's edge geolocation on load. Only
+  // runs until the user explicitly picks a currency (isCurrencyConfirmed) — after
+  // that their choice always wins. Offline/dev (no /api/geo) keeps the local
+  // timezone/locale default from createDefaultSettings.
+  const currencyCode = settings.currency.currency;
+  const languageCode = settings.language.code;
+  const isCurrencyConfirmed = settings.isCurrencyConfirmed;
+  useEffect(() => {
+    if (isCurrencyConfirmed) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        // Shared query key with useGeoLocale — one edge-function hit per load.
+        const country = await queryClient.fetchQuery(geoCountryQuery);
+        if (cancelled || !country) return;
+        // Re-read instead of trusting the closure: the user may have confirmed
+        // a currency on the login page while the edge call was in flight.
+        const current = getSettings();
+        if (current.isErr() || current.value.isCurrencyConfirmed) return;
+
+        const detectedCurrency = currencyForCountry(country);
+        const detectedLanguage = resolveLanguage(country);
+        const updates: Partial<Settings> = {
+          ...(detectedCurrency && detectedCurrency.currency !== currencyCode
+            ? { currency: detectedCurrency }
+            : {}),
+          ...(detectedLanguage.code !== languageCode
+            ? { language: detectedLanguage }
+            : {}),
+        };
+        if (Object.keys(updates).length === 0) return;
+
+        const result = updateSettings(updates);
+        if (result.isErr()) return;
+        if (updates.language) {
+          i18n.changeLanguage(updates.language.code);
+          setMomentLocale(updates.language.code);
+        }
+        queryClient.invalidateQueries({ queryKey: ["settings"] });
+      } catch {
+        // network error — local detection default stands
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [isCurrencyConfirmed, currencyCode, languageCode, queryClient]);
 
   // Reapply system theme changes when theme === "system"
   useEffect(() => {
