@@ -1,4 +1,11 @@
-import { AlertTriangle, Camera, Upload, Zap, ZapOff } from "lucide-react";
+import {
+  AlertTriangle,
+  Camera,
+  RefreshCw,
+  Upload,
+  Zap,
+  ZapOff,
+} from "lucide-react";
 import QrScannerLib from "qr-scanner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,6 +14,29 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+
+/**
+ * iOS standalone PWAs intermittently leave `video.play()` pending forever
+ * (WebKit #252465); without a timeout the scanner sticks on "Starting camera...".
+ */
+const CAMERA_START_TIMEOUT_MS = 8_000;
+/**
+ * qr-scanner's stop() nulls the <video>'s srcObject on a 300ms timer. A new
+ * instance on the same <video> that attaches its stream inside that window
+ * gets it killed, so a restart must wait it out.
+ */
+const LIB_STREAM_RELEASE_DELAY_MS = 350;
+
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error("Camera start timed out")), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
 
 interface QrScannerProps {
   onScan: (data: string) => void;
@@ -35,6 +65,8 @@ export function QrScanner({
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
   const focusTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isInitializingRef = useRef(false);
+  const pendingInitRef = useRef(false);
+  const lastDestroyAtRef = useRef(0);
 
   // Use a ref to store the latest callback to avoid stale closures
   const onScanRef = useRef(onScan);
@@ -117,13 +149,26 @@ export function QrScanner({
         console.warn("Error cleaning up scanner:", error);
       }
       scannerRef.current = null;
+      lastDestroyAtRef.current = Date.now();
     }
+    // The library releases tracks on a 300ms delay; release now so the next
+    // getUserMedia() never overlaps a stream that is still being torn down.
+    const stream = videoRef.current?.srcObject;
+    if (stream instanceof MediaStream) {
+      for (const track of stream.getTracks()) track.stop();
+      if (videoRef.current) videoRef.current.srcObject = null;
+    }
+    setHasCamera(false);
   }, []);
 
   // Initialize scanner function - can be called to start or restart
   const initScanner = useCallback(async () => {
-    // Prevent multiple simultaneous initialization attempts
-    if (isInitializingRef.current) return;
+    // A start is already in flight (StrictMode remount, quick resume): run
+    // again once it settles instead of dropping the request.
+    if (isInitializingRef.current) {
+      pendingInitRef.current = true;
+      return;
+    }
 
     // If scanner already exists and is working, don't reinitialize
     if (scannerRef.current && hasCamera && !cameraError) return;
@@ -139,6 +184,12 @@ export function QrScanner({
 
       // Clean up existing scanner before reinitializing
       cleanupScanner();
+      const sinceDestroy = Date.now() - lastDestroyAtRef.current;
+      if (sinceDestroy < LIB_STREAM_RELEASE_DELAY_MS) {
+        await sleep(LIB_STREAM_RELEASE_DELAY_MS - sinceDestroy);
+      }
+      // Unmounted or backgrounded while waiting
+      if (!videoRef.current || document.hidden) return;
 
       // Reset error state
       setCameraError("");
@@ -172,7 +223,9 @@ export function QrScanner({
       scannerRef.current = scanner;
       scanner.setInversionMode("both");
 
-      await scanner.start();
+      await withTimeout(scanner.start(), CAMERA_START_TIMEOUT_MS);
+      // Torn down while starting (unmount / hidden); the pending init re-runs.
+      if (scannerRef.current !== scanner) return;
       setHasCamera(true);
       setCameraError("");
 
@@ -216,6 +269,10 @@ export function QrScanner({
       setHasCamera(false);
     } finally {
       isInitializingRef.current = false;
+      if (pendingInitRef.current) {
+        pendingInitRef.current = false;
+        void initScanner();
+      }
     }
   }, [handleScanResult, cleanupScanner, t, cameraError, hasCamera]);
 
@@ -241,6 +298,12 @@ export function QrScanner({
   // This handles cases where push notifications or app switching interrupts the camera
   useEffect(() => {
     const handleVisibilityChange = () => {
+      // The library also restarts itself on visibilitychange; destroying it on
+      // hide removes that listener so only one getUserMedia() runs on resume.
+      if (document.visibilityState === "hidden") {
+        cleanupScanner();
+        return;
+      }
       if (document.visibilityState === "visible") {
         // Check if camera was working and now has an error, or if video track ended
         const videoEl = videoRef.current;
@@ -295,7 +358,7 @@ export function QrScanner({
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleFocus);
     };
-  }, [cameraError, initScanner]);
+  }, [cameraError, initScanner, cleanupScanner]);
 
   return (
     <div className={cn("flex flex-col items-center gap-4", className)}>
@@ -337,6 +400,12 @@ export function QrScanner({
                 {cameraError || "Starting camera..."}
               </p>
             </div>
+            {cameraError && (
+              <Button variant="outline" size="sm" onClick={() => initScanner()}>
+                <RefreshCw className="h-4 w-4" />
+                {t("RETRY")}
+              </Button>
+            )}
           </div>
         )}
 
