@@ -304,7 +304,7 @@ export function Buy() {
           />
 
           {feeConfig && (
-            <div>
+            <div className="w-full">
               <FlatFeeAlert
                 amount={Number(amount.crypto)}
                 show={showFlatFeeAlert}

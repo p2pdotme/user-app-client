@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTaskLedger } from "@/hooks";
+import { cn } from "@/lib/utils";
 
 // Task type mapping for display - inspired by CompletedCard logic
 const getTaskTitle = (
@@ -37,21 +38,19 @@ export function TaskLedger() {
   const { taskLedger, isTaskLedgerLoading, isTaskLedgerError } =
     useTaskLedger();
 
-  console.log(taskLedger);
-
   if (isTaskLedgerLoading) {
     return (
-      <Card className="w-full border-none shadow-none">
-        <CardHeader>
-          <CardTitle className="text-center font-medium text-lg">
+      <Card className="w-full gap-3 border-none bg-transparent py-0 shadow-none">
+        <CardHeader className="p-0">
+          <CardTitle className="text-left font-medium text-lg">
             {t("LIMIT_UPDATES")}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-3 p-0">
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="my-2.5 flex flex-row items-center gap-3 rounded-lg border-[1px] border-stroke-grey bg-white p-4">
+              className="flex flex-row items-center gap-3 rounded-2xl border border-border bg-card p-4">
               <div className="flex flex-1 flex-row items-center justify-between">
                 <div className="flex w-[100%] flex-col gap-1">
                   <Skeleton className="h-4 w-48" />
@@ -71,7 +70,7 @@ export function TaskLedger() {
 
   if (isTaskLedgerError) {
     return (
-      <Card className="w-full border-none bg-transparent shadow-none">
+      <Card className="w-full gap-3 border-none bg-transparent py-0 shadow-none">
         <CardHeader className="p-0">
           <CardTitle className="text-left font-medium text-lg">
             {t("LIMIT_UPDATES")}
@@ -88,7 +87,7 @@ export function TaskLedger() {
 
   if (!taskLedger || taskLedger.length === 0) {
     return (
-      <Card className="w-full border-none bg-transparent shadow-none">
+      <Card className="w-full gap-3 border-none bg-transparent py-0 shadow-none">
         <CardHeader className="p-0">
           <CardTitle className="text-left font-medium text-lg">
             {t("LIMIT_UPDATES")}
@@ -104,7 +103,7 @@ export function TaskLedger() {
   }
 
   return (
-    <Card className="w-full border-none bg-transparent shadow-none">
+    <Card className="w-full gap-3 border-none bg-transparent py-0 shadow-none">
       <CardHeader className="p-0">
         <CardTitle className="text-left font-medium text-lg">
           {t("LIMIT_UPDATES")}
@@ -115,27 +114,32 @@ export function TaskLedger() {
           const date = new Date(task.timestamp * 1000).toLocaleDateString();
           const time = new Date(task.timestamp * 1000).toLocaleTimeString();
           const taskTitle = getTaskTitle(task.taskType, task.rp, t);
-          const rpDisplay = `RP ${task.rp >= 0 ? "+" : ""}${task.rp}`;
+          const isPositive = task.rp >= 0;
+          const rpAmount = `${isPositive ? "+" : ""}${task.rp}`;
 
           return (
             <div
               key={task.id}
-              className="flex flex-row items-center gap-3 rounded-lg border-[1px] border-stroke-grey bg-transparent p-4 placeholder-yellow-300">
-              <div className="flex flex-1 flex-row items-center justify-between">
-                <div className="flex w-[100%] flex-col gap-1 overflow-auto">
-                  <span className="text-left font-satoshiBold text-sm capitalize leading-4">
-                    {taskTitle}
-                  </span>
-                  <span className="text-left font-satoshiMedium text-[12px] tracking-wider">
-                    {`${time.toString()} `}
-                    {date.toString()}
-                  </span>
-                </div>
-                <div className="flex flex-row items-center gap-1">
-                  <span className="mr-0.5 font-black font-satoshiBlack text-[16px]">
-                    {rpDisplay}
-                  </span>
-                </div>
+              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <p className="truncate font-bold text-foreground text-sm capitalize leading-[19px]">
+                  {taskTitle}
+                </p>
+                <p className="font-medium text-muted-foreground text-xs tabular-nums leading-4">
+                  {`${time} ${date}`}
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-col items-end gap-0.5">
+                <p className="font-semibold text-[11px] text-muted-foreground leading-none tracking-wider">
+                  RP
+                </p>
+                <p
+                  className={cn(
+                    "font-bold text-base tabular-nums leading-[22px]",
+                    isPositive ? "text-primary" : "text-red-500",
+                  )}>
+                  {rpAmount}
+                </p>
               </div>
             </div>
           );

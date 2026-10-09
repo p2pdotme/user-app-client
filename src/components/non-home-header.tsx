@@ -6,6 +6,8 @@ import { safeNavigateBack } from "@/lib/utils";
 
 interface NonHomeHeaderProps {
   title: string;
+  /** Optional muted line rendered under the title. */
+  subtitle?: string;
   showHelp?: boolean;
   onHelpClick?: () => void;
   onBack?: () => void;
@@ -13,6 +15,7 @@ interface NonHomeHeaderProps {
 
 export function NonHomeHeader({
   title,
+  subtitle,
   showHelp = true,
   onHelpClick,
   onBack,
@@ -39,7 +42,16 @@ export function NonHomeHeader({
             aria-label="Go back">
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <p className="truncate font-medium text-lg">{title}</p>
+          <div className="flex min-w-0 flex-1 flex-col">
+            <p className="truncate font-medium text-lg leading-tight">
+              {title}
+            </p>
+            {subtitle && (
+              <p className="truncate text-muted-foreground text-sm">
+                {subtitle}
+              </p>
+            )}
+          </div>
         </div>
         {showHelp ? (
           <Button
