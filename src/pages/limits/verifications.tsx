@@ -19,7 +19,6 @@ import {
   Clock4,
   Loader2,
   ScanFace,
-  ShieldCheck,
   SmilePlus,
 } from "lucide-react";
 import type React from "react";
@@ -62,6 +61,7 @@ import {
 } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
+  INTERNAL_HREFS,
   IS_BVN_ENABLED,
   KYC_COUNTRY_BY_CURRENCY,
   LIVENESS_BASE_URL,
@@ -78,6 +78,7 @@ import {
   getStoredParams,
 } from "@/lib/url-param-preservation";
 import { getScreenType, isAndroid, isIOS } from "@/lib/utils";
+import { PrivacyBanner } from "./privacy-banner";
 
 export enum StateStatusEnum {
   IDLE = "IDLE",
@@ -239,19 +240,10 @@ export function Verifications() {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="flex items-center gap-3 rounded-2xl bg-primary/5 p-4">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-          <ShieldCheck className="size-[18px] text-primary" />
-        </div>
-        <div className="flex min-w-0 flex-col">
-          <p className="font-semibold text-foreground text-sm leading-5">
-            {t("VERIFICATIONS_PRIVATE_TITLE")}
-          </p>
-          <p className="text-[13px] text-muted-foreground leading-[18px]">
-            {t("VERIFICATIONS_PRIVATE_DESCRIPTION")}
-          </p>
-        </div>
-      </div>
+      <PrivacyBanner
+        title={t("VERIFICATIONS_PRIVATE_TITLE")}
+        description={t("VERIFICATIONS_PRIVATE_DESCRIPTION")}
+      />
       {SOCIALS.filter((social) => {
         // Binance verification is not offered when the selected country is India
         if (
@@ -574,7 +566,7 @@ function VerificationItem({
         ...reclaimConfig,
         platform,
         walletAddress: account.address as `0x${string}`,
-        redirectUrl: `${window.location.origin}/limits`,
+        redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_ZK_KYC}`,
         sessionId: existingSessionId,
         locale: toReclaimLocale(i18n.language),
         onStatus: (status: ReclaimStatus) => {
@@ -633,7 +625,7 @@ function VerificationItem({
         ...reclaimConfig,
         platform: name.toLowerCase() as SocialPlatform,
         walletAddress: account.address as `0x${string}`,
-        redirectUrl: `${window.location.origin}/limits`,
+        redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_ZK_KYC}`,
         locale: toReclaimLocale(i18n.language),
         onStatus: (status: ReclaimStatus) => {
           if (status.type === "session_created") {
@@ -980,7 +972,8 @@ function VerificationItem({
  * own tenant registry and its own `LivenessVerifier` EIP-712 domain, redeemed
  * into `submitLivenessAttestation` rather than `submitKycAttestation`. Both
  * wizards return to `/limits`, so the `state` prefix is what tells the two
- * handlers apart — this one only claims `state=liveness-…`.
+ * handlers apart — this one only claims `state=liveness-…`. The wizard now
+ * returns to /limits/liveness; /limits still forwards older callbacks here.
  *
  * Uniqueness is the liveness service's 1:N face dedup plus the on-chain
  * nullifier, so the RP lands once per human, not once per wallet. Holding a KYC
@@ -1062,7 +1055,7 @@ export function LivenessVerificationCard() {
       baseUrl: LIVENESS_BASE_URL,
       walletAddress: account.address as `0x${string}`,
       tenant: LIVENESS_TENANT,
-      redirectUrl: `${window.location.origin}/limits`,
+      redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_LIVENESS}`,
       state: `liveness-${Math.random().toString(36).slice(2)}`,
     });
     if (session.isErr()) {
@@ -1192,7 +1185,7 @@ export function KycVerificationCard() {
       baseUrl: SIMPLE_KYC_BASE_URL,
       walletAddress: account.address as `0x${string}`,
       tenant: SIMPLE_KYC_TENANT,
-      redirectUrl: `${window.location.origin}/limits`,
+      redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_PASSPORT}`,
       country: kycCountry,
       state: `kyc-${Math.random().toString(36).slice(2)}`,
     });

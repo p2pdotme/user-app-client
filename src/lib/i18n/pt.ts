@@ -1058,6 +1058,8 @@ export const pt = {
       "Prove que você é uma pessoa real para desbloquear limites",
     LIMITS_PASSPORT_SUBTITLE:
       "Verifique sua identidade para desbloquear limites",
+    LIMITS_PRIVATE_DESCRIPTION: "Nunca vemos nem armazenamos seus dados.",
+    LIMITS_PRIVATE_TITLE: "Sua verificação é privada",
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "Esta verificação ainda não está disponível para a moeda selecionada.",
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Não disponível na sua região",
@@ -1133,7 +1135,7 @@ export const pt = {
     METHOD_BADGE_NEEDS_PATIENCE: "Requer Paciência",
     METHOD_BADGE_QUICK: "Rápido",
     METHOD_LIVENESS_DESCRIPTION:
-      "A mais rápida — uma verificação facial, sem documentos, para aumentar seus limites.",
+      "Uma verificação facial rápida, sem documentos, para aumentar seus limites.",
     METHOD_LIVENESS_TITLE: "Prova de vida",
     METHOD_PASSPORT_DESCRIPTION:
       "Escaneie seu passaporte e tire uma selfie rápida para desbloquear limites.",

@@ -1036,6 +1036,8 @@ export const en = {
     LIMIT: "Limit",
     LIMITS_LIVENESS_SUBTITLE: "Prove you are a real person to unlock limits",
     LIMITS_PASSPORT_SUBTITLE: "Verify your identity to unlock limits",
+    LIMITS_PRIVATE_DESCRIPTION: "We never see or store your data.",
+    LIMITS_PRIVATE_TITLE: "Your verification is private",
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "This verification isn't offered for your selected currency yet.",
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Not available in your region",
@@ -1109,7 +1111,7 @@ export const en = {
     METHOD_BADGE_NEEDS_PATIENCE: "Needs Patience",
     METHOD_BADGE_QUICK: "Quick",
     METHOD_LIVENESS_DESCRIPTION:
-      "Fastest — a quick face check with no documents to raise your limits.",
+      "A quick face check with no documents to raise your limits.",
     METHOD_LIVENESS_TITLE: "Liveness check",
     METHOD_PASSPORT_DESCRIPTION:
       "Scan your passport and take a quick selfie to unlock limits.",

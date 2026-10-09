@@ -4,6 +4,7 @@ import { NonHomeHeader } from "@/components";
 import { useSettings } from "@/contexts";
 import { usePageMeta } from "@/hooks";
 import { INTERNAL_HREFS, KYC_COUNTRY_BY_CURRENCY } from "@/lib/constants";
+import { PrivacyBanner } from "./privacy-banner";
 import { KycVerificationCard } from "./verifications";
 
 /** Passport KYC tier: `/limits/passport`. */
@@ -23,6 +24,10 @@ export function LimitsPassport() {
         onBack={() => navigate(INTERNAL_HREFS.LIMITS)}
       />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto pt-6 pb-4">
+        <PrivacyBanner
+          title={t("LIMITS_PRIVATE_TITLE")}
+          description={t("LIMITS_PRIVATE_DESCRIPTION")}
+        />
         {isKycAvailable ? (
           <KycVerificationCard />
         ) : (

@@ -1052,6 +1052,9 @@ export const id = {
     LIMITS_LIVENESS_SUBTITLE:
       "Buktikan Anda orang sungguhan untuk membuka limit",
     LIMITS_PASSPORT_SUBTITLE: "Verifikasi identitas Anda untuk membuka limit",
+    LIMITS_PRIVATE_DESCRIPTION:
+      "Kami tidak pernah melihat atau menyimpan data Anda.",
+    LIMITS_PRIVATE_TITLE: "Verifikasi Anda bersifat privat",
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "Verifikasi ini belum tersedia untuk mata uang yang Anda pilih.",
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Tidak tersedia di wilayah Anda",
@@ -1126,7 +1129,7 @@ export const id = {
     METHOD_BADGE_NEEDS_PATIENCE: "Perlu Kesabaran",
     METHOD_BADGE_QUICK: "Cepat",
     METHOD_LIVENESS_DESCRIPTION:
-      "Tercepat — pemeriksaan wajah singkat tanpa dokumen untuk menaikkan limit.",
+      "Pemeriksaan wajah singkat tanpa dokumen untuk menaikkan limit.",
     METHOD_LIVENESS_TITLE: "Pemeriksaan liveness",
     METHOD_PASSPORT_DESCRIPTION:
       "Pindai paspor Anda dan ambil swafoto singkat untuk membuka limit.",

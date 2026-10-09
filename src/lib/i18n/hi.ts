@@ -1003,6 +1003,8 @@ export const hi = {
     LIMITS_LIVENESS_SUBTITLE:
       "लिमिट अनलॉक करने के लिए साबित करें कि आप असली व्यक्ति हैं",
     LIMITS_PASSPORT_SUBTITLE: "लिमिट अनलॉक करने के लिए अपनी पहचान वेरिफ़ाई करें",
+    LIMITS_PRIVATE_DESCRIPTION: "हम आपका डेटा कभी नहीं देखते या स्टोर नहीं करते।",
+    LIMITS_PRIVATE_TITLE: "आपका वेरिफ़िकेशन प्राइवेट है",
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "यह वेरिफ़िकेशन अभी आपकी चुनी हुई करेंसी के लिए उपलब्ध नहीं है।",
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "आपके क्षेत्र में उपलब्ध नहीं",
@@ -1076,7 +1078,7 @@ export const hi = {
     METHOD_BADGE_NEEDS_PATIENCE: "धैर्य चाहिए",
     METHOD_BADGE_QUICK: "तेज़",
     METHOD_LIVENESS_DESCRIPTION:
-      "सबसे तेज़ — लिमिट बढ़ाने के लिए एक छोटा फ़ेस चेक, कोई दस्तावेज़ नहीं।",
+      "लिमिट बढ़ाने के लिए एक छोटा फ़ेस चेक, कोई दस्तावेज़ नहीं।",
     METHOD_LIVENESS_TITLE: "लाइवनेस चेक",
     METHOD_PASSPORT_DESCRIPTION:
       "लिमिट अनलॉक करने के लिए अपना पासपोर्ट स्कैन करें और एक क्विक सेल्फ़ी लें।",
