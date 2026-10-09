@@ -353,7 +353,7 @@ export function Sell() {
             isPriceError={isPriceConfigError}
           />
 
-          <div>
+          <div className="w-full">
             <FlatfeeAlert
               amount={Number(amount.crypto)}
               show={showFlatFeeAlert}

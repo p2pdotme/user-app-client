@@ -961,10 +961,7 @@ export const pt = {
       "Incluir transações baseado no status de disputa",
     INCOMPATIBLE_WALLET: "Carteira incompatível",
     INCORRECT_ORDER_TYPE: "Tipo de pedido incorreto",
-    INCREASE_LIMIT: "Aumentar Limite",
     INCREASE_LIMITS: "Aumentar Limites",
-    INCREASE_LIMITS_DESCRIPTION:
-      "Aumente seus limites de transação verificando seus perfis sociais via ZK.",
     INCREASE_LIMITS_SUBTITLE: "Verifique para aumentar seus limites",
     INCREASE_LIMITS_TO_START_EARNING:
       "Aumente os limites para <0>$150</0> para começar a ganhar",
@@ -1065,6 +1062,7 @@ export const pt = {
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Não disponível na sua região",
     LIMITS_ZK_KYC_SUBTITLE: "Verifique suas redes sociais com privacidade",
     LIMIT_CARD_MAX_USDC: "Máx {{amount}} USDC",
+    LIMIT_PER_ORDER: "{{limit}} USDC / Ordem",
     LIMIT_UPDATES: "Atualizações de Limite",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn apenas suporta atualizações de RP",
@@ -2227,6 +2225,7 @@ export const pt = {
       "Verifique ZK qualquer conta social para reivindicar sua recompensa.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifique pelo menos uma conta social para aumentar seus limites e continuar aumentando seus limites à medida que você completa transações.",
+    VERIFY_TO_RAISE: "Verifique para aumentar",
     VERIFY_ZK_PROOF: "Verificar prova zk",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "Tour do App",
@@ -2378,7 +2377,6 @@ export const pt = {
       "Seus detalhes de pagamento serão enviados em breve. Por favor, não saia desta página.",
     YOUR_PAYMENT_IS_BEING_VERIFIED_ONCE_COMPLETE_YOUR_USDC_WILL_BE_SENT_TO_THE_PROVIDED_ADDRESS:
       "Seu pagamento está sendo verificado. Uma vez concluído, seu USDC será enviado para o endereço fornecido.",
-    YOUR_TRANSACTION_LIMIT: "Limite de Transação",
     YOUVE_BEEN_INVITED: "Você foi convidado!",
     YOUVE_BEEN_REFERRED_BY_TRUSTED_USER:
       "Você foi indicado por um usuário confiável",

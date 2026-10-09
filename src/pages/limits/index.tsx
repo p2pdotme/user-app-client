@@ -59,7 +59,7 @@ function LimitCard({
   const clampedProgress = Math.max(0, Math.min(100, progress));
 
   return (
-    <div className="relative flex flex-1 flex-col gap-3 overflow-hidden rounded-2xl border border-border bg-card p-4">
+    <div className="relative flex flex-1 flex-col gap-3 overflow-hidden rounded-2xl bg-primary/5 p-4">
       <p className="font-semibold text-[11px] text-muted-foreground uppercase leading-none tracking-[1px]">
         {label}
       </p>

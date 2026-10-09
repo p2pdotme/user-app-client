@@ -944,10 +944,7 @@ export const en = {
       "Include transactions based on dispute status",
     INCOMPATIBLE_WALLET: "Incompatible wallet",
     INCORRECT_ORDER_TYPE: "Incorrect order type",
-    INCREASE_LIMIT: "Increase Limit",
     INCREASE_LIMITS: "Increase Limits",
-    INCREASE_LIMITS_DESCRIPTION:
-      "Increase your transaction limits by ZK-verifying your socials.",
     INCREASE_LIMITS_SUBTITLE: "Verify to raise your limits",
     INCREASE_LIMITS_TO_START_EARNING:
       "Increase limits to <0>$150</0> to start earning",
@@ -1043,6 +1040,7 @@ export const en = {
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Not available in your region",
     LIMITS_ZK_KYC_SUBTITLE: "Verify your socials privately",
     LIMIT_CARD_MAX_USDC: "Max {{amount}} USDC",
+    LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Limit Updates",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn only supports RP updates",
     LIQUIDITY: "Liquidity",
@@ -2166,6 +2164,7 @@ export const en = {
       "ZK Verify any social account to claim your reward.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verify at least one social account to grow your limits and keep increasing limits as you complete transactions.",
+    VERIFY_TO_RAISE: "Verify to raise",
     VERIFY_ZK_PROOF: "Verify zk proof",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "App Tour",
@@ -2316,7 +2315,6 @@ export const en = {
       "Your payment details will be sent shortly. Please don't leave this page.",
     YOUR_PAYMENT_IS_BEING_VERIFIED_ONCE_COMPLETE_YOUR_USDC_WILL_BE_SENT_TO_THE_PROVIDED_ADDRESS:
       "Your payment is being verified. Once complete, your USDC will be sent to the provided address.",
-    YOUR_TRANSACTION_LIMIT: "Your Transaction Limit",
     YOUVE_BEEN_INVITED: "You've been invited!",
     YOUVE_BEEN_REFERRED_BY_TRUSTED_USER:
       "You've been referred by a trusted user",

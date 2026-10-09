@@ -911,10 +911,7 @@ export const hi = {
       "विवाद स्थिति के आधार पर लेनदेन शामिल करें",
     INCOMPATIBLE_WALLET: "असंगत वॉलेट",
     INCORRECT_ORDER_TYPE: "गलत ऑर्डर प्रकार",
-    INCREASE_LIMIT: "लिमिट बढ़ाएं",
     INCREASE_LIMITS: "लिमिट बढ़ाएं",
-    INCREASE_LIMITS_DESCRIPTION:
-      "अपने सोशल मीडिया अकाउंट्स को ZK-सत्यापित करके अपनी लेन-देन सीमाएं बढ़ाएं।",
     INCREASE_LIMITS_SUBTITLE: "अपनी लिमिट बढ़ाने के लिए वेरिफ़ाई करें",
     INCREASE_LIMITS_TO_START_EARNING:
       "कमाना शुरू करने के लिए लिमिट को <0>$150</0> तक बढ़ाएं",
@@ -1010,6 +1007,7 @@ export const hi = {
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "आपके क्षेत्र में उपलब्ध नहीं",
     LIMITS_ZK_KYC_SUBTITLE: "अपने सोशल्स को प्राइवेट तरीके से वेरिफ़ाई करें",
     LIMIT_CARD_MAX_USDC: "अधिकतम {{amount}} USDC",
+    LIMIT_PER_ORDER: "{{limit}} USDC / ऑर्डर",
     LIMIT_UPDATES: "सीमा अपडेट",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn केवल RP अद्यतन समर्थित है",
     LIQUIDITY: "लिक्विडिटी",
@@ -2119,6 +2117,7 @@ export const hi = {
       "अपना पुरस्कार प्राप्त करने के लिए किसी भी सोशल अकाउंट को ZK सत्यापित करें।",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "अपनी सीमाएं बढ़ाने और लेनदेन पूरा करते ही सीमाओं को बढ़ाते रहने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें।",
+    VERIFY_TO_RAISE: "बढ़ाने के लिए वेरिफ़ाई करें",
     VERIFY_ZK_PROOF: "zk प्रमाण सत्यापित करें",
     VIA_JUPITER: "Jupiter के माध्यम से",
     VIDEO_APP_TOUR: "ऐप टूर",
@@ -2267,7 +2266,6 @@ export const hi = {
       "आपका भुगतान विवरण जल्द ही भेजा जाएगा। कृपया इस पृष्ठ को न छोड़ें।",
     YOUR_PAYMENT_IS_BEING_VERIFIED_ONCE_COMPLETE_YOUR_USDC_WILL_BE_SENT_TO_THE_PROVIDED_ADDRESS:
       "आपके भुगतान का सत्यापन किया जा रहा है। पूरा होने पर, आपका USDC दिए गए पते पर भेज दिया जाएगा।",
-    YOUR_TRANSACTION_LIMIT: "आपकी ट्रांजैक्शन लिमिट",
     YOUVE_BEEN_INVITED: "आपको आमंत्रित किया गया है!",
     YOUVE_BEEN_REFERRED_BY_TRUSTED_USER:
       "आपको एक विश्वसनीय उपयोगकर्ता द्वारा रेफर किया गया है",

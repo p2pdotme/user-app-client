@@ -958,10 +958,7 @@ export const id = {
       "Sertakan transaksi berdasarkan status sengketa",
     INCOMPATIBLE_WALLET: "Dompet tidak kompatibel",
     INCORRECT_ORDER_TYPE: "Jenis pesanan salah",
-    INCREASE_LIMIT: "Tingkatkan Limit",
     INCREASE_LIMITS: "Tingkatkan Limits",
-    INCREASE_LIMITS_DESCRIPTION:
-      "Tingkatkan batas transaksi Anda dengan memverifikasi media sosial melalui ZK.",
     INCREASE_LIMITS_SUBTITLE: "Verifikasi untuk menaikkan limit Anda",
     INCREASE_LIMITS_TO_START_EARNING:
       "Tingkatkan limit hingga <0>$150</0> untuk mulai menghasilkan",
@@ -1060,6 +1057,7 @@ export const id = {
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Tidak tersedia di wilayah Anda",
     LIMITS_ZK_KYC_SUBTITLE: "Verifikasi sosial Anda secara privat",
     LIMIT_CARD_MAX_USDC: "Maks {{amount}} USDC",
+    LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Pembaruan Batas",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn hanya mendukung pembaruan RP",
     LIQUIDITY: "Likuiditas",
@@ -2204,6 +2202,7 @@ export const id = {
       "Verifikasi ZK akun sosial mana saja untuk mengklaim hadiah Anda.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
+    VERIFY_TO_RAISE: "Verifikasi untuk menaikkan",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "Tur Aplikasi",
@@ -2353,7 +2352,6 @@ export const id = {
       "Detail pembayaran Anda akan dikirim segera. Jangan meninggalkan halaman ini.",
     YOUR_PAYMENT_IS_BEING_VERIFIED_ONCE_COMPLETE_YOUR_USDC_WILL_BE_SENT_TO_THE_PROVIDED_ADDRESS:
       "Pembayaran Anda sedang diverifikasi. Setelah selesai, USDC Anda akan dikirim ke alamat yang disediakan.",
-    YOUR_TRANSACTION_LIMIT: "Limit Transaksi Anda",
     YOUVE_BEEN_INVITED: "Anda telah diundang!",
     YOUVE_BEEN_REFERRED_BY_TRUSTED_USER:
       "Anda telah direferensikan oleh pengguna terpercaya",
