@@ -26,6 +26,21 @@ const Limits = lazy(() =>
     default: module.Limits,
   })),
 );
+const LimitsPassport = lazy(() =>
+  import("@/pages/limits/passport").then((module) => ({
+    default: module.LimitsPassport,
+  })),
+);
+const LimitsLiveness = lazy(() =>
+  import("@/pages/limits/liveness").then((module) => ({
+    default: module.LimitsLiveness,
+  })),
+);
+const LimitsZkKyc = lazy(() =>
+  import("@/pages/limits/zk-kyc").then((module) => ({
+    default: module.LimitsZkKyc,
+  })),
+);
 const OneClick = lazy(() =>
   import("@/pages/near-intent").then((module) => ({
     default: module.OneClick,
@@ -212,6 +227,15 @@ export function Router() {
         <Route path={INTERNAL_HREFS.REFERRAL} element={<Referral />} />
         <Route path={INTERNAL_HREFS.TRANSACTIONS} element={<Transactions />} />
         <Route path={INTERNAL_HREFS.LIMITS} element={<Limits />} />
+        <Route
+          path={INTERNAL_HREFS.LIMITS_PASSPORT}
+          element={<LimitsPassport />}
+        />
+        <Route
+          path={INTERNAL_HREFS.LIMITS_LIVENESS}
+          element={<LimitsLiveness />}
+        />
+        <Route path={INTERNAL_HREFS.LIMITS_ZK_KYC} element={<LimitsZkKyc />} />
         <Route path={INTERNAL_HREFS.BRIDGE} element={<OneClick />} />
 
         <Route path={INTERNAL_HREFS.BUY} element={<Buy />} />
