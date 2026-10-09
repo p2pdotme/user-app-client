@@ -958,13 +958,13 @@ export const id = {
       "Sertakan transaksi berdasarkan status sengketa",
     INCOMPATIBLE_WALLET: "Dompet tidak kompatibel",
     INCORRECT_ORDER_TYPE: "Jenis pesanan salah",
-    INCREASE_LIMIT: "Tingkatkan Limit",
     INCREASE_LIMITS: "Tingkatkan Limits",
-    INCREASE_LIMITS_DESCRIPTION:
-      "Tingkatkan batas transaksi Anda dengan memverifikasi media sosial melalui ZK.",
+    INCREASE_LIMITS_SUBTITLE: "Verifikasi untuk menaikkan limit Anda",
     INCREASE_LIMITS_TO_START_EARNING:
       "Tingkatkan limit hingga <0>$150</0> untuk mulai menghasilkan",
-    INCREASE_LIMIT_HEADING: "Buka Limit Lebih Tinggi dengan Stake & ZK Verify",
+    INCREASE_LIMITS_WAYS_DESCRIPTION:
+      "Pilih metode apa pun di bawah. Setiap verifikasi yang Anda selesaikan menaikkan limit Anda.",
+    INCREASE_LIMITS_WAYS_TITLE: "Buka limit transaksi lebih tinggi",
     INCREASE_TRANSACTION_LIMITS: "Tingkatkan Batas Transaksi",
     INCREASE_YOUR_LIMITS: "Tingkatkan limit Anda",
     INITIALIZING: "Menginisialisasi...",
@@ -1046,6 +1046,18 @@ export const id = {
     LIB_DIAMOND_MUST_BE_CONTRACT_OWNER: "Harus menjadi pemilik kontrak",
     LIGHTNING_FAST: "Secepat Kilat",
     LIMIT: "Limit",
+    LIMITS_LIVENESS_SUBTITLE:
+      "Buktikan Anda orang sungguhan untuk membuka limit",
+    LIMITS_PASSPORT_SUBTITLE: "Verifikasi identitas Anda untuk membuka limit",
+    LIMITS_PRIVATE_DESCRIPTION:
+      "Kami tidak pernah melihat atau menyimpan data Anda.",
+    LIMITS_PRIVATE_TITLE: "Verifikasi Anda bersifat privat",
+    LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
+      "Verifikasi ini belum tersedia untuk mata uang yang Anda pilih.",
+    LIMITS_UNAVAILABLE_IN_REGION_TITLE: "Tidak tersedia di wilayah Anda",
+    LIMITS_ZK_KYC_SUBTITLE: "Verifikasi sosial Anda secara privat",
+    LIMIT_CARD_MAX_USDC: "Maks {{amount}} USDC",
+    LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Pembaruan Batas",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn hanya mendukung pembaruan RP",
     LIQUIDITY: "Likuiditas",
@@ -1110,6 +1122,21 @@ export const id = {
       "Merchant belum memenuhi ambang batas kelayakan",
     MERCHANT_PAID: "Merchant telah membayar",
     MERCHANT_PLACEHOLDER: "merchantxyz@p2p.me",
+    METHOD_BADGE_FASTEST: "Tercepat",
+    METHOD_BADGE_INSTANT: "Instan",
+    METHOD_BADGE_NEEDS_PATIENCE: "Perlu Kesabaran",
+    METHOD_BADGE_QUICK: "Cepat",
+    METHOD_LIVENESS_DESCRIPTION:
+      "Pemeriksaan wajah singkat tanpa dokumen untuk menaikkan limit.",
+    METHOD_LIVENESS_TITLE: "Pemeriksaan liveness",
+    METHOD_PASSPORT_DESCRIPTION:
+      "Pindai paspor Anda dan ambil swafoto singkat untuk membuka limit.",
+    METHOD_PASSPORT_TITLE: "KYC Paspor",
+    METHOD_STAKE_DESCRIPTION: "Stake $P2P untuk langsung menaikkan limit Anda.",
+    METHOD_STAKE_TITLE: "Stake $P2P",
+    METHOD_ZK_KYC_DESCRIPTION:
+      "Verifikasi sosial Anda dengan bukti zero-knowledge untuk menaikkan limit.",
+    METHOD_ZK_KYC_TITLE: "ZK KYC oleh Reclaim",
     MIGRATING_ACCOUNT: "Memigrasikan akun",
     MIGRATION_ALREADY_REQUESTED: "Migrasi sudah diminta",
     MIGRATION_COMPLETED_SUCCESSFULLY: "Migrasi berhasil diselesaikan",
@@ -1956,8 +1983,6 @@ export const id = {
     SW_INSTALLING_UPDATE: "Memasang pembaruan",
     SW_MAY_TAKE_UP_TO: "Ini mungkin memakan waktu hingga 2 menit.",
     SW_PLEASE_WAIT: "Mohon tunggu dengan sabar.",
-    TAG_NEEDS_PATIENCE: "Butuh Kesabaran",
-    TAG_QUICKEST: "Tercepat",
     TAG_RELIABLE: "Andal",
     TAP_TO_CUSTOMIZE: "Ketuk untuk menyesuaikan",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Ketuk untuk menyesuaikan rentang tanggal",
@@ -2149,6 +2174,9 @@ export const id = {
     VEN_QR_UPLOAD_TITLE: "Unggah QR Pago Móvil Anda",
     VEN_QR_VIEW: "Lihat QR",
     VEN_USE_QR_INSTEAD: "Gunakan QR Pago Móvil",
+    VERIFICATIONS_PRIVATE_DESCRIPTION:
+      "Didukung oleh Reclaim Protocol · Kami tidak pernah melihat kredensial Anda.",
+    VERIFICATIONS_PRIVATE_TITLE: "Verifikasi bersifat privat (zero-knowledge)",
     VERIFICATION_CANCELLED: "Verifikasi dibatalkan",
     VERIFICATION_DURATION_INFO:
       "Verifikasi ini memakan waktu sekitar 3-5 menit secara total.",
@@ -2166,13 +2194,15 @@ export const id = {
     VERIFYING: "Memverifikasi...",
     VERIFYING_YOUR_PAYMENT: "Memverifikasi pembayaran Anda",
     VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT: "Verifikasi setidaknya satu akun sosial",
-    VERIFY_SECURELY: "Verifikasi dengan aman",
+    VERIFY_ROW_UNLOCKS_AMOUNT: "Membuka +{{amount}} USDC",
+    VERIFY_ROW_USDC_FOR_ALL: "per transaksi",
     VERIFY_SECURELY_DESCRIPTION:
-      "Semua tugas di P2P.me menggunakan verifikasi Zk, menjaga data Anda tetap privat selamanya sambil meningkatkan limit Anda.",
+      "Setiap verifikasi di P2P.me bersifat zero-knowledge. Data Anda tetap privat sementara limit Anda naik.",
     VERIFY_SOCIALS_TO_UNLOCK:
       "Verifikasi ZK akun sosial mana saja untuk mengklaim hadiah Anda.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifikasi setidaknya satu akun sosial untuk meningkatkan batas transaksi Anda dan terus meningkatkan batas transaksi Anda saat Anda melakukan transaksi.",
+    VERIFY_TO_RAISE: "Verifikasi untuk menaikkan",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "Tur Aplikasi",
@@ -2322,7 +2352,6 @@ export const id = {
       "Detail pembayaran Anda akan dikirim segera. Jangan meninggalkan halaman ini.",
     YOUR_PAYMENT_IS_BEING_VERIFIED_ONCE_COMPLETE_YOUR_USDC_WILL_BE_SENT_TO_THE_PROVIDED_ADDRESS:
       "Pembayaran Anda sedang diverifikasi. Setelah selesai, USDC Anda akan dikirim ke alamat yang disediakan.",
-    YOUR_TRANSACTION_LIMIT: "Limit Transaksi Anda",
     YOUVE_BEEN_INVITED: "Anda telah diundang!",
     YOUVE_BEEN_REFERRED_BY_TRUSTED_USER:
       "Anda telah direferensikan oleh pengguna terpercaya",
@@ -2340,6 +2369,7 @@ export const id = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "Anda telah menerima undangan khusus! Verifikasi akun sosial Anda untuk mendapatkan bonus reward.",
     ZERO_ADDRESS: "Alamat nol",
+    ZK_PRIVACY_BANNER_TITLE: "Privat sejak awal",
     ZK_VERIFICATION_REQUIRED: "Verifikasi ZK diperlukan",
   },
 };
