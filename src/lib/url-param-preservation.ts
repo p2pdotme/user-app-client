@@ -88,7 +88,7 @@ export function restoreUrlParams(): string | null {
 
     // Verification (needs sessionId and socialPlatform)
     if (params.sessionId && params.socialPlatform) {
-      const url = new URL("/limits", window.location.origin);
+      const url = new URL(INTERNAL_HREFS.LIMITS_ZK_KYC, window.location.origin);
       url.searchParams.set("sessionId", params.sessionId);
       url.searchParams.set("socialPlatform", params.socialPlatform);
       return url.pathname + url.search;
