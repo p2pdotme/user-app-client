@@ -15,7 +15,6 @@ import {
 } from "@p2pdotme/sdk/zkkyc";
 import { useQuery } from "@tanstack/react-query";
 import {
-  Check,
   ClipboardCheck,
   Clock4,
   Loader2,
@@ -31,9 +30,7 @@ import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { BvnVerificationCard } from "@/components/bvn-verification-card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Drawer,
   DrawerContent,
@@ -42,6 +39,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import {
+  ROW_BTN,
+  VerificationRow,
+  VerifiedButton,
+} from "@/components/verification-row";
 import { useSettings } from "@/contexts";
 import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
@@ -95,11 +97,10 @@ type SocialPlatformType =
   | "Liveness";
 
 /**
- * Empty-state CTA shown above the verification list when the user has not yet
- * verified any social account. Renders nothing once at least one social is
- * verified.
+ * Nudge line for the privacy banner on /limits: shown until the user has
+ * verified any method, then renders nothing.
  */
-function VerifySocialCta() {
+export function VerifySocialCta() {
   const { t } = useTranslation();
   const {
     isLinkedInVerified,
@@ -125,15 +126,9 @@ function VerifySocialCta() {
   if (isAnySocialVerified) return null;
 
   return (
-    <section className="flex w-full flex-col gap-4 py-2">
-      <Card className="w-full border-none bg-primary/10 py-0 shadow-none">
-        <CardContent className="px-4 py-3">
-          <p className="font-light text-sm">
-            {t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
-          </p>
-        </CardContent>
-      </Card>
-    </section>
+    <p className="mt-3 border-primary/10 border-t pt-3 text-[13px] text-muted-foreground leading-[18px]">
+      {t("VERIFY_SOCIAL_TO_GROW_LIMITS")}
+    </p>
   );
 }
 
@@ -207,100 +202,95 @@ export function Verifications() {
     {
       name: "X" as SocialPlatformType,
       key: "isXVerified",
-      icon: <ASSETS.ICONS.Twitter className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Twitter className="size-5 text-primary" />,
       rpReward: socialRewards.X ?? 0,
     },
     {
       name: "Instagram" as SocialPlatformType,
       key: "isInstagramVerified",
-      icon: <ASSETS.ICONS.Instagram className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Instagram className="size-5 text-primary" />,
       rpReward: socialRewards.Instagram ?? 0,
     },
     {
       name: "Facebook" as SocialPlatformType,
       key: "isFacebookVerified",
-      icon: <ASSETS.ICONS.Facebook className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Facebook className="size-5 text-primary" />,
       rpReward: socialRewards.Facebook ?? 0,
     },
     {
       name: "LinkedIn" as SocialPlatformType,
       key: "isLinkedInVerified",
-      icon: <ASSETS.ICONS.Linkedin className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Linkedin className="size-5 text-primary" />,
       rpReward: socialRewards.LinkedIn ?? 0,
     },
     {
       name: "GitHub" as SocialPlatformType,
       key: "isGitHubVerified",
-      icon: <ASSETS.ICONS.Github className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Github className="size-5 text-primary" />,
       rpReward: socialRewards.GitHub ?? 0,
     },
     {
       name: "Binance" as SocialPlatformType,
       key: "isBinanceVerified",
-      icon: <ASSETS.ICONS.Binance className="size-5 text-foreground" />,
+      icon: <ASSETS.ICONS.Binance className="size-5 text-primary" />,
       rpReward: socialRewards.Binance ?? 0,
     },
   ];
 
   return (
-    <>
-      <h3 className="font-medium text-lg">
-        {t("VERIFY_SECURELY")}, {t("INCREASE_LIMITS")}
-      </h3>
-      <div className="relative overflow-hidden rounded-lg bg-gradient-to-r from-primary via-primary/90 to-primary p-4 text-white">
-        <div className="relative z-10 flex items-center justify-between gap-4">
-          <p className="text-base leading-relaxed">
-            {t("VERIFY_SECURELY_DESCRIPTION")}
+    <div className="flex w-full flex-col gap-4">
+      <div className="flex items-center gap-3 rounded-2xl bg-primary/5 p-4">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+          <ShieldCheck className="size-[18px] text-primary" />
+        </div>
+        <div className="flex min-w-0 flex-col">
+          <p className="font-semibold text-foreground text-sm leading-5">
+            {t("VERIFICATIONS_PRIVATE_TITLE")}
           </p>
-          <ShieldCheck className="size-12 shrink-0 opacity-80" />
+          <p className="text-[13px] text-muted-foreground leading-[18px]">
+            {t("VERIFICATIONS_PRIVATE_DESCRIPTION")}
+          </p>
         </div>
       </div>
-      <VerifySocialCta />
-      <div className="flex w-full flex-col gap-4">
-        <LivenessVerificationCard />
-        <KycVerificationCard />
-        {IS_BVN_ENABLED && settings.currency.currency === "NGN" && (
-          <BvnVerificationCard />
-        )}
-        {SOCIALS.filter((social) => {
-          // Binance verification is not offered when the selected country is India
-          if (
-            social.name === "Binance" &&
-            settings.currency.country === "India"
-          ) {
-            return false;
+      {SOCIALS.filter((social) => {
+        // Binance verification is not offered when the selected country is India
+        if (
+          social.name === "Binance" &&
+          settings.currency.country === "India"
+        ) {
+          return false;
+        }
+        // India ranks the low-trust methods behind a high-trust one, so they
+        // stay hidden until Identity/KYC, LinkedIn or GitHub is verified.
+        if (isLowTrustHidden && LOW_TRUST_SOCIALS.includes(social.name)) {
+          return false;
+        }
+        return true;
+      }).map((social) => (
+        <VerificationItem
+          key={social.name}
+          name={social.name}
+          icon={social.icon}
+          rpReward={isRpLoading || isRpError ? 0 : social.rpReward}
+          isVerified={
+            isSocialStatusError
+              ? false
+              : !!statusMap[social.key as keyof typeof statusMap]
           }
-          // India ranks the low-trust methods behind a high-trust one, so they
-          // stay hidden until Identity/KYC, LinkedIn or GitHub is verified.
-          if (isLowTrustHidden && LOW_TRUST_SOCIALS.includes(social.name)) {
-            return false;
+          isStatusLoading={isSocialStatusLoading}
+          socialStatusError={socialStatusError}
+          refetchSocialStatus={refetchSocialStatus}
+          sessionId={
+            socialPlatform && socialPlatform === social.name
+              ? sessionId || undefined
+              : undefined
           }
-          return true;
-        }).map((social) => (
-          <VerificationItem
-            key={social.name}
-            name={social.name}
-            tag={t("TAG_NEEDS_PATIENCE")}
-            icon={social.icon}
-            usdcReward={0}
-            rpReward={isRpLoading || isRpError ? 0 : social.rpReward}
-            isVerified={
-              isSocialStatusError
-                ? false
-                : !!statusMap[social.key as keyof typeof statusMap]
-            }
-            isStatusLoading={isSocialStatusLoading}
-            socialStatusError={socialStatusError}
-            refetchSocialStatus={refetchSocialStatus}
-            sessionId={
-              socialPlatform && socialPlatform === social.name
-                ? sessionId || undefined
-                : undefined
-            }
-          />
-        ))}
-      </div>
-    </>
+        />
+      ))}
+      {IS_BVN_ENABLED && settings.currency.currency === "NGN" && (
+        <BvnVerificationCard />
+      )}
+    </div>
   );
 }
 
@@ -308,7 +298,6 @@ interface VerificationItemProps {
   name: SocialPlatformType;
   description?: string;
   icon?: React.ReactNode;
-  usdcReward: number;
   rpReward: number;
   isVerified: boolean;
   isStatusLoading: boolean;
@@ -316,8 +305,6 @@ interface VerificationItemProps {
   refetchSocialStatus: () => void;
   sessionId?: string;
   customButton?: React.ReactNode;
-  /** Small badge shown under the title, e.g. "Quickest", "Needs Patience". */
-  tag?: string;
 }
 
 const reclaimConfig: Pick<ReclaimFlowParams, "sessionEndpoint" | "tenant"> = {
@@ -347,7 +334,6 @@ function VerificationItem({
   name,
   description,
   icon,
-  usdcReward,
   rpReward,
   isVerified,
   isStatusLoading,
@@ -355,7 +341,6 @@ function VerificationItem({
   refetchSocialStatus,
   sessionId,
   customButton,
-  tag,
 }: VerificationItemProps) {
   const { t, i18n } = useTranslation();
 
@@ -448,7 +433,11 @@ function VerificationItem({
 
           toast.success(t("VERIFICATION_SUCCESS"));
           if (typeof window !== "undefined" && window.location) {
-            window.history.replaceState({}, document.title, "/limits");
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname,
+            );
           }
         })
         .catch((error) => {
@@ -551,7 +540,11 @@ function VerificationItem({
       clearStoredParams();
 
       if (typeof window !== "undefined" && window.location) {
-        window.history.replaceState({}, document.title, "/limits");
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
       }
     },
     [track, name, account?.address, t],
@@ -811,7 +804,11 @@ function VerificationItem({
                   clearStoredParams();
                   // Also clear the URL to plain /limits after verification error
                   if (typeof window !== "undefined" && window.location) {
-                    window.history.replaceState({}, document.title, "/limits");
+                    window.history.replaceState(
+                      {},
+                      document.title,
+                      window.location.pathname,
+                    );
                   }
                   startPreloadedFlow();
                 }}>
@@ -918,90 +915,57 @@ function VerificationItem({
         </div>
       )}
 
-      <Card className="gap-4 bg-transparent py-4 transition-colors">
-        <CardContent className="px-4">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full bg-primary/30">
-                {icon}
-              </div>
-              <div className="flex flex-col items-start gap-0.5">
-                <p className="font-medium text-lg">{name}</p>
-                {description && (
-                  <p className="text-muted-foreground text-xs">{description}</p>
-                )}
-                {tag && (
-                  <Badge
-                    variant="secondary"
-                    className="mt-1 whitespace-normal text-left">
-                    {tag}
-                  </Badge>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col items-end gap-1">
-              <p className="font-medium text-xs">
-                <span className="font-semibold text-2xl">${limit}</span>{" "}
-                {t("LIMIT")}
+      <VerificationRow
+        icon={icon}
+        title={name}
+        limit={limit}
+        description={description}
+        action={
+          customButton ? (
+            customButton
+          ) : !account?.address ? (
+            <Button
+              variant="outline"
+              className={ROW_BTN}
+              onClick={() => loginToGetVerified()}>
+              {t("LOGIN_TO_GET_VERIFIED_BUTTON")}
+            </Button>
+          ) : isStatusLoading ? (
+            <Button className={ROW_BTN} disabled={true} onClick={() => {}}>
+              <Loader2 className="size-4 animate-spin" />
+              {t("LOADING")}
+            </Button>
+          ) : isLoading ? (
+            <Button className={ROW_BTN} disabled={true} onClick={() => {}}>
+              <Loader2 className="size-4 animate-spin" />
+              {t("VERIFYING")}
+            </Button>
+          ) : isVerified ? (
+            <VerifiedButton />
+          ) : !isReachable ? (
+            <div className="flex items-center justify-center rounded-full bg-primary/70 px-4 py-2">
+              <p className="text-center text-sm text-text-light">
+                {t("P2P_ME_UNREACHABLE")}
               </p>
-              {usdcReward > 0 && (
-                <p className="text-xs">
-                  <span className="font-semibold">+{usdcReward}</span> USDC{" "}
-                  {t("REWARD")}
-                </p>
-              )}
             </div>
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between px-4">
-          <div className="flex items-center gap-1 text-muted-foreground text-sm" />
-          <div>
-            {customButton ? (
-              customButton
-            ) : !account?.address ? (
-              <Button variant="outline" onClick={() => loginToGetVerified()}>
-                {t("LOGIN_TO_GET_VERIFIED_BUTTON")}
-              </Button>
-            ) : isStatusLoading ? (
-              <Button disabled={true} onClick={() => {}}>
-                <Loader2 className="size-4 animate-spin" />
-                {t("LOADING")}
-              </Button>
-            ) : isLoading ? (
-              <Button disabled={true} onClick={() => {}}>
-                <Loader2 className="size-4 animate-spin" />
-                {t("VERIFYING")}
-              </Button>
-            ) : isVerified ? (
-              <Button
-                className="bg-muted text-foreground hover:bg-muted"
-                onClick={() => {
-                  toast.success(t("ALREADY_VERIFIED"));
-                }}>
-                <Check className="mr-2 size-4" />
-                {t("VERIFIED")}
-              </Button>
-            ) : !isReachable ? (
-              <div className="flex items-center justify-center rounded-md bg-primary/70 px-4 py-2">
-                <p className="text-center text-sm text-text-light">
-                  {t("P2P_ME_UNREACHABLE")}
-                </p>
-              </div>
-            ) : socialStatusError ? (
-              <Button variant="outline" onClick={() => refetchSocialStatus()}>
-                {t("RETRY")}
-              </Button>
-            ) : (
-              <Button
-                variant="outline"
-                onClick={() => handleVerifySocial()}
-                disabled={isLoading}>
-                {t("GET_VERIFIED")}
-              </Button>
-            )}
-          </div>
-        </CardFooter>
-      </Card>
+          ) : socialStatusError ? (
+            <Button
+              variant="outline"
+              className={ROW_BTN}
+              onClick={() => refetchSocialStatus()}>
+              {t("RETRY")}
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              className={ROW_BTN}
+              onClick={() => handleVerifySocial()}
+              disabled={isLoading}>
+              {t("GET_VERIFIED")}
+            </Button>
+          )
+        }
+      />
     </>
   );
 }
@@ -1023,7 +987,7 @@ function VerificationItem({
  * attestation does not preclude this one: separate services, separate dedup
  * sets, separate rewards.
  */
-function LivenessVerificationCard() {
+export function LivenessVerificationCard() {
   const { t } = useTranslation();
   const { account } = useThirdweb();
   const { settings } = useSettings();
@@ -1114,10 +1078,8 @@ function LivenessVerificationCard() {
   return (
     <VerificationItem
       name="Liveness"
-      tag={t("TAG_QUICKEST")}
-      icon={<SmilePlus className="size-5 text-foreground" />}
+      icon={<SmilePlus className="size-5 text-primary" />}
       description={t("LIVENESS_DESCRIPTION")}
-      usdcReward={0}
       rpReward={
         isLivenessRpLoading || isLivenessRpError || !livenessRp ? 0 : livenessRp
       }
@@ -1127,16 +1089,13 @@ function LivenessVerificationCard() {
       refetchSocialStatus={refetchLivenessStatus}
       customButton={
         isLivenessVerified ? (
-          <Button
-            className="bg-muted text-foreground hover:bg-muted"
-            onClick={() => {
-              toast.success(t("ALREADY_VERIFIED"));
-            }}>
-            <Check className="mr-2 size-4" />
-            {t("VERIFIED")}
-          </Button>
+          <VerifiedButton />
         ) : (
-          <Button variant="outline" onClick={start} disabled={busy}>
+          <Button
+            variant="outline"
+            className={ROW_BTN}
+            onClick={start}
+            disabled={busy}>
             {busy ? (
               <>
                 <Loader2 className="mr-2 size-4 animate-spin" />
@@ -1162,7 +1121,7 @@ function LivenessVerificationCard() {
  *
  * Rendered through `VerificationItem` so it matches the social cards exactly.
  */
-function KycVerificationCard() {
+export function KycVerificationCard() {
   const { t } = useTranslation();
   const { account } = useThirdweb();
   const { settings } = useSettings();
@@ -1251,10 +1210,8 @@ function KycVerificationCard() {
   return (
     <VerificationItem
       name="Identity (KYC)"
-      tag={t("TAG_QUICKEST")}
-      icon={<ScanFace className="size-5 text-foreground" />}
+      icon={<ScanFace className="size-5 text-primary" />}
       description={t("KYC_DESCRIPTION")}
-      usdcReward={0}
       rpReward={isKycRpLoading || isKycRpError || !kycRp ? 0 : kycRp}
       isVerified={!!isKycVerified}
       isStatusLoading={isKycStatusLoading || isKycRpLoading}
@@ -1262,16 +1219,13 @@ function KycVerificationCard() {
       refetchSocialStatus={refetchKycStatus}
       customButton={
         isKycVerified ? (
-          <Button
-            className="bg-muted text-foreground hover:bg-muted"
-            onClick={() => {
-              toast.success(t("ALREADY_VERIFIED"));
-            }}>
-            <Check className="mr-2 size-4" />
-            {t("VERIFIED")}
-          </Button>
+          <VerifiedButton />
         ) : (
-          <Button variant="outline" onClick={start} disabled={busy}>
+          <Button
+            variant="outline"
+            className={ROW_BTN}
+            onClick={start}
+            disabled={busy}>
             {busy ? (
               <>
                 <Loader2 className="mr-2 size-4 animate-spin" />

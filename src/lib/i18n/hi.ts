@@ -915,9 +915,12 @@ export const hi = {
     INCREASE_LIMITS: "लिमिट बढ़ाएं",
     INCREASE_LIMITS_DESCRIPTION:
       "अपने सोशल मीडिया अकाउंट्स को ZK-सत्यापित करके अपनी लेन-देन सीमाएं बढ़ाएं।",
+    INCREASE_LIMITS_SUBTITLE: "अपनी लिमिट बढ़ाने के लिए वेरिफ़ाई करें",
     INCREASE_LIMITS_TO_START_EARNING:
       "कमाना शुरू करने के लिए लिमिट को <0>$150</0> तक बढ़ाएं",
-    INCREASE_LIMIT_HEADING: "स्टेक और ZK Verify से उच्च लिमिट अनलॉक करें",
+    INCREASE_LIMITS_WAYS_DESCRIPTION:
+      "नीचे से कोई भी तरीका चुनें। हर पूरा किया गया वेरिफ़िकेशन आपकी लिमिट बढ़ाता है।",
+    INCREASE_LIMITS_WAYS_TITLE: "ज़्यादा ट्रांज़ैक्शन लिमिट अनलॉक करें",
     INCREASE_TRANSACTION_LIMITS: "ट्रांजैक्शन लिमिट बढ़ाएं",
     INCREASE_YOUR_LIMITS: "अपनी लिमिट बढ़ाएं",
     INITIALIZING: "आरंभ कर रहे हैं...",
@@ -997,6 +1000,14 @@ export const hi = {
     LIB_DIAMOND_MUST_BE_CONTRACT_OWNER: "कॉन्ट्रैक्ट ओनर होना आवश्यक है",
     LIGHTNING_FAST: "बिजली की तेज़ी",
     LIMIT: "लिमिट",
+    LIMITS_LIVENESS_SUBTITLE:
+      "लिमिट अनलॉक करने के लिए साबित करें कि आप असली व्यक्ति हैं",
+    LIMITS_PASSPORT_SUBTITLE: "लिमिट अनलॉक करने के लिए अपनी पहचान वेरिफ़ाई करें",
+    LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
+      "यह वेरिफ़िकेशन अभी आपकी चुनी हुई करेंसी के लिए उपलब्ध नहीं है।",
+    LIMITS_UNAVAILABLE_IN_REGION_TITLE: "आपके क्षेत्र में उपलब्ध नहीं",
+    LIMITS_ZK_KYC_SUBTITLE: "अपने सोशल्स को प्राइवेट तरीके से वेरिफ़ाई करें",
+    LIMIT_CARD_MAX_USDC: "अधिकतम {{amount}} USDC",
     LIMIT_UPDATES: "सीमा अपडेट",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn केवल RP अद्यतन समर्थित है",
     LIQUIDITY: "लिक्विडिटी",
@@ -1060,6 +1071,21 @@ export const hi = {
       "व्यापारी ने पात्रता सीमा पूरी नहीं की है",
     MERCHANT_PAID: "मर्चेंट ने भुगतान किया",
     MERCHANT_PLACEHOLDER: "merchantxyz@p2p.me",
+    METHOD_BADGE_FASTEST: "सबसे तेज़",
+    METHOD_BADGE_INSTANT: "तुरंत",
+    METHOD_BADGE_NEEDS_PATIENCE: "धैर्य चाहिए",
+    METHOD_BADGE_QUICK: "तेज़",
+    METHOD_LIVENESS_DESCRIPTION:
+      "सबसे तेज़ — लिमिट बढ़ाने के लिए एक छोटा फ़ेस चेक, कोई दस्तावेज़ नहीं।",
+    METHOD_LIVENESS_TITLE: "लाइवनेस चेक",
+    METHOD_PASSPORT_DESCRIPTION:
+      "लिमिट अनलॉक करने के लिए अपना पासपोर्ट स्कैन करें और एक क्विक सेल्फ़ी लें।",
+    METHOD_PASSPORT_TITLE: "पासपोर्ट KYC",
+    METHOD_STAKE_DESCRIPTION: "लिमिट तुरंत बढ़ाने के लिए $P2P स्टेक करें।",
+    METHOD_STAKE_TITLE: "$P2P स्टेक करें",
+    METHOD_ZK_KYC_DESCRIPTION:
+      "लिमिट बढ़ाने के लिए अपने सोशल्स को zero-knowledge प्रूफ़ से वेरिफ़ाई करें।",
+    METHOD_ZK_KYC_TITLE: "Reclaim द्वारा ZK KYC",
     MIGRATING_ACCOUNT: "खाता माइग्रेट कर रहे हैं",
     MIGRATION_ALREADY_REQUESTED: "माइग्रेशन का अनुरोध पहले ही किया जा चुका है",
     MIGRATION_COMPLETED_SUCCESSFULLY: "माइग्रेशन सफलतापूर्वक पूरा हो गया",
@@ -1879,8 +1905,6 @@ export const hi = {
     SW_INSTALLING_UPDATE: "अपडेट इंस्टॉल हो रहा है",
     SW_MAY_TAKE_UP_TO: "इसमें 2 मिनट तक का समय लग सकता है।",
     SW_PLEASE_WAIT: "कृपया धैर्यपूर्वक प्रतीक्षा करें।",
-    TAG_NEEDS_PATIENCE: "धैर्य चाहिए",
-    TAG_QUICKEST: "सबसे तेज़",
     TAG_RELIABLE: "विश्वसनीय",
     TAP_TO_CUSTOMIZE: "कस्टमाइज करने के लिए टैप करें",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "तारीख सीमा अनुकूलित करने के लिए टैप करें",
@@ -2066,6 +2090,9 @@ export const hi = {
     VEN_QR_UPLOAD_TITLE: "अपना Pago Móvil QR अपलोड करें",
     VEN_QR_VIEW: "QR देखें",
     VEN_USE_QR_INSTEAD: "Pago Móvil QR इस्तेमाल करें",
+    VERIFICATIONS_PRIVATE_DESCRIPTION:
+      "Reclaim Protocol द्वारा संचालित · हम आपके क्रेडेंशियल्स कभी नहीं देखते।",
+    VERIFICATIONS_PRIVATE_TITLE: "वेरिफ़िकेशन्स प्राइवेट हैं (zero-knowledge)",
     VERIFICATION_CANCELLED: "सत्यापन रद्द किया गया",
     VERIFICATION_DURATION_INFO: "यह सत्यापन कुल मिलाकर लगभग 3-5 मिनट लेता है।",
     VERIFICATION_FAILED: "सत्यापन विफल",
@@ -2082,9 +2109,10 @@ export const hi = {
     VERIFYING: "सत्यापन हो रहा है...",
     VERIFYING_YOUR_PAYMENT: "आपके भुगतान का सत्यापन किया जा रहा है",
     VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT: "कम से कम एक सोशल अकाउंट सत्यापित करें",
-    VERIFY_SECURELY: "सुरक्षित रूप से सत्यापित करें",
+    VERIFY_ROW_UNLOCKS_AMOUNT: "+{{amount}} USDC अनलॉक",
+    VERIFY_ROW_USDC_FOR_ALL: "प्रति लेनदेन",
     VERIFY_SECURELY_DESCRIPTION:
-      "P2P.me पर सभी कार्य Zk सत्यापन का उपयोग करते हैं, आपकी लिमिट बढ़ाते समय आपका डेटा हमेशा के लिए निजी रखते हैं।",
+      "P2P.me पर हर वेरिफ़िकेशन zero-knowledge है। आपकी लिमिट बढ़ती है और आपका डेटा प्राइवेट रहता है।",
     VERIFY_SOCIALS_TO_UNLOCK:
       "अपना पुरस्कार प्राप्त करने के लिए किसी भी सोशल अकाउंट को ZK सत्यापित करें।",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
@@ -2254,6 +2282,7 @@ export const hi = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "आपको एक विशेष आमंत्रण मिला है! अपने बोनस पुरस्कार प्राप्त करने के लिए अपने सोशल मीडिया को सत्यापित करें।",
     ZERO_ADDRESS: "शून्य पता",
+    ZK_PRIVACY_BANNER_TITLE: "डिज़ाइन से प्राइवेट",
     ZK_VERIFICATION_REQUIRED: "ZK सत्यापन आवश्यक है",
   },
 };

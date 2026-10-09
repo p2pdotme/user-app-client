@@ -46,5 +46,6 @@ export * from "./text-logo";
 export * from "./tip-merchant-card";
 export * from "./token-icon";
 export * from "./transfer-warning-alert";
+export * from "./verification-row";
 export * from "./version-badge";
 export * from "./youtube-video-dialog";

@@ -977,9 +977,12 @@ export const es = {
     INCREASE_LIMITS: "Aumentar Límites",
     INCREASE_LIMITS_DESCRIPTION:
       "Aumenta tus límites de transacción verificando tus redes sociales con ZK.",
+    INCREASE_LIMITS_SUBTITLE: "Verifícate para aumentar tus límites",
     INCREASE_LIMITS_TO_START_EARNING:
       "Aumenta los límites a <0>$150</0> para empezar a ganar",
-    INCREASE_LIMIT_HEADING: "Desbloquea Límites Mayores con Stake y ZK Verify",
+    INCREASE_LIMITS_WAYS_DESCRIPTION:
+      "Elige cualquier método. Cada verificación que completes aumenta tus límites.",
+    INCREASE_LIMITS_WAYS_TITLE: "Desbloquea límites de transacción más altos",
     INCREASE_TRANSACTION_LIMITS: "Aumentar Límites de Transacción",
     INCREASE_YOUR_LIMITS: "Aumenta tus límites",
     INITIALIZING: "Inicializando...",
@@ -1063,6 +1066,14 @@ export const es = {
     LIB_DIAMOND_MUST_BE_CONTRACT_OWNER: "Debe ser el propietario del contrato",
     LIGHTNING_FAST: "Ultrarrápido",
     LIMIT: "Límite",
+    LIMITS_LIVENESS_SUBTITLE:
+      "Demuestra que eres una persona real para desbloquear límites",
+    LIMITS_PASSPORT_SUBTITLE: "Verifica tu identidad para desbloquear límites",
+    LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
+      "Esta verificación aún no está disponible para tu moneda seleccionada.",
+    LIMITS_UNAVAILABLE_IN_REGION_TITLE: "No disponible en tu región",
+    LIMITS_ZK_KYC_SUBTITLE: "Verifica tus redes sociales de forma privada",
+    LIMIT_CARD_MAX_USDC: "Máx. {{amount}} USDC",
     LIMIT_UPDATES: "Actualizaciones de Límites",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "LinkedIn solo admite actualizaciones de RP",
@@ -1129,6 +1140,22 @@ export const es = {
       "El comerciante no ha cumplido el umbral de elegibilidad",
     MERCHANT_PAID: "Comerciante pagado",
     MERCHANT_PLACEHOLDER: "comerciante@p2p.me",
+    METHOD_BADGE_FASTEST: "Más rápido",
+    METHOD_BADGE_INSTANT: "Instantáneo",
+    METHOD_BADGE_NEEDS_PATIENCE: "Requiere Paciencia",
+    METHOD_BADGE_QUICK: "Rápido",
+    METHOD_LIVENESS_DESCRIPTION:
+      "La más rápida — un chequeo facial, sin documentos, para aumentar tus límites.",
+    METHOD_LIVENESS_TITLE: "Prueba de vida",
+    METHOD_PASSPORT_DESCRIPTION:
+      "Escanea tu pasaporte y tómate una selfie rápida para desbloquear límites.",
+    METHOD_PASSPORT_TITLE: "KYC con pasaporte",
+    METHOD_STAKE_DESCRIPTION:
+      "Haz stake de $P2P para aumentar tus límites al instante.",
+    METHOD_STAKE_TITLE: "Hacer stake de $P2P",
+    METHOD_ZK_KYC_DESCRIPTION:
+      "Verifica tus redes sociales con pruebas zero-knowledge para aumentar tus límites.",
+    METHOD_ZK_KYC_TITLE: "ZK KYC de Reclaim",
     MIGRATING_ACCOUNT: "Migrando cuenta",
     MIGRATION_ALREADY_REQUESTED: "Migración ya solicitada",
     MIGRATION_COMPLETED_SUCCESSFULLY: "Migración completada con éxito",
@@ -2010,8 +2037,6 @@ export const es = {
     SW_INSTALLING_UPDATE: "Instalando actualización",
     SW_MAY_TAKE_UP_TO: "Esto puede tardar hasta 2 minutos.",
     SW_PLEASE_WAIT: "Por favor, espera pacientemente.",
-    TAG_NEEDS_PATIENCE: "Requiere paciencia",
-    TAG_QUICKEST: "Más rápido",
     TAG_RELIABLE: "Confiable",
     TAP_TO_CUSTOMIZE: "Toca para personalizar",
     TAP_TO_CUSTOMIZE_DATE_RANGE: "Toca para personalizar el rango de fechas",
@@ -2210,6 +2235,10 @@ export const es = {
     VEN_QR_UPLOAD_TITLE: "Sube tu QR de Pago Móvil",
     VEN_QR_VIEW: "Ver QR",
     VEN_USE_QR_INSTEAD: "Usar QR de Pago Móvil",
+    VERIFICATIONS_PRIVATE_DESCRIPTION:
+      "Impulsado por Reclaim Protocol · Nunca vemos tus credenciales.",
+    VERIFICATIONS_PRIVATE_TITLE:
+      "Las verificaciones son privadas (zero-knowledge)",
     VERIFICATION_CANCELLED: "Verificación cancelada",
     VERIFICATION_DURATION_INFO:
       "Esta verificación toma aproximadamente 3-5 minutos en total.",
@@ -2228,9 +2257,10 @@ export const es = {
     VERIFYING: "Verificando...",
     VERIFYING_YOUR_PAYMENT: "Verificando tu pago",
     VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT: "Verifica al menos una cuenta social",
-    VERIFY_SECURELY: "Verifica de forma segura",
+    VERIFY_ROW_UNLOCKS_AMOUNT: "Desbloquea +{{amount}} USDC",
+    VERIFY_ROW_USDC_FOR_ALL: "por transacción",
     VERIFY_SECURELY_DESCRIPTION:
-      "Todas las tareas en P2P.me usan verificación Zk, manteniendo tus datos privados para siempre mientras aumentas tus límites.",
+      "Cada verificación en P2P.me es zero-knowledge. Tus datos siguen siendo privados mientras tus límites crecen.",
     VERIFY_SOCIALS_TO_UNLOCK:
       "Verifica con ZK cualquier cuenta social para reclamar tu recompensa.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
@@ -2404,6 +2434,7 @@ export const es = {
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
       "¡Has recibido una invitación especial! Verifica tus redes sociales para obtener tus recompensas de bono.",
     ZERO_ADDRESS: "Dirección cero",
+    ZK_PRIVACY_BANNER_TITLE: "Privado por diseño",
     ZK_VERIFICATION_REQUIRED: "Se requiere verificación ZK",
   },
 };
