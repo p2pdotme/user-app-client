@@ -91,6 +91,7 @@ export const en = {
     BALANCE_FETCH_ERROR: "Balance fetch error",
     BALANCE_LOADING: "Balance loading",
     BALANCE_NOT_LOADED: "Balance not loaded",
+    BANK: "Bank",
     BANK_LABEL: "Bank",
     BANK_NAME: "Bank Name",
     BANK_NAME_LABEL: "Bank Name",
@@ -474,19 +475,47 @@ export const en = {
     DISCONNECT: "Disconnect",
     DISPUTED: "Disputed",
     DISPUTE_ALREADY_SETTLED: "Dispute already settled",
+    DISPUTE_APPEAL_NOT_DUE: "The review deadline has not passed yet",
+    DISPUTE_APPEAL_WINDOW_CLOSED:
+      "The challenge window for this decision has closed",
+    DISPUTE_APPEAL_WINDOW_OPEN:
+      "The challenge window is still open, so the decision cannot be finalized yet",
+    DISPUTE_AT_FINAL_TIER: "The dispute is already at the final review tier",
     DISPUTE_AVAILABLE_IN_TIME:
       "Dispute available in {{time}} (30 min minimum wait)",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
       "Dispute can only be raised after 24 hours of order placement",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Dispute can only be raised after 30 minutes of order placement",
+    DISPUTE_CARD_TITLE: "Dispute",
+    DISPUTE_CHALLENGE_DECISION: "Challenge decision",
+    DISPUTE_CHALLENGE_DESCRIPTION:
+      "Challenging drops the current decision and sends the dispute to {{tier}} for a fresh review. This cannot be undone.",
+    DISPUTE_CHALLENGE_FAILED: "Failed to escalate dispute",
+    DISPUTE_CHALLENGE_SUCCESS: "Dispute escalated to {{tier}}",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "You can chat with our support team and share relevant details, like proof of payment.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
       "You can chat with our support team and share relevant details, like your payment reference.",
     DISPUTE_DEFAULT: "Default",
+    DISPUTE_ESCALATE: "Escalate dispute",
+    DISPUTE_ESCALATE_DESCRIPTION:
+      "The current reviewer missed the decision deadline. Escalating moves the dispute to {{tier}}.",
+    DISPUTE_FAULT_BANK: "Bank at fault",
+    DISPUTE_FAULT_MERCHANT: "Merchant at fault",
+    DISPUTE_FAULT_USER: "User at fault",
     DISPUTE_FILTER: "Dispute: {{disputes}}",
+    DISPUTE_FINALIZE: "Finalize decision",
+    DISPUTE_FINALIZE_DESCRIPTION:
+      "The challenge window has closed. Finalizing applies the recorded decision on-chain.",
+    DISPUTE_FINALIZE_FAILED: "Failed to finalize dispute",
+    DISPUTE_FINALIZE_SUCCESS: "Dispute decision finalized",
+    DISPUTE_HINT_CHALLENGE:
+      "Drops this decision and sends the dispute to {{tier}} for a fresh review.",
+    DISPUTE_HINT_ESCALATE: "Moves the dispute to {{tier}}.",
+    DISPUTE_HINT_FINALIZE: "Applies the recorded decision on-chain.",
     DISPUTE_NOT_RAISED: "Dispute not raised",
+    DISPUTE_OPEN: "Open",
     DISPUTE_RAISED: "Raised",
     DISPUTE_RAISED_CHAT_DESCRIPTION:
       "Chat with our support team. They will review and reply here.",
@@ -495,11 +524,35 @@ export const en = {
       "View your conversation with support. This thread is read only.",
     DISPUTE_RESOLVED_CHAT_TITLE: "Dispute resolved",
     DISPUTE_SETTLED: "Settled",
+    DISPUTE_STAGE_CHALLENGED: "You challenged this decision",
+    DISPUTE_STAGE_CHALLENGE_WINDOW: "Open to challenge until {{date}}",
+    DISPUTE_STAGE_DECIDED: "Decided: {{fault}} at fault",
+    DISPUTE_STAGE_IN_PROGRESS: "In progress",
+    DISPUTE_STAGE_RAISED: "Dispute raised",
+    DISPUTE_STAGE_SETTLED: "Settled",
+    DISPUTE_STAGE_SLA_MISSED: "No decision in time, escalated",
     DISPUTE_STATUS: "Dispute Status",
     DISPUTE_SUBMISSION_FAILED: "Failed to submit dispute",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "We'll review your dispute and get back to you soon",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Dispute submitted successfully",
+    DISPUTE_SUMMARY_AGAINST:
+      "{{tier}} ruled against you ({{fault}} at fault). You can challenge this until {{date}}. If you do nothing, the decision is applied automatically.",
+    DISPUTE_SUMMARY_AWAITING:
+      "{{tier}} is reviewing your dispute and has until {{date}} to decide. If no decision is made by then, you can escalate.",
+    DISPUTE_SUMMARY_FINALIZABLE:
+      "The challenge window closed on {{date}} with {{tier}}'s decision standing ({{fault}} at fault). Finalize to apply it.",
+    DISPUTE_SUMMARY_FINAL_REVIEW:
+      "Final review is in progress. The operator's decision is final and takes effect immediately.",
+    DISPUTE_SUMMARY_FOR:
+      "{{tier}} ruled in your favour ({{fault}} at fault). The decision is applied automatically after {{date}}.",
+    DISPUTE_SUMMARY_SETTLED:
+      "Settled on {{date}}. {{fault}} was found at fault.",
+    DISPUTE_SUMMARY_SLA_MISSED:
+      "{{tier}} did not decide in time. You can escalate the dispute to {{next}} now.",
+    DISPUTE_TIER_1: "Circle review",
+    DISPUTE_TIER_2: "Country admin review",
+    DISPUTE_TIER_3: "Final review",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "False disputes may lead to action against your account.",
     DISPUTE_WARNING_PAYMENT_BUY:
@@ -1204,6 +1257,7 @@ export const en = {
     NOT_AUTHORIZED: "Not authorized",
     NOT_AVAILABLE: "Not available",
     NOT_A_PAID_BUY_ORDER: "Not a paid buy order",
+    NOT_DISPUTE_USER: "Only the order's user can challenge this dispute",
     NOT_ENOUGH_ELIGIBLE_MERCHANTS: "Not enough eligible merchants",
     NOT_FOUND: "Not Found",
     NOT_SENT: "Not sent",
@@ -1220,6 +1274,7 @@ export const en = {
     NO_COMPLETED_TRANSACTIONS: "No completed transactions",
     NO_DISPUTE: "No Dispute",
     NO_DISPUTED_TRANSACTIONS: "No disputed transactions found",
+    NO_DISPUTE_DECISION: "There is no decision to finalize",
     NO_ELIGIBLE_CIRCLES: "No eligible circles",
     NO_FAQ_RESULTS: "No FAQs matched your search.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
@@ -2086,6 +2141,7 @@ export const en = {
     USDC_TRANSFER_FAILED_WITH_ERROR_MESSAGE:
       "USDC transfer failed with error message",
     USDC_TRANSFER_FAILED_WITH_PANIC: "USDC transfer failed with panic",
+    USER: "User",
     USERNAME_ALREADY_VERIFIED:
       "The social media account's username is already verified",
     USERNAME_FIELD_NOT_FOUND_IN_PROOF: "Username field not found in proof",

@@ -93,6 +93,7 @@ export const id = {
     BALANCE_FETCH_ERROR: "Error mengambil saldo",
     BALANCE_LOADING: "Saldo sedang dimuat",
     BALANCE_NOT_LOADED: "Saldo tidak dimuat",
+    BANK: "Bank",
     BANK_LABEL: "Bank",
     BANK_NAME: "Nama Bank",
     BANK_NAME_LABEL: "Bank Name",
@@ -479,19 +480,47 @@ export const id = {
     DISCONNECT: "Putuskan",
     DISPUTED: "Dispute",
     DISPUTE_ALREADY_SETTLED: "Sengketa sudah diselesaikan",
+    DISPUTE_APPEAL_NOT_DUE: "Batas waktu peninjauan belum berlalu",
+    DISPUTE_APPEAL_WINDOW_CLOSED:
+      "Jendela gugatan untuk keputusan ini telah ditutup",
+    DISPUTE_APPEAL_WINDOW_OPEN:
+      "Jendela gugatan masih terbuka, sehingga keputusan belum dapat difinalisasi",
+    DISPUTE_AT_FINAL_TIER: "Sengketa sudah berada di tingkat peninjauan akhir",
     DISPUTE_AVAILABLE_IN_TIME:
       "Sengketa tersedia dalam {{time}} (minimum tunggu 30 menit)",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
       "Sengketa hanya dapat diajukan setelah 24 jam penempatan pesanan",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "Sengketa hanya dapat diajukan setelah 30 menit penempatan pesanan",
+    DISPUTE_CARD_TITLE: "Sengketa",
+    DISPUTE_CHALLENGE_DECISION: "Gugat keputusan",
+    DISPUTE_CHALLENGE_DESCRIPTION:
+      "Menggugat akan membatalkan keputusan saat ini dan mengirim sengketa ke {{tier}} untuk peninjauan baru. Ini tidak dapat dibatalkan.",
+    DISPUTE_CHALLENGE_FAILED: "Gagal mengeskalasi sengketa",
+    DISPUTE_CHALLENGE_SUCCESS: "Sengketa dieskalasi ke {{tier}}",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti bukti pembayaran.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
       "Anda dapat mengobrol dengan tim dukungan kami dan membagikan detail relevan, seperti referensi pembayaran Anda.",
     DISPUTE_DEFAULT: "Default",
+    DISPUTE_ESCALATE: "Eskalasi sengketa",
+    DISPUTE_ESCALATE_DESCRIPTION:
+      "Peninjau saat ini melewati batas waktu keputusan. Eskalasi memindahkan sengketa ke {{tier}}.",
+    DISPUTE_FAULT_BANK: "Kesalahan bank",
+    DISPUTE_FAULT_MERCHANT: "Kesalahan merchant",
+    DISPUTE_FAULT_USER: "Kesalahan pengguna",
     DISPUTE_FILTER: "Sengketa: {{disputes}}",
+    DISPUTE_FINALIZE: "Finalisasi keputusan",
+    DISPUTE_FINALIZE_DESCRIPTION:
+      "Jendela gugatan telah ditutup. Finalisasi menerapkan keputusan yang tercatat di on-chain.",
+    DISPUTE_FINALIZE_FAILED: "Gagal memfinalisasi sengketa",
+    DISPUTE_FINALIZE_SUCCESS: "Keputusan sengketa difinalisasi",
+    DISPUTE_HINT_CHALLENGE:
+      "Membatalkan keputusan ini dan mengirim sengketa ke {{tier}} untuk peninjauan baru.",
+    DISPUTE_HINT_ESCALATE: "Memindahkan sengketa ke {{tier}}.",
+    DISPUTE_HINT_FINALIZE: "Menerapkan keputusan yang tercatat di on-chain.",
     DISPUTE_NOT_RAISED: "Sengketa tidak diajukan",
+    DISPUTE_OPEN: "Terbuka",
     DISPUTE_RAISED: "Diajukan",
     DISPUTE_RAISED_CHAT_DESCRIPTION:
       "Hubungi tim dukungan kami. Mereka akan meninjau dan membalas di sini.",
@@ -500,11 +529,35 @@ export const id = {
       "Lihat percakapan Anda dengan dukungan. Percakapan ini hanya bisa dibaca.",
     DISPUTE_RESOLVED_CHAT_TITLE: "Sengketa selesai",
     DISPUTE_SETTLED: "Diselesaikan",
+    DISPUTE_STAGE_CHALLENGED: "Anda menggugat keputusan ini",
+    DISPUTE_STAGE_CHALLENGE_WINDOW: "Dapat digugat hingga {{date}}",
+    DISPUTE_STAGE_DECIDED: "Keputusan: kesalahan {{fault}}",
+    DISPUTE_STAGE_IN_PROGRESS: "Sedang berlangsung",
+    DISPUTE_STAGE_RAISED: "Sengketa diajukan",
+    DISPUTE_STAGE_SETTLED: "Diselesaikan",
+    DISPUTE_STAGE_SLA_MISSED: "Tidak ada keputusan tepat waktu, dieskalasi",
     DISPUTE_STATUS: "Status Sengketa",
     DISPUTE_SUBMISSION_FAILED: "Gagal mengirim sengketa",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "Kami akan meninjau sengketa Anda dan segera menghubungi Anda",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Sengketa berhasil dikirim",
+    DISPUTE_SUMMARY_AGAINST:
+      "{{tier}} memutuskan tidak berpihak kepada Anda (kesalahan {{fault}}). Anda dapat menggugat hingga {{date}}. Jika tidak, keputusan diterapkan secara otomatis.",
+    DISPUTE_SUMMARY_AWAITING:
+      "{{tier}} sedang meninjau sengketa Anda dan harus memutuskan sebelum {{date}}. Jika belum ada keputusan saat itu, Anda dapat mengeskalasi.",
+    DISPUTE_SUMMARY_FINALIZABLE:
+      "Jendela gugatan ditutup pada {{date}} dan keputusan {{tier}} tetap berlaku (kesalahan {{fault}}). Finalisasi untuk menerapkannya.",
+    DISPUTE_SUMMARY_FINAL_REVIEW:
+      "Peninjauan akhir sedang berlangsung. Keputusan operator bersifat final dan langsung berlaku.",
+    DISPUTE_SUMMARY_FOR:
+      "{{tier}} memutuskan berpihak kepada Anda (kesalahan {{fault}}). Keputusan diterapkan otomatis setelah {{date}}.",
+    DISPUTE_SUMMARY_SETTLED:
+      "Diselesaikan pada {{date}}. {{fault}} dinyatakan bersalah.",
+    DISPUTE_SUMMARY_SLA_MISSED:
+      "{{tier}} tidak memutuskan tepat waktu. Anda dapat mengeskalasi sengketa ke {{next}} sekarang.",
+    DISPUTE_TIER_1: "Peninjauan lingkaran",
+    DISPUTE_TIER_2: "Peninjauan admin negara",
+    DISPUTE_TIER_3: "Peninjauan akhir",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Sengketa palsu dapat menyebabkan tindakan terhadap akun Anda.",
     DISPUTE_WARNING_PAYMENT_BUY:
@@ -1222,6 +1275,8 @@ export const id = {
     NOT_AUTHORIZED: "Tidak diotorisasi",
     NOT_AVAILABLE: "Tidak tersedia",
     NOT_A_PAID_BUY_ORDER: "Bukan pesanan beli yang sudah dibayar",
+    NOT_DISPUTE_USER:
+      "Hanya pengguna pesanan yang dapat menggugat sengketa ini",
     NOT_ENOUGH_ELIGIBLE_MERCHANTS: "Tidak cukup merchant yang memenuhi syarat",
     NOT_FOUND: "Tidak Ditemukan",
     NOT_SENT: "Tidak dikirim",
@@ -1239,6 +1294,7 @@ export const id = {
     NO_DISPUTE: "Tidak Ada Sengketa",
     NO_DISPUTED_TRANSACTIONS:
       "Tidak ada transaksi yang disengketakan ditemukan",
+    NO_DISPUTE_DECISION: "Tidak ada keputusan untuk difinalisasi",
     NO_ELIGIBLE_CIRCLES: "Tidak ada lingkaran yang memungkinkan",
     NO_FAQ_RESULTS: "Tidak ada FAQ yang cocok dengan pencarian Anda.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
@@ -2121,6 +2177,7 @@ export const id = {
     USDC_TRANSFER_FAILED_WITH_ERROR_MESSAGE:
       "Transfer USDC gagal dengan pesan kesalahan",
     USDC_TRANSFER_FAILED_WITH_PANIC: "Transfer USDC gagal dengan panik",
+    USER: "Pengguna",
     USERNAME_ALREADY_VERIFIED: "Nama pengguna akun sosial sudah diverifikasi",
     USERNAME_FIELD_NOT_FOUND_IN_PROOF:
       "Field username tidak ditemukan dalam bukti",

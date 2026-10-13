@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { DisputeEscalationCard } from "@/components/dispute-escalation-card";
+import { DisputeStatusValue } from "@/components/dispute-status-value";
 import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
 import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { RequestProofCard } from "@/components/request-proof-card";
@@ -269,21 +271,21 @@ export function SellCompleted({ order }: { order: Order }) {
               {order.disputeInfo.status !== "DEFAULT" && (
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{t("DISPUTE_STATUS")} </span>
-                  <span
-                    className={`text-sm ${
-                      order.disputeInfo.status === "RAISED"
-                        ? "text-destructive"
-                        : "text-success"
-                    }`}>
-                    {order.disputeInfo.status === "RAISED"
-                      ? t("DISPUTE_RAISED")
-                      : t("DISPUTE_SETTLED")}
-                  </span>
+                  <DisputeStatusValue
+                    orderId={order.id.toString()}
+                    disputeStatus={order.disputeInfo.status}
+                  />
                 </div>
               )}
             </div>
           </CardContent>
         </Card>
+
+        {/* Tiered dispute escalation: challenge / escalate / finalize */}
+        <DisputeEscalationCard
+          orderId={order.id.toString()}
+          disputeStatus={order.disputeInfo.status}
+        />
 
         {/* <Card className="w-full gap-4 shadow-none sm:gap-4">
           <div className="flex items-center justify-start gap-2 px-4 py-2">

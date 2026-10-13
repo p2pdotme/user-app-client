@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { OrderProgress } from "@/components";
+import { DisputeEscalationCard } from "@/components/dispute-escalation-card";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -153,6 +154,12 @@ export function BuyPaid({ order }: { order: Order }) {
             </div>
           </CardContent>
         </Card>
+
+        {/* Tiered dispute escalation: challenge / escalate / finalize */}
+        <DisputeEscalationCard
+          orderId={order.id.toString()}
+          disputeStatus={order.disputeInfo.status}
+        />
       </motion.footer>
     </main>
   );
