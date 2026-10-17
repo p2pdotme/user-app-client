@@ -93,6 +93,7 @@ export const pt = {
     BALANCE_FETCH_ERROR: "Erro ao buscar saldo",
     BALANCE_LOADING: "Carregando saldo",
     BALANCE_NOT_LOADED: "Saldo não carregado",
+    BANK: "Banco",
     BANK_LABEL: "Banco",
     BANK_NAME: "Nome do banco",
     BANK_NAME_LABEL: "Bank Name",
@@ -487,19 +488,47 @@ export const pt = {
     DISCONNECT: "Desconectar",
     DISPUTED: "Disputado",
     DISPUTE_ALREADY_SETTLED: "Disputa já foi resolvida",
+    DISPUTE_APPEAL_NOT_DUE: "O prazo de revisão ainda não expirou",
+    DISPUTE_APPEAL_WINDOW_CLOSED:
+      "A janela de contestação desta decisão foi encerrada",
+    DISPUTE_APPEAL_WINDOW_OPEN:
+      "A janela de contestação ainda está aberta, então a decisão ainda não pode ser finalizada",
+    DISPUTE_AT_FINAL_TIER: "A disputa já está no nível de revisão final",
     DISPUTE_AVAILABLE_IN_TIME:
       "Disputa disponível em {{time}} (espera mínima de 30 min)",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
       "A disputa só pode ser levantada após 24 horas da colocação do pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
       "A disputa só pode ser levantada após 30 minutos da colocação do pedido",
+    DISPUTE_CARD_TITLE: "Disputa",
+    DISPUTE_CHALLENGE_DECISION: "Contestar decisão",
+    DISPUTE_CHALLENGE_DESCRIPTION:
+      "Contestar descarta a decisão atual e envia a disputa para {{tier}} para uma nova revisão. Isso não pode ser desfeito.",
+    DISPUTE_CHALLENGE_FAILED: "Falha ao escalar a disputa",
+    DISPUTE_CHALLENGE_SUCCESS: "Disputa escalada para {{tier}}",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
       "Você pode conversar com nossa equipe de suporte e compartilhar detalhes relevantes, como o comprovante de pagamento.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
       "Você pode conversar com nossa equipe de suporte e compartilhar detalhes relevantes, como sua referência de pagamento.",
     DISPUTE_DEFAULT: "Padrão",
+    DISPUTE_ESCALATE: "Escalar disputa",
+    DISPUTE_ESCALATE_DESCRIPTION:
+      "O revisor atual perdeu o prazo de decisão. Escalar move a disputa para {{tier}}.",
+    DISPUTE_FAULT_BANK: "Culpa do banco",
+    DISPUTE_FAULT_MERCHANT: "Culpa do comerciante",
+    DISPUTE_FAULT_USER: "Culpa do usuário",
     DISPUTE_FILTER: "Disputa: {{disputes}}",
+    DISPUTE_FINALIZE: "Finalizar decisão",
+    DISPUTE_FINALIZE_DESCRIPTION:
+      "A janela de contestação foi encerrada. Finalizar aplica a decisão registrada on-chain.",
+    DISPUTE_FINALIZE_FAILED: "Falha ao finalizar a disputa",
+    DISPUTE_FINALIZE_SUCCESS: "Decisão da disputa finalizada",
+    DISPUTE_HINT_CHALLENGE:
+      "Descarta esta decisão e envia a disputa para {{tier}} para uma nova revisão.",
+    DISPUTE_HINT_ESCALATE: "Move a disputa para {{tier}}.",
+    DISPUTE_HINT_FINALIZE: "Aplica a decisão registrada on-chain.",
     DISPUTE_NOT_RAISED: "Disputa não aberta",
+    DISPUTE_OPEN: "Aberta",
     DISPUTE_RAISED: "Levantada",
     DISPUTE_RAISED_CHAT_DESCRIPTION:
       "Converse com nossa equipe de suporte. Eles vão analisar e responder aqui.",
@@ -508,11 +537,35 @@ export const pt = {
       "Veja sua conversa com o suporte. Esta conversa é somente leitura.",
     DISPUTE_RESOLVED_CHAT_TITLE: "Disputa resolvida",
     DISPUTE_SETTLED: "Resolvida",
+    DISPUTE_STAGE_CHALLENGED: "Você contestou esta decisão",
+    DISPUTE_STAGE_CHALLENGE_WINDOW: "Aberta para contestação até {{date}}",
+    DISPUTE_STAGE_DECIDED: "Decisão: culpa de {{fault}}",
+    DISPUTE_STAGE_IN_PROGRESS: "Em andamento",
+    DISPUTE_STAGE_RAISED: "Disputa aberta",
+    DISPUTE_STAGE_SETTLED: "Resolvida",
+    DISPUTE_STAGE_SLA_MISSED: "Sem decisão a tempo, escalada",
     DISPUTE_STATUS: "Status da Disputa",
     DISPUTE_SUBMISSION_FAILED: "Falha ao enviar disputa",
     DISPUTE_SUBMITTED_DESCRIPTION:
       "Revisaremos sua disputa e entraremos em contato em breve",
     DISPUTE_SUBMITTED_SUCCESSFULLY: "Disputa enviada com sucesso",
+    DISPUTE_SUMMARY_AGAINST:
+      "{{tier}} decidiu contra você (culpa de {{fault}}). Você pode contestar até {{date}}. Se não fizer nada, a decisão é aplicada automaticamente.",
+    DISPUTE_SUMMARY_AWAITING:
+      "{{tier}} está revisando sua disputa e tem até {{date}} para decidir. Se não houver decisão até lá, você poderá escalar.",
+    DISPUTE_SUMMARY_FINALIZABLE:
+      "A janela de contestação fechou em {{date}} e a decisão de {{tier}} permanece (culpa de {{fault}}). Finalize para aplicá-la.",
+    DISPUTE_SUMMARY_FINAL_REVIEW:
+      "A revisão final está em andamento. A decisão do operador é definitiva e entra em vigor imediatamente.",
+    DISPUTE_SUMMARY_FOR:
+      "{{tier}} decidiu a seu favor (culpa de {{fault}}). A decisão é aplicada automaticamente após {{date}}.",
+    DISPUTE_SUMMARY_SETTLED:
+      "Resolvida em {{date}}. Culpa atribuída a {{fault}}.",
+    DISPUTE_SUMMARY_SLA_MISSED:
+      "{{tier}} não decidiu a tempo. Você pode escalar a disputa para {{next}} agora.",
+    DISPUTE_TIER_1: "Revisão do círculo",
+    DISPUTE_TIER_2: "Revisão do administrador do país",
+    DISPUTE_TIER_3: "Revisão final",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "Reclamações falsas podem resultar em ação contra sua conta.",
     DISPUTE_WARNING_PAYMENT_BUY:
@@ -1230,6 +1283,7 @@ export const pt = {
     NOT_AUTHORIZED: "Não autorizado",
     NOT_AVAILABLE: "Não disponível",
     NOT_A_PAID_BUY_ORDER: "Não é um pedido de compra pago",
+    NOT_DISPUTE_USER: "Apenas o usuário do pedido pode contestar esta disputa",
     NOT_ENOUGH_ELIGIBLE_MERCHANTS: "Não há comerciantes elegíveis suficientes",
     NOT_FOUND: "Não encontrado",
     NOT_SENT: "Não enviado",
@@ -1246,6 +1300,7 @@ export const pt = {
     NO_COMPLETED_TRANSACTIONS: "Nenhuma transação concluída",
     NO_DISPUTE: "Sem Disputa",
     NO_DISPUTED_TRANSACTIONS: "Nenhuma transação disputada encontrada",
+    NO_DISPUTE_DECISION: "Não há decisão para finalizar",
     NO_ELIGIBLE_CIRCLES: "Nenhum círculo elegível",
     NO_FAQ_RESULTS: "Nenhuma FAQ corresponde à sua busca.",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
@@ -2142,6 +2197,7 @@ export const pt = {
     USDC_TRANSFER_FAILED_WITH_ERROR_MESSAGE:
       "Transferência de USDC falhou com mensagem de erro",
     USDC_TRANSFER_FAILED_WITH_PANIC: "Transferência de USDC falhou com pânico",
+    USER: "Usuário",
     USERNAME_ALREADY_VERIFIED:
       "O nome de usuário da conta social já está verificado",
     USERNAME_FIELD_NOT_FOUND_IN_PROOF:

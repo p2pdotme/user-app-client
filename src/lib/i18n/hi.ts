@@ -461,6 +461,61 @@ export const hi = {
     DISCONNECT: "डिसकनेक्ट",
     DISPUTED: "विवादित",
     DISPUTE_ALREADY_SETTLED: "विवाद पहले ही निपटाया जा चुका है",
+    BANK: "बैंक",
+    DISPUTE_APPEAL_NOT_DUE: "समीक्षा की समय-सीमा अभी समाप्त नहीं हुई है",
+    DISPUTE_APPEAL_WINDOW_CLOSED: "इस निर्णय की चुनौती विंडो बंद हो गई है",
+    DISPUTE_APPEAL_WINDOW_OPEN:
+      "चुनौती विंडो अभी खुली है, इसलिए निर्णय को अभी अंतिम रूप नहीं दिया जा सकता",
+    DISPUTE_AT_FINAL_TIER: "विवाद पहले से ही अंतिम समीक्षा स्तर पर है",
+    DISPUTE_CARD_TITLE: "विवाद",
+    DISPUTE_CHALLENGE_DECISION: "निर्णय को चुनौती दें",
+    DISPUTE_CHALLENGE_DESCRIPTION:
+      "चुनौती देने से वर्तमान निर्णय रद्द हो जाता है और विवाद नई समीक्षा के लिए {{tier}} को भेजा जाता है। इसे पूर्ववत नहीं किया जा सकता।",
+    DISPUTE_CHALLENGE_FAILED: "विवाद एस्केलेट करने में विफल",
+    DISPUTE_CHALLENGE_SUCCESS: "विवाद {{tier}} पर एस्केलेट किया गया",
+    DISPUTE_ESCALATE: "विवाद एस्केलेट करें",
+    DISPUTE_ESCALATE_DESCRIPTION:
+      "वर्तमान समीक्षक ने निर्णय की समय-सीमा चूक दी। एस्केलेट करने से विवाद {{tier}} पर चला जाता है।",
+    DISPUTE_FAULT_BANK: "बैंक का दोष",
+    DISPUTE_FAULT_MERCHANT: "व्यापारी का दोष",
+    DISPUTE_FAULT_USER: "उपयोगकर्ता का दोष",
+    DISPUTE_FINALIZE: "निर्णय को अंतिम रूप दें",
+    DISPUTE_FINALIZE_DESCRIPTION:
+      "चुनौती विंडो बंद हो गई है। अंतिम रूप देने से दर्ज निर्णय ऑन-चेन लागू होता है।",
+    DISPUTE_FINALIZE_FAILED: "विवाद को अंतिम रूप देने में विफल",
+    DISPUTE_FINALIZE_SUCCESS: "विवाद निर्णय को अंतिम रूप दिया गया",
+    DISPUTE_HINT_CHALLENGE:
+      "इस निर्णय को रद्द करता है और विवाद को नई समीक्षा के लिए {{tier}} को भेजता है।",
+    DISPUTE_HINT_ESCALATE: "विवाद को {{tier}} पर ले जाता है।",
+    DISPUTE_HINT_FINALIZE: "दर्ज निर्णय को ऑन-चेन लागू करता है।",
+    DISPUTE_OPEN: "खुला",
+    DISPUTE_STAGE_CHALLENGED: "आपने इस निर्णय को चुनौती दी",
+    DISPUTE_STAGE_CHALLENGE_WINDOW: "{{date}} तक चुनौती के लिए खुला",
+    DISPUTE_STAGE_DECIDED: "निर्णय: {{fault}} का दोष",
+    DISPUTE_STAGE_IN_PROGRESS: "प्रगति में",
+    DISPUTE_STAGE_RAISED: "विवाद उठाया गया",
+    DISPUTE_STAGE_SETTLED: "निपटाया गया",
+    DISPUTE_STAGE_SLA_MISSED: "समय पर निर्णय नहीं, एस्केलेट किया गया",
+    DISPUTE_SUMMARY_AGAINST:
+      "{{tier}} ने आपके विरुद्ध निर्णय दिया ({{fault}} का दोष)। आप इसे {{date}} तक चुनौती दे सकते हैं। कुछ न करने पर निर्णय स्वतः लागू हो जाएगा।",
+    DISPUTE_SUMMARY_AWAITING:
+      "{{tier}} आपके विवाद की समीक्षा कर रहा है और {{date}} तक निर्णय ले सकता है। तब तक निर्णय न होने पर आप एस्केलेट कर सकते हैं।",
+    DISPUTE_SUMMARY_FINALIZABLE:
+      "चुनौती विंडो {{date}} को बंद हो गई और {{tier}} का निर्णय कायम है ({{fault}} का दोष)। इसे लागू करने के लिए अंतिम रूप दें।",
+    DISPUTE_SUMMARY_FINAL_REVIEW:
+      "अंतिम समीक्षा चल रही है। ऑपरेटर का निर्णय अंतिम है और तुरंत लागू होता है।",
+    DISPUTE_SUMMARY_FOR:
+      "{{tier}} ने आपके पक्ष में निर्णय दिया ({{fault}} का दोष)। निर्णय {{date}} के बाद स्वतः लागू हो जाएगा।",
+    DISPUTE_SUMMARY_SETTLED:
+      "{{date}} को निपटाया गया। {{fault}} का दोष पाया गया।",
+    DISPUTE_SUMMARY_SLA_MISSED:
+      "{{tier}} ने समय पर निर्णय नहीं लिया। आप अभी विवाद को {{next}} पर एस्केलेट कर सकते हैं।",
+    DISPUTE_TIER_1: "सर्कल समीक्षा",
+    DISPUTE_TIER_2: "देश व्यवस्थापक समीक्षा",
+    DISPUTE_TIER_3: "अंतिम समीक्षा",
+    NOT_DISPUTE_USER: "केवल ऑर्डर का उपयोगकर्ता ही इस विवाद को चुनौती दे सकता है",
+    NO_DISPUTE_DECISION: "अंतिम रूप देने के लिए कोई निर्णय नहीं है",
+    USER: "उपयोगकर्ता",
     DISPUTE_AVAILABLE_IN_TIME:
       "विवाद {{time}} में उपलब्ध है (न्यूनतम 30 मिनट प्रतीक्षा करें)",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
