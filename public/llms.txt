@@ -28,7 +28,6 @@ Docs: https://docs.p2p.foundation
 - Cuba (CUP) - Transfermovil
 - Ecuador (USD) - Transferencia
 - Peru (PEN) - Yape / Plin / CCI
-- Philippines (PHP) - InstaPay
 - Kenya (KES) - M-Pesa
 
 ## Key facts

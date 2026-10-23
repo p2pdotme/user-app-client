@@ -248,7 +248,7 @@ export const IS_BVN_ENABLED = Boolean(BVN_API_BASE_URL && BVN_TENANT);
  * Every enabled currency in the SDK's COUNTRY_OPTIONS needs an entry here --
  * a launched market that is missing from this map does not error, it silently
  * loses the KYC card (see KycVerificationCard's `if (!kycCountry) return null`),
- * which is how PHP/PEN/ECU/CUP went unverifiable after launch. Only the Revolut
+ * which is how PEN/ECU/CUP went unverifiable after launch. Only the Revolut
  * rails (USD, EUR) are meant to be absent: they have no passport country.
  */
 export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
@@ -260,7 +260,6 @@ export const KYC_COUNTRY_BY_CURRENCY: Partial<Record<CurrencyType, string>> = {
   ARS: "AR",
   VEN: "VE",
   IDR: "ID",
-  PHP: "PH",
   PEN: "PE",
   ECU: "EC",
   CUP: "CU",
@@ -328,10 +327,6 @@ const PLACEHOLDER_KEYS: Record<string, Record<string, string>> = {
   PEN: {
     phone: "PERU_PHONE_PLACEHOLDER",
     cci: "PERU_CCI_PLACEHOLDER",
-  },
-  PHP: {
-    phone: "PLACEHOLDER_PAYMENT_ID_PHP",
-    "bank-name": "PLACEHOLDER_BANK_NAME_PHP",
   },
   KES: { mpesa: "PLACEHOLDER_MPESA_KES" },
   EGP: { phone: "PLACEHOLDER_PAYMENT_ID_EGP" },

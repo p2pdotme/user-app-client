@@ -61,7 +61,7 @@ export function formatPaymentIdForDisplay(
 
 /**
  * Scannable QR payload for UI. Strict SELL upload first, then the country's
- * PAY hook (VEN envelope, PEN without CRC, PHP QR Ph).
+ * PAY hook (VEN envelope, PEN without CRC).
  */
 export function getDisplayQrPayload(
   currency: CurrencyType,
