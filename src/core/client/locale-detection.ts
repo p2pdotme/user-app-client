@@ -60,7 +60,6 @@ const TIMEZONE_CURRENCIES: [zonePrefix: string, currency: CurrencyType][] = [
   ["America/Caracas", "VEN"],
   ["America/Havana", "CUP"],
   ["America/La_Paz", "BOB"],
-  ["Asia/Manila", "PHP"],
   ["America/Sao_Paulo", "BRL"],
   ["America/Bahia", "BRL"],
   ["America/Fortaleza", "BRL"],
