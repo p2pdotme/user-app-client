@@ -8,20 +8,20 @@ import type { CurrencyType } from "@/lib/constants";
 const DAY_SECONDS = 24 * 60 * 60;
 
 /**
- * Prize-draw entry rate (in percent of the order's USDC amount) earned on
- * BUY/SELL completion. The executor turns this percentage into draw entries
- * at one entry per cent, so a $50 order at 2% earns 100 entries. Defaults to
- * 2%, with the same per-market overrides the backend applies. This is a
- * display-only mirror of the server-side rule; keep the two in sync.
+ * Prize-draw entry rate (in percent) per market. At the 2% default an order
+ * earns one entry per whole USDC, so a $50 order earns 50 entries, in every
+ * market except those excluded above. Mirrors the executor's rule.
+ * This is a display-only mirror of the server-side rule; keep the two in
+ * sync.
  */
 export const DEFAULT_DRAW_ENTRY_PERCENT = 2;
+// Every market earns the default except the three LotPot excluded: India,
+// Venezuela (also on Prizerail's sanctions list) and Bolivia. Keep in step
+// with the executor's DEFAULT_CASHBACK_BPS_BY_CURRENCY.
 const DRAW_ENTRY_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
-  ARS: 1,
-  MEX: 1,
   INR: 0,
   VEN: 0,
   BOB: 0,
-  BRL: 1,
 };
 
 export function getDrawEntryPercent(currency?: CurrencyType): number {
@@ -32,9 +32,9 @@ export function getDrawEntryPercent(currency?: CurrencyType): number {
 }
 
 /**
- * Entries for one order: floor(usdc × percent). That is the cashback-
- * equivalent amount expressed in cents, matching the executor's
- * `entriesFromCashbackUsdc`. Non-numeric or negative input yields 0.
+ * Entries for one order: whole USDC × (percent / 2). At the 2% default a
+ * $50 order earns 50 entries; a 1% market earns 25. Mirrors the executor's
+ * `entriesForOrder`. Non-numeric or negative input yields 0.
  */
 export function entriesForOrderUsdc(
   usdcAmount: string | number,
@@ -44,10 +44,9 @@ export function entriesForOrderUsdc(
   if (!Number.isFinite(usdc) || usdc <= 0 || percent <= 0) {
     return 0;
   }
-  // Round to whole cents first so "12.345" × 2 does not float-drift under
-  // the floor.
+  // Work in whole cents so "12.345" does not float-drift under the floor.
   const cents = Math.round(usdc * 100);
-  return Math.floor((cents * percent) / 100);
+  return Math.floor((cents * percent) / (DEFAULT_DRAW_ENTRY_PERCENT * 100));
 }
 
 export interface DrawWindow {

@@ -47,9 +47,9 @@ describe("PrizerailDrawCard", () => {
     const open = vi.fn();
     vi.stubGlobal("open", open);
 
-    renderWithProviders(<PrizerailDrawCard currency="ARS" usdcAmount="50" />);
+    renderWithProviders(<PrizerailDrawCard currency="BRL" usdcAmount="50" />);
 
-    // $50 at 1% = 50 entries
+    // $50 = 50 entries in every market
     expect(screen.getByText(/50 entries/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /view draw/i }));
     expect(open).toHaveBeenCalledWith(
@@ -97,9 +97,9 @@ describe("PrizerailDrawCard", () => {
       screen.getByRole("button", { name: /about the prize draw/i }),
     );
     expect(screen.getByText(/how the prize draw works/i)).toBeInTheDocument();
-    // Worked example uses this market's rate: $100 at 2% = 200 entries.
+    // Worked example uses this market's rate: $100 at 2% = 100 entries.
     expect(
-      screen.getByText(/\$100 order gives you 200 entries/i),
+      screen.getByText(/\$100 order gives you 100 entries/i),
     ).toBeInTheDocument();
   });
 

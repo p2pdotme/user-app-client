@@ -9,6 +9,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { entriesForOrderUsdc } from "@/lib/prizerail";
 
 interface PrizerailDrawInfoDrawerProps {
   open: boolean;
@@ -42,14 +43,14 @@ export function PrizerailDrawInfoDrawer({
   poolLabel = null,
 }: PrizerailDrawInfoDrawerProps) {
   const { t } = useTranslation();
-  const exampleEntries = Math.floor(EXAMPLE_ORDER_USD * percentage);
+  const exampleEntries = entriesForOrderUsdc(EXAMPLE_ORDER_USD, percentage);
 
   const sections = [
     {
       key: "entries",
       title: t("PRIZERAIL_INFO_ENTRIES_TITLE"),
       body: t("PRIZERAIL_INFO_ENTRIES_BODY", {
-        percentage: String(percentage),
+        perHundred: entriesForOrderUsdc(100, percentage).toLocaleString(),
         exampleOrder: String(EXAMPLE_ORDER_USD),
         exampleEntries: exampleEntries.toLocaleString(),
       }),

@@ -26,23 +26,26 @@ describe("getDrawEntryPercent", () => {
   it("defaults to 2% and mirrors the per-market overrides", () => {
     expect(getDrawEntryPercent()).toBe(2);
     expect(getDrawEntryPercent("NGN")).toBe(2);
-    expect(getDrawEntryPercent("ARS")).toBe(1);
-    expect(getDrawEntryPercent("MEX")).toBe(1);
+    expect(getDrawEntryPercent("ARS")).toBe(2);
+    expect(getDrawEntryPercent("MEX")).toBe(2);
+    expect(getDrawEntryPercent("BRL")).toBe(2);
     expect(getDrawEntryPercent("INR")).toBe(0);
+    expect(getDrawEntryPercent("BOB")).toBe(0);
     expect(getDrawEntryPercent("VEN")).toBe(0);
   });
 });
 
 describe("entriesForOrderUsdc", () => {
-  it("gives one entry per cent of the percentage of the order", () => {
-    // $50 at 2% = $1.00 = 100 entries
-    expect(entriesForOrderUsdc("50", 2)).toBe(100);
-    expect(entriesForOrderUsdc(50, 1)).toBe(50);
+  it("gives one entry per whole USDC at the default rate", () => {
+    expect(entriesForOrderUsdc("50", 2)).toBe(50);
+    expect(entriesForOrderUsdc(50, 1)).toBe(25); // a hypothetical 1% market
+    expect(entriesForOrderUsdc("1", 2)).toBe(1);
   });
 
-  it("floors fractional cents and never goes negative", () => {
-    expect(entriesForOrderUsdc("0.49", 2)).toBe(0);
-    expect(entriesForOrderUsdc("12.345", 2)).toBe(24);
+  it("floors fractional entries and never goes negative", () => {
+    expect(entriesForOrderUsdc("0.99", 2)).toBe(0);
+    expect(entriesForOrderUsdc("12.345", 2)).toBe(12);
+    expect(entriesForOrderUsdc("3", 1)).toBe(1);
     expect(entriesForOrderUsdc("-5", 2)).toBe(0);
     expect(entriesForOrderUsdc("abc", 2)).toBe(0);
     expect(entriesForOrderUsdc("10", 0)).toBe(0);
@@ -68,7 +71,7 @@ describe("estimateDrawEntries", () => {
 
   it("sums completed BUY and SELL orders placed inside the window", () => {
     const orders = [
-      order({ orderId: "1", usdcAmount: "100" }), // 200 entries
+      order({ orderId: "1", usdcAmount: "100" }), // 100 entries
       order({ orderId: "2", type: "SELL", usdcAmount: "50", currency: "ARS" }), // 50
       order({ orderId: "3", type: "PAY", usdcAmount: "999" }), // excluded
       order({ orderId: "4", status: "CANCELLED", usdcAmount: "999" }), // excluded
@@ -76,7 +79,7 @@ describe("estimateDrawEntries", () => {
       order({ orderId: "6", placedAt: "499", usdcAmount: "999" }), // before start
       order({ orderId: "7", currency: "VEN", usdcAmount: "999" }), // 0% market
     ];
-    expect(estimateDrawEntries(orders, window)).toBe(250);
+    expect(estimateDrawEntries(orders, window)).toBe(150);
   });
 
   it("returns zero for no orders", () => {

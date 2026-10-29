@@ -1588,7 +1588,7 @@ export const en = {
       "At draw time, winners are drawn from everyone who entered. Someone with twice your entries has twice your chance. Nobody can win twice in the same draw, and every result is published so anyone can check it.",
     PRIZERAIL_INFO_DRAW_TITLE: "Winners are picked at random",
     PRIZERAIL_INFO_ENTRIES_BODY:
-      "Entries are your tickets. You get {{percentage}}% of each order's value as entries, one per cent. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
+      "Entries are your tickets. You earn {{perHundred}} entries for every $100 of orders. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "You earn entries with every order",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Winners are announced right after the draw. Your prize is sent to you in USDC. You don't need to do anything to enter.",

@@ -1650,7 +1650,7 @@ export const es = {
       "En el momento del sorteo, los ganadores se eligen entre todos los participantes. Quien tenga el doble de participaciones tiene el doble de posibilidades. Nadie puede ganar dos veces en el mismo sorteo y cada resultado se publica para que cualquiera pueda verificarlo.",
     PRIZERAIL_INFO_DRAW_TITLE: "Los ganadores se eligen al azar",
     PRIZERAIL_INFO_ENTRIES_BODY:
-      "Las participaciones son tus boletos. Recibes el {{percentage}}% del valor de cada orden en participaciones, una por centavo. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
+      "Las participaciones son tus boletos. Ganas {{perHundred}} participaciones por cada $100 en órdenes. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. No tienes que hacer nada para participar.",

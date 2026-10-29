@@ -1613,7 +1613,7 @@ export const id = {
       "Saat undian, pemenang dipilih dari semua peserta. Orang dengan entri dua kali lipat punya peluang dua kali lipat. Tidak ada yang bisa menang dua kali dalam undian yang sama, dan setiap hasil dipublikasikan agar siapa pun dapat memeriksanya.",
     PRIZERAIL_INFO_DRAW_TITLE: "Pemenang dipilih secara acak",
     PRIZERAIL_INFO_ENTRIES_BODY:
-      "Entri adalah tiket Anda. Anda mendapat {{percentage}}% dari nilai setiap pesanan sebagai entri, satu per sen. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
+      "Entri adalah tiket Anda. Anda mendapat {{perHundred}} entri untuk setiap $100 pesanan. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Anda mendapat entri dari setiap pesanan",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Anda tidak perlu melakukan apa pun untuk ikut.",

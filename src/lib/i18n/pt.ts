@@ -1629,7 +1629,7 @@ export const pt = {
       "Na hora do sorteio, os vencedores são escolhidos entre todos os participantes. Quem tem o dobro das suas entradas tem o dobro da chance. Ninguém ganha duas vezes no mesmo sorteio e todo resultado é publicado para que qualquer pessoa possa conferir.",
     PRIZERAIL_INFO_DRAW_TITLE: "Os vencedores são sorteados",
     PRIZERAIL_INFO_ENTRIES_BODY:
-      "Entradas são seus bilhetes. Você recebe {{percentage}}% do valor de cada pedido em entradas, uma por centavo. Um pedido de ${{exampleOrder}} dá {{exampleEntries}} entradas. Mais entradas, mais chances.",
+      "Entradas são seus bilhetes. Você ganha {{perHundred}} entradas a cada $100 em pedidos. Um pedido de ${{exampleOrder}} dá {{exampleEntries}} entradas. Mais entradas, mais chances.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Você ganha entradas a cada pedido",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Os vencedores são anunciados logo após o sorteio. Seu prêmio é enviado em USDC. Você não precisa fazer nada para participar.",
