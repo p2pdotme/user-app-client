@@ -67,7 +67,10 @@ describe("fetchCampaignDraws", () => {
         drawings: [{ ...DRAW, winners: [{}, {}], entrants: undefined }],
       }),
     );
-    const res = await fetchCampaignDraws("p2p-daily", { fetchImpl });
+    const res = await fetchCampaignDraws("p2p-daily", {
+      baseUrl: "https://www.prizerail.com",
+      fetchImpl,
+    });
     expect(res.campaign.name).toBeNull();
     expect(res.draws[0]?.winnersCount).toBe(2);
     expect(res.draws[0]?.entrantCount).toBeNull();
@@ -77,21 +80,30 @@ describe("fetchCampaignDraws", () => {
     const fetchImpl = vi.fn(async () =>
       jsonResponse(200, { draws: [{ id: 1 }, DRAW] }),
     );
-    const res = await fetchCampaignDraws("p2p-daily", { fetchImpl });
+    const res = await fetchCampaignDraws("p2p-daily", {
+      baseUrl: "https://www.prizerail.com",
+      fetchImpl,
+    });
     expect(res.draws.map((d) => d.id)).toEqual(["abc"]);
   });
 
   it("throws on a non-2xx so react-query can surface the error", async () => {
     const fetchImpl = vi.fn(async () => jsonResponse(404, { error: "nope" }));
-    await expect(fetchCampaignDraws("missing", { fetchImpl })).rejects.toThrow(
-      /404/,
-    );
+    await expect(
+      fetchCampaignDraws("missing", {
+        baseUrl: "https://www.prizerail.com",
+        fetchImpl,
+      }),
+    ).rejects.toThrow(/404/);
   });
 
   it("throws when the envelope has no draws array", async () => {
     const fetchImpl = vi.fn(async () => jsonResponse(200, { hello: 1 }));
     await expect(
-      fetchCampaignDraws("p2p-daily", { fetchImpl }),
+      fetchCampaignDraws("p2p-daily", {
+        baseUrl: "https://www.prizerail.com",
+        fetchImpl,
+      }),
     ).rejects.toThrow(/draws/);
   });
 });

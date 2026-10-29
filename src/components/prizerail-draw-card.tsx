@@ -27,8 +27,8 @@ interface PrizerailDrawCardProps {
  * instead of issuing credit. Entries are sent server-side, so the card can
  * promise them without waiting on any on-chain signal.
  *
- * Hidden when the campaign is not configured (VITE_PRIZERAIL_CAMPAIGN_SLUG)
- * and in 0% markets. The next-draw line is best-effort from the public feed
+ * Hidden when the programme is off (VITE_PRIZERAIL_CAMPAIGN_SLUG=off) and in
+ * 0% markets. The next-draw line is best-effort from the public feed
  * and simply does not render if the feed is unavailable.
  */
 export function PrizerailDrawCard({

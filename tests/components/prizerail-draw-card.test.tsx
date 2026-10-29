@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react";
+import { renderWithProviders } from "@tests/helpers/render";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { renderWithProviders } from "@/test/render";
-import { PrizerailDrawCard } from "../prizerail-draw-card";
+import { PrizerailDrawCard } from "@/components/prizerail-draw-card";
 
 // The card only reads the public draw feed through this hook; stubbing it
 // keeps the test off the network and lets each case shape the feed.
@@ -22,8 +22,8 @@ describe("PrizerailDrawCard", () => {
     drawsState.isLoading = false;
   });
 
-  it("renders nothing when the campaign is not configured", () => {
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "");
+  it("renders nothing when the programme is switched off", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "off");
     const { container } = renderWithProviders(
       <PrizerailDrawCard currency="NGN" usdcAmount="50" />,
     );
@@ -41,6 +41,7 @@ describe("PrizerailDrawCard", () => {
   it("shows the entries earned and opens the public campaign page", () => {
     // vitest loads the project .env; pin the host overrides so a local
     // sandbox setting cannot change the expected URL.
+    vi.stubEnv("VITE_CHAIN", "base");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");

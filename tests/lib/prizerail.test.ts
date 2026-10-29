@@ -6,6 +6,7 @@ import {
   getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailCampaignUrl,
+  PRIZERAIL_SITE_BY_CHAIN,
   selectDrawWindow,
 } from "@/lib/prizerail";
 
@@ -160,6 +161,7 @@ describe("campaign env helpers", () => {
   it("reads the slug and builds the public campaign url", () => {
     // vitest loads the project .env; pin the overrides so a local sandbox
     // setting cannot change the expected default host.
+    vi.stubEnv("VITE_CHAIN", "base");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
@@ -179,8 +181,31 @@ describe("campaign env helpers", () => {
     expect(getPrizerailCampaignUrl("x")).toBe("https://example.test/draw");
   });
 
-  it("treats a blank slug as unset", () => {
+  it("picks the site from the chain when the env is blank", () => {
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "  ");
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
+
+    vi.stubEnv("VITE_CHAIN", "base");
+    expect(getPrizerailCampaignSlug()).toBe("p2p-ramp");
+    expect(getPrizerailCampaignUrl("p2p-ramp")).toBe(
+      "https://www.prizerail.com/campaigns/p2p-ramp",
+    );
+
+    vi.stubEnv("VITE_CHAIN", "baseSepolia");
+    expect(getPrizerailCampaignSlug()).toBe(
+      PRIZERAIL_SITE_BY_CHAIN.baseSepolia.campaignSlug,
+    );
+    expect(getPrizerailCampaignUrl("x")).toBe(
+      "https://sandbox.prizerail.com/campaigns/x",
+    );
+
+    vi.stubEnv("VITE_CHAIN", "hardhat");
+    expect(getPrizerailCampaignSlug()).toBeUndefined();
+  });
+
+  it("hides the programme when the slug is off", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "OFF");
     expect(getPrizerailCampaignSlug()).toBeUndefined();
   });
 });

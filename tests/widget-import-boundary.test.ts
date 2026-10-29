@@ -31,6 +31,7 @@ import { describe, expect, it } from "vitest";
 const SRC_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
+  "src",
 );
 
 function listSourceFiles(dir: string): string[] {

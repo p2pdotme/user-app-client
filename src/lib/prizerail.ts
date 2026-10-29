@@ -1,11 +1,29 @@
 import type { SubgraphOrder } from "@/core/p2pdotme/shared";
-import {
-  PRIZERAIL_PUBLIC_FALLBACK_URL,
-  type PublicDraw,
-} from "@/core/prizerail/public";
+import type { PublicDraw } from "@/core/prizerail/public";
 import type { CurrencyType } from "@/lib/constants";
 
 const DAY_SECONDS = 24 * 60 * 60;
+
+// One Prizerail site per chain, in step with the executor's PRIZERAIL_SITES:
+// Base mainnet reads the production campaign, Base Sepolia the sandbox one.
+// VITE_PRIZERAIL_CAMPAIGN_SLUG / VITE_PRIZERAIL_PUBLIC_URL override either
+// for a one-off; a slug of "off" hides every draw card and tile.
+export const PRIZERAIL_SITE_BY_CHAIN: Readonly<
+  Record<string, { publicUrl: string; campaignSlug: string }>
+> = {
+  base: { publicUrl: "https://www.prizerail.com", campaignSlug: "p2p-ramp" },
+  baseSepolia: {
+    publicUrl: "https://sandbox.prizerail.com",
+    campaignSlug: "p2pme-p2pdotme-orders",
+  },
+};
+const PRIZERAIL_CAMPAIGN_OFF = "off";
+
+function prizerailSite():
+  | { publicUrl: string; campaignSlug: string }
+  | undefined {
+  return PRIZERAIL_SITE_BY_CHAIN[(import.meta.env.VITE_CHAIN ?? "").trim()];
+}
 
 /**
  * Prize-draw entry rate (in percent) per market. At the 2% default an order
@@ -131,14 +149,21 @@ export function selectDrawWindow(
   };
 }
 
+/**
+ * Campaign the app shows: the env override, else the chain's site, else
+ * undefined (no draw UI) on chains with no Prizerail site, or when "off".
+ */
 export function getPrizerailCampaignSlug(): string | undefined {
   const slug = (import.meta.env.VITE_PRIZERAIL_CAMPAIGN_SLUG ?? "").trim();
-  return slug || undefined;
+  if (slug.toLowerCase() === PRIZERAIL_CAMPAIGN_OFF) return undefined;
+  return slug || prizerailSite()?.campaignSlug;
 }
 
 export function getPrizerailPublicBaseUrl(): string {
   const raw = (import.meta.env.VITE_PRIZERAIL_PUBLIC_URL ?? "").trim();
-  return (raw || PRIZERAIL_PUBLIC_FALLBACK_URL).replace(/\/+$/, "");
+  const url =
+    raw || prizerailSite()?.publicUrl || PRIZERAIL_SITE_BY_CHAIN.base.publicUrl;
+  return url.replace(/\/+$/, "");
 }
 
 /** The public campaign page users are sent to — odds, draws, proofs. */

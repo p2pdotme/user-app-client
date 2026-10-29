@@ -7,7 +7,6 @@ import { z } from "zod";
 // unexpected field must never blank the card. Each draw is validated on its
 // own and a malformed one is dropped rather than failing the whole page.
 
-export const PRIZERAIL_PUBLIC_FALLBACK_URL = "https://www.prizerail.com";
 // The feed is newest-first and lists EVERY scheduled open draw (an hourly
 // campaign publishes ~48 ahead). A small page would hold only the furthest
 // draws and miss the one taking entries now, so ask for the feed maximum.
@@ -124,19 +123,17 @@ function toPublicCampaign(
 }
 
 export interface FetchCampaignDrawsOptions {
-  baseUrl?: string;
+  /** Feed host for the chain's site — see PRIZERAIL_SITE_BY_CHAIN. */
+  baseUrl: string;
   limit?: number;
   fetchImpl?: typeof fetch;
 }
 
 export async function fetchCampaignDraws(
   slug: string,
-  options: FetchCampaignDrawsOptions = {},
+  options: FetchCampaignDrawsOptions,
 ): Promise<CampaignDraws> {
-  const base = (options.baseUrl ?? PRIZERAIL_PUBLIC_FALLBACK_URL).replace(
-    /\/+$/,
-    "",
-  );
+  const base = options.baseUrl.replace(/\/+$/, "");
   const limit = options.limit ?? DEFAULT_LIMIT;
   const fetchImpl = options.fetchImpl ?? fetch;
   const url = `${base}/campaigns/${encodeURIComponent(slug)}/draws.json?limit=${limit}`;

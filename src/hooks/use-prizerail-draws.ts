@@ -26,7 +26,7 @@ export interface PrizerailDrawsSummary {
 /**
  * Public draw feed for the configured campaign. No API key: the feed is
  * open and CORS-enabled by Prizerail. Disabled when
- * VITE_PRIZERAIL_CAMPAIGN_SLUG is unset, so the draw UI simply does not
+ * VITE_PRIZERAIL_CAMPAIGN_SLUG is "off", so the draw UI simply does not
  * render on deploys without the programme.
  */
 export function usePrizerailDraws() {
