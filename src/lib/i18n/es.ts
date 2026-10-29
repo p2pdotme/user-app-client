@@ -1640,12 +1640,32 @@ export const es = {
       "Prepárate para escanear una vez que se asigne el comerciante",
     PRICE: "Precio",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
-      "Esta orden te dio {{entries}} participaciones en el sorteo P2P ({{percentage}}% de la orden, 1 participación por centavo). Los ganadores se eligen con aleatoriedad verificable y se pagan en USDC.",
+      "Esta orden te dio {{entries}} participaciones. Más órdenes, más participaciones.",
     PRIZERAIL_DRAW_POOL:
       "{{entrants}} jugadores · {{entries}} participaciones hasta ahora",
-    PRIZERAIL_DRAW_TITLE: "Sorteo de premios",
+    PRIZERAIL_DRAW_TITLE: "Estás en el sorteo",
     PRIZERAIL_ENTRIES_UNIT: "participaciones",
-    PRIZERAIL_NEXT_DRAW: "Próximo sorteo {{time}}",
+    PRIZERAIL_INFO_BUTTON: "Sobre el sorteo",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "En el momento del sorteo, los ganadores se eligen entre todos los participantes. Quien tenga el doble de participaciones tiene el doble de posibilidades. Nadie puede ganar dos veces en el mismo sorteo y cada resultado se publica para que cualquiera pueda verificarlo.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Los ganadores se eligen al azar",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Las participaciones son tus boletos. Recibes el {{percentage}}% del valor de cada orden en participaciones, una por centavo. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. No tienes que hacer nada para participar.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Si ganas",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Los premios se pagan en USDC, desde montos pequeños hasta el premio mayor. La lista completa de premios y los resultados anteriores están en la página del sorteo.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Los premios son dinero real",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Tus participaciones cuentan solo para el próximo sorteo. Cada nueva orden genera participaciones nuevas para el sorteo siguiente.",
+    PRIZERAIL_INFO_RESET_TITLE:
+      "Las participaciones son para el próximo sorteo",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Cada orden que completas es una oportunidad de ganar USDC.",
+    PRIZERAIL_INFO_TITLE: "Cómo funciona el sorteo",
+    PRIZERAIL_NEXT_DRAW: "Próximo sorteo: {{time}}",
     PRIZERAIL_VIEW_DRAW: "Ver sorteo",
     PROCEED_TO_PAY: "Proceder al Pago",
     PROCESSING: "Procesando",

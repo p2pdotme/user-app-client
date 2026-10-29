@@ -8,7 +8,10 @@ import { z } from "zod";
 // own and a malformed one is dropped rather than failing the whole page.
 
 export const PRIZERAIL_PUBLIC_FALLBACK_URL = "https://www.prizerail.com";
-const DEFAULT_LIMIT = 10;
+// The feed is newest-first and lists EVERY scheduled open draw (an hourly
+// campaign publishes ~48 ahead). A small page would hold only the furthest
+// draws and miss the one taking entries now, so ask for the feed maximum.
+const DEFAULT_LIMIT = 100;
 const REQUEST_TIMEOUT_MS = 10_000;
 
 /** Public stage names (the partner API calls these `status`). */

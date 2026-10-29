@@ -1604,11 +1604,30 @@ export const id = {
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
-      "Pesanan ini memberi Anda {{entries}} entri di undian hadiah P2P ({{percentage}}% dari pesanan, 1 entri per sen). Pemenang dipilih dengan keacakan yang dapat diverifikasi dan dibayar dalam USDC.",
+      "Pesanan ini memberi Anda {{entries}} entri. Makin banyak pesanan, makin banyak entri.",
     PRIZERAIL_DRAW_POOL: "{{entrants}} pemain · {{entries}} entri sejauh ini",
-    PRIZERAIL_DRAW_TITLE: "Undian hadiah",
+    PRIZERAIL_DRAW_TITLE: "Anda ikut undian hadiah",
     PRIZERAIL_ENTRIES_UNIT: "entri",
-    PRIZERAIL_NEXT_DRAW: "Undian berikutnya {{time}}",
+    PRIZERAIL_INFO_BUTTON: "Tentang undian hadiah",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "Saat undian, pemenang dipilih dari semua peserta. Orang dengan entri dua kali lipat punya peluang dua kali lipat. Tidak ada yang bisa menang dua kali dalam undian yang sama, dan setiap hasil dipublikasikan agar siapa pun dapat memeriksanya.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Pemenang dipilih secara acak",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Entri adalah tiket Anda. Anda mendapat {{percentage}}% dari nilai setiap pesanan sebagai entri, satu per sen. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Anda mendapat entri dari setiap pesanan",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Anda tidak perlu melakukan apa pun untuk ikut.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Jika Anda menang",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Hadiah dibayar dalam USDC, dari jumlah kecil hingga jackpot. Daftar hadiah lengkap dan hasil sebelumnya ada di halaman undian.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Hadiahnya uang sungguhan",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Entri Anda hanya berlaku untuk undian yang akan datang. Setiap pesanan baru memberi entri baru untuk undian setelahnya.",
+    PRIZERAIL_INFO_RESET_TITLE: "Entri berlaku untuk undian berikutnya",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Setiap pesanan yang selesai adalah peluang memenangkan USDC.",
+    PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
+    PRIZERAIL_NEXT_DRAW: "Undian berikutnya: {{time}}",
     PRIZERAIL_VIEW_DRAW: "Lihat undian",
     PROCEED_TO_PAY: "Lanjutkan ke Pembayaran",
     PROCESSING: "Memproses",

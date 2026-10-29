@@ -1579,11 +1579,30 @@ export const en = {
       "Prepare to scan once merchant is assigned",
     PRICE: "Price",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
-      "This order earned you {{entries}} entries in the P2P prize draw ({{percentage}}% of the order, 1 entry per cent). Winners are picked with verifiable randomness and paid in USDC.",
+      "This order gave you {{entries}} entries. More orders, more entries.",
     PRIZERAIL_DRAW_POOL: "{{entrants}} players · {{entries}} entries so far",
-    PRIZERAIL_DRAW_TITLE: "Prize draw",
+    PRIZERAIL_DRAW_TITLE: "You're in the prize draw",
     PRIZERAIL_ENTRIES_UNIT: "entries",
-    PRIZERAIL_NEXT_DRAW: "Next draw {{time}}",
+    PRIZERAIL_INFO_BUTTON: "About the prize draw",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "At draw time, winners are drawn from everyone who entered. Someone with twice your entries has twice your chance. Nobody can win twice in the same draw, and every result is published so anyone can check it.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Winners are picked at random",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Entries are your tickets. You get {{percentage}}% of each order's value as entries, one per cent. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "You earn entries with every order",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Winners are announced right after the draw. Your prize is sent to you in USDC. You don't need to do anything to enter.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "If you win",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Prizes are paid in USDC, from small amounts up to the jackpot. The full prize list and past results are on the draw page.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Prizes are real money",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Your entries count for the upcoming draw only. Each new order earns fresh entries for the draw after it.",
+    PRIZERAIL_INFO_RESET_TITLE: "Entries are for the next draw",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Every order you complete is a chance to win USDC.",
+    PRIZERAIL_INFO_TITLE: "How the prize draw works",
+    PRIZERAIL_NEXT_DRAW: "Next draw: {{time}}",
     PRIZERAIL_VIEW_DRAW: "View draw",
     PROCEED_TO_PAY: "Proceed to Pay",
     PROCESSING: "Processing",

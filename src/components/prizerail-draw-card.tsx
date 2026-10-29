@@ -1,6 +1,8 @@
-import { ExternalLink, Ticket } from "lucide-react";
+import { ExternalLink, Info, Ticket } from "lucide-react";
 import moment from "moment";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { PrizerailDrawInfoDrawer } from "@/components/prizerail-draw-info-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { usePrizerailDraws } from "@/hooks/use-prizerail-draws";
@@ -36,6 +38,7 @@ export function PrizerailDrawCard({
   const { t } = useTranslation();
   const slug = getPrizerailCampaignSlug();
   const { data: draws } = usePrizerailDraws();
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const percentage = getDrawEntryPercent(currency);
   if (!slug || percentage <= 0) {
@@ -45,9 +48,22 @@ export function PrizerailDrawCard({
   const entries = entriesForOrderUsdc(usdcAmount, percentage);
   const nextDraw = draws?.nextDraw ?? null;
   const nextDrawAt = nextDraw ? moment(nextDraw.drawAt) : null;
+  // "Today at 5:00 PM" / "Tomorrow at …", localised by moment. Shown in
+  // the explainer, not on the card, to keep the card to one sentence.
+  const nextDrawLabel =
+    nextDraw && nextDrawAt?.isValid() ? nextDrawAt.calendar() : null;
+  const poolLabel =
+    typeof nextDraw?.entrantCount === "number" &&
+    typeof nextDraw.totalEntries === "number"
+      ? t("PRIZERAIL_DRAW_POOL", {
+          entrants: nextDraw.entrantCount.toLocaleString(),
+          entries: nextDraw.totalEntries.toLocaleString(),
+        })
+      : null;
 
+  const campaignUrl = getPrizerailCampaignUrl(slug);
   const handleViewDraw = () => {
-    window.open(getPrizerailCampaignUrl(slug), "_blank", "noopener,noreferrer");
+    window.open(campaignUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -60,30 +76,19 @@ export function PrizerailDrawCard({
               <p className="font-semibold text-primary text-xs uppercase tracking-[0.3em]">
                 {t("PRIZERAIL_DRAW_TITLE")}
               </p>
+              <button
+                type="button"
+                aria-label={t("PRIZERAIL_INFO_BUTTON")}
+                onClick={() => setInfoOpen(true)}
+                className="ml-auto flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary">
+                <Info className="size-4" />
+              </button>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {t("PRIZERAIL_DRAW_ORDER_DESCRIPTION", {
                 entries: entries.toLocaleString(),
-                percentage: String(percentage),
               })}
             </p>
-            {nextDraw && nextDrawAt?.isValid() ? (
-              <p className="text-muted-foreground text-xs">
-                {t("PRIZERAIL_NEXT_DRAW", {
-                  time: nextDrawAt.format("lll"),
-                })}
-                {nextDraw.entrantCount !== null &&
-                nextDraw.totalEntries !== null ? (
-                  <>
-                    {" · "}
-                    {t("PRIZERAIL_DRAW_POOL", {
-                      entrants: nextDraw.entrantCount.toLocaleString(),
-                      entries: nextDraw.totalEntries.toLocaleString(),
-                    })}
-                  </>
-                ) : null}
-              </p>
-            ) : null}
           </div>
           <div className="flex flex-col items-start gap-4 sm:items-end">
             <Button
@@ -97,6 +102,14 @@ export function PrizerailDrawCard({
           </div>
         </div>
       </CardContent>
+      <PrizerailDrawInfoDrawer
+        open={infoOpen}
+        onOpenChange={setInfoOpen}
+        percentage={percentage}
+        campaignUrl={campaignUrl}
+        nextDrawLabel={nextDrawLabel}
+        poolLabel={poolLabel}
+      />
     </Card>
   );
 }

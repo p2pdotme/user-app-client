@@ -1619,12 +1619,31 @@ export const pt = {
       "Prepare para escanear uma vez que o comerciante for designado",
     PRICE: "Preço",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
-      "Este pedido rendeu {{entries}} entradas no sorteio P2P ({{percentage}}% do pedido, 1 entrada por centavo). Os vencedores são escolhidos com aleatoriedade verificável e pagos em USDC.",
+      "Este pedido rendeu {{entries}} entradas. Mais pedidos, mais entradas.",
     PRIZERAIL_DRAW_POOL:
       "{{entrants}} jogadores · {{entries}} entradas até agora",
-    PRIZERAIL_DRAW_TITLE: "Sorteio de prêmios",
+    PRIZERAIL_DRAW_TITLE: "Você está no sorteio",
     PRIZERAIL_ENTRIES_UNIT: "entradas",
-    PRIZERAIL_NEXT_DRAW: "Próximo sorteio {{time}}",
+    PRIZERAIL_INFO_BUTTON: "Sobre o sorteio",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "Na hora do sorteio, os vencedores são escolhidos entre todos os participantes. Quem tem o dobro das suas entradas tem o dobro da chance. Ninguém ganha duas vezes no mesmo sorteio e todo resultado é publicado para que qualquer pessoa possa conferir.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Os vencedores são sorteados",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Entradas são seus bilhetes. Você recebe {{percentage}}% do valor de cada pedido em entradas, uma por centavo. Um pedido de ${{exampleOrder}} dá {{exampleEntries}} entradas. Mais entradas, mais chances.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Você ganha entradas a cada pedido",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Os vencedores são anunciados logo após o sorteio. Seu prêmio é enviado em USDC. Você não precisa fazer nada para participar.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Se você ganhar",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Os prêmios são pagos em USDC, de valores pequenos até o prêmio máximo. A lista completa de prêmios e os resultados anteriores estão na página do sorteio.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Os prêmios são dinheiro de verdade",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Suas entradas contam apenas para o próximo sorteio. Cada novo pedido gera novas entradas para o sorteio seguinte.",
+    PRIZERAIL_INFO_RESET_TITLE: "As entradas valem para o próximo sorteio",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Cada pedido concluído é uma chance de ganhar USDC.",
+    PRIZERAIL_INFO_TITLE: "Como funciona o sorteio",
+    PRIZERAIL_NEXT_DRAW: "Próximo sorteio: {{time}}",
     PRIZERAIL_VIEW_DRAW: "Ver sorteio",
     PROCEED_TO_PAY: "Continuar para Pagar",
     PROCESSING: "Processando",

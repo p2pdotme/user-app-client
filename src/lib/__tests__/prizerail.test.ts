@@ -29,6 +29,7 @@ describe("getDrawEntryPercent", () => {
     expect(getDrawEntryPercent("ARS")).toBe(1);
     expect(getDrawEntryPercent("MEX")).toBe(1);
     expect(getDrawEntryPercent("INR")).toBe(0);
+    expect(getDrawEntryPercent("VEN")).toBe(0);
   });
 });
 
@@ -73,7 +74,7 @@ describe("estimateDrawEntries", () => {
       order({ orderId: "4", status: "CANCELLED", usdcAmount: "999" }), // excluded
       order({ orderId: "5", placedAt: "1500", usdcAmount: "999" }), // end is exclusive
       order({ orderId: "6", placedAt: "499", usdcAmount: "999" }), // before start
-      order({ orderId: "7", currency: "INR", usdcAmount: "999" }), // 0% market
+      order({ orderId: "7", currency: "VEN", usdcAmount: "999" }), // 0% market
     ];
     expect(estimateDrawEntries(orders, window)).toBe(250);
   });
@@ -110,6 +111,27 @@ describe("selectDrawWindow", () => {
     expect(selectDrawWindow(draws, nowSec).nextDraw?.id).toBe("sooner");
   });
 
+  it("uses the spacing between open draws as the window when no past draw is listed", () => {
+    const draws = [
+      draw({ id: "c", cutoffAt: "2026-11-03T18:15:00.000Z" }),
+      draw({ id: "b", cutoffAt: "2026-11-03T17:15:00.000Z" }),
+      draw({ id: "a", cutoffAt: "2026-11-03T16:15:00.000Z" }),
+    ];
+    const w = selectDrawWindow(draws, nowSec);
+    expect(w.nextDraw?.id).toBe("a");
+    expect(w.endSec - w.startSec).toBe(60 * 60);
+  });
+
+  it("prefers a listed past draw's cutoff over the cadence estimate", () => {
+    const draws = [
+      draw({ id: "b", cutoffAt: "2026-11-03T17:15:00.000Z" }),
+      draw({ id: "a", cutoffAt: "2026-11-03T16:15:00.000Z" }),
+      draw({ id: "prev", stage: "paid", cutoffAt: "2026-11-03T15:45:00.000Z" }),
+    ];
+    const w = selectDrawWindow(draws, nowSec);
+    expect(w.startSec).toBe(Date.parse("2026-11-03T15:45:00.000Z") / 1000);
+  });
+
   it("falls back to a 24h window ending at the next cutoff with no history", () => {
     const w = selectDrawWindow([draw({ id: "next" })], nowSec);
     expect(w.endSec - w.startSec).toBe(24 * 60 * 60);
@@ -133,6 +155,10 @@ describe("campaign env helpers", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("reads the slug and builds the public campaign url", () => {
+    // vitest loads the project .env; pin the overrides so a local sandbox
+    // setting cannot change the expected default host.
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
     expect(getPrizerailCampaignSlug()).toBe("p2p-daily");
     expect(getPrizerailCampaignUrl("p2p-daily")).toBe(
@@ -141,6 +167,7 @@ describe("campaign env helpers", () => {
   });
 
   it("prefers an explicit campaign url and a sandbox base", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "https://sandbox.prizerail.com/");
     expect(getPrizerailCampaignUrl("x")).toBe(
       "https://sandbox.prizerail.com/campaigns/x",

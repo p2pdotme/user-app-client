@@ -23,6 +23,7 @@ describe("PrizerailDrawCard", () => {
   });
 
   it("renders nothing when the campaign is not configured", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "");
     const { container } = renderWithProviders(
       <PrizerailDrawCard currency="NGN" usdcAmount="50" />,
     );
@@ -32,12 +33,16 @@ describe("PrizerailDrawCard", () => {
   it("renders nothing for a 0% market", () => {
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
     const { container } = renderWithProviders(
-      <PrizerailDrawCard currency="INR" usdcAmount="50" />,
+      <PrizerailDrawCard currency="VEN" usdcAmount="50" />,
     );
     expect(container).toBeEmptyDOMElement();
   });
 
   it("shows the entries earned and opens the public campaign page", () => {
+    // vitest loads the project .env; pin the host overrides so a local
+    // sandbox setting cannot change the expected URL.
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
     const open = vi.fn();
     vi.stubGlobal("open", open);
@@ -70,9 +75,32 @@ describe("PrizerailDrawCard", () => {
 
     renderWithProviders(<PrizerailDrawCard currency="NGN" usdcAmount="50" />);
 
-    expect(screen.getByText(/next draw/i)).toBeInTheDocument();
+    // The card itself stays to one sentence; draw timing is in the explainer.
+    expect(screen.queryByText(/^next draw:/i)).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole("button", { name: /about the prize draw/i }),
+    );
+    expect(screen.getByText(/^next draw:/i)).toBeInTheDocument();
     expect(screen.getByText(/120 players/)).toBeInTheDocument();
     expect(screen.getByText(/4,800 entries/)).toBeInTheDocument();
+  });
+
+  it("opens the explainer from the info button", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
+
+    renderWithProviders(<PrizerailDrawCard currency="NGN" usdcAmount="50" />);
+
+    expect(
+      screen.queryByText(/how the prize draw works/i),
+    ).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole("button", { name: /about the prize draw/i }),
+    );
+    expect(screen.getByText(/how the prize draw works/i)).toBeInTheDocument();
+    // Worked example uses this market's rate: $100 at 2% = 200 entries.
+    expect(
+      screen.getByText(/\$100 order gives you 200 entries/i),
+    ).toBeInTheDocument();
   });
 
   it("skips the next-draw line when drawAt is unparsable", () => {
@@ -88,7 +116,7 @@ describe("PrizerailDrawCard", () => {
 
     renderWithProviders(<PrizerailDrawCard currency="NGN" usdcAmount="50" />);
 
-    expect(screen.queryByText(/next draw/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^next draw:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/invalid date/i)).not.toBeInTheDocument();
   });
 });

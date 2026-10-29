@@ -96,8 +96,12 @@ function toSec(iso: string | null | undefined): number | null {
 /**
  * From the public draws feed (newest first), find the draw currently taking
  * entries and the window of orders that feed it: from the previous draw's
- * cutoff to the next one's. Falls back to a 24-hour window when there is no
- * history (a brand-new campaign) or no open draw (paused).
+ * cutoff to the next one's. The feed lists every scheduled open draw
+ * (hourly campaigns publish ~48 of them), so a past draw is often outside
+ * the page; then the window length is the spacing between the two soonest
+ * open draws, which is the campaign cadence. Falls back to 24 hours only
+ * when neither is available (a brand-new campaign) or no draw is open
+ * (paused).
  */
 export function selectDrawWindow(
   draws: readonly PublicDraw[],
@@ -115,9 +119,15 @@ export function selectDrawWindow(
     .filter((sec): sec is number => sec !== null && sec < endSec)
     .sort((a, b) => b - a)[0];
 
+  const secondCutoff = toSec(open[1]?.cutoffAt);
+  const cadenceSec =
+    nextDraw && secondCutoff !== null && secondCutoff > endSec
+      ? secondCutoff - endSec
+      : null;
+
   return {
     nextDraw,
-    startSec: previousCutoff ?? endSec - DAY_SECONDS,
+    startSec: previousCutoff ?? endSec - (cadenceSec ?? DAY_SECONDS),
     endSec,
   };
 }

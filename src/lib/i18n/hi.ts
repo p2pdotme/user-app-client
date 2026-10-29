@@ -1538,11 +1538,30 @@ export const hi = {
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
-      "इस ऑर्डर से आपको P2P इनाम ड्रॉ में {{entries}} एंट्री मिलीं (ऑर्डर का {{percentage}}%, हर सेंट पर 1 एंट्री)। विजेता सत्यापन योग्य रैंडमनेस से चुने जाते हैं और USDC में भुगतान पाते हैं।",
+      "इस ऑर्डर से आपको {{entries}} एंट्री मिलीं। जितने ज़्यादा ऑर्डर, उतनी ज़्यादा एंट्री।",
     PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी · अब तक {{entries}} एंट्री",
-    PRIZERAIL_DRAW_TITLE: "इनाम ड्रॉ",
+    PRIZERAIL_DRAW_TITLE: "आप इनाम ड्रॉ में शामिल हैं",
     PRIZERAIL_ENTRIES_UNIT: "एंट्री",
-    PRIZERAIL_NEXT_DRAW: "अगला ड्रॉ {{time}}",
+    PRIZERAIL_INFO_BUTTON: "इनाम ड्रॉ के बारे में",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "ड्रॉ के समय सभी प्रतिभागियों में से विजेता चुने जाते हैं। जिसके पास आपसे दोगुनी एंट्री हैं, उसका मौका भी दोगुना है। एक ही ड्रॉ में कोई दो बार नहीं जीत सकता, और हर नतीजा सार्वजनिक किया जाता है ताकि कोई भी उसे जाँच सके।",
+    PRIZERAIL_INFO_DRAW_TITLE: "विजेता रैंडम चुने जाते हैं",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "एंट्री आपके टिकट हैं। हर ऑर्डर की राशि का {{percentage}}% आपको एंट्री के रूप में मिलता है, हर सेंट पर एक। ${{exampleOrder}} के ऑर्डर पर {{exampleEntries}} एंट्री मिलती हैं। जितनी ज़्यादा एंट्री, उतना बेहतर मौका।",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "हर ऑर्डर पर आपको एंट्री मिलती हैं",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "ड्रॉ के तुरंत बाद विजेताओं की घोषणा होती है। आपका इनाम आपको USDC में भेजा जाता है। भाग लेने के लिए आपको कुछ करने की ज़रूरत नहीं है।",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "अगर आप जीतते हैं",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "इनाम USDC में दिए जाते हैं, छोटी राशि से लेकर जैकपॉट तक। पूरी इनाम सूची और पिछले नतीजे ड्रॉ पेज पर हैं।",
+    PRIZERAIL_INFO_PRIZES_TITLE: "इनाम असली पैसा है",
+    PRIZERAIL_INFO_RESET_BODY:
+      "आपकी एंट्री सिर्फ़ आने वाले ड्रॉ के लिए गिनी जाती हैं। हर नया ऑर्डर उसके बाद वाले ड्रॉ के लिए नई एंट्री देता है।",
+    PRIZERAIL_INFO_RESET_TITLE: "एंट्री अगले ड्रॉ के लिए होती हैं",
+    PRIZERAIL_INFO_SUBTITLE:
+      "आपका हर पूरा किया गया ऑर्डर USDC जीतने का एक मौका है।",
+    PRIZERAIL_INFO_TITLE: "इनाम ड्रॉ कैसे काम करता है",
+    PRIZERAIL_NEXT_DRAW: "अगला ड्रॉ: {{time}}",
     PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
     PROCEED_TO_PAY: "भुगतान के लिए जारी रखें",
     PROCESSING: "प्रोसेसिंग",
