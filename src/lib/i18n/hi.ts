@@ -1037,11 +1037,6 @@ export const hi = {
     LOGOUT: "लॉग आउट",
     LOGOUT_ERROR: "लॉग आउट करने में विफल",
     LOGOUT_SUCCESS: "सफलतापूर्वक लॉग आउट हो गए",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "आपको lotpot.fun पर खेलने के लिए {{percentage}}% कैशबैक क्रेडिट मिले हैं। इसे lotpot.fun पर देखें।",
-    LOTPOT_CASHBACK_TITLE: "LotPot कैशबैक",
-    LOTPOT_CREDITS_EARNED: "LotPot क्रेडिट अर्जित",
-    LOTPOT_CREDITS_UNIT: "क्रेडिट",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "{{paymentAddressName}} सक्रिय करें",
     MAKE_ACTIVE_RECEIVING_WALLET: "सक्रिय प्राप्त करने वाला वॉलेट बनाएं",
     MALFORMED_URL: "QR डेटा लिंक अमान्य है",
@@ -1239,7 +1234,6 @@ export const hi = {
     ON_TIME: "समय पर",
     OPEN_COINS_ME: "coins.me खोलें",
     OPEN_IN_NEW_TAB: "नए टैब में खोलें",
-    OPEN_LOTPOT: "lotpot.fun खोलें",
     OR: "या",
     ORDER: "ऑर्डर",
     ORDERS_COUNT: "{{count}}+ ऑर्डर",
@@ -1543,6 +1537,13 @@ export const hi = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "इस ऑर्डर से आपको P2P इनाम ड्रॉ में {{entries}} एंट्री मिलीं (ऑर्डर का {{percentage}}%, हर सेंट पर 1 एंट्री)। विजेता सत्यापन योग्य रैंडमनेस से चुने जाते हैं और USDC में भुगतान पाते हैं।",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी · अब तक {{entries}} एंट्री",
+    PRIZERAIL_DRAW_TITLE: "इनाम ड्रॉ",
+    PRIZERAIL_ENTRIES_UNIT: "एंट्री",
+    PRIZERAIL_NEXT_DRAW: "अगला ड्रॉ {{time}}",
+    PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
     PROCEED_TO_PAY: "भुगतान के लिए जारी रखें",
     PROCESSING: "प्रोसेसिंग",
     PROCESSING_FAILED: "प्रोसेसिंग विफल",
@@ -1843,7 +1844,6 @@ export const hi = {
     SOUNDS_NONE_DESC: "सभी आवाज़ नोटिफिकेशन बंद करें",
     SOURCE_WALLET_NOT_CONNECTED: "स्रोत वॉलेट कनेक्ट नहीं है",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "lotpot.fun पर खर्च करें",
     SPEND_USDC_ANYWHERE_SCAN_QR: "स्कैन एंड पे के साथ कहीं भी यूएसडीसी खर्च करें",
     STAKE_ALREADY_ACTIVE: "आपका स्टेक पहले से सक्रिय है",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "स्टेक राशि 0 से अधिक होनी चाहिए",
@@ -2052,7 +2052,6 @@ export const hi = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "उपयोगकर्ता की वार्षिक वॉल्यूम सीमा पार हो गई",
     USE_CBBTC_ON_COINSME: "अपना cbBTC coins.me पर उपयोग करें",
-    USE_CREDITS_ON_LOTPOT: "अपने क्रेडिट lotpot.fun पर उपयोग करें",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "द्वारा वोट प्राप्त करने में त्रुटि",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:

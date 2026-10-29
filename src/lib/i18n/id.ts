@@ -1087,11 +1087,6 @@ export const id = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Gagal logout",
     LOGOUT_SUCCESS: "Berhasil logout",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
-    LOTPOT_CREDITS_EARNED: "Kredit LotPot diperoleh",
-    LOTPOT_CREDITS_UNIT: "kredit",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",
     MAKE_ACTIVE_RECEIVING_WALLET: "Jadikan dompet penerima aktif",
     MALFORMED_URL: "Tautan data QR tidak valid",
@@ -1294,7 +1289,6 @@ export const id = {
     ON_TIME: "Tepat waktu",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Buka di tab baru",
-    OPEN_LOTPOT: "Buka lotpot.fun",
     OR: "atau",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ pesanan",
@@ -1609,6 +1603,13 @@ export const id = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "Pesanan ini memberi Anda {{entries}} entri di undian hadiah P2P ({{percentage}}% dari pesanan, 1 entri per sen). Pemenang dipilih dengan keacakan yang dapat diverifikasi dan dibayar dalam USDC.",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} pemain · {{entries}} entri sejauh ini",
+    PRIZERAIL_DRAW_TITLE: "Undian hadiah",
+    PRIZERAIL_ENTRIES_UNIT: "entri",
+    PRIZERAIL_NEXT_DRAW: "Undian berikutnya {{time}}",
+    PRIZERAIL_VIEW_DRAW: "Lihat undian",
     PROCEED_TO_PAY: "Lanjutkan ke Pembayaran",
     PROCESSING: "Memproses",
     PROCESSING_FAILED: "Gagal memproses",
@@ -1919,7 +1920,6 @@ export const id = {
     SOUNDS_NONE_DESC: "Nonaktifkan semua suara notifikasi",
     SOURCE_WALLET_NOT_CONNECTED: "Dompet sumber tidak terhubung",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Belanja di lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Belanjakan USDC di mana saja dengan Scan & Bayar",
     STAKE_ALREADY_ACTIVE: "Anda sudah memiliki stake aktif",
@@ -2135,7 +2135,6 @@ export const id = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Batas volume tahunan pengguna terlampaui",
     USE_CBBTC_ON_COINSME: "Gunakan cbBTC Anda di coins.me",
-    USE_CREDITS_ON_LOTPOT: "Gunakan kredit Anda di lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error mengambil suara oleh",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:

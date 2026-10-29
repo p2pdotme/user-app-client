@@ -1093,11 +1093,6 @@ export const pt = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Logout falhou",
     LOGOUT_SUCCESS: "Logout realizado com sucesso",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "Você acabou de receber {{percentage}}% em créditos de cashback para jogar no lotpot.fun. Confira em lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
-    LOTPOT_CREDITS_EARNED: "Créditos LotPot ganhos",
-    LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Tornar {{paymentAddressName}} ativo",
     MAKE_ACTIVE_RECEIVING_WALLET: "Tornar carteira de recebimento ativa",
     MALFORMED_URL: "O link dos dados do QR está malformado",
@@ -1301,7 +1296,6 @@ export const pt = {
     ON_TIME: "No prazo",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir em nova aba",
-    OPEN_LOTPOT: "Abrir lotpot.fun",
     OR: "ou",
     ORDER: "Pedido",
     ORDERS_COUNT: "{{count}}+ pedidos",
@@ -1624,6 +1618,14 @@ export const pt = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare para escanear uma vez que o comerciante for designado",
     PRICE: "Preço",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "Este pedido rendeu {{entries}} entradas no sorteio P2P ({{percentage}}% do pedido, 1 entrada por centavo). Os vencedores são escolhidos com aleatoriedade verificável e pagos em USDC.",
+    PRIZERAIL_DRAW_POOL:
+      "{{entrants}} jogadores · {{entries}} entradas até agora",
+    PRIZERAIL_DRAW_TITLE: "Sorteio de prêmios",
+    PRIZERAIL_ENTRIES_UNIT: "entradas",
+    PRIZERAIL_NEXT_DRAW: "Próximo sorteio {{time}}",
+    PRIZERAIL_VIEW_DRAW: "Ver sorteio",
     PROCEED_TO_PAY: "Continuar para Pagar",
     PROCESSING: "Processando",
     PROCESSING_FAILED: "Falha no processamento",
@@ -1942,7 +1944,6 @@ export const pt = {
     SOUNDS_NONE_DESC: "Desativar todos os sons de notificação",
     SOURCE_WALLET_NOT_CONNECTED: "Carteira de origem não conectada",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Gastar no lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR: "Gaste USDC em qualquer lugar com Scan & Pay",
     STAKE_ALREADY_ACTIVE: "Você já tem um stake ativo",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "Valor de stake deve ser maior que 0",
@@ -2158,7 +2159,6 @@ export const pt = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Limite anual de volume do usuário excedido",
     USE_CBBTC_ON_COINSME: "Use seu cbBTC no coins.me",
-    USE_CREDITS_ON_LOTPOT: "Use seus créditos em lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES: "Erro ao buscar votos por",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
       "Erro ao validar votos dados",

@@ -1,0 +1,140 @@
+import type { SubgraphOrder } from "@/core/p2pdotme/shared";
+import {
+  PRIZERAIL_PUBLIC_FALLBACK_URL,
+  type PublicDraw,
+} from "@/core/prizerail/public";
+import type { CurrencyType } from "@/lib/constants";
+
+const DAY_SECONDS = 24 * 60 * 60;
+
+/**
+ * Prize-draw entry rate (in percent of the order's USDC amount) earned on
+ * BUY/SELL completion. The executor turns this percentage into draw entries
+ * at one entry per cent, so a $50 order at 2% earns 100 entries. Defaults to
+ * 2%, with the same per-market overrides the backend applies. This is a
+ * display-only mirror of the server-side rule; keep the two in sync.
+ */
+export const DEFAULT_DRAW_ENTRY_PERCENT = 2;
+const DRAW_ENTRY_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
+  ARS: 1,
+  MEX: 1,
+  INR: 0,
+  VEN: 0,
+  BOB: 0,
+  BRL: 1,
+};
+
+export function getDrawEntryPercent(currency?: CurrencyType): number {
+  if (!currency) {
+    return DEFAULT_DRAW_ENTRY_PERCENT;
+  }
+  return DRAW_ENTRY_PERCENT_BY_CURRENCY[currency] ?? DEFAULT_DRAW_ENTRY_PERCENT;
+}
+
+/**
+ * Entries for one order: floor(usdc × percent). That is the cashback-
+ * equivalent amount expressed in cents, matching the executor's
+ * `entriesFromCashbackUsdc`. Non-numeric or negative input yields 0.
+ */
+export function entriesForOrderUsdc(
+  usdcAmount: string | number,
+  percent: number,
+): number {
+  const usdc = Number(usdcAmount);
+  if (!Number.isFinite(usdc) || usdc <= 0 || percent <= 0) {
+    return 0;
+  }
+  // Round to whole cents first so "12.345" × 2 does not float-drift under
+  // the floor.
+  const cents = Math.round(usdc * 100);
+  return Math.floor((cents * percent) / 100);
+}
+
+export interface DrawWindow {
+  /** Inclusive start, unix seconds. */
+  startSec: number;
+  /** Exclusive end, unix seconds. */
+  endSec: number;
+}
+
+/**
+ * Estimated entries the user holds in the draw whose window is given, from
+ * the orders the subgraph returns. Mirrors the executor's eligibility: only
+ * COMPLETED BUY/SELL orders count, PAY never does, and 0% markets earn
+ * nothing. Two known sources of drift, which is why the UI shows the
+ * number with a "~": the subgraph exposes placedAt but not completedAt,
+ * so an order placed before a cutoff and completed after it is counted in
+ * the earlier window although the executor enters it in the later draw;
+ * and the subgraph does not flag B2B orders, which the executor skips.
+ */
+export function estimateDrawEntries(
+  orders: readonly SubgraphOrder[],
+  window: DrawWindow,
+): number {
+  return orders.reduce((total, order) => {
+    if (order.status !== "COMPLETED") return total;
+    if (order.type !== "BUY" && order.type !== "SELL") return total;
+    const placedAt = Number(order.placedAt);
+    if (!(placedAt >= window.startSec && placedAt < window.endSec)) {
+      return total;
+    }
+    const percent = getDrawEntryPercent(order.currency as CurrencyType);
+    return total + entriesForOrderUsdc(order.usdcAmount, percent);
+  }, 0);
+}
+
+export interface DrawWindowSelection extends DrawWindow {
+  nextDraw: PublicDraw | null;
+}
+
+function toSec(iso: string | null | undefined): number | null {
+  if (!iso) return null;
+  const ms = Date.parse(iso);
+  return Number.isFinite(ms) ? Math.floor(ms / 1000) : null;
+}
+
+/**
+ * From the public draws feed (newest first), find the draw currently taking
+ * entries and the window of orders that feed it: from the previous draw's
+ * cutoff to the next one's. Falls back to a 24-hour window when there is no
+ * history (a brand-new campaign) or no open draw (paused).
+ */
+export function selectDrawWindow(
+  draws: readonly PublicDraw[],
+  nowSec: number = Math.floor(Date.now() / 1000),
+): DrawWindowSelection {
+  const open = draws
+    .filter((d) => d.stage === "open" && toSec(d.cutoffAt) !== null)
+    .sort((a, b) => (toSec(a.cutoffAt) ?? 0) - (toSec(b.cutoffAt) ?? 0));
+  const nextDraw = open[0] ?? null;
+  const endSec = toSec(nextDraw?.cutoffAt) ?? nowSec;
+
+  const previousCutoff = draws
+    .filter((d) => d.stage !== "open")
+    .map((d) => toSec(d.cutoffAt))
+    .filter((sec): sec is number => sec !== null && sec < endSec)
+    .sort((a, b) => b - a)[0];
+
+  return {
+    nextDraw,
+    startSec: previousCutoff ?? endSec - DAY_SECONDS,
+    endSec,
+  };
+}
+
+export function getPrizerailCampaignSlug(): string | undefined {
+  const slug = (import.meta.env.VITE_PRIZERAIL_CAMPAIGN_SLUG ?? "").trim();
+  return slug || undefined;
+}
+
+export function getPrizerailPublicBaseUrl(): string {
+  const raw = (import.meta.env.VITE_PRIZERAIL_PUBLIC_URL ?? "").trim();
+  return (raw || PRIZERAIL_PUBLIC_FALLBACK_URL).replace(/\/+$/, "");
+}
+
+/** The public campaign page users are sent to — odds, draws, proofs. */
+export function getPrizerailCampaignUrl(slug: string): string {
+  const explicit = (import.meta.env.VITE_PRIZERAIL_CAMPAIGN_URL ?? "").trim();
+  if (explicit) return explicit;
+  return `${getPrizerailPublicBaseUrl()}/campaigns/${encodeURIComponent(slug)}`;
+}
