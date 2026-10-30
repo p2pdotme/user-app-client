@@ -20,8 +20,8 @@ interface ImportMetaEnv {
 
   // simple-kyc (Identity verification) hosted wizard / API base URL
   readonly VITE_PRIZERAIL_CAMPAIGN_SLUG?: string;
-  readonly VITE_PRIZERAIL_CAMPAIGN_URL?: string;
   readonly VITE_PRIZERAIL_PUBLIC_URL?: string;
+  readonly VITE_PRIZERAIL_USER_API_URL?: string;
   readonly VITE_SIMPLE_KYC_BASE_URL?: string;
   // simple-kyc tenant slug override (defaults to the mainnet reputation tenant)
   readonly VITE_SIMPLE_KYC_TENANT?: string;

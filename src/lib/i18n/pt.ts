@@ -1618,12 +1618,20 @@ export const pt = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare para escanear uma vez que o comerciante for designado",
     PRICE: "Preço",
+    PRIZERAIL_CURRENT_DRAW: "Sorteio atual",
+    PRIZERAIL_DRAW: "Sorteio",
+    PRIZERAIL_DRAWING_NOW: "Sorteando agora",
+    PRIZERAIL_DRAWS: "Sorteios PrizeRail",
+    PRIZERAIL_DRAWS_IN: "Sorteio {{time}}",
+    PRIZERAIL_DRAW_NUMBER: "Sorteio nº {{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Este pedido rendeu {{entries}} entradas. Mais pedidos, mais entradas.",
     PRIZERAIL_DRAW_POOL:
       "{{entrants}} jogadores · {{entries}} entradas até agora",
     PRIZERAIL_DRAW_TITLE: "Você está no sorteio",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} entradas",
     PRIZERAIL_ENTRIES_UNIT: "entradas",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} entrada",
     PRIZERAIL_INFO_BUTTON: "Sobre o sorteio",
     PRIZERAIL_INFO_DRAW_BODY:
       "Na hora do sorteio, os vencedores são escolhidos entre todos os participantes. Quem tem o dobro das suas entradas tem o dobro da chance. Ninguém ganha duas vezes no mesmo sorteio e todo resultado é publicado para que qualquer pessoa possa conferir.",
@@ -1643,8 +1651,28 @@ export const pt = {
     PRIZERAIL_INFO_SUBTITLE:
       "Cada pedido concluído é uma chance de ganhar USDC.",
     PRIZERAIL_INFO_TITLE: "Como funciona o sorteio",
+    PRIZERAIL_LOAD_ERROR:
+      "Não foi possível carregar seu sorteio. Tente novamente.",
     PRIZERAIL_NEXT_DRAW: "Próximo sorteio: {{time}}",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Conclua um pedido de COMPRA ou VENDA para entrar neste sorteio.",
+    PRIZERAIL_NOT_WON: "Sem prêmio",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "Nenhum sorteio aberto agora. Seu próximo pedido vai te inscrever no próximo.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "Você ainda não participou de nenhum sorteio. Conclua um pedido para ganhar entradas.",
+    PRIZERAIL_NO_WINS_YET: "Nenhum prêmio ainda. Cada entrada é uma chance.",
+    PRIZERAIL_PAST_DRAWS: "Seus sorteios anteriores",
+    PRIZERAIL_SHARE_OF_ENTRIES: "do total de entradas",
+    PRIZERAIL_TOTAL_WON: "Total ganho",
+    PRIZERAIL_UNAVAILABLE: "O sorteio não está disponível no momento.",
     PRIZERAIL_VIEW_DRAW: "Ver sorteio",
+    PRIZERAIL_VIEW_MORE: "Ver mais",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Ver no Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Ganhou {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Ganhou em {{count}} sorteio",
+    PRIZERAIL_WON_IN_DRAWS: "Ganhou em {{count}} sorteios",
+    PRIZERAIL_YOUR_ENTRIES: "suas entradas",
     PROCEED_TO_PAY: "Continuar para Pagar",
     PROCESSING: "Processando",
     PROCESSING_FAILED: "Falha no processamento",

@@ -1537,11 +1537,19 @@ export const hi = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
+    PRIZERAIL_CURRENT_DRAW: "मौजूदा ड्रॉ",
+    PRIZERAIL_DRAW: "ड्रॉ",
+    PRIZERAIL_DRAWING_NOW: "ड्रॉ हो रहा है",
+    PRIZERAIL_DRAWS: "PrizeRail ड्रॉ",
+    PRIZERAIL_DRAWS_IN: "ड्रॉ {{time}}",
+    PRIZERAIL_DRAW_NUMBER: "ड्रॉ #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "इस ऑर्डर से आपको {{entries}} एंट्री मिलीं। जितने ज़्यादा ऑर्डर, उतनी ज़्यादा एंट्री।",
     PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी · अब तक {{entries}} एंट्री",
     PRIZERAIL_DRAW_TITLE: "आप इनाम ड्रॉ में शामिल हैं",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} एंट्री",
     PRIZERAIL_ENTRIES_UNIT: "एंट्री",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} एंट्री",
     PRIZERAIL_INFO_BUTTON: "इनाम ड्रॉ के बारे में",
     PRIZERAIL_INFO_DRAW_BODY:
       "ड्रॉ के समय सभी प्रतिभागियों में से विजेता चुने जाते हैं। जिसके पास आपसे दोगुनी एंट्री हैं, उसका मौका भी दोगुना है। एक ही ड्रॉ में कोई दो बार नहीं जीत सकता, और हर नतीजा सार्वजनिक किया जाता है ताकि कोई भी उसे जाँच सके।",
@@ -1561,8 +1569,27 @@ export const hi = {
     PRIZERAIL_INFO_SUBTITLE:
       "आपका हर पूरा किया गया ऑर्डर USDC जीतने का एक मौका है।",
     PRIZERAIL_INFO_TITLE: "इनाम ड्रॉ कैसे काम करता है",
+    PRIZERAIL_LOAD_ERROR: "आपका इनाम ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
     PRIZERAIL_NEXT_DRAW: "अगला ड्रॉ: {{time}}",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "इस ड्रॉ में शामिल होने के लिए एक BUY या SELL ऑर्डर पूरा करें।",
+    PRIZERAIL_NOT_WON: "कोई जीत नहीं",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "अभी कोई ड्रॉ खुला नहीं है। आपका अगला ऑर्डर आपको अगले ड्रॉ में शामिल करेगा।",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "आप अभी तक किसी ड्रॉ में शामिल नहीं हुए हैं। एंट्री पाने के लिए एक ऑर्डर पूरा करें।",
+    PRIZERAIL_NO_WINS_YET: "अभी तक कोई जीत नहीं। हर एंट्री एक मौका है।",
+    PRIZERAIL_PAST_DRAWS: "आपके पिछले ड्रॉ",
+    PRIZERAIL_SHARE_OF_ENTRIES: "कुल एंट्री में से",
+    PRIZERAIL_TOTAL_WON: "कुल जीत",
+    PRIZERAIL_UNAVAILABLE: "इनाम ड्रॉ अभी उपलब्ध नहीं है।",
     PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
+    PRIZERAIL_VIEW_MORE: "और देखें",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Prizerail पर देखें",
+    PRIZERAIL_WON_AMOUNT: "{{amount}} जीते",
+    PRIZERAIL_WON_IN_DRAW: "{{count}} ड्रॉ में जीते",
+    PRIZERAIL_WON_IN_DRAWS: "{{count}} ड्रॉ में जीते",
+    PRIZERAIL_YOUR_ENTRIES: "आपकी एंट्री",
     PROCEED_TO_PAY: "भुगतान के लिए जारी रखें",
     PROCESSING: "प्रोसेसिंग",
     PROCESSING_FAILED: "प्रोसेसिंग विफल",

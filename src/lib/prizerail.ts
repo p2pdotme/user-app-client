@@ -166,9 +166,25 @@ export function getPrizerailPublicBaseUrl(): string {
   return url.replace(/\/+$/, "");
 }
 
+/**
+ * Base URL of the Prizerail user API, which answers per wallet with the real
+ * entries and wins (Prizerail itself only knows hashed entrant ids). Unset
+ * hides the PrizeRail Draws page and its link.
+ */
+export function getPrizerailUserApiUrl(): string | undefined {
+  const raw = (import.meta.env.VITE_PRIZERAIL_USER_API_URL ?? "").trim();
+  return raw ? raw.replace(/\/+$/, "") : undefined;
+}
+
+/** "$31.75" from 3175 — prizes are USD cents, paid in USDC. */
+export function formatPrizeCents(cents: number): string {
+  return `$${(cents / 100).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
 /** The public campaign page users are sent to — odds, draws, proofs. */
 export function getPrizerailCampaignUrl(slug: string): string {
-  const explicit = (import.meta.env.VITE_PRIZERAIL_CAMPAIGN_URL ?? "").trim();
-  if (explicit) return explicit;
   return `${getPrizerailPublicBaseUrl()}/campaigns/${encodeURIComponent(slug)}`;
 }

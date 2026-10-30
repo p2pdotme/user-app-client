@@ -1,17 +1,19 @@
-import { ExternalLink, Info, Ticket } from "lucide-react";
+import { ArrowRight, ExternalLink, Info, Ticket } from "lucide-react";
 import moment from "moment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { PrizerailDrawInfoDrawer } from "@/components/prizerail-draw-info-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { usePrizerailDraws } from "@/hooks/use-prizerail-draws";
-import type { CurrencyType } from "@/lib/constants";
+import { type CurrencyType, INTERNAL_HREFS } from "@/lib/constants";
 import {
   entriesForOrderUsdc,
   getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailCampaignUrl,
+  getPrizerailUserApiUrl,
 } from "@/lib/prizerail";
 
 interface PrizerailDrawCardProps {
@@ -36,7 +38,11 @@ export function PrizerailDrawCard({
   usdcAmount,
 }: PrizerailDrawCardProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const slug = getPrizerailCampaignSlug();
+  // "View draw" opens the in-app PrizeRail Draws page, which needs the user
+  // API; without it, fall back to the public campaign page.
+  const hasDrawsPage = !!getPrizerailUserApiUrl();
   const { data: draws } = usePrizerailDraws();
   const [infoOpen, setInfoOpen] = useState(false);
 
@@ -63,6 +69,10 @@ export function PrizerailDrawCard({
 
   const campaignUrl = getPrizerailCampaignUrl(slug);
   const handleViewDraw = () => {
+    if (hasDrawsPage) {
+      navigate(INTERNAL_HREFS.PRIZE_DRAW);
+      return;
+    }
     window.open(campaignUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -96,7 +106,11 @@ export function PrizerailDrawCard({
               size="lg"
               className="gap-2 rounded-full px-6"
               onClick={handleViewDraw}>
-              <ExternalLink className="size-4" />
+              {hasDrawsPage ? (
+                <ArrowRight className="size-4" />
+              ) : (
+                <ExternalLink className="size-4" />
+              )}
               {t("PRIZERAIL_VIEW_DRAW")}
             </Button>
           </div>

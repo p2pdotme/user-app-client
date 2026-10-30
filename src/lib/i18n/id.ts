@@ -1603,11 +1603,19 @@ export const id = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
+    PRIZERAIL_CURRENT_DRAW: "Undian saat ini",
+    PRIZERAIL_DRAW: "Undian",
+    PRIZERAIL_DRAWING_NOW: "Sedang diundi",
+    PRIZERAIL_DRAWS: "Undian PrizeRail",
+    PRIZERAIL_DRAWS_IN: "Undian {{time}}",
+    PRIZERAIL_DRAW_NUMBER: "Undian #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Pesanan ini memberi Anda {{entries}} entri. Makin banyak pesanan, makin banyak entri.",
     PRIZERAIL_DRAW_POOL: "{{entrants}} pemain · {{entries}} entri sejauh ini",
     PRIZERAIL_DRAW_TITLE: "Anda ikut undian hadiah",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} entri",
     PRIZERAIL_ENTRIES_UNIT: "entri",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} entri",
     PRIZERAIL_INFO_BUTTON: "Tentang undian hadiah",
     PRIZERAIL_INFO_DRAW_BODY:
       "Saat undian, pemenang dipilih dari semua peserta. Orang dengan entri dua kali lipat punya peluang dua kali lipat. Tidak ada yang bisa menang dua kali dalam undian yang sama, dan setiap hasil dipublikasikan agar siapa pun dapat memeriksanya.",
@@ -1627,8 +1635,27 @@ export const id = {
     PRIZERAIL_INFO_SUBTITLE:
       "Setiap pesanan yang selesai adalah peluang memenangkan USDC.",
     PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
+    PRIZERAIL_LOAD_ERROR: "Gagal memuat undian Anda. Silakan coba lagi.",
     PRIZERAIL_NEXT_DRAW: "Undian berikutnya: {{time}}",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Selesaikan pesanan BELI atau JUAL untuk ikut undian ini.",
+    PRIZERAIL_NOT_WON: "Tidak menang",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "Tidak ada undian yang dibuka saat ini. Pesanan Anda berikutnya akan masuk ke undian berikutnya.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "Anda belum pernah ikut undian. Selesaikan pesanan untuk mendapatkan entri.",
+    PRIZERAIL_NO_WINS_YET: "Belum ada kemenangan. Setiap entri adalah peluang.",
+    PRIZERAIL_PAST_DRAWS: "Undian Anda sebelumnya",
+    PRIZERAIL_SHARE_OF_ENTRIES: "dari semua entri",
+    PRIZERAIL_TOTAL_WON: "Total menang",
+    PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
     PRIZERAIL_VIEW_DRAW: "Lihat undian",
+    PRIZERAIL_VIEW_MORE: "Lihat lebih banyak",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Lihat di Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Menang {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Menang di {{count}} undian",
+    PRIZERAIL_WON_IN_DRAWS: "Menang di {{count}} undian",
+    PRIZERAIL_YOUR_ENTRIES: "entri Anda",
     PROCEED_TO_PAY: "Lanjutkan ke Pembayaran",
     PROCESSING: "Memproses",
     PROCESSING_FAILED: "Gagal memproses",

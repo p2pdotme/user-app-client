@@ -163,7 +163,6 @@ describe("campaign env helpers", () => {
     // setting cannot change the expected default host.
     vi.stubEnv("VITE_CHAIN", "base");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
     expect(getPrizerailCampaignSlug()).toBe("p2p-daily");
     expect(getPrizerailCampaignUrl("p2p-daily")).toBe(
@@ -171,20 +170,16 @@ describe("campaign env helpers", () => {
     );
   });
 
-  it("prefers an explicit campaign url and a sandbox base", () => {
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
+  it("builds the campaign url on an overridden host", () => {
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "https://sandbox.prizerail.com/");
     expect(getPrizerailCampaignUrl("x")).toBe(
       "https://sandbox.prizerail.com/campaigns/x",
     );
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "https://example.test/draw");
-    expect(getPrizerailCampaignUrl("x")).toBe("https://example.test/draw");
   });
 
   it("picks the site from the chain when the env is blank", () => {
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "  ");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
 
     vi.stubEnv("VITE_CHAIN", "base");
     expect(getPrizerailCampaignSlug()).toBe("p2p-ramp");

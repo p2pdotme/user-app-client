@@ -25,6 +25,7 @@ export * from "./use-page-meta";
 export * from "./use-price-config";
 export * from "./use-prizerail-draws";
 export * from "./use-prizerail-entries";
+export * from "./use-prizerail-user";
 export * from "./use-processing-times";
 export * from "./use-processing-txns";
 export * from "./use-raise-dispute";

@@ -1,7 +1,9 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProviders } from "@tests/helpers/render";
+import { Route, Routes } from "react-router";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PrizerailDrawCard } from "@/components/prizerail-draw-card";
+import { INTERNAL_HREFS } from "@/lib/constants";
 
 // The card only reads the public draw feed through this hook; stubbing it
 // keeps the test off the network and lets each case shape the feed.
@@ -43,8 +45,9 @@ describe("PrizerailDrawCard", () => {
     // sandbox setting cannot change the expected URL.
     vi.stubEnv("VITE_CHAIN", "base");
     vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
-    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_URL", "");
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
+    // Without the user API there is no in-app page to open.
+    vi.stubEnv("VITE_PRIZERAIL_USER_API_URL", "");
     const open = vi.fn();
     vi.stubGlobal("open", open);
 
@@ -102,6 +105,25 @@ describe("PrizerailDrawCard", () => {
     expect(
       screen.getByText(/\$100 order gives you 100 entries/i),
     ).toBeInTheDocument();
+  });
+
+  it("View draw opens the in-app PrizeRail Draws page when the user API is set", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
+    vi.stubEnv("VITE_PRIZERAIL_USER_API_URL", "http://localhost:8080");
+    const open = vi.fn();
+    vi.stubGlobal("open", open);
+    renderWithProviders(
+      <Routes>
+        <Route
+          path="/"
+          element={<PrizerailDrawCard currency="NGN" usdcAmount="50" />}
+        />
+        <Route path={INTERNAL_HREFS.PRIZE_DRAW} element={<p>entries page</p>} />
+      </Routes>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: /view draw/i }));
+    expect(screen.getByText("entries page")).toBeInTheDocument();
+    expect(open).not.toHaveBeenCalled();
   });
 
   it("skips the next-draw line when drawAt is unparsable", () => {

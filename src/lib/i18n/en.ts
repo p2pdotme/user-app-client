@@ -1578,11 +1578,19 @@ export const en = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare to scan once merchant is assigned",
     PRICE: "Price",
+    PRIZERAIL_CURRENT_DRAW: "Current draw",
+    PRIZERAIL_DRAW: "Draw",
+    PRIZERAIL_DRAWING_NOW: "Drawing now",
+    PRIZERAIL_DRAWS: "PrizeRail Draws",
+    PRIZERAIL_DRAWS_IN: "Draws {{time}}",
+    PRIZERAIL_DRAW_NUMBER: "Draw #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "This order gave you {{entries}} entries. More orders, more entries.",
     PRIZERAIL_DRAW_POOL: "{{entrants}} players · {{entries}} entries so far",
     PRIZERAIL_DRAW_TITLE: "You're in the prize draw",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} entries",
     PRIZERAIL_ENTRIES_UNIT: "entries",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} entry",
     PRIZERAIL_INFO_BUTTON: "About the prize draw",
     PRIZERAIL_INFO_DRAW_BODY:
       "At draw time, winners are drawn from everyone who entered. Someone with twice your entries has twice your chance. Nobody can win twice in the same draw, and every result is published so anyone can check it.",
@@ -1602,8 +1610,27 @@ export const en = {
     PRIZERAIL_INFO_SUBTITLE:
       "Every order you complete is a chance to win USDC.",
     PRIZERAIL_INFO_TITLE: "How the prize draw works",
+    PRIZERAIL_LOAD_ERROR: "Couldn't load your prize draw. Please try again.",
     PRIZERAIL_NEXT_DRAW: "Next draw: {{time}}",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Complete a BUY or SELL order to join this draw.",
+    PRIZERAIL_NOT_WON: "No win",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "No draw is open right now. Your next order will enter you in the next one.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "You haven't been in a draw yet. Complete an order to get entries.",
+    PRIZERAIL_NO_WINS_YET: "No wins yet. Every entry is a chance.",
+    PRIZERAIL_PAST_DRAWS: "Your past draws",
+    PRIZERAIL_SHARE_OF_ENTRIES: "of all entries",
+    PRIZERAIL_TOTAL_WON: "Total won",
+    PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
     PRIZERAIL_VIEW_DRAW: "View draw",
+    PRIZERAIL_VIEW_MORE: "View more",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "View on Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Won {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Won in {{count}} draw",
+    PRIZERAIL_WON_IN_DRAWS: "Won in {{count}} draws",
+    PRIZERAIL_YOUR_ENTRIES: "your entries",
     PROCEED_TO_PAY: "Proceed to Pay",
     PROCESSING: "Processing",
     PROCESSING_FAILED: "Processing failed",
