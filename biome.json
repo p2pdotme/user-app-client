@@ -4,7 +4,14 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["src/**", "scripts/**", "docs/**", "*.json", "*.md"],
+    "includes": [
+      "src/**",
+      "tests/**",
+      "scripts/**",
+      "docs/**",
+      "*.json",
+      "*.md"
+    ],
     "maxSize": 15728640
   },
   "formatter": {

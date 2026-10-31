@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
-import { LotpotCashbackCard } from "@/components/lotpot-cashback-card";
+import { PrizerailDrawCard } from "@/components/prizerail-draw-card";
 import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { OnchainProofCard } from "@/components/request-proof-card";
 import { TextLogo } from "@/components/text-logo";
@@ -174,12 +174,15 @@ export function BuyCompleted({ order }: { order: Order }) {
           </AlertDescription>
         </Alert>
 
-        {/* LotPot cashback card. Credit is issued server-side on completed
-            non-B2B BUYs — no on-chain hook to wait on, so the UI promises the
-            credit on every BUY completion in a market that earns it. Rate is
-            per currency (2% default, 1% for ARS/MEX, 0% for INR/VEN — the card
-            hides itself at 0%) to mirror server issuance. */}
-        <LotpotCashbackCard currency={order.currency} />
+        {/* Prizerail draw card. Entries are sent server-side on completed
+            non-B2B BUYs — no on-chain hook to wait on, so the UI promises them
+            on every BUY completion in a market that earns them. Rate is per
+            currency (2% default, 1% for ARS/MEX, 0% for INR/VEN — the card
+            hides itself at 0%) and one entry per cent, mirroring the executor. */}
+        <PrizerailDrawCard
+          currency={order.currency}
+          usdcAmount={order.amount}
+        />
 
         {/* Tip Card */}
         <TipMerchantCard orderId={Number(order.id)} />

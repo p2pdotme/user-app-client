@@ -63,8 +63,7 @@ function DirectOrCross({ onReceiveUSDC }: { onReceiveUSDC: () => void }) {
         </Card>
         <Link
           to={`${INTERNAL_HREFS.BRIDGE}?mode=deposit`}
-          className="cursor-pointer"
-        >
+          className="cursor-pointer">
           <Card className="gap-0 shadow-none">
             <CardContent className="flex items-center justify-between gap-4">
               <div className="flex min-w-0 flex-1 items-start gap-4">
