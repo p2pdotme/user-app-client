@@ -1,11 +1,16 @@
-import { ExternalLink } from "lucide-react";
+import { ChevronRight, ExternalLink, Info } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NonHomeHeader } from "@/components/non-home-header";
+import { PrizerailDrawInfoDrawer } from "@/components/prizerail-draw-info-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useSettings } from "@/contexts";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { usePrizerailUserSummary } from "@/hooks/use-prizerail-user";
+import type { CurrencyType } from "@/lib/constants";
 import {
+  getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailCampaignUrl,
   getPrizerailUserApiUrl,
@@ -17,7 +22,9 @@ import { WonSummary } from "./won-summary";
 /**
  * PrizeRail Draws: the signed-in wallet's winnings, its real entries in the
  * open Prizerail draw, and the past draws it entered — all read from the
- * Prizerail user API. Linked from the draw card on order completion.
+ * Prizerail user API. Linked from the draw card on order completion and
+ * the homescreen card. The "How the prize draw works" card opens the rules
+ * drawer.
  */
 export function PrizeDraw() {
   const { t } = useTranslation();
@@ -25,6 +32,10 @@ export function PrizeDraw() {
   const slug = getPrizerailCampaignSlug();
   const enabled = !!slug && !!getPrizerailUserApiUrl();
   const summary = usePrizerailUserSummary();
+  const {
+    settings: { currency },
+  } = useSettings();
+  const [rulesOpen, setRulesOpen] = useState(false);
 
   const handleViewOnPrizerail = () => {
     if (!slug) return;
@@ -68,6 +79,19 @@ export function PrizeDraw() {
               </>
             )}
 
+            <button
+              type="button"
+              onClick={() => setRulesOpen(true)}
+              className="flex w-full items-center gap-4 rounded-xl bg-primary/5 px-6 py-4 text-left transition-colors hover:bg-primary/10">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <Info className="size-5 text-primary" />
+              </div>
+              <p className="min-w-0 flex-1 font-semibold text-foreground">
+                {t("PRIZERAIL_INFO_TITLE")}
+              </p>
+              <ChevronRight className="size-5 shrink-0 text-muted-foreground" />
+            </button>
+
             <section className="flex flex-col gap-3">
               <h2 className="px-1 font-medium text-foreground">
                 {t("PRIZERAIL_PAST_DRAWS")}
@@ -85,6 +109,13 @@ export function PrizeDraw() {
           </>
         )}
       </main>
+      {slug && (
+        <PrizerailDrawInfoDrawer
+          open={rulesOpen}
+          onOpenChange={setRulesOpen}
+          percentage={getDrawEntryPercent(currency.currency as CurrencyType)}
+        />
+      )}
     </>
   );
 }

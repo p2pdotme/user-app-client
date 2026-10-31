@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TICK_MS = 1_000;
 const SECOND_MS = 1_000;
@@ -74,6 +75,25 @@ export function DrawCountdown({ targetMs, onElapsed }: DrawCountdownProps) {
               {unit}
             </span>
           </div>
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+// Same footprint as the h/m/s tiles, so nothing shifts when the feed lands.
+const SKELETON_TILES = ["h", "m", "s"] as const;
+
+/** Shimmer in place of the countdown while the draw time is loading. */
+export function DrawCountdownSkeleton() {
+  return (
+    <div className="flex items-center gap-1" aria-busy="true">
+      {SKELETON_TILES.map((unit, index) => (
+        <Fragment key={unit}>
+          {index > 0 && (
+            <span className="font-bold text-primary/40 text-xs">:</span>
+          )}
+          <Skeleton className="h-6 w-9 bg-primary/10" />
         </Fragment>
       ))}
     </div>

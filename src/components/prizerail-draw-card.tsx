@@ -1,12 +1,10 @@
 import { ArrowRight, ExternalLink, Info, Ticket } from "lucide-react";
-import moment from "moment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { PrizerailDrawInfoDrawer } from "@/components/prizerail-draw-info-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { usePrizerailDraws } from "@/hooks/use-prizerail-draws";
 import { type CurrencyType, INTERNAL_HREFS } from "@/lib/constants";
 import {
   entriesForOrderUsdc,
@@ -43,7 +41,6 @@ export function PrizerailDrawCard({
   // "View draw" opens the in-app PrizeRail Draws page, which needs the user
   // API; without it, fall back to the public campaign page.
   const hasDrawsPage = !!getPrizerailUserApiUrl();
-  const { data: draws } = usePrizerailDraws();
   const [infoOpen, setInfoOpen] = useState(false);
 
   const percentage = getDrawEntryPercent(currency);
@@ -52,20 +49,6 @@ export function PrizerailDrawCard({
   }
 
   const entries = entriesForOrderUsdc(usdcAmount, percentage);
-  const nextDraw = draws?.nextDraw ?? null;
-  const nextDrawAt = nextDraw ? moment(nextDraw.drawAt) : null;
-  // "Today at 5:00 PM" / "Tomorrow at …", localised by moment. Shown in
-  // the explainer, not on the card, to keep the card to one sentence.
-  const nextDrawLabel =
-    nextDraw && nextDrawAt?.isValid() ? nextDrawAt.calendar() : null;
-  const poolLabel =
-    typeof nextDraw?.entrantCount === "number" &&
-    typeof nextDraw.totalEntries === "number"
-      ? t("PRIZERAIL_DRAW_POOL", {
-          entrants: nextDraw.entrantCount.toLocaleString(),
-          entries: nextDraw.totalEntries.toLocaleString(),
-        })
-      : null;
 
   const campaignUrl = getPrizerailCampaignUrl(slug);
   const handleViewDraw = () => {
@@ -120,9 +103,6 @@ export function PrizerailDrawCard({
         open={infoOpen}
         onOpenChange={setInfoOpen}
         percentage={percentage}
-        campaignUrl={campaignUrl}
-        nextDrawLabel={nextDrawLabel}
-        poolLabel={poolLabel}
       />
     </Card>
   );

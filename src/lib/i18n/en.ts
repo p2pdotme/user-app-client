@@ -1578,11 +1578,10 @@ export const en = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare to scan once merchant is assigned",
     PRICE: "Price",
-    PRIZERAIL_CURRENT_DRAW: "Current draw",
+    PRIZERAIL_CURRENT_DRAW: "Next prize draw",
     PRIZERAIL_DRAW: "Draw",
     PRIZERAIL_DRAWING_NOW: "Drawing now",
     PRIZERAIL_DRAWS: "PrizeRail Draws",
-    PRIZERAIL_DRAWS_IN: "Draws {{time}}",
     PRIZERAIL_DRAW_NUMBER: "Draw #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "This order gave you {{entries}} entries. More orders, more entries.",
@@ -1607,6 +1606,9 @@ export const en = {
     PRIZERAIL_INFO_PRIZES_BODY:
       "Prizes are paid in USDC, from small amounts up to the jackpot. The full prize list and past results are on the draw page.",
     PRIZERAIL_INFO_PRIZES_TITLE: "Prizes are real money",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
     PRIZERAIL_INFO_RESET_BODY:
       "Your entries count for the upcoming draw only. Each new order earns fresh entries for the draw after it.",
     PRIZERAIL_INFO_RESET_TITLE: "Entries are for the next draw",
@@ -1614,7 +1616,6 @@ export const en = {
       "Every order you complete is a chance to win USDC.",
     PRIZERAIL_INFO_TITLE: "How the prize draw works",
     PRIZERAIL_LOAD_ERROR: "Couldn't load your prize draw. Please try again.",
-    PRIZERAIL_NEXT_DRAW: "Next draw: {{time}}",
     PRIZERAIL_NOT_ENTERED_YET:
       "Complete a BUY or SELL order to join this draw.",
     PRIZERAIL_NOT_WON: "No win",

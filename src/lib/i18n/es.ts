@@ -1639,11 +1639,10 @@ export const es = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepárate para escanear una vez que se asigne el comerciante",
     PRICE: "Precio",
-    PRIZERAIL_CURRENT_DRAW: "Sorteo actual",
+    PRIZERAIL_CURRENT_DRAW: "Próximo sorteo de premios",
     PRIZERAIL_DRAW: "Sorteo",
     PRIZERAIL_DRAWING_NOW: "Sorteando ahora",
     PRIZERAIL_DRAWS: "Sorteos PrizeRail",
-    PRIZERAIL_DRAWS_IN: "Sorteo {{time}}",
     PRIZERAIL_DRAW_NUMBER: "Sorteo n.º {{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Esta orden te dio {{entries}} participaciones. Más órdenes, más participaciones.",
@@ -1669,6 +1668,9 @@ export const es = {
     PRIZERAIL_INFO_PRIZES_BODY:
       "Los premios se pagan en USDC, desde montos pequeños hasta el premio mayor. La lista completa de premios y los resultados anteriores están en la página del sorteo.",
     PRIZERAIL_INFO_PRIZES_TITLE: "Los premios son dinero real",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
     PRIZERAIL_INFO_RESET_BODY:
       "Tus participaciones cuentan solo para el próximo sorteo. Cada nueva orden genera participaciones nuevas para el sorteo siguiente.",
     PRIZERAIL_INFO_RESET_TITLE:
@@ -1677,7 +1679,6 @@ export const es = {
       "Cada orden que completas es una oportunidad de ganar USDC.",
     PRIZERAIL_INFO_TITLE: "Cómo funciona el sorteo",
     PRIZERAIL_LOAD_ERROR: "No pudimos cargar tu sorteo. Inténtalo de nuevo.",
-    PRIZERAIL_NEXT_DRAW: "Próximo sorteo: {{time}}",
     PRIZERAIL_NOT_ENTERED_YET:
       "Completa una orden de COMPRA o VENTA para entrar en este sorteo.",
     PRIZERAIL_NOT_WON: "Sin premio",

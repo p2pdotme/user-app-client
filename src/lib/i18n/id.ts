@@ -1603,11 +1603,10 @@ export const id = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
-    PRIZERAIL_CURRENT_DRAW: "Undian saat ini",
+    PRIZERAIL_CURRENT_DRAW: "Undian hadiah berikutnya",
     PRIZERAIL_DRAW: "Undian",
     PRIZERAIL_DRAWING_NOW: "Sedang diundi",
     PRIZERAIL_DRAWS: "Undian PrizeRail",
-    PRIZERAIL_DRAWS_IN: "Undian {{time}}",
     PRIZERAIL_DRAW_NUMBER: "Undian #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Pesanan ini memberi Anda {{entries}} entri. Makin banyak pesanan, makin banyak entri.",
@@ -1632,6 +1631,9 @@ export const id = {
     PRIZERAIL_INFO_PRIZES_BODY:
       "Hadiah dibayar dalam USDC, dari jumlah kecil hingga jackpot. Daftar hadiah lengkap dan hasil sebelumnya ada di halaman undian.",
     PRIZERAIL_INFO_PRIZES_TITLE: "Hadiahnya uang sungguhan",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
     PRIZERAIL_INFO_RESET_BODY:
       "Entri Anda hanya berlaku untuk undian yang akan datang. Setiap pesanan baru memberi entri baru untuk undian setelahnya.",
     PRIZERAIL_INFO_RESET_TITLE: "Entri berlaku untuk undian berikutnya",
@@ -1639,7 +1641,6 @@ export const id = {
       "Setiap pesanan yang selesai adalah peluang memenangkan USDC.",
     PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
     PRIZERAIL_LOAD_ERROR: "Gagal memuat undian Anda. Silakan coba lagi.",
-    PRIZERAIL_NEXT_DRAW: "Undian berikutnya: {{time}}",
     PRIZERAIL_NOT_ENTERED_YET:
       "Selesaikan pesanan BELI atau JUAL untuk ikut undian ini.",
     PRIZERAIL_NOT_WON: "Tidak menang",

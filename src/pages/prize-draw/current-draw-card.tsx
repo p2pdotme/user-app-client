@@ -1,30 +1,20 @@
-import { Clock, Ticket } from "lucide-react";
+import { Clock } from "lucide-react";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { DrawCountdown } from "@/components/prizerail-draw-countdown";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { UserDrawingEntries } from "@/core/prizerail/user-api";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { CurrentDrawSkeleton } from "./skeletons";
-
-// The "Draws in …" pill is relative time; refresh it while the page is open.
-const CLOCK_TICK_MS = 30_000;
+import { CURRENT_DRAW_SURFACE } from "./surface";
 
 interface CurrentDrawCardProps {
   drawing: UserDrawingEntries | null;
   isLoading: boolean;
-}
-
-function useNow(tickMs: number): number {
-  const [now, setNow] = useState(() => Date.now());
-  useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), tickMs);
-    return () => clearInterval(id);
-  }, [tickMs]);
-  return now;
 }
 
 function formatShare(share: number): string {
@@ -33,29 +23,60 @@ function formatShare(share: number): string {
   return `${(share * 100).toFixed(share < 0.01 ? 2 : 1)}%`;
 }
 
-function DrawCountdown({ drawAt }: { drawAt: string | null }) {
+function EnteredBody({ drawing }: { drawing: UserDrawingEntries }) {
   const { t } = useTranslation();
-  const now = useNow(CLOCK_TICK_MS);
-  const at = drawAt ? moment(drawAt) : null;
-  if (!at?.isValid()) return null;
-
-  const label =
-    at.valueOf() <= now
-      ? t("PRIZERAIL_DRAWING_NOW")
-      : t("PRIZERAIL_DRAWS_IN", { time: at.from(now) });
-
   return (
-    <span className="ml-auto flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 font-medium text-primary text-xs">
-      <Clock className="size-3" />
-      {label}
-    </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-baseline gap-2">
+        <p className="font-semibold text-4xl text-foreground tabular-nums">
+          {drawing.entries.toLocaleString()}
+        </p>
+        <p className="text-muted-foreground text-sm">
+          {t("PRIZERAIL_YOUR_ENTRIES")}
+        </p>
+      </div>
+      <Progress
+        value={Math.min(100, drawing.shareOfEntries * 100)}
+        className="h-2 bg-background/70"
+        aria-label={t("PRIZERAIL_SHARE_OF_ENTRIES")}
+      />
+      <p className="text-muted-foreground text-xs">
+        <span className="font-medium text-foreground">
+          {formatShare(drawing.shareOfEntries)}
+        </span>{" "}
+        {t("PRIZERAIL_SHARE_OF_ENTRIES")}
+      </p>
+    </div>
   );
+}
+
+function NotEnteredBody() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      <Button
+        className="h-11 rounded-xl font-semibold"
+        onClick={() => navigate(INTERNAL_HREFS.BUY)}>
+        {t("BUY")}
+      </Button>
+      <Button
+        variant="outline"
+        className="h-11 rounded-xl border-primary/30 bg-background/60 font-semibold"
+        onClick={() => navigate(INTERNAL_HREFS.SELL)}>
+        {t("SELL")}
+      </Button>
+    </div>
+  );
+}
+
+function Surface({ children }: { children: ReactNode }) {
+  return <section className={CURRENT_DRAW_SURFACE}>{children}</section>;
 }
 
 /** The wallet's standing in the draw taking entries now. */
 export function CurrentDrawCard({ drawing, isLoading }: CurrentDrawCardProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   if (isLoading) {
     return <CurrentDrawSkeleton />;
@@ -63,90 +84,53 @@ export function CurrentDrawCard({ drawing, isLoading }: CurrentDrawCardProps) {
 
   if (!drawing) {
     return (
-      <Card className="w-full shadow-none">
-        <CardContent className="flex items-center gap-3 text-muted-foreground text-sm">
-          <Clock className="size-5 shrink-0" />
-          {t("PRIZERAIL_NO_OPEN_DRAW")}
-        </CardContent>
-      </Card>
+      <Surface>
+        <CardTitle>{t("PRIZERAIL_CURRENT_DRAW")}</CardTitle>
+        <CardDescription>{t("PRIZERAIL_NO_OPEN_DRAW")}</CardDescription>
+      </Surface>
     );
   }
 
   const drawAt = drawing.drawAt ? moment(drawing.drawAt) : null;
-  const drawLabel = drawAt?.isValid() ? drawAt.calendar() : null;
+  const hasDrawAt = !!drawAt?.isValid();
 
   return (
-    <Card className="w-full shadow-none">
-      <CardContent className="flex flex-col gap-5">
-        <div className="flex items-center gap-2">
-          <Ticket className="size-5 text-primary" />
-          <p className="font-semibold text-primary text-xs uppercase tracking-[0.3em]">
-            {t("PRIZERAIL_CURRENT_DRAW")}
-          </p>
-          <DrawCountdown drawAt={drawing.drawAt} />
-        </div>
+    <Surface>
+      <div className="flex flex-col gap-2">
+        <CardTitle>{t("PRIZERAIL_CURRENT_DRAW")}</CardTitle>
+        {!drawing.entered && (
+          <CardDescription>{t("PRIZERAIL_NOT_ENTERED_YET")}</CardDescription>
+        )}
+      </div>
 
-        {drawing.entered ? (
-          <div className="flex flex-col gap-3">
-            <div className="flex items-baseline gap-2">
-              <p className="font-semibold text-4xl text-foreground tabular-nums">
-                {drawing.entries.toLocaleString()}
-              </p>
-              <p className="text-muted-foreground text-sm">
-                {t("PRIZERAIL_YOUR_ENTRIES")}
-              </p>
+      {drawing.entered ? <EnteredBody drawing={drawing} /> : <NotEnteredBody />}
+
+      {(hasDrawAt || drawing.entrantCount > 0) && (
+        <div className="flex flex-col gap-2 border-primary/10 border-t pt-3">
+          {drawAt && hasDrawAt && (
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
+                <Clock className="size-3.5 shrink-0" />
+                <span>{t("PRIZERAIL_HOME_ANNOUNCED_IN")}</span>
+              </div>
+              <DrawCountdown
+                key={drawing.drawingId}
+                targetMs={drawAt.valueOf()}
+              />
             </div>
-            <Progress
-              value={Math.min(100, drawing.shareOfEntries * 100)}
-              className="h-2"
-              aria-label={t("PRIZERAIL_SHARE_OF_ENTRIES")}
-            />
+          )}
+          {/* "0 players · 0 entries" reads as broken; show the pool once
+              someone is in. */}
+          {drawing.entrantCount > 0 && (
             <p className="text-muted-foreground text-xs">
-              <span className="font-medium text-foreground">
-                {formatShare(drawing.shareOfEntries)}
-              </span>{" "}
-              {t("PRIZERAIL_SHARE_OF_ENTRIES")}
+              {t("PRIZERAIL_DRAW_POOL", {
+                entrants: drawing.entrantCount.toLocaleString(),
+                entries: drawing.totalEntries.toLocaleString(),
+              })}
             </p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-4">
-            <p className="text-foreground text-sm leading-relaxed">
-              {t("PRIZERAIL_NOT_ENTERED_YET")}
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <Button
-                className="rounded-full"
-                onClick={() => navigate(INTERNAL_HREFS.BUY)}>
-                {t("BUY")}
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full"
-                onClick={() => navigate(INTERNAL_HREFS.SELL)}>
-                {t("SELL")}
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {(drawLabel || drawing.entrantCount > 0) && (
-          <div className="flex flex-col gap-1 border-border border-t pt-3 text-muted-foreground text-xs">
-            {drawLabel && (
-              <p>{t("PRIZERAIL_NEXT_DRAW", { time: drawLabel })}</p>
-            )}
-            {/* "0 players · 0 entries" reads as broken; show the pool once
-                someone is in. */}
-            {drawing.entrantCount > 0 && (
-              <p>
-                {t("PRIZERAIL_DRAW_POOL", {
-                  entrants: drawing.entrantCount.toLocaleString(),
-                  entries: drawing.totalEntries.toLocaleString(),
-                })}
-              </p>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          )}
+        </div>
+      )}
+    </Surface>
   );
 }

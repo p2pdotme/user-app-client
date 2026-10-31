@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CURRENT_DRAW_SURFACE } from "./surface";
 
 // Loading placeholders shaped like the real cards: same containers, same
 // rows, bars where text and numbers will land, so nothing jumps on load.
@@ -30,25 +31,18 @@ export function WonSummarySkeleton() {
 export function CurrentDrawSkeleton() {
   const { t } = useTranslation();
   return (
-    <Card aria-busy="true" className="w-full shadow-none">
-      <CardContent className="flex flex-col gap-5">
-        <div className="flex items-center gap-2">
-          <Skeleton className="size-5 rounded-full" />
-          <p className="font-semibold text-primary text-xs uppercase tracking-[0.3em]">
-            {t("PRIZERAIL_CURRENT_DRAW")}
-          </p>
-          <Skeleton className="ml-auto h-6 w-28 rounded-full" />
-        </div>
-        <div className="flex flex-col gap-3">
-          <Skeleton className="h-9 w-24" />
-          <Skeleton className="h-2 w-full rounded-full" />
-          <Skeleton className="h-3 w-36" />
-        </div>
-        <div className="flex flex-col gap-2 border-border border-t pt-3">
-          <Skeleton className="h-3 w-40" />
-        </div>
-      </CardContent>
-    </Card>
+    <section aria-busy="true" className={CURRENT_DRAW_SURFACE}>
+      <CardTitle>{t("PRIZERAIL_CURRENT_DRAW")}</CardTitle>
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-9 w-24 bg-background/70" />
+        <Skeleton className="h-2 w-full rounded-full bg-background/70" />
+        <Skeleton className="h-3 w-36 bg-background/70" />
+      </div>
+      <div className="flex items-center justify-between gap-2 border-primary/10 border-t pt-3">
+        <Skeleton className="h-3 w-40 bg-background/70" />
+        <Skeleton className="h-6 w-28 bg-background/70" />
+      </div>
+    </section>
   );
 }
 

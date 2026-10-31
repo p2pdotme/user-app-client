@@ -1537,11 +1537,10 @@ export const hi = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
-    PRIZERAIL_CURRENT_DRAW: "मौजूदा ड्रॉ",
+    PRIZERAIL_CURRENT_DRAW: "अगला इनामी ड्रॉ",
     PRIZERAIL_DRAW: "ड्रॉ",
     PRIZERAIL_DRAWING_NOW: "ड्रॉ हो रहा है",
     PRIZERAIL_DRAWS: "PrizeRail ड्रॉ",
-    PRIZERAIL_DRAWS_IN: "ड्रॉ {{time}}",
     PRIZERAIL_DRAW_NUMBER: "ड्रॉ #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "इस ऑर्डर से आपको {{entries}} एंट्री मिलीं। जितने ज़्यादा ऑर्डर, उतनी ज़्यादा एंट्री।",
@@ -1566,6 +1565,9 @@ export const hi = {
     PRIZERAIL_INFO_PRIZES_BODY:
       "इनाम USDC में दिए जाते हैं, छोटी राशि से लेकर जैकपॉट तक। पूरी इनाम सूची और पिछले नतीजे ड्रॉ पेज पर हैं।",
     PRIZERAIL_INFO_PRIZES_TITLE: "इनाम असली पैसा है",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
     PRIZERAIL_INFO_RESET_BODY:
       "आपकी एंट्री सिर्फ़ आने वाले ड्रॉ के लिए गिनी जाती हैं। हर नया ऑर्डर उसके बाद वाले ड्रॉ के लिए नई एंट्री देता है।",
     PRIZERAIL_INFO_RESET_TITLE: "एंट्री अगले ड्रॉ के लिए होती हैं",
@@ -1573,7 +1575,6 @@ export const hi = {
       "आपका हर पूरा किया गया ऑर्डर USDC जीतने का एक मौका है।",
     PRIZERAIL_INFO_TITLE: "इनाम ड्रॉ कैसे काम करता है",
     PRIZERAIL_LOAD_ERROR: "आपका इनाम ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
-    PRIZERAIL_NEXT_DRAW: "अगला ड्रॉ: {{time}}",
     PRIZERAIL_NOT_ENTERED_YET:
       "इस ड्रॉ में शामिल होने के लिए एक BUY या SELL ऑर्डर पूरा करें।",
     PRIZERAIL_NOT_WON: "कोई जीत नहीं",

@@ -1618,11 +1618,10 @@ export const pt = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare para escanear uma vez que o comerciante for designado",
     PRICE: "Preço",
-    PRIZERAIL_CURRENT_DRAW: "Sorteio atual",
+    PRIZERAIL_CURRENT_DRAW: "Próximo sorteio de prêmios",
     PRIZERAIL_DRAW: "Sorteio",
     PRIZERAIL_DRAWING_NOW: "Sorteando agora",
     PRIZERAIL_DRAWS: "Sorteios PrizeRail",
-    PRIZERAIL_DRAWS_IN: "Sorteio {{time}}",
     PRIZERAIL_DRAW_NUMBER: "Sorteio nº {{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Este pedido rendeu {{entries}} entradas. Mais pedidos, mais entradas.",
@@ -1648,6 +1647,9 @@ export const pt = {
     PRIZERAIL_INFO_PRIZES_BODY:
       "Os prêmios são pagos em USDC, de valores pequenos até o prêmio máximo. A lista completa de prêmios e os resultados anteriores estão na página do sorteio.",
     PRIZERAIL_INFO_PRIZES_TITLE: "Os prêmios são dinheiro de verdade",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
     PRIZERAIL_INFO_RESET_BODY:
       "Suas entradas contam apenas para o próximo sorteio. Cada novo pedido gera novas entradas para o sorteio seguinte.",
     PRIZERAIL_INFO_RESET_TITLE: "As entradas valem para o próximo sorteio",
@@ -1656,7 +1658,6 @@ export const pt = {
     PRIZERAIL_INFO_TITLE: "Como funciona o sorteio",
     PRIZERAIL_LOAD_ERROR:
       "Não foi possível carregar seu sorteio. Tente novamente.",
-    PRIZERAIL_NEXT_DRAW: "Próximo sorteio: {{time}}",
     PRIZERAIL_NOT_ENTERED_YET:
       "Conclua um pedido de COMPRA ou VENDA para entrar neste sorteio.",
     PRIZERAIL_NOT_WON: "Sem prêmio",

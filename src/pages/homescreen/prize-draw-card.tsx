@@ -2,6 +2,10 @@ import { ArrowRight, Clock } from "lucide-react";
 import moment from "moment";
 import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import {
+  DrawCountdown,
+  DrawCountdownSkeleton,
+} from "@/components/prizerail-draw-countdown";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 import { useSettings } from "@/contexts";
 import { usePrizerailDraws } from "@/hooks/use-prizerail-draws";
@@ -12,7 +16,6 @@ import {
   getPrizerailUserApiUrl,
   PRIZERAIL_HEADLINE_PRIZE_CENTS,
 } from "@/lib/prizerail";
-import { DrawCountdown } from "./draw-countdown";
 
 /**
  * Homescreen entry point to the in-app PrizeRail Draws page. Shown only in
@@ -27,7 +30,11 @@ export function PrizeDrawCard() {
   const {
     settings: { currency },
   } = useSettings();
-  const { data: draws, refetch: refetchDraws } = usePrizerailDraws();
+  const {
+    data: draws,
+    isLoading: isDrawsLoading,
+    refetch: refetchDraws,
+  } = usePrizerailDraws();
 
   const isAvailable =
     !!getPrizerailCampaignSlug() &&
@@ -66,11 +73,12 @@ export function PrizeDrawCard() {
             <div className="flex min-w-0 items-center gap-1.5 text-muted-foreground text-xs">
               <Clock className="size-3.5 shrink-0" />
               <span>
-                {hasNextDraw
+                {hasNextDraw || isDrawsLoading
                   ? t("PRIZERAIL_HOME_ANNOUNCED_IN")
                   : t("PRIZERAIL_VIEW_DRAW")}
               </span>
             </div>
+            {isDrawsLoading && <DrawCountdownSkeleton />}
             {nextDrawAt && hasNextDraw && (
               // Keyed by draw so a new draw restarts the countdown.
               <DrawCountdown
