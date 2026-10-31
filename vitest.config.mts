@@ -48,6 +48,7 @@ export default defineConfig({
         "node_modules/@p2pdotme/sdk/dist/index.mjs",
       ),
       "@": path.resolve(__dirname, "./src"),
+      "@tests": path.resolve(__dirname, "./tests"),
       "@p2pdotme": path.resolve(__dirname, "./src/core/p2pdotme"),
     },
   },
@@ -63,7 +64,7 @@ export default defineConfig({
     },
     environment: "jsdom",
     globals: false,
-    setupFiles: ["./src/test/setup.ts", "./src/test/thirdweb.ts"],
-    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+    setupFiles: ["./tests/helpers/setup.ts", "./tests/helpers/thirdweb.ts"],
+    include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
   },
 });
