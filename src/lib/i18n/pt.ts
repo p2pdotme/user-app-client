@@ -1667,7 +1667,6 @@ export const pt = {
       "Você ainda não participou de nenhum sorteio. Conclua um pedido para ganhar entradas.",
     PRIZERAIL_NO_WINS_YET: "Nenhum prêmio ainda. Cada entrada é uma chance.",
     PRIZERAIL_PAST_DRAWS: "Seus sorteios anteriores",
-    PRIZERAIL_SHARE_OF_ENTRIES: "do total de entradas",
     PRIZERAIL_TOTAL_WON: "Total ganho",
     PRIZERAIL_UNAVAILABLE: "O sorteio não está disponível no momento.",
     PRIZERAIL_VIEW_DRAW: "Ver sorteio",

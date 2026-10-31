@@ -1625,7 +1625,6 @@ export const en = {
       "You haven't been in a draw yet. Complete an order to get entries.",
     PRIZERAIL_NO_WINS_YET: "No wins yet. Every entry is a chance.",
     PRIZERAIL_PAST_DRAWS: "Your past draws",
-    PRIZERAIL_SHARE_OF_ENTRIES: "of all entries",
     PRIZERAIL_TOTAL_WON: "Total won",
     PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
     PRIZERAIL_VIEW_DRAW: "View draw",

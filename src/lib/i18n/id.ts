@@ -1650,7 +1650,6 @@ export const id = {
       "Anda belum pernah ikut undian. Selesaikan pesanan untuk mendapatkan entri.",
     PRIZERAIL_NO_WINS_YET: "Belum ada kemenangan. Setiap entri adalah peluang.",
     PRIZERAIL_PAST_DRAWS: "Undian Anda sebelumnya",
-    PRIZERAIL_SHARE_OF_ENTRIES: "dari semua entri",
     PRIZERAIL_TOTAL_WON: "Total menang",
     PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
     PRIZERAIL_VIEW_DRAW: "Lihat undian",

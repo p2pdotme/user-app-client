@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 import { DrawCountdown } from "@/components/prizerail-draw-countdown";
 import { Button } from "@/components/ui/button";
 import { CardDescription, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import type { UserDrawingEntries } from "@/core/prizerail/user-api";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { CurrentDrawSkeleton } from "./skeletons";
@@ -17,34 +16,15 @@ interface CurrentDrawCardProps {
   isLoading: boolean;
 }
 
-function formatShare(share: number): string {
-  if (share <= 0) return "0%";
-  // Two decimals under 1% so a small share never reads as "0%".
-  return `${(share * 100).toFixed(share < 0.01 ? 2 : 1)}%`;
-}
-
 function EnteredBody({ drawing }: { drawing: UserDrawingEntries }) {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-baseline gap-2">
-        <p className="font-semibold text-4xl text-foreground tabular-nums">
-          {drawing.entries.toLocaleString()}
-        </p>
-        <p className="text-muted-foreground text-sm">
-          {t("PRIZERAIL_YOUR_ENTRIES")}
-        </p>
-      </div>
-      <Progress
-        value={Math.min(100, drawing.shareOfEntries * 100)}
-        className="h-2 bg-background/70"
-        aria-label={t("PRIZERAIL_SHARE_OF_ENTRIES")}
-      />
-      <p className="text-muted-foreground text-xs">
-        <span className="font-medium text-foreground">
-          {formatShare(drawing.shareOfEntries)}
-        </span>{" "}
-        {t("PRIZERAIL_SHARE_OF_ENTRIES")}
+    <div className="flex items-baseline gap-2">
+      <p className="font-semibold text-4xl text-foreground tabular-nums">
+        {drawing.entries.toLocaleString()}
+      </p>
+      <p className="text-muted-foreground text-sm">
+        {t("PRIZERAIL_YOUR_ENTRIES")}
       </p>
     </div>
   );

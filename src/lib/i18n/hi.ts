@@ -1584,7 +1584,6 @@ export const hi = {
       "आप अभी तक किसी ड्रॉ में शामिल नहीं हुए हैं। एंट्री पाने के लिए एक ऑर्डर पूरा करें।",
     PRIZERAIL_NO_WINS_YET: "अभी तक कोई जीत नहीं। हर एंट्री एक मौका है।",
     PRIZERAIL_PAST_DRAWS: "आपके पिछले ड्रॉ",
-    PRIZERAIL_SHARE_OF_ENTRIES: "कुल एंट्री में से",
     PRIZERAIL_TOTAL_WON: "कुल जीत",
     PRIZERAIL_UNAVAILABLE: "इनाम ड्रॉ अभी उपलब्ध नहीं है।",
     PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
