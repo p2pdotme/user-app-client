@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
+import { makeOrder } from "@tests/helpers/factories";
+import { renderWithProviders } from "@tests/helpers/render";
 import { describe, expect, it, vi } from "vitest";
-import { makeOrder } from "@/test/factories";
-import { renderWithProviders } from "@/test/render";
-import { HelpListView } from "../help-list-view";
+import { HelpListView } from "@/pages/order/help-drawer/help-list-view";
 
 describe("HelpListView dispute row", () => {
   const noop = () => {};
