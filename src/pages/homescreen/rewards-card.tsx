@@ -1,15 +1,11 @@
-import { ArrowRight, Ticket } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useP2pRewardBalance, usePrizerailEntries } from "@/hooks";
+import { useP2pRewardBalance } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import {
-  getPrizerailCampaignSlug,
-  getPrizerailCampaignUrl,
-} from "@/lib/prizerail";
 
 const tileClassName =
   "flex min-w-0 flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
@@ -32,14 +28,8 @@ export function RewardsCard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: p2pBalance } = useP2pRewardBalance();
-  const { data: drawEntries } = usePrizerailEntries();
 
   const handleViewP2P = () => navigate(INTERNAL_HREFS.P2P_TOKEN);
-  const handleViewDraw = () => {
-    const slug = getPrizerailCampaignSlug();
-    if (!slug) return;
-    window.open(getPrizerailCampaignUrl(slug), "_blank", "noopener,noreferrer");
-  };
 
   const rewards: Reward[] = [];
   if (p2pBalance?.hasBalance) {
@@ -49,19 +39,6 @@ export function RewardsCard() {
       amount: `${p2pBalance.displayAmount} $${p2pBalance.tokenSymbol}`,
       action: t("VIEW_HOLDINGS"),
       onClick: handleViewP2P,
-    });
-  }
-  // Estimated client-side from completed BUY/SELL orders in the current
-  // draw window (see usePrizerailEntries). The authoritative count is held
-  // by Prizerail under a pseudonymous id, so this tile is a mirror, not a
-  // ledger. Hidden until the user has at least one entry.
-  if (drawEntries?.hasEntries) {
-    rewards.push({
-      key: "prizerail",
-      icon: <Ticket className="size-5 text-primary" />,
-      amount: `${drawEntries.displayEntries} ${t("PRIZERAIL_ENTRIES_UNIT")}`,
-      action: t("PRIZERAIL_VIEW_DRAW"),
-      onClick: handleViewDraw,
     });
   }
 
