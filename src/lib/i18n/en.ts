@@ -1070,11 +1070,6 @@ export const en = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Failed to logout",
     LOGOUT_SUCCESS: "Logged out successfully",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "You just received {{percentage}}% in cashback credits to play on lotpot.fun. Check it on lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "LotPot Cashback",
-    LOTPOT_CREDITS_EARNED: "LotPot credits earned",
-    LOTPOT_CREDITS_UNIT: "Credits",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Make active {{paymentAddressName}}",
     MAKE_ACTIVE_RECEIVING_WALLET: "Make active receiving wallet",
     MALFORMED_URL: "The QR data link is malformed",
@@ -1274,7 +1269,6 @@ export const en = {
     ON_TIME: "On time",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Open in new tab",
-    OPEN_LOTPOT: "Open lotpot.fun",
     OR: "or",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ orders",
@@ -1584,6 +1578,63 @@ export const en = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare to scan once merchant is assigned",
     PRICE: "Price",
+    PRIZERAIL_CURRENT_DRAW: "Next prize draw",
+    PRIZERAIL_DRAW: "Draw",
+    PRIZERAIL_DRAWING_NOW: "Drawing now",
+    PRIZERAIL_DRAWS: "PrizeRail Draws",
+    PRIZERAIL_DRAW_NUMBER: "Draw #{{number}}",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "This order gave you {{entries}} entries. More orders, more entries.",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} players · {{entries}} entries so far",
+    PRIZERAIL_DRAW_TITLE: "You're in the prize draw",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} entries",
+    PRIZERAIL_ENTRIES_UNIT: "entries",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} entry",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Winners will be announced in",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Complete BUY and SELL orders for a chance to win up to <0>{{amount}}</0>.",
+    PRIZERAIL_INFO_BUTTON: "About the prize draw",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "At draw time, winners are drawn from everyone who entered. Someone with twice your entries has twice your chance. Nobody can win twice in the same draw, and every result is published so anyone can check it.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Winners are picked at random",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Entries are your tickets. You earn {{perHundred}} entries for every $100 of orders. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "You earn entries with every order",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Winners are announced right after the draw. Your prize is sent to you in USDC. You don't need to do anything to enter.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "If you win",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Prizes are paid in USDC, from small amounts up to the jackpot. The full prize list and past results are on the draw page.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Prizes are real money",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Your entries count for the upcoming draw only. Each new order earns fresh entries for the draw after it.",
+    PRIZERAIL_INFO_RESET_TITLE: "Entries are for the next draw",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Every order you complete is a chance to win USDC.",
+    PRIZERAIL_INFO_TITLE: "How the prize draw works",
+    PRIZERAIL_LOAD_ERROR: "Couldn't load your prize draw. Please try again.",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Complete a BUY or SELL order to join this draw.",
+    PRIZERAIL_NOT_WON: "No win",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "No draw is open right now. Your next order will enter you in the next one.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "You haven't been in a draw yet. Complete an order to get entries.",
+    PRIZERAIL_NO_WINS_YET: "No wins yet. Every entry is a chance.",
+    PRIZERAIL_PAST_DRAWS: "Your past draws",
+    PRIZERAIL_SHARE_OF_ENTRIES: "of all entries",
+    PRIZERAIL_TOTAL_WON: "Total won",
+    PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
+    PRIZERAIL_VIEW_DRAW: "View draw",
+    PRIZERAIL_VIEW_MORE: "View more",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "View on Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Won {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Won in {{count}} draw",
+    PRIZERAIL_WON_IN_DRAWS: "Won in {{count}} draws",
+    PRIZERAIL_YOUR_ENTRIES: "your entries",
     PROCEED_TO_PAY: "Proceed to Pay",
     PROCESSING: "Processing",
     PROCESSING_FAILED: "Processing failed",
@@ -1889,7 +1940,6 @@ export const en = {
     SOUNDS_NONE_DESC: "Disable all sound notifications",
     SOURCE_WALLET_NOT_CONNECTED: "Source wallet not connected",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Spend on lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR: "Spend USDC anywhere with Scan & Pay",
     STAKE_ALREADY_ACTIVE: "You already have an active stake",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "Stake amount must be greater than 0",
@@ -2098,7 +2148,6 @@ export const en = {
     USER_NOT_BLACKLISTED_FOR_EXTENSION: "User is not blacklisted for extension",
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED: "User yearly volume limit exceeded",
     USE_CBBTC_ON_COINSME: "Use your cbBTC on coins.me",
-    USE_CREDITS_ON_LOTPOT: "Use your credits on lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES: "Error fetching votes by",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
       "Error validating votes (given)",

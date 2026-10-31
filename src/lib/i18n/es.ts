@@ -1105,11 +1105,6 @@ export const es = {
     LOGOUT: "Cerrar Sesión",
     LOGOUT_ERROR: "Error al cerrar sesión",
     LOGOUT_SUCCESS: "Cierre de sesión exitoso",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "Acabas de recibir {{percentage}}% en créditos de cashback para jugar en lotpot.fun. Compruébalo en lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "Cashback de LotPot",
-    LOTPOT_CREDITS_EARNED: "Créditos de LotPot ganados",
-    LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Hacer activa la {{paymentAddressName}}",
     MAKE_ACTIVE_RECEIVING_WALLET: "Hacer activa la wallet de recepción",
     MALFORMED_URL: "El enlace de datos del QR está malformado",
@@ -1313,7 +1308,6 @@ export const es = {
     ON_TIME: "A tiempo",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir en nueva pestaña",
-    OPEN_LOTPOT: "Abrir lotpot.fun",
     OR: "o",
     ORDER: "Pedido",
     ORDERS_COUNT: "+{{count}} pedidos",
@@ -1645,6 +1639,66 @@ export const es = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepárate para escanear una vez que se asigne el comerciante",
     PRICE: "Precio",
+    PRIZERAIL_CURRENT_DRAW: "Próximo sorteo de premios",
+    PRIZERAIL_DRAW: "Sorteo",
+    PRIZERAIL_DRAWING_NOW: "Sorteando ahora",
+    PRIZERAIL_DRAWS: "Sorteos PrizeRail",
+    PRIZERAIL_DRAW_NUMBER: "Sorteo n.º {{number}}",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "Esta orden te dio {{entries}} participaciones. Más órdenes, más participaciones.",
+    PRIZERAIL_DRAW_POOL:
+      "{{entrants}} jugadores · {{entries}} participaciones hasta ahora",
+    PRIZERAIL_DRAW_TITLE: "Estás en el sorteo",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} participaciones",
+    PRIZERAIL_ENTRIES_UNIT: "participaciones",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} participación",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Los ganadores se anunciarán en",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Completa órdenes de COMPRA y VENTA para tener la oportunidad de ganar hasta <0>{{amount}}</0>.",
+    PRIZERAIL_INFO_BUTTON: "Sobre el sorteo",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "En el momento del sorteo, los ganadores se eligen entre todos los participantes. Quien tenga el doble de participaciones tiene el doble de posibilidades. Nadie puede ganar dos veces en el mismo sorteo y cada resultado se publica para que cualquiera pueda verificarlo.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Los ganadores se eligen al azar",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Las participaciones son tus boletos. Ganas {{perHundred}} participaciones por cada $100 en órdenes. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. No tienes que hacer nada para participar.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Si ganas",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Los premios se pagan en USDC, desde montos pequeños hasta el premio mayor. La lista completa de premios y los resultados anteriores están en la página del sorteo.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Los premios son dinero real",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Tus participaciones cuentan solo para el próximo sorteo. Cada nueva orden genera participaciones nuevas para el sorteo siguiente.",
+    PRIZERAIL_INFO_RESET_TITLE:
+      "Las participaciones son para el próximo sorteo",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Cada orden que completas es una oportunidad de ganar USDC.",
+    PRIZERAIL_INFO_TITLE: "Cómo funciona el sorteo",
+    PRIZERAIL_LOAD_ERROR: "No pudimos cargar tu sorteo. Inténtalo de nuevo.",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Completa una orden de COMPRA o VENTA para entrar en este sorteo.",
+    PRIZERAIL_NOT_WON: "Sin premio",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "No hay ningún sorteo abierto ahora. Tu próxima orden te inscribirá en el siguiente.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "Aún no has participado en ningún sorteo. Completa una orden para obtener participaciones.",
+    PRIZERAIL_NO_WINS_YET:
+      "Aún sin premios. Cada participación es una oportunidad.",
+    PRIZERAIL_PAST_DRAWS: "Tus sorteos anteriores",
+    PRIZERAIL_SHARE_OF_ENTRIES: "del total de participaciones",
+    PRIZERAIL_TOTAL_WON: "Total ganado",
+    PRIZERAIL_UNAVAILABLE: "El sorteo no está disponible en este momento.",
+    PRIZERAIL_VIEW_DRAW: "Ver sorteo",
+    PRIZERAIL_VIEW_MORE: "Ver más",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Ver en Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Ganaste {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Ganaste en {{count}} sorteo",
+    PRIZERAIL_WON_IN_DRAWS: "Ganaste en {{count}} sorteos",
+    PRIZERAIL_YOUR_ENTRIES: "tus participaciones",
     PROCEED_TO_PAY: "Proceder al Pago",
     PROCESSING: "Procesando",
     PROCESSING_FAILED: "Procesamiento fallido",
@@ -1972,7 +2026,6 @@ export const es = {
     SOUNDS_NONE_DESC: "Deshabilitar todas las notificaciones de sonido",
     SOURCE_WALLET_NOT_CONNECTED: "Wallet de origen no conectada",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Gastar en lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Gasta USDC en cualquier lugar con Escanear y Pagar",
     STAKE_ALREADY_ACTIVE: "Ya tienes un stake activo",
@@ -2196,7 +2249,6 @@ export const es = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Límite de volumen anual del usuario excedido",
     USE_CBBTC_ON_COINSME: "Usa tu cbBTC en coins.me",
-    USE_CREDITS_ON_LOTPOT: "Usa tus créditos en lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error al obtener los votos de",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
