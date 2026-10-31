@@ -1663,7 +1663,7 @@ export const es = {
       "Las participaciones son tus boletos. Ganas {{perHundred}} participaciones por cada $100 en órdenes. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
     PRIZERAIL_INFO_PAYOUT_BODY:
-      "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. No tienes que hacer nada para participar.",
+      "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. El pago puede tardar entre 5 y 10 minutos en llegar. No tienes que hacer nada para participar.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "Si ganas",
     PRIZERAIL_INFO_PRIZES_BODY:
       "Los premios se pagan en USDC, desde montos pequeños hasta el premio mayor. La lista completa de premios y los resultados anteriores están en la página del sorteo.",

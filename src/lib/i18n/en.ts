@@ -1601,7 +1601,7 @@ export const en = {
       "Entries are your tickets. You earn {{perHundred}} entries for every $100 of orders. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "You earn entries with every order",
     PRIZERAIL_INFO_PAYOUT_BODY:
-      "Winners are announced right after the draw. Your prize is sent to you in USDC. You don't need to do anything to enter.",
+      "Winners are announced right after the draw. Your prize is sent to you in USDC. Payouts can take 5–10 minutes to arrive. You don't need to do anything to enter.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "If you win",
     PRIZERAIL_INFO_PRIZES_BODY:
       "Prizes are paid in USDC, from small amounts up to the jackpot. The full prize list and past results are on the draw page.",

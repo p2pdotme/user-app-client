@@ -1626,7 +1626,7 @@ export const id = {
       "Entri adalah tiket Anda. Anda mendapat {{perHundred}} entri untuk setiap $100 pesanan. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Anda mendapat entri dari setiap pesanan",
     PRIZERAIL_INFO_PAYOUT_BODY:
-      "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Anda tidak perlu melakukan apa pun untuk ikut.",
+      "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Pembayaran bisa memakan waktu 5–10 menit untuk sampai. Anda tidak perlu melakukan apa pun untuk ikut.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "Jika Anda menang",
     PRIZERAIL_INFO_PRIZES_BODY:
       "Hadiah dibayar dalam USDC, dari jumlah kecil hingga jackpot. Daftar hadiah lengkap dan hasil sebelumnya ada di halaman undian.",

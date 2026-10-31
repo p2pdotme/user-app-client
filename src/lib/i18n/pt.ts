@@ -1642,7 +1642,7 @@ export const pt = {
       "Entradas são seus bilhetes. Você ganha {{perHundred}} entradas a cada $100 em pedidos. Um pedido de ${{exampleOrder}} dá {{exampleEntries}} entradas. Mais entradas, mais chances.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Você ganha entradas a cada pedido",
     PRIZERAIL_INFO_PAYOUT_BODY:
-      "Os vencedores são anunciados logo após o sorteio. Seu prêmio é enviado em USDC. Você não precisa fazer nada para participar.",
+      "Os vencedores são anunciados logo após o sorteio. Seu prêmio é enviado em USDC. O pagamento pode levar de 5 a 10 minutos para chegar. Você não precisa fazer nada para participar.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "Se você ganhar",
     PRIZERAIL_INFO_PRIZES_BODY:
       "Os prêmios são pagos em USDC, de valores pequenos até o prêmio máximo. A lista completa de prêmios e os resultados anteriores estão na página do sorteio.",
