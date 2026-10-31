@@ -1,14 +1,11 @@
-import { ArrowRight, Gift } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLotpotCredits, useP2pRewardBalance } from "@/hooks";
+import { useP2pRewardBalance } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
-
-const LOTPOT_FALLBACK_URL = "https://lotpot.fun";
-const LOTPOT_UTM_QUERY = "?utm_source=p2p-credits";
 
 const tileClassName =
   "flex min-w-0 flex-1 flex-col gap-3 rounded-2xl bg-background p-4 text-left transition-colors hover:bg-background/70";
@@ -31,13 +28,8 @@ export function RewardsCard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: p2pBalance } = useP2pRewardBalance();
-  const { data: credits } = useLotpotCredits();
 
   const handleViewP2P = () => navigate(INTERNAL_HREFS.P2P_TOKEN);
-  const handleOpenLotpot = () => {
-    const base = import.meta.env.VITE_LOTPOT_URL ?? LOTPOT_FALLBACK_URL;
-    window.open(`${base}${LOTPOT_UTM_QUERY}`, "_blank", "noopener,noreferrer");
-  };
 
   const rewards: Reward[] = [];
   if (p2pBalance?.hasBalance) {
@@ -47,19 +39,6 @@ export function RewardsCard() {
       amount: `${p2pBalance.displayAmount} $${p2pBalance.tokenSymbol}`,
       action: t("VIEW_HOLDINGS"),
       onClick: handleViewP2P,
-    });
-  }
-  // Reads on-chain issuedCredit, so this tile reflects credits the user
-  // actually holds. Not gated on the market's current cashback rate —
-  // already-issued credits stay visible and spendable even where new
-  // issuance has stopped (INR, VEN).
-  if (credits?.hasCredits) {
-    rewards.push({
-      key: "lotpot",
-      icon: <Gift className="size-5 text-primary" />,
-      amount: `${credits.displayAmount} ${t("LOTPOT_CREDITS_UNIT")}`,
-      action: t("SPEND_ON_LOTPOT"),
-      onClick: handleOpenLotpot,
     });
   }
 

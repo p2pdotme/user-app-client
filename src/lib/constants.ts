@@ -78,6 +78,7 @@ export const INTERNAL_HREFS = {
   LOGIN: "/login",
   RECOVER: "/recover",
   NOTIFICATION: "/notification",
+  PRIZE_DRAW: "/prize-draw",
 
   CAMPAIGN: "/campaign",
   RECOMMEND: "/recommend",
