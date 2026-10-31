@@ -4,12 +4,15 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
+import { makeDisputedOrder, makeOrder } from "@tests/helpers/factories";
+import { renderWithProviders } from "@tests/helpers/render";
+import {
+  mockActiveAccount,
+  mockActiveWalletChain,
+} from "@tests/helpers/thirdweb";
 import { toast } from "sonner";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { makeDisputedOrder, makeOrder } from "@/test/factories";
-import { renderWithProviders } from "@/test/render";
-import { mockActiveAccount, mockActiveWalletChain } from "@/test/thirdweb";
-import { HelpDrawer } from "../index";
+import { HelpDrawer } from "@/pages/order/help-drawer";
 
 // The stub every test file that renders HelpDrawer pastes below its own
 // imports. See the doc comment on renderWithProviders for why it belongs
@@ -273,9 +276,7 @@ describe("HelpDrawer chat page", () => {
       screen.getByText("No payment received from the merchant?"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        "Only raise a dispute if the merchant hasn't paid you.",
-      ),
+      screen.getByText("Only raise a dispute if the merchant hasn't paid you."),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
