@@ -3,7 +3,12 @@ import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Drawer,
   DrawerClose,
@@ -26,7 +31,7 @@ export function EcosystemDrawer({ children }: EcosystemDrawerProps) {
   return (
     <Drawer onOpenChange={(open) => !open && setLoaded(false)}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="mx-auto !max-h-[90vh] max-w-md">
+      <DrawerContent className="!max-h-[90vh] mx-auto max-w-md">
         <DrawerTitle className="sr-only">{t("P2P_ECOSYSTEM")}</DrawerTitle>
         <div className="flex h-[90vh] w-full flex-col">
           <div className="flex flex-shrink-0 items-center justify-between px-4 pt-10 pb-2">
@@ -83,13 +88,11 @@ export function EcosystemCard() {
           <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10">
             <ASSETS.ICONS.EcosystemLogo className="size-7 text-primary" />
           </div>
-          <div className="flex min-w-0 flex-1 flex-col">
-            <p className="font-medium text-sm">{t("ECOSYSTEM_CARD_TITLE")}</p>
-            <p className="text-muted-foreground text-xs">
-              {t("ECOSYSTEM_CARD_SUBTITLE")}
-            </p>
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
+            <CardTitle>{t("ECOSYSTEM_CARD_TITLE")}</CardTitle>
+            <CardDescription>{t("ECOSYSTEM_CARD_SUBTITLE")}</CardDescription>
           </div>
-          <ArrowRight className="size-5 shrink-0 text-primary" />
+          <ArrowRight className="size-5 shrink-0" />
         </CardContent>
       </Card>
     </EcosystemDrawer>

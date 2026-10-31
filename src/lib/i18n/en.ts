@@ -1591,6 +1591,9 @@ export const en = {
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} entries",
     PRIZERAIL_ENTRIES_UNIT: "entries",
     PRIZERAIL_ENTRY_COUNT: "{{entries}} entry",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Winners will be announced in",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Complete BUY and SELL orders for a chance to win up to <0>{{amount}}</0>.",
     PRIZERAIL_INFO_BUTTON: "About the prize draw",
     PRIZERAIL_INFO_DRAW_BODY:
       "At draw time, winners are drawn from everyone who entered. Someone with twice your entries has twice your chance. Nobody can win twice in the same draw, and every result is published so anyone can check it.",

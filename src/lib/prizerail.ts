@@ -184,6 +184,12 @@ export function formatPrizeCents(cents: number): string {
   })}`;
 }
 
+/**
+ * Top prize advertised on the homescreen card, in USD cents ($100,000).
+ * Fixed marketing copy, not read from the campaign's prize table.
+ */
+export const PRIZERAIL_HEADLINE_PRIZE_CENTS = 10_000_000;
+
 /** The public campaign page users are sent to — odds, draws, proofs. */
 export function getPrizerailCampaignUrl(slug: string): string {
   return `${getPrizerailPublicBaseUrl()}/campaigns/${encodeURIComponent(slug)}`;

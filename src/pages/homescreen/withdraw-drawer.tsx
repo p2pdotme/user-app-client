@@ -70,8 +70,7 @@ function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
         </Card>
         <Link
           to={`${INTERNAL_HREFS.BRIDGE}?mode=withdraw`}
-          className="cursor-pointer"
-        >
+          className="cursor-pointer">
           <Card className="shadow-none">
             <CardContent className="flex items-center justify-between gap-4">
               <div className="flex min-w-0 flex-1 items-start gap-4">
@@ -308,7 +307,8 @@ function DirectWithdraw({
                 // Wait for the soft keyboard to open, then bring the field
                 // into view within the scrollable drawer body.
                 setTimeout(
-                  () => el.scrollIntoView({ block: "start", behavior: "smooth" }),
+                  () =>
+                    el.scrollIntoView({ block: "start", behavior: "smooth" }),
                   300,
                 );
               }}
@@ -366,7 +366,8 @@ function DirectWithdraw({
               onFocus={(e) => {
                 const el = e.currentTarget;
                 setTimeout(
-                  () => el.scrollIntoView({ block: "start", behavior: "smooth" }),
+                  () =>
+                    el.scrollIntoView({ block: "start", behavior: "smooth" }),
                   300,
                 );
               }}

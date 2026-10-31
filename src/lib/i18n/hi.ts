@@ -1550,6 +1550,9 @@ export const hi = {
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} एंट्री",
     PRIZERAIL_ENTRIES_UNIT: "एंट्री",
     PRIZERAIL_ENTRY_COUNT: "{{entries}} एंट्री",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "विजेताओं की घोषणा होगी",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "BUY और SELL ऑर्डर पूरे करें और <0>{{amount}}</0> तक जीतने का मौका पाएं।",
     PRIZERAIL_INFO_BUTTON: "इनाम ड्रॉ के बारे में",
     PRIZERAIL_INFO_DRAW_BODY:
       "ड्रॉ के समय सभी प्रतिभागियों में से विजेता चुने जाते हैं। जिसके पास आपसे दोगुनी एंट्री हैं, उसका मौका भी दोगुना है। एक ही ड्रॉ में कोई दो बार नहीं जीत सकता, और हर नतीजा सार्वजनिक किया जाता है ताकि कोई भी उसे जाँच सके।",

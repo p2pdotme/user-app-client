@@ -2,11 +2,7 @@ import { Code, Menu } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
-import {
-  InstallPWAButton,
-  Sidebar,
-  TextLogo,
-} from "@/components";
+import { InstallPWAButton, Sidebar, TextLogo } from "@/components";
 import { EcosystemDrawer } from "@/components/p2p-ecosystem";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";

@@ -1616,6 +1616,9 @@ export const id = {
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} entri",
     PRIZERAIL_ENTRIES_UNIT: "entri",
     PRIZERAIL_ENTRY_COUNT: "{{entries}} entri",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Pemenang akan diumumkan dalam",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Selesaikan order BELI dan JUAL untuk kesempatan menang hingga <0>{{amount}}</0>.",
     PRIZERAIL_INFO_BUTTON: "Tentang undian hadiah",
     PRIZERAIL_INFO_DRAW_BODY:
       "Saat undian, pemenang dipilih dari semua peserta. Orang dengan entri dua kali lipat punya peluang dua kali lipat. Tidak ada yang bisa menang dua kali dalam undian yang sama, dan setiap hasil dipublikasikan agar siapa pun dapat memeriksanya.",

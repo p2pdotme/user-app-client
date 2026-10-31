@@ -1653,6 +1653,9 @@ export const es = {
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} participaciones",
     PRIZERAIL_ENTRIES_UNIT: "participaciones",
     PRIZERAIL_ENTRY_COUNT: "{{entries}} participación",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Los ganadores se anunciarán en",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Completa órdenes de COMPRA y VENTA para tener la oportunidad de ganar hasta <0>{{amount}}</0>.",
     PRIZERAIL_INFO_BUTTON: "Sobre el sorteo",
     PRIZERAIL_INFO_DRAW_BODY:
       "En el momento del sorteo, los ganadores se eligen entre todos los participantes. Quien tenga el doble de participaciones tiene el doble de posibilidades. Nadie puede ganar dos veces en el mismo sorteo y cada resultado se publica para que cualquiera pueda verificarlo.",
