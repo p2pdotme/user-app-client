@@ -1537,14 +1537,19 @@ export const hi = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
+    PRIZERAIL_BANNER_CTA: "ड्रॉ देखें",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "हर BUY या SELL ऑर्डर आपको प्राइज़ ड्रॉ में शामिल करता है।",
+    PRIZERAIL_BANNER_TITLE: "{{amount}} तक जीतें",
     PRIZERAIL_CURRENT_DRAW: "अगला इनामी ड्रॉ",
+    PRIZERAIL_CURRENT_DRAW_WINNERS: "अगले ड्रॉ में {{winners}} विजेता!",
     PRIZERAIL_DRAW: "ड्रॉ",
     PRIZERAIL_DRAWING_NOW: "ड्रॉ हो रहा है",
     PRIZERAIL_DRAWS: "PrizeRail ड्रॉ",
     PRIZERAIL_DRAW_NUMBER: "ड्रॉ #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "इस ऑर्डर से आपको {{entries}} एंट्री मिलीं। जितने ज़्यादा ऑर्डर, उतनी ज़्यादा एंट्री।",
-    PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी · अब तक {{entries}} एंट्री",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी खेल रहे हैं",
     PRIZERAIL_DRAW_TITLE: "आप इनाम ड्रॉ में शामिल हैं",
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} एंट्री",
     PRIZERAIL_ENTRIES_UNIT: "एंट्री",
@@ -1576,15 +1581,16 @@ export const hi = {
     PRIZERAIL_INFO_TITLE: "इनाम ड्रॉ कैसे काम करता है",
     PRIZERAIL_LOAD_ERROR: "आपका इनाम ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
     PRIZERAIL_NOT_ENTERED_YET:
-      "इस ड्रॉ में शामिल होने के लिए एक BUY या SELL ऑर्डर पूरा करें।",
+      "आपका अगला ट्रेड आपको विजेता बना सकता है। भाग लेने के लिए अभी BUY या SELL करें!",
     PRIZERAIL_NOT_WON: "कोई जीत नहीं",
     PRIZERAIL_NO_OPEN_DRAW:
       "अभी कोई ड्रॉ खुला नहीं है। आपका अगला ऑर्डर आपको अगले ड्रॉ में शामिल करेगा।",
     PRIZERAIL_NO_PAST_DRAWS:
       "आप अभी तक किसी ड्रॉ में शामिल नहीं हुए हैं। एंट्री पाने के लिए एक ऑर्डर पूरा करें।",
-    PRIZERAIL_NO_WINS_YET: "अभी तक कोई जीत नहीं। हर एंट्री एक मौका है।",
     PRIZERAIL_PAST_DRAWS: "आपके पिछले ड्रॉ",
-    PRIZERAIL_TOTAL_WON: "कुल जीत",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "कुल भुगतान किए गए इनाम",
+    PRIZERAIL_PRIZES_WINNERS: "कुल विजेता",
+    PRIZERAIL_TOTAL_WON: "आपने जीता",
     PRIZERAIL_UNAVAILABLE: "इनाम ड्रॉ अभी उपलब्ध नहीं है।",
     PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
     PRIZERAIL_VIEW_MORE: "और देखें",

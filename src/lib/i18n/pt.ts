@@ -1618,15 +1618,20 @@ export const pt = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare para escanear uma vez que o comerciante for designado",
     PRICE: "Preço",
+    PRIZERAIL_BANNER_CTA: "Ver sorteios",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "Cada ordem de COMPRA ou VENDA inscreve você no sorteio.",
+    PRIZERAIL_BANNER_TITLE: "Ganhe até {{amount}}",
     PRIZERAIL_CURRENT_DRAW: "Próximo sorteio de prêmios",
+    PRIZERAIL_CURRENT_DRAW_WINNERS:
+      "{{winners}} vencedores no próximo sorteio!",
     PRIZERAIL_DRAW: "Sorteio",
     PRIZERAIL_DRAWING_NOW: "Sorteando agora",
     PRIZERAIL_DRAWS: "Sorteios PrizeRail",
     PRIZERAIL_DRAW_NUMBER: "Sorteio nº {{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Este pedido rendeu {{entries}} entradas. Mais pedidos, mais entradas.",
-    PRIZERAIL_DRAW_POOL:
-      "{{entrants}} jogadores · {{entries}} entradas até agora",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} jogadores participando",
     PRIZERAIL_DRAW_TITLE: "Você está no sorteio",
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} entradas",
     PRIZERAIL_ENTRIES_UNIT: "entradas",
@@ -1659,15 +1664,16 @@ export const pt = {
     PRIZERAIL_LOAD_ERROR:
       "Não foi possível carregar seu sorteio. Tente novamente.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Conclua um pedido de COMPRA ou VENDA para entrar neste sorteio.",
+      "Sua próxima operação pode fazer de você um vencedor. COMPRE ou VENDA agora para participar!",
     PRIZERAIL_NOT_WON: "Sem prêmio",
     PRIZERAIL_NO_OPEN_DRAW:
       "Nenhum sorteio aberto agora. Seu próximo pedido vai te inscrever no próximo.",
     PRIZERAIL_NO_PAST_DRAWS:
       "Você ainda não participou de nenhum sorteio. Conclua um pedido para ganhar entradas.",
-    PRIZERAIL_NO_WINS_YET: "Nenhum prêmio ainda. Cada entrada é uma chance.",
     PRIZERAIL_PAST_DRAWS: "Seus sorteios anteriores",
-    PRIZERAIL_TOTAL_WON: "Total ganho",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "Total de prêmios pagos",
+    PRIZERAIL_PRIZES_WINNERS: "Total de vencedores",
+    PRIZERAIL_TOTAL_WON: "Você ganhou",
     PRIZERAIL_UNAVAILABLE: "O sorteio não está disponível no momento.",
     PRIZERAIL_VIEW_DRAW: "Ver sorteio",
     PRIZERAIL_VIEW_MORE: "Ver mais",

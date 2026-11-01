@@ -32,12 +32,10 @@ describe("PrizerailDrawCard", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders nothing for a 0% market", () => {
+  it("renders in the once-excluded markets now that the draw is global", () => {
     vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-daily");
-    const { container } = renderWithProviders(
-      <PrizerailDrawCard currency="VEN" usdcAmount="50" />,
-    );
-    expect(container).toBeEmptyDOMElement();
+    renderWithProviders(<PrizerailDrawCard currency="VEN" usdcAmount="50" />);
+    expect(screen.getByText(/50 entries/)).toBeInTheDocument();
   });
 
   it("shows the entries earned and opens the public campaign page", () => {

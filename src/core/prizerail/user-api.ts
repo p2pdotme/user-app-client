@@ -4,6 +4,8 @@ import { z } from "zod";
 // executor). It reads Prizerail on the server and answers per wallet:
 //   GET {base}/api/v1/prizerail/users/{wallet}
 //   GET {base}/api/v1/prizerail/users/{wallet}/drawings?limit&before&entered
+// and about the campaign as a whole:
+//   GET {base}/api/v1/prizerail/campaign/details
 // Every response is { success, data, meta? } or { success: false, error }.
 
 const REQUEST_TIMEOUT_MS = 15_000;
@@ -41,6 +43,49 @@ const summarySchema = z.object({
   recentWins: z.array(winSchema),
 });
 
+// Campaign-wide facts the prize page explains: how many winners each draw
+// has, the prize tiers and their odds, and totals over recent draws. Parsed
+// leniently: a field Prizerail adds must never blank the page.
+const prizeTierSchema = z.object({
+  amountCents: z.number(),
+  /** Share of winner slots this tier takes, 0..1; null when not published. */
+  odds: z.number().nullable(),
+});
+
+const campaignScheduleSchema = z
+  .object({
+    cadence: z.string(),
+    timezone: z.string().nullable(),
+    cutoffMinutes: z.number().nullable(),
+  })
+  .passthrough();
+
+const campaignStatsSchema = z
+  .object({
+    drawingsHeld: z.number(),
+    winnersCount: z.number(),
+    totalPrizesCents: z.number(),
+    biggestPrizeCents: z.number(),
+  })
+  .passthrough();
+
+const campaignDetailsSchema = z
+  .object({
+    slug: z.string(),
+    name: z.string().nullable(),
+    status: z.string(),
+    schedule: campaignScheduleSchema.nullable(),
+    winnersPerDraw: z.number().nullable(),
+    prizes: z
+      .object({
+        tiers: z.array(prizeTierSchema),
+        averagePrizeCents: z.number().nullable(),
+      })
+      .nullable(),
+    stats: campaignStatsSchema,
+  })
+  .passthrough();
+
 const errorEnvelopeSchema = z.object({
   success: z.literal(false),
   error: z.object({ code: z.string(), message: z.string() }),
@@ -55,6 +100,7 @@ function okEnvelope<T extends z.ZodType>(data: T) {
 }
 
 const summaryEnvelope = okEnvelope(summarySchema);
+const campaignDetailsEnvelope = okEnvelope(campaignDetailsSchema);
 const drawingsEnvelope = okEnvelope(z.array(drawingEntriesSchema));
 const drawingsMetaSchema = z.object({
   nextBefore: z.string().nullable().optional(),
@@ -63,6 +109,8 @@ const drawingsMetaSchema = z.object({
 export type UserDrawingEntries = z.infer<typeof drawingEntriesSchema>;
 export type UserWin = z.infer<typeof winSchema>;
 export type UserPrizeSummary = z.infer<typeof summarySchema>;
+export type PrizeTier = z.infer<typeof prizeTierSchema>;
+export type CampaignDetails = z.infer<typeof campaignDetailsSchema>;
 
 export interface UserDrawingsPage {
   items: UserDrawingEntries[];
@@ -113,9 +161,12 @@ async function getJson(url: string, options: UserApiOptions): Promise<unknown> {
   return body;
 }
 
+function apiBase(baseUrl: string): string {
+  return `${baseUrl.replace(/\/+$/, "")}/api/v1/prizerail`;
+}
+
 function userUrl(baseUrl: string, wallet: string, path = ""): string {
-  const base = baseUrl.replace(/\/+$/, "");
-  return `${base}/api/v1/prizerail/users/${encodeURIComponent(wallet)}${path}`;
+  return `${apiBase(baseUrl)}/users/${encodeURIComponent(wallet)}${path}`;
 }
 
 function parse<T>(schema: z.ZodType<T>, body: unknown, what: string): T {
@@ -158,4 +209,14 @@ export async function fetchUserDrawings(
     items: envelope.data,
     nextBefore: meta.success ? (meta.data.nextBefore ?? null) : null,
   };
+}
+
+export async function fetchCampaignDetails(
+  options: UserApiOptions,
+): Promise<CampaignDetails> {
+  const body = await getJson(
+    `${apiBase(options.baseUrl)}/campaign/details`,
+    options,
+  );
+  return parse(campaignDetailsEnvelope, body, "campaign details").data;
 }
