@@ -1648,7 +1648,7 @@ export const id = {
     PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
     PRIZERAIL_LOAD_ERROR: "Gagal memuat undian Anda. Silakan coba lagi.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Transaksi berikutnya bisa membuat Anda menang. BELI atau JUAL sekarang untuk ikut!",
+      "Transaksi berikutnya bisa membuat Anda menang. BELI atau JUAL sekarang untuk ikut.",
     PRIZERAIL_NOT_WON: "Tidak menang",
     PRIZERAIL_NO_OPEN_DRAW:
       "Tidak ada undian yang dibuka saat ini. Pesanan Anda berikutnya akan masuk ke undian berikutnya.",

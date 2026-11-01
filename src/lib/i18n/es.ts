@@ -1685,7 +1685,7 @@ export const es = {
     PRIZERAIL_INFO_TITLE: "Cómo funciona el sorteo",
     PRIZERAIL_LOAD_ERROR: "No pudimos cargar tu sorteo. Inténtalo de nuevo.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Tu próxima operación podría hacerte ganador. ¡COMPRA o VENDE ahora para participar!",
+      "Tu próxima operación podría hacerte ganador. COMPRA o VENDE ahora para participar.",
     PRIZERAIL_NOT_WON: "Sin premio",
     PRIZERAIL_NO_OPEN_DRAW:
       "No hay ningún sorteo abierto ahora. Tu próxima orden te inscribirá en el siguiente.",

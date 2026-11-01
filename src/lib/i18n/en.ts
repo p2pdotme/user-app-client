@@ -1622,7 +1622,7 @@ export const en = {
     PRIZERAIL_INFO_TITLE: "How the prize draw works",
     PRIZERAIL_LOAD_ERROR: "Couldn't load your prize draw. Please try again.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Your next trade could make you a winner. BUY or SELL now to participate!",
+      "Your next trade could make you a winner. BUY or SELL now to participate.",
     PRIZERAIL_NOT_WON: "No win",
     PRIZERAIL_NO_OPEN_DRAW:
       "No draw is open right now. Your next order will enter you in the next one.",

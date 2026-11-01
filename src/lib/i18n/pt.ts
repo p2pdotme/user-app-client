@@ -1664,7 +1664,7 @@ export const pt = {
     PRIZERAIL_LOAD_ERROR:
       "Não foi possível carregar seu sorteio. Tente novamente.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Sua próxima operação pode fazer de você um vencedor. COMPRE ou VENDA agora para participar!",
+      "Sua próxima operação pode fazer de você um vencedor. COMPRE ou VENDA agora para participar.",
     PRIZERAIL_NOT_WON: "Sem prêmio",
     PRIZERAIL_NO_OPEN_DRAW:
       "Nenhum sorteio aberto agora. Seu próximo pedido vai te inscrever no próximo.",
