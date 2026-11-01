@@ -1578,14 +1578,19 @@ export const en = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepare to scan once merchant is assigned",
     PRICE: "Price",
+    PRIZERAIL_BANNER_CTA: "View draws",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "Every BUY or SELL order enters you in the prize draw.",
+    PRIZERAIL_BANNER_TITLE: "Win up to {{amount}}",
     PRIZERAIL_CURRENT_DRAW: "Next prize draw",
+    PRIZERAIL_CURRENT_DRAW_WINNERS: "{{winners}} Winners in the Next Draw!",
     PRIZERAIL_DRAW: "Draw",
     PRIZERAIL_DRAWING_NOW: "Drawing now",
     PRIZERAIL_DRAWS: "PrizeRail Draws",
     PRIZERAIL_DRAW_NUMBER: "Draw #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "This order gave you {{entries}} entries. More orders, more entries.",
-    PRIZERAIL_DRAW_POOL: "{{entrants}} players · {{entries}} entries so far",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} players are in",
     PRIZERAIL_DRAW_TITLE: "You're in the prize draw",
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} entries",
     PRIZERAIL_ENTRIES_UNIT: "entries",
@@ -1617,15 +1622,16 @@ export const en = {
     PRIZERAIL_INFO_TITLE: "How the prize draw works",
     PRIZERAIL_LOAD_ERROR: "Couldn't load your prize draw. Please try again.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Complete a BUY or SELL order to join this draw.",
+      "Your next trade could make you a winner. BUY or SELL now to participate.",
     PRIZERAIL_NOT_WON: "No win",
     PRIZERAIL_NO_OPEN_DRAW:
       "No draw is open right now. Your next order will enter you in the next one.",
     PRIZERAIL_NO_PAST_DRAWS:
       "You haven't been in a draw yet. Complete an order to get entries.",
-    PRIZERAIL_NO_WINS_YET: "No wins yet. Every entry is a chance.",
     PRIZERAIL_PAST_DRAWS: "Your past draws",
-    PRIZERAIL_TOTAL_WON: "Total won",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "Total Rewards Paid",
+    PRIZERAIL_PRIZES_WINNERS: "Total Winners",
+    PRIZERAIL_TOTAL_WON: "You've Won",
     PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
     PRIZERAIL_VIEW_DRAW: "View draw",
     PRIZERAIL_VIEW_MORE: "View more",

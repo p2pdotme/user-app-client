@@ -157,8 +157,8 @@ export function SellCompleted({ order }: { order: Order }) {
         {/* Prizerail draw card. Entries are sent server-side on completed
             non-B2B SELLs — no on-chain hook to wait on, so the UI promises them
             on every SELL completion in a market that earns them. Rate is per
-            currency (2% default, 1% for ARS/MEX, 0% for INR/VEN — the card
-            hides itself at 0%) and one entry per cent, mirroring the executor. */}
+            currency (2% in every market; the card hides itself at 0%) and one
+            entry per whole USDC, mirroring the executor. */}
         <PrizerailDrawCard
           currency={order.currency}
           usdcAmount={order.amount}
