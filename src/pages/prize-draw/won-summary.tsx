@@ -32,7 +32,7 @@ function Stat({ icon: Icon, label, value }: StatProps) {
         <Icon className="size-4 text-primary" />
       </div>
       <div className="flex min-w-0 flex-col">
-        <p className="truncate text-[11px] text-muted-foreground leading-tight">
+        <p className="text-[11px] text-muted-foreground leading-tight">
           {label}
         </p>
         <p className="truncate font-semibold text-base text-foreground tabular-nums leading-tight">

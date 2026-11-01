@@ -6,7 +6,7 @@
 export const TICKET_SURFACE =
   "relative flex overflow-hidden rounded-2xl bg-primary/5";
 export const TICKET_STUB =
-  "relative flex w-[46%] shrink-0 flex-col justify-center gap-3 border-primary/30 border-l border-dashed bg-primary/10 px-4 py-5";
+  "relative flex w-[48%] shrink-0 flex-col justify-center gap-3 border-primary/30 border-l border-dashed bg-primary/10 px-4 py-5";
 
 /** The round cut-outs at both ends of the perforation. */
 export function TicketNotches() {
