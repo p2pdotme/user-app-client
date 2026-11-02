@@ -19,8 +19,9 @@ import {
 
 /**
  * Homescreen entry point to the in-app PrizeRail Draws page. Shown only in
- * markets that earn draw entries (hidden at 0%, e.g. VEN/BOB), and only when
- * the programme is on and the user API backing /prize-draw is configured.
+ * markets that earn draw entries (hidden at 0%; every market earns them
+ * since the programme went global), and only when the programme is on and
+ * the user API backing /prize-draw is configured.
  * The headline prize is fixed copy; the countdown shows once the public
  * feed has an open draw.
  */

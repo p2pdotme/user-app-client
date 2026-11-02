@@ -1603,14 +1603,20 @@ export const id = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
+    PRIZERAIL_BANNER_CTA: "Lihat undian",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "Setiap order BELI atau JUAL mengikutsertakan Anda dalam undian hadiah.",
+    PRIZERAIL_BANNER_TITLE: "Menangkan hingga {{amount}}",
     PRIZERAIL_CURRENT_DRAW: "Undian hadiah berikutnya",
+    PRIZERAIL_CURRENT_DRAW_WINNERS:
+      "{{winners}} Pemenang di Undian Berikutnya!",
     PRIZERAIL_DRAW: "Undian",
     PRIZERAIL_DRAWING_NOW: "Sedang diundi",
     PRIZERAIL_DRAWS: "Undian PrizeRail",
     PRIZERAIL_DRAW_NUMBER: "Undian #{{number}}",
     PRIZERAIL_DRAW_ORDER_DESCRIPTION:
       "Pesanan ini memberi Anda {{entries}} entri. Makin banyak pesanan, makin banyak entri.",
-    PRIZERAIL_DRAW_POOL: "{{entrants}} pemain · {{entries}} entri sejauh ini",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} pemain sudah ikut",
     PRIZERAIL_DRAW_TITLE: "Anda ikut undian hadiah",
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} entri",
     PRIZERAIL_ENTRIES_UNIT: "entri",
@@ -1642,15 +1648,16 @@ export const id = {
     PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
     PRIZERAIL_LOAD_ERROR: "Gagal memuat undian Anda. Silakan coba lagi.",
     PRIZERAIL_NOT_ENTERED_YET:
-      "Selesaikan pesanan BELI atau JUAL untuk ikut undian ini.",
+      "Transaksi berikutnya bisa membuat Anda menang. BELI atau JUAL sekarang untuk ikut.",
     PRIZERAIL_NOT_WON: "Tidak menang",
     PRIZERAIL_NO_OPEN_DRAW:
       "Tidak ada undian yang dibuka saat ini. Pesanan Anda berikutnya akan masuk ke undian berikutnya.",
     PRIZERAIL_NO_PAST_DRAWS:
       "Anda belum pernah ikut undian. Selesaikan pesanan untuk mendapatkan entri.",
-    PRIZERAIL_NO_WINS_YET: "Belum ada kemenangan. Setiap entri adalah peluang.",
     PRIZERAIL_PAST_DRAWS: "Undian Anda sebelumnya",
-    PRIZERAIL_TOTAL_WON: "Total menang",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "Total hadiah dibayarkan",
+    PRIZERAIL_PRIZES_WINNERS: "Total pemenang",
+    PRIZERAIL_TOTAL_WON: "Anda telah memenangkan",
     PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
     PRIZERAIL_VIEW_DRAW: "Lihat undian",
     PRIZERAIL_VIEW_MORE: "Lihat lebih banyak",
