@@ -1,4 +1,5 @@
 import {
+  AlertTriangle,
   ArrowRight,
   Bot,
   ExternalLink,
@@ -18,6 +19,7 @@ import {
   YouTubeVideoDialog,
 } from "@/components";
 import { SocialLinks } from "@/components/social-links";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
@@ -166,6 +168,14 @@ export function Help() {
               </Button>
             </div>
           </div>
+          {/* Shown on every brand and in every country: impersonation scams
+              target support seekers regardless of where they are. */}
+          <Alert variant="warning" className="w-full">
+            <AlertTriangle className="size-4" />
+            <AlertDescription className="text-sm">
+              <p className="text-foreground">{t("SUPPORT_SCAM_WARNING")}</p>
+            </AlertDescription>
+          </Alert>
           <button
             type="button"
             onClick={() =>
