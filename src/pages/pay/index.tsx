@@ -20,6 +20,7 @@ import {
   useOrderFlow,
   usePageMeta,
   usePriceConfig,
+  useQuotedPrice,
   useThirdweb,
   useTxLimits,
   useUSDCBalance,
@@ -69,6 +70,11 @@ export function Pay() {
 
   const { priceConfig, isPriceConfigLoading, isPriceConfigError } =
     usePriceConfig();
+  const {
+    quotedPrice: quotedSellPrice,
+    markQuoted,
+    hasPriceChanged,
+  } = useQuotedPrice("sell");
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
   const { usdcBalance, isUsdcBalanceLoading } = useUSDCBalance();
 
@@ -177,6 +183,8 @@ export function Pay() {
       }
 
       const sellPrice = priceConfig?.sellPrice;
+      // The fiat shown for this amount is computed at this price.
+      markQuoted(sellPrice);
 
       // Handle conversion, but be careful with partial inputs like "."
       let newAmount: PayAmountType;
@@ -209,7 +217,7 @@ export function Pay() {
         );
       }
     },
-    [priceConfig?.sellPrice, ZodPayAmountSchema],
+    [priceConfig?.sellPrice, ZodPayAmountSchema, markQuoted],
   );
 
   const handleUpdateAmount = useCallback(
@@ -290,6 +298,14 @@ export function Pay() {
       return;
     }
 
+    // Live price moved since the quote was shown → let the user re-quote
+    // instead of placing the order at a rate they never saw.
+    if (await hasPriceChanged()) {
+      setShowSlippageDrawer(true);
+      setIsPlacingOrder(false);
+      return;
+    }
+
     const cryptoValue = Number(amount.crypto);
     if (!cryptoValue) {
       setError(t("VALIDATION_PLEASE_ENTER_AMOUNT"));
@@ -314,10 +330,7 @@ export function Pay() {
     });
 
     const cryptoBig = parseUnits(amount.crypto.toString(), 6);
-    const sellPriceBig = parseUnits(
-      (priceConfig?.sellPrice ?? 0).toString(),
-      6,
-    );
+    const sellPriceBig = parseUnits(quotedSellPrice.toString(), 6);
     // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
     // slippage check tolerates frontend rounding and only triggers on real
     // price movements.
@@ -396,7 +409,8 @@ export function Pay() {
     track,
     denomination,
     checkContractSync,
-    priceConfig?.sellPrice,
+    quotedSellPrice,
+    hasPriceChanged,
   ]);
 
   const handleRetry = () => window.location.reload();
