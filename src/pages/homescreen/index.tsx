@@ -220,21 +220,21 @@ export function HomeScreen() {
           <Banner openVideo={openVideo} />
         </section>
 
-        <StakingEarnedCard />
-
-        <RewardsCard />
-
         <ProcessingTransactions />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <PerTxnLimit />
         </section>
 
+        <StakingEarnedCard />
+
+        <RewardsCard />
+
+        <PrizeDrawCard />
+
         <section className="flex w-full flex-col items-center justify-center py-4">
           <Referral />
         </section>
-
-        <PrizeDrawCard />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <EcosystemCard />

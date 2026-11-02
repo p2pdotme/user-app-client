@@ -23,6 +23,7 @@ export * from "./use-p2p-reward-balance";
 export * from "./use-p2p-swap";
 export * from "./use-page-meta";
 export * from "./use-price-config";
+export * from "./use-prizerail-campaign";
 export * from "./use-prizerail-draws";
 export * from "./use-prizerail-entries";
 export * from "./use-prizerail-user";
