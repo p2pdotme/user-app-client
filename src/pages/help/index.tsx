@@ -172,7 +172,7 @@ export function Help() {
               target support seekers regardless of where they are. */}
           <Alert variant="warning" className="w-full">
             <AlertTriangle className="size-4" />
-            <AlertDescription className="text-xs">
+            <AlertDescription className="text-sm">
               <p className="text-foreground">{t("SUPPORT_SCAM_WARNING")}</p>
             </AlertDescription>
           </Alert>
