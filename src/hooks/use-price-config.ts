@@ -17,6 +17,7 @@ export function usePriceConfig(currencySymbol?: Currency["currency"]) {
     isLoading: isPriceConfigLoading,
     isError: isPriceConfigError,
     error: priceConfigError,
+    refetch: refetchPriceConfig,
   } = useQuery({
     queryKey: ["priceConfig", symbol],
     queryFn: async () => {
@@ -46,5 +47,6 @@ export function usePriceConfig(currencySymbol?: Currency["currency"]) {
     isPriceConfigLoading,
     isPriceConfigError,
     priceConfigError,
+    refetchPriceConfig,
   };
 }
