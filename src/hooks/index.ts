@@ -29,6 +29,7 @@ export * from "./use-prizerail-entries";
 export * from "./use-prizerail-user";
 export * from "./use-processing-times";
 export * from "./use-processing-txns";
+export * from "./use-quoted-price";
 export * from "./use-raise-dispute";
 export * from "./use-rango-fetch";
 export * from "./use-rango-quote";
