@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSettings } from "@/contexts";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { usePrizerailCampaignDetails } from "@/hooks/use-prizerail-campaign";
 import { usePrizerailUserSummary } from "@/hooks/use-prizerail-user";
 import type { CurrencyType } from "@/lib/constants";
 import {
@@ -21,17 +22,17 @@ import { WonSummary } from "./won-summary";
 
 /**
  * PrizeRail Draws: the signed-in wallet's winnings, its real entries in the
- * open Prizerail draw, and the past draws it entered — all read from the
- * Prizerail user API. Linked from the draw card on order completion and
- * the homescreen card. The "How the prize draw works" card opens the rules
- * drawer. Shows the unavailable notice when the programme is off, the user
- * API is not configured, or the selected market is a 0% one (Venezuela),
- * where the prize draw is disabled.
+ * open Prizerail draw, what the campaign has paid out so far, and the past
+ * draws it entered — all read from the Prizerail user API. Linked from the draw card on order completion and the homescreen
+ * card. The "How the prize draw works" card opens the rules drawer.
  */
 export function PrizeDraw() {
   const { t } = useTranslation();
   usePageMeta({ title: t("PRIZERAIL_DRAWS") });
   const slug = getPrizerailCampaignSlug();
+  const enabled = !!slug && !!getPrizerailUserApiUrl();
+  const summary = usePrizerailUserSummary();
+  const campaign = usePrizerailCampaignDetails();
   const {
     settings: { currency },
   } = useSettings();
@@ -74,9 +75,12 @@ export function PrizeDraw() {
                 <WonSummary
                   wins={summary.data?.wins}
                   isLoading={summary.isLoading}
+                  stats={campaign.data?.stats}
+                  isStatsLoading={campaign.isLoading}
                 />
                 <CurrentDrawCard
                   drawing={summary.data?.currentDrawing ?? null}
+                  winnersPerDraw={campaign.data?.winnersPerDraw ?? null}
                   isLoading={summary.isLoading}
                 />
               </>

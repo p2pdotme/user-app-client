@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import moment from "moment";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,8 @@ import { CURRENT_DRAW_SURFACE } from "./surface";
 
 interface CurrentDrawCardProps {
   drawing: UserDrawingEntries | null;
+  /** Winner slots in each draw, from the campaign; null when unknown. */
+  winnersPerDraw: number | null;
   isLoading: boolean;
 }
 
@@ -55,7 +57,11 @@ function Surface({ children }: { children: ReactNode }) {
 }
 
 /** The wallet's standing in the draw taking entries now. */
-export function CurrentDrawCard({ drawing, isLoading }: CurrentDrawCardProps) {
+export function CurrentDrawCard({
+  drawing,
+  winnersPerDraw,
+  isLoading,
+}: CurrentDrawCardProps) {
   const { t } = useTranslation();
 
   if (isLoading) {
@@ -74,10 +80,33 @@ export function CurrentDrawCard({ drawing, isLoading }: CurrentDrawCardProps) {
   const drawAt = drawing.drawAt ? moment(drawing.drawAt) : null;
   const hasDrawAt = !!drawAt?.isValid();
 
+  // Title names the winner count when the campaign publishes it. "0 players
+  // are in" reads as broken, so the pool shows once someone is in.
+  const title =
+    winnersPerDraw !== null && winnersPerDraw > 0
+      ? t("PRIZERAIL_CURRENT_DRAW_WINNERS", {
+          winners: winnersPerDraw.toLocaleString(),
+        })
+      : t("PRIZERAIL_CURRENT_DRAW");
+  const pool =
+    drawing.entrantCount > 0
+      ? t("PRIZERAIL_DRAW_POOL", {
+          entrants: drawing.entrantCount.toLocaleString(),
+        })
+      : null;
+
   return (
     <Surface>
       <div className="flex flex-col gap-2">
-        <CardTitle>{t("PRIZERAIL_CURRENT_DRAW")}</CardTitle>
+        <div className="flex items-start justify-between gap-3">
+          <CardTitle>{title}</CardTitle>
+          {pool && (
+            <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-background/70 px-2.5 py-1 font-medium text-muted-foreground text-xs">
+              <Users className="size-3" />
+              {pool}
+            </span>
+          )}
+        </div>
         {!drawing.entered && (
           <CardDescription>{t("PRIZERAIL_NOT_ENTERED_YET")}</CardDescription>
         )}
@@ -85,30 +114,13 @@ export function CurrentDrawCard({ drawing, isLoading }: CurrentDrawCardProps) {
 
       {drawing.entered ? <EnteredBody drawing={drawing} /> : <NotEnteredBody />}
 
-      {(hasDrawAt || drawing.entrantCount > 0) && (
-        <div className="flex flex-col gap-2 border-primary/10 border-t pt-3">
-          {drawAt && hasDrawAt && (
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
-                <Clock className="size-3.5 shrink-0" />
-                <span>{t("PRIZERAIL_HOME_ANNOUNCED_IN")}</span>
-              </div>
-              <DrawCountdown
-                key={drawing.drawingId}
-                targetMs={drawAt.valueOf()}
-              />
-            </div>
-          )}
-          {/* "0 players · 0 entries" reads as broken; show the pool once
-              someone is in. */}
-          {drawing.entrantCount > 0 && (
-            <p className="text-muted-foreground text-xs">
-              {t("PRIZERAIL_DRAW_POOL", {
-                entrants: drawing.entrantCount.toLocaleString(),
-                entries: drawing.totalEntries.toLocaleString(),
-              })}
-            </p>
-          )}
+      {drawAt && hasDrawAt && (
+        <div className="flex flex-wrap items-center justify-between gap-2 border-primary/10 border-t pt-3">
+          <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
+            <Clock className="size-3.5 shrink-0" />
+            <span>{t("PRIZERAIL_HOME_ANNOUNCED_IN")}</span>
+          </div>
+          <DrawCountdown key={drawing.drawingId} targetMs={drawAt.valueOf()} />
         </div>
       )}
     </Surface>
