@@ -1935,6 +1935,8 @@ export const hi = {
     SUBMITTING_PROOF: "प्रमाण सबमिट किया जा रहा है",
     SUPPORT: "सहायता",
     SUPPORTED_NETWORKS: "समर्थित नेटवर्क",
+    SUPPORT_SCAM_WARNING:
+      "Telegram पर नकली सपोर्ट अकाउंट से सावधान रहें। हमारी टीम आपको कभी भी DM या कॉल नहीं करेगी। सपोर्ट के लिए केवल ऊपर दिए गए हमारे आधिकारिक Telegram ग्रुप लिंक का उपयोग करें।",
     SWAP: "स्वैप",
     SWAPPED: "स्वैप किया गया",
     SWAPPER: "स्वैपर",

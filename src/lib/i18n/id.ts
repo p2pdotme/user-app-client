@@ -2014,6 +2014,8 @@ export const id = {
     SUBMITTING_PROOF: "Mengirim bukti",
     SUPPORT: "Dukungan",
     SUPPORTED_NETWORKS: "Jaringan yang didukung",
+    SUPPORT_SCAM_WARNING:
+      "Waspadai akun dukungan palsu di Telegram. Tim kami TIDAK AKAN PERNAH mengirim DM atau menelepon Anda. Gunakan hanya tautan grup Telegram resmi kami di atas untuk bantuan.",
     SWAP: "Tukar",
     SWAPPED: "Ditukar",
     SWAPPER: "Swapper",
