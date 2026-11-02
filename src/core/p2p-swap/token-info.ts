@@ -15,12 +15,15 @@ const StatsSchema = z.object({
   numNetBuyers: z.number().optional(),
 });
 
+// Mirrors JupAuditSchema in p2p-swap/src/controllers/token.controller.ts: Jupiter omits any
+// audit field it has no data for (devBalancePercentage vanished in Nov 2026), and the backend
+// passes the object through as-is, so every field must be optional here too.
 const AuditSchema = z.object({
-  freezeAuthorityDisabled: z.boolean(),
-  topHoldersPercentage: z.number(),
-  devBalancePercentage: z.number(),
-  devMigrations: z.number(),
-  devMints: z.number(),
+  freezeAuthorityDisabled: z.boolean().optional(),
+  topHoldersPercentage: z.number().optional(),
+  devBalancePercentage: z.number().optional(),
+  devMigrations: z.number().optional(),
+  devMints: z.number().optional(),
 });
 
 const PoolRefSchema = z.object({
