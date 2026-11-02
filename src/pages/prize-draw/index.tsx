@@ -30,8 +30,6 @@ export function PrizeDraw() {
   const { t } = useTranslation();
   usePageMeta({ title: t("PRIZERAIL_DRAWS") });
   const slug = getPrizerailCampaignSlug();
-  const enabled = !!slug && !!getPrizerailUserApiUrl();
-  const summary = usePrizerailUserSummary();
   const campaign = usePrizerailCampaignDetails();
   const {
     settings: { currency },
