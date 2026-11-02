@@ -26,17 +26,20 @@ function prizerailSite():
 }
 
 /**
- * Prize-draw entry rate (in percent), the same in every market. At the 2%
- * default an order earns one entry per whole USDC, so a $50 order earns 50
- * entries. The programme is global since Nov 2026: India, Venezuela and
- * Bolivia, once excluded, earn entries like everyone else. This is a
- * display-only mirror of the server-side rule; keep the two in sync.
+ * Prize-draw entry rate (in percent) per market. At the 2% default an order
+ * earns one entry per whole USDC, so a $50 order earns 50 entries. The
+ * programme is global since Nov 2026 (India and Bolivia, once excluded, earn
+ * entries like everyone else) except Venezuela, which stays at 0%: it is on
+ * Prizerail's sanctions list. A 0% market hides every draw card, tile and
+ * banner. This is a display-only mirror of the server-side rule; keep the
+ * two in sync.
  */
 export const DEFAULT_DRAW_ENTRY_PERCENT = 2;
 // Per-market overrides, in step with the executor's
-// DEFAULT_CASHBACK_BPS_BY_CURRENCY. Empty: every market earns the default.
-const DRAW_ENTRY_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> =
-  {};
+// DEFAULT_CASHBACK_BPS_BY_CURRENCY. Markets not listed earn the default.
+const DRAW_ENTRY_PERCENT_BY_CURRENCY: Partial<Record<CurrencyType, number>> = {
+  VEN: 0,
+};
 
 export function getDrawEntryPercent(currency?: CurrencyType): number {
   if (!currency) {

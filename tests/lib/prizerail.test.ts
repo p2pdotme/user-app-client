@@ -24,7 +24,7 @@ const draw = (over: Partial<PublicDraw>): PublicDraw => ({
 });
 
 describe("getDrawEntryPercent", () => {
-  it("is 2% in every market, including the once-excluded ones", () => {
+  it("is 2% in every market except Venezuela, which earns nothing", () => {
     expect(getDrawEntryPercent()).toBe(2);
     expect(getDrawEntryPercent("NGN")).toBe(2);
     expect(getDrawEntryPercent("ARS")).toBe(2);
@@ -32,7 +32,7 @@ describe("getDrawEntryPercent", () => {
     expect(getDrawEntryPercent("BRL")).toBe(2);
     expect(getDrawEntryPercent("INR")).toBe(2);
     expect(getDrawEntryPercent("BOB")).toBe(2);
-    expect(getDrawEntryPercent("VEN")).toBe(2);
+    expect(getDrawEntryPercent("VEN")).toBe(0);
   });
 });
 
@@ -78,9 +78,9 @@ describe("estimateDrawEntries", () => {
       order({ orderId: "4", status: "CANCELLED", usdcAmount: "999" }), // excluded
       order({ orderId: "5", placedAt: "1500", usdcAmount: "999" }), // end is exclusive
       order({ orderId: "6", placedAt: "499", usdcAmount: "999" }), // before start
-      order({ orderId: "7", currency: "VEN", usdcAmount: "10" }), // 10, global now
+      order({ orderId: "7", currency: "VEN", usdcAmount: "10" }), // 0% market
     ];
-    expect(estimateDrawEntries(orders, window)).toBe(160);
+    expect(estimateDrawEntries(orders, window)).toBe(150);
   });
 
   it("returns zero for no orders", () => {

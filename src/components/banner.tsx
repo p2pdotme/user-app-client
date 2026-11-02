@@ -11,8 +11,9 @@ import {
 import { usePWA, useSettings } from "@/contexts";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { CURRENCY } from "@/lib/constants";
+import { CURRENCY, type CurrencyType } from "@/lib/constants";
 import {
+  getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailUserApiUrl,
 } from "@/lib/prizerail";
@@ -48,10 +49,13 @@ export function Banner({
   const isBRL = currency.currency === CURRENCY.BRL;
   // Latam users see the merchant banner first
   const showMerchantBannerFirst = isARS || isBRL;
-  // The draw slide shows everywhere the programme is on and the in-app draws
-  // page it opens is backed by the user API.
+  // The draw slide shows wherever the programme is on, the market earns
+  // entries (Venezuela is excluded) and the in-app draws page it opens is
+  // backed by the user API.
   const showPrizerailBanner =
-    !!getPrizerailCampaignSlug() && !!getPrizerailUserApiUrl();
+    !!getPrizerailCampaignSlug() &&
+    !!getPrizerailUserApiUrl() &&
+    getDrawEntryPercent(currency.currency as CurrencyType) > 0;
 
   // Check if app is already installed (running in standalone mode)
   const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
@@ -150,7 +154,7 @@ export function Banner({
             <PerpsBanner />
           </CarouselItem>
 
-          {/* PrizeRail Draws Banner — every market */}
+          {/* PrizeRail Draws Banner — every market except Venezuela */}
           {showPrizerailBanner && (
             <CarouselItem>
               <PrizerailBanner />
