@@ -1981,6 +1981,8 @@ export const en = {
     SUBMITTING_PROOF: "Submitting proof",
     SUPPORT: "Support",
     SUPPORTED_NETWORKS: "Supported networks",
+    SUPPORT_SCAM_WARNING:
+      "Beware of fake support accounts on Telegram. Our team will NEVER DM or call you. Use only our official Telegram group link above for support.",
     SWAP: "Swap",
     SWAPPED: "Swapped",
     SWAPPER: "Swapper",
