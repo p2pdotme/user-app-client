@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CURRENT_DRAW_SURFACE } from "./surface";
+import { TICKET_STUB, TICKET_SURFACE, TicketNotches } from "./ticket";
 
 // Loading placeholders shaped like the real cards: same containers, same
 // rows, bars where text and numbers will land, so nothing jumps on load.
@@ -13,17 +14,25 @@ const PLACEHOLDER_ROWS = 5;
 export function WonSummarySkeleton() {
   const { t } = useTranslation();
   return (
-    <section
-      aria-busy="true"
-      className="flex items-center justify-between gap-4 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 p-5">
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
-        <p className="font-semibold text-primary text-xs uppercase tracking-[0.3em]">
+    <section aria-busy="true" className={TICKET_SURFACE}>
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 p-5">
+        <p className="font-semibold text-[11px] text-primary uppercase tracking-[0.3em]">
           {t("PRIZERAIL_TOTAL_WON")}
         </p>
         <Skeleton className="h-9 w-32 bg-background/70" />
-        <Skeleton className="h-4 w-24 bg-background/70" />
       </div>
-      <Skeleton className="size-14 shrink-0 rounded-full bg-background/70" />
+      <div className={TICKET_STUB}>
+        <TicketNotches />
+        {["paid", "winners"].map((key) => (
+          <div key={key} className="flex items-center gap-2.5">
+            <Skeleton className="size-8 shrink-0 rounded-full bg-background/70" />
+            <div className="flex flex-1 flex-col gap-1.5">
+              <Skeleton className="h-2.5 w-20 bg-background/70" />
+              <Skeleton className="h-4 w-14 bg-background/70" />
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
