@@ -42,8 +42,8 @@ import {
   useAnalytics,
   useHapticInteractions,
   useOrderFlow,
-  usePriceConfig,
   useProcessingTimes,
+  useQuotedPrice,
   useThirdweb,
   useWalletAddressBook,
 } from "@/hooks";
@@ -116,7 +116,8 @@ export function BuyPreview() {
     error: processingTimesError,
   } = useProcessingTimes();
   const { placeOrderMutation } = useOrderFlow();
-  const { priceConfig } = usePriceConfig();
+  const { quotedPrice: quotedBuyPrice, hasPriceChanged } =
+    useQuotedPrice("buy");
 
   const [buyPreviewState, setBuyPreviewState] = useState<BuyPreviewState>({
     amount: {
@@ -264,6 +265,15 @@ export function BuyPreview() {
       return;
     }
 
+    // Live price moved since the quote was shown → let the user re-quote
+    // instead of placing the order at a rate they never saw.
+    if (await hasPriceChanged()) {
+      setShowSlippageDrawer(true);
+      setFraudStatus("idle");
+      setIsPlacingOrder(false);
+      return;
+    }
+
     // Calculate fee and deduct from amount for buy orders
     const fee = calculateFee(
       buyPreviewState.amount.crypto,
@@ -319,10 +329,7 @@ export function BuyPreview() {
 
         let receipt: Awaited<ReturnType<typeof placeOrderMutation.mutateAsync>>;
         const cryptoBig = parseUnits(amountAfterFee.toString(), 6);
-        const buyPriceBig = parseUnits(
-          (priceConfig?.buyPrice ?? 0).toString(),
-          6,
-        );
+        const buyPriceBig = parseUnits(quotedBuyPrice.toString(), 6);
         // Mirror the contract's fiatAmount = (amount * buyPrice) / 1e6 so the
         // slippage check tolerates frontend rounding and only triggers on real
         // price movements.

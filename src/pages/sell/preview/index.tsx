@@ -39,8 +39,8 @@ import { useSettings } from "@/contexts/settings";
 import {
   useAnalytics,
   useOrderFlow,
-  usePriceConfig,
   useProcessingTimes,
+  useQuotedPrice,
   useSellAddressBook,
   useThirdweb,
 } from "@/hooks";
@@ -89,7 +89,8 @@ export function SellPreview() {
   const { addressBook, refresh: refreshAddressBook } = useSellAddressBook();
   const { placeOrderMutation } = useOrderFlow();
   const { account } = useThirdweb();
-  const { priceConfig } = usePriceConfig();
+  const { quotedPrice: quotedSellPrice, hasPriceChanged } =
+    useQuotedPrice("sell");
   const {
     data: processingTimes,
     isLoading: isProcessingTimesLoading,
@@ -124,7 +125,11 @@ export function SellPreview() {
     paymentAddressName,
     isValid: isManualAddressValid,
     paymentId: manualPaymentId,
-  } = resolveManualPaymentAddress({ currency, manualAddress, idrPaymentMethod });
+  } = resolveManualPaymentAddress({
+    currency,
+    manualAddress,
+    idrPaymentMethod,
+  });
 
   // State for contract version mismatch dialog
   const [showContractMismatch, setShowContractMismatch] = useState(false);
@@ -233,11 +238,16 @@ export function SellPreview() {
       return;
     }
 
+    // Live price moved since the quote was shown → let the user re-quote
+    // instead of placing the order at a rate they never saw.
+    if (await hasPriceChanged()) {
+      setShowSlippageDrawer(true);
+      setIsPlacingOrder(false);
+      return;
+    }
+
     const cryptoBig = parseUnits(sellPreviewState.amount.crypto.toString(), 6);
-    const sellPriceBig = parseUnits(
-      (priceConfig?.sellPrice ?? 0).toString(),
-      6,
-    );
+    const sellPriceBig = parseUnits(quotedSellPrice.toString(), 6);
     // Mirror the contract's fiatAmount = (amount * sellPrice) / 1e6 so the
     // slippage check tolerates frontend rounding and only triggers on real
     // price movements.
