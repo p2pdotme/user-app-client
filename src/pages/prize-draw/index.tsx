@@ -36,6 +36,9 @@ export function PrizeDraw() {
   const {
     settings: { currency },
   } = useSettings();
+  const percentage = getDrawEntryPercent(currency.currency as CurrencyType);
+  const enabled = !!slug && !!getPrizerailUserApiUrl() && percentage > 0;
+  const summary = usePrizerailUserSummary();
   const [rulesOpen, setRulesOpen] = useState(false);
 
   const handleViewOnPrizerail = () => {
@@ -117,7 +120,7 @@ export function PrizeDraw() {
         <PrizerailDrawInfoDrawer
           open={rulesOpen}
           onOpenChange={setRulesOpen}
-          percentage={getDrawEntryPercent(currency.currency as CurrencyType)}
+          percentage={percentage}
         />
       )}
     </>
