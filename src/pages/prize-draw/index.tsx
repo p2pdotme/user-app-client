@@ -24,17 +24,20 @@ import { WonSummary } from "./won-summary";
  * open Prizerail draw, and the past draws it entered — all read from the
  * Prizerail user API. Linked from the draw card on order completion and
  * the homescreen card. The "How the prize draw works" card opens the rules
- * drawer.
+ * drawer. Shows the unavailable notice when the programme is off, the user
+ * API is not configured, or the selected market is a 0% one (Venezuela),
+ * where the prize draw is disabled.
  */
 export function PrizeDraw() {
   const { t } = useTranslation();
   usePageMeta({ title: t("PRIZERAIL_DRAWS") });
   const slug = getPrizerailCampaignSlug();
-  const enabled = !!slug && !!getPrizerailUserApiUrl();
-  const summary = usePrizerailUserSummary();
   const {
     settings: { currency },
   } = useSettings();
+  const percentage = getDrawEntryPercent(currency.currency as CurrencyType);
+  const enabled = !!slug && !!getPrizerailUserApiUrl() && percentage > 0;
+  const summary = usePrizerailUserSummary();
   const [rulesOpen, setRulesOpen] = useState(false);
 
   const handleViewOnPrizerail = () => {
@@ -113,7 +116,7 @@ export function PrizeDraw() {
         <PrizerailDrawInfoDrawer
           open={rulesOpen}
           onOpenChange={setRulesOpen}
-          percentage={getDrawEntryPercent(currency.currency as CurrencyType)}
+          percentage={percentage}
         />
       )}
     </>
