@@ -2069,6 +2069,8 @@ export const es = {
     SUBMITTING_PROOF: "Enviando prueba",
     SUPPORT: "Soporte",
     SUPPORTED_NETWORKS: "Redes compatibles",
+    SUPPORT_SCAM_WARNING:
+      "Cuidado con las cuentas de soporte falsas en Telegram. Nuestro equipo NUNCA te enviará mensajes directos ni te llamará. Usa solo el enlace oficial de nuestro grupo de Telegram de arriba para recibir soporte.",
     SWAP: "Intercambiar",
     SWAPPED: "Intercambiado",
     SWAPPER: "Intercambiador",
