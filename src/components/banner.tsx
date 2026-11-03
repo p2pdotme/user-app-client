@@ -149,11 +149,6 @@ export function Banner({
             </CarouselItem>
           )}
 
-          {/* Perps Cashback Banner */}
-          <CarouselItem>
-            <PerpsBanner />
-          </CarouselItem>
-
           {/* PrizeRail Draws Banner — every market except Venezuela */}
           {showPrizerailBanner && (
             <CarouselItem>
@@ -169,6 +164,11 @@ export function Banner({
           {/* CoinsMe Banner */}
           <CarouselItem>
             <CoinsMeBanner />
+          </CarouselItem>
+
+          {/* Perps Cashback Banner */}
+          <CarouselItem>
+            <PerpsBanner />
           </CarouselItem>
 
           {/* P2P Swap Banner */}
