@@ -983,7 +983,6 @@ export const hi = {
     INSTALL_PWA_IOS_STEP_2: "'होम स्क्रीन पर जोड़ें' बटन टैप करें",
     INSTALL_PWA_IOS_TITLE: "p2p.me इंस्टॉल करें",
     INSTALL_VPN: "Turbo VPN (मोबाइल) या Zenmate (डेस्कटॉप) इंस्टॉल करें",
-    INSTAPAY: "InstaPay",
     INSUFFICIENT_P2P_BALANCE: "आपके पास पर्याप्त $P2P टोकन नहीं हैं",
     INSUFFICIENT_RP: "अपर्याप्त प्रतिष्ठा अंक",
     INSUFFICIENT_STAKED_AMOUNT: "स्टेक की राशि अपर्याप्त है",
@@ -1093,11 +1092,6 @@ export const hi = {
     LOGOUT: "लॉग आउट",
     LOGOUT_ERROR: "लॉग आउट करने में विफल",
     LOGOUT_SUCCESS: "सफलतापूर्वक लॉग आउट हो गए",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "आपको lotpot.fun पर खेलने के लिए {{percentage}}% कैशबैक क्रेडिट मिले हैं। इसे lotpot.fun पर देखें।",
-    LOTPOT_CASHBACK_TITLE: "LotPot कैशबैक",
-    LOTPOT_CREDITS_EARNED: "LotPot क्रेडिट अर्जित",
-    LOTPOT_CREDITS_UNIT: "क्रेडिट",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "{{paymentAddressName}} सक्रिय करें",
     MAKE_ACTIVE_RECEIVING_WALLET: "सक्रिय प्राप्त करने वाला वॉलेट बनाएं",
     MALFORMED_URL: "QR डेटा लिंक अमान्य है",
@@ -1295,7 +1289,6 @@ export const hi = {
     ON_TIME: "समय पर",
     OPEN_COINS_ME: "coins.me खोलें",
     OPEN_IN_NEW_TAB: "नए टैब में खोलें",
-    OPEN_LOTPOT: "lotpot.fun खोलें",
     OR: "या",
     ORDER: "ऑर्डर",
     ORDERS_COUNT: "{{count}}+ ऑर्डर",
@@ -1557,7 +1550,6 @@ export const hi = {
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
-    PLACEHOLDER_BANK_NAME_PHP: "बैंक या ई-वॉलेट (जैसे GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
     PLACEHOLDER_MPESA_KES: "0712345678 या 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
@@ -1570,7 +1562,6 @@ export const hi = {
     PLACEHOLDER_PAYMENT_ID_MEX: "012345678901234567",
     PLACEHOLDER_PAYMENT_ID_NGN: "1234567890",
     PLACEHOLDER_PAYMENT_ID_PEN: "00212345678901234567 / 987654321",
-    PLACEHOLDER_PAYMENT_ID_PHP: "9171234567",
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
@@ -1601,6 +1592,68 @@ export const hi = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "मर्चेंट असाइन होने के बाद स्कैन करने के लिए तैयार रहें",
     PRICE: "कीमत",
+    PRIZERAIL_BANNER_CTA: "ड्रॉ देखें",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "हर BUY या SELL ऑर्डर आपको प्राइज़ ड्रॉ में शामिल करता है।",
+    PRIZERAIL_BANNER_TITLE: "{{amount}} तक जीतें",
+    PRIZERAIL_CURRENT_DRAW: "अगला इनामी ड्रॉ",
+    PRIZERAIL_CURRENT_DRAW_WINNERS: "अगले ड्रॉ में {{winners}} विजेता!",
+    PRIZERAIL_DRAW: "ड्रॉ",
+    PRIZERAIL_DRAWING_NOW: "ड्रॉ हो रहा है",
+    PRIZERAIL_DRAWS: "PrizeRail ड्रॉ",
+    PRIZERAIL_DRAW_NUMBER: "ड्रॉ #{{number}}",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "इस ऑर्डर से आपको {{entries}} एंट्री मिलीं। जितने ज़्यादा ऑर्डर, उतनी ज़्यादा एंट्री।",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} खिलाड़ी खेल रहे हैं",
+    PRIZERAIL_DRAW_TITLE: "आप इनाम ड्रॉ में शामिल हैं",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} एंट्री",
+    PRIZERAIL_ENTRIES_UNIT: "एंट्री",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} एंट्री",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "विजेताओं की घोषणा होगी",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "BUY और SELL ऑर्डर पूरे करें और <0>{{amount}}</0> तक जीतने का मौका पाएं।",
+    PRIZERAIL_INFO_BUTTON: "इनाम ड्रॉ के बारे में",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "ड्रॉ के समय सभी प्रतिभागियों में से विजेता चुने जाते हैं। जिसके पास आपसे दोगुनी एंट्री हैं, उसका मौका भी दोगुना है। एक ही ड्रॉ में कोई दो बार नहीं जीत सकता, और हर नतीजा सार्वजनिक किया जाता है ताकि कोई भी उसे जाँच सके।",
+    PRIZERAIL_INFO_DRAW_TITLE: "विजेता रैंडम चुने जाते हैं",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "एंट्री आपके टिकट हैं। हर $100 के ऑर्डर पर आपको {{perHundred}} एंट्री मिलती हैं। ${{exampleOrder}} के ऑर्डर पर {{exampleEntries}} एंट्री मिलती हैं। जितनी ज़्यादा एंट्री, उतना बेहतर मौका।",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "हर ऑर्डर पर आपको एंट्री मिलती हैं",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "ड्रॉ के तुरंत बाद विजेताओं की घोषणा होती है। आपका इनाम आपको USDC में भेजा जाता है। भुगतान पहुँचने में 5–10 मिनट लग सकते हैं। भाग लेने के लिए आपको कुछ करने की ज़रूरत नहीं है।",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "अगर आप जीतते हैं",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "इनाम USDC में दिए जाते हैं, छोटी राशि से लेकर जैकपॉट तक। पूरी इनाम सूची और पिछले नतीजे ड्रॉ पेज पर हैं।",
+    PRIZERAIL_INFO_PRIZES_TITLE: "इनाम असली पैसा है",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
+    PRIZERAIL_INFO_RESET_BODY:
+      "आपकी एंट्री सिर्फ़ आने वाले ड्रॉ के लिए गिनी जाती हैं। हर नया ऑर्डर उसके बाद वाले ड्रॉ के लिए नई एंट्री देता है।",
+    PRIZERAIL_INFO_RESET_TITLE: "एंट्री अगले ड्रॉ के लिए होती हैं",
+    PRIZERAIL_INFO_SUBTITLE:
+      "आपका हर पूरा किया गया ऑर्डर USDC जीतने का एक मौका है।",
+    PRIZERAIL_INFO_TITLE: "इनाम ड्रॉ कैसे काम करता है",
+    PRIZERAIL_LOAD_ERROR: "आपका इनाम ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "आपका अगला ट्रेड आपको विजेता बना सकता है। भाग लेने के लिए अभी BUY या SELL करें।",
+    PRIZERAIL_NOT_WON: "कोई जीत नहीं",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "अभी कोई ड्रॉ खुला नहीं है। आपका अगला ऑर्डर आपको अगले ड्रॉ में शामिल करेगा।",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "आप अभी तक किसी ड्रॉ में शामिल नहीं हुए हैं। एंट्री पाने के लिए एक ऑर्डर पूरा करें।",
+    PRIZERAIL_PAST_DRAWS: "आपके पिछले ड्रॉ",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "कुल भुगतान किए गए इनाम",
+    PRIZERAIL_PRIZES_WINNERS: "कुल विजेता",
+    PRIZERAIL_TOTAL_WON: "आपने जीता",
+    PRIZERAIL_UNAVAILABLE: "इनाम ड्रॉ अभी उपलब्ध नहीं है।",
+    PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
+    PRIZERAIL_VIEW_MORE: "और देखें",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Prizerail पर देखें",
+    PRIZERAIL_WON_AMOUNT: "{{amount}} जीते",
+    PRIZERAIL_WON_IN_DRAW: "{{count}} ड्रॉ में जीते",
+    PRIZERAIL_WON_IN_DRAWS: "{{count}} ड्रॉ में जीते",
+    PRIZERAIL_YOUR_ENTRIES: "आपकी एंट्री",
     PROCEED_TO_PAY: "भुगतान के लिए जारी रखें",
     PROCESSING: "प्रोसेसिंग",
     PROCESSING_FAILED: "प्रोसेसिंग विफल",
@@ -1901,7 +1954,6 @@ export const hi = {
     SOUNDS_NONE_DESC: "सभी आवाज़ नोटिफिकेशन बंद करें",
     SOURCE_WALLET_NOT_CONNECTED: "स्रोत वॉलेट कनेक्ट नहीं है",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "lotpot.fun पर खर्च करें",
     SPEND_USDC_ANYWHERE_SCAN_QR: "स्कैन एंड पे के साथ कहीं भी यूएसडीसी खर्च करें",
     STAKE_ALREADY_ACTIVE: "आपका स्टेक पहले से सक्रिय है",
     STAKE_AMOUNT_MUST_BE_GREATER_THAN_0: "स्टेक राशि 0 से अधिक होनी चाहिए",
@@ -1938,6 +1990,8 @@ export const hi = {
     SUBMITTING_PROOF: "प्रमाण सबमिट किया जा रहा है",
     SUPPORT: "सहायता",
     SUPPORTED_NETWORKS: "समर्थित नेटवर्क",
+    SUPPORT_SCAM_WARNING:
+      "Telegram पर नकली सपोर्ट अकाउंट से सावधान रहें। हमारी टीम आपको कभी भी DM या कॉल नहीं करेगी। सपोर्ट के लिए केवल ऊपर दिए गए हमारे आधिकारिक Telegram ग्रुप लिंक का उपयोग करें।",
     SWAP: "स्वैप",
     SWAPPED: "स्वैप किया गया",
     SWAPPER: "स्वैपर",
@@ -2110,7 +2164,6 @@ export const hi = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "उपयोगकर्ता की वार्षिक वॉल्यूम सीमा पार हो गई",
     USE_CBBTC_ON_COINSME: "अपना cbBTC coins.me पर उपयोग करें",
-    USE_CREDITS_ON_LOTPOT: "अपने क्रेडिट lotpot.fun पर उपयोग करें",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "द्वारा वोट प्राप्त करने में त्रुटि",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:

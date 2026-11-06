@@ -203,7 +203,7 @@ export function Referral() {
                   })}
                 </CardDescription>
               </div>
-              <ArrowRight className="size-8" />
+              <ArrowRight className="size-5 shrink-0" />
             </CardHeader>
             <CardContent className="flex items-center justify-between gap-4">
               <div className="flex flex-col items-center">

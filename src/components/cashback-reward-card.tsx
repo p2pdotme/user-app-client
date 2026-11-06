@@ -19,9 +19,9 @@ interface CashbackRewardCardProps {
  * is awarded by an external community and recorded on-chain — this
  * component is a pure display, not the source of the reward.
  *
- * BUY-order completion uses the hardcoded LotpotCashbackCard instead —
- * that one lives on a server-side issuance flow and doesn't go through
- * this on-chain read path.
+ * BUY/SELL completion uses PrizerailDrawCard instead — draw entries are
+ * sent server-side by the executor and don't go through this on-chain
+ * read path.
  */
 export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
   const { t } = useTranslation();

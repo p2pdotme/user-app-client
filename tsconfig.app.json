@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@tests/*": ["./tests/*"],
       "@p2pdotme": ["./src/core/p2pdotme"],
       "@p2pdotme/*": ["./src/core/p2pdotme/*"]
     },
@@ -28,5 +29,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

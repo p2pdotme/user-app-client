@@ -185,6 +185,12 @@ const SupportPageWrapper = lazy(() =>
   })),
 );
 
+const PrizeDraw = lazy(() =>
+  import("@/pages/prize-draw").then((module) => ({
+    default: module.PrizeDraw,
+  })),
+);
+
 const NotFound = lazy(() =>
   import("@/pages/404").then((module) => ({ default: module.NotFound })),
 );
@@ -281,6 +287,8 @@ export function Router() {
         <Route path={INTERNAL_HREFS.RECOVER} element={<Recover />} />
 
         <Route path={INTERNAL_HREFS.NOTIFICATION} element={<Notification />} />
+
+        <Route path={INTERNAL_HREFS.PRIZE_DRAW} element={<PrizeDraw />} />
 
         <Route
           path={INTERNAL_HREFS.CAMPAIGN}

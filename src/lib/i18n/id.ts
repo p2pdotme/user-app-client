@@ -1028,7 +1028,6 @@ export const id = {
     INSTALL_PWA_IOS_STEP_2: "Ketuk tombol 'Tambahkan ke Layar Utama'",
     INSTALL_PWA_IOS_TITLE: "Instal p2p.me",
     INSTALL_VPN: "Install Turbo VPN (mobile) atau Zenmate (desktop)",
-    INSTAPAY: "InstaPay",
     INSUFFICIENT_P2P_BALANCE: "Anda tidak memiliki cukup token $P2P",
     INSUFFICIENT_RP: "Poin reputasi tidak mencukupi",
     INSUFFICIENT_STAKED_AMOUNT: "Jumlah stake tidak mencukupi",
@@ -1141,11 +1140,6 @@ export const id = {
     LOGOUT: "Logout",
     LOGOUT_ERROR: "Gagal logout",
     LOGOUT_SUCCESS: "Berhasil logout",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "Anda baru saja menerima {{percentage}}% kredit cashback untuk bermain di lotpot.fun. Cek di lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "Cashback LotPot",
-    LOTPOT_CREDITS_EARNED: "Kredit LotPot diperoleh",
-    LOTPOT_CREDITS_UNIT: "kredit",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Jadikan {{paymentAddressName}} aktif",
     MAKE_ACTIVE_RECEIVING_WALLET: "Jadikan dompet penerima aktif",
     MALFORMED_URL: "Tautan data QR tidak valid",
@@ -1351,7 +1345,6 @@ export const id = {
     ON_TIME: "Tepat waktu",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Buka di tab baru",
-    OPEN_LOTPOT: "Buka lotpot.fun",
     OR: "atau",
     ORDER: "Order",
     ORDERS_COUNT: "{{count}}+ pesanan",
@@ -1623,7 +1616,6 @@ export const id = {
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
-    PLACEHOLDER_BANK_NAME_PHP: "Bank atau e-wallet (mis. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
     PLACEHOLDER_MPESA_KES: "0712345678 atau 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
@@ -1636,7 +1628,6 @@ export const id = {
     PLACEHOLDER_PAYMENT_ID_MEX: "012345678901234567",
     PLACEHOLDER_PAYMENT_ID_NGN: "1234567890",
     PLACEHOLDER_PAYMENT_ID_PEN: "00212345678901234567 / 987654321",
-    PLACEHOLDER_PAYMENT_ID_PHP: "9171234567",
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
@@ -1668,6 +1659,69 @@ export const id = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Siapkan untuk memindai setelah merchant ditugaskan",
     PRICE: "Harga",
+    PRIZERAIL_BANNER_CTA: "Lihat undian",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "Setiap order BELI atau JUAL mengikutsertakan Anda dalam undian hadiah.",
+    PRIZERAIL_BANNER_TITLE: "Menangkan hingga {{amount}}",
+    PRIZERAIL_CURRENT_DRAW: "Undian hadiah berikutnya",
+    PRIZERAIL_CURRENT_DRAW_WINNERS:
+      "{{winners}} Pemenang di Undian Berikutnya!",
+    PRIZERAIL_DRAW: "Undian",
+    PRIZERAIL_DRAWING_NOW: "Sedang diundi",
+    PRIZERAIL_DRAWS: "Undian PrizeRail",
+    PRIZERAIL_DRAW_NUMBER: "Undian #{{number}}",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "Pesanan ini memberi Anda {{entries}} entri. Makin banyak pesanan, makin banyak entri.",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} pemain sudah ikut",
+    PRIZERAIL_DRAW_TITLE: "Anda ikut undian hadiah",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} entri",
+    PRIZERAIL_ENTRIES_UNIT: "entri",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} entri",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Pemenang akan diumumkan dalam",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Selesaikan order BELI dan JUAL untuk kesempatan menang hingga <0>{{amount}}</0>.",
+    PRIZERAIL_INFO_BUTTON: "Tentang undian hadiah",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "Saat undian, pemenang dipilih dari semua peserta. Orang dengan entri dua kali lipat punya peluang dua kali lipat. Tidak ada yang bisa menang dua kali dalam undian yang sama, dan setiap hasil dipublikasikan agar siapa pun dapat memeriksanya.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Pemenang dipilih secara acak",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Entri adalah tiket Anda. Anda mendapat {{perHundred}} entri untuk setiap $100 pesanan. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Anda mendapat entri dari setiap pesanan",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Pembayaran bisa memakan waktu 5–10 menit untuk sampai. Anda tidak perlu melakukan apa pun untuk ikut.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Jika Anda menang",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Hadiah dibayar dalam USDC, dari jumlah kecil hingga jackpot. Daftar hadiah lengkap dan hasil sebelumnya ada di halaman undian.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Hadiahnya uang sungguhan",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Entri Anda hanya berlaku untuk undian yang akan datang. Setiap pesanan baru memberi entri baru untuk undian setelahnya.",
+    PRIZERAIL_INFO_RESET_TITLE: "Entri berlaku untuk undian berikutnya",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Setiap pesanan yang selesai adalah peluang memenangkan USDC.",
+    PRIZERAIL_INFO_TITLE: "Cara kerja undian hadiah",
+    PRIZERAIL_LOAD_ERROR: "Gagal memuat undian Anda. Silakan coba lagi.",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Transaksi berikutnya bisa membuat Anda menang. BELI atau JUAL sekarang untuk ikut.",
+    PRIZERAIL_NOT_WON: "Tidak menang",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "Tidak ada undian yang dibuka saat ini. Pesanan Anda berikutnya akan masuk ke undian berikutnya.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "Anda belum pernah ikut undian. Selesaikan pesanan untuk mendapatkan entri.",
+    PRIZERAIL_PAST_DRAWS: "Undian Anda sebelumnya",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "Total hadiah dibayarkan",
+    PRIZERAIL_PRIZES_WINNERS: "Total pemenang",
+    PRIZERAIL_TOTAL_WON: "Anda telah memenangkan",
+    PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
+    PRIZERAIL_VIEW_DRAW: "Lihat undian",
+    PRIZERAIL_VIEW_MORE: "Lihat lebih banyak",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Lihat di Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Menang {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Menang di {{count}} undian",
+    PRIZERAIL_WON_IN_DRAWS: "Menang di {{count}} undian",
+    PRIZERAIL_YOUR_ENTRIES: "entri Anda",
     PROCEED_TO_PAY: "Lanjutkan ke Pembayaran",
     PROCESSING: "Memproses",
     PROCESSING_FAILED: "Gagal memproses",
@@ -1978,7 +2032,6 @@ export const id = {
     SOUNDS_NONE_DESC: "Nonaktifkan semua suara notifikasi",
     SOURCE_WALLET_NOT_CONNECTED: "Dompet sumber tidak terhubung",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Belanja di lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Belanjakan USDC di mana saja dengan Scan & Bayar",
     STAKE_ALREADY_ACTIVE: "Anda sudah memiliki stake aktif",
@@ -2017,6 +2070,8 @@ export const id = {
     SUBMITTING_PROOF: "Mengirim bukti",
     SUPPORT: "Dukungan",
     SUPPORTED_NETWORKS: "Jaringan yang didukung",
+    SUPPORT_SCAM_WARNING:
+      "Waspadai akun dukungan palsu di Telegram. Tim kami TIDAK AKAN PERNAH mengirim DM atau menelepon Anda. Gunakan hanya tautan grup Telegram resmi kami di atas untuk bantuan.",
     SWAP: "Tukar",
     SWAPPED: "Ditukar",
     SWAPPER: "Swapper",
@@ -2195,7 +2250,6 @@ export const id = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Batas volume tahunan pengguna terlampaui",
     USE_CBBTC_ON_COINSME: "Gunakan cbBTC Anda di coins.me",
-    USE_CREDITS_ON_LOTPOT: "Gunakan kredit Anda di lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error mengambil suara oleh",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:

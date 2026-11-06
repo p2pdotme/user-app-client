@@ -11,7 +11,12 @@ import {
 import { usePWA, useSettings } from "@/contexts";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { CURRENCY } from "@/lib/constants";
+import { CURRENCY, type CurrencyType } from "@/lib/constants";
+import {
+  getDrawEntryPercent,
+  getPrizerailCampaignSlug,
+  getPrizerailUserApiUrl,
+} from "@/lib/prizerail";
 import { cn, isIOS } from "@/lib/utils";
 import { BenefitsBanner } from "@/pages/help/components/benefits-banner";
 import { CoinsMeBanner } from "@/pages/help/components/coinsme-banner";
@@ -19,6 +24,7 @@ import { GoatCashBanner } from "@/pages/help/components/goat-cash-banner";
 import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
+import { PrizerailBanner } from "@/pages/help/components/prizerail-banner";
 import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
@@ -43,6 +49,13 @@ export function Banner({
   const isBRL = currency.currency === CURRENCY.BRL;
   // Latam users see the merchant banner first
   const showMerchantBannerFirst = isARS || isBRL;
+  // The draw slide shows wherever the programme is on, the market earns
+  // entries (Venezuela is excluded) and the in-app draws page it opens is
+  // backed by the user API.
+  const showPrizerailBanner =
+    !!getPrizerailCampaignSlug() &&
+    !!getPrizerailUserApiUrl() &&
+    getDrawEntryPercent(currency.currency as CurrencyType) > 0;
 
   // Check if app is already installed (running in standalone mode)
   const isInstalled = window.matchMedia("(display-mode: standalone)").matches;
@@ -136,10 +149,12 @@ export function Banner({
             </CarouselItem>
           )}
 
-          {/* Perps Cashback Banner */}
-          <CarouselItem>
-            <PerpsBanner />
-          </CarouselItem>
+          {/* PrizeRail Draws Banner — every market except Venezuela */}
+          {showPrizerailBanner && (
+            <CarouselItem>
+              <PrizerailBanner />
+            </CarouselItem>
+          )}
 
           {/* GOAT.CASH Banner */}
           <CarouselItem>
@@ -149,6 +164,11 @@ export function Banner({
           {/* CoinsMe Banner */}
           <CarouselItem>
             <CoinsMeBanner />
+          </CarouselItem>
+
+          {/* Perps Cashback Banner */}
+          <CarouselItem>
+            <PerpsBanner />
           </CarouselItem>
 
           {/* P2P Swap Banner */}

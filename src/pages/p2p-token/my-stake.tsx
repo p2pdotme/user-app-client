@@ -110,7 +110,7 @@ export function P2PMyStake() {
               <span className="font-bold text-4xl text-foreground tabular-nums tracking-tight">
                 {truncateAmount(stakedAmount)}
               </span>
-              <span className="text-muted-foreground text-base">$P2P</span>
+              <span className="text-base text-muted-foreground">$P2P</span>
             </div>
             {stakedUsd != null && (
               <p className="mt-1 font-medium text-muted-foreground text-sm tabular-nums">
@@ -147,7 +147,7 @@ export function P2PMyStake() {
                 {/* Buy / Sell / Pay tiles */}
                 <dl className="mt-2 grid grid-cols-3 gap-2">
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
-                    <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+                    <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
                       {t("BUY")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
@@ -155,7 +155,7 @@ export function P2PMyStake() {
                     </dd>
                   </div>
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
-                    <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+                    <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
                       {t("SELL")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
@@ -163,7 +163,7 @@ export function P2PMyStake() {
                     </dd>
                   </div>
                   <div className="rounded-lg bg-background/60 px-2 py-1.5 text-center">
-                    <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+                    <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
                       {t("PAY")}
                     </dt>
                     <dd className="mt-0.5 font-bold text-emerald-500 text-sm tabular-nums">
@@ -213,8 +213,7 @@ export function P2PMyStake() {
               onClick={() =>
                 navigate(INTERNAL_HREFS.P2P_TOKEN_STAKE, { replace: true })
               }
-              className="w-full rounded-2xl py-6 font-semibold text-base"
-            >
+              className="w-full rounded-2xl py-6 font-semibold text-base">
               <Sparkles className="size-4" />
               {t("MY_STAKE_STAKE_NOW")}
             </Button>
@@ -226,8 +225,7 @@ export function P2PMyStake() {
             <Button
               onClick={() => setIsTopUpOpen(true)}
               disabled={isUnstaking || isCapReached}
-              className="flex-1 rounded-2xl py-6 font-semibold text-xs sm:text-base leading-tight whitespace-normal text-center"
-            >
+              className="flex-1 whitespace-normal rounded-2xl py-6 text-center font-semibold text-xs leading-tight sm:text-base">
               <Plus className="size-4 shrink-0" />
               {isCapReached
                 ? t("MY_STAKE_BOOST_MAXED_OUT_BUTTON")
@@ -238,8 +236,7 @@ export function P2PMyStake() {
               onClick={() => setIsUnstakeOpen(true)}
               disabled={isUnstaking}
               hapticType="warning"
-              className="flex-1 rounded-2xl py-6 font-semibold text-xs sm:text-base leading-tight whitespace-normal text-center"
-            >
+              className="flex-1 whitespace-normal rounded-2xl py-6 text-center font-semibold text-xs leading-tight sm:text-base">
               <LockOpen className="size-4 shrink-0" />
               {t("MY_STAKE_UNSTAKE_BUTTON")}
             </Button>
@@ -294,7 +291,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
 
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
-      <DrawerContent className="container-narrow mx-auto pb-8">
+      <DrawerContent className="container-narrow mx-auto">
         <DrawerHeader>
           <DrawerTitle className="sr-only">
             {t("MY_STAKE_UNSTAKE_DRAWER_TITLE")}
@@ -304,14 +301,15 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
           </DrawerDescription>
         </DrawerHeader>
 
-        <div className="flex flex-col gap-4 px-4">
+        {/* Scrollable body; buttons stay pinned below so they're always reachable */}
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-4">
           {/* Warning icon + heading */}
           <div className="flex flex-col items-center gap-3 text-center">
             <div className="relative flex size-14 items-center justify-center rounded-full bg-amber-500/15">
               <span className="absolute inset-0 animate-ping rounded-full bg-amber-500/20" />
               <AlertTriangle className="relative size-6 text-amber-500" />
             </div>
-            <h2 className="font-bold text-xl text-foreground tracking-tight">
+            <h2 className="font-bold text-foreground text-xl tracking-tight">
               {t("MY_STAKE_UNSTAKE_HEADING")}
             </h2>
           </div>
@@ -326,7 +324,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
                   <Clock className="size-4 text-destructive" />
                 </div>
-                <p className="font-regular tracking-wider text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular text-[15px] text-foreground leading-snug tracking-tight tracking-wider">
                   {t("MY_STAKE_UNSTAKE_RIGHT_NOW", {
                     amount: stakedAmountStr,
                     duration: normalCooldownLabel,
@@ -337,7 +335,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-destructive/10">
                   <TrendingDown className="size-4 text-destructive" />
                 </div>
-                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular text-[15px] text-foreground leading-snug tracking-tight tracking-wide">
                   {t("MY_STAKE_UNSTAKE_YOUR_LIMITS")}
                 </p>
               </li>
@@ -345,7 +343,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10">
                   <CheckCircle2 className="size-4 text-emerald-500" />
                 </div>
-                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular text-[15px] text-foreground leading-snug tracking-tight tracking-wide">
                   {t("MY_STAKE_UNSTAKE_IN_DAYS", {
                     amount: stakedAmountStr,
                     duration: normalCooldownLabel,
@@ -356,7 +354,7 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10">
                   <ShieldAlert className="size-4 text-amber-500" />
                 </div>
-                <p className="font-regular tracking-wide text-[15px] text-foreground leading-snug tracking-tight">
+                <p className="font-regular text-[15px] text-foreground leading-snug tracking-tight tracking-wide">
                   {t("MY_STAKE_UNSTAKE_IF_FLAGGED", {
                     duration: blacklistCooldownLabel,
                   })}
@@ -364,29 +362,25 @@ function UnstakeDrawer({ isOpen, onClose, stakedAmount }: UnstakeDrawerProps) {
               </li>
             </ul>
           </section>
+        </div>
 
-          <div className="flex flex-col gap-2 mt-4">
-            <Button
-              variant="outline"
-              onClick={() => handleOpenChange(false)}
-              disabled={isProcessing}
-              className="w-full rounded-2xl py-6 font-semibold text-base"
-            >
-              {t("CANCEL")}
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleConfirm}
-              disabled={isProcessing}
-              hapticType="warning"
-              className="w-full rounded-2xl py-6 font-semibold text-base"
-            >
-              {isProcessing ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : null}
-              {t("MY_STAKE_UNSTAKE_BUTTON")}
-            </Button>
-          </div>
+        <div className="flex shrink-0 flex-col gap-2 px-4 pt-4 pb-[max(env(safe-area-inset-bottom),2rem)]">
+          <Button
+            variant="outline"
+            onClick={() => handleOpenChange(false)}
+            disabled={isProcessing}
+            className="w-full rounded-2xl py-6 font-semibold text-base">
+            {t("CANCEL")}
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={handleConfirm}
+            disabled={isProcessing}
+            hapticType="warning"
+            className="w-full rounded-2xl py-6 font-semibold text-base">
+            {isProcessing ? <Loader2 className="size-4 animate-spin" /> : null}
+            {t("MY_STAKE_UNSTAKE_BUTTON")}
+          </Button>
         </div>
       </DrawerContent>
     </Drawer>
@@ -469,11 +463,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
   };
 
   return (
-    <Drawer
-      open={isOpen}
-      onOpenChange={handleOpenChange}
-      repositionInputs
-    >
+    <Drawer open={isOpen} onOpenChange={handleOpenChange} repositionInputs>
       <DrawerContent className="container-narrow mx-auto max-h-[100dvh] overflow-y-auto overscroll-contain pb-[max(env(safe-area-inset-bottom),2rem)]">
         <DrawerHeader>
           <DrawerTitle>{t("MY_STAKE_TOPUP_TITLE")}</DrawerTitle>
@@ -529,11 +519,10 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
                 type="button"
                 onClick={handleMax}
                 disabled={!canMax}
-                className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50"
-              >
+                className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50">
                 {t("MAX")}
               </button>
-              <span className="font-semibold text-muted-foreground text-base">
+              <span className="font-semibold text-base text-muted-foreground">
                 $P2P
               </span>
             </div>
@@ -555,7 +544,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
           <div className="h-[16px]">
             <UpdatedLimitsSummary amount={amount} />
           </div>
-          
+
           {hasNoBalance && (
             <div className="mt-6">
               <NoP2pBalanceCta />
@@ -566,8 +555,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
             <Button
               onClick={handleConfirm}
               disabled={!isValid || isProcessing}
-              className="w-full rounded-2xl py-6 font-semibold text-base"
-            >
+              className="w-full rounded-2xl py-6 font-semibold text-base">
               {isProcessing ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : null}
@@ -577,8 +565,7 @@ function TopUpDrawer({ isOpen, onClose, stakedAmount }: TopUpDrawerProps) {
               variant="outline"
               onClick={() => handleOpenChange(false)}
               disabled={isProcessing}
-              className="w-full rounded-2xl py-6 font-semibold text-base"
-            >
+              className="w-full rounded-2xl py-6 font-semibold text-base">
               {t("CANCEL")}
             </Button>
           </div>
@@ -630,7 +617,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
           </div>
           <p className="font-bold text-2xl text-primary tabular-nums tracking-tight">
             {truncateAmount(stakedAmount)}{" "}
-            <span className="text-muted-foreground text-base">$P2P</span>
+            <span className="text-base text-muted-foreground">$P2P</span>
           </p>
         </div>
 
@@ -638,8 +625,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
           onClick={() => p2pBoostClaimUnstakeMutation.mutate()}
           disabled={isClaiming || isCancelling}
           hapticType="success"
-          className="mt-4 w-full rounded-2xl py-6 font-semibold text-base"
-        >
+          className="mt-4 w-full rounded-2xl py-6 font-semibold text-base">
           {isClaiming ? <Loader2 className="size-4 animate-spin" /> : null}
           {t("P2P_UNSTAKE_CLAIM_BUTTON")}
         </Button>
@@ -647,8 +633,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
           variant="outline"
           onClick={() => p2pBoostCancelUnstakeMutation.mutate()}
           disabled={isClaiming || isCancelling}
-          className="mt-2 w-full rounded-2xl py-6 font-semibold text-base"
-        >
+          className="mt-2 w-full rounded-2xl py-6 font-semibold text-base">
           {isCancelling ? <Loader2 className="size-4 animate-spin" /> : null}
           {t("P2P_UNSTAKE_CANCEL_BUTTON")}
         </Button>
@@ -669,17 +654,17 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
         <div className="mt-2 flex items-baseline justify-center gap-4 font-bold text-3xl text-primary tabular-nums tracking-tight">
           <span>
             {days}
-            <span className="ml-1 text-xl text-primary/70">d</span>
+            <span className="ml-1 text-primary/70 text-xl">d</span>
           </span>
           <span className="text-primary/40">·</span>
           <span>
             {pad2(hours)}
-            <span className="ml-1 text-xl text-primary/70">h</span>
+            <span className="ml-1 text-primary/70 text-xl">h</span>
           </span>
           <span className="text-primary/40">·</span>
           <span>
             {pad2(minutes)}
-            <span className="ml-1 text-xl text-primary/70">m</span>
+            <span className="ml-1 text-primary/70 text-xl">m</span>
           </span>
         </div>
         <p className="mt-2 text-center text-[11px] text-muted-foreground tabular-nums">
@@ -698,8 +683,7 @@ function CooldownCard({ cooldownEnd, stakedAmount }: CooldownCardProps) {
         variant="outline"
         onClick={() => p2pBoostCancelUnstakeMutation.mutate()}
         disabled={isCancelling}
-        className="mt-4 w-full rounded-2xl py-6 font-semibold text-base"
-      >
+        className="mt-4 w-full rounded-2xl py-6 font-semibold text-base">
         {isCancelling ? <Loader2 className="size-4 animate-spin" /> : null}
         {t("P2P_UNSTAKE_CANCEL_BUTTON")}
       </Button>
@@ -731,8 +715,7 @@ function StakeStatusPill({ status }: { status: number }) {
   if (!style) return null;
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-semibold text-[11px] uppercase tracking-wider ${style.className}`}
-    >
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 font-semibold text-[11px] uppercase tracking-wider ${style.className}`}>
       {t(style.labelKey)}
     </span>
   );
@@ -865,19 +848,17 @@ function StakeActivityList() {
           return (
             <li
               key={a.id}
-              className="flex items-center justify-between gap-3 rounded-xl bg-background/60 px-3 py-2"
-            >
+              className="flex items-center justify-between gap-3 rounded-xl bg-background/60 px-3 py-2">
               <div className="flex min-w-0 items-center gap-3">
                 <div
-                  className={`flex size-9 shrink-0 items-center justify-center rounded-full ${meta.className}`}
-                >
+                  className={`flex size-9 shrink-0 items-center justify-center rounded-full ${meta.className}`}>
                   <Icon className="size-4" />
                 </div>
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-foreground text-sm">
                     {label}
                   </p>
-                  <p className="text-muted-foreground text-[11px] tabular-nums">
+                  <p className="text-[11px] text-muted-foreground tabular-nums">
                     {formatActivityTimestamp(ts)}
                   </p>
                 </div>
@@ -905,8 +886,7 @@ function StakeActivityList() {
         <Button
           variant="outline"
           onClick={() => setVisibleCount((c) => c + ACTIVITY_PAGE_SIZE)}
-          className="mt-3 w-full rounded-xl"
-        >
+          className="mt-3 w-full rounded-xl">
           {t("SHOW_MORE")}
         </Button>
       )}

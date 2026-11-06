@@ -1043,7 +1043,6 @@ export const es = {
     INSTALL_PWA_IOS_STEP_2: "Toca el botón 'Añadir a la pantalla de inicio'",
     INSTALL_PWA_IOS_TITLE: "Instalar p2p.me",
     INSTALL_VPN: "Instala Turbo VPN (móvil) o Zenmate (escritorio)",
-    INSTAPAY: "InstaPay",
     INSUFFICIENT_P2P_BALANCE: "No tienes suficientes tokens $P2P",
     INSUFFICIENT_RP: "Puntos de reputación insuficientes",
     INSUFFICIENT_STAKED_AMOUNT: "Monto depositado insuficiente",
@@ -1159,11 +1158,6 @@ export const es = {
     LOGOUT: "Cerrar Sesión",
     LOGOUT_ERROR: "Error al cerrar sesión",
     LOGOUT_SUCCESS: "Cierre de sesión exitoso",
-    LOTPOT_CASHBACK_DESCRIPTION:
-      "Acabas de recibir {{percentage}}% en créditos de cashback para jugar en lotpot.fun. Compruébalo en lotpot.fun.",
-    LOTPOT_CASHBACK_TITLE: "Cashback de LotPot",
-    LOTPOT_CREDITS_EARNED: "Créditos de LotPot ganados",
-    LOTPOT_CREDITS_UNIT: "créditos",
     MAKE_ACTIVE_PAYMENT_ADDRESS: "Hacer activa la {{paymentAddressName}}",
     MAKE_ACTIVE_RECEIVING_WALLET: "Hacer activa la wallet de recepción",
     MALFORMED_URL: "El enlace de datos del QR está malformado",
@@ -1369,7 +1363,6 @@ export const es = {
     ON_TIME: "A tiempo",
     OPEN_COINS_ME: "Open coins.me",
     OPEN_IN_NEW_TAB: "Abrir en nueva pestaña",
-    OPEN_LOTPOT: "Abrir lotpot.fun",
     OR: "o",
     ORDER: "Pedido",
     ORDERS_COUNT: "+{{count}} pedidos",
@@ -1656,7 +1649,6 @@ export const es = {
     PLACEHOLDER_ACCOUNT_NUMBER_NGN: "Account number (e.g. 0123456789)",
     PLACEHOLDER_BANK: "Banesco",
     PLACEHOLDER_BANK_NAME_NGN: "Bank name (e.g. GTBank)",
-    PLACEHOLDER_BANK_NAME_PHP: "Banco o billetera (ej. GCash)",
     PLACEHOLDER_CARD_NUMBER_CUP: "9227 9598 7238 3620",
     PLACEHOLDER_MPESA_KES: "0712345678 o 123456",
     PLACEHOLDER_PAYMENT_ID_ARS: "usuario.alias",
@@ -1669,7 +1661,6 @@ export const es = {
     PLACEHOLDER_PAYMENT_ID_MEX: "012345678901234567",
     PLACEHOLDER_PAYMENT_ID_NGN: "1234567890",
     PLACEHOLDER_PAYMENT_ID_PEN: "00212345678901234567 / 987654321",
-    PLACEHOLDER_PAYMENT_ID_PHP: "9171234567",
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
@@ -1703,6 +1694,70 @@ export const es = {
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
       "Prepárate para escanear una vez que se asigne el comerciante",
     PRICE: "Precio",
+    PRIZERAIL_BANNER_CTA: "Ver sorteos",
+    PRIZERAIL_BANNER_DESCRIPTION:
+      "Cada orden de COMPRA o VENTA te inscribe en el sorteo.",
+    PRIZERAIL_BANNER_TITLE: "Gana hasta {{amount}}",
+    PRIZERAIL_CURRENT_DRAW: "Próximo sorteo de premios",
+    PRIZERAIL_CURRENT_DRAW_WINNERS:
+      "¡{{winners}} ganadores en el próximo sorteo!",
+    PRIZERAIL_DRAW: "Sorteo",
+    PRIZERAIL_DRAWING_NOW: "Sorteando ahora",
+    PRIZERAIL_DRAWS: "Sorteos PrizeRail",
+    PRIZERAIL_DRAW_NUMBER: "Sorteo n.º {{number}}",
+    PRIZERAIL_DRAW_ORDER_DESCRIPTION:
+      "Esta orden te dio {{entries}} participaciones. Más órdenes, más participaciones.",
+    PRIZERAIL_DRAW_POOL: "{{entrants}} jugadores participan",
+    PRIZERAIL_DRAW_TITLE: "Estás en el sorteo",
+    PRIZERAIL_ENTRIES_COUNT: "{{entries}} participaciones",
+    PRIZERAIL_ENTRIES_UNIT: "participaciones",
+    PRIZERAIL_ENTRY_COUNT: "{{entries}} participación",
+    PRIZERAIL_HOME_ANNOUNCED_IN: "Los ganadores se anunciarán en",
+    PRIZERAIL_HOME_DESCRIPTION:
+      "Completa órdenes de COMPRA y VENTA para tener la oportunidad de ganar hasta <0>{{amount}}</0>.",
+    PRIZERAIL_INFO_BUTTON: "Sobre el sorteo",
+    PRIZERAIL_INFO_DRAW_BODY:
+      "En el momento del sorteo, los ganadores se eligen entre todos los participantes. Quien tenga el doble de participaciones tiene el doble de posibilidades. Nadie puede ganar dos veces en el mismo sorteo y cada resultado se publica para que cualquiera pueda verificarlo.",
+    PRIZERAIL_INFO_DRAW_TITLE: "Los ganadores se eligen al azar",
+    PRIZERAIL_INFO_ENTRIES_BODY:
+      "Las participaciones son tus boletos. Ganas {{perHundred}} participaciones por cada $100 en órdenes. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
+    PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
+    PRIZERAIL_INFO_PAYOUT_BODY:
+      "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. El pago puede tardar entre 5 y 10 minutos en llegar. No tienes que hacer nada para participar.",
+    PRIZERAIL_INFO_PAYOUT_TITLE: "Si ganas",
+    PRIZERAIL_INFO_PRIZES_BODY:
+      "Los premios se pagan en USDC, desde montos pequeños hasta el premio mayor. La lista completa de premios y los resultados anteriores están en la página del sorteo.",
+    PRIZERAIL_INFO_PRIZES_TITLE: "Los premios son dinero real",
+    PRIZERAIL_INFO_PUBLICITY_BODY:
+      "To claim any single prize of US$1,000 or more, share either a) your first name, last initial, country of residence, and a photo of your face, or b) a post about your win from your verified X account with 100+ followers and 1+ year of history. By claiming the prize, you let P2P.me, Prizerail, and their affiliates, clients, partners, and sponsors to show your win (amount, date and what you shared) in any media worldwide for transparency and promotion, without further approval or payment.",
+    PRIZERAIL_INFO_PUBLICITY_TITLE: "Winner publicity",
+    PRIZERAIL_INFO_RESET_BODY:
+      "Tus participaciones cuentan solo para el próximo sorteo. Cada nueva orden genera participaciones nuevas para el sorteo siguiente.",
+    PRIZERAIL_INFO_RESET_TITLE:
+      "Las participaciones son para el próximo sorteo",
+    PRIZERAIL_INFO_SUBTITLE:
+      "Cada orden que completas es una oportunidad de ganar USDC.",
+    PRIZERAIL_INFO_TITLE: "Cómo funciona el sorteo",
+    PRIZERAIL_LOAD_ERROR: "No pudimos cargar tu sorteo. Inténtalo de nuevo.",
+    PRIZERAIL_NOT_ENTERED_YET:
+      "Tu próxima operación podría hacerte ganador. COMPRA o VENDE ahora para participar.",
+    PRIZERAIL_NOT_WON: "Sin premio",
+    PRIZERAIL_NO_OPEN_DRAW:
+      "No hay ningún sorteo abierto ahora. Tu próxima orden te inscribirá en el siguiente.",
+    PRIZERAIL_NO_PAST_DRAWS:
+      "Aún no has participado en ningún sorteo. Completa una orden para obtener participaciones.",
+    PRIZERAIL_PAST_DRAWS: "Tus sorteos anteriores",
+    PRIZERAIL_PRIZES_TOTAL_PAID: "Total de premios pagados",
+    PRIZERAIL_PRIZES_WINNERS: "Total de ganadores",
+    PRIZERAIL_TOTAL_WON: "Has ganado",
+    PRIZERAIL_UNAVAILABLE: "El sorteo no está disponible en este momento.",
+    PRIZERAIL_VIEW_DRAW: "Ver sorteo",
+    PRIZERAIL_VIEW_MORE: "Ver más",
+    PRIZERAIL_VIEW_ON_PRIZERAIL: "Ver en Prizerail",
+    PRIZERAIL_WON_AMOUNT: "Ganaste {{amount}}",
+    PRIZERAIL_WON_IN_DRAW: "Ganaste en {{count}} sorteo",
+    PRIZERAIL_WON_IN_DRAWS: "Ganaste en {{count}} sorteos",
+    PRIZERAIL_YOUR_ENTRIES: "tus participaciones",
     PROCEED_TO_PAY: "Proceder al Pago",
     PROCESSING: "Procesando",
     PROCESSING_FAILED: "Procesamiento fallido",
@@ -2030,7 +2085,6 @@ export const es = {
     SOUNDS_NONE_DESC: "Deshabilitar todas las notificaciones de sonido",
     SOURCE_WALLET_NOT_CONNECTED: "Wallet de origen no conectada",
     SPEI: "SPEI",
-    SPEND_ON_LOTPOT: "Gastar en lotpot.fun",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Gasta USDC en cualquier lugar con Escanear y Pagar",
     STAKE_ALREADY_ACTIVE: "Ya tienes un stake activo",
@@ -2070,6 +2124,8 @@ export const es = {
     SUBMITTING_PROOF: "Enviando prueba",
     SUPPORT: "Soporte",
     SUPPORTED_NETWORKS: "Redes compatibles",
+    SUPPORT_SCAM_WARNING:
+      "Cuidado con las cuentas de soporte falsas en Telegram. Nuestro equipo NUNCA te enviará mensajes directos ni te llamará. Usa solo el enlace oficial de nuestro grupo de Telegram de arriba para recibir soporte.",
     SWAP: "Intercambiar",
     SWAPPED: "Intercambiado",
     SWAPPER: "Intercambiador",
@@ -2255,7 +2311,6 @@ export const es = {
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Límite de volumen anual del usuario excedido",
     USE_CBBTC_ON_COINSME: "Usa tu cbBTC en coins.me",
-    USE_CREDITS_ON_LOTPOT: "Usa tus créditos en lotpot.fun",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error al obtener los votos de",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:

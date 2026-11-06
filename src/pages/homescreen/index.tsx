@@ -28,6 +28,7 @@ import { Footer } from "./footer";
 import { Header } from "./header";
 import { PerTxnLimit } from "./per-txn-limits";
 import { PriceIndicator } from "./price-indicator";
+import { PrizeDrawCard } from "./prize-draw-card";
 import { ProcessingTransactions } from "./processing-txns";
 import { Referral } from "./referral";
 import { RewardsCard } from "./rewards-card";
@@ -219,15 +220,17 @@ export function HomeScreen() {
           <Banner openVideo={openVideo} />
         </section>
 
-        <StakingEarnedCard />
-
-        <RewardsCard />
-
         <ProcessingTransactions />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <PerTxnLimit />
         </section>
+
+        <StakingEarnedCard />
+
+        <RewardsCard />
+
+        <PrizeDrawCard />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
           <Referral />
