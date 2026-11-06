@@ -149,3 +149,49 @@ export const ORDERS_COLLECTION_WITH_DATE_FILTER_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+/** One order by id, with the dispute outcome fields the list queries omit. */
+export const ORDER_BY_ID_QUERY = /* GraphQL */ `
+  query OrderById($orderId: BigInt!) {
+    orders_collection(where: { orderId: $orderId }, first: 1) {
+      orderId
+      type
+      status
+      placedAt
+      usdcAmount
+      fiatAmount
+      currency
+      disputeStatus
+      disputeRedactTransId
+      disputeAccountNumber
+      disputeSettledByAddr
+      disputeFaultType
+      disputeSettledAt
+      disputeTier
+    }
+  }
+`;
+
+/** The dispute ladder steps indexed for one order (raised / decided / escalated / settled). */
+export const DISPUTE_HISTORY_QUERY = /* GraphQL */ `
+  query DisputeHistory($orderId: BigInt!) {
+    disputeSteps(
+      where: { orderId: $orderId }
+      orderBy: blockTimestamp
+      orderDirection: asc
+      first: 50
+    ) {
+      id
+      kind
+      tier
+      fromTier
+      faultType
+      by
+      finalizedBy
+      deadline
+      slaLapsed
+      blockTimestamp
+      transactionHash
+    }
+  }
+`;
