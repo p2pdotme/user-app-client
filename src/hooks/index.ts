@@ -6,6 +6,7 @@ export * from "./use-campaign-claim";
 export * from "./use-cashback-config";
 export * from "./use-cbbtc-balance";
 export * from "./use-cbbtc-price";
+export * from "./use-challenge-dispute";
 export * from "./use-dev-mode";
 export * from "./use-event-listeners";
 export * from "./use-event-timestamp";

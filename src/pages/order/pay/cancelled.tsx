@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+import { DisputeEscalationCard } from "@/components/dispute-escalation-card";
+import { DisputeStatusValue } from "@/components/dispute-status-value";
 import { ReceiptPaymentIdField } from "@/components/receipt-payment-id-field";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -209,21 +211,21 @@ export function PayCancelled({ order }: { order: Order }) {
               {order.disputeInfo.status !== "DEFAULT" && (
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{t("DISPUTE_STATUS")} </span>
-                  <span
-                    className={`text-sm ${
-                      order.disputeInfo.status === "RAISED"
-                        ? "text-destructive"
-                        : "text-success"
-                    }`}>
-                    {order.disputeInfo.status === "RAISED"
-                      ? t("DISPUTE_RAISED")
-                      : t("DISPUTE_SETTLED")}
-                  </span>
+                  <DisputeStatusValue
+                    orderId={order.id.toString()}
+                    disputeStatus={order.disputeInfo.status}
+                  />
                 </div>
               )}
             </div>
           </CardContent>
         </Card>
+
+        {/* Tiered dispute escalation: challenge / escalate / finalize */}
+        <DisputeEscalationCard
+          orderId={order.id.toString()}
+          disputeStatus={order.disputeInfo.status}
+        />
         <Card className="w-full gap-4 border-none bg-warning/20 shadow-none sm:gap-4">
           <CardContent className="space-y-2">
             <p className="font-medium text-sm">{t("DONT_MISS_THE_TIMING")}</p>
