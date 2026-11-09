@@ -1,12 +1,16 @@
 import {
   type AcceptOrderParams,
+  type AppealDisputeParams,
   type CheckCircleEligibilityParams,
   type CompleteOrderParams,
+  type DisputeEscalationParams,
+  type FinalizeDisputeParams,
   type P2PError,
   type P2PErrorDomain,
   type PlaceOrderParams,
   prepareAcceptOrderTx,
   prepareAdminSettleDisputeTx,
+  prepareAppealDisputeTx,
   prepareAssignMerchantsTx,
   prepareCancelOrderTx,
   prepareCheckCircleEligibilityArgs,
@@ -14,7 +18,10 @@ import {
   prepareFailSafeTx,
   prepareFetchMerchantAcceptedOrdersArgs,
   prepareFetchMerchantAssignedOrdersArgs,
+  prepareFinalizeDisputeTx,
   prepareGetAdditionalOrderDetailsArgs,
+  prepareGetDisputeDecisionArgs,
+  prepareGetDisputeTierArgs,
   prepareGetExchangeFiatBalanceArgs,
   prepareGetMerchantRiskCategoryArgs,
   prepareGetOrderAssignedMerchantsArgs,
@@ -1058,6 +1065,147 @@ export const raiseDispute = (
       ),
     );
 };
+
+// ---- Dispute escalation (appeal / finalize) ----
+
+/**
+ * A party (order user or accepted merchant) appeals a dispute: drops a
+ * pending tier-1/2 decision, or escalates an undecided dispute whose tier
+ * missed its decision SLA. Moves the dispute one tier up.
+ */
+export const appealDispute = (
+  params: AppealDisputeParams,
+  account: Account,
+): ResultAsync<
+  TransactionReceipt,
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
+  return prepareAppealDisputeTx(params)
+    .asyncAndThen((tx) =>
+      estimatedPrepareTransaction({
+        from: account.address as Address,
+        to: tx.to as Address,
+        chain,
+        client: thirdwebClient,
+        data: tx.data,
+      }),
+    )
+    .andThen((preppedTx) =>
+      ResultAsync.fromPromise(
+        sendAndConfirmTransaction({
+          account,
+          transaction: preppedTx,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to sendAndConfirm appealDispute transaction",
+            ),
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWSendAndConfirmTransactionError",
+              cause: error,
+              context: { account, transaction: preppedTx },
+            },
+          ),
+      ),
+    );
+};
+
+/**
+ * Executes a pending decision whose appeal window closed unappealed.
+ * Permissionless on-chain; the decision and decider were fixed when recorded.
+ */
+export const finalizeDispute = (
+  params: FinalizeDisputeParams,
+  account: Account,
+): ResultAsync<
+  TransactionReceipt,
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
+  return prepareFinalizeDisputeTx(params)
+    .asyncAndThen((tx) =>
+      estimatedPrepareTransaction({
+        from: account.address as Address,
+        to: tx.to as Address,
+        chain,
+        client: thirdwebClient,
+        data: tx.data,
+      }),
+    )
+    .andThen((preppedTx) =>
+      ResultAsync.fromPromise(
+        sendAndConfirmTransaction({
+          account,
+          transaction: preppedTx,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            i18n.t(
+              parseContractError(error) ??
+                "Failed to sendAndConfirm finalizeDispute transaction",
+            ),
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWSendAndConfirmTransactionError",
+              cause: error,
+              context: { account, transaction: preppedTx },
+            },
+          ),
+      ),
+    );
+};
+
+/** `[tier, tierSince, appealableAt]` — all zero when no dispute is raised. */
+export function getDisputeTier(params: DisputeEscalationParams) {
+  return prepareGetDisputeTierArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read dispute tier from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
+
+/** `[faultType, decisionTier, decidedBy, decidedAt, appealableUntil]` — all zero when no decision is pending. */
+export function getDisputeDecision(params: DisputeEscalationParams) {
+  return prepareGetDisputeDecisionArgs(params).asyncAndThen(
+    ({ to, functionName, abi, args }) =>
+      ResultAsync.fromPromise(
+        viemPublicClient.readContract({
+          address: to,
+          abi,
+          functionName,
+          args,
+        }),
+        (error) =>
+          createAppError<"ThirdwebAdapter">(
+            "Failed to read dispute decision from contract",
+            {
+              domain: "ThirdwebAdapter",
+              code: "TWReadContractError",
+              cause: error,
+              context: { params, to, args },
+            },
+          ),
+      ),
+  );
+}
 
 export const reduceExchangeFiatBalance = (
   params: ReduceExchangeFiatBalanceParams,
