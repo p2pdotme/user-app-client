@@ -325,6 +325,18 @@ export const ZodRaiseDisputeParamsSchema = z.object({
   redactTransId: z.bigint(),
 });
 
+export const ZodAppealDisputeParamsSchema = z.object({
+  orderId: z.number().int().nonnegative(),
+});
+
+export const ZodFinalizeDisputeParamsSchema = z.object({
+  orderId: z.number().int().nonnegative(),
+});
+
+export const ZodDisputeEscalationParamsSchema = z.object({
+  orderId: z.number().int().nonnegative(),
+});
+
 export const ZodReduceExchangeFiatBalanceParamsSchema = z.object({
   nativeCurrency: ZodCurrencySchema,
   amount: z.bigint(),
@@ -388,6 +400,13 @@ export type AdminSettleDisputeParams = z.infer<
 >;
 export type FailSafeParams = z.infer<typeof ZodFailSafeParamsSchema>;
 export type RaiseDisputeParams = z.infer<typeof ZodRaiseDisputeParamsSchema>;
+export type AppealDisputeParams = z.infer<typeof ZodAppealDisputeParamsSchema>;
+export type FinalizeDisputeParams = z.infer<
+  typeof ZodFinalizeDisputeParamsSchema
+>;
+export type DisputeEscalationParams = z.infer<
+  typeof ZodDisputeEscalationParamsSchema
+>;
 export type ReduceExchangeFiatBalanceParams = z.infer<
   typeof ZodReduceExchangeFiatBalanceParamsSchema
 >;
@@ -938,6 +957,24 @@ export const ZodSubgraphOrderSchema = z.object({
   disputeRedactTransId: z.string().optional().nullable(),
   disputeAccountNumber: z.string().optional().nullable(),
   disputeSettledByAddr: z.string().optional().nullable(),
+  // Dispute outcome (only requested by ORDER_BY_ID_QUERY)
+  disputeFaultType: z
+    .number()
+    .transform((val) => {
+      switch (val) {
+        case 1:
+          return "USER";
+        case 2:
+          return "MERCHANT";
+        case 3:
+          return "BANK";
+        default:
+          return "DEFAULT";
+      }
+    })
+    .optional(),
+  disputeSettledAt: z.string().optional().nullable(),
+  disputeTier: z.number().optional(),
 });
 
 export type SubgraphOrder = z.infer<typeof ZodSubgraphOrderSchema>;
@@ -951,6 +988,40 @@ export interface ContractFeeDetails {
 export interface EnrichedSubgraphOrder extends SubgraphOrder {
   contractFeeDetails: ContractFeeDetails | null;
 }
+
+const DISPUTE_STEP_KINDS = [
+  "RAISED",
+  "DECIDED",
+  "ESCALATED",
+  "SETTLED",
+] as const;
+const DISPUTE_STEP_FAULTS = ["DEFAULT", "USER", "MERCHANT", "BANK"] as const;
+
+export const ZodDisputeStepSchema = z.object({
+  id: z.string(),
+  kind: z.number().transform((v) => DISPUTE_STEP_KINDS[v] ?? "RAISED"),
+  tier: z.number(),
+  fromTier: z.number(),
+  faultType: z.number().transform((v) => DISPUTE_STEP_FAULTS[v] ?? "DEFAULT"),
+  by: z.string(),
+  finalizedBy: z.string(),
+  deadline: z.string(),
+  slaLapsed: z.boolean(),
+  blockTimestamp: z.string(),
+  transactionHash: z.string(),
+});
+export type DisputeStep = z.infer<typeof ZodDisputeStepSchema>;
+
+export const ZodDisputeHistorySchema = z.object({
+  disputeSteps: z.array(ZodDisputeStepSchema),
+});
+
+export const ZodOrderByIdQueryParamsSchema = z.object({
+  orderId: z.string().regex(/^\d+$/, { error: "orderId must be numeric" }),
+});
+export type OrderByIdQueryParams = z.infer<
+  typeof ZodOrderByIdQueryParamsSchema
+>;
 
 export const ZodOrdersCollectionSchema = z.object({
   orders_collection: z.array(ZodSubgraphOrderSchema),
