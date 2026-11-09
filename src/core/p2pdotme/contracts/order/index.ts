@@ -3,12 +3,15 @@ import type { Address } from "thirdweb";
 import { encodeFunctionData, type Hex, stringToHex } from "viem";
 import {
   type AcceptOrderParams,
+  type AppealDisputeParams,
   type CheckCircleEligibilityParams,
   type CompleteOrderParams,
   createP2PError,
+  type DisputeEscalationParams,
   type ExchangeFiatBalanceParams,
   type FetchMerchantAssignedOrdersParams,
   type FetchMerchantOrdersParams,
+  type FinalizeDisputeParams,
   type MerchantRiskCategoryParams,
   type OrderActualFiatAmountParams,
   type OrderActualUsdtAmountParams,
@@ -39,14 +42,17 @@ import {
   validate,
   ZodAcceptOrderParamsSchema,
   ZodAdminSettleDisputeParamsSchema,
+  ZodAppealDisputeParamsSchema,
   ZodAssignMerchantsParamsSchema,
   ZodCancelOrderParamsSchema,
   ZodCheckCircleEligibilityParamsSchema,
   ZodCompleteOrderParamsSchema,
+  ZodDisputeEscalationParamsSchema,
   ZodExchangeFiatBalanceParamsSchema,
   ZodFailSafeParamsSchema,
   ZodFetchMerchantAssignedOrdersParamsSchema,
   ZodFetchMerchantOrdersParamsSchema,
+  ZodFinalizeDisputeParamsSchema,
   ZodMerchantRiskCategoryParamsSchema,
   ZodOrderActualFiatAmountParamsSchema,
   ZodOrderActualUsdtAmountParamsSchema,
@@ -943,6 +949,110 @@ export function prepareRaiseDisputeTx(
             },
           }),
       )(),
+  );
+}
+
+// ---- Dispute escalation (appeal / finalize) ----
+
+export function prepareAppealDisputeTx(
+  params: AppealDisputeParams,
+): Result<{ to: Address; data: Hex }, P2PError> {
+  return validate(ZodAppealDisputeParamsSchema, params).andThen(
+    (validatedParams) =>
+      Result.fromThrowable(
+        () => ({
+          to: CONTRACT_ADDRESSES.DIAMOND,
+          data: encodeFunctionData({
+            abi: ABIS.DIAMOND,
+            functionName: "appealDispute",
+            args: [BigInt(validatedParams.orderId)],
+          }),
+        }),
+        (error) =>
+          createP2PError("Failed to prepare appealDispute transaction", {
+            domain: "order",
+            code: "P2PPrepareFunctionCallError",
+            cause: error,
+            context: {
+              operation: "prepareAppealDisputeTx",
+              timestamp: Math.floor(Date.now() / 1000),
+              rawParams: params,
+              validatedParams,
+            },
+          }),
+      )(),
+  );
+}
+
+export function prepareFinalizeDisputeTx(
+  params: FinalizeDisputeParams,
+): Result<{ to: Address; data: Hex }, P2PError> {
+  return validate(ZodFinalizeDisputeParamsSchema, params).andThen(
+    (validatedParams) =>
+      Result.fromThrowable(
+        () => ({
+          to: CONTRACT_ADDRESSES.DIAMOND,
+          data: encodeFunctionData({
+            abi: ABIS.DIAMOND,
+            functionName: "finalizeDispute",
+            args: [BigInt(validatedParams.orderId)],
+          }),
+        }),
+        (error) =>
+          createP2PError("Failed to prepare finalizeDispute transaction", {
+            domain: "order",
+            code: "P2PPrepareFunctionCallError",
+            cause: error,
+            context: {
+              operation: "prepareFinalizeDisputeTx",
+              timestamp: Math.floor(Date.now() / 1000),
+              rawParams: params,
+              validatedParams,
+            },
+          }),
+      )(),
+  );
+}
+
+export function prepareGetDisputeTierArgs(
+  params: DisputeEscalationParams,
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getDisputeTier";
+    args: [bigint];
+  },
+  P2PError
+> {
+  return validate(ZodDisputeEscalationParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getDisputeTier" as const,
+      args: [BigInt(validatedParams.orderId)],
+    }),
+  );
+}
+
+export function prepareGetDisputeDecisionArgs(
+  params: DisputeEscalationParams,
+): Result<
+  {
+    to: Address;
+    abi: typeof ABIS.DIAMOND;
+    functionName: "getDisputeDecision";
+    args: [bigint];
+  },
+  P2PError
+> {
+  return validate(ZodDisputeEscalationParamsSchema, params).map(
+    (validatedParams) => ({
+      to: CONTRACT_ADDRESSES.DIAMOND,
+      abi: ABIS.DIAMOND,
+      functionName: "getDisputeDecision" as const,
+      args: [BigInt(validatedParams.orderId)],
+    }),
   );
 }
 

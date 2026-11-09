@@ -1,11 +1,14 @@
 import { ResultAsync } from "neverthrow";
 import {
+  type OrderByIdQueryParams,
   type OrdersCollectionQueryParams,
   type OrdersCollectionWithDateFilterQueryParams,
   type ProcessingOrdersCollectionQueryParams,
   type UserP2PStakeActivitiesQueryParams,
   validate,
   ZodCirclesForRoutingResponseSchema,
+  ZodDisputeHistorySchema,
+  ZodOrderByIdQueryParamsSchema,
   ZodOrdersCollectionQueryParamsSchema,
   ZodOrdersCollectionSchema,
   ZodOrdersCollectionWithDateFilterQueryParamsSchema,
@@ -16,6 +19,8 @@ import {
 import { querySubgraph } from "./client";
 import {
   CIRCLES_FOR_ROUTING_QUERY,
+  DISPUTE_HISTORY_QUERY,
+  ORDER_BY_ID_QUERY,
   ORDERS_COLLECTION_QUERY,
   ORDERS_COLLECTION_WITH_DATE_FILTER_QUERY,
   PROCESSING_ORDERS_COLLECTION_QUERY,
@@ -118,6 +123,40 @@ export function getCirclesForRouting(currency: string) {
           (item) => Number(item.metrics.scoreState.activeMerchantsCount) > 0,
         ),
       ),
+    ),
+  );
+}
+
+/** A single order's subgraph row (null when not indexed yet). */
+export function getSubgraphOrderById(params: OrderByIdQueryParams) {
+  return validate(ZodOrderByIdQueryParamsSchema, params).asyncAndThen(() =>
+    ResultAsync.fromPromise(
+      querySubgraph({
+        query: ORDER_BY_ID_QUERY,
+        variables: params,
+      }),
+      (error) => error,
+    ).andThen((queryResult) =>
+      queryResult
+        .andThen((data) => validate(ZodOrdersCollectionSchema, data))
+        .map((validated) => validated.orders_collection[0] ?? null),
+    ),
+  );
+}
+
+/** Ordered dispute ladder steps for one order (empty until indexed). */
+export function getDisputeHistory(params: OrderByIdQueryParams) {
+  return validate(ZodOrderByIdQueryParamsSchema, params).asyncAndThen(() =>
+    ResultAsync.fromPromise(
+      querySubgraph({
+        query: DISPUTE_HISTORY_QUERY,
+        variables: params,
+      }),
+      (error) => error,
+    ).andThen((queryResult) =>
+      queryResult
+        .andThen((data) => validate(ZodDisputeHistorySchema, data))
+        .map((validated) => validated.disputeSteps),
     ),
   );
 }
