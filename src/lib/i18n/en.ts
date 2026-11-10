@@ -731,6 +731,10 @@ export const en = {
       "How to Buy USDC on P2P.me Using Fiat or Local Currency",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
       "1. Tap 'Buy USDC' on Home.\n2. Enter amount and recipient address → Proceed to Payment.\n3. A merchant is assigned and shares payment details.\n4. Pay via UPI/PIX/QRIS in your local app, then tap 'I have made the payment'.\n5. After the merchant confirms, USDC is sent within seconds.\n\nNote: New users (0 zk verifications) start at $10 per order, 1 buy/day. Verify zk proofs to increase limits.",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA:
+      "How do I calculate tax on my P2P.me orders?",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
+      "Open the tax report from Help & Support. It reads your completed P2P.me orders and estimates your crypto (VDA) income tax for the Indian financial year you pick: 30% on gains, plus surcharge and cess. You also get a Schedule VDA table, advance-tax dates and a TDS check to use while filing.\n\nFiling your taxes is your own responsibility. P2P.me does not deduct, report or file anything for you, and the figures are an estimate, not tax advice. Please confirm with a Chartered Accountant before filing.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
       "How to Deposit and Withdraw from Exchanges like Binance, MEXC or other wallets to P2P.me",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
@@ -2087,6 +2091,10 @@ export const en = {
     TASK_UNKNOWN: "Task {{taskType}}",
     TASK_USER_MIGRATION: "Earned for user migration",
     TASK_X_VERIFICATION: "Earned for X verification",
+    TAX_REPORT_HELP_CTA: "Open tax report",
+    TAX_REPORT_HELP_DESCRIPTION:
+      "Filing your taxes is your own responsibility. This tool helps you calculate your crypto tax on P2P.me orders and sort out your filings.",
+    TAX_REPORT_HELP_TITLE: "Tax report",
     TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Terms & Conditions",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
