@@ -102,6 +102,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "general-19", // Is P2P.me compliant with anti-money laundering (AML) laws?
       "general-20", // Who is building and maintaining P2P.me?
       "general-21", // What is the Bank Freeze Protection for Indian P2P.me users?
+      "general-22", // How do I calculate tax on my P2P.me orders? (INR only)
     ],
   },
   [SUPPORT_PAGE_TITLES.MY_LIMITS]: {
@@ -408,6 +409,14 @@ export const ALL_FAQS: FAQ[] = [
     questionKey: "FAQ_BANK_FREEZE_PROTECTION_INR_USERS",
     answerKey: "FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER",
     onlyForCurrencies: ["INR"],
+  },
+  {
+    id: "general-22",
+    questionKey: "FAQ_HOW_TO_CALCULATE_TAX_INDIA",
+    answerKey: "FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER",
+    onlyForCurrencies: ["INR"],
+    linkHref: INTERNAL_HREFS.TAX,
+    linkLabelKey: "TAX_REPORT_HELP_CTA",
   },
   {
     id: "refer-earn-1",
