@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { useSettings } from "@/contexts";
 import { useAnalytics, usePageMeta, useThirdweb } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
-import { INTERNAL_HREFS } from "@/lib/constants";
+import { CURRENCY, INTERNAL_HREFS } from "@/lib/constants";
 import {
   canOpenSupportHumanChat,
   openAiSupportChat,
@@ -32,6 +32,7 @@ import {
 } from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
 import { SettingsItem } from "./components/settings-item";
+import { TaxReportCard } from "./components/tax-report-card";
 import { VideoGuideBanner } from "./components/video-guide-banner";
 import { VideoGuideCard } from "./components/video-guide-card";
 import { ALL_VIDEO_GUIDES } from "./constants";
@@ -190,6 +191,15 @@ export function Help() {
             </div>
             <ArrowRight className="size-3 text-primary" />
           </button>
+          {/* The tax report follows Indian tax law, so only INR users see it */}
+          {currency.currency === CURRENCY.INR && (
+            <TaxReportCard
+              onClick={() => {
+                track(EVENTS.HELP, { status: "opened", section: "tax-report" });
+                navigate(INTERNAL_HREFS.TAX);
+              }}
+            />
+          )}
         </section>
 
         <section className="flex w-full flex-col justify-between gap-4">
