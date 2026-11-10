@@ -738,6 +738,10 @@ export const id = {
       "Cara Membeli USDC di P2P.me Menggunakan Fiat atau Mata Uang Lokal",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
       "1. Ketuk 'Beli USDC' di Beranda.\n2. Masukkan jumlah dan alamat penerima → Lanjut ke Pembayaran.\n3. Merchant akan ditugaskan dan membagikan detail pembayaran.\n4. Bayar via UPI/PIX/QRIS di aplikasi lokal Anda, lalu ketuk 'Saya sudah melakukan pembayaran'.\n5. Setelah merchant mengonfirmasi, USDC dikirim dalam hitungan detik.\n\nCatatan: Pengguna baru (0 verifikasi zk) mulai dari $10 per order, 1 order/hari. Verifikasi zk untuk menaikkan limit.",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA:
+      "Bagaimana cara menghitung pajak atas pesanan P2P.me saya?",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
+      "Buka laporan pajak dari Bantuan & Dukungan. Laporan ini membaca pesanan P2P.me Anda yang sudah selesai dan memperkirakan pajak penghasilan kripto (VDA) untuk tahun pajak India yang Anda pilih: 30% atas keuntungan, ditambah surcharge dan cess. Anda juga mendapat tabel Schedule VDA, tanggal pajak di muka, dan pemeriksaan TDS untuk dipakai saat pelaporan.\n\nMelaporkan pajak adalah tanggung jawab Anda sendiri. P2P.me tidak memotong, melaporkan, atau menyampaikan apa pun untuk Anda, dan angkanya hanyalah perkiraan, bukan nasihat pajak. Harap konfirmasi dengan Chartered Accountant sebelum melapor.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
       "Cara Deposit dan Withdraw dari Exchange seperti Binance, MEXC atau wallet lain ke P2P.me",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
@@ -2121,6 +2125,10 @@ export const id = {
     TASK_UNKNOWN: "Tugas {{taskType}}",
     TASK_USER_MIGRATION: "Diperoleh untuk migrasi pengguna",
     TASK_X_VERIFICATION: "Diperoleh untuk verifikasi X",
+    TAX_REPORT_HELP_CTA: "Buka laporan pajak",
+    TAX_REPORT_HELP_DESCRIPTION:
+      "Melaporkan pajak adalah tanggung jawab Anda sendiri. Alat ini membantu Anda menghitung pajak kripto atas pesanan P2P.me dan merapikan pelaporan Anda.",
+    TAX_REPORT_HELP_TITLE: "Laporan pajak",
     TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Syarat & Ketentuan",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
