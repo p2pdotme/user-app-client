@@ -41,6 +41,21 @@ const LimitsZkKyc = lazy(() =>
     default: module.LimitsZkKyc,
   })),
 );
+const Tax = lazy(() =>
+  import("@/tax").then((module) => ({
+    default: module.Tax,
+  })),
+);
+const TaxConfig = lazy(() =>
+  import("@/tax").then((module) => ({
+    default: module.TaxConfig,
+  })),
+);
+const TaxSources = lazy(() =>
+  import("@/tax").then((module) => ({
+    default: module.TaxSources,
+  })),
+);
 const OneClick = lazy(() =>
   import("@/pages/near-intent").then((module) => ({
     default: module.OneClick,
@@ -242,6 +257,9 @@ export function Router() {
           element={<LimitsLiveness />}
         />
         <Route path={INTERNAL_HREFS.LIMITS_ZK_KYC} element={<LimitsZkKyc />} />
+        <Route path={INTERNAL_HREFS.TAX} element={<Tax />} />
+        <Route path={INTERNAL_HREFS.TAX_CONFIG} element={<TaxConfig />} />
+        <Route path={INTERNAL_HREFS.TAX_SOURCES} element={<TaxSources />} />
         <Route path={INTERNAL_HREFS.BRIDGE} element={<OneClick />} />
 
         <Route path={INTERNAL_HREFS.BUY} element={<Buy />} />

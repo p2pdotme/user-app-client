@@ -753,6 +753,10 @@ export const es = {
       "Cómo Comprar USDC en P2P.me Usando Fiat o Moneda Local",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
       "1. Toca 'Comprar USDC' en Inicio.\n2. Ingresa el monto y la dirección del destinatario → Proceder al Pago.\n3. Se asigna un comerciante y comparte los detalles del pago.\n4. Paga a través de UPI/PIX/QRIS en tu aplicación local, luego toca 'He realizado el pago'.\n5. Después de que el comerciante confirme, el USDC se envía en segundos.\n\nNota: Los nuevos usuarios (0 verificaciones zk) comienzan con $10 por pedido, 1 compra/día. Verifica pruebas zk para aumentar los límites.",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA:
+      "¿Cómo calculo el impuesto de mis órdenes en P2P.me?",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
+      "Abre el informe fiscal desde Ayuda y soporte. Lee tus órdenes completadas en P2P.me y estima tu impuesto sobre criptoactivos (VDA) para el año fiscal indio que elijas: 30% sobre las ganancias, más recargo y cess. También obtienes una tabla Schedule VDA, las fechas del impuesto anticipado y una comprobación de TDS para usar al declarar.\n\nPresentar tus impuestos es tu propia responsabilidad. P2P.me no retiene, informa ni presenta nada por ti, y las cifras son una estimación, no asesoría fiscal. Confírmalas con un contador público (Chartered Accountant) antes de declarar.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
       "Cómo Depositar y Retirar desde Exchanges como Binance, MEXC u otras wallets a P2P.me",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
@@ -2176,6 +2180,10 @@ export const es = {
     TASK_UNKNOWN: "Tarea {{taskType}}",
     TASK_USER_MIGRATION: "Ganado por migración de usuario",
     TASK_X_VERIFICATION: "Ganado por verificación de X",
+    TAX_REPORT_HELP_CTA: "Abrir informe fiscal",
+    TAX_REPORT_HELP_DESCRIPTION:
+      "Presentar tus impuestos es tu propia responsabilidad. Esta herramienta te ayuda a calcular el impuesto cripto de tus órdenes en P2P.me y a ordenar tus declaraciones.",
+    TAX_REPORT_HELP_TITLE: "Informe fiscal",
     TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Términos y Condiciones",
     TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
