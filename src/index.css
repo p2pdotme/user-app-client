@@ -359,6 +359,32 @@
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
+/*
+  Printing the tax report (Schedule VDA "Print / PDF"). The app shell is one
+  viewport tall with the page scrolling inside it, so on paper every ancestor
+  of the report has to grow to its content or only the visible part prints.
+  The selectors are specific enough to win over the utility classes they undo.
+*/
+@media print {
+  :root .no-print {
+    display: none;
+  }
+  body:has([data-tax-print]) header {
+    display: none;
+  }
+  body:has([data-tax-print]) :is(#root, #root div:has([data-tax-print])) {
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    background: none;
+  }
+  :root main[data-tax-print] {
+    height: auto;
+    overflow: visible;
+  }
+}
+
 .launch_prove_modal > div > button > img {
   display: none;
 }

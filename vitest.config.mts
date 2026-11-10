@@ -64,7 +64,11 @@ export default defineConfig({
     },
     environment: "jsdom",
     globals: false,
-    setupFiles: ["./tests/helpers/setup.ts", "./tests/helpers/thirdweb.ts"],
+    setupFiles: [
+      "./tests/helpers/setup.ts",
+      "./tests/helpers/thirdweb.ts",
+      "./tests/tax/helpers/setup.ts",
+    ],
     include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
   },
 });
