@@ -1,4 +1,4 @@
-import { ArrowRight, Plus, Trash2, Wallet } from "lucide-react";
+import { ArrowRight, Plus, Trash2 } from "lucide-react";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -193,9 +193,6 @@ export function MissingCostStep({
   return (
     <Card className="w-full gap-5 border-primary/30 bg-primary/5 shadow-none">
       <CardHeader className="gap-2">
-        <div className="flex size-10 items-center justify-center rounded-full bg-primary/15">
-          <Wallet className="size-5 text-primary" />
-        </div>
         <CardTitle className="text-lg">Before we calculate your tax</CardTitle>
         <CardDescription className="text-foreground text-sm leading-relaxed">
           <Intro need={need} qty={qty} />
