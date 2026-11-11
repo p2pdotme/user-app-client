@@ -365,6 +365,7 @@ export function BuyPreview() {
         const orderId = extractOrderIdFromOrderPlaced(
           ABIS.DIAMOND,
           receipt.logs,
+          account?.address as `0x${string}`,
         );
         if (!orderId) {
           triggerErrorHaptic();
