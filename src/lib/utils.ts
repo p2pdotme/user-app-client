@@ -449,13 +449,23 @@ export function formatFiatAmountNumeric(
   }).format(roundAmount(amount));
 }
 
+/**
+ * Finds the order id of the OrderPlaced event emitted for `user`.
+ *
+ * Smart-account transactions go through a bundler, which can pack several
+ * users' userOps into one on-chain transaction. The receipt then holds an
+ * OrderPlaced event per user, so the event must be matched on its `user`
+ * topic — taking the first one can return somebody else's order.
+ */
 export const extractOrderIdFromOrderPlaced = (
   abi: Abi,
   logs: Array<{
     data: `0x${string}`;
     topics: [] | [`0x${string}`, ...`0x${string}`[]];
   }>,
-) => {
+  user: `0x${string}`,
+): number | null => {
+  const expectedUser = user.toLowerCase();
   for (const log of logs) {
     try {
       const { args } = decodeEventLog({
@@ -464,11 +474,13 @@ export const extractOrderIdFromOrderPlaced = (
         data: log.data,
         topics: log.topics,
       });
+      const { orderId, user: eventUser } = args as unknown as {
+        orderId?: bigint;
+        user?: string;
+      };
 
-      // @ts-expect-error - args is an array of unknown values
-      if (args?.orderId) {
-        // @ts-expect-error - args is an array of unknown values
-        return Number(args.orderId as bigint);
+      if (orderId && eventUser?.toLowerCase() === expectedUser) {
+        return Number(orderId);
       }
     } catch {}
   }
