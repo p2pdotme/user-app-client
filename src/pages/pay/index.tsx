@@ -351,6 +351,7 @@ export function Pay() {
           const orderId = extractOrderIdFromOrderPlaced(
             ABIS.DIAMOND,
             receipt.logs,
+            account?.address as `0x${string}`,
           );
           if (!orderId) {
             toast.error(t("ORDER_ID_NOT_FOUND"));
