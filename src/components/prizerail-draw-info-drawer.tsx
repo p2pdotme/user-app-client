@@ -1,4 +1,4 @@
-import { Ticket } from "lucide-react";
+import { ArrowRight, Ticket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   Drawer,
@@ -7,7 +7,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { entriesForOrderUsdc } from "@/lib/prizerail";
+import {
+  entriesForOrderUsdc,
+  getPrizerailCampaignSlug,
+  getPrizerailCampaignUrl,
+} from "@/lib/prizerail";
 
 interface PrizerailDrawInfoDrawerProps {
   open: boolean;
@@ -19,13 +23,21 @@ interface PrizerailDrawInfoDrawerProps {
 // Worked example in the explainer: a $100 order at this market's rate.
 const EXAMPLE_ORDER_USD = 100;
 
+interface InfoSection {
+  key: string;
+  title: string;
+  body: string;
+  /** Optional outbound link shown after the body. */
+  link?: { href: string; label: string };
+}
+
 /**
  * Plain-language explainer behind the (i) on the draw card. One idea per
  * section: how entries are earned, how a winner is picked, what the prizes
- * are, how a winner gets paid, the winner-publicity rule for large prizes,
- * and that entries roll per draw. Kept free of
- * protocol words — the proof and the randomness source live on the public
- * campaign page.
+ * are, how a winner gets paid, who runs the draw and where to replay it, the
+ * winner-publicity rule for large prizes, and that entries roll per draw.
+ * Kept free of protocol words — the proof and the randomness source live on
+ * the public campaign page, which the fairness section links to.
  */
 export function PrizerailDrawInfoDrawer({
   open,
@@ -34,8 +46,9 @@ export function PrizerailDrawInfoDrawer({
 }: PrizerailDrawInfoDrawerProps) {
   const { t } = useTranslation();
   const exampleEntries = entriesForOrderUsdc(EXAMPLE_ORDER_USD, percentage);
+  const slug = getPrizerailCampaignSlug();
 
-  const sections = [
+  const sections: InfoSection[] = [
     {
       key: "entries",
       title: t("PRIZERAIL_INFO_ENTRIES_TITLE"),
@@ -59,6 +72,17 @@ export function PrizerailDrawInfoDrawer({
       key: "payout",
       title: t("PRIZERAIL_INFO_PAYOUT_TITLE"),
       body: t("PRIZERAIL_INFO_PAYOUT_BODY"),
+    },
+    {
+      key: "fairness",
+      title: t("PRIZERAIL_INFO_FAIRNESS_TITLE"),
+      body: t("PRIZERAIL_INFO_FAIRNESS_BODY"),
+      link: slug
+        ? {
+            href: getPrizerailCampaignUrl(slug),
+            label: t("PRIZERAIL_INFO_FAIRNESS_LINK"),
+          }
+        : undefined,
     },
     {
       key: "publicity",
@@ -99,6 +123,16 @@ export function PrizerailDrawInfoDrawer({
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {section.body}
               </p>
+              {section.link && (
+                <a
+                  href={section.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 self-start font-medium text-primary text-sm hover:underline">
+                  {section.link.label}
+                  <ArrowRight className="size-4" />
+                </a>
+              )}
             </div>
           ))}
         </div>
