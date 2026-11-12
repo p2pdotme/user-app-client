@@ -1,4 +1,4 @@
-import { Loader2, Ticket, Trophy } from "lucide-react";
+import { ChevronRight, Loader2, Ticket, Trophy } from "lucide-react";
 import moment from "moment";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { UserDrawingEntries } from "@/core/prizerail/user-api";
 import { usePrizerailUserDrawings } from "@/hooks/use-prizerail-user";
-import { formatPrizeCents } from "@/lib/prizerail";
+import {
+  formatPrizeCents,
+  getPrizerailCampaignSlug,
+  getPrizerailCampaignUrl,
+} from "@/lib/prizerail";
 import { cn } from "@/lib/utils";
 import { DrawHistorySkeleton, DrawRowSkeleton } from "./skeletons";
 
@@ -57,7 +61,10 @@ function DrawRow({ drawing }: { drawing: UserDrawingEntries }) {
   );
 }
 
-/** Past draws the wallet entered, newest first, with won / not won. */
+/**
+ * Past draws the wallet entered, newest first, with won / not won. Opens with
+ * a link to the public campaign page, where every draw can be replayed.
+ */
 export function DrawHistory() {
   const { t } = useTranslation();
   const {
@@ -71,6 +78,7 @@ export function DrawHistory() {
   } = usePrizerailUserDrawings();
 
   const [visibleCount, setVisibleCount] = useState(DRAWS_STEP);
+  const slug = getPrizerailCampaignSlug();
 
   const drawings = data?.pages.flatMap((p) => p.items) ?? [];
   const visible = drawings.slice(0, visibleCount);
@@ -104,6 +112,16 @@ export function DrawHistory() {
   return (
     <Card className="w-full shadow-none">
       <CardContent className="flex flex-col">
+        {slug && (
+          <a
+            href={getPrizerailCampaignUrl(slug)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-1 flex items-center justify-between gap-3 rounded-lg bg-primary/5 px-4 py-3 font-medium text-foreground text-sm transition-colors hover:bg-primary/10">
+            {t("PRIZERAIL_VERIFY_PAST_DRAWS")}
+            <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
+          </a>
+        )}
         {drawings.length === 0 && !hasNextPage ? (
           <p className="py-2 text-muted-foreground text-sm">
             {t("PRIZERAIL_NO_PAST_DRAWS")}

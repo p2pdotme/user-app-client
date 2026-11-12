@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProviders } from "@tests/helpers/render";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PrizeDraw } from "@/pages/prize-draw";
@@ -56,5 +56,36 @@ describe("PrizeDraw page", () => {
     expect(
       screen.queryByText(/prize draw isn't available right now/i),
     ).not.toBeInTheDocument();
+  });
+
+  it("links the past draws section to the public campaign page", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-ramp");
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "https://www.prizerail.com");
+    vi.stubEnv("VITE_PRIZERAIL_USER_API_URL", "http://localhost:8080");
+
+    renderWithProviders(<PrizeDraw />);
+
+    const link = screen.getByRole("link", { name: /verify past draws/i });
+    expect(link).toHaveAttribute(
+      "href",
+      "https://www.prizerail.com/campaigns/p2p-ramp",
+    );
+    expect(link).toHaveAttribute("target", "_blank");
+  });
+
+  it("explains draw fairness in the rules drawer with a replay link", () => {
+    vi.stubEnv("VITE_PRIZERAIL_CAMPAIGN_SLUG", "p2p-ramp");
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "https://www.prizerail.com");
+    vi.stubEnv("VITE_PRIZERAIL_USER_API_URL", "http://localhost:8080");
+
+    renderWithProviders(<PrizeDraw />);
+    fireEvent.click(
+      screen.getByRole("button", { name: /how the prize draw works/i }),
+    );
+
+    expect(screen.getByText(/about draw fairness/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /replay every draw/i }),
+    ).toHaveAttribute("href", "https://www.prizerail.com/campaigns/p2p-ramp");
   });
 });
