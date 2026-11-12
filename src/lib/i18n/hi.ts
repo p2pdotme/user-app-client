@@ -1622,6 +1622,10 @@ export const hi = {
     PRIZERAIL_INFO_ENTRIES_BODY:
       "एंट्री आपके टिकट हैं। हर $100 के ऑर्डर पर आपको {{perHundred}} एंट्री मिलती हैं। ${{exampleOrder}} के ऑर्डर पर {{exampleEntries}} एंट्री मिलती हैं। जितनी ज़्यादा एंट्री, उतना बेहतर मौका।",
     PRIZERAIL_INFO_ENTRIES_TITLE: "हर ऑर्डर पर आपको एंट्री मिलती हैं",
+    PRIZERAIL_INFO_FAIRNESS_BODY:
+      "हर ड्रॉ हमारे पार्टनर Prizerail द्वारा चलाया जाता है और इनाम भी वही देते हैं। ड्रॉ सार्वजनिक रूप से होता है, ताकि आप खुद जाँच सकें कि वह निष्पक्ष था।",
+    PRIZERAIL_INFO_FAIRNESS_LINK: "हर ड्रॉ यहाँ दोबारा देखें",
+    PRIZERAIL_INFO_FAIRNESS_TITLE: "ड्रॉ की निष्पक्षता के बारे में",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "ड्रॉ के तुरंत बाद विजेताओं की घोषणा होती है। आपका इनाम आपको USDC में भेजा जाता है। भुगतान पहुँचने में 5–10 मिनट लग सकते हैं। भाग लेने के लिए आपको कुछ करने की ज़रूरत नहीं है।",
     PRIZERAIL_INFO_PAYOUT_TITLE: "अगर आप जीतते हैं",
@@ -1650,6 +1654,7 @@ export const hi = {
     PRIZERAIL_PRIZES_WINNERS: "कुल विजेता",
     PRIZERAIL_TOTAL_WON: "आपने जीता",
     PRIZERAIL_UNAVAILABLE: "इनाम ड्रॉ अभी उपलब्ध नहीं है।",
+    PRIZERAIL_VERIFY_PAST_DRAWS: "पिछले ड्रॉ जाँचें",
     PRIZERAIL_VIEW_DRAW: "ड्रॉ देखें",
     PRIZERAIL_VIEW_MORE: "और देखें",
     PRIZERAIL_VIEW_ON_PRIZERAIL: "Prizerail पर देखें",
