@@ -1664,6 +1664,10 @@ export const en = {
     PRIZERAIL_INFO_ENTRIES_BODY:
       "Entries are your tickets. You earn {{perHundred}} entries for every $100 of orders. A ${{exampleOrder}} order gives you {{exampleEntries}} entries. More entries, better odds.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "You earn entries with every order",
+    PRIZERAIL_INFO_FAIRNESS_BODY:
+      "Every draw is operated by our partner, Prizerail, and they pay out the prizes. The draw is done publicly, so you can verify it was fair yourself.",
+    PRIZERAIL_INFO_FAIRNESS_LINK: "Replay every draw here",
+    PRIZERAIL_INFO_FAIRNESS_TITLE: "About draw fairness",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Winners are announced right after the draw. Your prize is sent to you in USDC. Payouts can take 5–10 minutes to arrive. You don't need to do anything to enter.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "If you win",
@@ -1692,6 +1696,7 @@ export const en = {
     PRIZERAIL_PRIZES_WINNERS: "Total Winners",
     PRIZERAIL_TOTAL_WON: "You've Won",
     PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
+    PRIZERAIL_VERIFY_PAST_DRAWS: "Verify past draws",
     PRIZERAIL_VIEW_DRAW: "View draw",
     PRIZERAIL_VIEW_MORE: "View more",
     PRIZERAIL_VIEW_ON_PRIZERAIL: "View on Prizerail",

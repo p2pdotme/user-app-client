@@ -1691,6 +1691,10 @@ export const id = {
     PRIZERAIL_INFO_ENTRIES_BODY:
       "Entri adalah tiket Anda. Anda mendapat {{perHundred}} entri untuk setiap $100 pesanan. Pesanan ${{exampleOrder}} memberi Anda {{exampleEntries}} entri. Makin banyak entri, makin besar peluang.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Anda mendapat entri dari setiap pesanan",
+    PRIZERAIL_INFO_FAIRNESS_BODY:
+      "Setiap undian dijalankan oleh mitra kami, Prizerail, dan mereka yang membayarkan hadiahnya. Undian dilakukan secara terbuka, sehingga Anda dapat memeriksa sendiri bahwa undian itu adil.",
+    PRIZERAIL_INFO_FAIRNESS_LINK: "Putar ulang setiap undian di sini",
+    PRIZERAIL_INFO_FAIRNESS_TITLE: "Tentang keadilan undian",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Pemenang diumumkan segera setelah undian. Hadiah dikirim kepada Anda dalam USDC. Pembayaran bisa memakan waktu 5–10 menit untuk sampai. Anda tidak perlu melakukan apa pun untuk ikut.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "Jika Anda menang",
@@ -1719,6 +1723,7 @@ export const id = {
     PRIZERAIL_PRIZES_WINNERS: "Total pemenang",
     PRIZERAIL_TOTAL_WON: "Anda telah memenangkan",
     PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
+    PRIZERAIL_VERIFY_PAST_DRAWS: "Verifikasi undian sebelumnya",
     PRIZERAIL_VIEW_DRAW: "Lihat undian",
     PRIZERAIL_VIEW_MORE: "Lihat lebih banyak",
     PRIZERAIL_VIEW_ON_PRIZERAIL: "Lihat di Prizerail",
