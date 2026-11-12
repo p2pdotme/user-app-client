@@ -1726,6 +1726,10 @@ export const es = {
     PRIZERAIL_INFO_ENTRIES_BODY:
       "Las participaciones son tus boletos. Ganas {{perHundred}} participaciones por cada $100 en órdenes. Una orden de ${{exampleOrder}} te da {{exampleEntries}} participaciones. Más participaciones, más posibilidades.",
     PRIZERAIL_INFO_ENTRIES_TITLE: "Ganas participaciones con cada orden",
+    PRIZERAIL_INFO_FAIRNESS_BODY:
+      "Cada sorteo lo opera nuestro socio, Prizerail, y ellos pagan los premios. El sorteo se hace públicamente, así que puedes verificar tú mismo que fue justo.",
+    PRIZERAIL_INFO_FAIRNESS_LINK: "Revive cada sorteo aquí",
+    PRIZERAIL_INFO_FAIRNESS_TITLE: "Sobre la transparencia del sorteo",
     PRIZERAIL_INFO_PAYOUT_BODY:
       "Los ganadores se anuncian justo después del sorteo. Tu premio se te envía en USDC. El pago puede tardar entre 5 y 10 minutos en llegar. No tienes que hacer nada para participar.",
     PRIZERAIL_INFO_PAYOUT_TITLE: "Si ganas",
@@ -1755,6 +1759,7 @@ export const es = {
     PRIZERAIL_PRIZES_WINNERS: "Total de ganadores",
     PRIZERAIL_TOTAL_WON: "Has ganado",
     PRIZERAIL_UNAVAILABLE: "El sorteo no está disponible en este momento.",
+    PRIZERAIL_VERIFY_PAST_DRAWS: "Verificar sorteos anteriores",
     PRIZERAIL_VIEW_DRAW: "Ver sorteo",
     PRIZERAIL_VIEW_MORE: "Ver más",
     PRIZERAIL_VIEW_ON_PRIZERAIL: "Ver en Prizerail",
