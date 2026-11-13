@@ -587,6 +587,8 @@ export const es = {
     DONE: "Listo",
     DONT_ASK_FOR_A_QR_YET: "No pidas un QR todavía.",
     DONT_MISS_THE_TIMING: "Cuida los tiempos",
+    DONT_SHARE_OTP:
+      "Nunca compartas tu OTP con nadie, ni siquiera con nosotros. Nunca te lo pediremos.",
     DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS:
       "Revisa bien tu dirección de recepción",
     DOWNLOAD_CONFIRMATION_DESCRIPTION:
@@ -1882,8 +1884,6 @@ export const es = {
     RECOVER_FUNDS: "Recuperar fondos",
     RECOVER_INVALID_PRIVATE_KEY:
       "Clave privada no válida. Debe ser 0x seguido de 64 caracteres hexadecimales.",
-    RECOVER_PRIVATE_KEY_WARNING:
-      "Nunca compartas tu clave privada. Pégala aquí solo para recuperar fondos y luego muévelos a otra wallet de P2P.me.",
     RECOVER_WALLET: "Recuperar fondos",
     RECOVER_WALLET_ADDRESS: "Dirección de la smart wallet",
     RECOVER_WALLET_WITH_PRIVATE_KEY:
@@ -1938,6 +1938,8 @@ export const es = {
     REWARD_CLAIMED_DESCRIPTION:
       "Reclamaste {{amount}} USDC con éxito. ¡Comparte tu logro con tus amigos!",
     RIF_LABEL: "Cédula/RIF",
+    SAFETY_NOTICE_WALLET:
+      "Nunca te pediremos tu OTP, tu clave privada ni tu inicio de sesión a través de enlaces externos. Nunca compartas tus credenciales con nadie.",
     SAVE: "Guardar",
     SAVED: "{{paymentAddressName}} guardada",
     SAVED_ADDRESS: "Dirección guardada",

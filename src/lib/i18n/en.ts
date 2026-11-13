@@ -565,6 +565,8 @@ export const en = {
     DONE: "Done",
     DONT_ASK_FOR_A_QR_YET: "Don't ask for a QR yet.",
     DONT_MISS_THE_TIMING: "Don't Miss The Timing",
+    DONT_SHARE_OTP:
+      "Never share your OTP with anyone, including us. We will never ask for it.",
     DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS: "Double-check your receiving address",
     DOWNLOAD_CONFIRMATION_DESCRIPTION:
       "Download your transactions to your device for your records",
@@ -1805,8 +1807,6 @@ export const en = {
     RECOVER_FUNDS: "Recover funds",
     RECOVER_INVALID_PRIVATE_KEY:
       "Invalid private key. It should be 0x followed by 64 hex characters.",
-    RECOVER_PRIVATE_KEY_WARNING:
-      "Never share your private key. Only paste it here to recover funds, then move to another P2P.me wallet.",
     RECOVER_WALLET: "Recover Funds",
     RECOVER_WALLET_ADDRESS: "Smart wallet address",
     RECOVER_WALLET_WITH_PRIVATE_KEY: "Recover a wallet with a private key",
@@ -1857,6 +1857,8 @@ export const en = {
     REWARD_CLAIMED_DESCRIPTION:
       "You have successfully claimed {{amount}} USDC. Share your win with your friends!",
     RIF_LABEL: "Cédula/RIF",
+    SAFETY_NOTICE_WALLET:
+      "We’ll never ask for your OTP, private key, or login through external links. Never share your credentials with anyone.",
     SAVE: "Save",
     SAVED: "Saved {{paymentAddressName}}",
     SAVED_ADDRESS: "Saved Address",

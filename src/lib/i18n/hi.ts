@@ -553,6 +553,8 @@ export const hi = {
     DONE: "हो गया",
     DONT_ASK_FOR_A_QR_YET: "अभी QR न मांगें।",
     DONT_MISS_THE_TIMING: "टाइमिंग न चूकें",
+    DONT_SHARE_OTP:
+      "अपना OTP कभी किसी के साथ साझा न करें, हमारे साथ भी नहीं। हम इसे कभी नहीं मांगेंगे।",
     DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS: "अपना रिसीविंग पता एक बार फिर चेक कर लें",
     DOWNLOAD_CONFIRMATION_DESCRIPTION:
       "अपने रिकॉर्ड के लिए लेन-देन अपने डिवाइस पर डाउनलोड करें",
@@ -1750,8 +1752,6 @@ export const hi = {
     RECOVER_FUNDS: "फंड रिकवर करें",
     RECOVER_INVALID_PRIVATE_KEY:
       "अमान्य प्राइवेट की। यह 0x से शुरू होकर 64 हेक्स कैरेक्टर की होनी चाहिए।",
-    RECOVER_PRIVATE_KEY_WARNING:
-      "अपनी प्राइवेट की कभी शेयर न करें। इसे सिर्फ़ फंड रिकवर करने के लिए यहाँ पेस्ट करें, फिर फंड को किसी दूसरे P2P.me वॉलेट में भेज दें।",
     RECOVER_WALLET: "फंड रिकवर करें",
     RECOVER_WALLET_ADDRESS: "स्मार्ट वॉलेट पता",
     RECOVER_WALLET_WITH_PRIVATE_KEY: "प्राइवेट की से वॉलेट रिकवर करें",
@@ -1802,6 +1802,8 @@ export const hi = {
     REWARD_CLAIMED_DESCRIPTION:
       "आपने सफलतापूर्वक {{amount}} USDC क्लेम कर लिए। अपनी जीत दोस्तों के साथ शेयर करें!",
     RIF_LABEL: "Cédula/RIF",
+    SAFETY_NOTICE_WALLET:
+      "हम कभी भी आपका OTP, प्राइवेट की या बाहरी लिंक के ज़रिए लॉगिन नहीं मांगेंगे। अपनी लॉगिन जानकारी कभी किसी के साथ साझा न करें।",
     SAVE: "सेव करें",
     SAVED: "सेव किया गया {{paymentAddressName}}",
     SAVED_ADDRESS: "सेव किया गया पता",
