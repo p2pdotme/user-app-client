@@ -9,6 +9,7 @@ import {
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
+import { SafetyNotice } from "@/components/safety-notice";
 import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
@@ -88,6 +89,8 @@ export function HelpListView({
           <div className="w-6" />
         </div>
       </DrawerHeader>
+
+      <SafetyNotice variant="wallet" className="mb-4" />
 
       <div className="space-y-2">
         {/* In-app dispute chat - replaces the raise row once a dispute

@@ -573,6 +573,8 @@ export const id = {
     DONE: "Selesai",
     DONT_ASK_FOR_A_QR_YET: "Jangan meminta QR dulu.",
     DONT_MISS_THE_TIMING: "Jangan Lewatkan Waktunya",
+    DONT_SHARE_OTP:
+      "Jangan pernah bagikan OTP Anda kepada siapa pun, termasuk kami. Kami tidak akan pernah memintanya.",
     DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS: "Periksa kembali alamat penerima Anda",
     DOWNLOAD_CONFIRMATION_DESCRIPTION:
       "Unduh transaksi ke perangkat Anda sebagai catatan",
@@ -1831,8 +1833,6 @@ export const id = {
     RECOVER_FUNDS: "Pulihkan dana",
     RECOVER_INVALID_PRIVATE_KEY:
       "Kunci pribadi tidak valid. Harus 0x diikuti 64 karakter heksadesimal.",
-    RECOVER_PRIVATE_KEY_WARNING:
-      "Jangan pernah membagikan kunci pribadi Anda. Tempel di sini hanya untuk memulihkan dana, lalu pindahkan dana ke dompet P2P.me lain.",
     RECOVER_WALLET: "Pulihkan Dana",
     RECOVER_WALLET_ADDRESS: "Alamat smart wallet",
     RECOVER_WALLET_WITH_PRIVATE_KEY: "Pulihkan dompet dengan kunci pribadi",
@@ -1885,6 +1885,8 @@ export const id = {
     REWARD_CLAIMED_DESCRIPTION:
       "Anda berhasil mengklaim {{amount}} USDC. Bagikan kabar gembira ini ke teman-teman!",
     RIF_LABEL: "Cédula/RIF",
+    SAFETY_NOTICE_WALLET:
+      "Kami tidak akan pernah meminta OTP, kunci pribadi, atau login Anda melalui tautan eksternal. Jangan pernah bagikan kredensial Anda kepada siapa pun.",
     SAVE: "Simpan",
     SAVED: "{{paymentAddressName}} tersimpan",
     SAVED_ADDRESS: "Alamat tersimpan",
