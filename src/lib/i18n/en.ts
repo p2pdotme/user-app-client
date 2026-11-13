@@ -7,7 +7,7 @@ export const en = {
     ACCESS_GRANTED_BUTTON: "Watch Video Guide",
     ACCESS_GRANTED_DESCRIPTION:
       "Learn how to buy/sell USDC instantly and pay via Scan & Pay in seconds",
-    ACCESS_GRANTED_TITLE: "Access Granted - You're all set!",
+    ACCESS_GRANTED_TITLE: "Access Granted! You're all set!",
     ACCOUNT: "Account",
     ACCOUNT_NAME: "Account Name",
     ACCOUNT_NUMBER: "Account Number",
@@ -163,7 +163,7 @@ export const en = {
     BRIDGE_STATUS_KNOWN_DEPOSIT_TX: "Deposit detected",
     BRIDGE_STATUS_PENDING_DEPOSIT: "Waiting for deposit",
     BRIDGE_STELLAR_MEMO_MISSING:
-      "Stellar deposits require a memo, but none was returned. Not proceeding — a Stellar deposit sent without a memo cannot be credited.",
+      "Stellar deposits require a memo, but none was returned. Not proceeding, since a Stellar deposit sent without a memo cannot be credited.",
     BRIDGE_SWAP_HISTORY_PROMPT:
       "To see your full swap history, visit the <0>NEAR Intents explorer<1></1></0>",
     BRIDGE_TERMS_NEAR_INTENTS:
@@ -259,7 +259,7 @@ export const en = {
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_5: "Refresh the page",
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_TITLE: "Other Browsers",
     CAMERA_INSTRUCTIONS_SAFARI_NOTE:
-      "Also check: Settings → Privacy & Security → Camera — make sure Safari is enabled",
+      "Also check: Settings → Privacy & Security → Camera, and make sure Safari is enabled",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_1: "Open the Settings app",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_2: "Scroll down and tap Safari",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_3: "Scroll to 'Settings for Websites'",
@@ -310,7 +310,7 @@ export const en = {
     CHAT_ON_TELEGRAM: "Chat on Telegram",
     CHAT_ON_TELEGRAM_SUBTITLE: "Join the community group",
     CHAT_SETUP_TAKING_LONGER:
-      "This is taking longer than usual. Your dispute is submitted — reopen Help & Support shortly, or reach us on Telegram.",
+      "This is taking longer than usual. Your dispute is submitted. Reopen Help & Support shortly, or reach us on Telegram.",
     CHAT_SUPPORT_COMING_SOON: "Chat support is coming soon",
     CHAT_WITH_US: "Chat with us",
     CHECKING_WALLET_CONNECTION: "Checking wallet connection...",
@@ -633,7 +633,7 @@ export const en = {
     FAILED_TO_CREATE_RELAY_IDENTITY: "Failed to create relay identity",
     FAILED_TO_DELETE_ADDRESS: "Failed to delete address",
     FAILED_TO_ESTIMATE_GAS:
-      "This transaction failed due to a network fee issue — please try again.",
+      "This transaction failed due to a network fee issue. Please try again.",
     FAILED_TO_FETCH_QUOTE: "Failed to fetch quote",
     FAILED_TO_FETCH_SELL_PRICE: "Failed to fetch sell price",
     FAILED_TO_GENERATE_RECEIPT_IMAGE: "Failed to generate receipt image",
@@ -657,21 +657,21 @@ export const en = {
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY:
       "Are buy and sell limits tracked separately?",
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY_ANSWER:
-      "Yes — your buy and sell limits are independent and increase based on usage.",
+      "Yes, your buy and sell limits are independent and increase based on usage.",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS:
       "Are deposits and withdrawals gasless?",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS_ANSWER:
-      "Yes – all transactions on P2P.me are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.",
+      "Yes, all transactions on P2P.me are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.",
     FAQ_ARE_THERE_RISKS_REFERRING: "Are there any risks in referring someone?",
     FAQ_ARE_THERE_RISKS_REFERRING_ANSWER:
       "Yes, there's a small risk. Only refer users you trust. If your referred user engages in fraudulent or suspicious activity, your Referral privileges and Transaction limits could be slashed/suspended. The Protocol is ruthless, so choose your referrals wisely!",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS: "Are there any withdrawal limits?",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS_ANSWER:
-      "No — there are no withdrawal limits on P2P.me.",
+      "No, there are no withdrawal limits on P2P.me.",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS:
       "What is the Bank Freeze Protection for Indian transactions on P2P.me?",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER:
-      "P2P.me offers a 100% refund guarantee for Indian users: if any P2P.me transaction (dated after September 1st, 2025) results in a bank freeze or a transaction marked with a lien, we will refund the full transaction amount in USDC directly to your P2P.me wallet, and our community legal team will support you through the resolution process.\n\nPlease visit https://unfreeze.pro — our dedicated portal for end users and P2P merchants — and submit the details of your fraud incident as soon as possible. Our support team will verify your Order ID and bank acknowledgment before issuing the refund and legal support.\n\nOnly the exact amount tied to that specific transaction ID is covered. As of now, this protection is supported in India only. Although such cases are already extremely rare, we still recommend using a separate burner bank account for off-ramping.",
+      "P2P.me offers a 100% refund guarantee for Indian users: if any P2P.me transaction (dated after September 1st, 2025) results in a bank freeze or a transaction marked with a lien, we will refund the full transaction amount in USDC directly to your P2P.me wallet, and our community legal team will support you through the resolution process.\n\nPlease visit https://unfreeze.pro (our dedicated portal for end users and P2P merchants) and submit the details of your fraud incident as soon as possible. Our support team will verify your Order ID and bank acknowledgment before issuing the refund and legal support.\n\nOnly the exact amount tied to that specific transaction ID is covered. As of now, this protection is supported in India only. Although such cases are already extremely rare, we still recommend using a separate burner bank account for off-ramping.",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY:
       "Can I download my transaction history?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
@@ -685,11 +685,11 @@ export const en = {
       "Yes! With P2P.me, everyday payments are fast and effortless. Just scan a QR code, pay in USDC, and the amount is settled in local currency within seconds.",
     FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "Can I withdraw USDC to other networks?",
     FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Yes — use the Cross-Chain Withdraw feature and:\n• Select the correct destination chain\n• Double-check your wallet address before confirming",
+      "Yes. Use the Cross-Chain Withdraw feature and:\n• Select the correct destination chain\n• Double-check your wallet address before confirming",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
-      "I don't want to link my social accounts — is it safe?",
+      "I don't want to link my social accounts. Is it safe?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
-      "Yes, it's safe — you don't need to link any social accounts.\n\nP2P.me uses zk (zero-knowledge) proofs, a privacy-first method where you prove you're genuine without sharing any personal data.\n\nWe're fully decentralized with no servers or data storage. Your info stays private, encrypted, and secure always.",
+      "Yes, it's safe. You don't need to link any social accounts.\n\nP2P.me uses zk (zero-knowledge) proofs, a privacy-first method where you prove you're genuine without sharing any personal data.\n\nWe're fully decentralized with no servers or data storage. Your info stays private, encrypted, and secure always.",
     FAQ_DO_I_NEED_KYC: "Do I need KYC to use P2P.me?",
     FAQ_DO_I_NEED_KYC_ANSWER:
       "No, KYC is not required to get started. You can buy, sell, and pay instantly. For higher limits, you can optionally verify your identity in a privacy-friendly way.",
@@ -700,7 +700,7 @@ export const en = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "How can I deposit USDC into my P2P.me wallet?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "You can deposit USDC in two ways:\n• Direct Deposit to your wallet address on the Base network\n• Cross-Chain Deposit using Near Intents (if you're sending from other networks)\n\nNote: Only deposit USDC on the Base network. Do not send ETH or other tokens — your funds may be lost.",
+      "You can deposit USDC in two ways:\n• Direct Deposit to your wallet address on the Base network\n• Cross-Chain Deposit using Near Intents (if you're sending from other networks)\n\nNote: Only deposit USDC on the Base network. Do not send ETH or other tokens, as your funds may be lost.",
     FAQ_HOW_DO_I_START_EARNING: "How do I start earning?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "To start earning:\n1. Go to the 'Refer & Earn' section in the app.\n2. Generate your referral link.\n3. Share it with trusted friends.\n4. Make sure they sign up and trade using your link.\n\nNote: Each referral link can be used by only one friend.",
@@ -712,18 +712,18 @@ export const en = {
       "Anyone can stake USDC to become a merchant, but they must pass strict verification checks. They must submit ZK-proofs showing valid bank accounts and demonstrate no history of account freezes or suspicious activity. Only merchants who meet these standards can fulfill buy orders.",
     FAQ_HOW_MUCH_CAN_I_EARN: "How much can I earn?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
-      "You earn 0.5% of every trade made by the users you have referred. There's no upper limit — the more they trade, the more you earn.",
+      "You earn 0.5% of every trade made by the users you have referred. There's no upper limit: the more they trade, the more you earn.",
     FAQ_HOW_PREVENT_FRAUD: "How do you prevent fraud?",
     FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Fraud in traditional P2P platforms often happens when scammers send stolen fiat to unsuspecting users, leading to account freezes and headaches. P2P.me has built-in safeguards to keep you safe:\n\n• Zero-Knowledge (ZK) Proofs and history checks for all merchants: We make sure only trusted merchants can trade by verifying their banking activity. No shady characters allowed.\n• Zk-Social verification system: Unverified users have limited access, so we keep things exclusive. If you're verified, you're gold in our book. If not, well, try again later.\n• Penalizing users who endorse fraudsters: We take a tough stance — if you refer someone who engages in bad behavior, it's not just them who gets the boot. You might lose privileges too.\n\nWith over 55,000+ transactions processed, our fraud rate is close to zero. We're not saying it's perfect, but we're pretty close.",
+      "Fraud in traditional P2P platforms often happens when scammers send stolen fiat to unsuspecting users, leading to account freezes and headaches. P2P.me has built-in safeguards to keep you safe:\n\n• Zero-Knowledge (ZK) Proofs and history checks for all merchants: We make sure only trusted merchants can trade by verifying their banking activity. No shady characters allowed.\n• Zk-Social verification system: Unverified users have limited access, so we keep things exclusive. If you're verified, you're gold in our book. If not, well, try again later.\n• Penalizing users who endorse fraudsters: We take a tough stance: if you refer someone who engages in bad behavior, it's not just them who gets the boot. You might lose privileges too.\n\nWith over 55,000+ transactions processed, our fraud rate is close to zero. We're not saying it's perfect, but we're pretty close.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
       "How does P2P.me protect you from account freeze fraud?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
-      "1. First-Degree Protection\n• ZK-Social Verification blocks fraudsters before they can access the protocol.\n• Our fraud rate is very low its less then 1 in 25,000 transactions\n\n2. Second-Degree Protection\n• Always use a separate bank account for P2P offramps.\n• Avoid mixing funds from this account with your main account.\n• Tip: Opening a separate account is easy with Jio Payments Bank or Airtel Payments Bank in India.\n\n3. Third-Degree Protection\n• If your account is ever frozen, head to Unfreeze.pro — a dedicated portal we've built for P2P.me users and merchants. Our legal team will help you recover your funds — free of charge.",
+      "1. First-Degree Protection\n• ZK-Social Verification blocks fraudsters before they can access the protocol.\n• Our fraud rate is very low its less then 1 in 25,000 transactions\n\n2. Second-Degree Protection\n• Always use a separate bank account for P2P offramps.\n• Avoid mixing funds from this account with your main account.\n• Tip: Opening a separate account is easy with Jio Payments Bank or Airtel Payments Bank in India.\n\n3. Third-Degree Protection\n• If your account is ever frozen, head to Unfreeze.pro, a dedicated portal we've built for P2P.me users and merchants. Our legal team will help you recover your funds, free of charge.",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
       "How do I recover my funds if I sent the wrong token or used the wrong network?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "If you accidentally sent an unsupported token or used a different network, your funds can still be recovered — as long as they were sent to your correct wallet address.\n\nYou can use cross-chain bridges like Relay.link or Jumper.Exchange to convert those tokens into USDC on the Base network, which is supported on P2P.me.\n\nHere’s how to do it:\n1. Open Relay.link in desktop view.\n2. Connect your wallet using WalletConnect.\n3. On the bridge site, select WalletConnect and copy the connection URI.\n4. In the P2P.me app homescreen, go to Wallet → Manage Wallets → Connect an App, paste the URI, and confirm to connect to Relay.link.\n5. Return to the Relay Bridge and select the token and network you mistakenly used under the 'From/Buy' section, and choose USDC on Base in the 'To/Sell' section.\n6. Click the Swap button to start the transaction, and wait for it to complete.\n7. Return to the P2P.me app and refresh your wallet — your USDC should appear.\n\nNeed help? Contact the P2P.me Telegram support channel.\n\nMake sure: You’re selecting USDC on Base as the destination.",
+      "If you accidentally sent an unsupported token or used a different network, your funds can still be recovered, as long as they were sent to your correct wallet address.\n\nYou can use cross-chain bridges like Relay.link or Jumper.Exchange to convert those tokens into USDC on the Base network, which is supported on P2P.me.\n\nHere’s how to do it:\n1. Open Relay.link in desktop view.\n2. Connect your wallet using WalletConnect.\n3. On the bridge site, select WalletConnect and copy the connection URI.\n4. In the P2P.me app homescreen, go to Wallet → Manage Wallets → Connect an App, paste the URI, and confirm to connect to Relay.link.\n5. Return to the Relay Bridge and select the token and network you mistakenly used under the 'From/Buy' section, and choose USDC on Base in the 'To/Sell' section.\n6. Click the Swap button to start the transaction, and wait for it to complete.\n7. Return to the P2P.me app and refresh your wallet. Your USDC should appear.\n\nNeed help? Contact the P2P.me Telegram support channel.\n\nMake sure: You’re selecting USDC on Base as the destination.",
     FAQ_HOW_SECURE_TRANSACTIONS: "How does P2P.me ensure secure transactions?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
       "The protocol doesn't hold user funds. All transactions are P2P between buyer and merchant. To ensure safety, merchants undergo ZK-based verification and their banking activity is reviewed before they're allowed to accept trades. This reduces the risk of fraud or account freezing.",
@@ -747,7 +747,7 @@ export const en = {
       "You can increase your limits in two ways:\n\n1. Complete at least one zk social verification on your My Limits page to instantly increase your limits and unlock up to 5 buy orders per day.\n\n2. Verify your identity using:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nAfter completing your first zk verification, you can continue increasing your limits by completing more transactions on P2P.me.\n\nNote: We don't collect or share your personal data. All verifications use zero-knowledge proofs, ensuring your information remains private and secure while proving only what's needed. As we don't store your data we cannot share it with anyone in the future.",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "How do I pay with Scan & Pay on P2P.me?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
-      "- Get the bill amount - Ask the shop for your bill and confirm the total.\n- Open P2P.me - Tap Scan & Pay, enter the bill amount, and place the order. Once it's assigned to a P2P.me merchant, the in-app scanner will open.\n- Ask the shop to generate the payment QR code - Request the shop to generate the QR on their POS machine only after the P2P.me scanner opens. (Note: POS QRs usually expire in ~2 minutes, so timing is crucial.)\n- Scan & wait - Use the P2P.me scanner to scan the QR. Most payments are processed within 60 seconds, so wait patiently.\n- Static QRs - If the shop has a static QR code, it's simpler since you'll have more time to complete the payment.",
+      "- Get the bill amount: Ask the shop for your bill and confirm the total.\n- Open P2P.me: Tap Scan & Pay, enter the bill amount, and place the order. Once it's assigned to a P2P.me merchant, the in-app scanner will open.\n- Ask the shop to generate the payment QR code: Request the shop to generate the QR on their POS machine only after the P2P.me scanner opens. (Note: POS QRs usually expire in ~2 minutes, so timing is crucial.)\n- Scan & wait: Use the P2P.me scanner to scan the QR. Most payments are processed within 60 seconds, so wait patiently.\n- Static QRs: If the shop has a static QR code, it's simpler since you'll have more time to complete the payment.",
     FAQ_HOW_TO_SCAN_PAY_QR:
       "Can I Scan Any QR Code and Pay with USDC on P2P.me?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
@@ -775,9 +775,9 @@ export const en = {
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'If you lost access to your account but still have your wallet\'s private key, you can recover your USDC.\n\n1. Open the "Recover Funds" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
-      "The shopkeeper is asking to see the payment – what should I do?",
+      "The shopkeeper is asking to see the payment. What should I do?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
-      "1. Copy the merchant's UPI ID from your order.\n2. Paste it in your UPI app to see their name.\n3. Tell the shopkeeper: \"You should've received ₹XXXX from [Name].\"\n4. If they still deny it, contact support — we'll send you a screenshot to show them.",
+      "1. Copy the merchant's UPI ID from your order.\n2. Paste it in your UPI app to see their name.\n3. Tell the shopkeeper: \"You should've received ₹XXXX from [Name].\"\n4. If they still deny it, contact support and we'll send you a screenshot to show them.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS: "What are the default limits on P2P.me?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
       "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: $100 per order, up to 10 orders per day ($1,000 daily limit, since merchants are verified and ready to trade).\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
@@ -803,14 +803,14 @@ export const en = {
     FAQ_WHAT_IF_BANK_FROZEN:
       "What happens if my account freezes? Will P2P.me help unfreeze it?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      "If your account is frozen due to a transaction on P2P.me, head to Unfreeze.pro — a dedicated portal we've built for P2P.me users and merchants in India. Submit your case and our legal team will guide you through the unfreezing process, free of charge.\n\nYou can also join the P2P.me community channels, where users and volunteers can help you through the process.",
+      "If your account is frozen due to a transaction on P2P.me, head to Unfreeze.pro, a dedicated portal we've built for P2P.me users and merchants in India. Submit your case and our legal team will guide you through the unfreezing process, free of charge.\n\nYou can also join the P2P.me community channels, where users and volunteers can help you through the process.",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "What if my cross-chain transaction gets stuck?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
       "If your Near Intents transaction is stuck:\n\n1. Visit the Near Intents Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Near Intents support: https://t.me/near_intents Only use verified channels to avoid scams.",
     FAQ_WHAT_IS_P2P_ME: "What is P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
-      "P2P.me is a global platform that lets you easily buy, sell, and pay using USDC — securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.",
+      "P2P.me is a global platform that lets you easily buy, sell, and pay using USDC, securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.",
     FAQ_WHAT_IS_REFER_AND_EARN: "What is Refer & Earn on P2P.me?",
     FAQ_WHAT_IS_REFER_AND_EARN_ANSWER:
       "Refer & Earn is your chance to earn passive rewards by inviting trusted users to trade on P2P.me. Once eligible, you can generate a referral link, share it, and earn 0.5% of the total trading volume of users who join through your link.",
@@ -850,7 +850,7 @@ export const en = {
       "Go to the Transactions section in the app to view all your activity including deposits, withdrawals and disputes.",
     FAQ_WHERE_VIEW_CLAIM_REWARDS: "Where do I view and claim my rewards?",
     FAQ_WHERE_VIEW_CLAIM_REWARDS_ANSWER:
-      "Track and claim your rewards in the 'Refer & Earn' section — view activity and claim anytime.",
+      "Track and claim your rewards in the 'Refer & Earn' section. View activity and claim anytime.",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED:
       "Which coins and networks does P2P.me support?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
@@ -872,7 +872,7 @@ export const en = {
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
       "Why can't I text on the P2P.me Telegram channel? What should I do?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
-      "When you join the P2P.me India community channel for the first time, you'll see a welcome message under the \"Verify (For New Members)\" topic. To start texting in the group, you need to click the verification prompt in that message and complete a simple CAPTCHA.\n\nIf you missed it or didn't complete it: Just exit the group completely and rejoin — the welcome message and verification prompt will appear again.\n\nOnce verified, you'll be able to participate in the conversation.",
+      "When you join the P2P.me India community channel for the first time, you'll see a welcome message under the \"Verify (For New Members)\" topic. To start texting in the group, you need to click the verification prompt in that message and complete a simple CAPTCHA.\n\nIf you missed it or didn't complete it: Just exit the group completely and rejoin, and the welcome message and verification prompt will appear again.\n\nOnce verified, you'll be able to participate in the conversation.",
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA:
       "Why am I seeing 'Didn't meet eligible criteria' when I try to verify?",
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER:
@@ -886,7 +886,7 @@ export const en = {
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT:
       "Will you ever submit my data to the government in the future?",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT_ANSWER:
-      "No — we can't and we won't. P2P.me is a fully decentralized protocol, meaning we don't have access to your data in the first place. All payment and personal details are end-to-end encrypted and shared only between you and the merchant. No third party — including us — can access or view this information.",
+      "No, we can't and we won't. P2P.me is a fully decentralized protocol, meaning we don't have access to your data in the first place. All payment and personal details are end-to-end encrypted and shared only between you and the merchant. No third party (including us) can access or view this information.",
     FAQ_WITHDRAWAL_HASNT_ARRIVED:
       "What should I do if my withdrawal hasn't arrived?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
@@ -1237,7 +1237,7 @@ export const en = {
     NEED_HELP: "Need help?",
     NETWORK: "Network",
     NETWORK_ISSUE_DESCRIPTION:
-      "This might be due to DNS restrictions in your region. But don't worry — it's easy to fix.",
+      "This might be due to DNS restrictions in your region. But don't worry, it's easy to fix.",
     NETWORK_ISSUE_DETECTED: "Network Issue Detected",
     NEW_PAYMENT_CHANNEL_NOT_FOUND: "New payment channel not found",
     NEW_PAYMENT_CHANNEL_SHOULD_BE_ACTIVE:
@@ -1420,7 +1420,7 @@ export const en = {
     P2P_SWAP_ERROR_COMPANY_WALLET_DEPOSIT_NOT_ALLOWED:
       "Deposit from company wallet is not permitted",
     P2P_SWAP_ERROR_DEPOSIT_TX_NOT_CONFIRMED:
-      "Transaction not confirmed — it may be pending or not yet on-chain",
+      "Transaction not confirmed. It may be pending or not yet on-chain",
     P2P_SWAP_ERROR_DEPOSIT_TX_REVERTED:
       "Transaction reverted on-chain and cannot be used as a deposit",
     P2P_SWAP_ERROR_EXPECTED_EVM_TX: "Expected EVM transaction",
@@ -1433,10 +1433,10 @@ export const en = {
     P2P_SWAP_ERROR_INVALID_CLAIM_ID: "Invalid claim ID",
     P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "Invalid EVM address",
     P2P_SWAP_ERROR_INVALID_USDC_AMOUNT:
-      "Invalid USDC amount — must be in base units (e.g. 1000000 for 1 USDC)",
+      "Invalid USDC amount: must be in base units (e.g. 1000000 for 1 USDC)",
     P2P_SWAP_ERROR_JUP_EXECUTE_FAILED: "Failed to execute DEX swap",
     P2P_SWAP_ERROR_JUP_NON_POSITIVE_OUTPUT_DELTA:
-      "Swap may have been routed differently — output amount is zero or negative",
+      "Swap may have been routed differently: output amount is zero or negative",
     P2P_SWAP_ERROR_JUP_ORDER_FAILED: "Failed to get DEX order",
     P2P_SWAP_ERROR_JUP_OUTPUT_BALANCE_NOT_FOUND:
       "Output token balance not found in confirmed transaction",
@@ -1451,7 +1451,7 @@ export const en = {
       "No USDC transfer to the deposit address found",
     P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY: "Bridge failed on retry",
     P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
-      "Bridge timed out — no terminal status after 15 minutes",
+      "Bridge timed out: no terminal status after 15 minutes",
     P2P_SWAP_ERROR_RANGO_NO_SERIALIZED_MESSAGE:
       "Bridge did not return a serialized transaction",
     P2P_SWAP_ERROR_RANGO_QUOTE_FAILED: "Bridge quote failed",
@@ -1537,7 +1537,7 @@ export const en = {
     PAYMENT_QR_FALLBACK_HINT:
       "Enter the details below in case they cannot scan the QR",
     PAYMENT_QR_INVALID: "This doesn't look like a valid payment QR",
-    PAYMENT_QR_READ_ERROR: "Couldn't read that QR — try another image",
+    PAYMENT_QR_READ_ERROR: "Couldn't read that QR. Try another image",
     PAYMENT_QR_REMOVE: "Remove QR",
     PAYMENT_QR_REMOVE_HINT: "Removing the QR does not clear the details below",
     PAYMENT_QR_UPLOAD: "Upload QR",
@@ -1577,7 +1577,7 @@ export const en = {
     PERU_QR_DECODING: "Reading QR…",
     PERU_QR_DETECTED: "QR detected",
     PERU_QR_INVALID_QR: "This doesn't look like a valid Yape/Plin QR",
-    PERU_QR_READ_ERROR: "Couldn't read that QR — try another image",
+    PERU_QR_READ_ERROR: "Couldn't read that QR. Try another image",
     PERU_QR_UPLOAD: "Upload QR",
     PERU_QR_UPLOAD_HINT: "Tap to select a QR image from your device",
     PERU_QR_UPLOAD_TITLE: "Upload your Yape/Plin QR",
@@ -1720,20 +1720,20 @@ export const en = {
     PROOF_DOWNLOAD_FAILED: "Download failed",
     PROOF_FILES_TITLE: "Payment proofs",
     PROOF_HELP:
-      "Ask the merchant (or a circle admin) to attach a screenshot or PDF of the payment. Only you and the people authorized on this order can open it — access is checked against your on-chain role every time.",
+      "Ask the merchant (or a circle admin) to attach a screenshot or PDF of the payment. Only you and the people authorized on this order can open it. Access is checked against your on-chain role every time.",
     PROOF_HELP_TOGGLE: "What is this?",
     PROOF_ONCHAIN_EXPLORER: "the block explorer",
     PROOF_ONCHAIN_HELP:
-      "This order settled on-chain: the merchant sent USDC straight to your receiving address. Open the transaction on {{explorer}} to verify the transfer — no receipt needed.",
-    PROOF_ONCHAIN_SHORT: "Settled on-chain — verify the USDC transfer",
+      "This order settled on-chain: the merchant sent USDC straight to your receiving address. Open the transaction on {{explorer}} to verify the transfer. No receipt needed.",
+    PROOF_ONCHAIN_SHORT: "Settled on-chain: verify the USDC transfer",
     PROOF_ONCHAIN_VIEW: "View on-chain",
-    PROOF_PENDING: "Requested — waiting for the merchant",
+    PROOF_PENDING: "Requested, waiting for the merchant",
     PROOF_READY: "Your payment proof is ready to view",
     PROOF_REQUEST: "Request proof",
     PROOF_REQUESTED: "Payment proof requested",
     PROOF_REQUESTING: "Requesting…",
     PROOF_REQUEST_FAILED: "Couldn't request payment proof",
-    PROOF_SHORT: "Payment receipt — only you can open it",
+    PROOF_SHORT: "Payment receipt: only you can open it",
     PROOF_TITLE: "Payment proof",
     PROOF_UPLOADED: "Proof uploaded",
     PROOF_VIEW: "View proof",
@@ -1934,9 +1934,9 @@ export const en = {
       "Smaller early limits help avoid flags while you build trusted history.",
     SELL_QUIZ_Q2_A2: "To restrict users from big trades",
     SELL_QUIZ_Q2_A2_EXPL:
-      "Limits grow as you verify and complete trades; they're for safety — not restriction.",
+      "Limits grow as you verify and complete trades; they're for safety, not restriction.",
     SELL_QUIZ_Q2_TITLE: "Why did P2P.me create smart limits for trades?",
-    SELL_QUIZ_TRY_AGAIN: "Not quite — pick the best answer to continue.",
+    SELL_QUIZ_TRY_AGAIN: "Not quite. Pick the best answer to continue.",
     SELL_USDC: "Sell USDC",
     SELL_USDC_FAQS: "Sell USDC FAQs",
     SEND: "Send",
@@ -1971,7 +1971,7 @@ export const en = {
     SETTINGS_RESET_SUCCESS: "Settings have been reset to defaults",
     SETTING_UP_SUPPORT_CHAT: "Setting up your support chat...",
     SETTING_UP_SUPPORT_CHAT_DESCRIPTION:
-      "Your dispute is being confirmed on-chain — this takes a few seconds.",
+      "Your dispute is being confirmed on-chain. This takes a few seconds.",
     SETTLED: "Settled",
     SHARE: "Share",
     SHARE_FEEDBACK: "Share Feedback",
@@ -2039,7 +2039,7 @@ export const en = {
     STATUS_FILTER: "Status: {{statuses}}",
     STAY_SECURE: "Stay Secure",
     STUCK_FUNDS_DESCRIPTION:
-      "If your account is frozen due to a P2P.me transaction, our team will help unfreeze it — with 100% refund and legal support through our dedicated portal.",
+      "If your account is frozen due to a P2P.me transaction, our team will help unfreeze it, with 100% refund and legal support through our dedicated portal.",
     STUCK_FUNDS_QUICK_SUPPORT: "Stuck Funds = Quick Support!",
     SUBMITTING: "Submitting",
     SUBMITTING_PROOF: "Submitting proof",
@@ -2252,7 +2252,7 @@ export const en = {
     VEN_QR_DECODING: "Reading QR…",
     VEN_QR_DETECTED: "QR detected",
     VEN_QR_INVALID_QR: "This doesn't look like a valid Pago Móvil QR",
-    VEN_QR_READ_ERROR: "Couldn't read that QR — try another image",
+    VEN_QR_READ_ERROR: "Couldn't read that QR. Try another image",
     VEN_QR_UPLOAD: "Upload QR",
     VEN_QR_UPLOAD_HINT: "Tap to select the QR from your bank app",
     VEN_QR_UPLOAD_TITLE: "Upload your Pago Móvil QR",
@@ -2332,7 +2332,7 @@ export const en = {
     VIDEO_INCREASE_TRANSACTION_LIMIT_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_INSTAGRAM_VERIFICATION: "Instagram Verification",
     VIDEO_LINKEDIN_VERIFICATION: "LinkedIn Verification",
-    VIDEO_NETWORK_ISSUE_FIX_VPN: "Network Issues - How to Fix with VPN",
+    VIDEO_NETWORK_ISSUE_FIX_VPN: "Network Issues: How to Fix with VPN",
     VIDEO_NETWORK_ISSUE_FIX_VPN_LINK:
       "https://www.youtube.com/watch?v=network-fix",
     VIDEO_NETWORK_ISSUE_FIX_VPN_THUMBNAIL: "https://placehold.co/120x160",
@@ -2365,23 +2365,23 @@ export const en = {
     VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
     VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_BAD_CASES: "ZK Verification - Common Issues",
+    VIDEO_ZK_VERIFICATION_BAD_CASES: "ZK Verification: Common Issues",
     VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
       "https://www.youtube.com/watch?v=zk-issues",
     VIDEO_ZK_VERIFICATION_BAD_CASES_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_GITHUB: "ZK Verification - GitHub",
+    VIDEO_ZK_VERIFICATION_GITHUB: "ZK Verification: GitHub",
     VIDEO_ZK_VERIFICATION_GITHUB_LINK:
       "https://www.youtube.com/watch?v=zk-github",
     VIDEO_ZK_VERIFICATION_GITHUB_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_INSTAGRAM: "ZK Verification - Instagram",
+    VIDEO_ZK_VERIFICATION_INSTAGRAM: "ZK Verification: Instagram",
     VIDEO_ZK_VERIFICATION_INSTAGRAM_LINK:
       "https://www.youtube.com/watch?v=zk-instagram",
     VIDEO_ZK_VERIFICATION_INSTAGRAM_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_LINKEDIN: "ZK Verification - LinkedIn",
+    VIDEO_ZK_VERIFICATION_LINKEDIN: "ZK Verification: LinkedIn",
     VIDEO_ZK_VERIFICATION_LINKEDIN_LINK:
       "https://www.youtube.com/watch?v=zk-linkedin",
     VIDEO_ZK_VERIFICATION_LINKEDIN_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_TWITTER: "ZK Verification - Twitter",
+    VIDEO_ZK_VERIFICATION_TWITTER: "ZK Verification: Twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_LINK:
       "https://www.youtube.com/watch?v=zk-twitter",
     VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
