@@ -80,6 +80,7 @@ export const INTERNAL_HREFS = {
   NOT_FOUND: "/404",
   LOGIN: "/login",
   RECOVER: "/recover",
+  RECOVERY: "/recovery",
   NOTIFICATION: "/notification",
   PRIZE_DRAW: "/prize-draw",
 

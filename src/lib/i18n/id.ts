@@ -1826,6 +1826,79 @@ export const id = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Rekomendasi berhasil diklaim",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Pendapatan rekomendasi berhasil diklaim",
+    RECOVERY_ACCOUNT_ACTIVE: "Aktif",
+    RECOVERY_ACCOUNT_ERROR_DESCRIPTION:
+      "Kami tidak dapat menghubungi jaringan ini untuk mencari akun Anda. Periksa koneksi Anda dan coba lagi.",
+    RECOVERY_ACCOUNT_ERROR_TITLE: "Tidak dapat memuat akun Anda",
+    RECOVERY_ACCOUNT_NOT_ACTIVE: "Belum disiapkan",
+    RECOVERY_ACCOUNT_NOT_DEPLOYED_NOTE:
+      "Akun Anda belum disiapkan di {{network}}. Anda tidak perlu melakukan apa pun: transfer pertama Anda akan menyiapkannya secara otomatis.",
+    RECOVERY_ACCOUNT_TITLE: "Alamat P2P.me Anda di {{network}}",
+    RECOVERY_AMOUNT_AVAILABLE: "Jumlah (tersedia: {{amount}} {{symbol}})",
+    RECOVERY_COPY_ADDRESS: "Salin alamat",
+    RECOVERY_COPY_HASH: "Salin",
+    RECOVERY_DEPLOYING_ACCOUNT: "Menyiapkan...",
+    RECOVERY_DEPLOYING_FACTORY: "Mengaktifkan...",
+    RECOVERY_DEPLOY_ACCOUNT: "Siapkan sekarang (opsional)",
+    RECOVERY_DEPLOY_ACCOUNT_FAILED: "Tidak dapat menyiapkan akun",
+    RECOVERY_DEPLOY_ACCOUNT_PENDING:
+      "Penyiapan telah dikirim. Konfirmasi mungkin memerlukan beberapa menit.",
+    RECOVERY_DEPLOY_ACCOUNT_SUCCESS: "Akun telah disiapkan",
+    RECOVERY_DEPLOY_FACTORY: "Aktifkan di jaringan ini",
+    RECOVERY_DEPLOY_FACTORY_FAILED: "Tidak dapat mengaktifkan jaringan ini.",
+    RECOVERY_DEPLOY_FACTORY_SUCCESS: "Jaringan diaktifkan",
+    RECOVERY_ERROR_INSUFFICIENT: "Jumlah melebihi saldo Anda",
+    RECOVERY_ERROR_SAME_ADDRESS:
+      "Dana sudah berada di alamat ini. Masukkan alamat lain.",
+    RECOVERY_FACTORY_MISSING_DESCRIPTION:
+      "Akun P2P.me belum diaktifkan di {{network}}, jadi kami belum bisa menampilkan akun Anda. Mengaktifkannya mengirim satu transaksi dari dompet Anda dan mungkin memerlukan sedikit {{symbol}} untuk biaya jaringan.",
+    RECOVERY_FACTORY_MISSING_TITLE: "{{network}} perlu disiapkan satu kali",
+    RECOVERY_GAS_ADDRESS_LABEL: "Kirim {{symbol}} ({{network}}) ke",
+    RECOVERY_GAS_DESCRIPTION:
+      "Biaya jaringan untuk transaksi ini tidak dapat ditanggung. Kirim sedikit {{symbol}} di {{network}} ke alamat di bawah, tunggu sampai masuk, lalu coba lagi.",
+    RECOVERY_GAS_TITLE: "Tambahkan {{symbol}} untuk biaya jaringan",
+    RECOVERY_HASH_COPIED: "Disalin",
+    RECOVERY_HELP_CTA: "Pulihkan token",
+    RECOVERY_HELP_DESCRIPTION:
+      "Jika Anda mengirim USDC atau token lain ke alamat P2P.me Anda di jaringan selain Base, Anda dapat mengambilnya kembali sendiri.",
+    RECOVERY_HELP_TITLE: "Mengirim dana di jaringan yang salah?",
+    RECOVERY_INTRO:
+      "Mengirim token ke alamat P2P.me Anda di jaringan selain Base? Alamat Anda sama di semua jaringan EVM, jadi dana itu tetap milik Anda. Pilih jaringannya dan kirim dari sini.",
+    RECOVERY_IRREVERSIBLE_NOTE:
+      "Pastikan penerima dapat menerima {{symbol}} di {{network}}. Transfer tidak dapat dibatalkan.",
+    RECOVERY_NATIVE_FEE_HINT:
+      "Jika biaya jaringan tidak ditanggung, biaya dibayar dengan {{symbol}} dari akun ini, sehingga mengirim seluruh saldo bisa gagal. Sisakan sedikit.",
+    RECOVERY_NO_NETWORKS_FOUND: "Jaringan tidak ditemukan",
+    RECOVERY_PASTE_ADDRESS: "Tempel alamat",
+    RECOVERY_RECIPIENT_CUSTOM: "Alamat lain",
+    RECOVERY_RECIPIENT_LABEL: "Kirim ke",
+    RECOVERY_RECIPIENT_OWNER: "Dompet pemilik saya",
+    RECOVERY_RECIPIENT_OWNER_NOTE:
+      "Ini adalah kunci dompet yang mengendalikan akun P2P.me Anda. Token akan berada di alamat ini di {{network}} dan tidak akan muncul di saldo P2P.me Anda.",
+    RECOVERY_REFRESH: "Muat ulang",
+    RECOVERY_RESULT_CONFIRMED_DESCRIPTION:
+      "{{amount}} {{symbol}} telah dikirim ke {{recipient}}.",
+    RECOVERY_RESULT_CONFIRMED_TITLE: "Transfer dikonfirmasi",
+    RECOVERY_RESULT_PENDING_DESCRIPTION:
+      "Transfer {{amount}} {{symbol}} Anda ke {{recipient}} belum dikonfirmasi. Periksa saldo Anda di sini beberapa menit lagi sebelum mengirim ulang.",
+    RECOVERY_RESULT_PENDING_TITLE: "Transfer telah dikirim",
+    RECOVERY_SEARCH_NETWORK: "Cari jaringan",
+    RECOVERY_SENDING_NOTE:
+      "Proses ini bisa memakan waktu hingga satu menit. Biarkan layar ini tetap terbuka.",
+    RECOVERY_SEND_ANOTHER: "Kirim lagi",
+    RECOVERY_SEND_TOKEN: "Kirim {{symbol}}",
+    RECOVERY_TITLE: "Pulihkan token",
+    RECOVERY_TOKENS_EMPTY_DESCRIPTION:
+      "Kami tidak menemukan saldo di alamat Anda di sini. Jika Anda mengirim dana di jaringan lain, pilih jaringan itu di atas. Deposit yang baru saja dikirim mungkin perlu waktu untuk muncul.",
+    RECOVERY_TOKENS_EMPTY_TITLE:
+      "Tidak ada yang perlu dipulihkan di {{network}}",
+    RECOVERY_TOKENS_ERROR: "Tidak dapat memuat saldo Anda di {{network}}.",
+    RECOVERY_TOKENS_TITLE: "Token ditemukan",
+    RECOVERY_TRANSFER_FAILED: "Transfer gagal. Silakan coba lagi.",
+    RECOVERY_TRANSFER_REVERTED:
+      "Jaringan menolak transfer ini. Tidak ada yang terkirim.",
+    RECOVERY_USER_OP_HASH: "ID operasi",
+    RECOVERY_VIEW_ON_EXPLORER: "Lihat di explorer",
     RECOVER_CONNECT_FAILED:
       "Tidak dapat terhubung ke dompet dengan kunci tersebut. Periksa kunci pribadi dan coba lagi.",
     RECOVER_ENTER_PRIVATE_KEY: "Masukkan kunci pribadi dompet Anda",

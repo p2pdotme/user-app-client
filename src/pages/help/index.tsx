@@ -31,6 +31,7 @@ import {
   openSupportHumanChat,
 } from "@/lib/support-chat";
 import { FAQSearchSection } from "./components/faq-search-section";
+import { RecoveryCard } from "./components/recovery-card";
 import { SettingsItem } from "./components/settings-item";
 import { TaxReportCard } from "./components/tax-report-card";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -191,6 +192,12 @@ export function Help() {
             </div>
             <ArrowRight className="size-3 text-primary" />
           </button>
+          <RecoveryCard
+            onClick={() => {
+              track(EVENTS.HELP, { status: "opened", section: "recovery" });
+              navigate(INTERNAL_HREFS.RECOVERY);
+            }}
+          />
           {/* The tax report follows Indian tax law, so only INR users see it */}
           {currency.currency === CURRENCY.INR && (
             <TaxReportCard
