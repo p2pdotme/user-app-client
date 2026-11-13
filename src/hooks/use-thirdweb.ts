@@ -84,6 +84,34 @@ export function useThirdweb() {
     });
   }, [_openDetailsModal, theme]);
 
+  // Feed the localized "Don't share OTP" warning to the CSS rule that renders
+  // it inside thirdweb's connect modal (see `--tw-otp-warning` in index.css).
+  // Purely cosmetic: on any failure the variable is cleared, which hides the
+  // warning (the CSS has no fallback) without affecting login.
+  useEffect(() => {
+    const OTP_WARNING_VAR = "--tw-otp-warning";
+    const rootStyle = document.documentElement.style;
+    try {
+      const message = t("DONT_SHARE_OTP");
+      const isTranslated =
+        typeof message === "string" &&
+        message.trim() !== "" &&
+        message !== "DONT_SHARE_OTP";
+      if (isTranslated) {
+        rootStyle.setProperty(OTP_WARNING_VAR, JSON.stringify(message));
+      } else {
+        rootStyle.removeProperty(OTP_WARNING_VAR);
+      }
+    } catch (error) {
+      console.warn("Failed to set OTP warning text:", error);
+      try {
+        rootStyle.removeProperty(OTP_WARNING_VAR);
+      } catch {
+        // Nothing else to do — the warning simply won't render.
+      }
+    }
+  }, [t]);
+
   // Simple Sentry user identification
   useEffect(() => {
     if (account?.address && connectionStatus === "connected") {
