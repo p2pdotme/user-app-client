@@ -237,7 +237,7 @@ export function RequestProofCard({
               </div>
               <p className="text-muted-foreground text-xs">
                 {statusLabel ??
-                  t("PROOF_SHORT", "Payment receipt — only you can open it")}
+                  t("PROOF_SHORT", "Payment receipt: only you can open it")}
               </p>
             </div>
           </div>
@@ -272,7 +272,7 @@ export function RequestProofCard({
           <p className="rounded-lg bg-muted/40 p-2 text-muted-foreground text-xs leading-relaxed">
             {t(
               "PROOF_HELP",
-              "Ask the merchant (or a circle admin) to attach a screenshot or PDF of the payment. Only you and the people authorized on this order can open it — access is checked against your on-chain role every time.",
+              "Ask the merchant (or a circle admin) to attach a screenshot or PDF of the payment. Only you and the people authorized on this order can open it. Access is checked against your on-chain role every time.",
             )}
           </p>
         )}
@@ -367,7 +367,7 @@ export function OnchainProofCard({
               <p className="text-muted-foreground text-xs">
                 {t(
                   "PROOF_ONCHAIN_SHORT",
-                  "Settled on-chain — verify the USDC transfer",
+                  "Settled on-chain: verify the USDC transfer",
                 )}
               </p>
             </div>
@@ -388,7 +388,7 @@ export function OnchainProofCard({
             {t("PROOF_ONCHAIN_HELP", {
               explorer: explorerName,
               defaultValue:
-                "This order settled on-chain: the merchant sent USDC straight to your receiving address. Open the transaction on {{explorer}} to verify the transfer — no receipt needed.",
+                "This order settled on-chain: the merchant sent USDC straight to your receiving address. Open the transaction on {{explorer}} to verify the transfer. No receipt needed.",
             })}
           </p>
         )}

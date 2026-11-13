@@ -96,7 +96,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "general-13", // How do you prevent fraud?
       "general-14", // What happens if my account freezes? Will P2P.me help unfreeze it?
       "general-15", // How does P2P.me protect you from account freeze fraud?
-      "general-16", // I don't want to link my social accounts — is it safe?
+      "general-16", // I don't want to link my social accounts. Is it safe?
       "general-17", // Why are SELL USDC rates low sometimes?
       "general-18", // Will P2P take care of my taxes?
       "general-19", // Is P2P.me compliant with anti-money laundering (AML) laws?
@@ -152,7 +152,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "transactions-6", // When should I raise a dispute for a Sell order?
       "transactions-7", // How can I raise a dispute?
       "transactions-8", // What happens if I raise a false dispute?
-      "transactions-9", // The shopkeeper is asking to see the payment – what should I do?
+      "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
     ],
   },
   [SUPPORT_PAGE_TITLES.DEPOSITS_WITHDRAWALS]: {
@@ -216,7 +216,7 @@ export const FAQ_ON_PAGES = {
     faqIds: [
       "transactions-7", // How can I raise a dispute?
       "transactions-8", // What happens if I raise a false dispute?
-      "transactions-9", // The shopkeeper is asking to see the payment – what should I do?
+      "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
       "general-21", // What is the Bank Freeze Protection for Indian P2P.me users?
     ],
   },
@@ -240,20 +240,20 @@ export const FAQ_ON_PAGES = {
   PAY_PAGE: {
     faqIds: [
       "getting-started-4", // Can I Scan Any QR Code and Pay with USDC on P2P.me?
-      "transactions-9", // The shopkeeper is asking to see the payment – what should I do?
+      "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
       "general-12", // Can I use P2P.me for daily crypto spending?
     ],
   },
 
   SELL_COMPLETED_PAGE: {
     faqIds: [
-      "transactions-9", // The shopkeeper is asking to see the payment – what should I do?
+      "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
     ],
   },
 
   PAY_COMPLETED_PAGE: {
     faqIds: [
-      "transactions-9", // The shopkeeper is asking to see the payment – what should I do?
+      "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
     ],
   },
 };
