@@ -1,17 +1,10 @@
-import {
-  AlertTriangle,
-  ArrowLeftCircle,
-  Clipboard,
-  Eye,
-  EyeOff,
-  Loader2,
-} from "lucide-react";
+import { ArrowLeftCircle, Clipboard, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { formatUnits, isAddress } from "viem";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { SafetyNotice } from "@/components/safety-notice";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -92,12 +85,7 @@ export function RecoverWallet() {
         <div className="w-6" />
       </div>
 
-      <Alert variant="warning" className="w-full py-2">
-        <AlertTriangle className="size-4" />
-        <AlertDescription className="text-xs text-foreground">
-          {t("RECOVER_PRIVATE_KEY_WARNING")}
-        </AlertDescription>
-      </Alert>
+      <SafetyNotice variant="wallet" />
 
       {step === "input" ? (
         <section className="flex flex-col gap-4">
