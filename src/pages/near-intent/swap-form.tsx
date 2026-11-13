@@ -518,7 +518,7 @@ export function SwapForm({
     onSuccess: () => {
       setAmountText("");
       if (isWithdraw) {
-        toast.success("USDC sent — bridging in progress");
+        toast.success("USDC sent, bridging in progress");
       }
     },
     onError: (error) => toast.error(error.message),
