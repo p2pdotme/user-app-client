@@ -2,7 +2,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
-import { NonHomeHeader } from "@/components";
+import { NonHomeHeader, SafetyNotice } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   BASE_USDC_ASSET_ID,
@@ -128,20 +128,7 @@ export function OneClick() {
           />
         )}
 
-        {account && (
-          <p className="text-center text-muted-foreground text-sm">
-            <Trans i18nKey="BRIDGE_SWAP_HISTORY_PROMPT">
-              <a
-                href={getExplorerHistoryUrl(account.address)}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1 text-primary underline">
-                NEAR Intents explorer
-                <ExternalLinkIcon className="size-3.5" />
-              </a>
-            </Trans>
-          </p>
-        )}
+        {account && <SafetyNotice variant="wallet" />}
 
         {bridges.length > 0 && (
           <section className="flex flex-col gap-3 mt-6">
@@ -160,6 +147,21 @@ export function OneClick() {
         )}
 
         <BridgeTerms isWithdraw={mode !== "deposit"} />
+
+        {account && (
+          <p className="text-center text-muted-foreground text-sm">
+            <Trans i18nKey="BRIDGE_SWAP_HISTORY_PROMPT">
+              <a
+                href={getExplorerHistoryUrl(account.address)}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-primary underline">
+                NEAR Intents explorer
+                <ExternalLinkIcon className="size-3.5" />
+              </a>
+            </Trans>
+          </p>
+        )}
       </main>
     </>
   );

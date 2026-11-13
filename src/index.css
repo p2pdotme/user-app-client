@@ -388,3 +388,60 @@
 .launch_prove_modal > div > button > img {
   display: none;
 }
+
+/*
+ * Thirdweb connect modal: "Don't share OTP" warning.
+ * Fail-safe by design — any failure just hides the warning:
+ * - No fallback in `content`: if --tw-otp-warning isn't set (JS failed / missing
+ *   translation), `content` is invalid → no pseudo-element is generated at all.
+ * - `:is()` is a forgiving selector list: if `:has()` is unsupported only that
+ *   branch is dropped, the rest of the stylesheet is untouched.
+ * - If thirdweb renames these classes, nothing matches and nothing renders.
+ * - pointer-events: none so it can never block clicks in the modal.
+ * Text is set in use-thirdweb.ts.
+ */
+.tw-modal
+:is(
+  div:has(> :is(.tw-select-button__passkey, .tw-select-button__guest)),
+  .tw-otp-login-screen form
+)::before {
+  content: var(--tw-otp-warning);
+  display: block;
+  margin: 0 0 0.25rem;
+  padding: 0.625rem 0.75rem 0.625rem 2.25rem;
+  border-radius: 0.5rem;
+  background-color: color-mix(in oklch, var(--warning) 8%, transparent);
+  /* Shield-check icon (lucide), amber stroke */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 1rem 1rem;
+  background-position: 0.75rem 0.7rem;
+  color: var(--muted-foreground);
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-wrap: pretty;
+  pointer-events: none;
+}
+
+@keyframes tw-otp-warning-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tw-modal
+    :is(
+      div:has(> :is(.tw-select-button__passkey, .tw-select-button__guest)),
+      .tw-otp-login-screen form
+    )::before {
+    animation: tw-otp-warning-in 0.3s ease-out 0.3s both;
+  }
+}
