@@ -214,6 +214,11 @@ const Login = lazy(() =>
   import("@/pages/login").then((module) => ({ default: module.LoginPage })),
 );
 
+const Recovery = lazy(() =>
+  import("@/recovery").then((module) => ({
+    default: module.Recovery,
+  })),
+);
 const Recover = lazy(() =>
   import("@/pages/recover").then((module) => ({
     default: module.RecoverWallet,
@@ -303,6 +308,7 @@ export function Router() {
         <Route path={INTERNAL_HREFS.LOGIN} element={<Login />} />
 
         <Route path={INTERNAL_HREFS.RECOVER} element={<Recover />} />
+        <Route path={INTERNAL_HREFS.RECOVERY} element={<Recovery />} />
 
         <Route path={INTERNAL_HREFS.NOTIFICATION} element={<Notification />} />
 

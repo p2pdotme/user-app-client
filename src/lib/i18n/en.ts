@@ -1800,6 +1800,78 @@ export const en = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recommendation claimed successfully",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Recommendation revenue claimed successfully",
+    RECOVERY_ACCOUNT_ACTIVE: "Active",
+    RECOVERY_ACCOUNT_ERROR_DESCRIPTION:
+      "We couldn't reach this network to look up your account. Check your connection and try again.",
+    RECOVERY_ACCOUNT_ERROR_TITLE: "Couldn't load your account",
+    RECOVERY_ACCOUNT_NOT_ACTIVE: "Not set up yet",
+    RECOVERY_ACCOUNT_NOT_DEPLOYED_NOTE:
+      "Your account isn't set up on {{network}} yet. You don't need to do anything: your first transfer sets it up automatically.",
+    RECOVERY_ACCOUNT_TITLE: "Your P2P.me address on {{network}}",
+    RECOVERY_AMOUNT_AVAILABLE: "Amount (available: {{amount}} {{symbol}})",
+    RECOVERY_COPY_ADDRESS: "Copy address",
+    RECOVERY_COPY_HASH: "Copy",
+    RECOVERY_DEPLOYING_ACCOUNT: "Setting up...",
+    RECOVERY_DEPLOYING_FACTORY: "Enabling...",
+    RECOVERY_DEPLOY_ACCOUNT: "Set it up now (optional)",
+    RECOVERY_DEPLOY_ACCOUNT_FAILED: "Couldn't set up the account",
+    RECOVERY_DEPLOY_ACCOUNT_PENDING:
+      "Setup submitted. It may take a few minutes to confirm.",
+    RECOVERY_DEPLOY_ACCOUNT_SUCCESS: "Account set up",
+    RECOVERY_DEPLOY_FACTORY: "Enable on this network",
+    RECOVERY_DEPLOY_FACTORY_FAILED: "Couldn't enable this network.",
+    RECOVERY_DEPLOY_FACTORY_SUCCESS: "Network enabled",
+    RECOVERY_ERROR_INSUFFICIENT: "Amount is more than your balance",
+    RECOVERY_ERROR_SAME_ADDRESS:
+      "This is the address the funds are already at. Enter a different one.",
+    RECOVERY_FACTORY_MISSING_DESCRIPTION:
+      "P2P.me accounts haven't been enabled on {{network}} yet, so we can't show yours. Enabling them sends one transaction from your wallet and may need a little {{symbol}} for the network fee.",
+    RECOVERY_FACTORY_MISSING_TITLE: "{{network}} needs a one-time setup",
+    RECOVERY_GAS_ADDRESS_LABEL: "Send {{symbol}} ({{network}}) to",
+    RECOVERY_GAS_DESCRIPTION:
+      "The network fee for this transaction couldn't be covered. Send a small amount of {{symbol}} on {{network}} to the address below, wait for it to arrive, then try again.",
+    RECOVERY_GAS_TITLE: "Add {{symbol}} for the network fee",
+    RECOVERY_HASH_COPIED: "Copied",
+    RECOVERY_HELP_CTA: "Recover tokens",
+    RECOVERY_HELP_DESCRIPTION:
+      "If you sent USDC or other tokens to your P2P.me address on a network other than Base, you can get them back yourself.",
+    RECOVERY_HELP_TITLE: "Sent funds on the wrong network?",
+    RECOVERY_INTRO:
+      "Sent tokens to your P2P.me address on a network other than Base? Your address is the same on every EVM network, so the funds are still yours. Pick the network and send them out from here.",
+    RECOVERY_IRREVERSIBLE_NOTE:
+      "Make sure the recipient can receive {{symbol}} on {{network}}. Transfers can't be reversed.",
+    RECOVERY_NATIVE_FEE_HINT:
+      "If the network fee isn't covered for you, it is paid in {{symbol}} from this account, so sending your full balance may fail. Leave a little behind.",
+    RECOVERY_NO_NETWORKS_FOUND: "No networks found",
+    RECOVERY_PASTE_ADDRESS: "Paste address",
+    RECOVERY_RECIPIENT_CUSTOM: "Another address",
+    RECOVERY_RECIPIENT_LABEL: "Send to",
+    RECOVERY_RECIPIENT_OWNER: "My wallet owner",
+    RECOVERY_RECIPIENT_OWNER_NOTE:
+      "This is the wallet key that controls your P2P.me account. The tokens will sit at this address on {{network}} and won't appear in your P2P.me balance.",
+    RECOVERY_REFRESH: "Refresh",
+    RECOVERY_RESULT_CONFIRMED_DESCRIPTION:
+      "{{amount}} {{symbol}} sent to {{recipient}}.",
+    RECOVERY_RESULT_CONFIRMED_TITLE: "Transfer confirmed",
+    RECOVERY_RESULT_PENDING_DESCRIPTION:
+      "Your transfer of {{amount}} {{symbol}} to {{recipient}} hasn't been confirmed yet. Check your balance here in a few minutes before sending again.",
+    RECOVERY_RESULT_PENDING_TITLE: "Transfer submitted",
+    RECOVERY_SEARCH_NETWORK: "Search network",
+    RECOVERY_SENDING_NOTE:
+      "This can take up to a minute. Please keep this screen open.",
+    RECOVERY_SEND_ANOTHER: "Send another",
+    RECOVERY_SEND_TOKEN: "Send {{symbol}}",
+    RECOVERY_TITLE: "Recover tokens",
+    RECOVERY_TOKENS_EMPTY_DESCRIPTION:
+      "We didn't find a balance at your address here. If you sent funds on another network, select it above. A recent deposit can take a moment to show up.",
+    RECOVERY_TOKENS_EMPTY_TITLE: "Nothing to recover on {{network}}",
+    RECOVERY_TOKENS_ERROR: "Couldn't load your balances on {{network}}.",
+    RECOVERY_TOKENS_TITLE: "Tokens found",
+    RECOVERY_TRANSFER_FAILED: "Transfer failed. Please try again.",
+    RECOVERY_TRANSFER_REVERTED:
+      "The network rejected this transfer. Nothing was sent.",
+    RECOVERY_USER_OP_HASH: "Operation ID",
+    RECOVERY_VIEW_ON_EXPLORER: "View on explorer",
     RECOVER_CONNECT_FAILED:
       "Could not connect to a wallet with that key. Please check the private key and try again.",
     RECOVER_ENTER_PRIVATE_KEY: "Enter your wallet's private key",
