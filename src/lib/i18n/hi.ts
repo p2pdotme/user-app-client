@@ -56,7 +56,8 @@ export const hi = {
     AMOUNT_NOT_A_VALID_NUMBER: "राशि मान्य संख्या नहीं है",
     AMOUNT_STRING_EMPTY: "राशि खाली है",
     ANDROID: "एंड्रॉइड:",
-    ANDROID_DNS_INSTRUCTIONS: "सेटिंग्स → नेटवर्क → प्राइवेट DNS → प्राइवेट DNS चुनें",
+    ANDROID_DNS_INSTRUCTIONS:
+      "सेटिंग्स → नेटवर्क → प्राइवेट DNS → प्राइवेट DNS चुनें",
     AN_ADDRESS_WITH_THIS_LABEL_OR_ADDRESS_ALREADY_EXISTS:
       "इस लेबल या पते वाला पता पहले से मौजूद है",
     APPLY: "लागू करें",
@@ -89,6 +90,7 @@ export const hi = {
     BALANCE_FETCH_ERROR: "बैलेंस लाने में त्रुटि",
     BALANCE_LOADING: "बैलेंस लोड हो रहा है",
     BALANCE_NOT_LOADED: "बैलेंस लोड नहीं हुआ",
+    BANK: "बैंक",
     BANK_LABEL: "बैंक",
     BANK_NAME: "बैंक का नाम",
     BANK_NAME_LABEL: "बैंक का नाम",
@@ -203,7 +205,8 @@ export const hi = {
       "अपना BVN सत्यापित करने और अपनी सीमा बढ़ाने के लिए नीचे दिए गए चरण पूरे करें।",
     BVN_ENTER_PHONE_NUMBER: "फ़ोन नंबर दर्ज करें",
     BVN_INPUT_PLACEHOLDER: "अपना 11-अंकीय BVN दर्ज करें",
-    BVN_INVALID_SIGNATURE: "BVN सत्यापन हस्ताक्षर अमान्य है। कृपया फिर से कोशिश करें।",
+    BVN_INVALID_SIGNATURE:
+      "BVN सत्यापन हस्ताक्षर अमान्य है। कृपया फिर से कोशिश करें।",
     BVN_NULLIFIER_ALREADY_SPENT:
       "इस BVN का उपयोग पहले ही सत्यापन के लिए किया जा चुका है।",
     BVN_OTP_PLACEHOLDER: "OTP दर्ज करें",
@@ -223,7 +226,8 @@ export const hi = {
     CAMERA_INSTRUCTIONS_CHROME_IOS_NOTE:
       "अगर यह काम नहीं कर रहा, तो अनुमतियां रीसेट करने के लिए Chrome रीस्टार्ट करें या ऐप दोबारा इंस्टॉल करें",
     CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_1: "सेटिंग ऐप खोलें",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_2: "नीचे स्क्रॉल करें और Chrome पर टैप करें",
+    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_2:
+      "नीचे स्क्रॉल करें और Chrome पर टैप करें",
     CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_3: "कैमरा पर टैप करें",
     CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_4: "'अनुमति दें' चुनें",
     CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_5:
@@ -232,8 +236,10 @@ export const hi = {
     CAMERA_INSTRUCTIONS_CHROME_METHOD_1: "तरीका 1:",
     CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_1: "Chrome ऐप खोलें",
     CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_2: "अपनी वेबसाइट पर जाएं",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_3: "एड्रेस बार में लॉक आइकन पर टैप करें",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_4: "अनुमतियाँ या साइट सेटिंग पर टैप करें",
+    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_3:
+      "एड्रेस बार में लॉक आइकन पर टैप करें",
+    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_4:
+      "अनुमतियाँ या साइट सेटिंग पर टैप करें",
     CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_5:
       "कैमरा पर टैप करें, और 'अनुमति दें' चुनें",
     CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_6: "वेबसाइट को रीलोड करें",
@@ -245,7 +251,8 @@ export const hi = {
       "'ऐप का उपयोग करते समय अनुमति दें' चुनें",
     CAMERA_INSTRUCTIONS_CHROME_TITLE: "Chrome",
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_1: "अपनी साइट पर जाएं",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_2: "लॉक आइकन या मेनू (⋮) पर टैप करें",
+    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_2:
+      "लॉक आइकन या मेनू (⋮) पर टैप करें",
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_3: "अनुमतियाँ या साइट सेटिंग चुनें",
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_4: "कैमरा चालू करें",
     CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_5: "पेज को रीफ्रेश करें",
@@ -253,11 +260,14 @@ export const hi = {
     CAMERA_INSTRUCTIONS_SAFARI_NOTE:
       "यह भी देखें: सेटिंग → गोपनीयता और सुरक्षा → कैमरा, और पक्का करें कि Safari चालू है",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_1: "सेटिंग ऐप खोलें",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_2: "नीचे स्क्रॉल करें और Safari पर टैप करें",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_3: "'वेबसाइटों के लिए सेटिंग' पर स्क्रॉल करें",
+    CAMERA_INSTRUCTIONS_SAFARI_STEP_2:
+      "नीचे स्क्रॉल करें और Safari पर टैप करें",
+    CAMERA_INSTRUCTIONS_SAFARI_STEP_3:
+      "'वेबसाइटों के लिए सेटिंग' पर स्क्रॉल करें",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_4: "कैमरा पर टैप करें",
     CAMERA_INSTRUCTIONS_SAFARI_STEP_5: "'अनुमति दें' या 'पूछें' चुनें",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_6: "Safari को फिर से खोलें और पेज को रीलोड करें",
+    CAMERA_INSTRUCTIONS_SAFARI_STEP_6:
+      "Safari को फिर से खोलें और पेज को रीलोड करें",
     CAMERA_INSTRUCTIONS_SAFARI_TITLE: "Safari",
     CAMERA_NOT_FOUND: "कैमरा नहीं मिला",
     CAMERA_NOT_FOUND_DESCRIPTION: "इस डिवाइस पर कैमरा नहीं मिल सका",
@@ -269,9 +279,11 @@ export const hi = {
       "कृपया QR कोड स्कैन करने के लिए कैमरा एक्सेस की अनुमति दें",
     CAMERA_UNKNOWN_ERROR: "कैमरा एक्सेस करते समय एक अज्ञात त्रुटि हुई",
     CAMPAIGN_NOT_ACTIVE: "कैंपेन एक्टिव नहीं है",
-    CAMPAIGN_PARAMS_DESCRIPTION: "लॉगिन के बाद आपको कैंपेन पेज पर ले जाया जाएगा",
+    CAMPAIGN_PARAMS_DESCRIPTION:
+      "लॉगिन के बाद आपको कैंपेन पेज पर ले जाया जाएगा",
     CAMPAIGN_PARAMS_DETECTED: "कैंपेन लिंक मिला",
-    CAMPAIGN_REWARD_CLAIMED_SUCCESSFULLY: "कैंपेन रिवॉर्ड सफलतापूर्वक क्लेम हो गया",
+    CAMPAIGN_REWARD_CLAIMED_SUCCESSFULLY:
+      "कैंपेन रिवॉर्ड सफलतापूर्वक क्लेम हो गया",
     CAMPAIGN_USDC_CLAIMED_SUCCESSFULLY: "कैंपेन USDC सफलतापूर्वक क्लेम हो गया",
     CANCEL: "रद्द करें",
     CANCELLED: "रद्द",
@@ -280,7 +292,8 @@ export const hi = {
     CANCEL_VERIFICATION: "सत्यापन रद्द करें",
     CANNOT_CLAIM_REVENUE_FOR_CURRENT_MONTH:
       "इस महीने का रेवेन्यू अभी क्लेम नहीं किया जा सकता",
-    CANNOT_PLACE_BUY_ORDERS_WITH_0_RP: "0 RP होने पर खरीद ऑर्डर नहीं दिया जा सकता",
+    CANNOT_PLACE_BUY_ORDERS_WITH_0_RP:
+      "0 RP होने पर खरीद ऑर्डर नहीं दिया जा सकता",
     CANNOT_RAISE_DISPUTE_TWICE: "विवाद दो बार नहीं उठाया जा सकता",
     CANNOT_VOTE_SELF: "आप खुद को वोट नहीं दे सकते",
     CANNOT_VOTE_YOURSELF: "आप खुद को वोट नहीं दे सकते",
@@ -324,13 +337,15 @@ export const hi = {
     COINSME_BANNER_BUY_GOLD_STOCKS: "सोना और स्टॉक्स खरीदें।",
     COINSME_BANNER_SAME_WALLET: "वही वॉलेट",
     COINSME_DRAWER_CTA: "coins.me एक्सप्लोर करें",
-    COINSME_DRAWER_FEATURE_FLOW: "खरीदने, बेचने और पेमेंट करने का वही आसान तरीका",
+    COINSME_DRAWER_FEATURE_FLOW:
+      "खरीदने, बेचने और पेमेंट करने का वही आसान तरीका",
     COINSME_DRAWER_FEATURE_SIP: "BTC और अन्य में SIP करें",
     COINSME_DRAWER_FEATURE_STOCKS: "US स्टॉक्स, ETFs और सोना खरीदें-बेचें",
     COINSME_DRAWER_FEATURE_TRACK: "हज़ारों क्रिप्टो ट्रैक करें",
     COINSME_DRAWER_FEATURE_USERNAME: "सिर्फ यूज़रनेम से फंड भेजें",
     COINSME_DRAWER_FEATURE_WALLET: "p2p.me वाला ही वॉलेट और लॉगिन",
-    COINSME_DRAWER_SUBTITLE: "अपने p2p.me अकाउंट से साइन इन करें, सब पहले से तैयार है।",
+    COINSME_DRAWER_SUBTITLE:
+      "अपने p2p.me अकाउंट से साइन इन करें, सब पहले से तैयार है।",
     COINSME_DRAWER_TITLE: "coins.me के साथ करें और भी बहुत कुछ",
     COMPLETED: "पूरा हुआ",
     COMPLETED_AT: "पूरा होने का समय",
@@ -338,7 +353,8 @@ export const hi = {
     COMPLETED_IN_HOURS: "{{hours}} घंटे में पूरा हुआ",
     COMPLETED_IN_HOURS_MINUTES: "{{hours}} घंटे {{minutes}} मिनट में पूरा हुआ",
     COMPLETED_IN_MINUTES: "{{minutes}} मिनट में पूरा हुआ",
-    COMPLETED_IN_MINUTES_SECONDS: "{{minutes}} मिनट {{seconds}} सेकंड में पूरा हुआ",
+    COMPLETED_IN_MINUTES_SECONDS:
+      "{{minutes}} मिनट {{seconds}} सेकंड में पूरा हुआ",
     COMPLETED_IN_SECONDS: "{{seconds}} सेकंड में पूरा हुआ",
     COMPLETED_TRANSACTIONS: "पूरे हुए ट्रांजैक्शन",
     COMPLETE_YOU_PAYMENT_AND_CONFIRM: "अपना भुगतान पूरा करें और पुष्टि करें",
@@ -349,7 +365,8 @@ export const hi = {
     CONFIRM_PAYMENT_DETAILS: "भुगतान विवरण की पुष्टि करें",
     CONFIRM_PURCHASE_OF_USDC_WITH_CURRENCY:
       "{{currency}} से USDC खरीदने की पुष्टि करें",
-    CONFIRM_SALE_OF_USDC_WITH_CURRENCY: "{{currency}} में USDC बेचने की पुष्टि करें",
+    CONFIRM_SALE_OF_USDC_WITH_CURRENCY:
+      "{{currency}} में USDC बेचने की पुष्टि करें",
     CONFIRM_SALE_OF_USDC_WITH_INR: "INR में USDC बेचने की पुष्टि करें",
     CONNECT: "कनेक्ट करें",
     CONNECTED_REDIRECTING: "कनेक्ट हो गया! आगे ले जा रहे हैं...",
@@ -459,24 +476,36 @@ export const hi = {
     DISCONNECT: "डिसकनेक्ट करें",
     DISPUTED: "विवादित",
     DISPUTE_ALREADY_SETTLED: "विवाद पहले ही निपटाया जा चुका है",
-    BANK: "बैंक",
     DISPUTE_APPEAL_NOT_DUE: "समीक्षा की समय-सीमा अभी समाप्त नहीं हुई है",
-    DISPUTE_APPEAL_WINDOW_CLOSED: "इस निर्णय को चुनौती देने का समय खत्म हो गया है",
+    DISPUTE_APPEAL_WINDOW_CLOSED:
+      "इस निर्णय को चुनौती देने का समय खत्म हो गया है",
     DISPUTE_APPEAL_WINDOW_OPEN:
       "चुनौती देने का समय अभी बाकी है, इसलिए निर्णय अभी फ़ाइनल नहीं किया जा सकता",
     DISPUTE_AT_FINAL_TIER: "विवाद पहले से ही अंतिम समीक्षा स्तर पर है",
+    DISPUTE_AVAILABLE_IN_TIME:
+      "{{time}} में विवाद दर्ज कर सकेंगे (कम से कम 30 मिनट इंतज़ार)",
+    DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
+      "ऑर्डर देने के 24 घंटे बाद ही विवाद उठाया जा सकता है",
+    DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
+      "ऑर्डर देने के 30 मिनट बाद ही विवाद उठाया जा सकता है",
     DISPUTE_CARD_TITLE: "विवाद",
     DISPUTE_CHALLENGE_DECISION: "निर्णय को चुनौती दें",
     DISPUTE_CHALLENGE_DESCRIPTION:
       "चुनौती देने पर मौजूदा निर्णय रद्द हो जाता है और विवाद नई समीक्षा के लिए {{tier}} को भेज दिया जाता है। इसे वापस नहीं लिया जा सकता।",
     DISPUTE_CHALLENGE_FAILED: "विवाद एस्केलेट नहीं हो सका",
     DISPUTE_CHALLENGE_SUCCESS: "विवाद {{tier}} पर एस्केलेट किया गया",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
+      "आप हमारी सपोर्ट टीम से चैट करके ज़रूरी जानकारी, जैसे पेमेंट का प्रूफ़, शेयर कर सकते हैं।",
+    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
+      "आप हमारी सपोर्ट टीम से चैट करके ज़रूरी जानकारी, जैसे पेमेंट रेफ़रेंस, शेयर कर सकते हैं।",
+    DISPUTE_DEFAULT: "डिफ़ॉल्ट",
     DISPUTE_ESCALATE: "विवाद एस्केलेट करें",
     DISPUTE_ESCALATE_DESCRIPTION:
       "मौजूदा समीक्षक ने तय समय में निर्णय नहीं लिया। एस्केलेट करने पर विवाद {{tier}} के पास चला जाएगा।",
     DISPUTE_FAULT_BANK: "बैंक का दोष",
     DISPUTE_FAULT_MERCHANT: "मर्चेंट का दोष",
     DISPUTE_FAULT_USER: "उपयोगकर्ता का दोष",
+    DISPUTE_FILTER: "विवाद: {{disputes}}",
     DISPUTE_FINALIZE: "निर्णय फ़ाइनल करें",
     DISPUTE_FINALIZE_DESCRIPTION:
       "चुनौती देने का समय खत्म हो गया है। फ़ाइनल करने पर दर्ज निर्णय ऑन-चेन लागू हो जाएगा।",
@@ -486,7 +515,16 @@ export const hi = {
       "इस निर्णय को रद्द करता है और विवाद को नई समीक्षा के लिए {{tier}} को भेजता है।",
     DISPUTE_HINT_ESCALATE: "विवाद को {{tier}} पर ले जाता है।",
     DISPUTE_HINT_FINALIZE: "दर्ज निर्णय को ऑन-चेन लागू करता है।",
+    DISPUTE_NOT_RAISED: "विवाद नहीं उठाया गया",
     DISPUTE_OPEN: "खुला",
+    DISPUTE_RAISED: "उठाया गया",
+    DISPUTE_RAISED_CHAT_DESCRIPTION:
+      "हमारी सपोर्ट टीम से बात करें। वे समीक्षा करके यहीं जवाब देंगे।",
+    DISPUTE_RAISED_CHAT_TITLE: "विवाद दर्ज",
+    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
+      "सपोर्ट के साथ अपनी बातचीत देखें। यह बातचीत सिर्फ़ पढ़ने के लिए है।",
+    DISPUTE_RESOLVED_CHAT_TITLE: "विवाद सुलझ गया",
+    DISPUTE_SETTLED: "निपटारा हो गया",
     DISPUTE_STAGE_CHALLENGED: "आपने इस निर्णय को चुनौती दी",
     DISPUTE_STAGE_CHALLENGE_WINDOW: "{{date}} तक चुनौती दी जा सकती है",
     DISPUTE_STAGE_DECIDED: "निर्णय: {{fault}} का दोष",
@@ -494,6 +532,11 @@ export const hi = {
     DISPUTE_STAGE_RAISED: "विवाद उठाया गया",
     DISPUTE_STAGE_SETTLED: "निपटारा हो गया",
     DISPUTE_STAGE_SLA_MISSED: "समय पर निर्णय नहीं हुआ, एस्केलेट किया गया",
+    DISPUTE_STATUS: "विवाद की स्थिति",
+    DISPUTE_SUBMISSION_FAILED: "विवाद सबमिट नहीं हो सका",
+    DISPUTE_SUBMITTED_DESCRIPTION:
+      "हम आपके विवाद की समीक्षा करेंगे और जल्द ही आपसे संपर्क करेंगे",
+    DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",
     DISPUTE_SUMMARY_AGAINST:
       "{{tier}} ने आपके खिलाफ़ निर्णय दिया ({{fault}} का दोष)। आप {{date}} तक इसे चुनौती दे सकते हैं। कुछ न करने पर निर्णय अपने आप लागू हो जाएगा।",
     DISPUTE_SUMMARY_AWAITING:
@@ -511,42 +554,14 @@ export const hi = {
     DISPUTE_TIER_1: "सर्कल समीक्षा",
     DISPUTE_TIER_2: "कंट्री एडमिन समीक्षा",
     DISPUTE_TIER_3: "अंतिम समीक्षा",
-    NOT_DISPUTE_USER: "केवल ऑर्डर का उपयोगकर्ता ही इस विवाद को चुनौती दे सकता है",
-    NO_DISPUTE_DECISION: "फ़ाइनल करने के लिए कोई निर्णय नहीं है",
-    USER: "उपयोगकर्ता",
-    DISPUTE_AVAILABLE_IN_TIME:
-      "{{time}} में विवाद दर्ज कर सकेंगे (कम से कम 30 मिनट इंतज़ार)",
-    DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
-      "ऑर्डर देने के 24 घंटे बाद ही विवाद उठाया जा सकता है",
-    DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
-      "ऑर्डर देने के 30 मिनट बाद ही विवाद उठाया जा सकता है",
-    DISPUTE_CHAT_SHARE_DETAILS_NOTE_BUY:
-      "आप हमारी सपोर्ट टीम से चैट करके ज़रूरी जानकारी, जैसे पेमेंट का प्रूफ़, शेयर कर सकते हैं।",
-    DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
-      "आप हमारी सपोर्ट टीम से चैट करके ज़रूरी जानकारी, जैसे पेमेंट रेफ़रेंस, शेयर कर सकते हैं।",
-    DISPUTE_DEFAULT: "डिफ़ॉल्ट",
-    DISPUTE_FILTER: "विवाद: {{disputes}}",
-    DISPUTE_NOT_RAISED: "विवाद नहीं उठाया गया",
-    DISPUTE_RAISED: "उठाया गया",
-    DISPUTE_RAISED_CHAT_DESCRIPTION:
-      "हमारी सपोर्ट टीम से बात करें। वे समीक्षा करके यहीं जवाब देंगे।",
-    DISPUTE_RAISED_CHAT_TITLE: "विवाद दर्ज",
-    DISPUTE_RESOLVED_CHAT_DESCRIPTION:
-      "सपोर्ट के साथ अपनी बातचीत देखें। यह बातचीत सिर्फ़ पढ़ने के लिए है।",
-    DISPUTE_RESOLVED_CHAT_TITLE: "विवाद सुलझ गया",
-    DISPUTE_SETTLED: "निपटारा हो गया",
-    DISPUTE_STATUS: "विवाद की स्थिति",
-    DISPUTE_SUBMISSION_FAILED: "विवाद सबमिट नहीं हो सका",
-    DISPUTE_SUBMITTED_DESCRIPTION:
-      "हम आपके विवाद की समीक्षा करेंगे और जल्द ही आपसे संपर्क करेंगे",
-    DISPUTE_SUBMITTED_SUCCESSFULLY: "विवाद सफलतापूर्वक सबमिट किया गया",
     DISPUTE_WARNING_FALSE_DISPUTES:
       "झूठा विवाद दर्ज करने पर आपके खाते पर कार्रवाई हो सकती है।",
     DISPUTE_WARNING_PAYMENT_BUY:
       "विवाद तभी उठाएं जब आपने पेमेंट कर दिया हो लेकिन आपको USDC नहीं मिले हों।",
     DISPUTE_WARNING_PAYMENT_SELL_PAY:
       "विवाद तभी उठाएं जब मर्चेंट ने आपको पेमेंट न किया हो।",
-    DISPUTE_WARNING_REVIEW: "हमारी टीम समीक्षा करेगी और आपसे जल्दी ही संपर्क करेगी।",
+    DISPUTE_WARNING_REVIEW:
+      "हमारी टीम समीक्षा करेगी और आपसे जल्दी ही संपर्क करेगी।",
     DISPUTE_WINDOW_CLOSES_IN_TIME:
       "{{time}} में विवाद दर्ज करने का समय खत्म हो जाएगा",
     DISPUTE_WINDOW_EXPIRED: "विवाद दर्ज करने का समय खत्म हो गया है ({{time}})",
@@ -555,7 +570,8 @@ export const hi = {
     DONT_MISS_THE_TIMING: "टाइमिंग न चूकें",
     DONT_SHARE_OTP:
       "अपना OTP कभी किसी के साथ साझा न करें, हमारे साथ भी नहीं। हम इसे कभी नहीं मांगेंगे।",
-    DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS: "अपना रिसीविंग पता एक बार फिर चेक कर लें",
+    DOUBLE_CHECK_YOUR_RECEIVING_ADDRESS:
+      "अपना रिसीविंग पता एक बार फिर चेक कर लें",
     DOWNLOAD_CONFIRMATION_DESCRIPTION:
       "अपने रिकॉर्ड के लिए लेन-देन अपने डिवाइस पर डाउनलोड करें",
     DOWNLOAD_CONFIRMATION_TITLE: "लेनदेन डाउनलोड करें",
@@ -563,7 +579,8 @@ export const hi = {
     DUPLICATE_PAYMENT_CHANNEL: "डुप्लिकेट भुगतान चैनल",
     DYNAMIC_QR_EXPIRES_QUICKLY: "डायनामिक QR जल्दी एक्सपायर हो जाता है",
     EARN_REFERRAL_BONUS: "उनके वॉल्यूम का {{referralRewardPercentage}}% कमाएं",
-    ECOSYSTEM_CARD_SUBTITLE: "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
+    ECOSYSTEM_CARD_SUBTITLE:
+      "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
     ECOSYSTEM_CARD_TITLE: "P2P ऐप स्टोर एक्सप्लोर करें",
     ECU_BANK_DETAILS: "बैंक विवरण",
     EDIT_PAYMENT_ADDRESS: "भुगतान पता एडिट करें",
@@ -575,8 +592,10 @@ export const hi = {
     ENABLE_CAMERA_TO_SCAN: "स्कैन करने के लिए कैमरा चालू करें",
     ENCRYPTION_FAILED: "एन्क्रिप्शन विफल हुआ",
     ENTER_AMOUNT: "राशि दर्ज करें",
-    ENTER_LAST_4_DIGITS_INSTRUCTION: "अपने भुगतान लेन-देन आईडी के अंतिम 4 अंक दर्ज करें",
-    ENTER_LAST_4_DIGITS_OF_TRANSACTION_ID: "लेन-देन आईडी के अंतिम 4 अंक दर्ज करें",
+    ENTER_LAST_4_DIGITS_INSTRUCTION:
+      "अपने भुगतान लेन-देन आईडी के अंतिम 4 अंक दर्ज करें",
+    ENTER_LAST_4_DIGITS_OF_TRANSACTION_ID:
+      "लेन-देन आईडी के अंतिम 4 अंक दर्ज करें",
     ENTER_PAYMENT_ADDRESS_LABEL: "भुगतान पते का लेबल दर्ज करें",
     ENTER_PAYMENT_DETAILS: "{{paymentAddressName}} विवरण दर्ज करें",
     ENTER_RECIPIENT_ADDRESS: "प्राप्तकर्ता का पता दर्ज करें",
@@ -609,7 +628,8 @@ export const hi = {
     FAILED_TO_CLAIM_CAMPAIGN_REWARD: "कैंपेन रिवॉर्ड क्लेम नहीं हो सका",
     FAILED_TO_CLAIM_CAMPAIGN_USDC: "कैंपेन USDC क्लेम नहीं हो सका",
     FAILED_TO_CLAIM_RECOMMENDATION: "सिफ़ारिश क्लेम नहीं हो सकी",
-    FAILED_TO_CLAIM_RECOMMENDATION_REVENUE: "सिफ़ारिश रेवेन्यू क्लेम नहीं हो सका",
+    FAILED_TO_CLAIM_RECOMMENDATION_REVENUE:
+      "सिफ़ारिश रेवेन्यू क्लेम नहीं हो सका",
     FAILED_TO_COPY: "कॉपी करने में विफल",
     FAILED_TO_COPY_PAYMENT_ADDRESS: "{{paymentAddressName}} कॉपी करने में विफल",
     FAILED_TO_CREATE_RELAY_IDENTITY: "रिले पहचान बनाने में विफल",
@@ -622,13 +642,15 @@ export const hi = {
     FAILED_TO_GENERATE_REFERRAL_LINK: "रेफरल लिंक जेनरेट करने में विफल",
     FAILED_TO_GENERATE_REFERRAL_LINK_LOG: "रेफरल लिंक बनाने में विफल (लॉग)",
     FAILED_TO_GET_QUOTE: "कोट प्राप्त करने में विफल",
-    FAILED_TO_LOAD_ADDRESS_BOOK_FROM_STORAGE: "स्टोरेज से एड्रेस बुक लोड करने में विफल",
+    FAILED_TO_LOAD_ADDRESS_BOOK_FROM_STORAGE:
+      "स्टोरेज से एड्रेस बुक लोड करने में विफल",
     FAILED_TO_LOAD_BALANCES: "बैलेंस लोड करने में विफल",
     FAILED_TO_LOAD_TIMER: "टाइमर लोड करने में विफल",
     FAILED_TO_MARK_AS_PAID: "भुगतान किया हुआ मार्क नहीं हो सका",
     FAILED_TO_PLACE_ORDER: "ऑर्डर देने में विफल",
     FAILED_TO_READ_CLIPBOARD: "क्लिपबोर्ड से पढ़ने में विफल",
-    FAILED_TO_SAVE_ADDRESS_BOOK_TO_STORAGE: "एड्रेस बुक को स्टोरेज में सेव करने में विफल",
+    FAILED_TO_SAVE_ADDRESS_BOOK_TO_STORAGE:
+      "एड्रेस बुक को स्टोरेज में सेव करने में विफल",
     FAILED_TO_SEND_PAYMENT_DETAILS: "भुगतान विवरण भेजने में विफल",
     FAILED_TO_SHARE_RECEIPT: "रसीद साझा करने में विफल",
     FAILED_TO_SWITCH_NETWORK: "नेटवर्क स्विच करने में विफल",
@@ -654,14 +676,16 @@ export const hi = {
       "क्या मैं अपने लेन-देन इतिहास को डाउनलोड कर सकता हूँ?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
       "हाँ! आप लेन-देन सेक्शन से सीधे अपने पूरे हो चुके ऑर्डर की हिस्ट्री डाउनलोड कर सकते हैं।",
-    FAQ_CAN_I_LOSE_INCREASED_LIMITS: "क्या मैं अपनी बढ़ी हुई सीमाएँ खो सकता हूँ?",
+    FAQ_CAN_I_LOSE_INCREASED_LIMITS:
+      "क्या मैं अपनी बढ़ी हुई सीमाएँ खो सकता हूँ?",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS_ANSWER:
       "हाँ। इन स्थितियों में सीमाएँ कम की जा सकती हैं या हटाई जा सकती हैं:\n• अगर आप धोखाधड़ी वाली गतिविधि में शामिल हैं\n• अगर आप ऐसे उपयोगकर्ताओं को रेफ़र करते हैं जिन्हें गलत इस्तेमाल के लिए फ़्लैग किया गया है",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING:
       "क्या मैं दैनिक क्रिप्टो खर्च के लिए P2P.me का उपयोग कर सकता हूं?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
       "हाँ! P2P.me से रोज़ के पेमेंट तेज़ और आसान हैं। बस QR कोड स्कैन करें, USDC में पेमेंट करें, और कुछ ही सेकंड में राशि लोकल करेंसी में सेटल हो जाती है।",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "क्या मैं USDC को अन्य नेटवर्क पर निकाल सकता हूँ?",
+    FAQ_CAN_WITHDRAW_OTHER_NETWORKS:
+      "क्या मैं USDC को अन्य नेटवर्क पर निकाल सकता हूँ?",
     FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
       "हाँ, क्रॉस-चेन निकासी फ़ीचर इस्तेमाल करें और:\n• सही डेस्टिनेशन चेन चुनें\n• कन्फ़र्म करने से पहले अपना वॉलेट पता दोबारा जाँच लें",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
@@ -675,13 +699,15 @@ export const hi = {
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
       "1. ऑर्डर रसीद पेज खोलें।\n2. ऊपर-दाईं ओर मदद (?) आइकन पर टैप करें।\n3. 'विवाद उठाएँ' चुनें और निर्देशों का पालन करें।",
     FAQ_HOW_CHECK_CURRENT_LIMITS: "मैं अपनी वर्तमान सीमाएँ कैसे देख सकता हूँ?",
-    FAQ_HOW_DEPOSIT_USDC_WALLET: "मैं अपने P2P.me वॉलेट में USDC कैसे जमा कर सकता हूँ?",
+    FAQ_HOW_DEPOSIT_USDC_WALLET:
+      "मैं अपने P2P.me वॉलेट में USDC कैसे जमा कर सकता हूँ?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
       "आप दो तरीकों से USDC जमा कर सकते हैं:\n• Base नेटवर्क पर अपने वॉलेट पते पर सीधा जमा\n• Near Intents का उपयोग करके क्रॉस-चेन जमा (यदि आप अन्य नेटवर्क से भेज रहे हैं)\n\nध्यान दें: केवल Base नेटवर्क पर USDC जमा करें। ETH या अन्य टोकन न भेजें - आपके फंड खो सकते हैं।",
     FAQ_HOW_DO_I_START_EARNING: "मैं कैसे कमाना शुरू करूँ?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "कमाना शुरू करने के लिए:\n1. ऐप में 'रेफर करें और कमाएं' सेक्शन पर जाएँ।\n2. अपना रेफ़रल लिंक जेनरेट करें।\n3. इसे भरोसेमंद दोस्तों के साथ शेयर करें।\n4. ध्यान रखें कि वे आपके लिंक से ही साइनअप और ट्रेड करें।\n\nनोट: हर रेफ़रल लिंक सिर्फ़ एक दोस्त इस्तेमाल कर सकता है।",
-    FAQ_HOW_MANY_USERS_CAN_I_REFER: "मैं कितने उपयोगकर्ताओं को रेफर कर सकता हूँ?",
+    FAQ_HOW_MANY_USERS_CAN_I_REFER:
+      "मैं कितने उपयोगकर्ताओं को रेफर कर सकता हूँ?",
     FAQ_HOW_MANY_USERS_CAN_I_REFER_ANSWER:
       "आप हर महीने ज़्यादा से ज़्यादा 4 उपयोगकर्ताओं को रेफ़र कर सकते हैं।",
     FAQ_HOW_MERCHANTS_SELECTED: "P2P.me पर मर्चेंट का चयन कैसे किया जाता है?",
@@ -701,13 +727,16 @@ export const hi = {
       "यदि मैंने गलत टोकन भेजा या गलत नेटवर्क का उपयोग किया तो मैं अपने फंड्स कैसे रिकवर करूँ?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
       "अगर आपने गलती से ऐसा टोकन भेज दिया जो सपोर्टेड नहीं है या किसी दूसरे नेटवर्क का इस्तेमाल किया है, तो भी आपका फंड रिकवर हो सकता है, बशर्ते वह आपके सही वॉलेट पते पर भेजा गया हो।\n\nआप Relay.link या Jumper.Exchange जैसे क्रॉस-चेन ब्रिज का उपयोग करके उन टोकनों को Base नेटवर्क पर USDC में बदल सकते हैं, जिसे P2P.me पर सपोर्ट किया जाता है।\n\nऐसे करें:\n1. डेस्कटॉप व्यू में Relay.link खोलें।\n2. WalletConnect का उपयोग करके अपना वॉलेट कनेक्ट करें।\n3. ब्रिज साइट पर WalletConnect चुनें और कनेक्शन URI कॉपी करें।\n4. P2P.me ऐप के होमस्क्रीन में Wallet → Manage Wallets → Connect an App पर जाएँ, URI पेस्ट करें, और Relay.link से कनेक्ट करने के लिए कन्फर्म करें।\n5. वापस Relay Bridge पर जाएँ और 'From/Buy' सेक्शन में वह टोकन और नेटवर्क चुनें जिसे आपने गलती से इस्तेमाल किया था, और 'To/Sell' सेक्शन में Base पर USDC चुनें।\n6. Swap बटन पर क्लिक करें और ट्रांज़ैक्शन पूरा होने तक इंतज़ार करें।\n7. P2P.me ऐप पर लौटें और अपना वॉलेट रिफ्रेश करें, आपका USDC दिखने लगेगा।\n\nमदद चाहिए? P2P.me Telegram सपोर्ट चैनल से संपर्क करें।\n\nध्यान रखें: डेस्टिनेशन के तौर पर Base पर USDC ही चुनें।",
-    FAQ_HOW_SECURE_TRANSACTIONS: "P2P.me सुरक्षित लेन-देन कैसे सुनिश्चित करता है?",
+    FAQ_HOW_SECURE_TRANSACTIONS:
+      "P2P.me सुरक्षित लेन-देन कैसे सुनिश्चित करता है?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
       "प्रोटोकॉल उपयोगकर्ताओं का पैसा अपने पास नहीं रखता। सभी लेन-देन सीधे खरीदार और मर्चेंट के बीच P2P होते हैं। सुरक्षा के लिए, ट्रेड स्वीकार करने की अनुमति मिलने से पहले मर्चेंट का ZK-आधारित सत्यापन होता है और उनकी बैंकिंग गतिविधि की समीक्षा की जाती है। इससे धोखाधड़ी या खाता फ्रीज़ होने का जोखिम कम होता है।",
-    FAQ_HOW_TO_BUY_USDC_FIAT: "P2P.me पर फ़िएट या लोकल करेंसी से USDC कैसे खरीदें",
+    FAQ_HOW_TO_BUY_USDC_FIAT:
+      "P2P.me पर फ़िएट या लोकल करेंसी से USDC कैसे खरीदें",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
       "1. होम पर 'USDC खरीदें' टैप करें।\n2. राशि और प्राप्तकर्ता पता दर्ज करें → भुगतान पर आगे बढ़ें।\n3. एक मर्चेंट असाइन होगा और भुगतान विवरण साझा करेगा।\n4. अपने स्थानीय ऐप से UPI/PIX/QRIS द्वारा भुगतान करें, फिर 'मैंने भुगतान किया है' पर टैप करें।\n5. मर्चेंट के पुष्टि करते ही कुछ ही सेकंड में USDC भेज दिया जाता है।\n\nनोट: नए उपयोगकर्ताओं (0 zk वेरिफिकेशन) के लिए शुरुआत में $10 प्रति ऑर्डर, 1 ऑर्डर/दिन। सीमाएँ बढ़ाने के लिए zk प्रूफ सत्यापित करें।",
-    FAQ_HOW_TO_CALCULATE_TAX_INDIA: "मैं अपने P2P.me ऑर्डर पर टैक्स की गणना कैसे करूं?",
+    FAQ_HOW_TO_CALCULATE_TAX_INDIA:
+      "मैं अपने P2P.me ऑर्डर पर टैक्स की गणना कैसे करूं?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
       "हेल्प और सपोर्ट से टैक्स रिपोर्ट खोलें। यह आपके पूरे हुए P2P.me ऑर्डर पढ़ती है और आपके चुने हुए भारतीय वित्तीय वर्ष के लिए आपके क्रिप्टो (VDA) आयकर का अनुमान लगाती है: लाभ पर 30%, साथ में सरचार्ज और सेस। आपको फाइलिंग के समय उपयोग के लिए Schedule VDA तालिका, एडवांस टैक्स की तारीखें और TDS जांच भी मिलती है।\n\nअपना टैक्स फाइल करना आपकी अपनी ज़िम्मेदारी है। P2P.me आपके लिए कुछ भी नहीं काटता, रिपोर्ट नहीं करता और फाइल नहीं करता, और ये आंकड़े एक अनुमान हैं, टैक्स सलाह नहीं। फाइल करने से पहले कृपया किसी चार्टर्ड अकाउंटेंट से पुष्टि करें।",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
@@ -720,7 +749,8 @@ export const hi = {
     FAQ_HOW_TO_INCREASE_LIMITS: "मैं अपनी खरीद/बिक्री सीमाएं कैसे बढ़ाऊं?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
       "आप दो तरीकों से अपनी सीमाएं बढ़ा सकते हैं:\n\n1. मेरी लिमिट पेज पर कम से कम एक zk सोशल वेरिफिकेशन पूरा करें, इससे आपकी सीमाएं तुरंत बढ़ेंगी और हर दिन 5 खरीद ऑर्डर तक अनलॉक हो जाएंगे।\n\n2. इनके ज़रिए अपनी पहचान सत्यापित करें:\n • zk-सोशल (Instagram, LinkedIn, GitHub, X)\n\nअपना पहला zk वेरिफिकेशन पूरा करने के बाद, P2P.me पर ज़्यादा लेन-देन पूरे करके आप अपनी सीमाएं बढ़ाते रह सकते हैं।\n\nनोट: हम आपका निजी डेटा न तो इकट्ठा करते हैं और न ही शेयर करते हैं। सभी वेरिफिकेशन zero-knowledge प्रूफ़ से होते हैं, जिससे सिर्फ़ ज़रूरी बात साबित होती है और आपकी जानकारी निजी और सुरक्षित रहती है। हम आपका डेटा स्टोर ही नहीं करते, इसलिए भविष्य में भी इसे किसी के साथ शेयर नहीं कर सकते।",
-    FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "मैं P2P.me पर Scan & Pay से भुगतान कैसे करूँ?",
+    FAQ_HOW_TO_PAY_WITH_SCAN_PAY:
+      "मैं P2P.me पर Scan & Pay से भुगतान कैसे करूँ?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
       "- बिल की राशि जानें - दुकान से अपना बिल मांगें और कुल राशि की पुष्टि करें।\n- P2P.me खोलें - Scan & Pay टैप करें, बिल राशि दर्ज करें, और ऑर्डर दें। P2P.me मर्चेंट को असाइन होते ही इन-ऐप स्कैनर खुल जाएगा।\n- दुकान से पेमेंट QR कोड बनाने को कहें - P2P.me स्कैनर खुलने के बाद ही दुकान से उनकी POS मशीन पर QR बनाने को कहें। (नोट: POS QR आमतौर पर ~2 मिनट में एक्सपायर हो जाते हैं, इसलिए टाइमिंग महत्वपूर्ण है।)\n- स्कैन करें और इंतज़ार करें - QR स्कैन करने के लिए P2P.me स्कैनर का उपयोग करें। ज़्यादातर पेमेंट 60 सेकंड के अंदर प्रोसेस हो जाते हैं, इसलिए थोड़ा धैर्य रखें।\n- स्टैटिक QR - अगर दुकान पर स्टैटिक QR कोड है, तो यह आसान है क्योंकि आपके पास भुगतान पूरा करने के लिए अधिक समय होगा।",
     FAQ_HOW_TO_SCAN_PAY_QR:
@@ -744,7 +774,8 @@ export const hi = {
     FAQ_IS_P2P_ME_SAFE: "क्या P2P.me इस्तेमाल करना सुरक्षित है?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
       "हाँ। P2P.me को उपयोगकर्ताओं की सुरक्षा को सबसे ऊपर रखकर बनाया गया है। प्लेटफ़ॉर्म पर सभी मर्चेंट व्यक्तिगत रूप से सत्यापित हैं। ऑनबोर्डिंग से पहले उन्हें अपनी बैंकिंग गतिविधि के zero-knowledge प्रूफ़ (ZK-प्रूफ) जमा करने होते हैं, जिनसे साबित होता है कि वे असली, एक्टिव उपयोगकर्ता हैं और उनका बैंक फ्रीज़ या धोखाधड़ी का कोई इतिहास नहीं है। इससे मर्चेंट फंड सुरक्षित और लेन-देन भरोसेमंद रहते हैं।",
-    FAQ_RECOVER_FUNDS_PRIVATE_KEY: "मैं अपनी प्राइवेट की से फंड कैसे रिकवर करूँ?",
+    FAQ_RECOVER_FUNDS_PRIVATE_KEY:
+      "मैं अपनी प्राइवेट की से फंड कैसे रिकवर करूँ?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'अगर आप अपने अकाउंट का एक्सेस खो चुके हैं लेकिन आपके पास अब भी वॉलेट की प्राइवेट की है, तो आप अपने USDC रिकवर कर सकते हैं।\n\n1. "फंड रिकवर करें" पेज खोलें।\n2. अपना स्मार्ट वॉलेट लोड करने के लिए अपनी प्राइवेट की पेस्ट करें।\n3. कोई दूसरा P2P.me वॉलेट पता और राशि दर्ज करें।\n4. भेजने के लिए फंड रिकवर करें पर टैप करें।\n\nअपनी प्राइवेट की कभी किसी के साथ शेयर न करें।',
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
@@ -766,7 +797,8 @@ export const hi = {
     FAQ_WHAT_FEES_CHARGED: "P2P.me कितनी फ़ीस लेता है?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
       "अभी प्रोटोकॉल कोई फ़ीस नहीं लेता। आपको दिखने वाली USDC कीमत P2P.me प्रोटोकॉल तय करता है, ताकि शुरुआती उपयोगकर्ताओं के लिए सब कुछ निष्पक्ष और आसान रहे।",
-    FAQ_WHAT_HAPPENS_FALSE_DISPUTE: "अगर मैं झूठा विवाद उठाता हूँ तो क्या होगा?",
+    FAQ_WHAT_HAPPENS_FALSE_DISPUTE:
+      "अगर मैं झूठा विवाद उठाता हूँ तो क्या होगा?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
       "अगर आप झूठे या गलत इरादे से विवाद उठाते हैं, तो इसके नतीजे भुगतने होंगे। जैसे:\n• सेवाएं रोकी जा सकती हैं\n• ट्रेडिंग विशेषाधिकार छिन सकते हैं\n\nइसलिए ईमानदारी से खेलें।",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
@@ -790,7 +822,8 @@ export const hi = {
     FAQ_WHAT_IS_ZERO_KNOWLEDGE: "यह zero-knowledge आखिर है क्या?",
     FAQ_WHAT_IS_ZERO_KNOWLEDGE_ANSWER:
       "Zero-knowledge वेरिफिकेशन से आप अपनी निजी जानकारी हमारे साथ शेयर किए बिना अपनी उम्र या ID जैसी चीज़ें साबित कर सकते हैं। P2P.me पर वेरिफाई करते समय और सीमाएं बढ़ाते समय आपका डेटा प्राइवेट रहता है।\n\nसीधी बात: जो ज़रूरी है वह आप साबित कर देते हैं, लेकिन आपकी निजी जानकारी आपके पास ही रहती है।",
-    FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS: "जमा के लिए कौन से नेटवर्क समर्थित हैं?",
+    FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
+      "जमा के लिए कौन से नेटवर्क समर्थित हैं?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
       "फ़िलहाल जमा के लिए सिर्फ़ Base नेटवर्क पर USDC सपोर्टेड है। अगर आपका फंड किसी दूसरी चेन पर है, तो Near Intents वाले क्रॉस-चेन जमा विकल्प का इस्तेमाल करें।",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE: "मैं कब कमाने के लिए योग्य हो जाता हूँ?",
@@ -804,7 +837,8 @@ export const hi = {
       "बिक्री ऑर्डर के लिए मुझे कब विवाद उठाना चाहिए?",
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER_ANSWER:
       "बिक्री ऑर्डर के लिए, विवाद तभी उठाएँ जब आपका USDC कट गया हो, लेकिन आपको खरीदार से पेमेंट न मिला हो।",
-    FAQ_WHERE_CHECK_TRANSACTION_LIMITS: "मैं अपनी लेन-देन सीमाएँ कहाँ देख सकता हूँ?",
+    FAQ_WHERE_CHECK_TRANSACTION_LIMITS:
+      "मैं अपनी लेन-देन सीमाएँ कहाँ देख सकता हूँ?",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS_ANSWER:
       "अपनी खरीद और बिक्री/भुगतान सीमाएँ देखने के लिए होमपेज मेनू में “मेरी लिमिट” पेज पर जाएँ।",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY:
@@ -815,7 +849,8 @@ export const hi = {
       "P2P.me पर अपनी ऑर्डर या लेन-देन हिस्ट्री कहाँ देखें",
     FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
       "ऐप के 'लेन-देन' सेक्शन में जाएं, वहाँ आपके ऑर्डर, जमा, निकासी और विवाद दिखते हैं।",
-    FAQ_WHERE_VIEW_ALL_TRANSACTIONS: "मैं P2P.me पर अपने सभी लेन-देन कहाँ देख सकता हूँ?",
+    FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
+      "मैं P2P.me पर अपने सभी लेन-देन कहाँ देख सकता हूँ?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
       "जमा, निकासी और विवाद समेत अपनी सारी गतिविधि देखने के लिए ऐप में लेन-देन सेक्शन पर जाएँ।",
     FAQ_WHERE_VIEW_CLAIM_REWARDS: "मैं अपने रिवॉर्ड कहाँ देखूँ और क्लेम करूँ?",
@@ -835,7 +870,8 @@ export const hi = {
     FAQ_WHO_IS_BUILDING_P2P_ME: "P2P.me को कौन बना और चला रहा है?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "P2P.me एक पब्लिक गुड्स प्रोटोकॉल है, जिसे दुनिया भर के ओपन-सोर्स कंट्रीब्यूटर्स की कम्युनिटी ने बनाया है। Base पर बना यह प्रोटोकॉल आपसी सहयोग से आगे बढ़ता है। यह पूरी तरह ओपन-सोर्स है, यानी कोई भी इसका कोड देखकर जान सकता है कि अंदर क्या चल रहा है। कुछ भी छुपा नहीं, सब कुछ पारदर्शी।",
-    FAQ_WHY_APP_BLOCKED_REGIONS: "आपके इलाके में ऐप लोड नहीं हो रहा? ऐसे एक्सेस करें",
+    FAQ_WHY_APP_BLOCKED_REGIONS:
+      "आपके इलाके में ऐप लोड नहीं हो रहा? ऐसे एक्सेस करें",
     FAQ_WHY_APP_BLOCKED_REGIONS_ANSWER:
       "कभी-कभी स्थानीय ISP प्रतिबंधों के कारण ऐप लोड नहीं हो पाता। पहुँच और अपडेट सुनिश्चित करने के लिए:\n\nविकल्प 1: VPN उपयोग करें (मोबाइल पर Turbo VPN, डेस्कटॉप पर Zenmate)। किसी भी क्षेत्र से कनेक्ट करें और ऐप रिफ्रेश करें।\n\nविकल्प 2: DNS बदलें:\n• Android: Settings → Network → Private DNS → 8.8.8.8 या 1.1.1.1 जोड़ें\n• iOS: Wi‑Fi → 'i' टैप करें → Configure DNS → Manual → 8.8.8.8 या 1.1.1.1 जोड़ें\n\nऐप इंस्टॉल होने पर भी, VPN/DNS से एक्सेस और अपडेट स्मूथ रहते हैं।",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
@@ -871,7 +907,8 @@ export const hi = {
     FILTERS_APPLIED: "फ़िल्टर लगाए गए",
     FILTERS_DESCRIPTION: "अपनी लेन-देन हिस्ट्री फ़िल्टर करें",
     FILTER_BY_FIAT_CURRENCY: "फ़िएट मुद्रा के आधार पर लेनदेन फ़िल्टर करें",
-    FILTER_BY_TRANSACTION_STATUS: "वर्तमान स्थिति के आधार पर लेनदेन फ़िल्टर करें",
+    FILTER_BY_TRANSACTION_STATUS:
+      "वर्तमान स्थिति के आधार पर लेनदेन फ़िल्टर करें",
     FILTER_CURRENCY: "मुद्रा",
     FILTER_DISPUTES: "विवाद",
     FILTER_PERIOD: "अवधि",
@@ -930,8 +967,10 @@ export const hi = {
     HAPTICS_ESSENTIAL_DESC: "सिर्फ़ ज़रूरी एक्शन के लिए हैप्टिक्स चालू करें",
     HAPTICS_NONE: "कोई हैप्टिक्स नहीं",
     HAPTICS_NONE_DESC: "सभी हैप्टिक फीडबैक बंद करें",
-    HAPTIC_FEEDBACK_AVAILABLE_AND_ENABLED: "हैप्टिक फीडबैक उपलब्ध है और चालू है",
-    HAPTIC_FEEDBACK_DISABLED_IN_SETTINGS: "हैप्टिक फीडबैक आपकी सेटिंग्स में बंद है",
+    HAPTIC_FEEDBACK_AVAILABLE_AND_ENABLED:
+      "हैप्टिक फीडबैक उपलब्ध है और चालू है",
+    HAPTIC_FEEDBACK_DISABLED_IN_SETTINGS:
+      "हैप्टिक फीडबैक आपकी सेटिंग्स में बंद है",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "हैप्टिक फीडबैक सपोर्टेड नहीं है",
     HELP: "सहायता",
     HELPFUL_VIDEO_GUIDES: "काम के वीडियो गाइड",
@@ -944,7 +983,8 @@ export const hi = {
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
       "एक्सेस क्लेम करें पर टैप करने के बाद, आप मेरी लिमिट पेज पर पहुँच जाएंगे।",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_2: "वहाँ आपको अपने रिवॉर्ड दिखेंगे।",
-    HOW_TO_CLAIM_YOUR_BONUS_STEP_3: "बस अपने सोशल अकाउंट वेरिफाई करें और बोनस पाएं!",
+    HOW_TO_CLAIM_YOUR_BONUS_STEP_3:
+      "बस अपने सोशल अकाउंट वेरिफाई करें और बोनस पाएं!",
     HOW_TO_GET_YOUR_BONUS: "अपना बोनस कैसे पाएं",
     HOW_TO_VERIFY_YOUR: "अपने {{title}} को कैसे सत्यापित करें",
     HOW_TO_VERIFY_YOUR_1_ANDROID:
@@ -997,7 +1037,8 @@ export const hi = {
     INVALID_MANAGER_DETAILS: "अमान्य मैनेजर विवरण",
     INVALID_MIGRATION_STATUS: "अमान्य माइग्रेशन स्थिति",
     INVALID_ORDER_PAYMENT_ADDRESS: "अमान्य ऑर्डर भुगतान पता",
-    INVALID_ORDER_STATUS_TO_RAISE_DISPUTE: "विवाद उठाने के लिए अमान्य ऑर्डर स्थिति",
+    INVALID_ORDER_STATUS_TO_RAISE_DISPUTE:
+      "विवाद उठाने के लिए अमान्य ऑर्डर स्थिति",
     INVALID_ORDER_TYPE: "अमान्य ऑर्डर प्रकार",
     INVALID_PAYMENT_CHANNEL_ID: "अमान्य भुगतान चैनल आईडी",
     INVALID_PAYMENT_DETAILS_FORMAT: "अमान्य भुगतान विवरण फ़ॉर्मेट",
@@ -1052,8 +1093,10 @@ export const hi = {
     LIMIT: "लिमिट",
     LIMITS_LIVENESS_SUBTITLE:
       "लिमिट अनलॉक करने के लिए साबित करें कि आप असली व्यक्ति हैं",
-    LIMITS_PASSPORT_SUBTITLE: "लिमिट अनलॉक करने के लिए अपनी पहचान वेरिफ़ाई करें",
-    LIMITS_PRIVATE_DESCRIPTION: "हम आपका डेटा कभी नहीं देखते या स्टोर नहीं करते।",
+    LIMITS_PASSPORT_SUBTITLE:
+      "लिमिट अनलॉक करने के लिए अपनी पहचान वेरिफ़ाई करें",
+    LIMITS_PRIVATE_DESCRIPTION:
+      "हम आपका डेटा कभी नहीं देखते या स्टोर नहीं करते।",
     LIMITS_PRIVATE_TITLE: "आपका वेरिफ़िकेशन प्राइवेट है",
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "यह वेरिफ़िकेशन अभी आपकी चुनी हुई करेंसी के लिए उपलब्ध नहीं है।",
@@ -1062,7 +1105,8 @@ export const hi = {
     LIMIT_CARD_MAX_USDC: "अधिकतम {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / ऑर्डर",
     LIMIT_UPDATES: "लिमिट अपडेट",
-    LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn सिर्फ़ RP अपडेट सपोर्ट करता है",
+    LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
+      "LinkedIn सिर्फ़ RP अपडेट सपोर्ट करता है",
     LIQUIDITY: "लिक्विडिटी",
     LIVENESS_DESCRIPTION: "झटपट फ़ेस चेक, कोई दस्तावेज़ नहीं",
     LIVENESS_ERROR: "लाइवनेस: {{message}}",
@@ -1111,7 +1155,8 @@ export const hi = {
     MERCHANT_BLACKLISTED: "मर्चेंट ब्लैकलिस्टेड",
     MERCHANT_IS_NOT_APPROVED: "मर्चेंट को मंज़ूरी नहीं मिली है",
     MERCHANT_IS_NOT_REGISTERED: "मर्चेंट रजिस्टर्ड नहीं है",
-    MERCHANT_IS_VERIFYING_YOUR_PAYMENT: "मर्चेंट आपके भुगतान को वेरिफ़ाई कर रहा है",
+    MERCHANT_IS_VERIFYING_YOUR_PAYMENT:
+      "मर्चेंट आपके भुगतान को वेरिफ़ाई कर रहा है",
     MERCHANT_MONTHLY_REFERRAL_LIMIT_REACHED:
       "मर्चेंट की मासिक रेफ़रल सीमा पूरी हो गई",
     MERCHANT_NOT_BLACKLISTED: "मर्चेंट ब्लैकलिस्टेड नहीं है",
@@ -1218,6 +1263,8 @@ export const hi = {
     NOT_AUTHORIZED: "अधिकृत नहीं",
     NOT_AVAILABLE: "उपलब्ध नहीं है",
     NOT_A_PAID_BUY_ORDER: "भुगतान किया गया खरीद ऑर्डर नहीं है",
+    NOT_DISPUTE_USER:
+      "केवल ऑर्डर का उपयोगकर्ता ही इस विवाद को चुनौती दे सकता है",
     NOT_ENOUGH_ELIGIBLE_MERCHANTS: "पर्याप्त योग्य मर्चेंट नहीं हैं",
     NOT_FOUND: "नहीं मिला",
     NOT_SENT: "भेजा नहीं गया",
@@ -1234,6 +1281,7 @@ export const hi = {
     NO_COMPLETED_TRANSACTIONS: "कोई पूरा हुआ ट्रांजैक्शन नहीं",
     NO_DISPUTE: "कोई विवाद नहीं",
     NO_DISPUTED_TRANSACTIONS: "कोई विवादित लेनदेन नहीं मिला",
+    NO_DISPUTE_DECISION: "फ़ाइनल करने के लिए कोई निर्णय नहीं है",
     NO_ELIGIBLE_CIRCLES: "कोई योग्य सर्कल नहीं",
     NO_FAQ_RESULTS: "आपकी खोज से कोई FAQ मेल नहीं खाया।",
     NO_FIAT_LIQUIDITY_ON_EXCHANGE_TO_COMPLETE_ORDER:
@@ -1256,7 +1304,8 @@ export const hi = {
     NO_ROUTE_FOUND: "कोई रूट नहीं मिला",
     NO_SAVED_ADDRESSES: "कोई सेव किया हुआ पता नहीं",
     NO_SELL_ADDRESSES: "कोई बिक्री पता नहीं",
-    NO_SELL_ADDRESSES_DESCRIPTION: "अगली बार जल्दी चुनने के लिए अपना बिक्री पता जोड़ें",
+    NO_SELL_ADDRESSES_DESCRIPTION:
+      "अगली बार जल्दी चुनने के लिए अपना बिक्री पता जोड़ें",
     NO_SELL_ADDRESSES_TITLE: "कोई बिक्री पता नहीं",
     NO_SELL_ADDRESSES_TITLE_DESCRIPTION:
       "अगली बार जल्दी चुनने के लिए अपना बिक्री पता जोड़ें",
@@ -1272,7 +1321,8 @@ export const hi = {
     OFFICIAL_RANGO_SUPPORT_CHANNELS: "Rango के ऑफ़िशियल सपोर्ट चैनल",
     OFFICIAL_RANGO_SUPPORT_CHANNELS_NOTE:
       "नोट: यदि आपकी क्रॉस-चेन जमा या निकासी में समस्या आती है, तो ऊपर दिए गए आधिकारिक लिंक के माध्यम से Rango सपोर्ट से संपर्क करें।",
-    OLD_AND_NEW_PAYMENT_CHANNELS_ARE_THE_SAME: "पुराने और नए भुगतान चैनल समान हैं",
+    OLD_AND_NEW_PAYMENT_CHANNELS_ARE_THE_SAME:
+      "पुराने और नए भुगतान चैनल समान हैं",
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "पुराना भुगतान चैनल नहीं मिला",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "पुराना भुगतान चैनल निष्क्रिय होना चाहिए",
@@ -1303,7 +1353,8 @@ export const hi = {
     ORDER_ID_NOT_FOUND: "ऑर्डर आईडी नहीं मिली",
     ORDER_NOT_ASSIGNED: "ऑर्डर असाइन नहीं हुआ",
     ORDER_NOT_FOUND: "ऑर्डर नहीं मिला",
-    ORDER_NOT_PLACED_TO_BE_ACCEPTED: "ऑर्डर स्वीकार किए जाने की स्थिति में नहीं है",
+    ORDER_NOT_PLACED_TO_BE_ACCEPTED:
+      "ऑर्डर स्वीकार किए जाने की स्थिति में नहीं है",
     ORDER_PREVIEW: "ऑर्डर प्रीव्यू",
     ORDER_TYPE: "ऑर्डर का प्रकार",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
@@ -1338,7 +1389,8 @@ export const hi = {
     P2P_STAKE_INPUT_LABEL: "स्टेक",
     P2P_STAKE_INSTANTLY: "तुरंत",
     P2P_STAKE_INSUFFICIENT_BALANCE: "$P2P बैलेंस कम है",
-    P2P_STAKE_LIMIT_RETURNS_DEFAULT: "आपकी सीमा तुरंत डिफ़ॉल्ट पर वापस आ जाती है।",
+    P2P_STAKE_LIMIT_RETURNS_DEFAULT:
+      "आपकी सीमा तुरंत डिफ़ॉल्ट पर वापस आ जाती है।",
     P2P_STAKE_LOCKED_DURING_PERIOD: "इस अवधि के दौरान आपका $P2P लॉक रहता है।",
     P2P_STAKE_LOW_BALANCE: "आपका $P2P बैलेंस कम है",
     P2P_STAKE_MANAGE_FROM_PREFIX:
@@ -1384,7 +1436,8 @@ export const hi = {
     P2P_SWAP_ERROR_EXPECTED_EVM_TX: "EVM ट्रांजैक्शन अपेक्षित था",
     P2P_SWAP_ERROR_EXPECTED_SOLANA_TX: "Solana ट्रांजैक्शन अपेक्षित था",
     P2P_SWAP_ERROR_FAILED_TO_CREATE_SWAP_TX: "स्वैप ट्रांजैक्शन बनाने में विफल",
-    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS: "गैस फ़ीस के लिए पर्याप्त ETH बैलेंस नहीं है",
+    P2P_SWAP_ERROR_INSUFFICIENT_ETH_GAS:
+      "गैस फ़ीस के लिए पर्याप्त ETH बैलेंस नहीं है",
     P2P_SWAP_ERROR_INTERNAL_SERVER_ERROR: "आंतरिक सर्वर त्रुटि",
     P2P_SWAP_ERROR_INVALID_CLAIM_ID: "अमान्य claim ID",
     P2P_SWAP_ERROR_INVALID_EVM_ADDRESS: "अमान्य EVM पता",
@@ -1399,10 +1452,13 @@ export const hi = {
     P2P_SWAP_ERROR_JUP_SWAP_DID_NOT_SUCCEED: "DEX स्वैप सफल नहीं हुआ",
     P2P_SWAP_ERROR_JUP_SWAP_NOT_CONFIRMED_TIMEOUT:
       "DEX स्वैप ट्रांजैक्शन तय समय में कन्फ़र्म नहीं हुआ",
-    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED: "DEX स्वैप ट्रांजैक्शन ऑन-चेन फेल हो गया",
-    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND: "जमा पते पर कोई P2P ट्रांसफर नहीं मिला",
+    P2P_SWAP_ERROR_JUP_SWAP_TX_FAILED:
+      "DEX स्वैप ट्रांजैक्शन ऑन-चेन फेल हो गया",
+    P2P_SWAP_ERROR_NO_P2P_TRANSFER_FOUND:
+      "जमा पते पर कोई P2P ट्रांसफर नहीं मिला",
     P2P_SWAP_ERROR_NO_RANGO_ROUTE: "इस राशि के लिए कोई रूट नहीं मिला",
-    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND: "जमा पते पर कोई USDC ट्रांसफर नहीं मिला",
+    P2P_SWAP_ERROR_NO_USDC_TRANSFER_FOUND:
+      "जमा पते पर कोई USDC ट्रांसफर नहीं मिला",
     P2P_SWAP_ERROR_RANGO_BRIDGE_FAILED_ON_RETRY:
       "दोबारा कोशिश करने पर भी ब्रिज फेल हो गया",
     P2P_SWAP_ERROR_RANGO_BRIDGE_TIMEOUT:
@@ -1442,21 +1498,25 @@ export const hi = {
     P2P_TOKEN_TOTAL: "कुल",
     P2P_TOPUP_SUCCESS: "ऑर्डर सीमा सफलतापूर्वक बढ़ाई गई",
     P2P_UNSTAKE_CANCEL_BUTTON: "अनस्टेक रद्द करें",
-    P2P_UNSTAKE_CANCEL_SUCCESS: "अनस्टेक रद्द हो गया। आपका बूस्ट फिर से चालू है।",
+    P2P_UNSTAKE_CANCEL_SUCCESS:
+      "अनस्टेक रद्द हो गया। आपका बूस्ट फिर से चालू है।",
     P2P_UNSTAKE_CLAIM_BUTTON: "$P2P क्लेम करें",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P सफलतापूर्वक क्लेम हो गया",
     P2P_UNSTAKE_COOLDOWN_LABEL: "कूलडाउन खत्म होगा",
     P2P_UNSTAKE_COOLDOWN_REMAINING: "बाकी समय",
     P2P_UNSTAKE_DESCRIPTION:
       "अनस्टेक का अनुरोध करते ही कूलडाउन शुरू हो जाता है। कूलडाउन खत्म होने के बाद, आप अपना $P2P वापस अपने वॉलेट में क्लेम कर सकते हैं।",
-    P2P_UNSTAKE_NO_STAKE: "अनस्टेक करने के लिए आपके पास कोई सक्रिय स्टेक नहीं है।",
+    P2P_UNSTAKE_NO_STAKE:
+      "अनस्टेक करने के लिए आपके पास कोई सक्रिय स्टेक नहीं है।",
     P2P_UNSTAKE_READY_TO_CLAIM: "क्लेम के लिए तैयार",
     P2P_UNSTAKE_REQUESTING: "अनुरोध भेजा जा रहा है...",
     P2P_UNSTAKE_REQUEST_BUTTON: "अनस्टेक का अनुरोध करें",
-    P2P_UNSTAKE_REQUEST_SUCCESS: "अनस्टेक का अनुरोध हो गया। कूलडाउन शुरू हो गया है।",
+    P2P_UNSTAKE_REQUEST_SUCCESS:
+      "अनस्टेक का अनुरोध हो गया। कूलडाउन शुरू हो गया है।",
     P2P_UNSTAKE_STAKED_LABEL: "फ़िलहाल स्टेक किया हुआ",
     P2P_UNSTAKE_TITLE: "$P2P अनस्टेक करें",
-    PAGE_NOT_FOUND_DESCRIPTION: "माफ़ करें, आप जो पेज ढूंढ रहे हैं वह हमें नहीं मिला।",
+    PAGE_NOT_FOUND_DESCRIPTION:
+      "माफ़ करें, आप जो पेज ढूंढ रहे हैं वह हमें नहीं मिला।",
     PAGE_NOT_FOUND_TITLE: "पेज नहीं मिला",
     PAGO_MOVIL: "Pago Móvil",
     PAGO_MOVIL_DETAILS: "Pago Móvil विवरण",
@@ -1501,7 +1561,8 @@ export const hi = {
     PAY_MERCHANT: "मर्चेंट को भुगतान करें",
     PAY_NOTE: "कृपया दुकानदार से सिर्फ़ बिल की राशि पूछें। अभी QR न मांगें।",
     PAY_NOTES: "नोट्स",
-    PAY_NOTES_1: "दुकानदार से बिल की कुल राशि पक्की करें और उसे दर्ज करें। अभी QR न मांगें।",
+    PAY_NOTES_1:
+      "दुकानदार से बिल की कुल राशि पक्की करें और उसे दर्ज करें। अभी QR न मांगें।",
     PAY_NOTES_2:
       "मर्चेंट असाइन होने और स्कैनर खुलने के बाद, दुकानदार से QR बनाने/दिखाने को कहें और फिर उसे स्कैन करें।",
     PAY_NOTES_DESCRIPTION: "स्कैन और भुगतान करने का सही तरीका",
@@ -1517,7 +1578,8 @@ export const hi = {
     PERPS_BANNER_CTA: "Perps ट्रेड करें",
     PERPS_BANNER_DESCRIPTION: "जीतें या हारें, आपको हमेशा 10% कैशबैक मिलता है।",
     PERPS_BANNER_YES: "10% कैशबैक।",
-    PERU_CCI_INVALID: "मान्य 20-अंकों का CCI या Yape/Plin फ़ोन (9XXXXXXXX) दर्ज करें",
+    PERU_CCI_INVALID:
+      "मान्य 20-अंकों का CCI या Yape/Plin फ़ोन (9XXXXXXXX) दर्ज करें",
     PERU_CCI_LABEL: "CCI",
     PERU_CCI_PLACEHOLDER: "CCI (20 अंक)",
     PERU_NO_QR_ENTER_CCI: "QR नहीं है? CCI या फ़ोन दर्ज करें",
@@ -1581,7 +1643,8 @@ export const hi = {
     PLEASE_WAIT_WHILE_WE_VERIFY_YOUR:
       "कृपया इंतज़ार करें, हम आपका {{title}} सत्यापित कर रहे हैं...",
     POWERED_BY_RANGO: "Rango द्वारा संचालित",
-    POWER_THE_NETWORK_COMMA_EARN_PASSIVELY: "नेटवर्क को ताकत दें, घर बैठे कमाएं",
+    POWER_THE_NETWORK_COMMA_EARN_PASSIVELY:
+      "नेटवर्क को ताकत दें, घर बैठे कमाएं",
     POWER_THE_NETWORK_COMMA_EARN_PASSIVELY_DESCRIPTION:
       "P2P.me पर लिक्विडिटी दें और हर ट्रांजैक्शन पर 1.5% तक कमाएं। ज़्यादा जानने के लिए यहाँ क्लिक करें।",
     PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
@@ -1633,7 +1696,8 @@ export const hi = {
     PRIZERAIL_INFO_SUBTITLE:
       "आप जो भी ऑर्डर पूरा करते हैं, वह USDC जीतने का एक मौका है।",
     PRIZERAIL_INFO_TITLE: "इनामी ड्रॉ कैसे काम करता है",
-    PRIZERAIL_LOAD_ERROR: "आपका इनामी ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
+    PRIZERAIL_LOAD_ERROR:
+      "आपका इनामी ड्रॉ लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
     PRIZERAIL_NOT_ENTERED_YET:
       "आपका अगला ट्रेड आपको विजेता बना सकता है। हिस्सा लेने के लिए अभी खरीदें या बेचें।",
     PRIZERAIL_NOT_WON: "कोई जीत नहीं",
@@ -1664,7 +1728,8 @@ export const hi = {
     PROOF_APPROVED: "रसीद मंज़ूर",
     PROOF_BADGE_REQUESTED: "रसीद मांगी गई",
     PROOF_BADGE_UPLOADED: "रसीद तैयार",
-    PROOF_DESCRIPTION: "इस ऑर्डर के लिए मर्चेंट से एन्क्रिप्टेड रसीद अटैच करने को कहें।",
+    PROOF_DESCRIPTION:
+      "इस ऑर्डर के लिए मर्चेंट से एन्क्रिप्टेड रसीद अटैच करने को कहें।",
     PROOF_DOWNLOAD: "डाउनलोड",
     PROOF_DOWNLOAD_FAILED: "डाउनलोड विफल",
     PROOF_FILES_TITLE: "भुगतान रसीदें",
@@ -1693,7 +1758,8 @@ export const hi = {
     PWA_INSTALL_BANNER_DESCRIPTION: "सभी फ़ीचर्स के साथ पूरा अनुभव पाएं।",
     PWA_INSTALL_BANNER_TITLE: "P2P.me ऐप इंस्टॉल करें",
     PWA_INSTALL_CANCELLED: "ऐप इंस्टॉलेशन रद्द कर दिया गया",
-    PWA_INSTALL_CANCELLED_DESCRIPTION: "आप इसे बाद में ब्राउज़र से इंस्टॉल कर सकते हैं",
+    PWA_INSTALL_CANCELLED_DESCRIPTION:
+      "आप इसे बाद में ब्राउज़र से इंस्टॉल कर सकते हैं",
     PWA_NEW_UPDATE_AVAILABLE: "नया अपडेट उपलब्ध है",
     PWA_TRY_MIRROR_LINK: "या मिरर लिंक आज़माएं:",
     PWA_TURN_ON_VPN: "अपना VPN चालू करें",
@@ -1730,8 +1796,10 @@ export const hi = {
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "रसीद सफलतापूर्वक डाउनलोड हुई",
     RECEIVE: "प्राप्त करें",
     RECEIVED: "प्राप्त हुआ",
-    RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET: "अपने P2P.me वॉलेट में फंड प्राप्त करें।",
-    RECEIVE_P2P_DESCRIPTION: "$P2P या कोई भी Base नेटवर्क टोकन इस पते पर भेजें।",
+    RECEIVE_FUNDS_TO_YOUR_P2P_ME_WALLET:
+      "अपने P2P.me वॉलेट में फंड प्राप्त करें।",
+    RECEIVE_P2P_DESCRIPTION:
+      "$P2P या कोई भी Base नेटवर्क टोकन इस पते पर भेजें।",
     RECEIVE_P2P_TITLE: "$P2P प्राप्त करें",
     RECEIVING_ADDRESS: "रिसीविंग पता",
     RECEIVING_PAYMENT_ADDRESS: "रिसीविंग {{paymentAddressName}}",
@@ -1745,6 +1813,78 @@ export const hi = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "सिफ़ारिश सफलतापूर्वक क्लेम हो गई",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "सिफ़ारिश रेवेन्यू सफलतापूर्वक क्लेम हो गया",
+    RECOVERY_ACCOUNT_ACTIVE: "सक्रिय",
+    RECOVERY_ACCOUNT_ERROR_DESCRIPTION:
+      "आपका अकाउंट देखने के लिए हम इस नेटवर्क से कनेक्ट नहीं हो सके। अपना कनेक्शन जांचें और दोबारा कोशिश करें।",
+    RECOVERY_ACCOUNT_ERROR_TITLE: "आपका अकाउंट लोड नहीं हो सका",
+    RECOVERY_ACCOUNT_NOT_ACTIVE: "अभी सेटअप नहीं हुआ",
+    RECOVERY_ACCOUNT_NOT_DEPLOYED_NOTE:
+      "आपका अकाउंट अभी {{network}} पर सेटअप नहीं हुआ है। आपको कुछ करने की ज़रूरत नहीं है: आपका पहला ट्रांसफर इसे अपने आप सेटअप कर देगा।",
+    RECOVERY_ACCOUNT_TITLE: "{{network}} पर आपका P2P.me एड्रेस",
+    RECOVERY_AMOUNT_AVAILABLE: "राशि (उपलब्ध: {{amount}} {{symbol}})",
+    RECOVERY_COPY_ADDRESS: "एड्रेस कॉपी करें",
+    RECOVERY_COPY_HASH: "कॉपी करें",
+    RECOVERY_DEPLOYING_ACCOUNT: "सेटअप हो रहा है...",
+    RECOVERY_DEPLOYING_FACTORY: "चालू किया जा रहा है...",
+    RECOVERY_DEPLOY_ACCOUNT: "अभी सेटअप करें (वैकल्पिक)",
+    RECOVERY_DEPLOY_ACCOUNT_FAILED: "अकाउंट सेटअप नहीं हो सका",
+    RECOVERY_DEPLOY_ACCOUNT_PENDING:
+      "सेटअप सबमिट हो गया। कन्फर्म होने में कुछ मिनट लग सकते हैं।",
+    RECOVERY_DEPLOY_ACCOUNT_SUCCESS: "अकाउंट सेटअप हो गया",
+    RECOVERY_DEPLOY_FACTORY: "इस नेटवर्क पर चालू करें",
+    RECOVERY_DEPLOY_FACTORY_FAILED: "यह नेटवर्क चालू नहीं हो सका।",
+    RECOVERY_DEPLOY_FACTORY_SUCCESS: "नेटवर्क चालू हो गया",
+    RECOVERY_ERROR_INSUFFICIENT: "राशि आपके बैलेंस से ज़्यादा है",
+    RECOVERY_ERROR_SAME_ADDRESS:
+      "फंड पहले से इसी एड्रेस पर हैं। कोई दूसरा एड्रेस डालें।",
+    RECOVERY_FACTORY_MISSING_DESCRIPTION:
+      "{{network}} पर P2P.me अकाउंट अभी चालू नहीं हुए हैं, इसलिए हम आपका अकाउंट नहीं दिखा सकते। इन्हें चालू करने पर आपके वॉलेट से एक ट्रांज़ैक्शन भेजा जाता है और नेटवर्क फीस के लिए थोड़ा {{symbol}} लग सकता है।",
+    RECOVERY_FACTORY_MISSING_TITLE: "{{network}} को एक बार सेटअप करना होगा",
+    RECOVERY_GAS_ADDRESS_LABEL: "{{symbol}} ({{network}}) यहां भेजें",
+    RECOVERY_GAS_DESCRIPTION:
+      "इस ट्रांज़ैक्शन की नेटवर्क फीस कवर नहीं हो सकी। नीचे दिए गए एड्रेस पर {{network}} पर थोड़ा {{symbol}} भेजें, उसके पहुंचने का इंतज़ार करें, फिर दोबारा कोशिश करें।",
+    RECOVERY_GAS_TITLE: "नेटवर्क फीस के लिए {{symbol}} जोड़ें",
+    RECOVERY_HASH_COPIED: "कॉपी हो गया",
+    RECOVERY_HELP_CTA: "टोकन रिकवर करें",
+    RECOVERY_HELP_DESCRIPTION:
+      "अगर आपने अपने P2P.me एड्रेस पर Base के अलावा किसी और नेटवर्क से USDC या दूसरे टोकन भेजे हैं, तो आप उन्हें खुद वापस पा सकते हैं।",
+    RECOVERY_HELP_TITLE: "गलत नेटवर्क पर फंड भेज दिए?",
+    RECOVERY_INTRO:
+      "क्या आपने अपने P2P.me एड्रेस पर Base के अलावा किसी और नेटवर्क से टोकन भेज दिए? आपका एड्रेस हर EVM नेटवर्क पर एक ही है, इसलिए फंड अब भी आपके हैं। नेटवर्क चुनें और उन्हें यहां से भेजें।",
+    RECOVERY_IRREVERSIBLE_NOTE:
+      "पक्का करें कि पाने वाला {{network}} पर {{symbol}} ले सकता है। ट्रांसफर वापस नहीं किए जा सकते।",
+    RECOVERY_NATIVE_FEE_HINT:
+      "अगर नेटवर्क फीस आपके लिए कवर नहीं होती, तो वह इसी अकाउंट से {{symbol}} में कटती है, इसलिए पूरा बैलेंस भेजना फेल हो सकता है। थोड़ा बचाकर रखें।",
+    RECOVERY_NO_NETWORKS_FOUND: "कोई नेटवर्क नहीं मिला",
+    RECOVERY_PASTE_ADDRESS: "एड्रेस पेस्ट करें",
+    RECOVERY_RECIPIENT_CUSTOM: "कोई और एड्रेस",
+    RECOVERY_RECIPIENT_LABEL: "इसे भेजें",
+    RECOVERY_RECIPIENT_OWNER: "मेरा ओनर वॉलेट",
+    RECOVERY_RECIPIENT_OWNER_NOTE:
+      "यह वह वॉलेट की है जो आपके P2P.me अकाउंट को कंट्रोल करती है। टोकन {{network}} पर इसी एड्रेस पर रहेंगे और आपके P2P.me बैलेंस में नहीं दिखेंगे।",
+    RECOVERY_REFRESH: "रीफ़्रेश करें",
+    RECOVERY_RESULT_CONFIRMED_DESCRIPTION:
+      "{{amount}} {{symbol}} {{recipient}} को भेज दिए गए।",
+    RECOVERY_RESULT_CONFIRMED_TITLE: "ट्रांसफर कन्फर्म हो गया",
+    RECOVERY_RESULT_PENDING_DESCRIPTION:
+      "{{recipient}} को {{amount}} {{symbol}} का आपका ट्रांसफर अभी कन्फर्म नहीं हुआ है। दोबारा भेजने से पहले कुछ मिनट बाद यहां अपना बैलेंस जांचें।",
+    RECOVERY_RESULT_PENDING_TITLE: "ट्रांसफर सबमिट हो गया",
+    RECOVERY_SEARCH_NETWORK: "नेटवर्क खोजें",
+    RECOVERY_SENDING_NOTE:
+      "इसमें एक मिनट तक लग सकता है। कृपया यह स्क्रीन खुली रखें।",
+    RECOVERY_SEND_ANOTHER: "एक और भेजें",
+    RECOVERY_SEND_TOKEN: "{{symbol}} भेजें",
+    RECOVERY_TITLE: "टोकन रिकवर करें",
+    RECOVERY_TOKENS_EMPTY_DESCRIPTION:
+      "यहां आपके एड्रेस पर कोई बैलेंस नहीं मिला। अगर आपने किसी और नेटवर्क पर फंड भेजे थे, तो ऊपर वह नेटवर्क चुनें। हाल का डिपॉज़िट दिखने में थोड़ा समय लग सकता है।",
+    RECOVERY_TOKENS_EMPTY_TITLE: "{{network}} पर रिकवर करने के लिए कुछ नहीं है",
+    RECOVERY_TOKENS_ERROR: "{{network}} पर आपके बैलेंस लोड नहीं हो सके।",
+    RECOVERY_TOKENS_TITLE: "मिले टोकन",
+    RECOVERY_TRANSFER_FAILED: "ट्रांसफर फेल हो गया। कृपया दोबारा कोशिश करें।",
+    RECOVERY_TRANSFER_REVERTED:
+      "नेटवर्क ने यह ट्रांसफर अस्वीकार कर दिया। कुछ भी नहीं भेजा गया।",
+    RECOVERY_USER_OP_HASH: "ऑपरेशन ID",
+    RECOVERY_VIEW_ON_EXPLORER: "एक्सप्लोरर पर देखें",
     RECOVER_CONNECT_FAILED:
       "इस प्राइवेट की से कोई वॉलेट कनेक्ट नहीं हो सका। कृपया प्राइवेट की जांचें और फिर से कोशिश करें।",
     RECOVER_ENTER_PRIVATE_KEY: "अपने वॉलेट की प्राइवेट की दर्ज करें",
@@ -1761,7 +1901,8 @@ export const hi = {
     REFERRALS: "रेफरल्स",
     REFERRAL_BONUS_WAITING: "रेफ़रल बोनस आपका इंतज़ार कर रहा है",
     REFERRAL_LINK_COPIED: "रेफरल लिंक क्लिपबोर्ड में कॉपी हो गया",
-    REFERRAL_PARAMS_DESCRIPTION: "लॉगिन के बाद आपको रेफ़रल पेज पर ले जाया जाएगा",
+    REFERRAL_PARAMS_DESCRIPTION:
+      "लॉगिन के बाद आपको रेफ़रल पेज पर ले जाया जाएगा",
     REFERRAL_PARAMS_DETECTED: "आपको रेफ़र किया गया है!",
     REFERRAL_PROGRESS_MESSAGE:
       "रेफर एंड अर्न अनलॉक करने के लिए आप अपनी {{target}} सीमा से बस {{left}} दूर हैं!",
@@ -1810,7 +1951,8 @@ export const hi = {
     SAVED_ADDRESSES: "सेव किए गए {{paymentAddressName}}",
     SAVED_PAYMENT_ADDRESS: "सेव किया गया {{paymentAddressName}}",
     SAVED_WALLET_ADDRESSES: "सेव किए गए वॉलेट पते",
-    SAVE_REQUEST_ID_FOR_SUPPORT: "ज़रूरत पड़ने पर सपोर्ट के लिए यह ID सेव कर लें",
+    SAVE_REQUEST_ID_FOR_SUPPORT:
+      "ज़रूरत पड़ने पर सपोर्ट के लिए यह ID सेव कर लें",
     SCAN_PAY: "Scan & Pay",
     SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP:
       "इस QR कोड को अपने भुगतान ऐप से स्कैन करें",
@@ -1822,19 +1964,23 @@ export const hi = {
     SELECT_A_NETWORK: "एक नेटवर्क चुनें",
     SELECT_A_TOKEN: "एक टोकन चुनें",
     SELECT_CHAIN_AND_TOKEN: "चेन और टोकन चुनें",
-    SELECT_CHAIN_AND_TOKEN_TO_BRIDGE: "{{bridgeType}} करने के लिए चेन और टोकन चुनें",
+    SELECT_CHAIN_AND_TOKEN_TO_BRIDGE:
+      "{{bridgeType}} करने के लिए चेन और टोकन चुनें",
     SELECT_CURRENCY: "मुद्रा चुनें",
     SELECT_CURRENCY_AND_LANGUAGE: "मुद्रा और भाषा चुनें",
-    SELECT_CURRENCY_DESCRIPTION: "अपने खरीद/बिक्री/भुगतान ट्रांजैक्शन के लिए मुद्रा चुनें",
+    SELECT_CURRENCY_DESCRIPTION:
+      "अपने खरीद/बिक्री/भुगतान ट्रांजैक्शन के लिए मुद्रा चुनें",
     SELECT_CUSTOM_DATE_RANGE: "कस्टम तारीख रेंज चुनें",
     SELECT_DATE: "तारीख चुनें",
     SELECT_END_DATE: "खत्म होने की तारीख चुनें",
     SELECT_HAPTICS: "हैप्टिक्स चुनें",
     SELECT_HAPTICS_DESCRIPTION: "ऐप के हैप्टिक फीडबैक को मैनेज करें।",
     SELECT_LANGUAGE: "भाषा चुनें",
-    SELECT_LANGUAGE_DESCRIPTION: "ऐप की भाषा सेट करें। इससे आपकी मुद्रा नहीं बदलेगी।",
+    SELECT_LANGUAGE_DESCRIPTION:
+      "ऐप की भाषा सेट करें। इससे आपकी मुद्रा नहीं बदलेगी।",
     SELECT_NETWORK: "नेटवर्क चुनें",
-    SELECT_NETWORK_TO_VIEW_AVAILABLE_TOKENS: "उपलब्ध टोकन देखने के लिए नेटवर्क चुनें",
+    SELECT_NETWORK_TO_VIEW_AVAILABLE_TOKENS:
+      "उपलब्ध टोकन देखने के लिए नेटवर्क चुनें",
     SELECT_PAYMENT_METHOD: "भुगतान का तरीका चुनें",
     SELECT_SOUNDS: "आवाज़ें चुनें",
     SELECT_SOUNDS_DESCRIPTION: "ऐप में बजने वाली आवाज़ें मैनेज करें",
@@ -1842,7 +1988,8 @@ export const hi = {
     SELECT_THEME: "थीम चुनें",
     SELECT_THEME_DESCRIPTION:
       "अपनी पसंद की थीम चुनें। सिस्टम चुनने पर आपके डिवाइस की थीम लागू होगी।",
-    SELECT_TIME_PERIOD_FOR_TRANSACTIONS: "अपने लेनदेन इतिहास के लिए समय अवधि चुनें",
+    SELECT_TIME_PERIOD_FOR_TRANSACTIONS:
+      "अपने लेनदेन इतिहास के लिए समय अवधि चुनें",
     SELECT_TOKEN: "टोकन चुनें",
     SELECT_TRANSACTION_TYPES_TO_INCLUDE:
       "चुनें कि नतीजों में कौन से लेन-देन प्रकार शामिल हों",
@@ -1863,7 +2010,8 @@ export const hi = {
     SELL_QUIZ_FINISH: "खत्म करें",
     SELL_QUIZ_NEXT: "अगला",
     SELL_QUIZ_NEXT_IN_SECONDS: "अगला {{seconds}} सेकंड में",
-    SELL_QUIZ_Q1_A1: "मुख्य खाते को फ्रीज़ से बचाने और ट्रेड आसानी से ट्रैक करने के लिए",
+    SELL_QUIZ_Q1_A1:
+      "मुख्य खाते को फ्रीज़ से बचाने और ट्रेड आसानी से ट्रैक करने के लिए",
     SELL_QUIZ_Q1_A1_EXPL:
       "अलग खाता रखने से फ्रीज जोखिम कम होता है और रिकॉर्ड साफ रहते हैं।",
     SELL_QUIZ_Q1_A2: "क्रिप्टो आय पर अधिक टैक्स से बचने के लिए",
@@ -1878,7 +2026,8 @@ export const hi = {
     SELL_QUIZ_Q2_A2_EXPL:
       "लिमिट सुरक्षा के लिए हैं, रोक के लिए नहीं। जैसे‑जैसे आप वेरिफाई करते हैं और ट्रेड पूरे करते हैं, ये बढ़ती जाती हैं।",
     SELL_QUIZ_Q2_TITLE: "P2P.me ने ट्रेड्स के लिए स्मार्ट लिमिट क्यों बनाई?",
-    SELL_QUIZ_TRY_AGAIN: "यह सही नहीं है। आगे बढ़ने के लिए सबसे सही जवाब चुनें।",
+    SELL_QUIZ_TRY_AGAIN:
+      "यह सही नहीं है। आगे बढ़ने के लिए सबसे सही जवाब चुनें।",
     SELL_USDC: "USDC बेचें",
     SELL_USDC_FAQS: "USDC बेचने से जुड़े FAQs",
     SEND: "भेजें",
@@ -1919,11 +2068,13 @@ export const hi = {
     SHARE_FEEDBACK: "फ़ीडबैक शेयर करें",
     SHARE_ON_TWITTER: "X पर शेयर करें",
     SHARE_P2P_WITH_FRIENDS: "दोस्तों के साथ p2p.me शेयर करें",
-    SHARE_TEXT_BUY: "P2P.me से {{fiatAmount}} में {{amount}} USDC सफलतापूर्वक खरीदे!",
+    SHARE_TEXT_BUY:
+      "P2P.me से {{fiatAmount}} में {{amount}} USDC सफलतापूर्वक खरीदे!",
     SHARE_TEXT_DEFAULT: "P2P.me से मेरा लेन-देन सफलतापूर्वक पूरा हुआ!",
     SHARE_TEXT_PAY:
       "P2P.me से {{amount}} USDC इस्तेमाल करके {{fiatAmount}} का भुगतान किया!",
-    SHARE_TEXT_SELL: "P2P.me से {{amount}} USDC को तुरंत {{fiatAmount}} में बदला!",
+    SHARE_TEXT_SELL:
+      "P2P.me से {{amount}} USDC को तुरंत {{fiatAmount}} में बदला!",
     SHOWING_SANE_DEFAULTS: "इस महीने के सभी लेनदेन",
     SHOW_BALANCE: "बैलेंस दिखाएं",
     SHOW_MORE: "और दिखाएं",
@@ -2030,7 +2181,8 @@ export const hi = {
     TASK_PASSPORT_VERIFICATION: "पासपोर्ट सत्यापन के लिए मिला",
     TASK_REWARDED_BY_ADMIN: "एडमिन से रिवॉर्ड मिला",
     TASK_SLASHED_BY_ADMIN: "एडमिन द्वारा काटा गया",
-    TASK_SUCCESSFUL_RECOMMENDATION: "आपके दोस्त के वोट से सफल सिफ़ारिश के लिए मिला।",
+    TASK_SUCCESSFUL_RECOMMENDATION:
+      "आपके दोस्त के वोट से सफल सिफ़ारिश के लिए मिला।",
     TASK_UNKNOWN: "टास्क {{taskType}}",
     TASK_USER_MIGRATION: "यूज़र माइग्रेशन के लिए मिला",
     TASK_X_VERIFICATION: "X सत्यापन के लिए मिला",
@@ -2069,7 +2221,8 @@ export const hi = {
     TIP_MERCHANT: "मर्चेंट को टिप दें",
     TIP_MERCHANT_DESCRIPTION: "बढ़िया सेवा के लिए अपनी सराहना दिखाएं!",
     TIP_SEND_FAILED: "टिप भेजने में विफल। कृपया फिर से कोशिश करें।",
-    TIP_SENT_SUCCESSFULLY: "टिप सफलतापूर्वक भेजी गई! आपकी उदारता के लिए धन्यवाद।",
+    TIP_SENT_SUCCESSFULLY:
+      "टिप सफलतापूर्वक भेजी गई! आपकी उदारता के लिए धन्यवाद।",
     TO: "को",
     TOKEN: "टोकन",
     TOKENS_AVAILABLE: "टोकन उपलब्ध हैं",
@@ -2132,7 +2285,8 @@ export const hi = {
     UNSTAKE_COOLDOWN_ACTIVE: "अनस्टेक कूलडाउन अवधि अभी भी सक्रिय है",
     UNSTAKE_REQUEST_IS_ALREADY_PENDING: "अनस्टेक अनुरोध पहले से पेंडिंग है",
     UNSUPPORTED_CURRENCY: "इस QR की मुद्रा सपोर्टेड नहीं है",
-    UPDATE_INSTALLED: "नया वर्ज़न V{{version}} इंस्टॉल हो गया है। कृपया पेज रीलोड करें।",
+    UPDATE_INSTALLED:
+      "नया वर्ज़न V{{version}} इंस्टॉल हो गया है। कृपया पेज रीलोड करें।",
     UPDATING_SETTINGS: "सेटिंग्स अपडेट हो रही हैं",
     UPI: "UPI",
     UPI_ID: "UPI ID",
@@ -2144,9 +2298,11 @@ export const hi = {
     USDC_TRANSFER_FAILED_WITH_ERROR_MESSAGE:
       "USDC ट्रांसफर एक त्रुटि संदेश के साथ विफल हुआ",
     USDC_TRANSFER_FAILED_WITH_PANIC: "USDC ट्रांसफर panic के साथ विफल हुआ",
+    USER: "उपयोगकर्ता",
     USERNAME_ALREADY_VERIFIED:
       "सोशल मीडिया खाते का उपयोगकर्ता नाम पहले से सत्यापित है",
-    USERNAME_FIELD_NOT_FOUND_IN_PROOF: "प्रमाण में उपयोगकर्ता नाम फ़ील्ड नहीं मिला",
+    USERNAME_FIELD_NOT_FOUND_IN_PROOF:
+      "प्रमाण में उपयोगकर्ता नाम फ़ील्ड नहीं मिला",
     USER_ADDRESS_MISMATCH:
       "कृपया उसी वॉलेट पते से कनेक्ट करें जिससे आपने सत्यापन शुरू किया था",
     USER_BLACKLISTED: "उपयोगकर्ता ब्लैकलिस्टेड",
@@ -2154,7 +2310,8 @@ export const hi = {
       "कृपया ZK सोशल सत्यापन करें और अधिक ऑर्डर देने के लिए अपनी सीमाएं बढ़ाएं",
     USER_ID_ALREADY_VERIFIED:
       "सोशल मीडिया खाते का उपयोगकर्ता आईडी पहले से सत्यापित है",
-    USER_ID_FIELD_NOT_FOUND_IN_PROOF: "प्रमाण में उपयोगकर्ता ID फ़ील्ड नहीं मिला",
+    USER_ID_FIELD_NOT_FOUND_IN_PROOF:
+      "प्रमाण में उपयोगकर्ता ID फ़ील्ड नहीं मिला",
     USER_IS_BLACKLISTED: "उपयोगकर्ता ब्लैकलिस्टेड है",
     USER_NOT_BLACKLISTED_FOR_EXTENSION:
       "उपयोगकर्ता विस्तार के लिए ब्लैकलिस्ट में नहीं है",
@@ -2170,7 +2327,8 @@ export const hi = {
     USE_RECOMMENDATIONS_RECEIVED_ERROR_VALIDATING_VOTES:
       "प्राप्त वोटों को सत्यापित करते समय त्रुटि",
     USE_VPN_RECOMMENDED: "VPN इस्तेमाल करें (सुझाया गया)",
-    VALIDATION_INSUFFICIENT_BALANCE: "बैलेंस कम है। अपने वॉलेट में और USDC जमा करें।",
+    VALIDATION_INSUFFICIENT_BALANCE:
+      "बैलेंस कम है। अपने वॉलेट में और USDC जमा करें।",
     VALIDATION_INVALID_AMOUNT: "अमान्य राशि",
     VALIDATION_MAXIMUM_BUY_LIMIT:
       "अधिकतम लिमिट {{limit}} USDC है। अधिक USDC खरीदने के लिए लिमिट बढ़ाएं।",
@@ -2199,7 +2357,8 @@ export const hi = {
       "Reclaim Protocol द्वारा संचालित · हम आपके क्रेडेंशियल्स कभी नहीं देखते।",
     VERIFICATIONS_PRIVATE_TITLE: "वेरिफ़िकेशन्स प्राइवेट हैं (zero-knowledge)",
     VERIFICATION_CANCELLED: "सत्यापन रद्द किया गया",
-    VERIFICATION_DURATION_INFO: "इस सत्यापन में कुल मिलाकर लगभग 3-5 मिनट लगते हैं।",
+    VERIFICATION_DURATION_INFO:
+      "इस सत्यापन में कुल मिलाकर लगभग 3-5 मिनट लगते हैं।",
     VERIFICATION_FAILED: "सत्यापन विफल",
     VERIFICATION_FAILED_MESSAGE: "सत्यापन विफल: {{errorMessage}}",
     VERIFICATION_IN_PROGRESS: "सत्यापन जारी है",
@@ -2331,7 +2490,8 @@ export const hi = {
     VODAFONE_CASH: "Vodafone Cash",
     VODAFONE_CASH_DETAILS: "Vodafone Cash विवरण",
     VOTES_PER_EPOCH_EXCEEDED: "प्रति एपॉक वोट सीमा पार हो गई",
-    WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER: "मर्चेंट के ऑर्डर स्वीकार करने का इंतज़ार है",
+    WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER:
+      "मर्चेंट के ऑर्डर स्वीकार करने का इंतज़ार है",
     WALLET: "वॉलेट",
     WALLET_ADDRESS: "वॉलेट पता",
     WALLET_CONNECTION_TIMEOUT:
@@ -2381,7 +2541,8 @@ export const hi = {
     YOU_RE_CONNECTED_DESCRIPTION: "आप कनेक्ट हैं और सब कुछ ठीक चल रहा है।",
     YOU_RE_CONNECTED_EXTRA_INFO:
       "बिना रुकावट एक्सेस, आसान अनुभव और समय पर अपडेट के लिए हमारी सलाह:",
-    YOU_RE_READY_TO_CLAIM_YOUR_BONUS: "आप अपना बोनस क्लेम करने के लिए तैयार हैं!",
+    YOU_RE_READY_TO_CLAIM_YOUR_BONUS:
+      "आप अपना बोनस क्लेम करने के लिए तैयार हैं!",
     YOU_SEND: "आप भेजेंगे",
     YOU_SENT: "आपने भेजा",
     YOU_VE_RECEIVED_A_SPECIAL_INVITE:
