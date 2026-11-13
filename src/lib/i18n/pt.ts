@@ -1840,6 +1840,80 @@ export const pt = {
     RECOMMENDATION_CLAIMED_SUCCESSFULLY: "Recomendação resgatada com sucesso",
     RECOMMENDATION_REVENUE_CLAIMED_SUCCESSFULLY:
       "Receita de recomendação resgatada com sucesso",
+    RECOVERY_ACCOUNT_ACTIVE: "Ativa",
+    RECOVERY_ACCOUNT_ERROR_DESCRIPTION:
+      "Não conseguimos acessar esta rede para localizar sua conta. Verifique sua conexão e tente novamente.",
+    RECOVERY_ACCOUNT_ERROR_TITLE: "Não foi possível carregar sua conta",
+    RECOVERY_ACCOUNT_NOT_ACTIVE: "Ainda não configurada",
+    RECOVERY_ACCOUNT_NOT_DEPLOYED_NOTE:
+      "Sua conta ainda não está configurada na {{network}}. Você não precisa fazer nada: sua primeira transferência a configura automaticamente.",
+    RECOVERY_ACCOUNT_TITLE: "Seu endereço P2P.me na {{network}}",
+    RECOVERY_AMOUNT_AVAILABLE: "Valor (disponível: {{amount}} {{symbol}})",
+    RECOVERY_COPY_ADDRESS: "Copiar endereço",
+    RECOVERY_COPY_HASH: "Copiar",
+    RECOVERY_DEPLOYING_ACCOUNT: "Configurando...",
+    RECOVERY_DEPLOYING_FACTORY: "Habilitando...",
+    RECOVERY_DEPLOY_ACCOUNT: "Configurar agora (opcional)",
+    RECOVERY_DEPLOY_ACCOUNT_FAILED: "Não foi possível configurar a conta",
+    RECOVERY_DEPLOY_ACCOUNT_PENDING:
+      "Configuração enviada. A confirmação pode levar alguns minutos.",
+    RECOVERY_DEPLOY_ACCOUNT_SUCCESS: "Conta configurada",
+    RECOVERY_DEPLOY_FACTORY: "Habilitar nesta rede",
+    RECOVERY_DEPLOY_FACTORY_FAILED: "Não foi possível habilitar esta rede.",
+    RECOVERY_DEPLOY_FACTORY_SUCCESS: "Rede habilitada",
+    RECOVERY_ERROR_INSUFFICIENT: "O valor é maior que o seu saldo",
+    RECOVERY_ERROR_SAME_ADDRESS:
+      "Este é o endereço onde os fundos já estão. Informe outro.",
+    RECOVERY_FACTORY_MISSING_DESCRIPTION:
+      "As contas P2P.me ainda não foram habilitadas na {{network}}, por isso não podemos mostrar a sua. Habilitá-las envia uma transação da sua carteira e pode exigir um pouco de {{symbol}} para a taxa de rede.",
+    RECOVERY_FACTORY_MISSING_TITLE:
+      "{{network}} precisa de uma configuração única",
+    RECOVERY_GAS_ADDRESS_LABEL: "Envie {{symbol}} ({{network}}) para",
+    RECOVERY_GAS_DESCRIPTION:
+      "Não foi possível cobrir a taxa de rede desta transação. Envie uma pequena quantia de {{symbol}} na {{network}} para o endereço abaixo, aguarde chegar e tente novamente.",
+    RECOVERY_GAS_TITLE: "Adicione {{symbol}} para a taxa de rede",
+    RECOVERY_HASH_COPIED: "Copiado",
+    RECOVERY_HELP_CTA: "Recuperar tokens",
+    RECOVERY_HELP_DESCRIPTION:
+      "Se você enviou USDC ou outros tokens para o seu endereço P2P.me em uma rede que não é a Base, pode recuperá-los por conta própria.",
+    RECOVERY_HELP_TITLE: "Enviou fundos pela rede errada?",
+    RECOVERY_INTRO:
+      "Enviou tokens para o seu endereço P2P.me em uma rede que não é a Base? Seu endereço é o mesmo em todas as redes EVM, então os fundos continuam sendo seus. Escolha a rede e envie-os daqui.",
+    RECOVERY_IRREVERSIBLE_NOTE:
+      "Confirme que o destinatário pode receber {{symbol}} na {{network}}. Transferências não podem ser revertidas.",
+    RECOVERY_NATIVE_FEE_HINT:
+      "Se a taxa de rede não for coberta, ela é paga em {{symbol}} a partir desta conta, então enviar todo o saldo pode falhar. Deixe um pouco.",
+    RECOVERY_NO_NETWORKS_FOUND: "Nenhuma rede encontrada",
+    RECOVERY_PASTE_ADDRESS: "Colar endereço",
+    RECOVERY_RECIPIENT_CUSTOM: "Outro endereço",
+    RECOVERY_RECIPIENT_LABEL: "Enviar para",
+    RECOVERY_RECIPIENT_OWNER: "Minha carteira proprietária",
+    RECOVERY_RECIPIENT_OWNER_NOTE:
+      "Esta é a chave de carteira que controla sua conta P2P.me. Os tokens ficarão neste endereço na {{network}} e não aparecerão no seu saldo P2P.me.",
+    RECOVERY_REFRESH: "Atualizar",
+    RECOVERY_RESULT_CONFIRMED_DESCRIPTION:
+      "{{amount}} {{symbol}} enviados para {{recipient}}.",
+    RECOVERY_RESULT_CONFIRMED_TITLE: "Transferência confirmada",
+    RECOVERY_RESULT_PENDING_DESCRIPTION:
+      "Sua transferência de {{amount}} {{symbol}} para {{recipient}} ainda não foi confirmada. Confira seu saldo aqui em alguns minutos antes de enviar novamente.",
+    RECOVERY_RESULT_PENDING_TITLE: "Transferência enviada",
+    RECOVERY_SEARCH_NETWORK: "Buscar rede",
+    RECOVERY_SENDING_NOTE:
+      "Isso pode levar até um minuto. Mantenha esta tela aberta.",
+    RECOVERY_SEND_ANOTHER: "Enviar outra",
+    RECOVERY_SEND_TOKEN: "Enviar {{symbol}}",
+    RECOVERY_TITLE: "Recuperar tokens",
+    RECOVERY_TOKENS_EMPTY_DESCRIPTION:
+      "Não encontramos saldo no seu endereço aqui. Se você enviou fundos em outra rede, selecione-a acima. Um depósito recente pode levar um instante para aparecer.",
+    RECOVERY_TOKENS_EMPTY_TITLE: "Nada para recuperar na {{network}}",
+    RECOVERY_TOKENS_ERROR:
+      "Não foi possível carregar seus saldos na {{network}}.",
+    RECOVERY_TOKENS_TITLE: "Tokens encontrados",
+    RECOVERY_TRANSFER_FAILED: "A transferência falhou. Tente novamente.",
+    RECOVERY_TRANSFER_REVERTED:
+      "A rede rejeitou esta transferência. Nada foi enviado.",
+    RECOVERY_USER_OP_HASH: "ID da operação",
+    RECOVERY_VIEW_ON_EXPLORER: "Ver no explorador",
     RECOVER_CONNECT_FAILED:
       "Não foi possível conectar a uma carteira com essa chave. Verifique a chave privada e tente novamente.",
     RECOVER_ENTER_PRIVATE_KEY: "Insira a chave privada da sua carteira",
