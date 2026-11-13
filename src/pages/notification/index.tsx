@@ -12,7 +12,7 @@ const notifications = [
     id: 1,
     title: "Watch a movie, get 90% back with p2p.me!",
     description:
-      "Use p2p.me to book any movie ticket, snap a photo of it, and share it on Twitter with your Order ID. We'll send you 90% of the ticket cost back to your wallet. It's that simple! Make your next movie night almost free — but hurry, this offer won't last long.",
+      "Use p2p.me to book any movie ticket, snap a photo of it, and share it on Twitter with your Order ID. We'll send you 90% of the ticket cost back to your wallet. It's that simple! Make your next movie night almost free, but hurry, this offer won't last long.",
     icon: (
       <ActionWallet className="size-10 rounded-xl bg-muted p-2 text-primary" />
     ),
@@ -21,9 +21,9 @@ const notifications = [
   },
   {
     id: 2,
-    title: "Introducing Scan & Pay – Try It Out Now!",
+    title: "Introducing Scan & Pay: Try It Out Now!",
     description:
-      "We just added a new Scan & Pay feature to make transactions even smoother. Simply scan any QR to pay with USDC instantly. Give it a try and share your feedback — we're excited to hear what you think!",
+      "We just added a new Scan & Pay feature to make transactions even smoother. Simply scan any QR to pay with USDC instantly. Give it a try and share your feedback. We're excited to hear what you think!",
     icon: (
       <ActionDeposit className="size-10 rounded-xl bg-muted p-2 text-primary" />
     ),
@@ -32,9 +32,9 @@ const notifications = [
   },
   {
     id: 3,
-    title: "We're Making Things Better – Temporary Maintenance Ongoing",
+    title: "We're Making Things Better: Temporary Maintenance Ongoing",
     description:
-      "We're performing scheduled maintenance to improve your p2p.me experience. Some features may be temporarily unavailable. Thanks for your patience — we'll be back shortly, faster and better than ever!",
+      "We're performing scheduled maintenance to improve your p2p.me experience. Some features may be temporarily unavailable. Thanks for your patience. We'll be back shortly, faster and better than ever!",
     icon: (
       <ActionSupport className="size-10 rounded-xl bg-muted p-2 text-primary" />
     ),
