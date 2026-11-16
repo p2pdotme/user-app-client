@@ -192,7 +192,7 @@ export const id = {
     BUY_CANCELLED_REASON_2:
       "Dibatalkan otomatis karena tidak diterima dalam 3 menit. Ini bisa terjadi di luar jam sibuk. Silakan buat pesanan ulang, atau coba lagi saat jam aktif kami!",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang. Anda akan menerima {{deductedAmount}}",
+      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang dan ditambahkan ke pembayaran Anda. Anda akan menerima {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT: "Jumlah pesanan beli melebihi batas",
     BUY_PRICE: "Harga Beli",
     BUY_SELL_USDC_WITHIN_SECONDS: "Beli/jual USDC dalam hitungan detik",

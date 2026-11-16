@@ -194,7 +194,7 @@ export const pt = {
     BUY_CANCELLED_REASON_2:
       "Cancelado automaticamente porque não foi aceito em 3 minutos. Isso pode acontecer fora do horário de pico. Tente fazer o pedido de novo ou volte durante nosso horário de atendimento!",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Taxa fixa de {{flatFee}} USDC para pedidos de até {{orderMinimumAmount}} USDC. Você receberá {{deductedAmount}}",
+      "Taxa fixa de {{flatFee}} USDC para pedidos de até {{orderMinimumAmount}} USDC, somada ao seu pagamento. Você receberá {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT:
       "O valor do pedido de compra excede o limite",
     BUY_PRICE: "Preço de compra",
