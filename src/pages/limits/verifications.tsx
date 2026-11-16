@@ -80,6 +80,11 @@ import {
 } from "@/lib/constants";
 import { refreshLimitsAfterVerification } from "@/lib/limit-increase";
 import {
+  decideReclaimPollRetry,
+  initialReclaimPollState,
+  type ReclaimPollState,
+} from "@/lib/reclaim-poll-policy";
+import {
   clearStoredParams,
   getStoredParams,
 } from "@/lib/url-param-preservation";
@@ -429,6 +434,14 @@ function VerificationItem({
   // for an older attempt (e.g. a proof landing after Cancel) is ignored.
   const attemptRef = useRef(0);
   const expiryTimerRef = useRef<number | null>(null);
+  // Same-session polling resumes for the current attempt (see
+  // src/lib/reclaim-poll-policy.ts): a transient failure keeps polling the
+  // session the user already used instead of failing the verification.
+  const pollStateRef = useRef<ReclaimPollState>(initialReclaimPollState());
+  const resumeTimerRef = useRef<number | null>(null);
+  const resumePollingRef = useRef<(sessionId: string, attempt: number) => void>(
+    () => {},
+  );
 
   const { mutateAsync: socialVerify, isPending: isSocialVerifyLoading } =
     useSocialVerify();
@@ -457,6 +470,10 @@ function VerificationItem({
     attemptRef.current += 1;
     activeSessionRef.current?.abort?.();
     activeSessionRef.current = null;
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
     clearExpiryTimer();
     isPollingRef.current = false;
   }, [clearExpiryTimer]);
@@ -703,6 +720,7 @@ function VerificationItem({
   // timeout. Synchronous, so it can run inside the user's tap.
   const beginAttempt = useCallback(() => {
     stopActiveSession();
+    pollStateRef.current = initialReclaimPollState();
     const attempt = attemptRef.current;
     expiryTimerRef.current = window.setTimeout(() => {
       expiryTimerRef.current = null;
@@ -739,13 +757,50 @@ function VerificationItem({
         },
         (error) => {
           if (attemptRef.current !== attempt) return;
-          clearExpiryTimer();
           activeSessionRef.current = null;
+          // Transient failure (network blip, Reclaim 5xx / brief
+          // "generation failed" / "not found"): keep polling the SAME
+          // session after a backoff. The 10-minute attempt cap still applies.
+          const decision = decideReclaimPollRetry(error, pollStateRef.current);
+          if (decision.action === "retry" && session.sessionId) {
+            pollStateRef.current = decision.nextState;
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_poll_retry",
+              platform: name,
+              reason: decision.reason,
+              retry: decision.nextState.retries,
+              delayMs: decision.delayMs,
+            });
+            const sessionId = session.sessionId;
+            resumeTimerRef.current = window.setTimeout(() => {
+              resumeTimerRef.current = null;
+              if (attemptRef.current !== attempt) return;
+              resumePollingRef.current(sessionId, attempt);
+            }, decision.delayMs);
+            return;
+          }
+          clearExpiryTimer();
+          if (decision.action === "stop" && decision.reason !== error.code) {
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_poll_gave_up",
+              platform: name,
+              reason: decision.reason,
+              code: error.code,
+            });
+          }
           handleVerificationError(error.message);
         },
       );
     },
-    [clearExpiryTimer, handleVerificationSuccess, handleVerificationError],
+    [
+      clearExpiryTimer,
+      handleVerificationSuccess,
+      handleVerificationError,
+      track,
+      name,
+    ],
   );
 
   const runReclaimFlow = useCallback(
@@ -808,6 +863,21 @@ function VerificationItem({
       handleVerificationError,
     ],
   );
+
+  // Resume polling an existing session (no new session, no relaunch of the
+  // Reclaim app) for the same attempt.
+  useEffect(() => {
+    resumePollingRef.current = (sessionId, attempt) => {
+      isPollingRef.current = true;
+      void runReclaimFlow(
+        name.toLowerCase() as SocialPlatform,
+        attempt,
+        sessionId,
+      ).finally(() => {
+        if (attemptRef.current === attempt) isPollingRef.current = false;
+      });
+    };
+  }, [runReclaimFlow, name]);
 
   // Init a Reclaim session ahead of the user's tap. init()/getRequestUrl() are
   // network calls that need no user-activation, so running them off-gesture lets
