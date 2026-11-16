@@ -36,6 +36,10 @@ import {
   useBvnRpReward,
   useBvnVerificationStatus,
 } from "@/hooks/use-tx-limits";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 
 /** Icon shown next to each OTP delivery channel. */
 const OTP_METHOD_ICONS: Record<string, typeof Mail> = {
@@ -365,6 +369,18 @@ export function BvnVerificationCard() {
   const [otp, setOtp] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  // Raw backend / RPC reasons are never shown; map to a plain sentence.
+  const showBvnError = (error: unknown) => {
+    if (isUserCancellation(error)) return;
+    toast.error(t("BVN_VERIFICATION_FAILED"), {
+      description: getUserFacingErrorMessage(
+        t,
+        error,
+        "LIM_VERIFICATION_FAILED_DESCRIPTION",
+      ),
+    });
+  };
+
   const closeDrawer = () => {
     setOpen(false);
     setBvn("");
@@ -377,9 +393,7 @@ export function BvnVerificationCard() {
     try {
       await start(bvn);
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED"),
-      );
+      showBvnError(error);
     }
   };
 
@@ -394,9 +408,7 @@ export function BvnVerificationCard() {
         phoneNumber: phoneNumber.trim() || undefined,
       });
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED"),
-      );
+      showBvnError(error);
     }
   };
 
@@ -406,12 +418,12 @@ export function BvnVerificationCard() {
       toast.success(t("BVN_VERIFIED"));
       await refetchBvnStatus();
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED");
       // The backend rejects a re-used BVN with reason "bvn_reused".
-      toast.error(
-        message === "bvn_reused" ? t("BVN_ALREADY_VERIFIED") : message,
-      );
+      if (error instanceof Error && error.message === "bvn_reused") {
+        toast.error(t("BVN_ALREADY_VERIFIED"));
+        return;
+      }
+      showBvnError(error);
     }
   };
 

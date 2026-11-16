@@ -22,6 +22,7 @@ import {
   deriveDisputeEscalationView,
 } from "@/lib/dispute-escalation";
 import { buildDisputeStages, type DisputeStage } from "@/lib/dispute-stages";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { cn } from "@/lib/utils";
 import {
   type DisputeChallengeAction,
@@ -133,7 +134,7 @@ export function DisputeEscalationCard({
       toast.error(
         t(isFinalize ? "DISPUTE_FINALIZE_FAILED" : "DISPUTE_CHALLENGE_FAILED"),
         {
-          description: error instanceof Error ? error.message : undefined,
+          description: getUserFacingErrorMessage(t, error),
         },
       );
       return;
