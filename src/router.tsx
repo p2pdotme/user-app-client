@@ -153,12 +153,6 @@ const FAQsSearch = lazy(() =>
   })),
 );
 
-const HelpfulVideoGuides = lazy(() =>
-  import("@/pages/help/helpful-video-guides").then((module) => ({
-    default: module.HelpfulVideoGuides,
-  })),
-);
-
 // Dev pages (development only)
 const DevDashboard = lazy(() =>
   import("@/pages/dev").then((module) => ({
@@ -295,10 +289,6 @@ export function Router() {
         <Route
           path={INTERNAL_HREFS.HELP_FAQS_SEARCH}
           element={<FAQsSearch />}
-        />
-        <Route
-          path={INTERNAL_HREFS.HELP_HELPFUL_VIDEO_GUIDES}
-          element={<HelpfulVideoGuides />}
         />
         <Route
           path={`${INTERNAL_HREFS.HELP}/:title`}

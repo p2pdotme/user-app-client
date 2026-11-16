@@ -5,8 +5,8 @@ export const id = {
       '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
     ACCEPTED: "Diterima",
     ACCESS_GRANTED_BUTTON: "Tonton Panduan Video",
-    ACCESS_GRANTED_DESCRIPTION:
-      "Pelajari cara membeli/menjual USDC secara instan dan membayar via Scan & Pay dalam hitungan detik",
+    ACCESS_GRANTED_READY_DESCRIPTION:
+      "Sekarang Anda bisa membeli dan menjual USDC serta membayar QR code lokal dengan Scan & Pay. Jawaban langkah demi langkah selalu ada di Bantuan.",
     ACCESS_GRANTED_TITLE: "Akses Diberikan, Anda Sudah Siap!",
     ACCOUNT: "Akun",
     ACCOUNT_NAME: "Nama Rekening",
@@ -1062,7 +1062,6 @@ export const id = {
       "Getaran haptic dinonaktifkan di pengaturan Anda",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "Getaran haptic tidak didukung",
     HELP: "Bantuan",
-    HELPFUL_VIDEO_GUIDES: "Panduan video yang membantu",
     HELP_AND_SUPPORT: "Bantuan & Dukungan",
     HELP_AND_SUPPORT_DESCRIPTION: "Dapatkan bantuan seputar transaksi P2P Anda",
     HELP_CENTER_COMING_SOON: "Pusat bantuan segera hadir",
@@ -2023,7 +2022,6 @@ export const id = {
     QR_PROCESSED: "QR diproses",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "Detail QR Simple",
-    QUICK_APP_TOUR_BANNER_TITLE: "Tur Aplikasi Cepat",
     QUICK_FIXES: "Perbaikan Cepat",
     QUOTE_DETAILS: "Detail Penawaran",
     QUOTE_NOT_AVAILABLE: "Penawaran harga tidak tersedia",
@@ -2333,7 +2331,7 @@ export const id = {
     SEO_DESCRIPTION_DEFAULT:
       "P2P.me adalah aplikasi self-custody untuk membeli dan menjual USDC dengan mata uang lokal serta membayar di kode QR mana pun dengan USDC. Tukar fiat ke kripto dengan cepat di Base, tanpa khawatir rekening dibekukan.",
     SEO_DESCRIPTION_HELP:
-      "FAQ, panduan video, dan dukungan untuk membeli, menjual, dan membayar dengan USDC di P2P.me.",
+      "FAQ dan dukungan untuk membeli, menjual, dan membayar dengan USDC di P2P.me.",
     SEO_DESCRIPTION_LOGIN:
       "Masuk ke P2P.me dengan email, nomor telepon, Google, atau passkey untuk membeli, menjual, dan membayar dengan USDC di kode QR mana pun.",
     SEO_DESCRIPTION_PAY:
@@ -2730,10 +2728,8 @@ export const id = {
     VFX_START_AGAIN: "Mulai lagi",
     VFX_STATUS_CHECK_FAILED: "Tidak dapat memeriksa status",
     VIA_JUPITER: "via Jupiter",
-    VIDEO_APP_TOUR: "Tur Aplikasi",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_BUY_FLOW: "Alur Beli",
     VIDEO_BUY_SELL_PAY_FLOW: "Alur Beli, Jual & Bayar",
     VIDEO_BUY_SELL_PAY_FLOW_LINK:
       "https://www.youtube.com/watch?v=buy-sell-pay",
@@ -2750,10 +2746,6 @@ export const id = {
     VIDEO_CLAIMING_REWARDS_GENERAL_LINK:
       "https://www.youtube.com/watch?v=claim-general",
     VIDEO_CLAIMING_REWARDS_GENERAL_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_CLAIM_REFERRAL: "Klaim Referral",
-    VIDEO_CLAIM_REFERRAL_REWARDS: "Klaim Hadiah Referral",
-    VIDEO_CROSSCHAIN_DEPOSIT: "Deposit Cross-Chain",
-    VIDEO_CROSSCHAIN_WITHDRAW: "Penarikan Cross-Chain",
     VIDEO_DEPOSIT_FLOW: "Alur Deposit",
     VIDEO_DEPOSIT_FLOW_DETAILED: "Alur Deposit Terperinci",
     VIDEO_DEPOSIT_FLOW_DETAILED_LINK:
@@ -2761,18 +2753,10 @@ export const id = {
     VIDEO_DEPOSIT_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_DEPOSIT_FLOW_LINK: "https://www.youtube.com/watch?v=deposit-flow",
     VIDEO_DEPOSIT_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_DIRECT_DEPOSIT: "Deposit Langsung",
-    VIDEO_DIRECT_WITHDRAW: "Penarikan Langsung",
-    VIDEO_FUNDS_RECOVERY: "Pemulihan Dana",
-    VIDEO_GENERATE_REFERRAL: "Buat Referral",
-    VIDEO_GITHUB_VERIFICATION: "Verifikasi GitHub",
-    VIDEO_INCREASE_LIMITS: "Tingkatkan Batas",
     VIDEO_INCREASE_TRANSACTION_LIMIT: "Cara Menaikkan Limit Transaksi",
     VIDEO_INCREASE_TRANSACTION_LIMIT_LINK:
       "https://www.youtube.com/watch?v=increase-limits",
     VIDEO_INCREASE_TRANSACTION_LIMIT_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_INSTAGRAM_VERIFICATION: "Verifikasi Instagram",
-    VIDEO_LINKEDIN_VERIFICATION: "Verifikasi LinkedIn",
     VIDEO_NETWORK_ISSUE_FIX_VPN:
       "Masalah Jaringan: Cara Memperbaikinya dengan VPN",
     VIDEO_NETWORK_ISSUE_FIX_VPN_LINK:
@@ -2780,9 +2764,7 @@ export const id = {
     VIDEO_NETWORK_ISSUE_FIX_VPN_THUMBNAIL: "https://placehold.co/120x160",
     VIDEO_RAISE_DISPUTE: "Cara Mengajukan Sengketa",
     VIDEO_RAISE_DISPUTE_LINK: "https://www.youtube.com/watch?v=raise-dispute",
-    VIDEO_RAISE_DISPUTE_SHORT: "Ajukan Sengketa",
     VIDEO_RAISE_DISPUTE_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_RANGO_SUPPORT: "Dukungan Rango",
     VIDEO_RANGO_SUPPORT_TICKET: "Cara Membuat Tiket Dukungan Rango",
     VIDEO_RANGO_SUPPORT_TICKET_LINK:
       "https://www.youtube.com/watch?v=rango-support",
@@ -2795,8 +2777,6 @@ export const id = {
     VIDEO_REFERRING_SOMEONE_GENERAL_LINK:
       "https://www.youtube.com/watch?v=refer-general",
     VIDEO_REFERRING_SOMEONE_GENERAL_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_SCAN_AND_PAY: "Scan & Pay",
-    VIDEO_SELL_FLOW: "Alur Jual",
     VIDEO_WHAT_IS_P2P_ME: "Apa itu P2P.me?",
     VIDEO_WHAT_IS_P2P_ME_LINK: "https://www.youtube.com/watch?v=what-is-p2p",
     VIDEO_WHAT_IS_P2P_ME_THUMBNAIL: "https://placehold.co/120x160",
@@ -2844,7 +2824,6 @@ export const id = {
     WALLET_CONNECTION_TIMEOUT:
       "Login timeout. Periksa jaringan Anda dan coba lagi.",
     WALLET_NOT_CONNECTED: "Tidak ada dompet yang terhubung",
-    WATCH_TUTORIAL: "Tonton tutorial",
     WEB_SHARE_UNAVAILABLE_FALLBACK_DISABLED:
       "Web Share API tidak didukung dan fallback dimatikan",
     WHY_YOUR_TRANSACTION_MIGHT_HAVE_FAILED:
