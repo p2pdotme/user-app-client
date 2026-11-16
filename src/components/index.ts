@@ -1,4 +1,4 @@
-// Heavy, screen-specific components (QR scanner, bridge token selector) are
+// Heavy, screen-specific components (e.g. the QR scanner) are
 // intentionally not re-exported here; import them by path so they stay out
 // of the startup bundle.
 export * from "./auth-guard";
