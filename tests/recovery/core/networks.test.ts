@@ -97,10 +97,16 @@ const EXPECTED: Record<
     decimals: 6,
     native: "OKB",
   },
+  arc: {
+    id: 5042,
+    usdc: "0x3600000000000000000000000000000000000000",
+    decimals: 6,
+    native: "USDC",
+  },
 };
 
 describe("network table", () => {
-  it("has the 13 expected networks", () => {
+  it("has the 14 expected networks", () => {
     expect(KEYS.sort()).toEqual(Object.keys(EXPECTED).sort());
   });
 
@@ -195,7 +201,7 @@ describe("network table", () => {
 
 describe("RECOVERY_NETWORK_LIST", () => {
   it("lists every network once, alphabetically by label", () => {
-    expect(RECOVERY_NETWORK_LIST).toHaveLength(13);
+    expect(RECOVERY_NETWORK_LIST).toHaveLength(14);
     const labels = RECOVERY_NETWORK_LIST.map((n) => n.label);
     expect(labels).toEqual([...labels].sort((a, b) => a.localeCompare(b)));
   });
