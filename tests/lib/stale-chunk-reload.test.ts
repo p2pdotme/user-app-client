@@ -40,13 +40,24 @@ describe("stale chunk reload", () => {
     expect(reload).toHaveBeenCalledTimes(2);
   });
 
-  it("does not reload while offline", () => {
-    const online = vi.spyOn(navigator, "onLine", "get").mockReturnValue(false);
+  it("never reloads while offline", () => {
     const reload = vi.fn();
-    expect(reloadForStaleChunk({ storage: memoryStorage(), reload })).toBe(
-      false,
-    );
+    expect(
+      reloadForStaleChunk({ storage: memoryStorage(), online: false, reload }),
+    ).toBe(false);
     expect(reload).not.toHaveBeenCalled();
-    online.mockRestore();
+  });
+
+  it("never reloads when the loop guard can't be stored", () => {
+    const reload = vi.fn();
+    expect(reloadForStaleChunk({ storage: null, reload })).toBe(false);
+    const throwing = {
+      getItem: () => null,
+      setItem: () => {
+        throw new DOMException("QuotaExceededError");
+      },
+    };
+    expect(reloadForStaleChunk({ storage: throwing, reload })).toBe(false);
+    expect(reload).not.toHaveBeenCalled();
   });
 });

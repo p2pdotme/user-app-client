@@ -4,8 +4,8 @@ export const id = {
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P adalah token tata kelola dan utilitas Protokol P2P, yang menggerakkan tata kelola protokol berbasis futarki, kontrol perbendaharaan, dan staking kepercayaan ("Circles of Trust") untuk on/off-ramp fiat-ke-kripto yang terdesentralisasi dan menjaga privasi.',
     ACCEPTED: "Diterima",
-    ACCESS_GRANTED_DESCRIPTION:
-      "Pelajari cara membeli/menjual USDC secara instan dan membayar via Scan & Pay dalam hitungan detik",
+    ACCESS_GRANTED_READY_DESCRIPTION:
+      "Sekarang Anda bisa membeli dan menjual USDC serta membayar QR code lokal dengan Scan & Pay. Jawaban langkah demi langkah selalu ada di Bantuan.",
     ACCESS_GRANTED_TITLE: "Akses Diberikan, Anda Sudah Siap!",
     ACCOUNT_NAME: "Nama Rekening",
     ACCOUNT_NUMBER: "Nomor Rekening",
@@ -887,7 +887,6 @@ export const id = {
       "Getaran haptic dinonaktifkan di pengaturan Anda",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "Getaran haptic tidak didukung",
     HELP: "Bantuan",
-    HELPFUL_VIDEO_GUIDES: "Panduan video yang membantu",
     HELP_AND_SUPPORT: "Bantuan & Dukungan",
     HELP_AND_SUPPORT_DESCRIPTION: "Dapatkan bantuan seputar transaksi P2P Anda",
     HIDE_BALANCE: "Sembunyikan saldo",
@@ -1725,7 +1724,6 @@ export const id = {
     QR_PROCESSED: "QR diproses",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "Detail QR Simple",
-    QUICK_APP_TOUR_BANNER_TITLE: "Tur Aplikasi Cepat",
     RAISED: "Diajukan",
     RAISE_A_DISPUTE: "Ajukan Sengketa",
     RAISE_DISPUTE: "Ajukan Sengketa",
@@ -1989,7 +1987,7 @@ export const id = {
     SEO_DESCRIPTION_DEFAULT:
       "P2P.me adalah aplikasi self-custody untuk membeli dan menjual USDC dengan mata uang lokal serta membayar di kode QR mana pun dengan USDC. Tukar fiat ke kripto dengan cepat di Base, tanpa khawatir rekening dibekukan.",
     SEO_DESCRIPTION_HELP:
-      "FAQ, panduan video, dan dukungan untuk membeli, menjual, dan membayar dengan USDC di P2P.me.",
+      "FAQ dan dukungan untuk membeli, menjual, dan membayar dengan USDC di P2P.me.",
     SEO_DESCRIPTION_LOGIN:
       "Masuk ke P2P.me dengan email, nomor telepon, Google, atau passkey untuk membeli, menjual, dan membayar dengan USDC di kode QR mana pun.",
     SEO_DESCRIPTION_PAY:
@@ -2308,24 +2306,6 @@ export const id = {
     VFX_START_AGAIN: "Mulai lagi",
     VFX_STATUS_CHECK_FAILED: "Tidak dapat memeriksa status",
     VIA_JUPITER: "via Jupiter",
-    VIDEO_APP_TOUR: "Tur Aplikasi",
-    VIDEO_BUY_FLOW: "Alur Beli",
-    VIDEO_CLAIM_REFERRAL: "Klaim Referral",
-    VIDEO_CLAIM_REFERRAL_REWARDS: "Klaim Hadiah Referral",
-    VIDEO_CROSSCHAIN_DEPOSIT: "Deposit Cross-Chain",
-    VIDEO_CROSSCHAIN_WITHDRAW: "Penarikan Cross-Chain",
-    VIDEO_DIRECT_DEPOSIT: "Deposit Langsung",
-    VIDEO_DIRECT_WITHDRAW: "Penarikan Langsung",
-    VIDEO_FUNDS_RECOVERY: "Pemulihan Dana",
-    VIDEO_GENERATE_REFERRAL: "Buat Referral",
-    VIDEO_GITHUB_VERIFICATION: "Verifikasi GitHub",
-    VIDEO_INCREASE_LIMITS: "Tingkatkan Batas",
-    VIDEO_INSTAGRAM_VERIFICATION: "Verifikasi Instagram",
-    VIDEO_LINKEDIN_VERIFICATION: "Verifikasi LinkedIn",
-    VIDEO_RAISE_DISPUTE_SHORT: "Ajukan Sengketa",
-    VIDEO_RANGO_SUPPORT: "Dukungan Rango",
-    VIDEO_SCAN_AND_PAY: "Scan & Pay",
-    VIDEO_SELL_FLOW: "Alur Jual",
     VIEW_HOLDINGS: "Lihat aset",
     VIEW_MY_ORDERS: "Lihat pesanan saya",
     VIEW_ON: "Lihat di",
@@ -2340,7 +2320,6 @@ export const id = {
     WALLET_CONNECTION_TIMEOUT:
       "Login timeout. Periksa jaringan Anda dan coba lagi.",
     WALLET_NOT_CONNECTED: "Tidak ada dompet yang terhubung",
-    WATCH_TUTORIAL: "Tonton tutorial",
     WEB_SHARE_UNAVAILABLE_FALLBACK_DISABLED:
       "Web Share API tidak didukung dan fallback dimatikan",
     WHY_YOUR_TRANSACTION_MIGHT_HAVE_FAILED:

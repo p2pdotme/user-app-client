@@ -4,8 +4,8 @@ export const hi = {
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P, P2P प्रोटोकॉल का गवर्नेंस और यूटिलिटी टोकन है, जो विकेंद्रीकृत, गोपनीयता-संरक्षित फिएट-टू-क्रिप्टो ऑन/ऑफ-रैम्प के लिए फ्यूटार्की-आधारित प्रोटोकॉल गवर्नेंस, ट्रेज़री नियंत्रण और ट्रस्ट स्टेकिंग ("Circles of Trust") को सशक्त बनाता है।',
     ACCEPTED: "स्वीकार किया गया",
-    ACCESS_GRANTED_DESCRIPTION:
-      "जानें कि USDC तुरंत कैसे खरीदें/बेचें और Scan & Pay से सेकंड में पेमेंट करें",
+    ACCESS_GRANTED_READY_DESCRIPTION:
+      "अब आप USDC खरीद-बेच सकते हैं और Scan & Pay से लोकल QR कोड पर भुगतान कर सकते हैं। स्टेप-बाय-स्टेप जवाब हमेशा Help में मिलेंगे।",
     ACCESS_GRANTED_TITLE: "एक्सेस मिल गया - आप पूरी तरह तैयार हैं!",
     ACCOUNT_NAME: "खाते का नाम",
     ACCOUNT_NUMBER: "खाता संख्या",
@@ -848,7 +848,6 @@ export const hi = {
     HAPTIC_FEEDBACK_DISABLED_IN_SETTINGS: "हैप्टिक फीडबैक आपकी सेटिंग्स में बंद है",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "हैप्टिक फीडबैक सपोर्टेड नहीं है",
     HELP: "सहायता",
-    HELPFUL_VIDEO_GUIDES: "काम के वीडियो गाइड",
     HELP_AND_SUPPORT: "हेल्प और सपोर्ट",
     HELP_AND_SUPPORT_DESCRIPTION: "P2P से जुड़ी हर मदद पाएं",
     HIDE_BALANCE: "बैलेंस छुपाएं",
@@ -1652,7 +1651,6 @@ export const hi = {
     QR_PROCESSED: "QR प्रोसेस हो गया",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "QR Simple विवरण",
-    QUICK_APP_TOUR_BANNER_TITLE: "क्विक ऐप टूर",
     RAISED: "उठाया गया",
     RAISE_A_DISPUTE: "विवाद उठाएँ",
     RAISE_DISPUTE: "विवाद उठाएँ",
@@ -1907,7 +1905,7 @@ export const hi = {
     SEO_DESCRIPTION_DEFAULT:
       "P2P.me एक सेल्फ-कस्टडी ऐप है जिससे आप स्थानीय मुद्रा में USDC खरीद-बेच सकते हैं और किसी भी QR कोड पर USDC से भुगतान कर सकते हैं। Base पर तेज़ फिएट-से-क्रिप्टो स्वैप, बैंक फ्रीज़ की चिंता के बिना।",
     SEO_DESCRIPTION_HELP:
-      "P2P.me पर USDC खरीदने, बेचने और भुगतान करने के लिए FAQ, वीडियो गाइड और सहायता।",
+      "P2P.me पर USDC खरीदने, बेचने और भुगतान करने के लिए FAQ और सहायता।",
     SEO_DESCRIPTION_LOGIN:
       "किसी भी QR कोड पर USDC से खरीदने, बेचने और भुगतान करने के लिए ईमेल, फ़ोन, Google या पासकी से P2P.me में लॉगिन करें।",
     SEO_DESCRIPTION_PAY:
@@ -2213,24 +2211,6 @@ export const hi = {
     VFX_START_AGAIN: "फिर से शुरू करें",
     VFX_STATUS_CHECK_FAILED: "स्टेटस जाँचा नहीं जा सका",
     VIA_JUPITER: "Jupiter से",
-    VIDEO_APP_TOUR: "ऐप टूर",
-    VIDEO_BUY_FLOW: "खरीद फ्लो",
-    VIDEO_CLAIM_REFERRAL: "रेफ़रल क्लेम करें",
-    VIDEO_CLAIM_REFERRAL_REWARDS: "रेफ़रल रिवॉर्ड्स क्लेम करें",
-    VIDEO_CROSSCHAIN_DEPOSIT: "क्रॉस-चेन जमा",
-    VIDEO_CROSSCHAIN_WITHDRAW: "क्रॉस-चेन निकासी",
-    VIDEO_DIRECT_DEPOSIT: "डायरेक्ट जमा",
-    VIDEO_DIRECT_WITHDRAW: "डायरेक्ट निकासी",
-    VIDEO_FUNDS_RECOVERY: "फंड रिकवरी",
-    VIDEO_GENERATE_REFERRAL: "रेफ़रल जेनरेट करें",
-    VIDEO_GITHUB_VERIFICATION: "GitHub वेरिफिकेशन",
-    VIDEO_INCREASE_LIMITS: "लिमिट बढ़ाएँ",
-    VIDEO_INSTAGRAM_VERIFICATION: "Instagram वेरिफिकेशन",
-    VIDEO_LINKEDIN_VERIFICATION: "LinkedIn वेरिफिकेशन",
-    VIDEO_RAISE_DISPUTE_SHORT: "विवाद उठाएँ",
-    VIDEO_RANGO_SUPPORT: "Rango सपोर्ट",
-    VIDEO_SCAN_AND_PAY: "Scan & Pay",
-    VIDEO_SELL_FLOW: "बिक्री फ्लो",
     VIEW_HOLDINGS: "होल्डिंग्स देखें",
     VIEW_MY_ORDERS: "मेरे ऑर्डर देखें",
     VIEW_ON: "देखें",
@@ -2245,7 +2225,6 @@ export const hi = {
     WALLET_CONNECTION_TIMEOUT:
       "लॉगिन का समय खत्म हो गया। कृपया अपना नेटवर्क जांचें और फिर से कोशिश करें।",
     WALLET_NOT_CONNECTED: "कोई वॉलेट कनेक्ट नहीं है",
-    WATCH_TUTORIAL: "ट्यूटोरियल देखें",
     WEB_SHARE_UNAVAILABLE_FALLBACK_DISABLED:
       "वेब शेयर API समर्थित नहीं है और फॉलबैक बंद है",
     WHY_YOUR_TRANSACTION_MIGHT_HAVE_FAILED:

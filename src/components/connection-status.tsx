@@ -1,11 +1,4 @@
-import {
-  CheckCircle2,
-  Loader2,
-  Play,
-  RefreshCw,
-  Send,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle2, Loader2, RefreshCw, Send, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +17,6 @@ import {
   type ServiceReachability,
   useServiceReachability,
 } from "@/hooks/use-service-reachability";
-import { CONNECTION_STATUS_TUTORIAL_LINK } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const VpnDnsInstructions = () => {
@@ -153,19 +145,6 @@ export function ConnectionStatusDrawer({
           </DrawerHeader>
           <DrawerFooter className="mt-4 flex flex-col gap-3">
             <div className="flex w-full flex-col gap-3">
-              <Button
-                onClick={() =>
-                  window.open(
-                    CONNECTION_STATUS_TUTORIAL_LINK,
-                    "_blank",
-                    "noopener,noreferrer",
-                  )
-                }
-                className="w-full"
-                variant="default">
-                <Play className="h-5 w-5" />
-                <span className="text-center">{t("WATCH_TUTORIAL")}</span>
-              </Button>
               <Button
                 onClick={() =>
                   window.open(
