@@ -1,5 +1,6 @@
 // Base URL for assets in the CDN bucket
-const BASE_CDN_URL = "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev/user-app/v2";
+const BASE_CDN_URL =
+  "https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev/user-app/v2";
 
 const createAssetUrl = (path: string) => `${BASE_CDN_URL}/${path}`;
 
@@ -24,13 +25,13 @@ import { Buy } from "./icons/buy";
 import { DepositCross } from "./icons/deposit-cross";
 import { DepositDirect } from "./icons/deposit-direct";
 import { Discord } from "./icons/discord";
+// ICONS
+import { EcosystemLogo } from "./icons/ecosystem-logo";
 import { Facebook } from "./icons/facebook";
 import { Github } from "./icons/github";
 import { GoPay } from "./icons/gopay";
 import { Instagram } from "./icons/instagram";
 import { Linkedin } from "./icons/linkedin";
-// ICONS
-import { EcosystemLogo } from "./icons/ecosystem-logo";
 import { Logo } from "./icons/logo";
 import { NetworkArbitrum } from "./icons/network-arbitrum";
 import { NetworkBase } from "./icons/network-base";

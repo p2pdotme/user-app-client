@@ -1,20 +1,20 @@
-import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
 import { Copy, Loader2, RefreshCw } from "lucide-react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import ASSETS from "@/assets";
-import { useThirdweb } from "@/hooks";
-import { cn, formatTokenAmount, truncateAddress } from "@/lib/utils";
+import type { UnrecordedTransfer } from "@/core/p2p-swap";
 import {
-  initiateUsdcToP2PSwap,
-  initiateP2PToUsdcSwap,
   fetchUnrecordedDeposits,
   getBackendErrorKey,
+  initiateP2PToUsdcSwap,
+  initiateUsdcToP2PSwap,
 } from "@/core/p2p-swap";
-import type { UnrecordedTransfer } from "@/core/p2p-swap";
+import { useThirdweb } from "@/hooks";
+import { cn, formatTokenAmount, truncateAddress } from "@/lib/utils";
 
 function FromIcon({ token }: { token: string }) {
   const Icon = token === "USDC" ? ASSETS.ICONS.Usdc : ASSETS.ICONS.Logo;
@@ -47,8 +47,7 @@ function CopyHash({ value }: { value: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-    >
+      className="flex items-center gap-1 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground">
       <span>{truncateAddress(value, 8)}</span>
       <Copy className="size-3 shrink-0" />
     </button>
@@ -60,10 +59,9 @@ function StatusBadge() {
   return (
     <span
       className={cn(
-        "rounded-full px-2 py-0.5 text-xs font-medium capitalize",
+        "rounded-full px-2 py-0.5 font-medium text-xs capitalize",
         "bg-destructive/15 text-destructive",
-      )}
-    >
+      )}>
       {t("P2P_SWAP_STATUS_FAILED", { defaultValue: "Failed" })}
     </span>
   );
@@ -71,7 +69,7 @@ function StatusBadge() {
 
 function UnrecordedDepositSkeleton() {
   return (
-    <div className="rounded-2xl bg-primary/5 p-4 space-y-3">
+    <div className="space-y-3 rounded-2xl bg-primary/5 p-4">
       <div className="flex items-center justify-between">
         <Skeleton className="h-5 w-16 rounded-full" />
         <Skeleton className="h-3 w-32" />
@@ -142,15 +140,17 @@ function UnrecordedDepositCard({
         <div className="flex flex-1 flex-col gap-0.5">
           <div className="flex items-center gap-1.5">
             <FromIcon token={transfer.token} />
-            <span className="font-bold text-lg leading-none tabular-nums">
-              {Number(formatTokenAmount(transfer.amountRaw ?? null, 6) ?? "0")?.toFixed(3)}
+            <span className="font-bold text-lg tabular-nums leading-none">
+              {Number(
+                formatTokenAmount(transfer.amountRaw ?? null, 6) ?? "0",
+              )?.toFixed(3)}
             </span>
             <span className="text-muted-foreground text-sm">{fromSymbol}</span>
           </div>
           <div className="pl-1 text-muted-foreground text-xs">↓</div>
           <div className="flex items-center gap-1.5">
             <ToIcon token={transfer.token} />
-            <span className="font-bold text-lg leading-none text-muted-foreground">
+            <span className="font-bold text-lg text-muted-foreground leading-none">
               —
             </span>
             <span className="text-muted-foreground text-sm">{toSymbol}</span>
@@ -159,12 +159,11 @@ function UnrecordedDepositCard({
       </div>
 
       {/* Retry action */}
-      <div className="mt-3 border-t border-border/50 pt-3">
+      <div className="mt-3 border-border/50 border-t pt-3">
         <Button
           onClick={handleRetry}
           disabled={isRetrying}
-          className="w-full rounded-xl"
-        >
+          className="w-full rounded-xl">
           {isRetrying ? (
             <span className="flex items-center gap-2">
               <Loader2 className="size-4 animate-spin" />
@@ -210,7 +209,7 @@ export function UnrecordedDeposits() {
   return (
     <div className="mt-2 space-y-2">
       {!isLoading && (
-        <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+        <p className="px-1 font-medium text-muted-foreground text-xs uppercase tracking-wide">
           {t("FAILED_SWAPS")}
         </p>
       )}

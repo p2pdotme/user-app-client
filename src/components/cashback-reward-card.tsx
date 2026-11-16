@@ -50,8 +50,7 @@ export function CashbackRewardCard({ orderId }: CashbackRewardCardProps) {
         })
       : "0";
 
-  const isCbBTC =
-    orderCashback?.tokenSymbol?.toLowerCase() === "cbbtc";
+  const isCbBTC = orderCashback?.tokenSymbol?.toLowerCase() === "cbbtc";
   const descriptionKey = isCbBTC
     ? "CBTC_CASHBACK_REWARD_DESCRIPTION"
     : "CASHBACK_REWARD_DESCRIPTION";

@@ -3,7 +3,7 @@ import {
   type DisputeEscalation,
   deriveDisputeEscalationView,
   parseDisputeEscalation,
-} from "./dispute-escalation";
+} from "@/lib/dispute-escalation";
 
 const NOW = 1_800_000_000;
 const HOUR = 3600;

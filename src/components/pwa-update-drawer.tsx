@@ -65,13 +65,13 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
               </p>
 
               <div className="flex items-center justify-center gap-3">
-                <span className="text-sm text-foreground/40 line-through">{`v${localVersion}`}</span>
+                <span className="text-foreground/40 text-sm line-through">{`v${localVersion}`}</span>
                 <span className="text-foreground/30 text-xs">→</span>
                 <span className="font-semibold text-primary text-sm">{`v${contractVersion}`}</span>
               </div>
               {remainingSeconds > 0 && (
                 <div className="mt-2 flex items-center justify-center gap-1">
-                  <p className="font-normal text-sm text-foreground/70 tracking-wider">
+                  <p className="font-normal text-foreground/70 text-sm tracking-wider">
                     {t("PWA_DOWNLOADING_UPDATE")}
                     <span className="text-green-500">
                       {" "}
@@ -86,10 +86,10 @@ export function PWAUpdateDrawer({ open, onReload }: PWAUpdateDrawerProps) {
 
           <DrawerDescription className="flex w-full flex-col gap-2 text-base leading-relaxed">
             <div className="w-full space-y-2 text-start">
-              <p className="font-medium text-sm text-foreground/50">
+              <p className="font-medium text-foreground/50 text-sm">
                 {t("PWA_UPDATE_NOT_DOWNLOADING")}
               </p>
-              <div className="space-y-1.5 text-sm text-foreground/40">
+              <div className="space-y-1.5 text-foreground/40 text-sm">
                 <p className="flex items-center gap-2">
                   <span className="text-foreground/20">1.</span>
                   {t("PWA_CHECK_INTERNET")}

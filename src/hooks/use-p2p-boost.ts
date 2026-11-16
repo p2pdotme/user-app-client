@@ -4,13 +4,14 @@ import type {
   StakeStatus,
 } from "@p2pdotme/sdk/stake";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ResultAsync } from "neverthrow";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { ResultAsync } from "neverthrow";
 import { sendAndConfirmTransaction } from "thirdweb";
 import type { Account } from "thirdweb/wallets";
 import { formatUnits, parseUnits } from "viem";
+import { useSettings } from "@/contexts";
 import {
   approveP2PToken as approveP2PTokenTx,
   getP2PTokenAllowance,
@@ -25,7 +26,6 @@ import { useThirdweb } from "@/hooks";
 import { createAppError, parseContractError } from "@/lib/errors";
 import { i18n } from "@/lib/i18n";
 import { captureError, withSentrySpan } from "@/lib/sentry";
-import { useSettings } from "@/contexts";
 
 // Map SDK string status back to the numeric status that existing consumers expect.
 const STATUS_TO_NUMBER: Record<StakeStatus, number> = {
@@ -416,20 +416,18 @@ export function useUserStake() {
       if (!userAddress) {
         throw new Error("WALLET_NOT_CONNECTED");
       }
-      const userStake = await stake
-        .getUserStake({ user: userAddress })
-        .match(
-          (value) => value,
-          (error) => {
-            console.error("[useUserStake] getUserStake error", error);
-            captureError(error, {
-              operation: "p2p_get_user_stake",
-              component: "useUserStake",
-              userId: userAddress,
-            });
-            throw error;
-          },
-        );
+      const userStake = await stake.getUserStake({ user: userAddress }).match(
+        (value) => value,
+        (error) => {
+          console.error("[useUserStake] getUserStake error", error);
+          captureError(error, {
+            operation: "p2p_get_user_stake",
+            component: "useUserStake",
+            userId: userAddress,
+          });
+          throw error;
+        },
+      );
 
       // Preserve the legacy numeric `status` shape expected by consumers.
       return {
@@ -467,17 +465,17 @@ export function useStakeBoostConfig(currency: string | undefined) {
           currency: currency as GetStakeBoostConfigParams["currency"],
         })
         .match(
-        (v) => v,
-        (e) => {
-          console.error("[useStakeBoostConfig] error", e);
-          captureError(e, {
-            operation: "p2p_get_stake_boost_config",
-            component: "useStakeBoostConfig",
-            extra: { currency },
-          });
-          throw e;
-        },
-      );
+          (v) => v,
+          (e) => {
+            console.error("[useStakeBoostConfig] error", e);
+            captureError(e, {
+              operation: "p2p_get_stake_boost_config",
+              component: "useStakeBoostConfig",
+              extra: { currency },
+            });
+            throw e;
+          },
+        );
     },
   });
 
