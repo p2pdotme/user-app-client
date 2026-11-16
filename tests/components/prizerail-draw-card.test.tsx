@@ -75,10 +75,8 @@ describe("PrizerailDrawCard", () => {
       campaign: { name: "P2P Daily" },
       nextDraw: {
         id: "n",
-        // Relative to now: a hard-coded date made this test fail once that
-        // date passed (a past draw isn't shown as "Next draw").
-        drawAt: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-        cutoffAt: new Date(Date.now() + 90 * 60 * 1000).toISOString(),
+        drawAt: "2026-11-03T17:00:00.000Z",
+        cutoffAt: "2026-11-03T16:30:00.000Z",
         stage: "open",
         entrantCount: 120,
         totalEntries: 4800,
