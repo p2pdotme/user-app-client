@@ -1,5 +1,5 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,11 @@ interface ClaimGiftsDrawerProps {
   onClose: () => void;
   onClaim: () => void;
   isLoading?: boolean;
+  /**
+   * Friendly, already-translated reason the last claim failed. When set the
+   * drawer stays open, shows it and turns the primary button into Retry.
+   */
+  errorMessage?: string | null;
 }
 
 export function ClaimGiftsDrawer({
@@ -23,6 +28,7 @@ export function ClaimGiftsDrawer({
   onClose,
   onClaim,
   isLoading = false,
+  errorMessage = null,
 }: ClaimGiftsDrawerProps) {
   const { t } = useTranslation();
 
@@ -59,6 +65,19 @@ export function ClaimGiftsDrawer({
               </ol>
             </div>
           </div>
+          {errorMessage && (
+            <div
+              role="alert"
+              className="mt-4 flex w-full items-start gap-2 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-left">
+              <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+              <div className="flex flex-col gap-0.5">
+                <p className="font-medium text-destructive text-sm">
+                  {t("FAILED_TO_CLAIM_CAMPAIGN_REWARD")}
+                </p>
+                <p className="text-destructive/80 text-xs">{errorMessage}</p>
+              </div>
+            </div>
+          )}
           <DrawerFooter className="mt-4 flex-shrink-0 px-0">
             <Button
               size="lg"
@@ -66,7 +85,7 @@ export function ClaimGiftsDrawer({
               onClick={onClaim}
               disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
-              {t("CLAIM_ACCESS")}
+              {errorMessage ? t("RETRY") : t("CLAIM_ACCESS")}
             </Button>
             <Button
               variant="outline"

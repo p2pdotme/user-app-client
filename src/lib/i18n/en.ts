@@ -1393,6 +1393,25 @@ export const en = {
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "Old payment channel not found",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "Old payment channel should be inactive",
+    ONB_BALANCE_LOAD_ERROR: "We couldn't load your balance.",
+    ONB_CAMPAIGN_PARAMS_DESCRIPTION:
+      "Log in to claim your bonus. It will be waiting for you on the home screen.",
+    ONB_CHECK_CONNECTION_TRY_AGAIN: "Check your connection and try again.",
+    ONB_FIRST_BUY_CTA: "Buy your first USDC",
+    ONB_FIRST_BUY_DESCRIPTION:
+      "USDC is a digital dollar (1 USDC ≈ US$1). Pay in {{currency}} and receive USDC in your wallet.",
+    ONB_FIRST_BUY_TITLE: "Get started with your first USDC",
+    ONB_INVITE_CLAIM_FAILED_TITLE: "We couldn't claim your invite",
+    ONB_LIMITS_LOAD_ERROR: "We couldn't load your limits.",
+    ONB_LOGIN_PAGE_TITLE:
+      "Buy and sell digital dollars (USDC) with {{currency}}",
+    ONB_LOGIN_USDC_EXPLAINER:
+      "USDC is a digital dollar: 1 USDC is worth about 1 US dollar.",
+    ONB_NEED_HELP_LINK: "Need help? Visit Help & Support",
+    ONB_REFERRAL_PARAMS_DESCRIPTION:
+      "Log in to accept your invite. It will be waiting for you on the home screen.",
+    ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
+      "We're confirming this on the network. It usually takes a few seconds, so please keep the app open.",
     ONE_TIME: "One-time {{paymentAddressName}}",
     ONE_TIME_ADDRESS: "One-time Address",
     ONE_TIME_PAYMENT_ADDRESS: "One-time {{paymentAddressName}}",
