@@ -17,8 +17,10 @@ import {
   useTxLimits,
   useUSDCBalance,
 } from "@/hooks";
+import { useMaxSellTxLimit } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS, MIN_ORDER_FIAT_BY_CURRENCY } from "@/lib/constants";
+import { saveLimitReturn } from "@/lib/limit-increase";
 import { calculateFee, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { DepositDrawer } from "../homescreen/deposit-drawer";
@@ -40,6 +42,7 @@ export function Sell() {
   const { priceConfig, isPriceConfigLoading, isPriceConfigError } =
     usePriceConfig();
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+  const { maxSellTxLimit } = useMaxSellTxLimit();
   const { usdcBalance, isUsdcBalanceLoading } = useUSDCBalance();
 
   const { data: feeConfig } = useQuery({
@@ -57,7 +60,13 @@ export function Sell() {
   const feeConfigSmallOrderThreshold = feeConfig?.smallOrderThreshold ?? 0;
   const feeConfigSmallOrderFixedFee = feeConfig?.smallOrderFixedFee ?? 0;
 
-  const MAX_SELL_LIMIT = useMemo(() => txLimit?.sellLimit ?? 0, [txLimit]);
+  // Until the real limit loads, don't validate against (or show) a limit of 0;
+  // a typed or prefilled amount used to flash "Maximum limit is 0 USDC".
+  const isLimitKnown = txLimit?.sellLimit !== undefined;
+  const MAX_SELL_LIMIT = useMemo(
+    () => txLimit?.sellLimit ?? Number.POSITIVE_INFINITY,
+    [txLimit],
+  );
 
   const ZodSellAmountSchema = useMemo(
     () =>
@@ -380,7 +389,11 @@ export function Sell() {
   }
 
   const hasExceededLimit =
-    Number(amount.crypto) > MAX_SELL_LIMIT && !!amount.crypto;
+    isLimitKnown && Number(amount.crypto) > MAX_SELL_LIMIT && !!amount.crypto;
+  const isAtMarketMax =
+    maxSellTxLimit !== undefined &&
+    txLimit?.sellLimit !== undefined &&
+    txLimit.sellLimit >= maxSellTxLimit;
 
   const minOrderFiat = MIN_ORDER_FIAT_BY_CURRENCY[currency.currency];
   const isBelowMinimum =
@@ -465,6 +478,13 @@ export function Sell() {
               isError={isTxLimitError}
               limit={txLimit?.sellLimit}
               hasExceededLimit={hasExceededLimit}
+              isAtMarketMax={isAtMarketMax}
+              onBeforeVerify={() =>
+                saveLimitReturn({
+                  flow: "sell",
+                  cryptoAmount: Number(amount.crypto),
+                })
+              }
             />
             {isBelowMinimum ? (
               <p className="mt-3 text-center text-destructive text-sm">

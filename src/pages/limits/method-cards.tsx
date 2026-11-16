@@ -47,7 +47,7 @@ type MethodId = "liveness" | "passport" | "stake" | "zk_kyc";
  * Same query (and cache key) the verification rows on the sub-pages use, so
  * the number on the card matches the number on the row it leads to.
  */
-function useRpToUsdcMultiplier(): number | undefined {
+export function useRpToUsdcMultiplier(): number | undefined {
   const { settings } = useSettings();
   const prices = usePrices();
   const { data } = useQuery({
@@ -57,7 +57,11 @@ function useRpToUsdcMultiplier(): number | undefined {
         .getReputationPerUsdcLimit({ currency: settings.currency.currency })
         .match(
           (value) => value.multiplier,
-          () => 1,
+          // Don't fall back to 1: that showed raw reputation points as if
+          // they were USDC. Unknown -> the gain label is simply hidden.
+          (error) => {
+            throw error;
+          },
         ),
   });
   return data;

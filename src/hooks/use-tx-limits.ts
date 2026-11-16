@@ -47,8 +47,12 @@ export function useTxLimits() {
     isLoading: isTxLimitLoading,
     isError: isTxLimitError,
     error: txLimitError,
+    isFetching: isTxLimitFetching,
   } = useQuery({
-    queryKey: ["tx-limit", currency.currency],
+    // The address is part of the key: limits are per wallet, and without it a
+    // wallet switch kept showing (and validating against) the previous
+    // wallet's limit.
+    queryKey: ["tx-limit", account?.address, currency.currency],
     queryFn: async () => {
       return profile
         .getTxLimits({
@@ -74,6 +78,7 @@ export function useTxLimits() {
     isTxLimitLoading,
     isTxLimitError,
     txLimitError,
+    isTxLimitFetching,
   };
 }
 

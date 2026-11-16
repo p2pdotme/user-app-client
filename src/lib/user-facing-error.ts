@@ -1,4 +1,5 @@
 import type { TFunction } from "i18next";
+import { parseContractError } from "@/lib/errors";
 
 /**
  * Turns any thrown value into a short, plain-language message that is safe to
@@ -14,6 +15,19 @@ export function getUserFacingErrorMessage(
   error: unknown,
   fallbackKey = "ERROR_GENERIC_DESCRIPTION",
 ): string {
+  // "This account/passport/BVN is already linked" can't be fixed by retrying;
+  // say so plainly instead of "the transaction didn't go through".
+  if (isAlreadyVerifiedError(error)) {
+    return t("ERROR_ALREADY_VERIFIED_DESCRIPTION");
+  }
+
+  // A known contract revert (decoded from its selector) has its own message.
+  const contractKey = safeParseContractError(error);
+  if (contractKey) {
+    const message = t(contractKey, { defaultValue: "" });
+    if (message) return message;
+  }
+
   const raw = extractRawMessage(error).toLowerCase();
 
   if (!raw) return t(fallbackKey);
@@ -63,6 +77,43 @@ export function getUserFacingErrorMessage(
   }
 
   return t(fallbackKey);
+}
+
+/** Contract error keys meaning "this identity is already used/verified". */
+const ALREADY_VERIFIED_KEYS = new Set([
+  "ALREADY_VERIFIED",
+  "SOCIAL_ALREADY_VERIFIED",
+  "NULLIFIER_ALREADY_VERIFIED",
+  "USER_ID_ALREADY_VERIFIED",
+  "USERNAME_ALREADY_VERIFIED",
+  "BVN_ALREADY_VERIFIED",
+  "BVN_NULLIFIER_ALREADY_SPENT",
+  "PASSPORT_ALREADY_VERIFIED",
+]);
+
+/**
+ * `true` when a verification failed because the social account, passport,
+ * face or BVN is already verified (for this or another wallet). Retrying
+ * can't succeed, so callers should not offer Retry.
+ */
+export function isAlreadyVerifiedError(error: unknown): boolean {
+  const key = safeParseContractError(error);
+  if (key && ALREADY_VERIFIED_KEYS.has(key)) return true;
+  const raw = extractRawMessage(error).toLowerCase();
+  return (
+    raw.includes("alreadyverified") ||
+    raw.includes("already verified") ||
+    raw.includes("nullifier already")
+  );
+}
+
+function safeParseContractError(error: unknown): string | null {
+  try {
+    const key = parseContractError(error);
+    return typeof key === "string" ? key : null;
+  } catch {
+    return null;
+  }
 }
 
 /**

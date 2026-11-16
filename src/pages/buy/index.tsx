@@ -16,8 +16,10 @@ import {
   usePriceConfig,
   useTxLimits,
 } from "@/hooks";
+import { useMaxBuyTxLimit } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { saveLimitReturn } from "@/lib/limit-increase";
 import { formatFiatAmount, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../order/help-drawer";
@@ -39,6 +41,7 @@ export function Buy() {
   const { priceConfig, isPriceConfigLoading, isPriceConfigError } =
     usePriceConfig();
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+  const { maxBuyTxLimit } = useMaxBuyTxLimit();
 
   const { data: feeConfig, isLoading: isFeeConfigLoading } = useQuery({
     queryKey: ["feeConfig", currency.currency, "buy"],
@@ -299,6 +302,10 @@ export function Buy() {
     MAX_BUY_LIMIT !== undefined &&
     cryptoAmountNumber > MAX_BUY_LIMIT &&
     !!amount.crypto;
+  const isAtMarketMax =
+    maxBuyTxLimit !== undefined &&
+    MAX_BUY_LIMIT !== undefined &&
+    MAX_BUY_LIMIT >= maxBuyTxLimit;
   const isBelowMinimum =
     cryptoAmountNumber > 0 &&
     feeConfig?.smallOrderFixedFee !== undefined &&
@@ -430,6 +437,13 @@ export function Buy() {
                 isError={isTxLimitError}
                 limit={txLimit?.buyLimit}
                 hasExceededLimit={hasExceededLimit}
+                isAtMarketMax={isAtMarketMax}
+                onBeforeVerify={() =>
+                  saveLimitReturn({
+                    flow: "buy",
+                    cryptoAmount: Number(amount.crypto),
+                  })
+                }
               />
             </div>
           )}
