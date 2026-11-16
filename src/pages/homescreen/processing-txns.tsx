@@ -1,5 +1,12 @@
 import type { CurrencyCode as CurrencyType } from "@p2pdotme/sdk";
-import { AlertCircle, AlertTriangle, ChevronRight, Shield } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  ChevronRight,
+  RotateCw,
+  Shield,
+} from "lucide-react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import ASSETS from "@/assets";
@@ -10,7 +17,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { EnrichedSubgraphOrder } from "@/core/p2pdotme/shared/validation";
-import { useProcessingTxns } from "@/hooks";
+import { useAnalytics, useProcessingTxns } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { cn, formatFiatAmount } from "@/lib/utils";
 
@@ -21,12 +29,24 @@ export function ProcessingTransactions() {
     data,
     isLoading,
     isError,
-    error,
     isFetched,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch,
+    isRefetching,
   } = useProcessingTxns();
+  const { track } = useAnalytics();
+
+  useEffect(() => {
+    if (isError) {
+      track(EVENTS.FEATURE, {
+        status: "load_error_shown",
+        location: "homescreen",
+        section: "processing_transactions",
+      });
+    }
+  }, [isError, track]);
 
   // Flatten all pages of data
   const allTransactions = data?.pages.flatMap((page) => page.data) ?? [];
@@ -58,16 +78,28 @@ export function ProcessingTransactions() {
           <ScrollBar orientation="horizontal" className="hidden" />
         </ScrollArea>
       ) : isError ? (
-        <div className="flex items-center gap-2 rounded-lg border border-destructive/20 bg-destructive/10 p-4">
-          <AlertCircle className="h-5 w-5 text-destructive" />
+        <div
+          role="alert"
+          className="flex items-center gap-2 rounded-lg border border-destructive/20 bg-destructive/10 p-4">
+          <AlertCircle className="h-5 w-5 shrink-0 text-destructive" />
           <div className="flex-1">
             <p className="font-medium text-destructive text-sm">
               {t("ERROR_LOADING_TRANSACTIONS")}
             </p>
             <p className="text-destructive/80 text-xs">
-              {error?.message || "An unknown error occurred"}
+              {t("ONB_CHECK_CONNECTION_TRY_AGAIN")}
             </p>
           </div>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => refetch()}
+            disabled={isRefetching}>
+            <RotateCw
+              className={cn("size-4", isRefetching && "animate-spin")}
+            />
+            {t("RETRY")}
+          </Button>
         </div>
       ) : (
         <ScrollArea className="w-full py-2">
