@@ -19,13 +19,20 @@ import {
   ZodClaimRewardParamsSchema,
   ZodGetUserCampaignRewardParamsSchema,
 } from "@/core/p2pdotme/shared/validation";
-import { useThirdweb } from "@/hooks";
+import { useAnalytics } from "@/hooks/use-analytics";
+import { getUserFacingErrorReasonKey, useThirdweb } from "@/hooks/use-thirdweb";
+import { EVENTS } from "@/lib/analytics";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { parseContractError } from "@/lib/errors";
 import { captureError, withSentrySpan } from "@/lib/sentry";
 import {
   clearStoredParams,
   getStoredParams,
 } from "@/lib/url-param-preservation";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 
 export function useCampaignClaim() {
@@ -33,6 +40,7 @@ export function useCampaignClaim() {
   const location = useLocation();
   const navigate = useNavigate();
   const { account } = useThirdweb();
+  const { track } = useAnalytics();
   const queryClient = useQueryClient();
   const [campaignParams, setCampaignParams] =
     useState<CampaignUrlParams | null>(null);
@@ -164,10 +172,19 @@ export function useCampaignClaim() {
       );
     },
     onSuccess: () => {
+      track(EVENTS.REFERRAL, {
+        status: "campaign_claim_success",
+        campaignId: campaignParams?.id,
+      });
       toast.success(t("CAMPAIGN_REWARD_CLAIMED_SUCCESSFULLY"));
       clearUrlParams();
       queryClient.invalidateQueries({ queryKey: ["user-campaign-reward"] });
-      navigate("/");
+      queryClient.invalidateQueries({
+        queryKey: ["user-campaign-reward-check"],
+      });
+      // The claim drawer promises "you'll be taken to your My Limits page",
+      // which is where the reward is shown and claimed.
+      navigate(INTERNAL_HREFS.LIMITS);
     },
     onError: (error: Error) => {
       console.error("[useCampaignClaim] Campaign claim failed:", error);
@@ -176,23 +193,51 @@ export function useCampaignClaim() {
         component: "useCampaignClaim",
         userId: account?.address,
       });
-      toast.error(
-        t(parseContractError(error) ?? "FAILED_TO_CLAIM_CAMPAIGN_REWARD"),
-      );
+      if (isUserCancellation(error)) {
+        track(EVENTS.REFERRAL, {
+          status: "campaign_claim_cancelled",
+          campaignId: campaignParams?.id,
+        });
+        return;
+      }
+      const contractErrorKey = parseContractError(error);
+      track(EVENTS.REFERRAL, {
+        status: "campaign_claim_failed",
+        campaignId: campaignParams?.id,
+        reason: contractErrorKey ?? getUserFacingErrorReasonKey(error),
+      });
+      toast.error(t("FAILED_TO_CLAIM_CAMPAIGN_REWARD"), {
+        description: contractErrorKey
+          ? t(contractErrorKey)
+          : getUserFacingErrorMessage(t, error),
+      });
     },
   });
 
-  const claimCampaign = useCallback(async () => {
+  /**
+   * Starts the claim. Never throws: on failure the mutation's error state is
+   * set (and a friendly toast shown) so the drawer can stay open with Retry.
+   */
+  const claimCampaign = useCallback(async (): Promise<boolean> => {
     if (!account?.address) {
       toast.warning(t("WALLET_NOT_CONNECTED"));
-      return;
+      return false;
     }
     if (!campaignParams) {
       toast.warning(t("NO_CAMPAIGN_PARAMETERS_FOUND"));
-      return;
+      return false;
     }
-    await claimCampaignMutation.mutateAsync();
-  }, [account?.address, campaignParams, claimCampaignMutation, t]);
+    track(EVENTS.REFERRAL, {
+      status: "campaign_claim_started",
+      campaignId: campaignParams.id,
+    });
+    try {
+      await claimCampaignMutation.mutateAsync();
+      return true;
+    } catch {
+      return false;
+    }
+  }, [account?.address, campaignParams, claimCampaignMutation, t, track]);
 
   const clearUrlParams = useCallback(() => {
     window.history.replaceState(null, "", window.location.origin);
@@ -263,7 +308,10 @@ export function useClaimCampaignUsdc() {
         component: "useClaimCampaignUsdc",
         userId: account?.address,
       });
-      toast.error(error?.message || t("FAILED_TO_CLAIM_CAMPAIGN_USDC"));
+      if (isUserCancellation(error)) return;
+      toast.error(t("FAILED_TO_CLAIM_CAMPAIGN_USDC"), {
+        description: getUserFacingErrorMessage(t, error),
+      });
     },
   });
 

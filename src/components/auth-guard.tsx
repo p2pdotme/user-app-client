@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { useThirdweb } from "@/hooks";
+import { analytics, EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import {
   hasStoredParams,
@@ -16,6 +17,23 @@ interface AuthGuardProps {
 }
 
 /**
+ * Routes a signed-out visitor may open without being sent to login: help
+ * content (so people stuck at login can still find answers) and the
+ * private-key wallet recovery tool, which works entirely without a connected
+ * wallet. `/recovery` (wrong-network token recovery) is NOT public: it signs
+ * with the connected wallet.
+ */
+export function isPublicRoute(pathname: string): boolean {
+  return (
+    pathname === INTERNAL_HREFS.LOGIN ||
+    pathname === INTERNAL_HREFS.MAINTENANCE ||
+    pathname === INTERNAL_HREFS.HELP ||
+    pathname.startsWith(`${INTERNAL_HREFS.HELP}/`) ||
+    pathname === INTERNAL_HREFS.RECOVER
+  );
+}
+
+/**
  * AuthGuard component that handles global authentication navigation
  *
  * Connection Status States (from thirdweb):
@@ -25,7 +43,8 @@ interface AuthGuardProps {
  *
  * Rules:
  * 1. When wallet is connected and user is on login page -> navigate to home/restore URL
- * 2. When wallet is disconnected and user is not on login/maintenance pages -> navigate to login
+ * 2. When wallet is disconnected and user is not on a public page (login,
+ *    maintenance, help, private-key recover; see isPublicRoute) -> navigate to login
  * 3. Show loading during auto-connect and connecting states to prevent flickering
  * 4. Ignore navigation during auto-connect loading
  */
@@ -45,19 +64,34 @@ export function AuthGuard({ children }: AuthGuardProps) {
   const isConnecting =
     isAutoConnectLoading || connectionStatus === "connecting";
 
+  // Read at fire time for analytics only, so the timer is (re)armed solely
+  // when the connecting state flips.
+  const timeoutContextRef = useRef({ isAutoConnectLoading, pathname: "" });
+  timeoutContextRef.current = {
+    isAutoConnectLoading,
+    pathname: location.pathname,
+  };
+
   useEffect(() => {
     if (!isConnecting) {
       setConnectTimedOut(false);
       return;
     }
-    const id = setTimeout(() => setConnectTimedOut(true), 10_000);
+    const id = setTimeout(() => {
+      setConnectTimedOut(true);
+      const ctx = timeoutContextRef.current;
+      analytics.track(EVENTS.WALLET, {
+        status: "connect_timeout",
+        phase: ctx.isAutoConnectLoading ? "auto_connect" : "connect",
+        pathname: ctx.pathname,
+      });
+    }, 10_000);
     return () => clearTimeout(id);
   }, [isConnecting]);
 
   useEffect(() => {
     const currentPath = location.pathname;
     const isOnLoginPage = currentPath === INTERNAL_HREFS.LOGIN;
-    const isOnMaintenancePage = currentPath === INTERNAL_HREFS.MAINTENANCE;
 
     // Skip navigation logic during auto-connect loading to prevent flickering,
     // unless the connect attempt has already timed out (then fall through so a
@@ -121,12 +155,8 @@ export function AuthGuard({ children }: AuthGuardProps) {
       return;
     }
 
-    // Case 2: User is disconnected and not on allowed pages -> navigate to login
-    if (
-      connectionStatus === "disconnected" &&
-      !isOnLoginPage &&
-      !isOnMaintenancePage
-    ) {
+    // Case 2: User is disconnected and not on a public page -> navigate to login
+    if (connectionStatus === "disconnected" && !isPublicRoute(currentPath)) {
       console.log(
         "[AuthGuard] Disconnected user on protected page, navigating to login",
       );
@@ -162,13 +192,10 @@ export function AuthGuard({ children }: AuthGuardProps) {
   ]);
 
   // Show loading spinner during auto-connect or connecting states
-  // but NOT on login or maintenance pages (they handle their own loading)
-  const currentPath = location.pathname;
-  const isOnLoginPage = currentPath === INTERNAL_HREFS.LOGIN;
-  const isOnMaintenancePage = currentPath === INTERNAL_HREFS.MAINTENANCE;
-
+  // but NOT on public pages (login/maintenance handle their own loading; help
+  // and recovery must stay reachable even when the wallet is slow to connect)
   const shouldShowGlobalLoading =
-    isConnecting && !connectTimedOut && !isOnLoginPage && !isOnMaintenancePage;
+    isConnecting && !connectTimedOut && !isPublicRoute(location.pathname);
 
   if (shouldShowGlobalLoading) {
     return (
@@ -177,6 +204,19 @@ export function AuthGuard({ children }: AuthGuardProps) {
         isManualConnecting={connectionStatus === "connecting"}
       />
     );
+  }
+
+  // A signed-out visitor on a protected route is about to be redirected to
+  // login by the effect above. Don't mount the protected screen in the
+  // meantime: rendering it for even one frame starts downloading that screen's
+  // code (Home pulls in animations, rewards, etc.) that a first-time visitor
+  // doesn't need yet.
+  const redirectToLoginPending =
+    connectionStatus === "disconnected" &&
+    !isPublicRoute(location.pathname) &&
+    !(isAutoConnectLoading && !connectTimedOut);
+  if (redirectToLoginPending) {
+    return null;
   }
 
   return <>{children}</>;
