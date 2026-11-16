@@ -45,6 +45,12 @@ interface HelpListViewProps {
    * opens). Omitted when it can't be reached; Telegram stays either way.
    */
   onChatWithUs?: () => void;
+  /**
+   * BUY order whose payment window ended before it was marked paid. A
+   * dispute isn't possible, so point the user at chat instead of telling them
+   * to "mark the order as paid", which they no longer can.
+   */
+  paymentWindowEnded?: boolean;
 }
 
 const NOT_ELIGIBLE_KEYS: Record<
@@ -67,6 +73,7 @@ export function HelpListView({
   onChatOnTelegram,
   onOpenDisputeChat,
   onChatWithUs,
+  paymentWindowEnded = false,
 }: HelpListViewProps) {
   const { t } = useTranslation();
   const { track } = useAnalytics();
@@ -124,6 +131,9 @@ export function HelpListView({
           minutes: availability.minutesUntil,
         });
       case "not_eligible":
+        if (availability.reason === "buy_not_paid" && paymentWindowEnded) {
+          return t("SUP_DISPUTE_PAYMENT_WINDOW_ENDED");
+        }
         return t(NOT_ELIGIBLE_KEYS[availability.reason]);
       case "already_raised":
         return t("SUP_DISPUTE_ALREADY_RAISED");

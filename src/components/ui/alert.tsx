@@ -12,7 +12,7 @@ const alertVariants = cva(
         destructive:
           "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
         warning:
-          "border-warning/30 text-warning bg-warning/10 [&>svg]:text-warning *:data-[slot=alert-description]:text-warning/90",
+          "border-warning/30 text-warning-text bg-warning/10 [&>svg]:text-warning-text *:data-[slot=alert-description]:text-warning-text",
       },
     },
     defaultVariants: {

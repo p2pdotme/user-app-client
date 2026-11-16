@@ -68,7 +68,7 @@ export function BalanceIndicator() {
             <Button
               size="sm"
               variant="outline"
-              className="h-7 px-2"
+              className="h-9 px-3"
               onClick={handleRetry}>
               <RotateCw className="size-3.5" />
               {t("RETRY")}

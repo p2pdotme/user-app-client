@@ -51,7 +51,13 @@ export function readLimitReturn(): LimitReturn | null {
         parsed.flow !== "sell" &&
         parsed.flow !== "pay") ||
       typeof parsed.savedAt !== "number" ||
-      Date.now() - parsed.savedAt > MAX_AGE_MS
+      Date.now() - parsed.savedAt > MAX_AGE_MS ||
+      (parsed.cryptoAmount !== undefined &&
+        !(
+          typeof parsed.cryptoAmount === "number" && parsed.cryptoAmount > 0
+        )) ||
+      (parsed.fiatAmount !== undefined &&
+        !(typeof parsed.fiatAmount === "number" && parsed.fiatAmount > 0))
     ) {
       localStorage.removeItem(STORAGE_KEY);
       return null;
