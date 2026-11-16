@@ -1,7 +1,9 @@
+// Heavy, screen-specific components (QR scanner, bridge token selector) are
+// intentionally not re-exported here; import them by path so they stay out
+// of the startup bundle.
 export * from "./auth-guard";
 export * from "./auth-status-debug";
 export * from "./banner";
-export * from "./bridge-token-selector-drawer";
 export * from "./cashback-reward-card";
 export * from "./circle-countdown-timer";
 export * from "./coinsme-button";
@@ -30,14 +32,12 @@ export * from "./page-transitioner";
 export * from "./pull-to-refresh";
 export * from "./pwa-badge";
 export * from "./pwa-status-debug";
-export * from "./qr-scanner";
 export * from "./receipt-payment-id-field";
 export * from "./safety-notice";
 export * from "./section-header";
 export * from "./sidebar";
 export * from "./slippage-drawer";
 export * from "./social-links";
-export * from "./spaceship-speed-indicator";
 export * from "./spaceship-speed-indicator";
 export * from "./support-widget";
 export * from "./sw-checker";

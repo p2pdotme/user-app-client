@@ -1,4 +1,3 @@
-import { sdk } from "@farcaster/miniapp-sdk";
 import { CONTRACT_ADDRESSES } from "@p2pdotme";
 import { createLocalStorageRelayStore } from "@p2pdotme/sdk/orders";
 import { SdkProvider as P2pdotmeProvider } from "@p2pdotme/sdk/react";
@@ -17,11 +16,7 @@ import {
   // PWAStatusDebug,
 } from "@/components";
 import { Toaster } from "@/components/ui/sonner";
-import {
-  DynamicProviderWrapper,
-  PWAProvider,
-  SettingsProvider,
-} from "@/contexts";
+import { PWAProvider, SettingsProvider } from "@/contexts";
 import { viemPublicClient } from "@/core/adapters/thirdweb/client";
 import { analytics, EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS, STORAGE_KEYS } from "@/lib/constants";
@@ -33,10 +28,34 @@ const queryClient = new QueryClient();
 function App() {
   const navigate = useNavigate();
 
-  // Preload CDN assets to reduce pop-in
   useEffect(() => {
-    preloadAssetUrls(CDN_ASSET_URLS);
-    sdk.actions.ready();
+    // Tell a Farcaster/Base mini-app host we're ready. The SDK (and the Solana
+    // library it bundles) is loaded on demand, and only inside a mini-app.
+    // Mini-app hosts embed the app in an iframe or a React Native WebView;
+    // regular browser/PWA visitors never download the SDK at all.
+    const maybeInMiniApp =
+      window.self !== window.top || "ReactNativeWebView" in window;
+    if (maybeInMiniApp) {
+      void import("@farcaster/miniapp-sdk")
+        .then(({ sdk }) => sdk.actions.ready())
+        .catch(() => undefined);
+    }
+
+    // Warm CDN assets (animations, sounds, banners) only once the browser is
+    // idle, so they don't compete with what the first screen needs. Skip it
+    // entirely when the user asked to save data.
+    const connection = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection;
+    if (connection?.saveData) return;
+    const warm = () => void preloadAssetUrls(CDN_ASSET_URLS);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(warm, { timeout: 8000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    // Safari < 17 has no requestIdleCallback.
+    const id = globalThis.setTimeout(warm, 4000);
+    return () => globalThis.clearTimeout(id);
   }, []);
 
   useEffect(() => {
@@ -137,20 +156,18 @@ function App() {
               logger={console}>
               <SettingsProvider>
                 <AuthGuard>
-                  <DynamicProviderWrapper>
-                    <PageTransitioner className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
-                      {/* First-run currency confirmation for all users */}
-                      <CurrencyGate />
-                      <ErrorBoundary>
-                        <Router />
-                      </ErrorBoundary>
-                      {/* AI support chat launcher is mounted by the Help &
+                  <PageTransitioner className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
+                    {/* First-run currency confirmation for all users */}
+                    <CurrencyGate />
+                    <ErrorBoundary>
+                      <Router />
+                    </ErrorBoundary>
+                    {/* AI support chat launcher is mounted by the Help &
                           Support page only (see pages/help), not globally —
                           so the floating icon isn't shown on every screen. */}
-                      {/* Debug component for development */}
-                      {/* <AuthStatusDebug /> */}
-                    </PageTransitioner>
-                  </DynamicProviderWrapper>
+                    {/* Debug component for development */}
+                    {/* <AuthStatusDebug /> */}
+                  </PageTransitioner>
                 </AuthGuard>
               </SettingsProvider>
             </P2pdotmeProvider>

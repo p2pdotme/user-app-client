@@ -1,21 +1,39 @@
-import {
-  identify as amplitudeIdentify,
-  track as amplitudeTrack,
-  Identify,
-  init,
-  setUserId,
-} from "@amplitude/analytics-browser";
+type Amplitude = typeof import("@amplitude/analytics-browser");
 
 // Simple Amplitude setup
 const AMPLITUDE_KEY = import.meta.env.VITE_AMPLITUDE_API_KEY;
 const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT;
 const ANALYTICS_ENABLED = AMPLITUDE_KEY !== undefined;
 
-// Initialize Amplitude (no auto-capture/plugins by default)
+// The Amplitude SDK (~370 KB) is loaded as its own chunk, in parallel with the
+// app starting up, instead of being parsed before the first screen can paint.
+// Calls made before it has loaded are queued on the promise and keep their
+// original timestamp.
+let amplitudePromise: Promise<Amplitude> | null = null;
+
+function loadAmplitude(): Promise<Amplitude> {
+  if (!amplitudePromise) {
+    amplitudePromise = import("@amplitude/analytics-browser").then(
+      (amplitude) => {
+        // No auto-capture/plugins by default
+        amplitude.init(AMPLITUDE_KEY, { defaultTracking: false });
+        return amplitude;
+      },
+    );
+  }
+  return amplitudePromise;
+}
+
 if (ANALYTICS_ENABLED) {
-  init(AMPLITUDE_KEY, {
-    defaultTracking: false,
+  void loadAmplitude().catch((error) => {
+    console.warn("Analytics failed to load:", error);
   });
+}
+
+function withAmplitude(run: (amplitude: Amplitude) => void, label: string) {
+  loadAmplitude()
+    .then(run)
+    .catch((error) => console.warn(label, error));
 }
 
 // TransactionKind and BridgeKind were used by helpers now removed; keep minimal surface
@@ -46,11 +64,12 @@ export const analytics = {
       return;
     }
 
-    try {
-      amplitudeTrack(event, addCommonProps(properties));
-    } catch (error) {
-      console.warn("Analytics failed:", error);
-    }
+    const eventProperties = addCommonProps(properties);
+    const time = Date.now();
+    withAmplitude(
+      (amplitude) => amplitude.track(event, eventProperties, { time }),
+      "Analytics failed:",
+    );
   },
 
   trackWithDedupe: (
@@ -68,14 +87,14 @@ export const analytics = {
       return;
     }
 
-    try {
-      // Use Amplitude's insert_id for event de-duplication
-      amplitudeTrack(event, addCommonProps(properties), {
-        insert_id: dedupeKey,
-      });
-    } catch (error) {
-      console.warn("Analytics failed:", error);
-    }
+    const eventProperties = addCommonProps(properties);
+    const time = Date.now();
+    // Use Amplitude's insert_id for event de-duplication
+    withAmplitude(
+      (amplitude) =>
+        amplitude.track(event, eventProperties, { insert_id: dedupeKey, time }),
+      "Analytics failed:",
+    );
   },
 
   identify: (userId: string, traits?: Record<string, unknown>) => {
@@ -88,10 +107,10 @@ export const analytics = {
       return;
     }
 
-    try {
-      setUserId(userId);
+    withAmplitude((amplitude) => {
+      amplitude.setUserId(userId);
       if (traits && Object.keys(traits).length > 0) {
-        const identity = new Identify();
+        const identity = new amplitude.Identify();
         for (const [key, value] of Object.entries(traits)) {
           if (value === undefined || value === null) continue;
           if (
@@ -109,11 +128,9 @@ export const analytics = {
             if (filtered.length > 0) identity.set(key, filtered);
           }
         }
-        amplitudeIdentify(identity);
+        amplitude.identify(identity);
       }
-    } catch (error) {
-      console.warn("Analytics identify failed:", error);
-    }
+    }, "Analytics identify failed:");
   },
 };
 
