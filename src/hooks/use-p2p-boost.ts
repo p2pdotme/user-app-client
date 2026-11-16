@@ -25,7 +25,15 @@ import { CONTRACT_ADDRESSES } from "@/core/p2pdotme/contracts";
 import { useThirdweb } from "@/hooks";
 import { createAppError, parseContractError } from "@/lib/errors";
 import { i18n } from "@/lib/i18n";
+import { refreshLimitsAfterVerification } from "@/lib/limit-increase";
 import { captureError, withSentrySpan } from "@/lib/sentry";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
+
+/** Shared so the stake page can watch the in-flight / settled stake. */
+export const P2P_BOOST_STAKE_MUTATION_KEY = ["p2pBoostStake"];
 
 // Map SDK string status back to the numeric status that existing consumers expect.
 const STATUS_TO_NUMBER: Record<StakeStatus, number> = {
@@ -77,9 +85,19 @@ export function useP2PBoost() {
   const queryClient = useQueryClient();
   const stake = useStake();
 
+  // Silent when the user rejected the wallet prompt; a known contract error
+  // gets its own message, anything else a plain-language one (never raw RPC).
+  const showStakeError = (error: unknown) => {
+    if (isUserCancellation(error)) return;
+    const contractKey = parseContractError(error);
+    toast.error(
+      contractKey ? t(contractKey) : getUserFacingErrorMessage(t, error),
+    );
+  };
+
   // STAKE (approves P2P token to Diamond first, then stakes)
   const p2pBoostStakeMutation = useMutation({
-    mutationKey: ["p2pBoostStake"],
+    mutationKey: P2P_BOOST_STAKE_MUTATION_KEY,
     mutationFn: async (params: { tokens: bigint }) => {
       if (!account) {
         throw new Error("WALLET_NOT_CONNECTED");
@@ -165,10 +183,9 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+      refreshLimitsAfterVerification(queryClient);
     },
-    onError: (error) => {
-      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
-    },
+    onError: showStakeError,
   });
 
   // TOP UP (approves P2P token to Diamond first if needed, then top-ups)
@@ -249,10 +266,9 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+      refreshLimitsAfterVerification(queryClient);
     },
-    onError: (error) => {
-      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
-    },
+    onError: showStakeError,
   });
 
   // REQUEST UNSTAKE
@@ -295,10 +311,9 @@ export function useP2PBoost() {
       toast.success(t("P2P_UNSTAKE_REQUEST_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+      refreshLimitsAfterVerification(queryClient);
     },
-    onError: (error) => {
-      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
-    },
+    onError: showStakeError,
   });
 
   // CANCEL UNSTAKE — exits COOLDOWN back to ACTIVE without token movement
@@ -341,10 +356,9 @@ export function useP2PBoost() {
       toast.success(t("P2P_UNSTAKE_CANCEL_SUCCESS"));
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+      refreshLimitsAfterVerification(queryClient);
     },
-    onError: (error) => {
-      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
-    },
+    onError: showStakeError,
   });
 
   // CLAIM UNSTAKE
@@ -388,10 +402,9 @@ export function useP2PBoost() {
       queryClient.invalidateQueries({ queryKey: ["p2p-boost"] });
       queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       queryClient.invalidateQueries({ queryKey: ["p2p-user-stake"] });
+      refreshLimitsAfterVerification(queryClient);
     },
-    onError: (error) => {
-      toast.error(t(parseContractError(error) ?? "SOMETHING_WENT_WRONG"));
-    },
+    onError: showStakeError,
   });
 
   return {
