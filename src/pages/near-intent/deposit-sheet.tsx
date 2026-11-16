@@ -1,4 +1,4 @@
-import { CopyIcon, TriangleAlertIcon } from "lucide-react";
+import { ClockIcon, CopyIcon, TriangleAlertIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { Trans, useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -13,9 +13,21 @@ import {
 import type { PendingBridge } from "@/core/near-intents";
 import {
   getChainIconUrl,
+  getChainName,
   useOneClickTokens,
   useTokenIcons,
 } from "@/hooks/use-oneclick";
+import { analytics, EVENTS } from "@/lib/analytics";
+
+function formatDeadline(deadline: string, locale: string): string | null {
+  if (!deadline) return null;
+  const date = new Date(deadline);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+}
 
 type DepositSheetProps = {
   bridge: PendingBridge;
@@ -27,9 +39,14 @@ type DepositSheetProps = {
  * Zashi-style deposit bottom sheet: amount + token icon, QR code, address,
  * copy/share actions and a wrong-asset warning.
  */
-export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) {
-  const { t } = useTranslation();
+export function DepositSheet({
+  bridge,
+  open,
+  onOpenChange,
+}: DepositSheetProps) {
+  const { t, i18n } = useTranslation();
   const { tokens } = useOneClickTokens();
+  const deadlineLabel = formatDeadline(bridge.deadline, i18n.language);
   const { getTokenIconUrl } = useTokenIcons(tokens);
   const token = tokens.find((item) => item.assetId === bridge.originAsset);
 
@@ -44,6 +61,10 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
   const copyAddress = async () => {
     await navigator.clipboard.writeText(bridge.depositAddress);
     toast.success(t("ADDRESS_COPIED"));
+    analytics.track(EVENTS.FEATURE, {
+      status: "deposit_address_copied",
+      location: "bridge_deposit_sheet",
+    });
   };
 
   const copyAmount = async () => {
@@ -61,16 +82,14 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent
         className="h-[90vh] data-[vaul-drawer-direction=bottom]:max-h-[90vh]"
-        onInteractOutside={(e) => e.preventDefault()}
-      >
+        onInteractOutside={(e) => e.preventDefault()}>
         <DrawerHeader>
           <DrawerTitle className="flex items-center justify-center gap-1.5 text-center">
             {t("BRIDGE_DEPOSIT_AMOUNT")}
             <button
               type="button"
               aria-label={t("BRIDGE_COPY_AMOUNT")}
-              onClick={copyAmount}
-            >
+              onClick={copyAmount}>
               <CopyIcon className="size-4 text-muted-foreground" />
             </button>
           </DrawerTitle>
@@ -80,8 +99,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
             type="button"
             aria-label={t("BRIDGE_COPY_AMOUNT")}
             className="flex items-center gap-3"
-            onClick={copyAmount}
-          >
+            onClick={copyAmount}>
             <TokenIcon
               symbol={bridge.originSymbol}
               iconUrl={token ? getTokenIconUrl(token) : undefined}
@@ -99,7 +117,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
             )}
           </button>
 
-          <div className="bg-white p-3 mt-4">
+          <div className="mt-4 bg-white p-3">
             <QRCodeSVG value={bridge.depositAddress} size={150} level="L" />
           </div>
 
@@ -107,8 +125,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
             type="button"
             aria-label={t("BRIDGE_COPY_ADDRESS")}
             className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2 transition-colors hover:bg-muted/80"
-            onClick={copyAddress}
-          >
+            onClick={copyAddress}>
             <code className="break-all text-center text-sm">
               {bridge.depositAddress}
             </code>
@@ -118,14 +135,17 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
           {bridge.depositMemo && (
             <div className="flex w-full flex-col gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-3">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-semibold text-sm">{t("BRIDGE_MEMO")}</span>
+                <span className="font-semibold text-sm">
+                  {t("BRIDGE_MEMO")}
+                </span>
                 <button
                   type="button"
                   aria-label={t("BRIDGE_COPY_MEMO")}
                   className="flex items-center gap-1.5 rounded-lg bg-muted px-3 py-1.5 transition-colors hover:bg-muted/80"
-                  onClick={copyMemo}
-                >
-                  <code className="break-all text-sm">{bridge.depositMemo}</code>
+                  onClick={copyMemo}>
+                  <code className="break-all text-sm">
+                    {bridge.depositMemo}
+                  </code>
                   <CopyIcon className="size-4 shrink-0 text-muted-foreground" />
                 </button>
               </div>
@@ -136,16 +156,24 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
             </div>
           )}
 
-          <div className="flex w-full items-start gap-2 rounded-xl bg-yellow-500/10 p-3 mt-4">
+          {deadlineLabel && (
+            <p className="flex w-full items-start gap-2 rounded-xl bg-muted p-3 text-sm">
+              <ClockIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+              {t("PAYF_BRIDGE_DEPOSIT_DEADLINE", { deadline: deadlineLabel })}
+            </p>
+          )}
+
+          <div className="mt-4 flex w-full items-start gap-2 rounded-xl bg-yellow-500/10 p-3">
             <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-yellow-600 dark:text-yellow-500" />
             <p className="text-sm text-yellow-600 dark:text-yellow-500">
               <Trans
                 i18nKey="BRIDGE_SEND_ONLY_WARNING"
                 values={{
                   token: bridge.originSymbol,
-                  network: token?.blockchain ?? "origin",
-                }}
-              >
+                  network: token
+                    ? getChainName(token.blockchain)
+                    : t("PAYF_BRIDGE_ORIGIN_CHAIN"),
+                }}>
                 <span className="font-medium capitalize" />
               </Trans>
             </p>
@@ -160,8 +188,7 @@ export function DepositSheet({ bridge, open, onOpenChange }: DepositSheetProps) 
           <Button
             variant="outline"
             className="w-full p-6"
-            onClick={() => onOpenChange(false)}
-          >
+            onClick={() => onOpenChange(false)}>
             {t("CANCEL")}
           </Button>
         </div>

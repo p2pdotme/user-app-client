@@ -221,7 +221,9 @@ export function PayCompleted({ order }: { order: Order }) {
                     <Skeleton className="h-4 w-16" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-medium">{t("YOU_RECEIVE")} </span>
+                    <span className="font-medium">
+                      {t("PAYF_MERCHANT_GETS")}{" "}
+                    </span>
                     <Skeleton className="h-4 w-20" />
                   </div>
                 </>
@@ -235,7 +237,9 @@ export function PayCompleted({ order }: { order: Order }) {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="font-medium">{t("YOU_RECEIVE")} </span>
+                    <span className="font-medium">
+                      {t("PAYF_MERCHANT_GETS")}{" "}
+                    </span>
                     <span className="text-muted-foreground">
                       {actualFiatAmount
                         ? formatFiatAmount(actualFiatAmount, order.currency)
