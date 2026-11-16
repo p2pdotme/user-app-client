@@ -1,6 +1,7 @@
-import { Globe, Loader2, MailCheck } from "lucide-react";
+import { CircleHelp, Globe, Loader2, MailCheck } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { TextLogo } from "@/components/text-logo";
@@ -15,24 +16,23 @@ import {
 import { useSettings } from "@/contexts/settings";
 import type { Currency, Language } from "@/core/client/settings";
 import {
+  useAnalytics,
   useGeoLocale,
   useHapticInteractions,
   usePageMeta,
   useThirdweb,
 } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import {
   COUNTRY_OPTIONS,
   getCurrencyLabel,
   getFiatUnit,
+  INTERNAL_HREFS,
   LANGUAGE_OPTIONS,
   STORAGE_KEYS,
   URLS,
 } from "@/lib/constants";
-import {
-  clearStoredParams,
-  getStoredParams,
-  hasStoredParams,
-} from "@/lib/url-param-preservation";
+import { getStoredParams, hasStoredParams } from "@/lib/url-param-preservation";
 
 // Choices a returning (logged-out) user already made. Empty when this is a
 // first run — geolocation then supplies the defaults (see useGeoLocale below).
@@ -83,11 +83,50 @@ const getSocialPlatformIcon = (platform: string | undefined) => {
   }
 };
 
+// Help is public (see AuthGuard isPublicRoute), so people stuck before login
+// can still reach FAQs, guides and support.
+function NeedHelpLink() {
+  const { t } = useTranslation();
+  const { track } = useAnalytics();
+  return (
+    <Link
+      to={INTERNAL_HREFS.HELP}
+      onClick={() =>
+        track(EVENTS.HELP, { status: "opened", section: "login_need_help" })
+      }
+      className="flex items-center justify-center gap-1.5 text-muted-foreground text-sm underline-offset-4 hover:text-primary hover:underline">
+      <CircleHelp className="size-4" />
+      {t("ONB_NEED_HELP_LINK")}
+    </Link>
+  );
+}
+
 export function LoginPage() {
   const { t, i18n } = useTranslation();
   usePageMeta({ title: t("LOGIN"), description: t("SEO_DESCRIPTION_LOGIN") });
   const [language, setLanguage] = React.useState<string>("");
   const { connect, connectionStatus, isAutoConnectLoading } = useThirdweb();
+  const { track } = useAnalytics();
+
+  // Prefer newer, plainer copy where it has been translated for the current
+  // language; otherwise keep the existing (translated) string rather than
+  // dropping a non-English user to English.
+  const hasOwnTranslation = (key: string) =>
+    i18n.getResource(
+      i18n.resolvedLanguage ?? i18n.language,
+      "translation",
+      key,
+    ) !== undefined;
+  const tPreferred = (key: string, fallbackKey: string, options = {}) =>
+    hasOwnTranslation(key) ? t(key, options) : t(fallbackKey, options);
+
+  React.useEffect(() => {
+    track(EVENTS.NAVIGATION, {
+      status: "page_viewed",
+      page: "login",
+      hasStoredParams: hasStoredParams(),
+    });
+  }, [track]);
 
   const { setLanguage: setLanguageSettings, setCurrency: setCurrencySettings } =
     useSettings();
@@ -218,16 +257,28 @@ export function LoginPage() {
         await setCurrencySettings(selectedCurrency);
       }
       onSettingSaved(); // Haptic feedback for successful setting save
-
-      await connect();
-      // Clear stored parameters and pending action after successful login
-      clearStoredParams();
-      setPendingAction(null);
-      // Note: Success haptic for login will be handled by the Button component
-      // since we're using hapticType="success" for the login button
     } catch (error) {
-      onValidationError(); // Trigger error haptic for login failure
-      console.error("Login failed:", error);
+      // Saving preferences is best-effort; login can still proceed.
+      console.error("Failed to save login preferences:", error);
+    }
+
+    track(EVENTS.WALLET, {
+      status: "login_clicked",
+      currency: currencySymbol,
+      language,
+      pendingAction: pendingAction?.type ?? "none",
+    });
+
+    // connect() never throws: cancellation is silent (the button simply
+    // stays usable), failures already showed a friendly toast.
+    const result = await connect();
+    if (result === "connected") {
+      // Stored deep-link params (invite / campaign / verification) are
+      // consumed by AuthGuard, which restores them after login, so they must
+      // NOT be cleared here or the invite would be lost.
+      setPendingAction(null);
+    } else if (result === "failed") {
+      onValidationError(); // Error haptic for a real failure only
     }
   };
 
@@ -346,6 +397,7 @@ export function LoginPage() {
                   t("LOGIN_TO_CONTINUE")
                 )}
               </Button>
+              <NeedHelpLink />
             </div>
           </div>
         </section>
@@ -375,10 +427,12 @@ export function LoginPage() {
           </div>
 
           <div className="max-w-md text-center text-lg text-muted-foreground">
+            {/* The deep link lands on Home with the invite/bonus drawer open,
+                not on a separate page, so the copy says exactly that. */}
             {pendingAction.type === "campaign" &&
-              t("CAMPAIGN_PARAMS_DESCRIPTION")}
+              t("ONB_CAMPAIGN_PARAMS_DESCRIPTION")}
             {pendingAction.type === "referral" &&
-              t("REFERRAL_PARAMS_DESCRIPTION")}
+              t("ONB_REFERRAL_PARAMS_DESCRIPTION")}
           </div>
         </section>
       ) : (
@@ -387,10 +441,15 @@ export function LoginPage() {
           <section className="flex w-full flex-col items-center justify-center gap-2">
             <TextLogo />
             <p className="text-center font-regular text-rg">
-              {t("LOGIN_PAGE_TITLE", {
+              {tPreferred("ONB_LOGIN_PAGE_TITLE", "LOGIN_PAGE_TITLE", {
                 currency: getFiatUnit(currencySymbol) || t("YOUR_CURRENCY"),
               })}
             </p>
+            {hasOwnTranslation("ONB_LOGIN_USDC_EXPLAINER") && (
+              <p className="px-4 text-center text-muted-foreground text-sm">
+                {t("ONB_LOGIN_USDC_EXPLAINER")}
+              </p>
+            )}
           </section>
 
           <ASSETS.IMAGES.LoginPoster className="pointer-events-none h-72 w-72 select-none object-contain" />
@@ -486,6 +545,7 @@ export function LoginPage() {
                 t("LOGIN")
               )}
             </Button>
+            <NeedHelpLink />
           </div>
         </div>
       </section>
