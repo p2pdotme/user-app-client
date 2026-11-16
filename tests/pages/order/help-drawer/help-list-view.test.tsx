@@ -170,7 +170,9 @@ describe("HelpListView dispute row", () => {
       { withDrawer: true },
     );
     expect(
-      screen.getByText(/Disputes open after the order completes/),
+      screen.getByText(
+        /Disputes open after the merchant marks the payment as sent/,
+      ),
     ).toBeInTheDocument();
     expect(screen.getByText("Chat with us")).toBeInTheDocument();
   });

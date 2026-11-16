@@ -32,6 +32,7 @@ import {
   getUserFacingErrorMessage,
   isUserCancellation,
 } from "@/lib/user-facing-error";
+import { clearLastSellPaymentDetails } from "@/pages/sell/last-sell-payment-details";
 
 /**
  * Outcome of `connect()`. It never throws; callers branch on this instead.
@@ -251,6 +252,7 @@ export function useThirdweb() {
         localStorage.removeItem(STORAGE_KEYS.SETTINGS);
         fraudEngine.cleanupSeonStorage();
         clearLimitReturn();
+        clearLastSellPaymentDetails();
       } catch {}
       // Drop every cached query (limits, balances, verification status...) so
       // the next account never sees the previous one's data.

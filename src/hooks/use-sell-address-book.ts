@@ -11,19 +11,22 @@ import {
 
 /**
  * Hook for managing the sell address book
- * Currency-aware - reloads when currency changes in settings
+ * Currency-aware - reloads when currency changes in settings. Pass
+ * `currencyOverride` (e.g. an existing order's currency) to use that
+ * currency's book instead of the app's current one.
  *
  * Provides a simple interface to load, add, update, and remove addresses
  */
-export function useSellAddressBook() {
+export function useSellAddressBook(currencyOverride?: string) {
   const { settings } = useSettings();
+  const currency = currencyOverride ?? settings.currency.currency;
   const queryClient = useQueryClient();
 
   // Query: load address book, refetch when currency changes
   const sellBookQuery = useQuery({
-    queryKey: ["sellAddressBook", settings.currency.currency],
+    queryKey: ["sellAddressBook", currency],
     queryFn: () => {
-      const res = getSellAddressBook();
+      const res = getSellAddressBook(currency);
       if (res.isErr()) throw res.error;
       return res.value;
     },
@@ -38,15 +41,12 @@ export function useSellAddressBook() {
       label: string;
       address: string;
     }) => {
-      const res = addSellAddress({ label, address });
+      const res = addSellAddress({ label, address }, currency);
       if (res.isErr()) throw res.error;
       return res.value;
     },
     onSuccess: (book) =>
-      queryClient.setQueryData(
-        ["sellAddressBook", settings.currency.currency],
-        book,
-      ),
+      queryClient.setQueryData(["sellAddressBook", currency], book),
   });
 
   const updateMutation = useMutation({
@@ -57,41 +57,32 @@ export function useSellAddressBook() {
       id: string;
       updates: Partial<Omit<SellAddress, "id">>;
     }) => {
-      const res = updateSellAddressById(id, updates);
+      const res = updateSellAddressById(id, updates, currency);
       if (res.isErr()) throw res.error;
       return res.value;
     },
     onSuccess: (book) =>
-      queryClient.setQueryData(
-        ["sellAddressBook", settings.currency.currency],
-        book,
-      ),
+      queryClient.setQueryData(["sellAddressBook", currency], book),
   });
 
   const removeMutation = useMutation({
     mutationFn: async ({ id }: { id: string }) => {
-      const res = removeSellAddressById(id);
+      const res = removeSellAddressById(id, currency);
       if (res.isErr()) throw res.error;
       return res.value;
     },
     onSuccess: (book) =>
-      queryClient.setQueryData(
-        ["sellAddressBook", settings.currency.currency],
-        book,
-      ),
+      queryClient.setQueryData(["sellAddressBook", currency], book),
   });
 
   const setActiveMutation = useMutation({
     mutationFn: async ({ id }: { id: string | null }) => {
-      const res = setActiveSellAddressById(id);
+      const res = setActiveSellAddressById(id, currency);
       if (res.isErr()) throw res.error;
       return res.value;
     },
     onSuccess: (book) =>
-      queryClient.setQueryData(
-        ["sellAddressBook", settings.currency.currency],
-        book,
-      ),
+      queryClient.setQueryData(["sellAddressBook", currency], book),
   });
 
   return {

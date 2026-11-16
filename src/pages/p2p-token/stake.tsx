@@ -2,6 +2,7 @@ import { useIsMutating, useMutationState } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { formatUnits } from "viem";
 import { NonHomeHeader } from "@/components";
 import { ConfirmP2pStake } from "@/components/p2p-token/confirm-p2p-stake";
 import { StakeP2pStart } from "@/components/p2p-token/stake-p2p-start";
@@ -34,10 +35,19 @@ export function P2PStake() {
   // per-call callbacks, so a stake that settles is never lost to an unmount.
   const isStaking =
     useIsMutating({ mutationKey: P2P_BOOST_STAKE_MUTATION_KEY }) > 0;
-  const stakeSucceeded = useMutationState({
+  // The success step shows what was actually staked (the mutation's
+  // `tokens`, 6-decimal base units), not the `amount` input, which stays
+  // editable while a stake is pending after going Back.
+  const succeededStakes = useMutationState({
     filters: { mutationKey: P2P_BOOST_STAKE_MUTATION_KEY, status: "success" },
-    select: (mutation) => mutation.state.submittedAt,
-  }).some((submittedAt) => submittedAt >= mountedAt);
+    select: (mutation) => ({
+      submittedAt: mutation.state.submittedAt,
+      tokens: (mutation.state.variables as { tokens?: bigint } | undefined)
+        ?.tokens,
+    }),
+  }).filter(({ submittedAt }) => submittedAt >= mountedAt);
+  const stakeSucceeded = succeededStakes.length > 0;
+  const stakedTokens = succeededStakes.at(-1)?.tokens;
 
   useEffect(() => {
     if (stakeSucceeded) setStep("success");
@@ -65,7 +75,13 @@ export function P2PStake() {
       {step === "confirm" && (
         <ConfirmP2pStake amount={amount} onBack={() => setStep("start")} />
       )}
-      {step === "success" && <SuccessP2pStake amount={amount} />}
+      {step === "success" && (
+        <SuccessP2pStake
+          amount={
+            stakedTokens !== undefined ? formatUnits(stakedTokens, 6) : amount
+          }
+        />
+      )}
     </>
   );
 }

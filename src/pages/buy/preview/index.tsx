@@ -307,7 +307,7 @@ export function BuyPreview() {
     setFraudStatus(isINR ? "checking" : "idle");
 
     console.log("Placing order with...", buyPreviewState, currentAddress);
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setFraudStatus("idle");
