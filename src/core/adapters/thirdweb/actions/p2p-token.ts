@@ -10,18 +10,21 @@ import {
 } from "@/core/p2pdotme/contracts";
 import type { P2PError, P2PErrorDomain } from "@/core/p2pdotme/shared";
 import { createAppError } from "@/lib/errors";
+import { chain } from "../chain";
+import type { ThirdwebAdapterError } from "../client";
 import {
   estimatedPrepareTransaction,
   thirdwebClient,
   viemPublicClient,
 } from "../client";
-import type { ThirdwebAdapterError } from "../client";
-import { chain } from "../chain";
 
 export const transferP2PToken = (
   params: { address: Address; amount: bigint },
   account: Account,
-): ResultAsync<TransactionReceipt, ThirdwebAdapterError | P2PError<P2PErrorDomain>> => {
+): ResultAsync<
+  TransactionReceipt,
+  ThirdwebAdapterError | P2PError<P2PErrorDomain>
+> => {
   return prepareP2PTokenTransferTx(params)
     .asyncAndThen((tx) =>
       estimatedPrepareTransaction({

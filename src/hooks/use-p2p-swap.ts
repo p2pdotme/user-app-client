@@ -1,19 +1,19 @@
 import { useStake } from "@p2pdotme/sdk/react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import type { Address } from "thirdweb";
-import { parseUnits, formatUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
+import { transferP2PToken, transferUSDC } from "@/core/adapters/thirdweb";
+import type { SwapDirection, SwapRecord } from "@/core/p2p-swap";
 import {
-  fetchQuoteUsdcToP2P,
-  fetchQuoteP2PToUsdc,
   fetchInfo,
   fetchP2PTokenInfo,
+  fetchQuoteP2PToUsdc,
+  fetchQuoteUsdcToP2P,
   fetchUserSwaps,
-  initiateUsdcToP2PSwap,
   initiateP2PToUsdcSwap,
+  initiateUsdcToP2PSwap,
 } from "@/core/p2p-swap";
-import type { SwapDirection, SwapRecord } from "@/core/p2p-swap";
-import { transferUSDC, transferP2PToken } from "@/core/adapters/thirdweb";
 import { truncateAmount } from "@/lib/utils";
 import { useThirdweb } from "./use-thirdweb";
 
@@ -147,13 +147,17 @@ export function useP2PSwapQuote(direction: SwapDirection, amount: string) {
 
   const rawOutput = query.data?.estimatedOutputAmount;
   const isLowReserve =
-    query.isError && query.error instanceof Error && query.error.message === "LOW_RESERVE";
+    query.isError &&
+    query.error instanceof Error &&
+    query.error.message === "LOW_RESERVE";
 
   return {
     quote: query.data ?? null,
     outputAmount: isLowReserve
       ? "0"
-      : truncateAmount(Number(formatUnits(BigInt(rawOutput || 0), outputDecimals))),
+      : truncateAmount(
+          Number(formatUnits(BigInt(rawOutput || 0), outputDecimals)),
+        ),
     isQuoteLoading: query.isLoading || query.isFetching,
     isQuoteError: query.isError,
     isLowReserve,
