@@ -1,3 +1,4 @@
+import { useIsMutating } from "@tanstack/react-query";
 import {
   AlertTriangle,
   Loader2,
@@ -15,6 +16,7 @@ import {
   useStakeBoostMetrics,
   useStakeBoostPreview,
 } from "@/hooks";
+import { P2P_BOOST_STAKE_MUTATION_KEY } from "@/hooks/use-p2p-boost";
 import { formatSecondsDuration, truncateAmount } from "@/lib/utils";
 
 interface ConfirmP2pStakeProps {
@@ -39,7 +41,12 @@ export function ConfirmP2pStake({ amount, onBack }: ConfirmP2pStakeProps) {
     useStakeBoostPreview(amount);
   const { usdPerToken } = useStakeBoostMetrics(amount);
   const numericAmount = Number(amount) || 0;
-  const isProcessing = p2pBoostStakeMutation.isPending;
+  // Any stake in flight counts, not just this instance's: after going Back
+  // and returning, a new instance would otherwise allow a second stake.
+  const stakesInFlight = useIsMutating({
+    mutationKey: P2P_BOOST_STAKE_MUTATION_KEY,
+  });
+  const isProcessing = p2pBoostStakeMutation.isPending || stakesInFlight > 0;
 
   const cooldownLabel = formatSecondsDuration(
     stakeBoostGlobals?.normalCooldown,
@@ -205,7 +212,6 @@ export function ConfirmP2pStake({ amount, onBack }: ConfirmP2pStakeProps) {
         <Button
           variant="outline"
           onClick={onBack}
-          disabled={isProcessing}
           className="w-full rounded-2xl py-6 font-semibold text-base">
           {t("CANCEL")}
         </Button>

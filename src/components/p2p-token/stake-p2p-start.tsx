@@ -251,6 +251,8 @@ interface StakeP2pStartProps {
   amount: string;
   onAmountChange: (value: string) => void;
   onContinue: () => void;
+  /** A stake transaction is still confirming: don't start a second one. */
+  isStakePending?: boolean;
 }
 
 /**
@@ -266,6 +268,7 @@ export function StakeP2pStart({
   amount,
   onAmountChange,
   onContinue,
+  isStakePending = false,
 }: StakeP2pStartProps) {
   const { t } = useTranslation();
   const { p2pBalanceRaw, isP2PBalanceLoading } = useP2PBalance();
@@ -375,7 +378,7 @@ export function StakeP2pStart({
       <div className={`flex flex-col gap-3 ${hasNoBalance ? "" : "mt-auto"}`}>
         <UpdatedLimitsSummary amount={amount} />
         <Button
-          disabled={!isValid}
+          disabled={!isValid || isStakePending}
           onClick={onContinue}
           className="w-full rounded-2xl py-6 font-semibold text-base">
           {t("CONTINUE")}
