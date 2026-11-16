@@ -1,4 +1,4 @@
-import { ArrowLeftCircle, Loader2 } from "lucide-react";
+import { ArrowLeftCircle, Info, Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,10 @@ import { Input } from "@/components/ui/input";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 
 interface DisputeFormViewProps {
+  /**
+   * Called with the 4 digits entered, or "" when the field is optional
+   * (SELL/PAY) and the user left it blank.
+   */
   onSubmit: (transactionId: string) => void;
   onCancel: () => void;
   order?: Order;
@@ -27,8 +31,19 @@ export function DisputeFormView({
   const { t } = useTranslation();
   const [transactionId, setTransactionId] = useState("");
 
+  // BUY: the user paid fiat, so they hold the payment reference (UTR) and it
+  // is what support matches against the merchant's records — required.
+  // SELL/PAY: the merchant was meant to pay the user. A user who was never
+  // paid has no reference, so the field is optional there.
+  const userPaysFiat = order?.orderType === "BUY";
+  const isReferenceOptional = !userPaysFiat;
+
+  const isValid =
+    transactionId.length === 4 ||
+    (isReferenceOptional && transactionId.length === 0);
+
   const handleSubmit = () => {
-    if (transactionId.length === 4) {
+    if (isValid) {
       onSubmit(transactionId);
     }
   };
@@ -40,7 +55,7 @@ export function DisputeFormView({
     }
   };
 
-  const isSubmitDisabled = transactionId.length !== 4 || isSubmitting;
+  const isSubmitDisabled = !isValid || isSubmitting;
 
   return (
     <motion.div
@@ -63,7 +78,9 @@ export function DisputeFormView({
           <div className="flex flex-col gap-2">
             <DrawerTitle className="flex-1">{t("RAISE_DISPUTE")}</DrawerTitle>
             <DrawerDescription>
-              {t("ENTER_LAST_4_DIGITS_OF_TRANSACTION_ID")}
+              {userPaysFiat
+                ? t("ENTER_LAST_4_DIGITS_OF_TRANSACTION_ID")
+                : t("SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY")}
             </DrawerDescription>
           </div>
           <div className="w-6" />
@@ -74,11 +91,14 @@ export function DisputeFormView({
         {/* Transaction ID Input */}
         <div className="space-y-2">
           <label htmlFor="txn-last4" className="font-medium text-sm">
-            {t("LAST_4_DIGITS")}
+            {isReferenceOptional
+              ? t("SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL")
+              : t("LAST_4_DIGITS")}
           </label>
           <Input
             id="txn-last4"
             type="text"
+            inputMode="numeric"
             value={transactionId}
             onChange={handleInputChange}
             placeholder="XXXX"
@@ -87,8 +107,16 @@ export function DisputeFormView({
             disabled={isSubmitting}
           />
           <p className="text-muted-foreground text-xs">
-            {t("ENTER_LAST_4_DIGITS_INSTRUCTION")}
+            {userPaysFiat
+              ? t("ENTER_LAST_4_DIGITS_INSTRUCTION")
+              : t("SUP_DISPUTE_REFERENCE_HINT_SELL_PAY")}
           </p>
+          {userPaysFiat && (
+            <p className="flex items-start gap-1 text-muted-foreground text-xs">
+              <Info className="mt-0.5 size-3 shrink-0" />
+              {t("SUP_DISPUTE_TXN_ID_WHERE_BUY")}
+            </p>
+          )}
         </div>
 
         {/* Order Information - Only show when order exists */}
@@ -98,19 +126,19 @@ export function DisputeFormView({
               <span className="text-muted-foreground text-sm">
                 {t("ORDER_ID")}:
               </span>
-              <span className="font-medium text-sm">{order.id}</span>
+              <span className="font-medium text-sm">#{order.id}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground text-sm">
                 {t("ORDER_TYPE")}:
               </span>
-              <span className="font-medium text-sm">{order.orderType}</span>
+              <span className="font-medium text-sm">{t(order.orderType)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground text-sm">
                 {t("STATUS")}:
               </span>
-              <span className="font-medium text-sm">{order.status}</span>
+              <span className="font-medium text-sm">{t(order.status)}</span>
             </div>
           </div>
         )}
