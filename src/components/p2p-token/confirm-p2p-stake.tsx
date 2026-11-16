@@ -20,7 +20,6 @@ import { formatSecondsDuration, truncateAmount } from "@/lib/utils";
 interface ConfirmP2pStakeProps {
   amount: string;
   onBack: () => void;
-  onConfirm: () => void;
 }
 
 /**
@@ -30,13 +29,10 @@ interface ConfirmP2pStakeProps {
  * timing) and triggers the on-chain `p2pBoostStake` transaction via
  * `useP2PBoost`. The amount is converted from the human-readable string to
  * base units with `parseUnits(amount, 6)`. Disables both buttons while the
- * transaction is pending; advances to the success step on confirmation.
+ * transaction is pending. The page advances to the success step from the
+ * mutation cache (see `P2PStake`), so it survives this step unmounting.
  */
-export function ConfirmP2pStake({
-  amount,
-  onBack,
-  onConfirm,
-}: ConfirmP2pStakeProps) {
+export function ConfirmP2pStake({ amount, onBack }: ConfirmP2pStakeProps) {
   const { t } = useTranslation();
   const { p2pBoostStakeMutation } = useP2PBoost();
   const { buyLimitBoost, sellLimitBoost, payLimitBoost, stakeBoostGlobals } =
@@ -55,10 +51,7 @@ export function ConfirmP2pStake({
   );
 
   const handleConfirm = () => {
-    p2pBoostStakeMutation.mutate(
-      { tokens: parseUnits(amount, 6) },
-      { onSuccess: () => onConfirm() },
-    );
+    p2pBoostStakeMutation.mutate({ tokens: parseUnits(amount, 6) });
   };
 
   return (
