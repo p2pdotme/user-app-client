@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { z } from "zod";
 import { NonHomeHeader, NumpadInput } from "@/components";
 import FlatFeeAlert from "@/components/flat-fee-alert";
@@ -18,7 +18,7 @@ import {
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { truncateAmount } from "@/lib/utils";
+import { formatFiatAmount, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../order/help-drawer";
 import { AmountDisplay } from "./amount-display";
@@ -29,6 +29,7 @@ export function Buy() {
   const { t } = useTranslation();
   usePageMeta({ title: t("BUY"), description: t("SEO_DESCRIPTION_BUY") });
   const navigate = useNavigate();
+  const { state: locationState } = useLocation();
   const { onValidationError, triggerTapHaptic } = useHapticInteractions();
   const { track } = useAnalytics();
   const {
@@ -51,7 +52,9 @@ export function Buy() {
     enabled: !!currency.currency,
   });
 
-  const MAX_BUY_LIMIT = useMemo(() => txLimit?.buyLimit ?? 100, [txLimit]);
+  // Undefined until the real limit loads — never validate against (or show)
+  // a made-up default.
+  const MAX_BUY_LIMIT = txLimit?.buyLimit;
 
   const ZodBuyAmountSchema = useMemo(
     () =>
@@ -61,9 +64,17 @@ export function Buy() {
           .refine((val) => val === "" || !Number.isNaN(Number(val)), {
             error: t("VALIDATION_INVALID_AMOUNT"),
           })
-          .refine((val) => val === "" || Number(val) <= MAX_BUY_LIMIT, {
-            error: t("VALIDATION_MAXIMUM_BUY_LIMIT", { limit: MAX_BUY_LIMIT }),
-          }),
+          .refine(
+            (val) =>
+              val === "" ||
+              MAX_BUY_LIMIT === undefined ||
+              Number(val) <= MAX_BUY_LIMIT,
+            {
+              error: t("VALIDATION_MAXIMUM_BUY_LIMIT", {
+                limit: MAX_BUY_LIMIT,
+              }),
+            },
+          ),
         fiat: z
           .string()
           .refine((val) => val === "" || !Number.isNaN(Number(val)), {
@@ -187,13 +198,55 @@ export function Buy() {
   }, []);
 
   const handleMax = useCallback(() => {
+    if (MAX_BUY_LIMIT === undefined) return;
     if (denomination === "crypto") {
       handleUpdateAmount(MAX_BUY_LIMIT.toString());
     } else {
-      const maxFiatAmount = MAX_BUY_LIMIT * (priceConfig?.buyPrice ?? 85);
+      if (!priceConfig?.buyPrice) return;
+      const maxFiatAmount = MAX_BUY_LIMIT * priceConfig.buyPrice;
       handleUpdateAmount(maxFiatAmount.toString());
     }
   }, [denomination, handleUpdateAmount, MAX_BUY_LIMIT, priceConfig?.buyPrice]);
+
+  // Prefill the amount when coming back from the preview (price changed) or
+  // from "Reorder" on a cancelled order. Waits for price + limits so the
+  // conversion and validation use real data.
+  const hasAppliedPrefillRef = useRef(false);
+  useEffect(() => {
+    if (hasAppliedPrefillRef.current) return;
+    if (!priceConfig?.buyPrice || MAX_BUY_LIMIT === undefined) return;
+    const prefill = (
+      locationState as { prefill?: { crypto?: unknown; fiat?: unknown } }
+    )?.prefill;
+    if (!prefill) return;
+    const cryptoValue = Number(prefill.crypto);
+    const fiatValue = Number(prefill.fiat);
+    hasAppliedPrefillRef.current = true;
+    if (Number.isFinite(cryptoValue) && cryptoValue > 0) {
+      setDenomination("crypto");
+      handleUpdateAmount(truncateAmount(cryptoValue, 6).toString());
+    } else if (Number.isFinite(fiatValue) && fiatValue > 0) {
+      setDenomination("fiat");
+      updateAmount(
+        truncateAmount(fiatValue, 2).toString(),
+        "fiat",
+        (validData) => {
+          setAmount(validData);
+          setError(null);
+        },
+        (errorMessage, newAmount) => {
+          setAmount(newAmount);
+          setError(errorMessage);
+        },
+      );
+    }
+  }, [
+    locationState,
+    priceConfig?.buyPrice,
+    MAX_BUY_LIMIT,
+    handleUpdateAmount,
+    updateAmount,
+  ]);
 
   const toggleCurrency = useCallback(() => {
     triggerTapHaptic(); // Haptic feedback for currency toggle
@@ -207,6 +260,7 @@ export function Buy() {
       setError(t("VALIDATION_PLEASE_ENTER_AMOUNT"));
       return;
     }
+    if (MAX_BUY_LIMIT === undefined) return;
     if (cryptoValue > MAX_BUY_LIMIT) {
       onValidationError(); // Haptic feedback for validation error
       setError(
@@ -219,7 +273,9 @@ export function Buy() {
     track(EVENTS.TRANSACTION, {
       transaction_type: "buy",
       status: "started",
-      amount,
+      amount: cryptoValue,
+      fiatAmount: Number(amount.fiat) || undefined,
+      currency: currency.currency,
       denomination,
     });
 
@@ -234,7 +290,45 @@ export function Buy() {
     onValidationError,
     track,
     denomination,
+    currency.currency,
     t,
+  ]);
+
+  const cryptoAmountNumber = Number(amount.crypto);
+  const hasExceededLimit =
+    MAX_BUY_LIMIT !== undefined &&
+    cryptoAmountNumber > MAX_BUY_LIMIT &&
+    !!amount.crypto;
+  const isBelowMinimum =
+    cryptoAmountNumber > 0 &&
+    feeConfig?.smallOrderFixedFee !== undefined &&
+    cryptoAmountNumber <= feeConfig.smallOrderFixedFee;
+  const blockedReason: "limit" | "min" | null = hasExceededLimit
+    ? "limit"
+    : isBelowMinimum
+      ? "min"
+      : null;
+
+  // Track why Continue is blocked (once per reason change).
+  const lastBlockedReasonRef = useRef<typeof blockedReason>(null);
+  useEffect(() => {
+    if (blockedReason === lastBlockedReasonRef.current) return;
+    lastBlockedReasonRef.current = blockedReason;
+    if (!blockedReason) return;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "buy",
+      status: "amount_blocked",
+      reason: blockedReason,
+      amount: cryptoAmountNumber,
+      limit: MAX_BUY_LIMIT,
+      currency: currency.currency,
+    });
+  }, [
+    blockedReason,
+    cryptoAmountNumber,
+    MAX_BUY_LIMIT,
+    currency.currency,
+    track,
   ]);
 
   const handleRetry = () => window.location.reload();
@@ -260,15 +354,11 @@ export function Buy() {
     );
   }
 
-  const hasExceededLimit =
-    Number(amount.crypto) > MAX_BUY_LIMIT && !!amount.crypto;
-
   const isContinueDisabled =
     !amount.crypto ||
     Number(amount.crypto) === 0 ||
-    (feeConfig?.smallOrderFixedFee !== undefined
-      ? Number(amount.crypto) <= feeConfig.smallOrderFixedFee
-      : false) ||
+    isBelowMinimum ||
+    MAX_BUY_LIMIT === undefined ||
     isSubmitting ||
     !!error ||
     isPriceConfigLoading ||
@@ -302,6 +392,29 @@ export function Buy() {
             isPriceLoading={isPriceConfigLoading}
             isPriceError={isPriceConfigError}
           />
+          <div className="flex min-h-10 w-full flex-col items-center gap-1 px-4 text-center">
+            {priceConfig?.buyPrice ? (
+              <p className="text-muted-foreground text-xs">
+                {t("BUY_UX_EXCHANGE_RATE", {
+                  rate: formatFiatAmount(
+                    priceConfig.buyPrice,
+                    currency.currency,
+                  ),
+                })}
+              </p>
+            ) : null}
+            {error ? (
+              <p role="alert" className="text-destructive text-sm">
+                {error}
+              </p>
+            ) : isBelowMinimum && feeConfig ? (
+              <p role="alert" className="text-destructive text-sm">
+                {t("BUY_UX_MIN_AMOUNT_REASON", {
+                  min: feeConfig.smallOrderFixedFee,
+                })}
+              </p>
+            ) : null}
+          </div>
 
           {feeConfig && (
             <div className="w-full">
