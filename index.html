@@ -5,6 +5,14 @@
     <link id="favicon" rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="dns-prefetch" href="https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev" />
     <link rel="preconnect" href="https://pub-dd70195dd602478f96c1851a4b192e25.r2.dev" crossorigin />
+    <!-- Outfit (body font). Loaded from the HTML instead of an @import inside
+         the app stylesheet, so the font request starts immediately instead of
+         waiting for the main CSS to download and parse first. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -171,6 +179,8 @@
     <style>
       #initial-loader {
         display: flex;
+        flex-direction: column;
+        gap: 20px;
         align-items: center;
         justify-content: center;
         height: 100vh;
@@ -185,6 +195,11 @@
         #initial-loader {
           background-color: var(--background);
         }
+      }
+
+      #initial-loader img {
+        width: 56px;
+        height: 56px;
       }
 
       .spinner {
@@ -213,7 +228,8 @@
 
   <body>
     <div id="root">
-      <div id="initial-loader">
+      <div id="initial-loader" role="status" aria-label="Loading P2P.me">
+        <img src="/favicon.svg" alt="" width="56" height="56" />
         <div class="spinner"></div>
       </div>
     </div>

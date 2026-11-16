@@ -8,6 +8,7 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
+import { useIsCurrencyGateOpen } from "@/components/currency-gate";
 import { EcosystemCard } from "@/components/p2p-ecosystem";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,10 +21,16 @@ import {
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { parseContractError } from "@/lib/errors";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { BalanceIndicator } from "./balance-indicator";
 import { ClaimGiftsDrawer } from "./claim-gifts-drawer";
 import { ClaimMonthlyDropCard } from "./claim-monthly-drop-card";
 import { DepositDrawer } from "./deposit-drawer";
+import { FirstBuyCard } from "./first-buy-card";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { PerTxnLimit } from "./per-txn-limits";
@@ -106,7 +113,37 @@ export function HomeScreen() {
   const handleCloseCampaignDrawer = () => {
     setShowCampaignDrawer(false);
     clearCampaignUrlParams();
+    claimCampaignMutation.reset();
   };
+
+  // Friendly reason for a failed campaign claim, shown inside the drawer
+  // (which stays open with Retry). A user-cancelled signature is not an error.
+  const campaignClaimError = claimCampaignMutation.error;
+  const campaignClaimErrorMessage =
+    campaignClaimError && !isUserCancellation(campaignClaimError)
+      ? (() => {
+          const contractErrorKey = parseContractError(campaignClaimError);
+          return contractErrorKey
+            ? t(contractErrorKey)
+            : getUserFacingErrorMessage(t, campaignClaimError);
+        })()
+      : null;
+
+  // Don't stack first-run overlays: while the non-dismissable currency gate is
+  // up, hold the invite / campaign drawers; they open once currency is set.
+  const isCurrencyGateOpen = useIsCurrencyGateOpen();
+  const canShowInviteDrawer = showInviteDrawer && !isCurrencyGateOpen;
+  const canShowCampaignDrawer = showCampaignDrawer && !isCurrencyGateOpen;
+
+  useEffect(() => {
+    track(EVENTS.NAVIGATION, { status: "page_viewed", page: "home" });
+  }, [track]);
+
+  useEffect(() => {
+    if (canShowCampaignDrawer) {
+      track(EVENTS.REFERRAL, { status: "campaign_drawer_shown" });
+    }
+  }, [canShowCampaignDrawer, track]);
 
   const handleClaimAccess = () => {
     if (!account?.address) {
@@ -214,6 +251,8 @@ export function HomeScreen() {
           </Link>
         </section>
 
+        <FirstBuyCard />
+
         <ClaimMonthlyDropCard />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
@@ -240,21 +279,22 @@ export function HomeScreen() {
           <EcosystemCard />
         </section>
 
-        {showInviteDrawer && (
+        {canShowInviteDrawer && (
           <YoureInvitedDrawer
-            open={showInviteDrawer}
+            open={canShowInviteDrawer}
             onClose={handleCloseInviteDrawer}
             onClaim={handleClaimAccess}
             referrer={senderAddr || ""}
           />
         )}
 
-        {showCampaignDrawer && (
+        {canShowCampaignDrawer && (
           <ClaimGiftsDrawer
-            open={showCampaignDrawer}
+            open={canShowCampaignDrawer}
             onClose={handleCloseCampaignDrawer}
             onClaim={handleClaimCampaign}
             isLoading={claimCampaignMutation.isPending}
+            errorMessage={campaignClaimErrorMessage}
           />
         )}
 
