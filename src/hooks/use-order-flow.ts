@@ -7,6 +7,7 @@ import type {
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ResultAsync } from "neverthrow";
+import { useRef } from "react";
 import type { Address } from "thirdweb";
 import { sendAndConfirmTransaction } from "thirdweb";
 import {
@@ -61,13 +62,20 @@ function submitPreparedTx(
   );
 }
 
-export function useOrderFlow() {
+/** Progress of `placeOrderMutation`: "approving" only fires when an approval tx is actually needed. */
+export type PlaceOrderStep = "approving" | "placing";
+
+export function useOrderFlow(options?: {
+  onPlaceOrderStep?: (step: PlaceOrderStep) => void;
+}) {
   const { account } = useThirdweb();
   const queryClient = useQueryClient();
   const orders = useOrders();
+  const onPlaceOrderStepRef = useRef(options?.onPlaceOrderStep);
+  onPlaceOrderStepRef.current = options?.onPlaceOrderStep;
 
   // Helper function to check and approve USDC if needed
-  const ensureUSDCApproval = () => {
+  const ensureUSDCApproval = (onApproving?: () => void) => {
     if (!account) {
       return ResultAsync.fromSafePromise(Promise.resolve(undefined));
     }
@@ -89,6 +97,7 @@ export function useOrderFlow() {
         "[ensureUSDCApproval] Approving maximum USDC allowance:",
         MAX_UINT256,
       );
+      onApproving?.();
       return approveUSDCtx(
         {
           address: CONTRACT_ADDRESSES.DIAMOND as Address,
@@ -116,12 +125,15 @@ export function useOrderFlow() {
             amount: params.amount.toString(),
           });
 
-          return ensureUSDCApproval()
-            .andThen(() =>
-              orders.placeOrder
+          return ensureUSDCApproval(() =>
+            onPlaceOrderStepRef.current?.("approving"),
+          )
+            .andThen(() => {
+              onPlaceOrderStepRef.current?.("placing");
+              return orders.placeOrder
                 .prepare(params)
-                .andThen((prepared) => submitPreparedTx(prepared, account)),
-            )
+                .andThen((prepared) => submitPreparedTx(prepared, account));
+            })
             .match(
               (value) => {
                 console.log("[useOrderFlow] placeOrder success", value);

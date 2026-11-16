@@ -2203,6 +2203,36 @@ export const en = {
     SELL_QUIZ_TRY_AGAIN: "Not quite. Pick the best answer to continue.",
     SELL_USDC: "Sell USDC",
     SELL_USDC_FAQS: "Sell USDC FAQs",
+    SELL_UX_ACCEPTED_TIMEOUT_NOTE:
+      "If the merchant doesn't get your payment details in time, the order is cancelled and your USDC is returned to your wallet.",
+    SELL_UX_APPROVING_USDC_STEP: "Approving USDC (1/2)…",
+    SELL_UX_CLIPBOARD_EMPTY:
+      "Your clipboard is empty. Copy your {{paymentAddressName}} first.",
+    SELL_UX_COMPLETED_DESCRIPTION:
+      "Check your bank or payment app to confirm you received {{amount}}.",
+    SELL_UX_COMPLETED_TITLE: "Merchant marked your payment as sent",
+    SELL_UX_DEPOSIT_USDC: "Deposit USDC",
+    SELL_UX_DETAILS_MISSING_DESCRIPTION:
+      "We couldn't find the payment details for this order on this device. Enter where you want to be paid so the merchant can send your money.",
+    SELL_UX_DETAILS_MISSING_TITLE: "Enter your payment details",
+    SELL_UX_DIDNT_RECEIVE_IT: "Didn't receive it?",
+    SELL_UX_INVALID_PAYMENT_ID:
+      "This doesn't look like a valid {{paymentAddressName}}. Please check it.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "We couldn't open it automatically. Open it from your transactions — if asked, enter your payment details there.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_TITLE: "Your order was placed",
+    SELL_UX_PAID_TIMEOUT_NOTE:
+      "Haven't received the money after a while? Tap the help icon at the top to get support for this order.",
+    SELL_UX_PLACED_DESCRIPTION:
+      "This usually takes 20–90 seconds. Keep this page open so your payment details are sent as soon as a merchant accepts. If you leave, come back to this order to enter them.",
+    SELL_UX_PLACED_TIMEOUT_NOTE:
+      "If no merchant accepts in time, the order is cancelled and your USDC is returned to your wallet.",
+    SELL_UX_PLACING_ORDER: "Placing order…",
+    SELL_UX_PLACING_ORDER_STEP: "Placing order (2/2)…",
+    SELL_UX_PROCESSING_TIMES_UNAVAILABLE: "Usually a few minutes",
+    SELL_UX_SEND_PAYMENT_DETAILS: "Send payment details",
+    SELL_UX_USE_DIFFERENT_DETAILS: "Use different payment details",
+    SELL_UX_YOU_WILL_BE_PAID_TO: "You'll be paid to:",
     SEND: "Send",
     SENDING: "Sending",
     SENDING_PAYMENT_DETAILS: "Sending payment details",
