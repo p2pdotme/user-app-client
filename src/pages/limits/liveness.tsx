@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { NonHomeHeader } from "@/components";
+import { ResumeOrderCard } from "@/components/resume-order-card";
 import { useSettings } from "@/contexts";
 import { usePageMeta } from "@/hooks";
 import { INTERNAL_HREFS, LIVENESS_EXCLUDED_COUNTRIES } from "@/lib/constants";
@@ -26,6 +27,7 @@ export function LimitsLiveness() {
         onBack={() => navigate(INTERNAL_HREFS.LIMITS)}
       />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto pt-6 pb-4">
+        <ResumeOrderCard />
         <PrivacyBanner
           title={t("LIMITS_PRIVATE_TITLE")}
           description={t("LIMITS_PRIVATE_DESCRIPTION")}
