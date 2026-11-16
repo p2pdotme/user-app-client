@@ -4,8 +4,8 @@ export const es = {
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P es el token de gobernanza y utilidad del Protocolo P2P, que impulsa la gobernanza basada en futarquía, el control de tesorería y el staking de confianza ("Círculos de Confianza") para una rampa de entrada/salida fiat-cripto descentralizada y que preserva la privacidad.',
     ACCEPTED: "Aceptado",
-    ACCESS_GRANTED_DESCRIPTION:
-      "Aprende a comprar y vender USDC al instante y a pagar con Escanear y Pagar en segundos",
+    ACCESS_GRANTED_READY_DESCRIPTION:
+      "Ya puedes comprar y vender USDC y pagar códigos QR locales con Scan & Pay. Encontrarás respuestas paso a paso siempre en Ayuda.",
     ACCESS_GRANTED_TITLE: "¡Listo! Ya tienes acceso",
     ACCOUNT_NAME: "Nombre de la cuenta",
     ACCOUNT_NUMBER: "Número de cuenta",
@@ -895,7 +895,6 @@ export const es = {
       "La respuesta táctil está desactivada en tu configuración",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "Respuesta táctil no compatible",
     HELP: "Ayuda",
-    HELPFUL_VIDEO_GUIDES: "Videoguías útiles",
     HELP_AND_SUPPORT: "Ayuda y soporte",
     HELP_AND_SUPPORT_DESCRIPTION: "Obtén ayuda con tus operaciones P2P",
     HIDE_BALANCE: "Ocultar saldo",
@@ -1758,7 +1757,6 @@ export const es = {
     QR_PROCESSED: "QR procesado",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "Datos de QR Simple",
-    QUICK_APP_TOUR_BANNER_TITLE: "Recorrido rápido por la app",
     RAISED: "Abierta",
     RAISE_A_DISPUTE: "Abrir una disputa",
     RAISE_DISPUTE: "Abrir disputa",
@@ -2032,7 +2030,7 @@ export const es = {
     SEO_DESCRIPTION_DEFAULT:
       "P2P.me es una app de autocustodia para comprar y vender USDC con moneda local y pagar en cualquier código QR con USDC. Cambios rápidos de fiat a cripto en Base, sin riesgo de bloqueos bancarios.",
     SEO_DESCRIPTION_HELP:
-      "Preguntas frecuentes, guías en video y soporte para comprar, vender y pagar con USDC en P2P.me.",
+      "Preguntas frecuentes y soporte para comprar, vender y pagar con USDC en P2P.me.",
     SEO_DESCRIPTION_LOGIN:
       "Inicia sesión en P2P.me con email, teléfono, Google o passkey para comprar, vender y pagar con USDC en cualquier código QR.",
     SEO_DESCRIPTION_PAY:
@@ -2358,24 +2356,6 @@ export const es = {
     VFX_START_AGAIN: "Volver a empezar",
     VFX_STATUS_CHECK_FAILED: "No se pudo comprobar el estado",
     VIA_JUPITER: "vía Jupiter",
-    VIDEO_APP_TOUR: "Recorrido por la app",
-    VIDEO_BUY_FLOW: "Flujo de compra",
-    VIDEO_CLAIM_REFERRAL: "Reclamar referido",
-    VIDEO_CLAIM_REFERRAL_REWARDS: "Reclamar recompensas de referidos",
-    VIDEO_CROSSCHAIN_DEPOSIT: "Depósito crosschain",
-    VIDEO_CROSSCHAIN_WITHDRAW: "Retiro crosschain",
-    VIDEO_DIRECT_DEPOSIT: "Depósito directo",
-    VIDEO_DIRECT_WITHDRAW: "Retiro directo",
-    VIDEO_FUNDS_RECOVERY: "Recuperación de fondos",
-    VIDEO_GENERATE_REFERRAL: "Generar enlace de referido",
-    VIDEO_GITHUB_VERIFICATION: "Verificación de GitHub",
-    VIDEO_INCREASE_LIMITS: "Aumentar límites",
-    VIDEO_INSTAGRAM_VERIFICATION: "Verificación de Instagram",
-    VIDEO_LINKEDIN_VERIFICATION: "Verificación de LinkedIn",
-    VIDEO_RAISE_DISPUTE_SHORT: "Abrir disputa",
-    VIDEO_RANGO_SUPPORT: "Soporte de Rango",
-    VIDEO_SCAN_AND_PAY: "Escanear y Pagar",
-    VIDEO_SELL_FLOW: "Flujo de venta",
     VIEW_HOLDINGS: "Ver tenencias",
     VIEW_MY_ORDERS: "Ver mis pedidos",
     VIEW_ON: "Ver en",
@@ -2391,7 +2371,6 @@ export const es = {
     WALLET_CONNECTION_TIMEOUT:
       "Se agotó el tiempo para iniciar sesión. Revisa tu conexión e inténtalo de nuevo.",
     WALLET_NOT_CONNECTED: "No hay wallet conectada",
-    WATCH_TUTORIAL: "Ver tutorial",
     WEB_SHARE_UNAVAILABLE_FALLBACK_DISABLED:
       "La API Web Share no es compatible y el fallback está deshabilitado",
     WHY_YOUR_TRANSACTION_MIGHT_HAVE_FAILED:
