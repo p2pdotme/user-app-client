@@ -19,25 +19,23 @@ const VpnDnsInstructions = () => {
   return (
     <ol className="space-y-4">
       <li>
-        <span className="font-satoshiBold text-base">
-          1. {t("USE_VPN_RECOMMENDED")}
-        </span>
+        <span className="text-base">1. {t("USE_VPN_RECOMMENDED")}</span>
         <ul className="mt-1 ml-6 list-disc space-y-1 text-foreground/90 text-sm">
           <li>{t("INSTALL_VPN")}</li>
           <li>{t("CONNECT_ANY_SERVER_REFRESH")}</li>
         </ul>
       </li>
       <li>
-        <span className="font-satoshiBold text-base">2. {t("CHANGE_DNS")}</span>
+        <span className="text-base">2. {t("CHANGE_DNS")}</span>
         <ul className="mt-1 ml-2 space-y-2">
           <li>
-            <span className="font-satoshiBold">{t("ANDROID")}</span>
+            <span>{t("ANDROID")}</span>
             <span className="ml-2 text-foreground/90 text-sm">
               {t("ANDROID_DNS_INSTRUCTIONS")}
             </span>
           </li>
           <li>
-            <span className="font-satoshiBold">{t("IOS")}</span>
+            <span>{t("IOS")}</span>
             <span className="ml-2 text-foreground/90 text-sm">
               {t("IOS_DNS_INSTRUCTIONS")}
             </span>
@@ -70,7 +68,7 @@ export function ConnectionStatusDrawer({
   // There is no live connectivity check (the reachability provider was never
   // mounted), so this drawer only ever showed the connected state.
   const status = {
-    icon: <span className="font-satoshiBold text-emerald-500">●</span>,
+    icon: <span className="text-emerald-500">●</span>,
     title: t("YOU_RE_CONNECTED"),
     titleIcon: (
       <span className="inline-block h-3 w-3 rounded-full bg-emerald-400 shadow-md" />
@@ -90,7 +88,7 @@ export function ConnectionStatusDrawer({
         <div className="flex h-full max-h-[80vh] flex-col overflow-y-auto px-4 pb-6">
           <DrawerHeader className="flex flex-col items-center justify-center">
             <div className="mt-2 mb-1 flex items-center gap-2">
-              <DrawerTitle className="text-center font-bold font-satoshiBlack text-2xl text-foreground">
+              <DrawerTitle className="text-center font-bold text-2xl text-foreground">
                 {status.title}
               </DrawerTitle>
               {status.titleIcon}
