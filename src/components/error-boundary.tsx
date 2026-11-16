@@ -4,6 +4,11 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { captureError } from "@/lib/sentry";
+import {
+  isStaleChunkError,
+  isStaleChunkReloadPending,
+  reloadForStaleChunk,
+} from "@/lib/stale-chunk-reload";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -112,6 +117,12 @@ export class ErrorBoundary extends Component<
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // A file from the previous deploy: reload into the new version instead
+    // of showing the error page (see stale-chunk-reload.ts).
+    if (isStaleChunkError(error)) {
+      reloadForStaleChunk();
+      if (isStaleChunkReloadPending()) return;
+    }
     this.setState({ componentStack: errorInfo.componentStack ?? null });
     captureError(error, {
       operation: "react_render",
@@ -123,6 +134,9 @@ export class ErrorBoundary extends Component<
   render() {
     const { error, componentStack } = this.state;
     if (error) {
+      if (isStaleChunkError(error) && isStaleChunkReloadPending()) {
+        return null;
+      }
       return <ErrorFallback error={error} componentStack={componentStack} />;
     }
     return this.props.children;
