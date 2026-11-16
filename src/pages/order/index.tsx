@@ -1,10 +1,11 @@
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { NonHomeHeader } from "@/components";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 import { useEventListeners, useGetOrderById } from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
 import { Buy } from "./buy";
 import { HelpDrawer } from "./help-drawer";
 import { Pay } from "./pay";
@@ -13,14 +14,14 @@ import { Sell } from "./sell";
 export function Order() {
   const { t } = useTranslation();
   const { id: orderId } = useParams();
+  const navigate = useNavigate();
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
 
   // listen to order events
   useEventListeners(orderId);
 
-  const { order, isOrderPending, isOrderError, orderError } = useGetOrderById(
-    Number(orderId),
-  );
+  const { order, isOrderPending, isOrderError, orderError, refetchOrder } =
+    useGetOrderById(Number(orderId));
 
   if (isOrderPending)
     return (
@@ -36,19 +37,26 @@ export function Order() {
     return (
       <>
         <NonHomeHeader title={`${t("ORDER")} ${orderId}`} />
-        <main className="no-scrollbar container-narrow flex h-full w-full flex-col items-center justify-center gap-2 overflow-y-auto py-8">
-          <p className="text-center text-destructive text-lg">
-            {orderError.message}
+        <main className="no-scrollbar container-narrow flex h-full w-full flex-col items-center justify-center gap-4 overflow-y-auto py-8">
+          <p className="text-center font-medium text-lg">
+            {t("ORDER_LOAD_FAILED_TITLE")}
           </p>
           <p className="text-center text-muted-foreground text-sm">
-            {t("ORDER_ERROR_DESCRIPTION")}
+            {t("ORDER_LOAD_FAILED_DESCRIPTION")}
           </p>
-          <ScrollArea className="w-full rounded-md border border-destructive bg-destructive/20 p-4">
-            <p className="text-muted-foreground text-sm">
-              {JSON.stringify(orderError.cause, null, 2)}
-            </p>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+          <div className="flex w-full max-w-xs flex-col gap-2">
+            <Button onClick={() => void refetchOrder()}>{t("RETRY")}</Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate(INTERNAL_HREFS.TRANSACTIONS)}>
+              {t("VIEW_MY_ORDERS")}
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => navigate(INTERNAL_HREFS.HELP)}>
+              {t("CONTACT_SUPPORT")}
+            </Button>
+          </div>
         </main>
       </>
     );
