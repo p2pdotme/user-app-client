@@ -26,8 +26,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useThirdweb } from "@/hooks";
+import { analytics, EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { truncateAddress } from "@/lib/utils";
 
 function DirectOrCross({ onReceiveUSDC }: { onReceiveUSDC: () => void }) {
   const { t } = useTranslation();
@@ -104,6 +104,10 @@ function DirectDeposit({ onBack }: { onBack: () => void }) {
     if (address) {
       navigator.clipboard.writeText(address);
       toast.success(t("ADDRESS_COPIED_TO_CLIPBOARD"));
+      analytics.track(EVENTS.FEATURE, {
+        status: "deposit_address_copied",
+        location: "deposit_drawer",
+      });
     } else {
       toast.error(t("NO_ADDRESS_TO_COPY"));
     }
@@ -130,11 +134,14 @@ function DirectDeposit({ onBack }: { onBack: () => void }) {
         </DrawerDescription>
       </DrawerHeader>
       <section className="flex flex-col gap-4 px-4 pb-4">
-        <Alert variant="warning" className="w-full py-2">
-          <AlertTriangle className="size-4" />
-          <AlertDescription className="flex w-full items-center justify-between text-xs">
-            <p className="text-foreground">
+        <Alert variant="warning" className="w-full border-2 py-3">
+          <AlertTriangle className="size-5" />
+          <AlertDescription className="flex w-full flex-col gap-1 text-sm">
+            <p className="font-semibold text-foreground">
               {t("THIS_ADDRESS_IS_FOR_RECEIVING_USDC_ON_THE_BASE_NETWORK_ONLY")}
+            </p>
+            <p className="text-foreground/80">
+              {t("PAYF_DEPOSIT_BASE_ONLY_WARNING")}
             </p>
           </AlertDescription>
         </Alert>
@@ -148,13 +155,14 @@ function DirectDeposit({ onBack }: { onBack: () => void }) {
                 {t("YOUR_BASE_ADDRESS")}
               </p>
               <div className="flex w-full items-center justify-between gap-2 rounded-lg bg-primary/10 p-2 px-4 text-sm">
-                <p className="text-muted-foreground">
-                  {truncateAddress(address, 16)}
+                <p className="min-w-0 break-all font-mono text-foreground">
+                  {address}
                 </p>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="border-none"
+                  className="shrink-0 border-none"
+                  aria-label={t("PAYF_COPY_ADDRESS")}
                   onClick={handleAddressCopy}>
                   <Copy className="size-4" />
                 </Button>
@@ -173,7 +181,14 @@ function DirectDeposit({ onBack }: { onBack: () => void }) {
   );
 }
 
-export function DepositDrawer({ children }: { children: React.ReactNode }) {
+export function DepositDrawer({
+  children,
+  triggerAsChild = false,
+}: {
+  children: React.ReactNode;
+  /** Render `children` as the trigger itself (e.g. when it is a Button). */
+  triggerAsChild?: boolean;
+}) {
   const { t } = useTranslation();
   const [page, setPage] = useState<"directOrCross" | "directDeposit">(
     "directOrCross",
@@ -184,7 +199,7 @@ export function DepositDrawer({ children }: { children: React.ReactNode }) {
 
   return (
     <Drawer autoFocus={true} onClose={() => setPage("directOrCross")}>
-      <DrawerTrigger>{children}</DrawerTrigger>
+      <DrawerTrigger asChild={triggerAsChild}>{children}</DrawerTrigger>
       <DrawerContent>
         <AnimatePresence mode="wait" initial={false}>
           {page === "directOrCross" && (

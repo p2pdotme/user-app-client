@@ -143,7 +143,7 @@ export function PayPlaced({ order }: { order: Order }) {
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="font-medium">{t("YOU_RECEIVE")} </span>
+                <span className="font-medium">{t("PAYF_MERCHANT_GETS")} </span>
                 <span className="text-muted-foreground">
                   {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
                     <Skeleton className="h-5 w-20" />
@@ -169,9 +169,7 @@ export function PayPlaced({ order }: { order: Order }) {
 
               return (
                 <div className="flex w-full items-center justify-between">
-                  <span className="font-medium">
-                    {t("TOTAL_RECEIVABLE_AMOUNT")}
-                  </span>
+                  <span className="font-medium">{t("PAYF_BILL_TOTAL")}</span>
                   <span className="text-muted-foreground">
                     {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
                       <Skeleton className="h-5 w-20" />

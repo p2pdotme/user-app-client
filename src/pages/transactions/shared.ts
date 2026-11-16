@@ -71,12 +71,25 @@ export const TRANSACTION_STATUSES = [
   { value: "CANCELLED" as const, labelKey: "CANCELLED" },
 ] as const;
 
+/**
+ * On-chain dispute status 0 is "DEFAULT", which simply means the order was
+ * never disputed — the same thing as "NONE" (status missing). The filter UI
+ * therefore shows a single "No dispute" option that covers both values; see
+ * `withDisputeAliases`.
+ */
 export const DISPUTE_STATUSES = [
   { value: "NONE" as const, labelKey: "NO_DISPUTE" },
   { value: "RAISED" as const, labelKey: "RAISED" },
   { value: "SETTLED" as const, labelKey: "SETTLED" },
-  { value: "DEFAULT" as const, labelKey: "DEFAULT" },
 ] as const;
+
+/** Keeps "DEFAULT" (= never disputed) in sync with the "NONE" option. */
+export function withDisputeAliases(
+  values: TransactionFilters["disputeStatuses"],
+): TransactionFilters["disputeStatuses"] {
+  const visible = values.filter((v) => v !== "DEFAULT");
+  return visible.includes("NONE") ? [...visible, "DEFAULT"] : visible;
+}
 
 export const CURRENCIES = COUNTRY_OPTIONS.map((c) => ({
   value: c.currency,

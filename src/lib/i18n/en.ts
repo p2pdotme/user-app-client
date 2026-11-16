@@ -1580,6 +1580,97 @@ export const en = {
     PAY: "Pay",
     PAYBILL_ACCOUNT_NUMBER: "Account Number",
     PAYBILL_NUMBER: "Paybill Number",
+    PAYF_AMOUNT_CHANGE_CANCEL: "Don't change, scan again",
+    PAYF_AMOUNT_CHANGE_CONFIRM: "Pay {{amount}}",
+    PAYF_AMOUNT_CHANGE_DESCRIPTION:
+      "The amount in this QR code is different from the amount you entered. Check it with the merchant before you continue. If you confirm, your order will be updated to the QR amount.",
+    PAYF_AMOUNT_CHANGE_ORDER_AMOUNT: "You entered",
+    PAYF_AMOUNT_CHANGE_QR_AMOUNT: "QR code amount",
+    PAYF_AMOUNT_CHANGE_REJECTED:
+      "Amount not changed. Ask the merchant for a QR with the right amount and scan again.",
+    PAYF_AMOUNT_CHANGE_TITLE: "The QR amount is different",
+    PAYF_BILL_TOTAL: "Bill total",
+    PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX:
+      "I've checked this address is on {{chain}}",
+    PAYF_BRIDGE_ADDRESS_FORMAT_INVALID:
+      "This doesn't look like a valid {{chain}} address. Check it and try again.",
+    PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING:
+      "Funds sent to a wrong address or to an address on a network other than {{chain}} can't be recovered.",
+    PAYF_BRIDGE_AMOUNT_TOO_LOW:
+      "This amount is too small to bridge. Try a larger amount.",
+    PAYF_BRIDGE_DEPOSIT_DEADLINE:
+      "Send before {{deadline}}. Deposits after this time may be refunded instead of bridged.",
+    PAYF_BRIDGE_LOAD_ASSETS_FAILED:
+      "We couldn't load the supported tokens. Check your connection and try again.",
+    PAYF_BRIDGE_ORIGIN_CHAIN: "the sending network",
+    PAYF_BRIDGE_QUOTE_FAILED:
+      "We couldn't get a quote right now. Check the amount and address, then try again.",
+    PAYF_BRIDGE_RECIPIENT: "Recipient",
+    PAYF_BRIDGE_RECIPIENT_ADDRESS_ON: "Recipient address on {{chain}}",
+    PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER:
+      "If the bridge can't be completed, your tokens are sent back to this address. Enter an address you own on {{chain}}, for example the wallet you're sending from.",
+    PAYF_BRIDGE_SEND_FAILED: "Couldn't send USDC",
+    PAYF_BRIDGE_USDC_SENT: "USDC sent",
+    PAYF_BRIDGE_USDC_SENT_DESCRIPTION:
+      "Bridging is in progress. You can track it in Bridge History below.",
+    PAYF_CAMERA_PERMISSION_DENIED_HELP:
+      "To scan, allow camera access for this site: tap the lock or settings icon next to the address bar, or open your phone's Settings for this browser, turn on Camera, then tap Retry.",
+    PAYF_CAMERA_START_TIMEOUT: "The camera is taking too long to start",
+    PAYF_CAMERA_START_TIMEOUT_DESCRIPTION:
+      "Tap Retry. If it keeps happening, close and reopen the app.",
+    PAYF_CAMERA_USE_UPLOAD_INSTEAD:
+      'You can also upload a screenshot of the QR code instead using "Upload QR" below.',
+    PAYF_COPY_ADDRESS: "Copy address",
+    PAYF_DEPOSIT_BASE_ONLY_WARNING:
+      "Only send USDC on the Base network. USDC sent from another network (like Ethereum, Tron or Solana) or any other token can be lost.",
+    PAYF_DEPOSIT_USDC_TO_CONTINUE: "Deposit USDC",
+    PAYF_MAINTENANCE_DESCRIPTION:
+      "We're doing scheduled maintenance to improve P2P.me. The app will be back shortly.",
+    PAYF_MAINTENANCE_FOLLOW_UPDATES:
+      "Updates are posted in our support channel.",
+    PAYF_MAINTENANCE_FUNDS_SAFE: "Your funds are safe",
+    PAYF_MAINTENANCE_ORDERS_RESUME:
+      "Your USDC stays in your wallet. Any order that was in progress will continue where it left off once maintenance is over.",
+    PAYF_MAINTENANCE_RETRY: "Try again",
+    PAYF_MERCHANT_GETS: "Merchant gets",
+    PAYF_PASTE: "Paste",
+    PAYF_PASTE_FAILED:
+      "Couldn't read your clipboard. Paste the address manually.",
+    PAYF_QR_FETCH_FAILED: "Couldn't load this QR's payment details",
+    PAYF_QR_FETCH_FAILED_DESCRIPTION: "Check your connection and scan again.",
+    PAYF_QR_INVALID_AMOUNT: "This QR has an invalid amount",
+    PAYF_QR_INVALID_AMOUNT_DESCRIPTION:
+      "Ask the merchant to create a new QR with the correct amount.",
+    PAYF_QR_NOT_SUPPORTED: "This QR code isn't supported",
+    PAYF_QR_NOT_SUPPORTED_DESCRIPTION:
+      "Ask the merchant for their payment QR code and scan again.",
+    PAYF_QR_SUPPORTED_TYPES: "Supported: {{types}}.",
+    PAYF_QR_UPLOAD_UNREADABLE: "Couldn't read a QR code in that image",
+    PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION:
+      "Try a clear, uncropped screenshot of the QR code.",
+    PAYF_QR_WRONG_CURRENCY: "This QR is for a different currency",
+    PAYF_QR_WRONG_CURRENCY_DESCRIPTION:
+      "Scan a QR code for payments in {{currency}}.",
+    PAYF_STARTING_CAMERA: "Starting camera...",
+    PAYF_TXN_EMPTY_FILTERED_HINT:
+      "Only the selected period and filters are shown.",
+    PAYF_TXN_SHOW_ALL_TIME: "Show all time",
+    PAYF_TXN_STATUS_CANCELLED_REFUNDED: "Cancelled — refunded",
+    PAYF_TXN_STATUS_DISPUTE_SETTLED: "Dispute settled",
+    PAYF_TXN_STATUS_FINDING_MERCHANT: "Finding merchant",
+    PAYF_TXN_STATUS_IN_DISPUTE: "In dispute",
+    PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant assigned",
+    PAYF_TXN_STATUS_PAYMENT_SENT: "Payment sent",
+    PAYF_VIEW_ON_BASESCAN: "View on BaseScan",
+    PAYF_WITHDRAW_AMOUNT: "Amount",
+    PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
+      "This sends USDC on the Base network and can't be undone. Make sure the receiving wallet or exchange supports USDC on Base — if it doesn't, your funds may be lost.",
+    PAYF_WITHDRAW_CONFIRM_SEND: "Confirm & send {{amount}} USDC",
+    PAYF_WITHDRAW_CONFIRM_TITLE: "Confirm withdrawal",
+    PAYF_WITHDRAW_FAILED_DESCRIPTION:
+      "Your USDC was not sent. Please try again.",
+    PAYF_WITHDRAW_REVIEW: "Review withdrawal",
+    PAYF_WITHDRAW_SENT_TITLE: "USDC sent",
     PAYMENT_ADDRESS_ALREADY_SENT: "Payment address already sent",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} copied to clipboard",
