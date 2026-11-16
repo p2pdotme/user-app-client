@@ -33,7 +33,8 @@ export type RecoveryNetworkKey =
   | "celo"
   | "zksync"
   | "robinhood"
-  | "xlayer";
+  | "xlayer"
+  | "arc";
 
 export type RecoveryTokenConfig = {
   address: Address;
@@ -251,6 +252,18 @@ const NETWORK_SPECS: Record<RecoveryNetworkKey, NetworkSpec> = {
         decimals: 6,
       },
     ],
+  },
+  arc: {
+    label: "Arc",
+    id: 5042,
+    name: "Arc Mainnet",
+    // Gas is paid in USDC; the native balance uses 18 decimals
+    native: { name: "USD Coin", symbol: "USDC" },
+    rpc: "https://rpc.mainnet.arc.io",
+    explorer: { name: "Arc Explorer", url: "https://explorer.arc.io" },
+    hasBundler: true,
+    // ERC-20 interface to the native USDC balance (6 decimals)
+    usdcAddress: "0x3600000000000000000000000000000000000000",
   },
 };
 
