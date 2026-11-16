@@ -1,4 +1,5 @@
 import { useIsMutating, useMutationState } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NonHomeHeader } from "@/components";
@@ -46,18 +47,16 @@ export function P2PStake() {
     <>
       <NonHomeHeader
         title={t(STEP_TITLE_KEY[step])}
-        // While the stake tx is in flight Back does nothing: leaving the
-        // confirm step would invite a second stake.
-        onBack={
-          isStaking
-            ? () => {}
-            : step === "confirm"
-              ? () => setStep("start")
-              : undefined
-        }
+        // Back always works. A stake that is still confirming keeps running
+        // (the mutation lives in the query cache, and its own onSuccess shows
+        // the success toast and refreshes limits), and the success step is
+        // driven by the cache above, so nothing is lost by going back.
+        onBack={step === "confirm" ? () => setStep("start") : undefined}
       />
+      {step === "start" && isStaking && <StakeInProgressNotice />}
       {step === "start" && (
         <StakeP2pStart
+          isStakePending={isStaking}
           amount={amount}
           onAmountChange={setAmount}
           onContinue={() => setStep("confirm")}
@@ -68,5 +67,22 @@ export function P2PStake() {
       )}
       {step === "success" && <SuccessP2pStake amount={amount} />}
     </>
+  );
+}
+
+function StakeInProgressNotice() {
+  const { t } = useTranslation();
+  return (
+    <div
+      role="status"
+      className="container-narrow mx-auto mt-4 flex w-full items-start gap-3 rounded-2xl border border-primary/30 bg-primary/5 p-4">
+      <Loader2 className="mt-0.5 size-4 shrink-0 animate-spin text-primary" />
+      <div className="flex flex-col gap-1">
+        <p className="font-semibold text-sm">{t("STAKE_IN_PROGRESS_TITLE")}</p>
+        <p className="text-muted-foreground text-sm">
+          {t("STAKE_IN_PROGRESS_DESCRIPTION")}
+        </p>
+      </div>
+    </div>
   );
 }

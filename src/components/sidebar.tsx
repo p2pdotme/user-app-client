@@ -33,8 +33,9 @@ import {
 } from "@/components/ui/sheet";
 import { thirdwebClient } from "@/core/adapters/thirdweb";
 import { useP2PBalance, useThirdweb } from "@/hooks";
+import { useServiceReachability } from "@/hooks/use-service-reachability";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
-import { formatTokenBalance } from "@/lib/utils";
+import { cn, formatTokenBalance } from "@/lib/utils";
 import { CoinsmeButton } from "./coinsme-button";
 import { PartnerDrawer } from "./partner-drawer";
 import { SocialLinks } from "./social-links";
@@ -272,9 +273,7 @@ export function Sidebar({ children }: { children: ReactNode }) {
                   <Radio className="size-5 text-primary" />
                   <p className="font-medium">{t("CONNECTION_STATUS")}</p>
                 </div>
-                <div className="rounded-full bg-success/20 p-1">
-                  <div className="size-2 animate-scale rounded-full bg-success" />
-                </div>
+                <ConnectionDot />
               </div>
             </ConnectionStatusDrawer>
           </div>
@@ -348,5 +347,23 @@ export function Sidebar({ children }: { children: ReactNode }) {
         </SheetFooter>
       </SheetContent>
     </Sheet>
+  );
+}
+
+/** Live status dot for the sidebar "Connection status" row. */
+const CONNECTION_DOT_CLASSES = {
+  connected: { ring: "bg-success/20", dot: "bg-success" },
+  degraded: { ring: "bg-warning/20", dot: "bg-warning" },
+  offline: { ring: "bg-destructive/20", dot: "bg-destructive" },
+  checking: { ring: "bg-muted", dot: "bg-muted-foreground" },
+} as const;
+
+function ConnectionDot() {
+  const { overall } = useServiceReachability();
+  const classes = CONNECTION_DOT_CLASSES[overall];
+  return (
+    <div className={cn("rounded-full p-1", classes.ring)}>
+      <div className={cn("size-2 animate-scale rounded-full", classes.dot)} />
+    </div>
   );
 }
