@@ -1,5 +1,3 @@
-// Rango bridge hooks are intentionally not re-exported here (they pull in the
-// Rango SDK); import them by path.
 export * from "./use-analytics";
 export * from "./use-balance-visibility";
 export * from "./use-balances";
