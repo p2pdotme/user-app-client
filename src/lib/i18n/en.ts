@@ -616,7 +616,7 @@ export const en = {
       "No. Verifying a social account is just one way to raise your limits. You can use a liveness check, Passport KYC (where available) or staking instead.\n\nIf you do verify a social account, it's private: you prove you own it, but P2P.me never sees your password, posts or profile, and nothing is posted.",
     FAQ_DO_I_NEED_KYC: "Do I need to verify my ID (KYC)?",
     FAQ_DO_I_NEED_KYC_ANSWER:
-      "No ID is needed to sell or pay.\n\nTo buy, you need at least one verification on My Limits. A passport isn't required: you can verify a social account like LinkedIn or GitHub instead. Passport KYC (where available) is an option if you want higher limits.",
+      "No ID is needed to sell or pay.\n\nTo buy, verify on My Limits with LinkedIn, GitHub or Passport KYC (where available). A passport isn't required: LinkedIn or GitHub is enough. Other checks, like liveness or X, raise your limits but don't unlock buying on their own.",
     FAQ_FINISH_VERIFICATION: 'What does "Finish verification" mean?',
     FAQ_FINISH_VERIFICATION_ANSWER:
       "You passed a check (like the liveness or passport check), but the result isn't saved to your account yet. Tap \"Finish verification\" on My Limits to save it and raise your limit.\n\nDo it soon: if you wait too long, the result expires and you'll need to start again.",
@@ -626,7 +626,7 @@ export const en = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "How can I deposit USDC into my P2P.me wallet?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      'On Home, tap Deposit and choose:\n• Deposit Base USDC: copy your address and send USDC on the Base network to it.\n• Deposit from other chains: bring in USDC or other tokens from another network. They arrive as USDC on Base.\n\nOnly send USDC on Base to your address. Other tokens or networks can be lost. If that happened, see "I sent funds on the wrong network".',
+      'On Home, tap Deposit and choose:\n• Deposit Base USDC: copy your address and send USDC on the Base network to it.\n• Deposit from other chains: bring in USDC or other tokens from another network. They arrive as USDC on Base.\n\nOnly send USDC on Base to your address. Other tokens or networks can be lost. If that happened, see "I sent funds on the wrong network. Can I get them back?".',
     FAQ_HOW_DO_I_START_EARNING: "How do I start earning?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "1. Open Refer & Earn.\n2. Create a referral link.\n3. Send it to someone you trust.\n4. They sign up with your link and start trading.\n\nEach link works for one person only, so create a new link for each friend.",
@@ -651,7 +651,7 @@ export const en = {
       "• Merchants are checked before they can fill orders, using private proofs of their bank history.\n• On sell and pay orders, your USDC is locked in the order until the merchant marks the payment as sent. If no merchant accepts, it comes back to you.\n• If a merchant doesn't pay, or doesn't confirm your payment, you can raise a dispute from the order's help screen.",
     FAQ_HOW_TO_BUY_USDC_FIAT: "How do I buy USDC with my local currency?",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. On Home, tap Buy USDC, enter the amount and place the order.\n2. Wait for a merchant to accept (usually under 90 seconds). If no one accepts within 3 minutes, the order is cancelled. You haven't paid anything.\n3. Pay the exact amount to the merchant's details, from an account in your name, before the timer ends (about 5 minutes). Don't mention crypto or USDC in the payment note.\n4. Tap \"I have made the payment\".\n5. When the merchant confirms, USDC arrives in your wallet.\n\nYour first buy needs at least one verification on My Limits.",
+      "1. On Home, tap Buy USDC, enter the amount and place the order.\n2. Wait for a merchant to accept (usually under 90 seconds). If no one accepts within 3 minutes, the order is cancelled. You haven't paid anything.\n3. Pay the exact amount to the merchant's details, from an account in your name, before the timer ends (about 5 minutes). Don't mention crypto or USDC in the payment note.\n4. Tap \"I have made the payment\".\n5. When the merchant confirms, USDC arrives in your wallet.\n\nBefore your first buy, verify on My Limits with LinkedIn, GitHub or Passport KYC (where available).",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "How do I calculate tax on my P2P.me orders?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
@@ -671,7 +671,7 @@ export const en = {
       "1. Confirm the bill amount with the shop.\n2. On Home, tap Scan & Pay, enter the amount and place the order.\n3. Wait for a merchant to accept. The scanner then opens.\n4. Only now ask the shop to create the payment QR. QR codes on card machines often expire in about 2 minutes.\n5. Scan the QR and keep the page open. Most payments go through within 60 seconds.\n\nPrinted (static) QR codes don't expire, so you have more time.",
     FAQ_HOW_TO_SCAN_PAY_QR: "Which QR codes can I pay with Scan & Pay?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
-      "You can pay your country's local payment QR codes, like UPI in India, PIX in Brazil or QRIS in Indonesia. You pay in USDC, and a merchant pays the QR in local currency.\n\nScan & Pay works in most markets. It isn't available yet in Mexico, Kenya, Egypt or for Revolut (USD/EUR). If you don't see Scan & Pay on Home, it isn't available for your selected currency.",
+      "You can pay your country's local payment QR codes, like UPI in India, PIX in Brazil or QRIS in Indonesia. You pay in USDC, and a merchant pays the QR in local currency.\n\nScan & Pay works in most markets, but not yet in Kenya. If you don't see Scan & Pay on Home, it isn't available for your selected currency.",
     FAQ_HOW_TO_SELL_USDC:
       "How do I sell USDC and get paid to my bank or payment app?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
@@ -708,7 +708,7 @@ export const en = {
       'Check these:\n1. On My Limits, if the option shows "Finish verification", tap it. Your result isn\'t saved until you do.\n2. Close and reopen the app. Updates can take a minute.\n3. You may already be at the highest per-order limit for your country.\n4. Some checks don\'t count on their own for new accounts. Add LinkedIn, GitHub or Passport KYC.\n\nStill stuck? Use "Chat with us".',
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "What are the starting limits?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Limits depend on your country and your verifications. My Limits shows your exact numbers.\n• New accounts can sell and pay, but need at least one verification before they can buy.\n• Each verification raises your per-order limit (the most USDC in one order).\n• There are also daily and monthly order limits, and a yearly limit of {{yearlyVolumeLimit}} USDC.\n\nComplete more verifications on My Limits to raise your limits.",
+      "Limits depend on your country and your verifications. My Limits shows your exact numbers.\n• New accounts can sell and pay. To buy, verify with LinkedIn, GitHub or Passport KYC (where available).\n• Each verification raises your per-order limit (the most USDC in one order).\n• There are also daily and monthly order limits, and a yearly limit of {{yearlyVolumeLimit}} USDC.\n\nComplete more verifications on My Limits to raise your limits.",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "What is a dispute?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
       "A dispute asks P2P.me support to step in when an order goes wrong, for example you paid but didn't get your USDC, or a merchant didn't pay you. Support checks the payment with the merchant and settles the order. Orders with an open dispute show \"In dispute\" in Transactions.",
@@ -728,7 +728,7 @@ export const en = {
     FAQ_WHAT_IF_BANK_FROZEN:
       "My bank account was frozen after a P2P.me order. What do I do?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      'Report it at unfreeze.pro, our free portal for P2P.me users and merchants. Share your order ID and the bank\'s notice. Our legal team will guide you through getting the account unfrozen.\n\nIn India, eligible orders are also covered by a full refund (see "What is Bank Freeze Protection?").\n\nYou can also ask for help in your P2P.me Telegram group.',
+      'Report it at unfreeze.pro, our free portal for P2P.me users and merchants. Share your order ID and the bank\'s notice. Our legal team will guide you through getting the account unfrozen.\n\nIn India, eligible orders are also covered by a full refund (see "What is Bank Freeze Protection (India)?").\n\nYou can also ask for help in your P2P.me Telegram group.',
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "My cross-chain deposit or withdrawal is stuck. What do I do?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
@@ -787,7 +787,7 @@ export const en = {
       "Some internet providers block P2P.me. Try one of these:\n1. Use a VPN app, connect to any country and reload the app.\n2. Or change your DNS:\n• Android: Settings → Network & internet → Private DNS → enter dns.google\n• iPhone: Settings → Wi‑Fi → tap (i) → Configure DNS → Manual → add 8.8.8.8 or 1.1.1.1\n\nThis also helps the installed app get updates.",
     FAQ_WHY_CANT_I_BUY: "Why can't I place a buy order?",
     FAQ_WHY_CANT_I_BUY_ANSWER:
-      "Common reasons:\n• You haven't verified yet. New accounts need at least one verification on My Limits before they can buy.\n• The amount is above your per-order limit, or too small to cover the fixed fee.\n• You've reached your daily or monthly order limit. Try again later.\n• Our safety checks paused buying on your account. Completing more verifications can lift this. If you think it's a mistake, contact Help.",
+      "Common reasons:\n• You haven't done a verification that unlocks buying yet. For a new account that's LinkedIn, GitHub or Passport KYC (where available) on My Limits. Other checks, like liveness or X, raise your limits but don't unlock buying on their own.\n• The amount is above your per-order limit, or too small to cover the fixed fee.\n• You've reached your daily or monthly order limit. Try again later.\n• Our safety checks paused buying on your account. Completing more verifications can lift this. If you think it's a mistake, contact Help.",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
       "Why can't I send messages in the P2P.me Telegram group?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
