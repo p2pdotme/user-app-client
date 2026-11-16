@@ -4,8 +4,8 @@ export const en = {
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P is the governance and utility token of the P2P Protocol, powering futarchy-based protocol governance, treasury control, and trust staking ("Circles of Trust") for a decentralized, privacy-preserving fiat-to-crypto on/off-ramp.',
     ACCEPTED: "Accepted",
-    ACCESS_GRANTED_DESCRIPTION:
-      "Learn how to buy/sell USDC instantly and pay via Scan & Pay in seconds",
+    ACCESS_GRANTED_READY_DESCRIPTION:
+      "You can now buy and sell USDC and pay local QR codes with Scan & Pay. Step-by-step answers are always in Help.",
     ACCESS_GRANTED_TITLE: "Access Granted! You're all set!",
     ACCOUNT_NAME: "Account Name",
     ACCOUNT_NUMBER: "Account Number",
@@ -872,7 +872,6 @@ export const en = {
       "Haptic feedback is disabled in your settings",
     HAPTIC_FEEDBACK_NOT_SUPPORTED: "Haptic feedback not supported",
     HELP: "Help",
-    HELPFUL_VIDEO_GUIDES: "Helpful video guides",
     HELP_AND_SUPPORT: "Help & Support",
     HELP_AND_SUPPORT_DESCRIPTION: "Get assistance with P2P-ing",
     HIDE_BALANCE: "Hide balance",
@@ -1694,7 +1693,6 @@ export const en = {
     QR_PROCESSED: "QR processed",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "QR Simple Details",
-    QUICK_APP_TOUR_BANNER_TITLE: "Quick App Tour",
     RAISED: "Raised",
     RAISE_A_DISPUTE: "Raise a Dispute",
     RAISE_DISPUTE: "Raise Dispute",
@@ -1954,7 +1952,7 @@ export const en = {
     SEO_DESCRIPTION_DEFAULT:
       "P2P.me is a self-custodial app to buy and sell USDC with local currency and pay at any QR code with USDC. Fast fiat to crypto swaps on Base, no bank freeze worries.",
     SEO_DESCRIPTION_HELP:
-      "FAQs, video guides and support for buying, selling and paying with USDC on P2P.me.",
+      "FAQs and support for buying, selling and paying with USDC on P2P.me.",
     SEO_DESCRIPTION_LOGIN:
       "Log in to P2P.me with email, phone, Google or passkey to buy, sell and pay with USDC at any QR code.",
     SEO_DESCRIPTION_PAY:
@@ -2264,24 +2262,6 @@ export const en = {
     VFX_START_AGAIN: "Start again",
     VFX_STATUS_CHECK_FAILED: "Couldn't check status",
     VIA_JUPITER: "via Jupiter",
-    VIDEO_APP_TOUR: "App Tour",
-    VIDEO_BUY_FLOW: "Buy Flow",
-    VIDEO_CLAIM_REFERRAL: "Claim Referral",
-    VIDEO_CLAIM_REFERRAL_REWARDS: "Claim Referral Rewards",
-    VIDEO_CROSSCHAIN_DEPOSIT: "Crosschain Deposit",
-    VIDEO_CROSSCHAIN_WITHDRAW: "Crosschain Withdraw",
-    VIDEO_DIRECT_DEPOSIT: "Direct Deposit",
-    VIDEO_DIRECT_WITHDRAW: "Direct Withdraw",
-    VIDEO_FUNDS_RECOVERY: "Funds Recovery",
-    VIDEO_GENERATE_REFERRAL: "Generate Referral",
-    VIDEO_GITHUB_VERIFICATION: "Github Verification",
-    VIDEO_INCREASE_LIMITS: "Increase Limits",
-    VIDEO_INSTAGRAM_VERIFICATION: "Instagram Verification",
-    VIDEO_LINKEDIN_VERIFICATION: "LinkedIn Verification",
-    VIDEO_RAISE_DISPUTE_SHORT: "Raise Dispute",
-    VIDEO_RANGO_SUPPORT: "Rango Support",
-    VIDEO_SCAN_AND_PAY: "Scan & Pay",
-    VIDEO_SELL_FLOW: "Sell Flow",
     VIEW_HOLDINGS: "View holdings",
     VIEW_MY_ORDERS: "View my orders",
     VIEW_ON: "View on",
@@ -2297,7 +2277,6 @@ export const en = {
     WALLET_CONNECTION_TIMEOUT:
       "Login timed out. Please check your network and try again.",
     WALLET_NOT_CONNECTED: "No wallet connected",
-    WATCH_TUTORIAL: "Watch tutorial",
     WEB_SHARE_UNAVAILABLE_FALLBACK_DISABLED:
       "Web Share API not supported and fallback disabled",
     WHY_YOUR_TRANSACTION_MIGHT_HAVE_FAILED:
