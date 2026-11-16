@@ -5,32 +5,11 @@ import {
   type P2PError,
   validate,
   ZodCashbackConfigParamsSchema,
-  ZodCashbackPercentageParamsSchema,
   ZodMaxBuyTxLimitParamsSchema,
   ZodMaxSellTxLimitParamsSchema,
-  ZodPriceConfigParamsSchema,
   ZodProcessingTimeParamsSchema,
 } from "../../shared";
 import { ABIS, CONTRACT_ADDRESSES } from "../abis";
-
-export function prepareGetPriceConfigArgs(params: unknown): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.DIAMOND;
-    functionName: "getPriceConfig";
-    args: [Hex];
-  },
-  P2PError
-> {
-  return validate(ZodPriceConfigParamsSchema, params).map(
-    (validatedParams) => ({
-      to: CONTRACT_ADDRESSES.DIAMOND,
-      abi: ABIS.DIAMOND,
-      functionName: "getPriceConfig" as const,
-      args: [stringToHex(validatedParams.currency, { size: 32 })],
-    }),
-  );
-}
 
 export function prepareGetProcessingTimeArgs(): Result<
   {
@@ -62,23 +41,6 @@ export function prepareGetCashbackConfigArgs(): Result<
     to: CONTRACT_ADDRESSES.DIAMOND,
     abi: ABIS.DIAMOND,
     functionName: "getCashbackConfig" as const,
-    args: [],
-  }));
-}
-
-export function prepareGetCashbackPercentageArgs(): Result<
-  {
-    to: Address;
-    abi: typeof ABIS.DIAMOND;
-    functionName: "getCashbackPercentage";
-    args: [];
-  },
-  P2PError
-> {
-  return validate(ZodCashbackPercentageParamsSchema, {}).map(() => ({
-    to: CONTRACT_ADDRESSES.DIAMOND,
-    abi: ABIS.DIAMOND,
-    functionName: "getCashbackPercentage" as const,
     args: [],
   }));
 }

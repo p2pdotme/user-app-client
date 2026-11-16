@@ -839,10 +839,6 @@ export const ZodCheckCircleEligibilityParamsSchema = z.object({
   preferredPCConfigId: z.bigint(),
 });
 
-export const ZodCirclesForRoutingResponseSchema = z.object({
-  circles: z.array(ZodCircleForRoutingSchema),
-});
-
 export type CircleForRouting = z.infer<typeof ZodCircleForRoutingSchema>;
 export type CheckCircleEligibilityParams = z.infer<
   typeof ZodCheckCircleEligibilityParamsSchema

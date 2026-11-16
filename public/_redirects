@@ -1,1 +1,5 @@
+# Missing build assets (e.g. a chunk from a previous deploy) must 404, not
+# fall through to the SPA index.html with the long-lived /assets/* cache
+# headers from _headers.
+/assets/*  /404  404
 /* /index.html 200
