@@ -14,6 +14,7 @@ import {
   type SocialVerifyParams,
 } from "@p2pdotme/sdk/zkkyc";
 import { useQuery } from "@tanstack/react-query";
+import type { TFunction } from "i18next";
 import {
   ClipboardCheck,
   Clock4,
@@ -77,6 +78,10 @@ import {
   clearStoredParams,
   getStoredParams,
 } from "@/lib/url-param-preservation";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { getScreenType, isAndroid, isIOS } from "@/lib/utils";
 import { PrivacyBanner } from "./privacy-banner";
 
@@ -381,6 +386,9 @@ function VerificationItem({
     useSocialVerify();
 
   const { track } = useAnalytics();
+  // Retry action for failure toasts; points at handleVerifySocial once it is
+  // defined below (the toasts are raised from callbacks declared earlier).
+  const retryRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     if (isLoading && !overlayShownRef.current) {
@@ -441,11 +449,21 @@ function VerificationItem({
             userAddress: account?.address,
             errorMessage: error.message as string,
           });
-          toast.error(
-            t("VERIFICATION_FAILED_MESSAGE", {
-              errorMessage: error.message as string,
-            }),
-          );
+          if (isUserCancellation(error)) {
+            toast(t("VERIFICATION_CANCELLED"));
+          } else {
+            toast.error(t("VERIFICATION_FAILED"), {
+              description: getUserFacingErrorMessage(
+                t,
+                error,
+                "LIM_VERIFICATION_FAILED_DESCRIPTION",
+              ),
+              action: {
+                label: t("RETRY"),
+                onClick: () => retryRef.current(),
+              },
+            });
+          }
         });
 
       refetchSocialStatus();
@@ -512,10 +530,13 @@ function VerificationItem({
   );
 
   const clearVerification = useCallback(
-    (message: string) => {
+    (message: string, cancelledByUser = false) => {
       // Determine status based on message
       const isCancelled =
-        message.includes("CANCELLED") || message.includes("cancelled");
+        cancelledByUser ||
+        message.includes("CANCELLED") ||
+        message.includes("cancelled") ||
+        isUserCancellation(message);
       const status = isCancelled ? "cancelled" : "failed";
 
       track(EVENTS.VERIFICATION, {
@@ -526,7 +547,23 @@ function VerificationItem({
         errorMessage: message,
       });
 
-      toast.error(t("VERIFICATION_FAILED_MESSAGE", { errorMessage: message }));
+      // Never surface the raw Reclaim / RPC message: a cancel is neutral, a
+      // failure gets a plain reason and a one-tap retry.
+      if (isCancelled) {
+        toast(t("VERIFICATION_CANCELLED"));
+      } else {
+        toast.error(t("VERIFICATION_FAILED"), {
+          description: getUserFacingErrorMessage(
+            t,
+            message,
+            "LIM_VERIFICATION_FAILED_DESCRIPTION",
+          ),
+          action: {
+            label: t("RETRY"),
+            onClick: () => retryRef.current(),
+          },
+        });
+      }
       setIsLoading(false);
       setShowVerificationOverlay(false);
       clearStoredParams();
@@ -748,6 +785,28 @@ function VerificationItem({
     }
   };
 
+  useEffect(() => {
+    retryRef.current = () => {
+      setShowTutorial(false);
+      track(EVENTS.VERIFICATION, {
+        verification_type: "social",
+        status: "retry",
+        platform: name,
+        userAddress: account?.address,
+      });
+      // A failed attempt leaves this latched, which would swallow the next
+      // attempt's result.
+      toastShownRef.current = false;
+      // Re-opens the tutorial and preloads a fresh session.
+      if (account?.address) {
+        setShowTutorial(true);
+        void preloadReclaimSession();
+      } else {
+        toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
+      }
+    };
+  });
+
   const handleContinueToVerification = () => {
     setShowTutorial(false);
     // Track verification initiated when user continues from tutorial
@@ -768,7 +827,7 @@ function VerificationItem({
           open={showVerificationOverlay}
           onOpenChange={(open) => {
             if (!open) {
-              clearVerification(t("VERIFICATION_CANCELLED"));
+              clearVerification(t("VERIFICATION_CANCELLED"), true);
             }
           }}>
           <DrawerContent className="bg-background">
@@ -808,7 +867,7 @@ function VerificationItem({
               </Button>
               <Button
                 onClick={() => {
-                  clearVerification(t("VERIFICATION_CANCELLED"));
+                  clearVerification(t("VERIFICATION_CANCELLED"), true);
                 }}
                 size="sm"
                 className="w-full">
@@ -963,6 +1022,31 @@ function VerificationItem({
 }
 
 /**
+ * Failure toast for the hosted (redirect) verifications: a plain-language
+ * reason plus a Retry action, never the raw service / RPC message. A user
+ * cancelling is not a failure and gets a neutral note instead.
+ */
+function showHostedVerificationFailure(
+  t: TFunction,
+  title: string,
+  error: unknown,
+  onRetry: () => void,
+) {
+  if (isUserCancellation(error)) {
+    toast(t("VERIFICATION_CANCELLED"));
+    return;
+  }
+  toast.error(title, {
+    description: getUserFacingErrorMessage(
+      t,
+      error,
+      "LIM_VERIFICATION_FAILED_DESCRIPTION",
+    ),
+    action: { label: t("RETRY"), onClick: onRetry },
+  });
+}
+
+/**
  * Liveness verification card — the face-only tier, and the first thing on the
  * list because it is the cheapest to complete: no passport, no document, just a
  * short in-browser liveness challenge.
@@ -999,6 +1083,9 @@ export function LivenessVerificationCard() {
   const submit = useSubmitLivenessAttestation();
   const [busy, setBusy] = useState(false);
   const processed = useRef(false);
+  const { track } = useAnalytics();
+  // Retry action for failure toasts raised before `start` is declared.
+  const startRef = useRef<() => void>(() => {});
 
   // The liveness tier is offered in every market except the excluded ones.
   // Unlike KYC it needs no country prebound (no document is read), so there is
@@ -1015,6 +1102,10 @@ export function LivenessVerificationCard() {
     const state = params.get("state");
     if (!code || !state || !state.startsWith("liveness")) return;
     processed.current = true;
+    track(EVENTS.VERIFICATION, {
+      verification_type: "liveness",
+      status: "returned",
+    });
     (async () => {
       setBusy(true);
       const att = await resumeLivenessFlow({
@@ -1022,34 +1113,61 @@ export function LivenessVerificationCard() {
         code,
       });
       if (att.isErr()) {
-        toast.error(t("LIVENESS_ERROR", { message: att.error.message }));
+        track(EVENTS.VERIFICATION, {
+          verification_type: "liveness",
+          status: "failed",
+          stage: "resume",
+          errorMessage: att.error.message,
+        });
+        window.history.replaceState({}, "", window.location.pathname);
+        showHostedVerificationFailure(
+          t,
+          t("LIM_LIVENESS_FAILED_TITLE"),
+          att.error,
+          () => startRef.current(),
+        );
         setBusy(false);
         return;
       }
+      const toastId = toast.loading(t("LIVENESS_VERIFYING"));
       try {
-        await toast
-          .promise(submit.mutateAsync(att.value), {
-            loading: t("LIVENESS_VERIFYING"),
-            success: t("LIVENESS_VERIFIED_WITH_REWARD"),
-            error: (e) =>
-              e instanceof Error ? e.message : t("LIVENESS_SUBMISSION_FAILED"),
-          })
-          .unwrap();
+        await submit.mutateAsync(att.value);
+        toast.success(t("LIVENESS_VERIFIED_WITH_REWARD"), { id: toastId });
+        track(EVENTS.VERIFICATION, {
+          verification_type: "liveness",
+          status: "completed",
+        });
         await refetchLivenessStatus();
-      } catch {
-        // toast.promise already surfaced the error to the user
+      } catch (error) {
+        toast.dismiss(toastId);
+        track(EVENTS.VERIFICATION, {
+          verification_type: "liveness",
+          status: "failed",
+          stage: "submit",
+          errorMessage: error instanceof Error ? error.message : undefined,
+        });
+        showHostedVerificationFailure(
+          t,
+          t("LIM_LIVENESS_FAILED_TITLE"),
+          error,
+          () => startRef.current(),
+        );
       } finally {
         window.history.replaceState({}, "", window.location.pathname);
         setBusy(false);
       }
     })();
-  }, [account?.address, submit, refetchLivenessStatus, t]);
+  }, [account?.address, submit, refetchLivenessStatus, t, track]);
 
   const start = useCallback(async () => {
     if (!account?.address) {
       toast.error(t("CONNECT_WALLET_FIRST"));
       return;
     }
+    track(EVENTS.VERIFICATION, {
+      verification_type: "liveness",
+      status: "started",
+    });
     setBusy(true);
     const session = await createLivenessFlow({
       baseUrl: LIVENESS_BASE_URL,
@@ -1059,12 +1177,28 @@ export function LivenessVerificationCard() {
       state: `liveness-${Math.random().toString(36).slice(2)}`,
     });
     if (session.isErr()) {
-      toast.error(t("LIVENESS_ERROR", { message: session.error.message }));
+      track(EVENTS.VERIFICATION, {
+        verification_type: "liveness",
+        status: "failed",
+        stage: "session",
+        errorMessage: session.error.message,
+      });
+      showHostedVerificationFailure(
+        t,
+        t("LIM_LIVENESS_FAILED_TITLE"),
+        session.error,
+        () => startRef.current(),
+      );
       setBusy(false);
       return;
     }
+    track(EVENTS.VERIFICATION, {
+      verification_type: "liveness",
+      status: "redirected",
+    });
     session.value.redirect();
-  }, [account?.address, t]);
+  }, [account?.address, t, track]);
+  startRef.current = start;
 
   if (!isOffered) return null;
 
@@ -1132,6 +1266,9 @@ export function KycVerificationCard() {
   const submit = useSubmitKycAttestation();
   const [busy, setBusy] = useState(false);
   const processed = useRef(false);
+  const { track } = useAnalytics();
+  // Retry action for failure toasts raised before `start` is declared.
+  const startRef = useRef<() => void>(() => {});
 
   // Returning from the hosted wizard: ?code=<one-time>&state=kyc-…
   useEffect(() => {
@@ -1141,6 +1278,10 @@ export function KycVerificationCard() {
     const state = params.get("state");
     if (!code || !state || !state.startsWith("kyc")) return;
     processed.current = true;
+    track(EVENTS.VERIFICATION, {
+      verification_type: "kyc",
+      status: "returned",
+    });
     (async () => {
       setBusy(true);
       const att = await resumeSimpleKycFlow({
@@ -1148,28 +1289,48 @@ export function KycVerificationCard() {
         code,
       });
       if (att.isErr()) {
-        toast.error(t("KYC_ERROR", { message: att.error.message }));
+        track(EVENTS.VERIFICATION, {
+          verification_type: "kyc",
+          status: "failed",
+          stage: "resume",
+          errorMessage: att.error.message,
+        });
+        window.history.replaceState({}, "", window.location.pathname);
+        showHostedVerificationFailure(
+          t,
+          t("LIM_KYC_FAILED_TITLE"),
+          att.error,
+          () => startRef.current(),
+        );
         setBusy(false);
         return;
       }
+      const toastId = toast.loading(t("IDENTITY_VERIFYING"));
       try {
-        await toast
-          .promise(submit.mutateAsync(att.value), {
-            loading: t("IDENTITY_VERIFYING"),
-            success: t("IDENTITY_VERIFIED_WITH_REWARD"),
-            error: (e) =>
-              e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
-          })
-          .unwrap();
+        await submit.mutateAsync(att.value);
+        toast.success(t("IDENTITY_VERIFIED_WITH_REWARD"), { id: toastId });
+        track(EVENTS.VERIFICATION, {
+          verification_type: "kyc",
+          status: "completed",
+        });
         await refetchKycStatus();
-      } catch {
-        // toast.promise already surfaced the error to the user
+      } catch (error) {
+        toast.dismiss(toastId);
+        track(EVENTS.VERIFICATION, {
+          verification_type: "kyc",
+          status: "failed",
+          stage: "submit",
+          errorMessage: error instanceof Error ? error.message : undefined,
+        });
+        showHostedVerificationFailure(t, t("LIM_KYC_FAILED_TITLE"), error, () =>
+          startRef.current(),
+        );
       } finally {
         window.history.replaceState({}, "", window.location.pathname);
         setBusy(false);
       }
     })();
-  }, [account?.address, submit, refetchKycStatus, t]);
+  }, [account?.address, submit, refetchKycStatus, t, track]);
 
   const start = useCallback(async () => {
     if (!account?.address) {
@@ -1180,6 +1341,11 @@ export function KycVerificationCard() {
       toast.error(t("KYC_NOT_AVAILABLE_FOR_REGION"));
       return;
     }
+    track(EVENTS.VERIFICATION, {
+      verification_type: "kyc",
+      status: "started",
+      country: kycCountry,
+    });
     setBusy(true);
     const session = await createSimpleKycFlow({
       baseUrl: SIMPLE_KYC_BASE_URL,
@@ -1190,12 +1356,28 @@ export function KycVerificationCard() {
       state: `kyc-${Math.random().toString(36).slice(2)}`,
     });
     if (session.isErr()) {
-      toast.error(t("KYC_ERROR", { message: session.error.message }));
+      track(EVENTS.VERIFICATION, {
+        verification_type: "kyc",
+        status: "failed",
+        stage: "session",
+        errorMessage: session.error.message,
+      });
+      showHostedVerificationFailure(
+        t,
+        t("LIM_KYC_FAILED_TITLE"),
+        session.error,
+        () => startRef.current(),
+      );
       setBusy(false);
       return;
     }
+    track(EVENTS.VERIFICATION, {
+      verification_type: "kyc",
+      status: "redirected",
+    });
     session.value.redirect();
-  }, [account?.address, kycCountry, t]);
+  }, [account?.address, kycCountry, t, track]);
+  startRef.current = start;
 
   // KYC isn't offered for markets without a supported passport country.
   if (!kycCountry) return null;
