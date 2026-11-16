@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TokenIcon } from "@/components/token-icon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ONECLICK_EXPLORER_URL,
-  type PendingBridge,
-} from "@/core/near-intents";
+import { ONECLICK_EXPLORER_URL, type PendingBridge } from "@/core/near-intents";
 import {
   getChainIconUrl,
   useOneClickTokens,
@@ -78,14 +75,13 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
     const justCreated = Date.now() - bridge.createdAt < 5_000;
     if (awaitingDeposit && justCreated) setSheetOpen(true);
     // biome-ignore lint/correctness/useExhaustiveDependencies: open once on mount
-  }, []);
+  }, [awaitingDeposit, bridge.createdAt]);
 
   return (
     <Card className="py-0">
       <CardContent
         className={`flex flex-col gap-3 p-4 ${awaitingDeposit ? "cursor-pointer" : ""}`}
-        onClick={awaitingDeposit ? () => setSheetOpen(true) : undefined}
-      >
+        onClick={awaitingDeposit ? () => setSheetOpen(true) : undefined}>
         <div className="flex items-center gap-3">
           {/* Overlapping origin → destination token icons */}
           <span className="flex shrink-0 items-center">
@@ -129,7 +125,8 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
           </span>
 
           <div className="flex shrink-0 items-center gap-1">
-            <Badge variant={expired ? "destructive" : statusVariant(bridge.status)}>
+            <Badge
+              variant={expired ? "destructive" : statusVariant(bridge.status)}>
               {expired
                 ? t("BRIDGE_EXPIRED")
                 : (() => {
@@ -150,8 +147,7 @@ export function BridgeHistoryCard({ bridge }: BridgeHistoryCardProps) {
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1 text-primary text-xs underline"
-            onClick={(e) => e.stopPropagation()}
-          >
+            onClick={(e) => e.stopPropagation()}>
             {t("BRIDGE_VIEW_ON_EXPLORER")}
             <ExternalLinkIcon className="size-3" />
           </a>

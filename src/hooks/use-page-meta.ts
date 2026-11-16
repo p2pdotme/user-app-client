@@ -33,6 +33,7 @@ export function usePageMeta({ title, description }: PageMeta = {}) {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-run when the language changes so meta tags are re-translated
   useEffect(() => {
     const fullTitle = title ? `${title} | ${SITE_NAME}` : DEFAULT_TITLE;
     const desc = description ?? t("SEO_DESCRIPTION_DEFAULT");
