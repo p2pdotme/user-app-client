@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { parseUnits, zeroAddress } from "viem";
 import { z } from "zod";
@@ -26,6 +26,7 @@ import {
   useUSDCBalance,
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
+import { useMaxSellTxLimit } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
   INTERNAL_HREFS,
@@ -34,6 +35,7 @@ import {
   PAY_DISABLED_CURRENCIES,
 } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { saveLimitReturn } from "@/lib/limit-increase";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import {
   calculateFee,
@@ -53,6 +55,7 @@ export function Pay() {
   const { t } = useTranslation();
   usePageMeta({ title: t("PAY"), description: t("SEO_DESCRIPTION_PAY") });
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     settings: { currency },
   } = useSettings();
@@ -78,6 +81,7 @@ export function Pay() {
     hasPriceChanged,
   } = useQuotedPrice("sell");
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+  const { maxSellTxLimit } = useMaxSellTxLimit();
   const { usdcBalance, isUsdcBalanceLoading } = useUSDCBalance();
 
   const { data: feeConfig } = useQuery({
@@ -95,7 +99,13 @@ export function Pay() {
   const feeConfigSmallOrderThreshold = feeConfig?.smallOrderThreshold ?? 0;
   const feeConfigSmallOrderFixedFee = feeConfig?.smallOrderFixedFee ?? 0;
 
-  const MAX_PAY_LIMIT = useMemo(() => txLimit?.sellLimit ?? 0, [txLimit]);
+  // Until the real limit loads, don't validate against (or show) a limit of 0;
+  // a typed or prefilled amount used to flash "Maximum limit is 0 USDC".
+  const isLimitKnown = txLimit?.sellLimit !== undefined;
+  const MAX_PAY_LIMIT = useMemo(
+    () => txLimit?.sellLimit ?? Number.POSITIVE_INFINITY,
+    [txLimit],
+  );
 
   const ZodPayAmountSchema = useMemo(
     () =>
@@ -240,6 +250,32 @@ export function Pay() {
     [denomination, updateAmount],
   );
 
+  // Prefill the bill amount when coming back from raising the limit
+  // (/limits "Back to Pay"), once price and limits are known.
+  const prefillFiat = (
+    location.state as { prefill?: { fiat?: unknown } } | null
+  )?.prefill?.fiat;
+  const hasPrefilledRef = useRef(false);
+  useEffect(() => {
+    if (hasPrefilledRef.current) return;
+    if (typeof prefillFiat !== "number" || !(prefillFiat > 0)) return;
+    if (!priceConfig?.sellPrice || !isLimitKnown) return;
+    hasPrefilledRef.current = true;
+    setDenomination("fiat");
+    updateAmount(
+      prefillFiat.toString(),
+      "fiat",
+      (validData) => {
+        setAmount(validData);
+        setError(null);
+      },
+      (errorMessage, newAmount) => {
+        setAmount(newAmount);
+        setError(errorMessage);
+      },
+    );
+  }, [prefillFiat, priceConfig?.sellPrice, isLimitKnown, updateAmount]);
+
   const handleInput = useCallback(
     (value: string) => {
       const currentValue = amount[denomination];
@@ -259,6 +295,7 @@ export function Pay() {
   }, []);
 
   const handleMax = useCallback(() => {
+    if (!isLimitKnown) return;
     let effectiveMax = Math.min(usdcBalance ?? Infinity, MAX_PAY_LIMIT);
 
     // Subtract the fixed fee if it applies
@@ -276,6 +313,7 @@ export function Pay() {
       handleUpdateAmount(maxFiatAmount.toString());
     }
   }, [
+    isLimitKnown,
     denomination,
     handleUpdateAmount,
     MAX_PAY_LIMIT,
@@ -465,7 +503,11 @@ export function Pay() {
   }
 
   const hasExceededLimit =
-    Number(amount.crypto) > MAX_PAY_LIMIT && !!amount.crypto;
+    isLimitKnown && Number(amount.crypto) > MAX_PAY_LIMIT && !!amount.crypto;
+  const isAtMarketMax =
+    maxSellTxLimit !== undefined &&
+    txLimit?.sellLimit !== undefined &&
+    txLimit.sellLimit >= maxSellTxLimit;
 
   const minOrderFiat = MIN_ORDER_FIAT_BY_CURRENCY[currency.currency];
   const isBelowMinimum =
@@ -577,6 +619,13 @@ export function Pay() {
               isError={isTxLimitError}
               limit={txLimit?.sellLimit}
               hasExceededLimit={hasExceededLimit}
+              isAtMarketMax={isAtMarketMax}
+              onBeforeVerify={() =>
+                saveLimitReturn({
+                  flow: "pay",
+                  fiatAmount: Number(amount.fiat),
+                })
+              }
             />
           </div>
         </section>

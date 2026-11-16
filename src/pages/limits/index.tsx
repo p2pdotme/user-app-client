@@ -9,6 +9,7 @@ import {
   SectionHeader,
   TaskLedger,
 } from "@/components";
+import { ResumeOrderCard } from "@/components/resume-order-card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,7 +33,7 @@ import { INTERNAL_HREFS } from "@/lib/constants";
 import { getStoredParams } from "@/lib/url-param-preservation";
 import { truncateAmount } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
-import { IncreaseLimitMethods } from "./method-cards";
+import { IncreaseLimitMethods, useRpToUsdcMultiplier } from "./method-cards";
 import { VerifySocialCta } from "./verifications";
 
 // Truncate (floor) to whole units and format with locale grouping.
@@ -139,6 +140,7 @@ export function Limits() {
   const { t } = useTranslation();
   usePageMeta({ title: t("MY_LIMITS") });
   const navigate = useNavigate();
+  const rpToUsdc = useRpToUsdcMultiplier();
   useForwardVerificationCallback();
   const { track } = useAnalytics();
   const { settings } = useSettings();
@@ -282,6 +284,9 @@ export function Limits() {
         onBack={() => navigate(INTERNAL_HREFS.HOME)}
       />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-8 overflow-y-auto pt-8 pb-4">
+        {/* Came here from an order: show the live limit and a way back with
+            the amount still filled in. */}
+        <ResumeOrderCard />
         {/* Per-transaction limits */}
         <section className="flex flex-col gap-4">
           <p className="font-semibold text-muted-foreground text-xs uppercase leading-4 tracking-[1px]">
@@ -416,7 +421,12 @@ export function Limits() {
                   <p className="text-red-500 text-xs">{t("ERROR")}</p>
                 ) : (
                   <p className="font-bold text-3xl text-primary tabular-nums leading-none">
-                    +${onChainActivityRp}
+                    {/* Reputation points, converted to USDC of per-order
+                        limit (it used to print the raw points with a "$"). */}
+                    {rpToUsdc && onChainActivityRp !== undefined
+                      ? `+${Math.floor(Number(onChainActivityRp) * rpToUsdc)}`
+                      : "…"}
+                    <span className="ml-1 font-medium text-base">USDC</span>
                   </p>
                 )}
               </div>

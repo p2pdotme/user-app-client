@@ -11,6 +11,16 @@ interface LimitBannerProps {
   isLoading: boolean;
   isError: boolean;
   hasExceededLimit?: boolean;
+  /**
+   * Called before navigating to /limits, so the page can remember the order
+   * (and its amount) to bring the user back to after verifying.
+   */
+  onBeforeVerify?: () => void;
+  /**
+   * The user's limit already equals the market's maximum: verifying more
+   * can't raise it, so don't promise that it will.
+   */
+  isAtMarketMax?: boolean;
 }
 
 export function LimitBanner({
@@ -18,9 +28,16 @@ export function LimitBanner({
   isLoading,
   isError,
   hasExceededLimit,
+  onBeforeVerify,
+  isAtMarketMax,
 }: LimitBannerProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const goToLimits = () => {
+    onBeforeVerify?.();
+    navigate(INTERNAL_HREFS.LIMITS);
+  };
 
   const renderLabel = () => {
     if (isLoading) {
@@ -54,11 +71,11 @@ export function LimitBanner({
       <div
         role="button"
         tabIndex={0}
-        onClick={() => navigate(INTERNAL_HREFS.LIMITS)}
+        onClick={goToLimits}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            navigate(INTERNAL_HREFS.LIMITS);
+            goToLimits();
           }
         }}
         className="flex min-h-[38px] w-[80%] cursor-pointer items-center justify-between gap-2 rounded-2xl bg-primary/10 px-4 py-2 transition-transform duration-150 ease-out active:scale-[0.99]">
@@ -75,7 +92,11 @@ export function LimitBanner({
           )}
           {renderLabel()}
         </div>
-        {hasExceededLimit ? (
+        {hasExceededLimit && isAtMarketMax ? (
+          <span className="shrink-0 font-medium text-muted-foreground text-sm leading-[19px]">
+            {t("LIMR_MAX_FOR_MARKET")}
+          </span>
+        ) : hasExceededLimit ? (
           <span className="inline-flex shrink-0 items-center gap-1 font-semibold text-primary text-sm leading-[19px]">
             {t("VERIFY_TO_RAISE")}
             <ArrowRight className="size-4" />
