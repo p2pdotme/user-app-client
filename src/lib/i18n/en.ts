@@ -190,7 +190,7 @@ export const en = {
     BUY_CANCELLED_REASON_2:
       "Automatically cancelled because it wasn't accepted within 3 minutes. This might happen during off-peak hours. Please try reordering, or try again during our active hours!",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Flat {{flatFee}} USDC fee applies for order below {{orderMinimumAmount}} USDC. You will receive {{deductedAmount}}",
+      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less and is added to your payment. You will receive {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT: "Buy order amount exceeds limit",
     BUY_PRICE: "Buy Price",
     BUY_SELL_USDC_WITHIN_SECONDS: "Buy/sell USDC within seconds",
@@ -725,14 +725,14 @@ export const en = {
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
       "How do I recover my funds if I sent the wrong token or used the wrong network?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "If you accidentally sent an unsupported token or used a different network, your funds can still be recovered, as long as they were sent to your correct wallet address.\n\nYou can use cross-chain bridges like Relay.link or Jumper.Exchange to convert those tokens into USDC on the Base network, which is supported on P2P.me.\n\nHere’s how to do it:\n1. Open Relay.link in desktop view.\n2. Connect your wallet using WalletConnect.\n3. On the bridge site, select WalletConnect and copy the connection URI.\n4. In the P2P.me app homescreen, go to Wallet → Manage Wallets → Connect an App, paste the URI, and confirm to connect to Relay.link.\n5. Return to the Relay Bridge and select the token and network you mistakenly used under the 'From/Buy' section, and choose USDC on Base in the 'To/Sell' section.\n6. Click the Swap button to start the transaction, and wait for it to complete.\n7. Return to the P2P.me app and refresh your wallet. Your USDC should appear.\n\nNeed help? Contact the P2P.me Telegram support channel.\n\nMake sure: You’re selecting USDC on Base as the destination.",
+      "If you sent funds to your P2P.me wallet address on the wrong network, they can still be recovered: your wallet has the same address on every supported EVM network.\n\n1. Go to Help → Recover tokens (“Sent funds on the wrong network?”).\n2. Pick the network you sent on and follow the steps to move the tokens back.\n\nP2P.me runs on Base. For direct deposits and withdrawals, always use USDC on Base; for other chains, use Cross-Chain Deposit / Withdraw in the app. If your network isn't listed, or you sent a different token on Base, contact support with the transaction hash.",
     FAQ_HOW_SECURE_TRANSACTIONS: "How does P2P.me ensure secure transactions?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
       "The protocol doesn't hold user funds. All transactions are P2P between buyer and merchant. To ensure safety, merchants undergo ZK-based verification and their banking activity is reviewed before they're allowed to accept trades. This reduces the risk of fraud or account freezing.",
     FAQ_HOW_TO_BUY_USDC_FIAT:
       "How to Buy USDC on P2P.me Using Fiat or Local Currency",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Tap 'Buy USDC' on Home.\n2. Enter amount and recipient address → Proceed to Payment.\n3. A merchant is assigned and shares payment details.\n4. Pay via UPI/PIX/QRIS in your local app, then tap 'I have made the payment'.\n5. After the merchant confirms, USDC is sent within seconds.\n\nNote: New users (0 zk verifications) start at $10 per order, 1 buy/day. Verify zk proofs to increase limits.",
+      "1. Tap 'Buy USDC' on Home.\n2. Enter amount and recipient address → Proceed to Payment.\n3. A merchant is assigned and shares payment details.\n4. Pay via UPI/PIX/QRIS in your local app, then tap 'I have made the payment'.\n5. After the merchant confirms, USDC is sent within seconds.\n\nNote: New users can't buy yet: complete at least one zk-verification (or stake $P2P) to unlock buying, then verify more to raise your limit. Your current limit is shown in My Limits.",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "How do I calculate tax on my P2P.me orders?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
@@ -757,7 +757,7 @@ export const en = {
     FAQ_HOW_TO_SELL_USDC:
       "How do I sell USDC and get deposited to my payment details?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Tap 'Sell USDC'.\n2. Enter amount and your UPI/PIX/QRIS details → Proceed.\n3. A merchant is assigned.\n4. After your USDC is received, fiat is sent to your payment details.\n\nNote: Default sell limit is $100 per order, max 10 orders/day. Verify zk proofs to increase limits.",
+      "1. Tap 'Sell USDC'.\n2. Enter amount and your UPI/PIX/QRIS details → Proceed.\n3. A merchant is assigned.\n4. After your USDC is received, fiat is sent to your payment details.\n\nNote: New users start with a per-order sell limit set for their market (shown in My Limits), max 10 orders/day. Verify zk proofs to increase limits.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
       "How do I verify my social accounts with zk proofs to increase my limits?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
@@ -782,10 +782,10 @@ export const en = {
       "1. Copy the merchant's UPI ID from your order.\n2. Paste it in your UPI app to see their name.\n3. Tell the shopkeeper: \"You should've received ₹XXXX from [Name].\"\n4. If they still deny it, contact support and we'll send you a screenshot to show them.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS: "What are the default limits on P2P.me?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: $100 per order, up to 10 orders per day ($1,000 daily limit, since merchants are verified and ready to trade).\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
+      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: a starting per-order limit set for your market (shown in My Limits), up to 10 orders per day.\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "What are the default limits?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: $100 per order, up to 10 orders per day ($1,000 daily limit, since merchants are verified and ready to trade).\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
+      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: a starting per-order limit set for your market (shown in My Limits), up to 10 orders per day.\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "What are Disputed transactions?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
       "Disputed transactions are those where a user has raised a dispute due to some issue in the transaction process. If you run into any trouble, you can raise one too.",
@@ -914,7 +914,7 @@ export const en = {
     FILTER_TYPES: "Types",
     FIND_US_ON: "Find us on",
     FLAT_FEE_MINIMUM_ORDER_REQUIRED:
-      "Flat {{flatFee}} USDC fee applies for order below {{orderMinimumAmount}} USDC. Your order needs to be more than {{flatFee}} USDC",
+      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less. Your order needs to be more than {{flatFee}} USDC",
     FOR_DYNAMIC_QR_WITH_EXPIRY_TIMERS_GENERATE_THEM_AFTER_THE_SCANNER_OPENS_FOR_MAXIMUM_PAYMENT_TIME:
       "For dynamic QR with expiry timers, generate them after the scanner opens for maximum payment time",
     FRAUD_ACTIVITY_WARNING:
@@ -1546,7 +1546,7 @@ export const en = {
     PAYMENT_QR_VIEW: "View QR",
     PAYMENT_TIMEOUT_EXPIRED: "Payment time has expired",
     PAY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Flat {{flatFee}} USDC fee applies for order below {{orderMinimumAmount}} USDC. You will pay {{deductedAmount}}",
+      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less. You will pay {{deductedAmount}}",
     PAY_MERCHANT: "Pay Merchant",
     PAY_NOTE:
       "Please ask the vendor for the bill amount only. Don't ask for a QR yet.",
@@ -1985,7 +1985,7 @@ export const en = {
     SELL_CANCELLED_REASON_2: "Invalid payment details.",
     SELL_CANCELLED_REASON_3: "Payment limit reached.",
     SELL_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Flat {{flatFee}} USDC fee applies for order below {{orderMinimumAmount}} USDC. You will be charged {{deductedAmount}}",
+      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less. You will be charged {{deductedAmount}}",
     SELL_ORDER_AMOUNT_EXCEEDS_LIMIT: "Sell order amount exceeds limit",
     SELL_ORDER_AMOUNT_LIMIT_EXCEEDED: "Sell order amount limit exceeded",
     SELL_PAY_VOLUME: "Sell & Pay Volume",

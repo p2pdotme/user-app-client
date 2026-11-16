@@ -195,7 +195,7 @@ export const es = {
     BUY_CANCELLED_REASON_2:
       "Se canceló automáticamente porque no fue aceptado en 3 minutos. Esto puede pasar fuera del horario de mayor actividad. Intenta hacer el pedido de nuevo o vuelve a intentarlo en nuestro horario activo.",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos menores a {{orderMinimumAmount}} USDC. Recibirás {{deductedAmount}}",
+      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos de {{orderMinimumAmount}} USDC o menos, y se suma a tu pago. Recibirás {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT:
       "El monto del pedido de compra excede el límite",
     BUY_PRICE: "Precio de compra",
@@ -748,7 +748,7 @@ export const es = {
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
       "¿Cómo recupero mis fondos si envié el token equivocado o usé la red incorrecta?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "Si por error enviaste un token no compatible o usaste otra red, todavía puedes recuperar tus fondos, siempre que se hayan enviado a la dirección correcta de tu wallet.\n\nPuedes usar puentes cross-chain como Relay.link o Jumper.Exchange para convertir esos tokens en USDC en la red Base, que es la que admite P2P.me.\n\nSigue estos pasos:\n1. Abre Relay.link en vista de escritorio.\n2. Conecta tu wallet con WalletConnect.\n3. En el sitio del puente, selecciona WalletConnect y copia el URI de conexión.\n4. En la pantalla de inicio de la app P2P.me, ve a Wallet → Gestionar Wallets → Conectar una App, pega el URI y confirma para conectarte a Relay.link.\n5. Vuelve a Relay Bridge, selecciona en la sección 'Desde/Comprar' el token y la red que usaste por error, y elige USDC en Base en la sección 'A/Vender'.\n6. Haz clic en el botón Swap para iniciar la transacción y espera a que termine.\n7. Vuelve a la app P2P.me y actualiza tu wallet. Tu USDC debería aparecer.\n\n¿Necesitas ayuda? Escríbenos al canal de soporte de P2P.me en Telegram.\n\nImportante: asegúrate de seleccionar USDC en Base como destino.",
+      "Si enviaste fondos a la dirección de tu wallet de P2P.me en la red equivocada, todavía puedes recuperarlos: tu wallet tiene la misma dirección en todas las redes EVM compatibles.\n\n1. Ve a Ayuda → Recuperar tokens (“¿Enviaste fondos por la red equivocada?”).\n2. Elige la red en la que enviaste y sigue los pasos para recuperar los tokens.\n\nP2P.me funciona en Base. Para depósitos y retiros directos usa siempre USDC en Base; para otras redes, usa Depósito / Retiro Cross-Chain en la app. Si tu red no aparece, o enviaste otro token en Base, contacta a soporte con el hash de la transacción.",
     FAQ_HOW_SECURE_TRANSACTIONS:
       "¿Cómo garantiza P2P.me la seguridad de las transacciones?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
@@ -756,7 +756,7 @@ export const es = {
     FAQ_HOW_TO_BUY_USDC_FIAT:
       "Cómo comprar USDC en P2P.me con moneda fiat o local",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Toca 'Comprar USDC' en Inicio.\n2. Ingresa el monto y la dirección del destinatario → Continuar al pago.\n3. Se te asigna un comerciante, que te comparte los datos de pago.\n4. Paga por UPI/PIX/QRIS desde tu app y luego toca 'Ya hice el pago'.\n5. Cuando el comerciante confirme, recibirás el USDC en segundos.\n\nNota: Los usuarios nuevos (0 verificaciones zk) empiezan con $10 por pedido y 1 compra por día. Verifica pruebas zk para aumentar tus límites.",
+      "1. Toca 'Comprar USDC' en Inicio.\n2. Ingresa el monto y la dirección del destinatario → Continuar al pago.\n3. Se te asigna un comerciante, que te comparte los datos de pago.\n4. Paga por UPI/PIX/QRIS desde tu app y luego toca 'Ya hice el pago'.\n5. Cuando el comerciante confirme, recibirás el USDC en segundos.\n\nNota: Los usuarios nuevos todavía no pueden comprar: completa al menos una verificación zk (o haz stake de $P2P) para habilitar las compras, y verifica más para subir tu límite. Tu límite actual aparece en Mis límites.",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "¿Cómo calculo el impuesto de mis pedidos en P2P.me?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
@@ -781,7 +781,7 @@ export const es = {
     FAQ_HOW_TO_SELL_USDC:
       "¿Cómo vendo USDC y recibo el dinero en mis datos de pago?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Toca 'Vender USDC'.\n2. Ingresa el monto y tus datos de UPI/PIX/QRIS → Continuar.\n3. Se te asigna un comerciante.\n4. Cuando se reciba tu USDC, se envía el dinero a tus datos de pago.\n\nNota: El límite de venta predeterminado es de $100 por pedido, con un máximo de 10 pedidos por día. Verifica pruebas zk para aumentar tus límites.",
+      "1. Toca 'Vender USDC'.\n2. Ingresa el monto y tus datos de UPI/PIX/QRIS → Continuar.\n3. Se te asigna un comerciante.\n4. Cuando se reciba tu USDC, se envía el dinero a tus datos de pago.\n\nNota: Los usuarios nuevos empiezan con un límite de venta por pedido fijado para su mercado (lo ves en Mis límites), con un máximo de 10 pedidos por día. Verifica pruebas zk para aumentar tus límites.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
       "¿Cómo verifico mis redes sociales con pruebas zk para aumentar mis límites?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
@@ -807,11 +807,11 @@ export const es = {
     FAQ_WHAT_ARE_DEFAULT_LIMITS:
       "¿Cuáles son los límites predeterminados en P2P.me?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Para usuarios nuevos:\n• Pedidos de compra: No disponibles. Completa al menos una verificación zk para habilitar las compras y empezar de forma segura.\n• Límite de venta: $100 por pedido, hasta 10 pedidos por día (límite diario de $1,000, ya que los comerciantes están verificados y listos para operar).\n\nPara usuarios con al menos una verificación zk:\n• Límite de compra: Tu límite de transacción por pedido, hasta 5 pedidos por día.\n• Límite de venta: Tu límite de transacción por pedido, hasta 10 pedidos por día.\n\nLímite máximo por transacción: $400 USDC.\nLímite mensual de pedidos de compra: 25 pedidos.\nLímite de volumen anual: {{yearlyVolumeLimit}} USDC por usuario.\n¿Quieres límites más altos? Ve a la sección Mis límites para completar verificaciones zk y desbloquear más.",
+      "Para usuarios nuevos:\n• Pedidos de compra: No disponibles. Completa al menos una verificación zk para habilitar las compras y empezar de forma segura.\n• Límite de venta: un límite inicial por pedido fijado para tu mercado (lo ves en Mis límites), hasta 10 pedidos por día.\n\nPara usuarios con al menos una verificación zk:\n• Límite de compra: Tu límite de transacción por pedido, hasta 5 pedidos por día.\n• Límite de venta: Tu límite de transacción por pedido, hasta 10 pedidos por día.\n\nLímite máximo por transacción: $400 USDC.\nLímite mensual de pedidos de compra: 25 pedidos.\nLímite de volumen anual: {{yearlyVolumeLimit}} USDC por usuario.\n¿Quieres límites más altos? Ve a la sección Mis límites para completar verificaciones zk y desbloquear más.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS:
       "¿Cuáles son los límites predeterminados?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Para usuarios nuevos:\n• Pedidos de compra: No disponibles. Completa al menos una verificación zk para habilitar las compras y empezar de forma segura.\n• Límite de venta: $100 por pedido, hasta 10 pedidos por día (límite diario de $1,000, ya que los comerciantes están verificados y listos para operar).\n\nPara usuarios con al menos una verificación zk:\n• Límite de compra: Tu límite de transacción por pedido, hasta 5 pedidos por día.\n• Límite de venta: Tu límite de transacción por pedido, hasta 10 pedidos por día.\n\nLímite máximo por transacción: $400 USDC.\nLímite mensual de pedidos de compra: 25 pedidos.\nLímite de volumen anual: {{yearlyVolumeLimit}} USDC por usuario.\n¿Quieres límites más altos? Ve a la sección Mis límites para completar verificaciones zk y desbloquear más.",
+      "Para usuarios nuevos:\n• Pedidos de compra: No disponibles. Completa al menos una verificación zk para habilitar las compras y empezar de forma segura.\n• Límite de venta: un límite inicial por pedido fijado para tu mercado (lo ves en Mis límites), hasta 10 pedidos por día.\n\nPara usuarios con al menos una verificación zk:\n• Límite de compra: Tu límite de transacción por pedido, hasta 5 pedidos por día.\n• Límite de venta: Tu límite de transacción por pedido, hasta 10 pedidos por día.\n\nLímite máximo por transacción: $400 USDC.\nLímite mensual de pedidos de compra: 25 pedidos.\nLímite de volumen anual: {{yearlyVolumeLimit}} USDC por usuario.\n¿Quieres límites más altos? Ve a la sección Mis límites para completar verificaciones zk y desbloquear más.",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS:
       "¿Qué son las transacciones en disputa?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
@@ -943,7 +943,7 @@ export const es = {
     FILTER_TYPES: "Tipos",
     FIND_US_ON: "Encuéntranos en",
     FLAT_FEE_MINIMUM_ORDER_REQUIRED:
-      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos menores a {{orderMinimumAmount}} USDC. Tu pedido debe ser mayor a {{flatFee}} USDC",
+      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos de {{orderMinimumAmount}} USDC o menos. Tu pedido debe ser mayor a {{flatFee}} USDC",
     FOR_DYNAMIC_QR_WITH_EXPIRY_TIMERS_GENERATE_THEM_AFTER_THE_SCANNER_OPENS_FOR_MAXIMUM_PAYMENT_TIME:
       "Si el QR es dinámico y tiene tiempo de vencimiento, pide que lo generen después de que se abra el escáner para tener más tiempo para pagar",
     FRAUD_ACTIVITY_WARNING:
@@ -1611,7 +1611,7 @@ export const es = {
     PAYMENT_QR_VIEW: "Ver QR",
     PAYMENT_TIMEOUT_EXPIRED: "Se acabó el tiempo para pagar",
     PAY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos menores a {{orderMinimumAmount}} USDC. Pagarás {{deductedAmount}}",
+      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos de {{orderMinimumAmount}} USDC o menos. Pagarás {{deductedAmount}}",
     PAY_MERCHANT: "Pagar al comerciante",
     PAY_NOTE:
       "Pídele al vendedor solo el monto total a pagar. No pidas el QR todavía.",
@@ -2072,7 +2072,7 @@ export const es = {
     SELL_CANCELLED_REASON_2: "Datos de pago no válidos.",
     SELL_CANCELLED_REASON_3: "Límite de pago alcanzado.",
     SELL_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos menores a {{orderMinimumAmount}} USDC. Se te cobrará {{deductedAmount}}",
+      "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos de {{orderMinimumAmount}} USDC o menos. Se te cobrará {{deductedAmount}}",
     SELL_ORDER_AMOUNT_EXCEEDS_LIMIT:
       "El monto del pedido de venta excede el límite",
     SELL_ORDER_AMOUNT_LIMIT_EXCEEDED:

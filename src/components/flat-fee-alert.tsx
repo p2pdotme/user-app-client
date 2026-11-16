@@ -48,7 +48,9 @@ const FlatFeeAlert = ({
 
   let deductedAmount: number;
   if (isBuyOrder) {
-    deductedAmount = amount - flatFee;
+    // BUY adds the fee to the fiat payment; the full USDC amount is delivered
+    // (contracts: getFeeAndActualAmounts BUY branch, OrderFlowHelper transfers _order.amount)
+    deductedAmount = amount;
   } else if (isPayOrder || isSellOrder) {
     // Both PAY and SELL now add the fee (contract handles it internally)
     deductedAmount = (fiatAmount || 0) / (exchangeRate || 1) + flatFee;
