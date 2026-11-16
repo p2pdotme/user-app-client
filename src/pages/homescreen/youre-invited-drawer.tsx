@@ -200,7 +200,7 @@ export function YoureInvitedDrawer({
                     {t("ONB_INVITE_CLAIM_FAILED_TITLE")}
                   </p>
                   {claimError && (
-                    <p className="text-destructive/80 text-xs">{claimError}</p>
+                    <p className="text-destructive text-xs">{claimError}</p>
                   )}
                 </div>
               </div>
