@@ -1,7 +1,5 @@
-import { CheckCircle, PlayCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import ASSETS from "@/assets";
-import { BannerItem } from "@/components";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -36,17 +34,8 @@ export function AccessGrantedDrawer({
               {t("ACCESS_GRANTED_TITLE")}
             </h2>
             <div className="mt-2 w-full rounded-2xl bg-primary/5 p-4 shadow-sm">
-              <div className="relative my-4 flex w-full items-center justify-center overflow-hidden rounded-xl bg-muted">
-                <BannerItem bgImage={ASSETS.IMAGES.HOME_GUIDE_BANNER_BG}>
-                  <div className="flex h-full w-full items-center justify-center">
-                    <div className="rounded-full bg-white/20 p-2 backdrop-blur-sm">
-                      <PlayCircle className="h-10 w-10 text-white" />
-                    </div>
-                  </div>
-                </BannerItem>
-              </div>
               <div className="font-light text-foreground text-small">
-                {t("ACCESS_GRANTED_DESCRIPTION")}
+                {t("ACCESS_GRANTED_READY_DESCRIPTION")}
               </div>
             </div>
           </div>

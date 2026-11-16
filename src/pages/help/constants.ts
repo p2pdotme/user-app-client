@@ -1,27 +1,4 @@
-import ASSETS from "@/assets";
 import { INTERNAL_HREFS } from "@/lib/constants";
-
-export interface VideoGuide {
-  id: string;
-  titleKey: string;
-  /**
-   * Preferred: language-specific links. Keys should be i18n language codes like 'en', 'pt', 'id', 'hi'.
-   */
-  links?: Partial<Record<string, string>>;
-  /**
-   * Backward compatibility: old translation key or direct url string. Avoid using translations for links going forward.
-   */
-  linkKey?: string;
-  /**
-   * Preferred: language-specific thumbnails. Keys should be i18n language codes like 'en', 'pt', 'id', 'hi'.
-   */
-  thumbnails?: Partial<Record<string, string>>;
-  /**
-   * Optional orientation hint; true for portrait (YouTube Shorts etc.)
-   */
-  isPortrait?: boolean;
-  excludedFrom?: string[];
-}
 
 export interface FAQ {
   id: string;
@@ -36,7 +13,6 @@ export interface FAQ {
 }
 
 export interface SupportPageSection {
-  videoGuideIds: string[];
   faqIds: string[];
 }
 
@@ -57,15 +33,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
   SupportPageSection
 > = {
   [SUPPORT_PAGE_TITLES.GETTING_STARTED]: {
-    videoGuideIds: [
-      "video-app-tour",
-      "video-deposit-flow",
-      "video-withdraw-flow",
-      "video-buy-flow",
-      "video-generate-referral",
-      "video-claiming-referral",
-      "video-increase-transaction-limit",
-    ],
     faqIds: [
       "getting-started-1", // Why can't I text on the P2P.me Telegram channel? What should I do?
       "getting-started-2", // How to Deposit and Withdraw from Exchanges like Binance, MEXC or other wallets to P2P.me
@@ -79,7 +46,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
     ],
   },
   [SUPPORT_PAGE_TITLES.GENERAL]: {
-    videoGuideIds: [],
     faqIds: [
       "general-1", // What is P2P.me?
       "general-2", // Is P2P.me safe to use?
@@ -106,11 +72,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
     ],
   },
   [SUPPORT_PAGE_TITLES.MY_LIMITS]: {
-    videoGuideIds: [
-      "video-zk-verification-instagram",
-      "video-zk-verification-linkedin",
-      "video-zk-verification-github",
-    ],
     faqIds: [
       "limits-1", // What are the default limits?
       "limits-2", // Where can I check my transaction limits?
@@ -122,10 +83,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
     ],
   },
   [SUPPORT_PAGE_TITLES.REFER_AND_EARN]: {
-    videoGuideIds: [
-      "video-generate-referral",
-      "video-claiming-rewards-general",
-    ],
     faqIds: [
       "refer-earn-1", // What is Refer & Earn on P2P.me?
       "refer-earn-2", // How much can I earn?
@@ -137,12 +94,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
     ],
   },
   [SUPPORT_PAGE_TITLES.TRANSACTIONS]: {
-    videoGuideIds: [
-      "video-buy-flow",
-      "video-sell-flow",
-      "video-scan-and-pay",
-      "video-raise-dispute",
-    ],
     faqIds: [
       "transactions-1", // Where can I view all my transactions on P2P.me?
       "transactions-2", // What are the different statuses of an order?
@@ -156,11 +107,6 @@ export const SUPPORT_PAGE_CONTENT: Record<
     ],
   },
   [SUPPORT_PAGE_TITLES.DEPOSITS_WITHDRAWALS]: {
-    videoGuideIds: [
-      "video-deposit-flow-detailed",
-      "video-withdraw-flow-detailed",
-      "video-rango-support-ticket",
-    ],
     faqIds: [
       "deposits-withdrawals-1", // How can I deposit USDC into my P2P.me wallet?
       "deposits-withdrawals-2", // Are deposits and withdrawals gasless?
@@ -597,302 +543,6 @@ export const ALL_FAQS: FAQ[] = [
   },
 ];
 
-export const ALL_VIDEO_GUIDES: VideoGuide[] = [
-  {
-    id: "video-app-tour",
-    titleKey: "VIDEO_APP_TOUR",
-    links: {
-      en: "https://youtu.be/gnJJdkWDMaU",
-      pt: "https://youtu.be/ZZVdy4EqDvA",
-      id: "https://youtu.be/KtMHbp38k0M",
-      hi: "https://youtu.be/gnJJdkWDMaU",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.APP_TOUR,
-    },
-  },
-  {
-    id: "video-deposit-flow",
-    titleKey: "VIDEO_DIRECT_DEPOSIT",
-    links: {
-      en: "https://youtube.com/watch?v=aMiFT-mlphY",
-      pt: "https://youtube.com/watch?v=CsDTfTJYNzc",
-      id: "https://youtube.com/watch?v=aMiFT-mlphY",
-      hi: "https://youtube.com/watch?v=J16ETq7dYoc",
-      es: "https://youtube.com/watch?v=NAFGo4XvZi4",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.DEPOSIT_DIRECT,
-      pt: ASSETS.IMAGES.THUMBNAILS.DEPOSIT_DIRECT_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.DEPOSIT_DIRECT_ES,
-    },
-  },
-  {
-    id: "video-withdraw-flow",
-    titleKey: "VIDEO_DIRECT_WITHDRAW",
-    links: {
-      en: "https://youtube.com/watch?v=2TJAklqCuK4",
-      pt: "https://youtube.com/watch?v=XtW2MSQNeSU",
-      id: "https://youtube.com/watch?v=2TJAklqCuK4",
-      hi: "https://youtube.com/watch?v=AE4oLoSY9tk",
-      es: "https://youtube.com/watch?v=qbUQQIQK7Bc",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.WITHDRAW_DIRECT,
-      pt: ASSETS.IMAGES.THUMBNAILS.WITHDRAW_DIRECT_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.WITHDRAW_DIRECT_ES,
-    },
-  },
-  {
-    id: "video-buy-flow",
-    titleKey: "VIDEO_BUY_FLOW",
-    links: {
-      en: "https://youtube.com/watch?v=pqo7QpX6JJE",
-      pt: "https://youtube.com/watch?v=g_cxu3JHw-M",
-      id: "https://youtube.com/watch?v=pqo7QpX6JJE",
-      hi: "https://youtube.com/watch?v=LcWbk4qbNkQ",
-      es: "https://youtube.com/watch?v=012Z8AawMfs",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.PLACE_BUY_ORDER,
-      pt: ASSETS.IMAGES.THUMBNAILS.PLACE_BUY_ORDER_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.PLACE_BUY_ORDER_ES,
-    },
-  },
-  // New: Sell Flow
-  {
-    id: "video-sell-flow",
-    titleKey: "VIDEO_SELL_FLOW",
-    links: {
-      en: "https://youtube.com/watch?v=ZJfuiYenRDA",
-      pt: "https://youtube.com/watch?v=OthmzGky9Sc",
-      id: "https://youtube.com/watch?v=ZJfuiYenRDA",
-      hi: "https://youtube.com/watch?v=o33uK2h45lI",
-      es: "https://youtube.com/watch?v=qS7JnwwyPsY",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.PLACE_SELL_ORDER,
-      pt: ASSETS.IMAGES.THUMBNAILS.PLACE_SELL_ORDER_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.PLACE_SELL_ORDER_ES,
-    },
-  },
-
-  // New: Generate Referral (Shorts)
-  {
-    id: "video-generate-referral",
-    titleKey: "VIDEO_GENERATE_REFERRAL",
-    links: {
-      en: "https://youtube.com/watch?v=0WeIZ1WtJWs",
-      pt: "https://youtube.com/watch?v=ypOmALhmUwY",
-      id: "https://youtube.com/watch?v=0WeIZ1WtJWs",
-      hi: "https://youtube.com/watch?v=HCf9xcO0YX8",
-      es: "https://youtube.com/watch?v=gLjlSFZq-8w",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.GENERATE_REFERRAL_LINK,
-      pt: ASSETS.IMAGES.THUMBNAILS.GENERATE_REFERRAL_LINK_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.GENERATE_REFERRAL_LINK_ES,
-    },
-    isPortrait: true,
-  },
-  {
-    id: "video-claiming-referral",
-    titleKey: "VIDEO_CLAIM_REFERRAL",
-    links: {
-      en: "https://youtube.com/watch?v=RSY1JZ1OSyQ",
-      pt: "https://www.youtube.com/watch?v=pnLluK_-dto",
-      id: "https://youtube.com/watch?v=RSY1JZ1OSyQ",
-      hi: "https://youtube.com/watch?v=DLdLXRgrGxY",
-      es: "https://youtube.com/watch?v=bQTVPQW3FG4",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS,
-      pt: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS_ES,
-    },
-  },
-  {
-    id: "video-increase-transaction-limit",
-    titleKey: "VIDEO_INCREASE_LIMITS",
-    links: {
-      en: "https://youtube.com/watch?v=KKL2h8FCPeM",
-      pt: "https://youtube.com/watch?v=Ztn_jUmoVRQ",
-      id: "https://youtube.com/watch?v=KKL2h8FCPeM",
-      hi: "https://youtube.com/watch?v=YvcR4d4Udso",
-      es: "https://youtube.com/watch?v=ZqpX1K225hM",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.INCREASE_TRANSACTION_LIMITS,
-      pt: ASSETS.IMAGES.THUMBNAILS.INCREASE_TRANSACTION_LIMITS_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.INCREASE_TRANSACTION_LIMITS_ES,
-    },
-  },
-  {
-    id: "video-zk-verification-github",
-    titleKey: "VIDEO_GITHUB_VERIFICATION",
-    links: {
-      en: "https://www.youtube.com/watch?v=E6fE3at0sWc",
-      pt: "https://youtube.com/watch?v=2hPVQywHev8",
-      id: "https://www.youtube.com/watch?v=E6fE3at0sWc",
-      hi: "https://youtube.com/watch?v=ZwQvAHP-Aoo",
-      es: "https://youtube.com/watch?v=ahpSxeI3ZJM",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_GITHUB,
-      pt: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_GITHUB_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_GITHUB_ES,
-    },
-  },
-  {
-    id: "video-claiming-rewards-general",
-    titleKey: "VIDEO_CLAIM_REFERRAL_REWARDS",
-    links: {
-      en: "https://youtube.com/watch?v=k3M8pjxT44k",
-      pt: "https://youtube.com/watch?v=XxXBOSOgfCw",
-      id: "https://youtube.com/watch?v=k3M8pjxT44k",
-      hi: "https://youtube.com/watch?v=ezROyDVOguI",
-      es: "https://youtube.com/watch?v=uyVM-DF6lkY",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS,
-      pt: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.CLAIM_REFERRAL_REWARDS_ES,
-    },
-  },
-  {
-    id: "video-raise-dispute",
-    titleKey: "VIDEO_RAISE_DISPUTE_SHORT",
-    links: {
-      en: "https://www.youtube.com/watch?v=QRiJIF30LfA",
-      pt: "https://youtube.com/watch?v=0kPUHO_RhAA",
-      id: "https://www.youtube.com/watch?v=QRiJIF30LfA",
-      hi: "https://youtube.com/watch?v=Gb6pVXlptig",
-      es: "https://youtube.com/watch?v=9crU4FW6a84",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.RAISE_DISPUTE_ON_ORDER,
-      pt: ASSETS.IMAGES.THUMBNAILS.RAISE_DISPUTE_ON_ORDER_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.RAISE_DISPUTE_ON_ORDER_ES,
-    },
-  },
-  {
-    id: "video-deposit-flow-detailed",
-    titleKey: "VIDEO_CROSSCHAIN_DEPOSIT",
-    links: {
-      en: "https://youtu.be/wNNuaN4elCU",
-      pt: "https://youtube.com/watch?v=o9pkLE2rkJ4",
-      id: "https://youtu.be/wNNuaN4elCU",
-      hi: "https://youtu.be/l60Mqy2DuJE",
-      es: "https://youtube.com/watch?v=2d82Tgm0Mes",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_DEPOSIT,
-      pt: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_DEPOSIT_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_DEPOSIT_ES,
-    },
-  },
-  {
-    id: "video-withdraw-flow-detailed",
-    titleKey: "VIDEO_CROSSCHAIN_WITHDRAW",
-    links: {
-      en: "https://youtube.com/watch?v=xmzIlZN_Jco",
-      pt: "https://youtube.com/watch?v=n0e9V7rsg6Q",
-      id: "https://youtube.com/watch?v=xmzIlZN_Jco",
-      hi: "https://youtu.be/TsNqTZbpZcw",
-      es: "https://youtube.com/watch?v=ROjtY5mv2jY",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_WITHDRAWAL,
-      pt: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_WITHDRAWAL_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.CROSS_CHAIN_WITHDRAWAL_ES,
-    },
-  },
-  {
-    id: "video-rango-support-ticket",
-    titleKey: "VIDEO_RANGO_SUPPORT",
-    links: {
-      en: "https://youtu.be/rB5QSTBsTMw",
-      pt: "https://youtube.com/watch?v=aUtYYsq-aFI",
-      id: "https://youtu.be/rB5QSTBsTMw",
-      hi: "https://youtu.be/UGVRs50fm5E",
-      es: "https://youtube.com/watch?v=xegoaxZXP5Y",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.RAISE_RANGO_SUPPORT_TICKET,
-      pt: ASSETS.IMAGES.THUMBNAILS.RAISE_RANGO_SUPPORT_TICKET_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.RAISE_RANGO_SUPPORT_TICKET_ES,
-    },
-  },
-  // New: Scan & Pay
-  {
-    id: "video-scan-and-pay",
-    titleKey: "VIDEO_SCAN_AND_PAY",
-    links: {
-      en: "https://youtube.com/watch?v=di9MwYjvSBA",
-      pt: "https://youtube.com/watch?v=KmE7sNS33gk",
-      id: "https://youtube.com/watch?v=di9MwYjvSBA",
-      hi: "https://youtube.com/watch?v=ijUXtSDhIm8",
-      es: "https://youtube.com/watch?v=IKVSayI8EI8",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.SCAN_AND_PAY_ORDER,
-      pt: ASSETS.IMAGES.THUMBNAILS.SCAN_AND_PAY_ORDER_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.SCAN_AND_PAY_ORDER_ES,
-    },
-  },
-  // New: Instagram verification
-  {
-    id: "video-zk-verification-instagram",
-    titleKey: "VIDEO_INSTAGRAM_VERIFICATION",
-    links: {
-      en: "https://youtube.com/watch?v=RKnWHbm8xgw",
-      pt: "https://youtube.com/watch?v=FRRmW1scOm4",
-      id: "https://youtube.com/watch?v=RKnWHbm8xgw",
-      hi: "https://youtube.com/watch?v=Q4TeHpzTlB0",
-      es: "https://youtube.com/watch?v=PGHplZMtgAI",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_INSTAGRAM,
-      pt: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_INSTAGRAM_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_INSTAGRAM_ES,
-    },
-  },
-  // New: LinkedIn verification
-  {
-    id: "video-zk-verification-linkedin",
-    titleKey: "VIDEO_LINKEDIN_VERIFICATION",
-    links: {
-      en: "https://youtube.com/watch?v=OH6oCeLxxAA",
-      pt: "https://youtube.com/watch?v=I5J0Te7UZ2o",
-      id: "https://youtube.com/watch?v=OH6oCeLxxAA",
-      hi: "https://youtube.com/watch?v=0lV4hGSs-e8",
-      es: "https://youtube.com/watch?v=_l-E7NWgZRA",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_LINKEDIN,
-      pt: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_LINKEDIN_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.ZK_VERIFY_LINKEDIN_ES,
-    },
-  },
-  // New: Funds Recovery
-  {
-    id: "video-funds-recovery",
-    titleKey: "VIDEO_FUNDS_RECOVERY",
-    links: {
-      en: "https://www.youtube.com/watch?v=jyDLUi9tc3Y",
-      pt: "https://youtube.com/watch?v=qWd9DaQbpaE",
-      id: "https://www.youtube.com/watch?v=jyDLUi9tc3Y",
-      hi: "https://youtube.com/watch?v=MYbRQ0tHLgo",
-      es: "https://youtube.com/watch?v=vWzUnuo4NV4",
-    },
-    thumbnails: {
-      en: ASSETS.IMAGES.THUMBNAILS.RECOVER_UNSUPPORTED_TOKEN_DEPOSIT,
-      pt: ASSETS.IMAGES.THUMBNAILS.RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_PT,
-      es: ASSETS.IMAGES.THUMBNAILS.RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_ES,
-    },
-  },
-];
-
 export const getFAQById = (id: string): FAQ | undefined => {
   return ALL_FAQS.find((faq) => faq.id === id);
 };
@@ -905,25 +555,6 @@ export const getFAQsByIds = (ids: string[]): FAQ[] => {
 
 export const getSupportPageFAQs = (pageTitle: SupportPageTitle): FAQ[] => {
   return getFAQsByIds(SUPPORT_PAGE_CONTENT[pageTitle].faqIds);
-};
-
-export const getVideoGuideById = (id: string): VideoGuide | undefined => {
-  return ALL_VIDEO_GUIDES.find((video) => video.id === id);
-};
-
-export const getVideoGuidesByIds = (ids: string[]): VideoGuide[] => {
-  return ids
-    .map((id) => getVideoGuideById(id))
-    .filter((video): video is VideoGuide => video !== undefined);
-};
-
-export const getSupportPageVideoGuides = (
-  pageTitle: SupportPageTitle,
-): VideoGuide[] => {
-  if (pageTitle === SUPPORT_PAGE_TITLES.GENERAL) {
-    return ALL_VIDEO_GUIDES;
-  }
-  return getVideoGuidesByIds(SUPPORT_PAGE_CONTENT[pageTitle].videoGuideIds);
 };
 
 export const getPageFAQs = (pageKey: keyof typeof FAQ_ON_PAGES): FAQ[] => {
