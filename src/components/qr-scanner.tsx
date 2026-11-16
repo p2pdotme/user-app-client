@@ -9,7 +9,9 @@ import {
 import QrScannerLib from "qr-scanner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { useSounds } from "@/hooks";
+import { analytics, EVENTS } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -38,22 +40,60 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
 }
 
+type CameraErrorType =
+  | "permission_denied"
+  | "not_found"
+  | "timeout"
+  | "interrupted"
+  | "unknown";
+
+/** Classifies getUserMedia / qr-scanner start failures into actionable buckets. */
+function classifyCameraError(error: unknown): CameraErrorType {
+  const name =
+    error && typeof error === "object" && "name" in error
+      ? String((error as { name?: unknown }).name)
+      : "";
+  const message =
+    error instanceof Error
+      ? error.message
+      : typeof error === "string"
+        ? error
+        : "";
+  if (name === "NotAllowedError" || name === "SecurityError") {
+    return "permission_denied";
+  }
+  if (
+    name === "NotFoundError" ||
+    name === "OverconstrainedError" ||
+    /camera not found/i.test(message)
+  ) {
+    return "not_found";
+  }
+  if (/timed out/i.test(message)) return "timeout";
+  return "unknown";
+}
+
 interface QrScannerProps {
   onScan: (data: string) => void;
   className?: string;
   isProcessing?: boolean;
   processingMessage?: string;
+  /** Where the scanner is used; attached to analytics events. */
+  analyticsLocation?: string;
 }
 
 export function QrScanner({
   onScan,
   className,
   isProcessing = false,
-  processingMessage = "Processing...",
+  processingMessage,
+  analyticsLocation = "unknown",
 }: QrScannerProps) {
   const { t } = useTranslation();
   const [hasCamera, setHasCamera] = useState(false);
   const [cameraError, setCameraError] = useState("");
+  const [cameraErrorType, setCameraErrorType] =
+    useState<CameraErrorType | null>(null);
   const [isFlashOn, setIsFlashOn] = useState(false);
   const [hasFlashSupport, setHasFlashSupport] = useState(false);
   const [canScan, setCanScan] = useState(true);
@@ -120,11 +160,18 @@ export function QrScanner({
         handleScanResult(result.data);
       } catch (error) {
         console.error("Error scanning uploaded file:", error);
+        analytics.track(EVENTS.FEATURE, {
+          status: "qr_upload_failed",
+          location: analyticsLocation,
+        });
+        toast.error(t("PAYF_QR_UPLOAD_UNREADABLE"), {
+          description: t("PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION"),
+        });
       }
 
       event.target.value = "";
     },
-    [handleScanResult],
+    [handleScanResult, analyticsLocation, t],
   );
 
   // Flash toggle functionality
@@ -193,6 +240,7 @@ export function QrScanner({
 
       // Reset error state
       setCameraError("");
+      setCameraErrorType(null);
       setHasCamera(false);
 
       const scanner = new QrScannerLib(
@@ -238,6 +286,7 @@ export function QrScanner({
           videoTrack.onended = () => {
             console.warn("Camera track ended unexpectedly");
             setCameraError(t("CAMERA_ACCESS_FAILED"));
+            setCameraErrorType("interrupted");
             setHasCamera(false);
           };
 
@@ -265,7 +314,22 @@ export function QrScanner({
       }
     } catch (error) {
       console.error("Camera failed:", error);
-      setCameraError(t("CAMERA_ACCESS_FAILED"));
+      const type = classifyCameraError(error);
+      analytics.track(EVENTS.FEATURE, {
+        status: "camera_error",
+        location: analyticsLocation,
+        type,
+      });
+      setCameraError(
+        type === "permission_denied"
+          ? t("CAMERA_ACCESS_DENIED")
+          : type === "not_found"
+            ? t("CAMERA_NOT_FOUND")
+            : type === "timeout"
+              ? t("PAYF_CAMERA_START_TIMEOUT")
+              : t("CAMERA_ACCESS_FAILED"),
+      );
+      setCameraErrorType(type);
       setHasCamera(false);
     } finally {
       isInitializingRef.current = false;
@@ -274,12 +338,24 @@ export function QrScanner({
         void initScanner();
       }
     }
-  }, [handleScanResult, cleanupScanner, t, cameraError, hasCamera]);
+  }, [
+    handleScanResult,
+    cleanupScanner,
+    t,
+    cameraError,
+    hasCamera,
+    analyticsLocation,
+  ]);
 
   // Initialize scanner on mount
   // biome-ignore lint: Only run once on mount, dependencies are intentionally omitted
   useEffect(() => {
     if (!videoRef.current) return;
+
+    analytics.track(EVENTS.FEATURE, {
+      status: "scanner_opened",
+      location: analyticsLocation,
+    });
 
     initScanner();
 
@@ -395,12 +471,34 @@ export function QrScanner({
                 <Camera className="h-8 w-8" />
               )}
             </div>
-            <div className="space-y-2 text-center">
+            <div className="space-y-2 px-4 text-center">
               <p className="font-medium text-foreground">
-                {cameraError || "Starting camera..."}
+                {cameraError || t("PAYF_STARTING_CAMERA")}
               </p>
+              {cameraErrorType === "permission_denied" && (
+                <p className="text-muted-foreground text-xs">
+                  {t("PAYF_CAMERA_PERMISSION_DENIED_HELP")}
+                </p>
+              )}
+              {cameraErrorType === "not_found" && (
+                <p className="text-muted-foreground text-xs">
+                  {t("CAMERA_NOT_FOUND_DESCRIPTION")}
+                </p>
+              )}
+              {cameraErrorType === "timeout" && (
+                <p className="text-muted-foreground text-xs">
+                  {t("PAYF_CAMERA_START_TIMEOUT_DESCRIPTION")}
+                </p>
+              )}
+              {cameraError &&
+                cameraErrorType !== "timeout" &&
+                cameraErrorType !== "interrupted" && (
+                  <p className="text-muted-foreground text-xs">
+                    {t("PAYF_CAMERA_USE_UPLOAD_INSTEAD")}
+                  </p>
+                )}
             </div>
-            {cameraError && (
+            {cameraError && cameraErrorType !== "not_found" && (
               <Button variant="outline" size="sm" onClick={() => initScanner()}>
                 <RefreshCw className="h-4 w-4" />
                 {t("RETRY")}
@@ -415,7 +513,7 @@ export function QrScanner({
             <div className="flex flex-col items-center gap-3 text-center">
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
               <p className="font-medium text-foreground text-sm">
-                {processingMessage}
+                {processingMessage ?? t("PROCESSING")}
               </p>
             </div>
           </div>
