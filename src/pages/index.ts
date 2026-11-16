@@ -6,7 +6,6 @@ export * from "./homescreen";
 export * from "./limits";
 export * from "./login";
 export * from "./maintenance";
-export * from "./notification";
 export * from "./order";
 export * from "./pay";
 export * from "./referral";

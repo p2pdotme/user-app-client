@@ -15,6 +15,7 @@ import {
   RANGO_ALL_CHAINS_SET,
 } from "@/core/rango/config";
 import { useRangoFetch, useRangoQuote, useUSDCBalance } from "@/hooks";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { truncateAmount } from "@/lib/utils";
 import type { DepositState } from "./shared";
 
@@ -273,7 +274,7 @@ export function FromToCards({ depositState }: FromToCardsProps) {
                     .catch((error) => {
                       console.error("Failed to switch network:", error);
                       toast.error(t("FAILED_TO_SWITCH_NETWORK"), {
-                        description: error.message,
+                        description: getUserFacingErrorMessage(t, error),
                       });
                     });
                 }
