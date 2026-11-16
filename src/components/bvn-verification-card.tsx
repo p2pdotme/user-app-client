@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { StatusCheckFailedAction } from "@/components/status-check-failed-action";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -36,6 +37,10 @@ import {
   useBvnRpReward,
   useBvnVerificationStatus,
 } from "@/hooks/use-tx-limits";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 
 /** Icon shown next to each OTP delivery channel. */
 const OTP_METHOD_ICONS: Record<string, typeof Mail> = {
@@ -45,16 +50,28 @@ const OTP_METHOD_ICONS: Record<string, typeof Mail> = {
   alternate_phone: Smartphone,
 };
 
+/** Translation keys for the OTP channels the backend reports. */
+const OTP_METHOD_LABEL_KEYS: Record<string, string> = {
+  email: "VFX_BVN_OTP_METHOD_EMAIL",
+  phone: "VFX_BVN_OTP_METHOD_PHONE",
+  phone_1: "VFX_BVN_OTP_METHOD_PHONE_1",
+  alternate_phone: "VFX_BVN_OTP_METHOD_ALTERNATE_PHONE",
+};
+
 /** Card footer button reflecting the current on-chain verification state. */
 function BvnCardAction({
   hasAccount,
   isStatusLoading,
   isVerified,
+  statusError,
+  onRetryStatus,
   onGetVerified,
 }: {
   hasAccount: boolean;
   isStatusLoading: boolean;
   isVerified: boolean | undefined;
+  statusError: boolean;
+  onRetryStatus: () => void;
   onGetVerified: () => void;
 }) {
   const { t } = useTranslation();
@@ -83,6 +100,11 @@ function BvnCardAction({
     return <VerifiedButton />;
   }
 
+  // Unknown status must not read as "unverified".
+  if (statusError) {
+    return <StatusCheckFailedAction onRetry={onRetryStatus} />;
+  }
+
   return (
     <Button variant="outline" className={ROW_BTN} onClick={onGetVerified}>
       {t("GET_VERIFIED")}
@@ -95,12 +117,16 @@ function BvnCard({
   hasAccount,
   isStatusLoading,
   isVerified,
+  statusError,
+  onRetryStatus,
   limit,
   onGetVerified,
 }: {
   hasAccount: boolean;
   isStatusLoading: boolean;
   isVerified: boolean | undefined;
+  statusError: boolean;
+  onRetryStatus: () => void;
   limit: number;
   onGetVerified: () => void;
 }) {
@@ -117,6 +143,8 @@ function BvnCard({
           hasAccount={hasAccount}
           isStatusLoading={isStatusLoading}
           isVerified={isVerified}
+          statusError={statusError}
+          onRetryStatus={onRetryStatus}
           onGetVerified={onGetVerified}
         />
       }
@@ -179,7 +207,9 @@ function OtpMethodButton({
   disabled: boolean;
   onSelect: () => void;
 }) {
+  const { t } = useTranslation();
   const Icon = OTP_METHOD_ICONS[method] ?? Smartphone;
+  const labelKey = OTP_METHOD_LABEL_KEYS[method];
 
   return (
     <button
@@ -191,8 +221,8 @@ function OtpMethodButton({
         <Icon className="size-5 text-primary" />
       </div>
       <div className="flex min-w-0 flex-col">
-        <span className="font-medium text-sm capitalize">
-          {method.replace(/_/g, " ")}
+        <span className="font-medium text-sm">
+          {t(labelKey ?? "VFX_BVN_OTP_METHOD_OTHER")}
         </span>
         {hint && <span className="text-muted-foreground text-sm">{hint}</span>}
       </div>
@@ -262,11 +292,15 @@ function BvnStepOtp({
   onOtpChange,
   onConfirm,
   isConfirming,
+  onResend,
+  isResending,
 }: {
   otp: string;
   onOtpChange: (value: string) => void;
   onConfirm: () => void;
   isConfirming: boolean;
+  onResend?: () => void;
+  isResending: boolean;
 }) {
   const { t } = useTranslation();
 
@@ -295,6 +329,16 @@ function BvnStepOtp({
           t("CONFIRM")
         )}
       </Button>
+      {onResend && (
+        <Button
+          variant="ghost"
+          className="w-full"
+          disabled={isConfirming || isResending}
+          onClick={onResend}>
+          {isResending ? <Loader2 className="size-4 animate-spin" /> : null}
+          {t("VFX_RESEND_CODE")}
+        </Button>
+      )}
     </>
   );
 }
@@ -325,8 +369,12 @@ export function BvnVerificationCard() {
   const { settings } = useSettings();
   const prices = usePrices();
   const [open, setOpen] = useState(false);
-  const { isBvnVerified, isBvnStatusLoading, refetchBvnStatus } =
-    useBvnVerificationStatus();
+  const {
+    isBvnVerified,
+    isBvnStatusLoading,
+    isBvnStatusError,
+    refetchBvnStatus,
+  } = useBvnVerificationStatus();
   const { bvnRp, isBvnRpLoading, isBvnRpError } = useBvnRpReward();
 
   const { data: rpPerUsdtLimit } = useQuery({
@@ -364,12 +412,30 @@ export function BvnVerificationCard() {
   const [bvn, setBvn] = useState("");
   const [otp, setOtp] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  // The channel the current code went to, so "Resend code" can reuse it.
+  const [otpRequest, setOtpRequest] = useState<{
+    method: BvnOtpMethod;
+    phoneNumber?: string;
+  } | null>(null);
+
+  // Raw backend / RPC reasons are never shown; map to a plain sentence.
+  const showBvnError = (error: unknown) => {
+    if (isUserCancellation(error)) return;
+    toast.error(t("BVN_VERIFICATION_FAILED"), {
+      description: getUserFacingErrorMessage(
+        t,
+        error,
+        "LIM_VERIFICATION_FAILED_DESCRIPTION",
+      ),
+    });
+  };
 
   const closeDrawer = () => {
     setOpen(false);
     setBvn("");
     setOtp("");
     setPhoneNumber("");
+    setOtpRequest(null);
     reset();
   };
 
@@ -377,9 +443,7 @@ export function BvnVerificationCard() {
     try {
       await start(bvn);
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED"),
-      );
+      showBvnError(error);
     }
   };
 
@@ -388,15 +452,30 @@ export function BvnVerificationCard() {
       toast.error(t("BVN_ENTER_PHONE_NUMBER"));
       return;
     }
+    const request = {
+      method: method as BvnOtpMethod,
+      phoneNumber: phoneNumber.trim() || undefined,
+    };
     try {
-      await sendOtp({
-        method: method as BvnOtpMethod,
-        phoneNumber: phoneNumber.trim() || undefined,
-      });
+      const sent = await sendOtp(request);
+      if (!sent) {
+        toast.error(t("VFX_BVN_OTP_NOT_SENT"));
+        return;
+      }
+      setOtpRequest(request);
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED"),
-      );
+      showBvnError(error);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (!otpRequest) return;
+    try {
+      const sent = await sendOtp(otpRequest);
+      if (sent) toast.success(t("VFX_CODE_RESENT"));
+      else toast.error(t("VFX_BVN_OTP_NOT_SENT"));
+    } catch (error) {
+      showBvnError(error);
     }
   };
 
@@ -406,12 +485,12 @@ export function BvnVerificationCard() {
       toast.success(t("BVN_VERIFIED"));
       await refetchBvnStatus();
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : t("BVN_VERIFICATION_FAILED");
       // The backend rejects a re-used BVN with reason "bvn_reused".
-      toast.error(
-        message === "bvn_reused" ? t("BVN_ALREADY_VERIFIED") : message,
-      );
+      if (error instanceof Error && error.message === "bvn_reused") {
+        toast.error(t("BVN_ALREADY_VERIFIED"));
+        return;
+      }
+      showBvnError(error);
     }
   };
 
@@ -421,6 +500,8 @@ export function BvnVerificationCard() {
         hasAccount={!!account?.address}
         isStatusLoading={isBvnStatusLoading}
         isVerified={isBvnVerified}
+        statusError={isBvnStatusError}
+        onRetryStatus={() => void refetchBvnStatus()}
         limit={limit}
         onGetVerified={() => setOpen(true)}
       />
@@ -466,6 +547,8 @@ export function BvnVerificationCard() {
                   onOtpChange={setOtp}
                   onConfirm={handleConfirm}
                   isConfirming={isConfirming}
+                  onResend={otpRequest ? handleResendOtp : undefined}
+                  isResending={isSendingOtp}
                 />
               )}
 
