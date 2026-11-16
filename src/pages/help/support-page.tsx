@@ -1,22 +1,10 @@
 import { useTranslation } from "react-i18next";
-import {
-  FAQAccordion,
-  NonHomeHeader,
-  SectionHeader,
-  useYouTubeVideoDialog,
-  YouTubeVideoDialog,
-} from "@/components";
+import { FAQAccordion, NonHomeHeader, SectionHeader } from "@/components";
 import { useAnalytics, usePageMeta, useSupportChat } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { ChatButton } from "./components/chat-button";
-import { VideoGuideBanner } from "./components/video-guide-banner";
-import { VideoGuideCard } from "./components/video-guide-card";
-import {
-  getSupportPageFAQs,
-  getSupportPageVideoGuides,
-  type SupportPageTitle,
-} from "./constants";
+import { getSupportPageFAQs, type SupportPageTitle } from "./constants";
 
 export function SupportPage({ title }: { title: string }) {
   const { t } = useTranslation();
@@ -27,15 +15,6 @@ export function SupportPage({ title }: { title: string }) {
   const { track } = useAnalytics();
   const { openSupportChat } = useSupportChat();
   const faqs = getSupportPageFAQs(title as SupportPageTitle);
-  const videoGuides = getSupportPageVideoGuides(title as SupportPageTitle);
-  const {
-    isOpen,
-    videoUrl,
-    title: videoTitle,
-    isPortrait,
-    openVideo,
-    closeVideo,
-  } = useYouTubeVideoDialog();
 
   return (
     <>
@@ -46,29 +25,6 @@ export function SupportPage({ title }: { title: string }) {
             <h3 className="font-medium text-lg">
               {t(title.toUpperCase().replace(/-/g, "_"))}
             </h3>
-            {title === "getting-started" && (
-              <div className="my-4 w-full">
-                <VideoGuideBanner onVideoOpen={openVideo} />
-              </div>
-            )}
-          </section>
-
-          <section className="flex w-full flex-col justify-between gap-4">
-            <SectionHeader
-              title={t("HELPFUL_VIDEO_GUIDES")}
-              seeAllLink={INTERNAL_HREFS.HELP_HELPFUL_VIDEO_GUIDES}
-            />
-
-            <div className="no-scrollbar flex w-full gap-4 overflow-x-auto pb-4">
-              {videoGuides.map((guide) => (
-                <VideoGuideCard
-                  key={guide.id}
-                  {...guide}
-                  className="min-w-[160px]"
-                  onVideoOpen={openVideo}
-                />
-              ))}
-            </div>
           </section>
 
           <section className="flex w-full flex-col justify-between gap-4 py-4">
@@ -98,14 +54,6 @@ export function SupportPage({ title }: { title: string }) {
           />
         </section>
       </main>
-
-      <YouTubeVideoDialog
-        isOpen={isOpen}
-        onClose={closeVideo}
-        videoUrl={videoUrl}
-        title={videoTitle}
-        isPortrait={isPortrait}
-      />
     </>
   );
 }

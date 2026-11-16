@@ -27,13 +27,8 @@ import { PerpsBanner } from "@/pages/help/components/perps-banner";
 import { PrizerailBanner } from "@/pages/help/components/prizerail-banner";
 import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
-import { VideoGuideBanner } from "@/pages/help/components/video-guide-banner";
 
-export function Banner({
-  openVideo,
-}: {
-  openVideo: (url: string, title: string) => void;
-}) {
+export function Banner() {
   const { t } = useTranslation();
   const { track } = useAnalytics();
   const [api, setApi] = useState<CarouselApi>();
@@ -214,11 +209,6 @@ export function Banner({
               </BannerItem>
             </CarouselItem>
           )}
-
-          {/* Video Guide Banner */}
-          <CarouselItem>
-            <VideoGuideBanner onVideoOpen={openVideo} />
-          </CarouselItem>
         </CarouselContent>
       </Carousel>
       <div className="mt-3 flex items-center justify-center gap-2 px-4">
