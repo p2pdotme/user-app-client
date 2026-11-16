@@ -171,6 +171,51 @@ export const pt = {
     BUY_SELL_USDC_WITHIN_SECONDS: "Compre/venda USDC em segundos",
     BUY_USDC: "Comprar USDC",
     BUY_USDC_FAQS: "FAQs sobre compra de USDC",
+    BUY_UX_ALREADY_PAID_DESCRIPTION:
+      "Abra uma disputa pela Ajuda — ela fica disponível {{minutes}} min depois que você criou o pedido.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "Já paguei — pedir ajuda",
+    BUY_UX_ALREADY_PAID_TITLE: "Já pagou?",
+    BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
+      "Não foi possível carregar o valor — toque para tentar de novo",
+    BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
+      "O prazo de pagamento terminou antes de o pagamento ser confirmado.",
+    BUY_UX_CANCEL_ALREADY_PAID_WARNING:
+      "Não cancele se você já enviou o dinheiro — peça ajuda.",
+    BUY_UX_DECRYPT_FAILED_DESCRIPTION:
+      "Não envie dinheiro ainda. Tente de novo ou fale com o suporte se isso continuar acontecendo.",
+    BUY_UX_DECRYPT_FAILED_TITLE:
+      "Não conseguimos carregar os dados de pagamento",
+    BUY_UX_EXCHANGE_RATE: "1 USDC ≈ {{rate}}",
+    BUY_UX_FRAUD_REJECTED_NEXT_STEP:
+      "Concluir mais verificações pode remover essa restrição. Se você acha que é um erro, fale com a Ajuda.",
+    BUY_UX_FRAUD_REJECTED_TITLE: "Não é possível criar este pedido agora",
+    BUY_UX_GET_HELP: "Pedir ajuda",
+    BUY_UX_HOW_TO_PAY: "Como pagar",
+    BUY_UX_MIN_AMOUNT_REASON:
+      "Informe mais de {{min}} USDC. Pedidos menores não cobrem a taxa fixa.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "Não conseguimos abri-lo automaticamente. Você vai encontrá-lo em Transações, então não crie o pedido de novo.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_TITLE: "Seu pedido foi criado",
+    BUY_UX_PAYMENT_WINDOW_ENDED_DESCRIPTION:
+      "Não envie dinheiro para este pedido agora. Se você já pagou, peça ajuda e vamos resolver.",
+    BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "O prazo de pagamento terminou",
+    BUY_UX_PAY_IN_UPI_APP: "Pague {{amount}} no seu app de UPI",
+    BUY_UX_PLACED_CAN_LEAVE:
+      "Isso costuma levar de 20 a 90 segundos. Você pode sair desta página — seu pedido fica salvo em Transações.",
+    BUY_UX_PLACED_TIMEOUT_INFO:
+      "Se nenhum comerciante aceitar em 3 minutos, o pedido é cancelado automaticamente. Você ainda não pagou nada.",
+    BUY_UX_PLACE_ORDER: "Criar pedido",
+    BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION:
+      "Seu pedido não foi criado e nada foi cobrado. Tente novamente.",
+    BUY_UX_PROCESSING_TIME_UNAVAILABLE: "Indisponível no momento",
+    BUY_UX_STEP_CONFIRM: 'Depois toque em "Já fiz o pagamento".',
+    BUY_UX_STEP_EXACT_AMOUNT: "Pague o valor exato: {{amount}}.",
+    BUY_UX_STEP_NO_CRYPTO_REMARKS:
+      "Não mencione cripto, USDC nem P2P.me na descrição do pagamento.",
+    BUY_UX_STEP_OWN_ACCOUNT: "Pague com uma conta no seu próprio nome.",
+    BUY_UX_TIMER_LOAD_FAILED:
+      "Não conseguimos carregar o cronômetro de pagamento. Conclua seu pagamento logo.",
+    BUY_UX_VERIFY_TO_CONTINUE: "Concluir verificação",
     BUY_VOLUME: "Volume de compra",
     BVN_ALREADY_VERIFIED: "BVN já verificado",
     BVN_ALTERNATE_PHONE_PLACEHOLDER: "Número de telefone alternativo",
@@ -239,6 +284,7 @@ export const pt = {
     CLAIM_ACCESS: "Liberar acesso",
     CLAIM_MONTHLY_REWARD: "Resgatar recompensa",
     CLAIM_REWARD: "Resgatar recompensa",
+    CLEAR: "Limpar",
     CLOSE: "Fechar",
     COINSME_BANNER_ALT: "coins.me",
     COINSME_BANNER_BITCOIN_SIPS: "Aportes recorrentes em Bitcoin.",
@@ -268,6 +314,21 @@ export const pt = {
     CONNECTION_STATUS: "Status da conexão",
     CONNECT_ANY_SERVER_REFRESH: "Conecte-se a qualquer servidor e atualize",
     CONNECT_WALLET_FIRST: "Conecte uma carteira primeiro",
+    CONN_CHECKING: "Verificando sua conexão…",
+    CONN_CHECK_AGAIN: "Verificar de novo",
+    CONN_DEGRADED_DESCRIPTION:
+      "Sua internet está funcionando, mas o P2P.me não consegue acessar os serviços abaixo. Isso costuma acontecer quando sua rede ou operadora de internet os bloqueia. Seus fundos estão seguros.",
+    CONN_DEGRADED_TITLE: "Alguns serviços do P2P.me estão inacessíveis",
+    CONN_FIXES_TITLE: "Tente estas soluções",
+    CONN_OFFLINE_DESCRIPTION:
+      "Seu dispositivo não está conectado à internet. Reconecte ao Wi‑Fi ou aos dados móveis e tente novamente. Seus fundos estão seguros.",
+    CONN_OFFLINE_TITLE: "Você está offline",
+    CONN_SERVICE_APP: "Servidores do P2P.me",
+    CONN_SERVICE_BLOCKCHAIN: "Blockchain (rede Base e contratos)",
+    CONN_SERVICE_ORDERS: "Histórico de pedidos e dados de comerciantes",
+    CONN_STATE_DOWN: "Inacessível",
+    CONN_STATE_OK: "Acessível",
+    CONTACT_SUPPORT: "Falar com o suporte",
     CONTINUE: "Continuar",
     CONTINUE_TO_VERIFICATION: "Continuar para a verificação",
     CONTINUE_VERIFICATION_FOR_PLATFORM:
@@ -311,6 +372,7 @@ export const pt = {
       "Deposite USDC na Base a partir das redes compatíveis",
     DETAILS_SENT: "Detalhes enviados",
     DEV_TOASTS_ACTIONS: "Ações",
+    DEV_TOASTS_ACTION_BUTTON: "Ação",
     DEV_TOASTS_BASIC: "Variantes Básicas",
     DEV_TOASTS_BTN_ERROR: "Erro",
     DEV_TOASTS_BTN_INFO: "Info",
@@ -321,6 +383,7 @@ export const pt = {
     DEV_TOASTS_DEFAULT_WITH_DESC: "Padrão + Desc",
     DEV_TOASTS_ERROR_WITH_DESC: "Erro + Desc",
     DEV_TOASTS_FAILED: "Falhou",
+    DEV_TOASTS_FYI_OPTIONAL_SUBTITLE: "Subtítulo opcional",
     DEV_TOASTS_HEADS_UP: "Atenção",
     DEV_TOASTS_INFO_WITH_DESC: "Info + Desc",
     DEV_TOASTS_INSUFFICIENT_FUNDS: "Fundos insuficientes",
@@ -449,6 +512,10 @@ export const pt = {
     DOWNLOAD_CONFIRMATION_TITLE: "Baixar transações",
     DROP_A_QUICK_RATING: "Deixe uma avaliação rápida!",
     DUPLICATE_PAYMENT_CHANNEL: "Canal de pagamento duplicado",
+    DURATION_DAY: "{{count}} dia",
+    DURATION_DAYS: "{{count}} dias",
+    DURATION_HOUR: "{{count}} hora",
+    DURATION_HOURS: "{{count}} horas",
     DYNAMIC_QR_EXPIRES_QUICKLY: "O QR dinâmico expira rápido",
     EARN_REFERRAL_BONUS: "Ganhe {{referralRewardPercentage}}% do volume deles",
     ECOSYSTEM_CARD_SUBTITLE:
@@ -471,6 +538,8 @@ export const pt = {
     ENTER_TIP_AMOUNT: "Digite o valor da gorjeta (USDC)",
     ENTER_WALLET_NAME: "Digite o nome da carteira",
     ERROR: "Erro",
+    ERROR_ALREADY_VERIFIED_DESCRIPTION:
+      "Esta conta já foi verificada, nesta carteira ou em outra. Cada conta só pode aumentar o limite de uma carteira, então tentar de novo não vai adiantar. Tente outro método.",
     ERROR_BOUNDARY_COPIED: "Erro copiado",
     ERROR_BOUNDARY_COPY: "Copiar erro",
     ERROR_BOUNDARY_DESCRIPTION:
@@ -479,10 +548,21 @@ export const pt = {
     ERROR_BOUNDARY_TITLE: "Algo deu errado",
     ERROR_FETCHING_LIMITS: "Erro ao buscar limites",
     ERROR_FETCHING_PRICE: "Erro ao buscar preço",
+    ERROR_GENERIC_DESCRIPTION:
+      "Algo deu errado. Tente novamente. Se continuar acontecendo, fale com o suporte.",
+    ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
+      "Você não tem USDC suficiente para isso. Adicione fundos e tente novamente.",
     ERROR_LOADING_DATA: "Erro ao carregar dados",
     ERROR_LOADING_PROGRESS: "Erro ao carregar progresso",
     ERROR_LOADING_TASK_LEDGER: "Erro ao carregar o histórico de tarefas",
     ERROR_LOADING_TRANSACTIONS: "Erro ao carregar transações",
+    ERROR_NETWORK_DESCRIPTION:
+      "Problema de conexão. Verifique sua internet e tente novamente.",
+    ERROR_TIMEOUT_DESCRIPTION: "Isso está demorando demais. Tente novamente.",
+    ERROR_TRANSACTION_REVERTED_DESCRIPTION:
+      "A transação não foi concluída e nenhum valor foi movimentado. Tente novamente.",
+    ERROR_USER_CANCELLED_DESCRIPTION:
+      "Você cancelou a solicitação. Nada foi alterado.",
     ESTIMATED_TIME: "Tempo estimado",
     EXCHANGE_NOT_OPERATIONAL: "Câmbio indisponível no momento",
     EXPIRED: "Expirado",
@@ -919,6 +999,39 @@ export const pt = {
     LIMIT_CARD_MAX_USDC: "Máx. {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / pedido",
     LIMIT_UPDATES: "Atualizações de limite",
+    LIMR_CONTINUE: "Voltar ao pedido de {{flow}}",
+    LIMR_CURRENT_LIMIT: "Seu limite: {{limit}} USDC por pedido",
+    LIMR_DISMISS: "Dispensar",
+    LIMR_FLOW_BUY: "compra",
+    LIMR_FLOW_PAY: "pagamento",
+    LIMR_FLOW_SELL: "venda",
+    LIMR_MAX_FOR_MARKET: "Máximo para o seu mercado",
+    LIMR_ORDER_FITS: "Seu limite agora cobre este pedido.",
+    LIMR_ORDER_STILL_ABOVE:
+      "Este pedido ainda está acima do seu limite. Verifique outro método ou continue e diminua o valor.",
+    LIMR_TITLE: "Continue seu pedido de {{flow}}",
+    LIMR_TITLE_WITH_AMOUNT: "Continue seu pedido de {{flow}} de {{amount}}",
+    LIMR_UPDATING_LIMIT: "Atualizando seu limite…",
+    LIM_KYC_FAILED_TITLE: "A verificação do passaporte não foi concluída",
+    LIM_LIVENESS_FAILED_TITLE: "A prova de vida não foi concluída",
+    LIM_METHOD_BADGE_TAKES_MINUTES: "Leva 3-5 min",
+    LIM_METHOD_DONE: "Concluído: já está aumentando seus limites",
+    LIM_METHOD_GAIN: "Adiciona +{{amount}} USDC ao seu limite por pedido",
+    LIM_METHOD_GAIN_GENERIC: "Aumenta seu limite por pedido",
+    LIM_METHOD_GAIN_PER_ACCOUNT:
+      "Até +{{amount}} USDC por pedido para cada conta",
+    LIM_METHOD_GAIN_STAKE: "Quanto mais stake, maiores os seus limites",
+    LIM_METHOD_UNAVAILABLE_BADGE: "Ainda não disponível na sua região",
+    LIM_METHOD_ZK_DESCRIPTION:
+      "Comprove que você é dono de uma conta como X, LinkedIn ou GitHub. A verificação é privada: nunca vemos sua senha nem seus dados.",
+    LIM_METHOD_ZK_TITLE: "Verifique uma rede social",
+    LIM_REFERRAL_BONUS_READY: "Sua recompensa está pronta para resgate.",
+    LIM_REFERRAL_BONUS_VERIFY_CTA: "Verificar uma conta",
+    LIM_REFERRAL_BONUS_VERIFY_SOCIAL:
+      "Verifique qualquer rede social (como X ou LinkedIn) para resgatar sua recompensa.",
+    LIM_VERIFICATION_FAILED_DESCRIPTION:
+      "Não conseguimos concluir a verificação. Tente novamente.",
+    LIM_ZK_KYC_SUBTITLE: "Verificação privada: nunca vemos seus dados",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES:
       "O LinkedIn só aceita atualizações de RP",
     LIQUIDITY: "Liquidez",
@@ -1064,6 +1177,7 @@ export const pt = {
     NO_ADDRESSES_SAVED: "Nenhum {{paymentAddressName}} salvo",
     NO_ADDRESS_TO_COPY: "Não há endereço para copiar",
     NO_ADDRESS_TO_DEPOSIT: "Não há endereço para depositar",
+    NO_AMOUNT_TO_COPY: "O valor ainda não está disponível",
     NO_CAMPAIGN_PARAMETERS_FOUND: "Nenhum parâmetro de campanha encontrado",
     NO_DISPUTE: "Sem disputa",
     NO_DISPUTE_DECISION: "Não há decisão para finalizar",
@@ -1092,12 +1206,32 @@ export const pt = {
     NO_TASK_LEDGER_ENTRIES: "Nenhum registro de tarefas encontrado",
     NO_TRANSACTIONS_FOUND: "Nenhuma transação encontrada",
     NO_WITHDRAWABLE_AMOUNT: "Nenhum valor disponível para saque",
-    NULLIFIER_ALREADY_VERIFIED: "Nullifier já verificado",
+    NULLIFIER_ALREADY_VERIFIED:
+      "Esta identidade já foi usada para verificar uma carteira.",
     OLD_AND_NEW_PAYMENT_CHANNELS_ARE_THE_SAME:
       "O canal de pagamento antigo e o novo são iguais",
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "Canal de pagamento antigo não encontrado",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "O canal de pagamento antigo deve estar inativo",
+    ONB_BALANCE_LOAD_ERROR: "Não conseguimos carregar seu saldo.",
+    ONB_CAMPAIGN_PARAMS_DESCRIPTION:
+      "Entre para resgatar seu bônus. Ele vai estar esperando por você na tela inicial.",
+    ONB_CHECK_CONNECTION_TRY_AGAIN: "Verifique sua conexão e tente novamente.",
+    ONB_FIRST_BUY_CTA: "Compre seus primeiros USDC",
+    ONB_FIRST_BUY_DESCRIPTION:
+      "USDC é um dólar digital (1 USDC ≈ US$ 1). Pague em {{currency}} e receba USDC na sua carteira.",
+    ONB_FIRST_BUY_TITLE: "Comece com seus primeiros USDC",
+    ONB_INVITE_CLAIM_FAILED_TITLE: "Não conseguimos resgatar seu convite",
+    ONB_LIMITS_LOAD_ERROR: "Não conseguimos carregar seus limites.",
+    ONB_LOGIN_PAGE_TITLE:
+      "Compre e venda dólares digitais (USDC) com {{currency}}",
+    ONB_LOGIN_USDC_EXPLAINER:
+      "USDC é um dólar digital: 1 USDC vale cerca de 1 dólar americano.",
+    ONB_NEED_HELP_LINK: "Precisa de ajuda? Acesse Ajuda e suporte",
+    ONB_REFERRAL_PARAMS_DESCRIPTION:
+      "Entre para aceitar seu convite. Ele vai estar esperando por você na tela inicial.",
+    ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
+      "Estamos confirmando isso na rede. Costuma levar alguns segundos, então mantenha o app aberto.",
     ONE_TIME_ADDRESS: "Endereço para uso único",
     ONE_TIME_PAYMENT_ADDRESS: "{{paymentAddressName}} para uso único",
     ONLY_4_PEOPLE_PER_MONTH: "Apenas 4 pessoas por mês",
@@ -1116,14 +1250,25 @@ export const pt = {
     ORDER_AMOUNT_UPDATED_DESCRIPTION: "Atualizado de {{from}} para {{to}}",
     ORDER_CANCELLED: "Pedido cancelado",
     ORDER_DETAILS: "Detalhes do pedido",
+    ORDER_ELAPSED_TIME:
+      "{{elapsed}} decorridos · geralmente menos de {{expected}} min",
+    ORDER_ELAPSED_TIME_SECONDS:
+      "{{elapsed}} decorridos · geralmente menos de {{expected}} s",
     ORDER_EXPIRED: "Pedido expirado",
     ORDER_ID: "ID do pedido",
     ORDER_ID_NOT_FOUND: "ID do pedido não encontrado",
+    ORDER_LOAD_FAILED_DESCRIPTION:
+      "Seus fundos estão seguros. Verifique sua conexão e tente novamente, ou encontre este pedido nas suas transações.",
+    ORDER_LOAD_FAILED_TITLE: "Não conseguimos carregar este pedido",
     ORDER_NOT_ASSIGNED: "Pedido não atribuído",
     ORDER_NOT_FOUND: "Pedido não encontrado",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED:
       "O pedido não está disponível para ser aceito",
     ORDER_PREVIEW: "Resumo do pedido",
+    ORDER_TAKING_LONGER_ANNOUNCEMENT:
+      "Este pedido está demorando mais que o normal.",
+    ORDER_TAKING_LONGER_THAN_USUAL:
+      "{{elapsed}} decorridos · está demorando mais que o normal.",
     ORDER_TYPE: "Tipo de pedido",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Só pedidos com status criado podem ser reatribuídos",
@@ -1289,6 +1434,100 @@ export const pt = {
     PAY: "Pagar",
     PAYBILL_ACCOUNT_NUMBER: "Número da conta",
     PAYBILL_NUMBER: "Número do paybill",
+    PAYF_AMOUNT_CHANGE_CANCEL: "Não alterar, escanear de novo",
+    PAYF_AMOUNT_CHANGE_CONFIRM: "Pagar {{amount}}",
+    PAYF_AMOUNT_CHANGE_DESCRIPTION:
+      "O valor deste QR code é diferente do valor que você informou. Confirme com o vendedor antes de continuar. Se você confirmar, seu pedido será atualizado para o valor do QR.",
+    PAYF_AMOUNT_CHANGE_ORDER_AMOUNT: "Valor informado",
+    PAYF_AMOUNT_CHANGE_QR_AMOUNT: "Valor do QR code",
+    PAYF_AMOUNT_CHANGE_REJECTED:
+      "O valor não foi alterado. Peça ao vendedor um QR com o valor certo e escaneie de novo.",
+    PAYF_AMOUNT_CHANGE_TITLE: "O valor do QR é diferente",
+    PAYF_BILL_TOTAL: "Total da conta",
+    PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX:
+      "Conferi que este endereço é da rede {{chain}}",
+    PAYF_BRIDGE_ADDRESS_FORMAT_INVALID:
+      "Este não parece um endereço válido da rede {{chain}}. Confira e tente novamente.",
+    PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING:
+      "Fundos enviados para um endereço errado ou para um endereço em uma rede diferente de {{chain}} não podem ser recuperados.",
+    PAYF_BRIDGE_AMOUNT_TOO_LOW:
+      "Este valor é pequeno demais para a ponte. Tente um valor maior.",
+    PAYF_BRIDGE_DEPOSIT_DEADLINE:
+      "Envie antes de {{deadline}}. Depósitos feitos depois desse horário podem ser reembolsados em vez de passar pela ponte.",
+    PAYF_BRIDGE_LOAD_ASSETS_FAILED:
+      "Não conseguimos carregar os tokens compatíveis. Verifique sua conexão e tente novamente.",
+    PAYF_BRIDGE_ORIGIN_CHAIN: "de origem",
+    PAYF_BRIDGE_QUOTE_FAILED:
+      "Não conseguimos obter uma cotação agora. Confira o valor e o endereço e tente novamente.",
+    PAYF_BRIDGE_RECIPIENT: "Destinatário",
+    PAYF_BRIDGE_RECIPIENT_ADDRESS_ON:
+      "Endereço do destinatário na rede {{chain}}",
+    PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER:
+      "Se a ponte não puder ser concluída, seus tokens voltam para este endereço. Informe um endereço seu na rede {{chain}}, por exemplo a carteira de onde você está enviando.",
+    PAYF_BRIDGE_SEND_FAILED: "Não foi possível enviar USDC",
+    PAYF_BRIDGE_USDC_SENT: "USDC enviado",
+    PAYF_BRIDGE_USDC_SENT_DESCRIPTION:
+      "A ponte está em andamento. Você pode acompanhar no Histórico de pontes abaixo.",
+    PAYF_CAMERA_PERMISSION_DENIED_HELP:
+      "Para escanear, permita o acesso à câmera para este site: toque no ícone de cadeado ou de configurações ao lado da barra de endereço, ou abra as Configurações do celular para este navegador, ative a Câmera e toque em Tentar de novo.",
+    PAYF_CAMERA_START_TIMEOUT: "A câmera está demorando demais para abrir",
+    PAYF_CAMERA_START_TIMEOUT_DESCRIPTION:
+      "Toque em Tentar de novo. Se continuar acontecendo, feche e abra o app novamente.",
+    PAYF_CAMERA_USE_UPLOAD_INSTEAD:
+      'Você também pode enviar um print do QR code usando "Enviar QR" abaixo.',
+    PAYF_COPY_ADDRESS: "Copiar endereço",
+    PAYF_DEPOSIT_BASE_ONLY_WARNING:
+      "Envie USDC somente pela rede Base. USDC enviado de outra rede (como Ethereum, Tron ou Solana) ou qualquer outro token pode ser perdido.",
+    PAYF_DEPOSIT_USDC_TO_CONTINUE: "Depositar USDC",
+    PAYF_MAINTENANCE_DESCRIPTION:
+      "Estamos fazendo uma manutenção programada para melhorar o P2P.me. O app volta em breve.",
+    PAYF_MAINTENANCE_FOLLOW_UPDATES:
+      "As atualizações são publicadas no nosso canal de suporte.",
+    PAYF_MAINTENANCE_FUNDS_SAFE: "Seus fundos estão seguros",
+    PAYF_MAINTENANCE_ORDERS_RESUME:
+      "Seus USDC continuam na sua carteira. Se você tinha um pedido em andamento, confira em Transações quando voltarmos — se algo parecer errado, fale com o suporte.",
+    PAYF_MAINTENANCE_RETRY: "Tentar novamente",
+    PAYF_MERCHANT_GETS: "O vendedor recebe",
+    PAYF_PASTE: "Colar",
+    PAYF_PASTE_FAILED:
+      "Não foi possível ler sua área de transferência. Cole o endereço manualmente.",
+    PAYF_QR_FETCH_FAILED:
+      "Não foi possível carregar os dados de pagamento deste QR",
+    PAYF_QR_FETCH_FAILED_DESCRIPTION:
+      "Verifique sua conexão e escaneie de novo.",
+    PAYF_QR_INVALID_AMOUNT: "Este QR tem um valor inválido",
+    PAYF_QR_INVALID_AMOUNT_DESCRIPTION:
+      "Peça ao vendedor para gerar um novo QR com o valor correto.",
+    PAYF_QR_NOT_SUPPORTED: "Este QR code não é compatível",
+    PAYF_QR_NOT_SUPPORTED_DESCRIPTION:
+      "Peça ao vendedor o QR code de pagamento e escaneie de novo.",
+    PAYF_QR_SUPPORTED_TYPES: "Compatíveis: {{types}}.",
+    PAYF_QR_UPLOAD_UNREADABLE: "Não foi possível ler um QR code nessa imagem",
+    PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION:
+      "Tente um print nítido e sem cortes do QR code.",
+    PAYF_QR_WRONG_CURRENCY: "Este QR é de outra moeda",
+    PAYF_QR_WRONG_CURRENCY_DESCRIPTION:
+      "Escaneie um QR code de pagamento em {{currency}}.",
+    PAYF_STARTING_CAMERA: "Abrindo a câmera...",
+    PAYF_TXN_EMPTY_FILTERED_HINT:
+      "Só o período e os filtros selecionados estão sendo exibidos.",
+    PAYF_TXN_SHOW_ALL_TIME: "Mostrar todo o período",
+    PAYF_TXN_STATUS_CANCELLED_REFUNDED: "Cancelado — reembolsado",
+    PAYF_TXN_STATUS_DISPUTE_SETTLED: "Disputa resolvida",
+    PAYF_TXN_STATUS_FINDING_MERCHANT: "Procurando comerciante",
+    PAYF_TXN_STATUS_IN_DISPUTE: "Em disputa",
+    PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Comerciante atribuído",
+    PAYF_TXN_STATUS_PAYMENT_SENT: "Pagamento enviado",
+    PAYF_VIEW_ON_BASESCAN: "Ver no BaseScan",
+    PAYF_WITHDRAW_AMOUNT: "Valor",
+    PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
+      "Isso envia USDC pela rede Base e não pode ser desfeito. Confirme que a carteira ou corretora de destino aceita USDC na Base — se não aceitar, seus fundos podem ser perdidos.",
+    PAYF_WITHDRAW_CONFIRM_SEND: "Confirmar e enviar {{amount}} USDC",
+    PAYF_WITHDRAW_CONFIRM_TITLE: "Confirmar saque",
+    PAYF_WITHDRAW_FAILED_DESCRIPTION:
+      "Seus USDC não foram enviados. Tente novamente.",
+    PAYF_WITHDRAW_REVIEW: "Revisar saque",
+    PAYF_WITHDRAW_SENT_TITLE: "USDC enviado",
     PAYMENT_ADDRESS_ALREADY_SENT: "Endereço de pagamento já enviado",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} copiado para a área de transferência",
@@ -1652,6 +1891,8 @@ export const pt = {
     REWARD_CLAIMED_DESCRIPTION:
       "Você resgatou {{amount}} USDC. Compartilhe com seus amigos!",
     RIF_LABEL: "Cédula/RIF",
+    RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION:
+      "Não conseguimos confirmar se isso foi concluído. Confira seu saldo ou o BaseScan antes de tentar de novo.",
     SAFETY_NOTICE_WALLET:
       "Nunca pediremos seu OTP, sua chave privada ou seu login por meio de links externos. Nunca compartilhe suas credenciais com ninguém.",
     SAVE: "Salvar",
@@ -1723,6 +1964,36 @@ export const pt = {
       "Não é bem isso. Escolha a melhor resposta para continuar.",
     SELL_USDC: "Vender USDC",
     SELL_USDC_FAQS: "FAQs sobre venda de USDC",
+    SELL_UX_ACCEPTED_TIMEOUT_NOTE:
+      "Se o comerciante não receber seus dados de pagamento a tempo, o pedido é cancelado e seus USDC voltam para sua carteira.",
+    SELL_UX_APPROVING_USDC_STEP: "Aprovando USDC (1/2)…",
+    SELL_UX_CLIPBOARD_EMPTY:
+      "Sua área de transferência está vazia. Copie seu {{paymentAddressName}} primeiro.",
+    SELL_UX_COMPLETED_DESCRIPTION:
+      "Confira seu banco ou app de pagamento para confirmar que você recebeu {{amount}}.",
+    SELL_UX_COMPLETED_TITLE: "O comerciante marcou seu pagamento como enviado",
+    SELL_UX_DEPOSIT_USDC: "Depositar USDC",
+    SELL_UX_DETAILS_MISSING_DESCRIPTION:
+      "Não encontramos os dados de pagamento deste pedido neste dispositivo. Informe onde você quer receber para que o comerciante possa enviar seu dinheiro.",
+    SELL_UX_DETAILS_MISSING_TITLE: "Informe seus dados de pagamento",
+    SELL_UX_DIDNT_RECEIVE_IT: "Não recebeu?",
+    SELL_UX_INVALID_PAYMENT_ID:
+      "Isso não parece um {{paymentAddressName}} válido. Confira, por favor.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "Não conseguimos abri-lo automaticamente. Abra-o pelas suas transações — se for solicitado, informe seus dados de pagamento lá.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_TITLE: "Seu pedido foi criado",
+    SELL_UX_PAID_TIMEOUT_NOTE:
+      "Já passou um tempo e o dinheiro não chegou? Toque no ícone de ajuda no topo para obter suporte com este pedido.",
+    SELL_UX_PLACED_DESCRIPTION:
+      "Mantenha esta página aberta — vamos enviar seus dados de pagamento assim que um comerciante aceitar (geralmente de 20 a 90 segundos). Se sair, volte a este pedido para informá-los.",
+    SELL_UX_PLACED_TIMEOUT_NOTE:
+      "Se nenhum comerciante aceitar a tempo, o pedido é cancelado e seus USDC voltam para sua carteira.",
+    SELL_UX_PLACING_ORDER: "Criando pedido…",
+    SELL_UX_PLACING_ORDER_STEP: "Criando pedido (2/2)…",
+    SELL_UX_PROCESSING_TIMES_UNAVAILABLE: "Geralmente alguns minutos",
+    SELL_UX_SEND_PAYMENT_DETAILS: "Enviar dados de pagamento",
+    SELL_UX_USE_DIFFERENT_DETAILS: "Usar outros dados de pagamento",
+    SELL_UX_YOU_WILL_BE_PAID_TO: "Você vai receber em:",
     SEND: "Enviar",
     SENDING: "Enviando",
     SENDING_PAYMENT_DETAILS: "Enviando dados de pagamento",
@@ -1776,6 +2047,7 @@ export const pt = {
     SMART_LIMITS_NO_FREEZES: "Limites inteligentes = sem bloqueios",
     SOCIAL_ALREADY_VERIFIED: "Rede social já verificada",
     SOLD_VIA: "Vendido via",
+    SOMETHING_WENT_WRONG: "Algo deu errado",
     SOUNDS: "Sons",
     SPEI: "SPEI",
     SPEND_USDC_ANYWHERE_SCAN_QR: "Gaste USDC em qualquer lugar com Scan & Pay",
@@ -1790,6 +2062,9 @@ export const pt = {
     STAKE_CTA_SUBTITLE: "Até {{amount}} USDC em Compra, Pagamento e Venda",
     STAKE_CTA_TITLE: "Aumente seus limites",
     STAKE_EXCEEDS_MAX_TOKENS: "O stake excede o máximo de tokens permitido",
+    STAKE_IN_PROGRESS_DESCRIPTION:
+      "Você pode sair desta tela. Vamos avisar quando terminar, e seu limite será atualizado automaticamente. Você poderá fazer stake de novo quando concluir.",
+    STAKE_IN_PROGRESS_TITLE: "Seu stake está sendo confirmado",
     STAKE_NOT_ACTIVE: "Não há um stake ativo",
     STAKE_NOT_IN_COOLDOWN: "O stake não está em período de espera",
     STAKE_SEIZED: "Seu stake foi confiscado",
@@ -1807,6 +2082,43 @@ export const pt = {
     SUPPORTED_NETWORKS: "Redes suportadas",
     SUPPORT_SCAM_WARNING:
       "Cuidado com contas falsas de suporte no Telegram. Nossa equipe NUNCA vai mandar mensagem direta nem ligar para você. Use apenas o link oficial do nosso grupo do Telegram acima para pedir suporte.",
+    SUP_CHAT_UNAVAILABLE:
+      "Não foi possível abrir o chat agora. Tente novamente ou fale com a gente no Telegram.",
+    SUP_DISPUTE_ALREADY_RAISED:
+      "Já existe uma disputa aberta para este pedido.",
+    SUP_DISPUTE_AVAILABLE_IN: "Disponível em {{minutes}} min",
+    SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
+      "Conte pra gente que o comerciante não fez o pagamento (para você, numa venda, ou para o QR que você pagou). O suporte vai dar retorno pelo chat.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
+      "A maioria dos pagamentos é confirmada pelo comerciante em poucos minutos. As disputas abrem {{minutes}} min depois da criação do pedido, para que o comerciante tenha tempo de conferir a conta dele. Tenha em mãos o código de referência do pagamento (UTR).",
+    SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
+      "Os pagamentos podem demorar um pouco para chegar. Se ainda não chegou, você pode abrir uma disputa {{minutes}} min depois da criação do pedido.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
+      "Este pedido foi concluído, então não há o que disputar. Algo ainda está errado? Fale com a gente.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
+      "As disputas são para pedidos que você já pagou. Se você já pagou, marque o pedido como pago primeiro.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
+      "Este pedido foi cancelado, então não pode ser disputado. Se algo parecer errado, fale com a gente.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
+      "As disputas abrem depois que o comerciante marca o pagamento como enviado. Se estiver demorando demais, fale com a gente.",
+    SUP_DISPUTE_PAYMENT_WINDOW_ENDED:
+      "O prazo de pagamento terminou antes de o pedido ser marcado como pago, então não é possível abrir uma disputa. Se você já enviou o dinheiro, fale com a gente e compartilhe sua referência UPI (UTR) — vamos verificar com o comerciante.",
+    SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
+      "Se o comerciante compartilhou um código de referência do pagamento, informe os últimos 4 dígitos. Se não houve pagamento, deixe em branco.",
+    SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL:
+      "Referência do pagamento, últimos 4 dígitos (opcional)",
+    SUP_DISPUTE_TXN_ID_WHERE_BUY:
+      "Onde encontrar: abra seu app de pagamento (ex.: seu app de UPI), toque neste pagamento e procure o UTR ou número de referência nos detalhes da transação.",
+    SUP_LOGIN_TO_CHAT_IN_APP:
+      "Entre para conversar com nossa equipe no app e ver suas conversas. Até lá, Fale com a gente abre nosso grupo no Telegram.",
+    SUP_ORDER_DETAILS_COPIED:
+      "Detalhes do pedido copiados. Cole na sua mensagem para a gente ajudar mais rápido.",
+    SUP_ORDER_DETAILS_COPIED_CHAT:
+      "Detalhes do pedido copiados. Cole como sua primeira mensagem para a gente ajudar mais rápido.",
+    SUP_ORDER_ID_SHARED_HINT:
+      "Vamos copiar o número do seu pedido (#{{id}}) para você colar no chat.",
+    SUP_ORDER_SUMMARY:
+      "Pedido #{{id}} · {{type}} · {{status}} · criado há {{minutes}} min",
     SWAP: "Trocar",
     SWAPPING: "Trocando",
     SWAP_EXCEEDS_LIMIT: "Máx. {{amount}} {{token}} por swap",
@@ -1999,6 +2311,23 @@ export const pt = {
       "Verifique pelo menos uma rede social para aumentar seus limites, e eles continuam subindo conforme você conclui transações.",
     VERIFY_TO_RAISE: "Verifique para aumentar",
     VERIFY_ZK_PROOF: "Verificar prova zk",
+    VFX_ATTESTATION_EXPIRED:
+      "O resultado da sua verificação expirou antes de ser salvo. Comece de novo.",
+    VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Outro número de telefone",
+    VFX_BVN_OTP_METHOD_EMAIL: "E-mail",
+    VFX_BVN_OTP_METHOD_OTHER: "Outra opção",
+    VFX_BVN_OTP_METHOD_PHONE: "Telefone",
+    VFX_BVN_OTP_METHOD_PHONE_1: "Segundo telefone",
+    VFX_BVN_OTP_NOT_SENT:
+      "Não conseguimos enviar o código. Tente outra opção ou tente novamente daqui a pouco.",
+    VFX_CODE_RESENT: "Enviamos um novo código",
+    VFX_FINISH_VERIFICATION: "Concluir verificação",
+    VFX_RESEND_CODE: "Reenviar código",
+    VFX_SESSION_EXPIRED_DESCRIPTION:
+      "Esta verificação demorou demais e foi interrompida. Comece de novo para abrir uma nova sessão.",
+    VFX_SESSION_EXPIRED_TITLE: "Sessão expirada",
+    VFX_START_AGAIN: "Começar de novo",
+    VFX_STATUS_CHECK_FAILED: "Não foi possível verificar o status",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "Tour pelo app",
     VIDEO_BUY_FLOW: "Como comprar",
@@ -2019,6 +2348,7 @@ export const pt = {
     VIDEO_SCAN_AND_PAY: "Scan & Pay",
     VIDEO_SELL_FLOW: "Como vender",
     VIEW_HOLDINGS: "Ver saldo",
+    VIEW_MY_ORDERS: "Ver meus pedidos",
     VIEW_ON: "Ver em",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Veja as perguntas frequentes sobre pedidos de {{orderType}}",
