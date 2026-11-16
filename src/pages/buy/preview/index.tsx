@@ -23,7 +23,7 @@ import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
 import { TransferWarningAlert } from "@/components/transfer-warning-alert";
-import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -51,6 +51,8 @@ import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { saveLimitReturn } from "@/lib/limit-increase";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import {
   addLocalOrderPaymentDetails,
   calculateFee,
@@ -78,6 +80,15 @@ import { WalletAddressesDrawer } from "./wallet-addresses-drawer";
 export function BuyPreview() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  // Remember the order so /limits can bring the user back with the amount
+  // filled in after they verify.
+  const goVerifyFromFraudCheck = () => {
+    saveLimitReturn({
+      flow: "buy",
+      cryptoAmount: Number(buyPreviewState?.amount?.crypto),
+    });
+    navigate(INTERNAL_HREFS.LIMITS);
+  };
   const { state: locationState } = useLocation();
   const { account, wallet } = useThirdweb();
   const fraudEngine = useFraudEngine();
@@ -113,7 +124,7 @@ export function BuyPreview() {
     data: processingTimes,
     isLoading: isProcessingTimesLoading,
     isError: isProcessingTimesError,
-    error: processingTimesError,
+    refetch: refetchProcessingTimes,
   } = useProcessingTimes();
   const { placeOrderMutation } = useOrderFlow();
   const { quotedPrice: quotedBuyPrice, hasPriceChanged } =
@@ -140,6 +151,15 @@ export function BuyPreview() {
     "idle" | "checking" | "approved" | "rejected"
   >("idle");
   const fraudStatusTimeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  // Persistent (until retried) notice after a fraud rejection so the user
+  // has a next step instead of a 5s toast.
+  const [showFraudRejectedNotice, setShowFraudRejectedNotice] = useState(false);
+  // Set inside the placeOrder callback so the outer handler knows whether a
+  // friendly toast was already shown, or whether the order actually landed
+  // on-chain even though we couldn't read its ID.
+  const placeErrorToastShownRef = useRef(false);
+  const orderPlacedWithoutIdRef = useRef(false);
+  const hasTrackedPreviewViewRef = useRef(false);
   const { checkContractSync } = useContractVersion();
 
   // validate the state being passed from the previous page
@@ -147,13 +167,23 @@ export function BuyPreview() {
     safeParseWithResult(BuyPreviewStateSchema, locationState).match(
       (data) => {
         setBuyPreviewState(data);
+        if (!hasTrackedPreviewViewRef.current) {
+          hasTrackedPreviewViewRef.current = true;
+          track(EVENTS.TRANSACTION, {
+            transaction_type: "buy",
+            status: "preview_viewed",
+            amount: data.amount.crypto,
+            fiatAmount: data.amount.fiat,
+            currency: currency.currency,
+          });
+        }
       },
       (error) => {
         console.error("BuyPreviewLocationState", error);
         navigate(INTERNAL_HREFS.BUY);
       },
     );
-  }, [navigate, locationState]);
+  }, [navigate, locationState, track, currency.currency]);
 
   // Clean up fraud status timeout on unmount
   useEffect(() => {
@@ -226,7 +256,7 @@ export function BuyPreview() {
       }
     } catch (err) {
       triggerErrorHaptic(); // Error haptic for clipboard error
-      toast.error((err as Error).message);
+      toast.error(getUserFacingErrorMessage(t, err));
       console.error("Clipboard error:", err);
     }
   };
@@ -251,13 +281,33 @@ export function BuyPreview() {
     (showInput && !isAddress(manualAddress)) || // showInput should check for manual address input
     (addressBook?.active && !isAddress(addressBook.active.address)); // addressBook?.active.address should check if the active saved address is valid
 
+  const showPriceChangedDrawer = () => {
+    setShowSlippageDrawer(true);
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "buy",
+      status: "price_changed_shown",
+      amount: buyPreviewState.amount.crypto,
+      currency: currency.currency,
+    });
+  };
+
   const handlePlaceOrder = async () => {
     setIsPlacingOrder(true);
+    setShowFraudRejectedNotice(false);
+    placeErrorToastShownRef.current = false;
+    orderPlacedWithoutIdRef.current = false;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "buy",
+      status: "place_tapped",
+      amount: buyPreviewState.amount.crypto,
+      fiatAmount: buyPreviewState.amount.fiat,
+      currency: currency.currency,
+    });
     const isINR = currency.currency === "INR";
     setFraudStatus(isINR ? "checking" : "idle");
 
     console.log("Placing order with...", buyPreviewState, currentAddress);
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setFraudStatus("idle");
@@ -268,7 +318,7 @@ export function BuyPreview() {
     // Live price moved since the quote was shown → let the user re-quote
     // instead of placing the order at a rate they never saw.
     if (await hasPriceChanged()) {
-      setShowSlippageDrawer(true);
+      showPriceChangedDrawer();
       setFraudStatus("idle");
       setIsPlacingOrder(false);
       return;
@@ -346,16 +396,24 @@ export function BuyPreview() {
             user: account?.address as `0x${string}`,
           });
         } catch (error) {
+          placeErrorToastShownRef.current = true;
           if (isSlippageError(error)) {
-            setShowSlippageDrawer(true);
+            showPriceChangedDrawer();
             throw error;
           }
-          const err = error as Error;
-          const key = placeOrderErrorKey(err);
+          const key = placeOrderErrorKey({
+            message: String((error as { message?: unknown })?.message ?? ""),
+          });
           toast.error(
             t(key),
             key === "FAILED_TO_PLACE_ORDER"
-              ? { description: err.message }
+              ? {
+                  description: getUserFacingErrorMessage(
+                    t,
+                    error,
+                    "BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION",
+                  ),
+                }
               : undefined,
           );
           throw error;
@@ -368,7 +426,10 @@ export function BuyPreview() {
           account?.address as `0x${string}`,
         );
         if (!orderId) {
-          triggerErrorHaptic();
+          // The transaction succeeded, so the order exists on-chain — we just
+          // couldn't read its ID from the logs. Flag it so the outer handler
+          // doesn't let the user place a duplicate order.
+          orderPlacedWithoutIdRef.current = true;
           throw new Error("ORDER_ID_NOT_FOUND");
         }
 
@@ -393,10 +454,39 @@ export function BuyPreview() {
     });
 
     if (result.isErr()) {
-      // PLACE_ORDER_ERROR — the placeOrder callback threw
-      onOrderFailed();
       setFraudStatus("idle");
+
+      if (orderPlacedWithoutIdRef.current) {
+        // Order is on-chain: keep "place" disabled and send the user to
+        // Transactions, where the new order shows up.
+        track(EVENTS.TRANSACTION, {
+          transaction_type: "buy",
+          status: "placed_without_id",
+          amount: buyPreviewState.amount.crypto,
+          currency: currency.currency,
+          paymentChannel: 0,
+        });
+        toast.success(t("BUY_UX_ORDER_PLACED_ID_MISSING_TITLE"), {
+          description: t("BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION"),
+          duration: 8000,
+        });
+        navigate(INTERNAL_HREFS.TRANSACTIONS, { replace: true });
+        return;
+      }
+
+      // PLACE_ORDER_ERROR — the placeOrder callback threw, or the fraud
+      // check / network failed before placing.
+      onOrderFailed();
       setIsPlacingOrder(false);
+      if (!placeErrorToastShownRef.current) {
+        toast.error(t("FAILED_TO_PLACE_ORDER"), {
+          description: getUserFacingErrorMessage(
+            t,
+            result.error.cause ?? result.error,
+            "BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION",
+          ),
+        });
+      }
 
       track(EVENTS.TRANSACTION, {
         transaction_type: "buy",
@@ -415,7 +505,20 @@ export function BuyPreview() {
       triggerErrorHaptic();
       setFraudStatus("rejected");
       setIsPlacingOrder(false);
-      toast.error(t("FRAUD_ASSESSMENT_REJECTED"), { duration: 5000 });
+      setShowFraudRejectedNotice(true);
+      track(EVENTS.TRANSACTION, {
+        transaction_type: "buy",
+        status: "fraud_rejected",
+        amount: buyPreviewState.amount.crypto,
+        currency: currency.currency,
+      });
+      toast.error(t("FRAUD_ASSESSMENT_REJECTED"), {
+        duration: 5000,
+        action: {
+          label: t("BUY_UX_VERIFY_TO_CONTINUE"),
+          onClick: () => goVerifyFromFraudCheck(),
+        },
+      });
       fraudStatusTimeoutRef.current = setTimeout(
         () => setFraudStatus("idle"),
         5000,
@@ -444,7 +547,12 @@ export function BuyPreview() {
         onOpenChange={setShowSlippageDrawer}
         onConfirm={() => {
           setShowSlippageDrawer(false);
-          navigate(-1);
+          // Go back to the amount screen with the same amount pre-filled so
+          // the user only has to re-confirm at the new rate.
+          navigate(INTERNAL_HREFS.BUY, {
+            replace: true,
+            state: { prefill: { crypto: buyPreviewState.amount.crypto } },
+          });
         }}
       />
       <NonHomeHeader
@@ -529,10 +637,16 @@ export function BuyPreview() {
                 <Skeleton className="h-4 w-24 rounded-sm" />
               ) : isProcessingTimesError ? (
                 <>
-                  <AlertTriangle className="size-4 text-destructive" />
-                  <p className="text-destructive text-sm">
-                    {processingTimesError.message}
+                  <p className="text-muted-foreground text-sm">
+                    {t("BUY_UX_PROCESSING_TIME_UNAVAILABLE")}
                   </p>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    className="h-auto p-0 text-xs"
+                    onClick={() => refetchProcessingTimes()}>
+                    {t("RETRY")}
+                  </Button>
                 </>
               ) : (
                 <p className="text-muted-foreground text-sm">
@@ -659,7 +773,32 @@ export function BuyPreview() {
           </Card>
         </section>
       </main>
-      <footer className="container-narrow flex w-full items-center justify-center gap-2 p-4">
+      <footer className="container-narrow flex w-full flex-col items-center justify-center gap-2 p-4">
+        {showFraudRejectedNotice ? (
+          <Alert variant="destructive" className="w-full">
+            <AlertTriangle className="size-4" />
+            <AlertTitle>{t("BUY_UX_FRAUD_REJECTED_TITLE")}</AlertTitle>
+            <AlertDescription className="flex flex-col gap-2">
+              <p>{t("FRAUD_ASSESSMENT_REJECTED")}</p>
+              <p>{t("BUY_UX_FRAUD_REJECTED_NEXT_STEP")}</p>
+              <div className="flex w-full gap-2">
+                <Button
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => goVerifyFromFraudCheck()}>
+                  {t("BUY_UX_VERIFY_TO_CONTINUE")}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => setShowHelpDrawer(true)}>
+                  {t("BUY_UX_GET_HELP")}
+                </Button>
+              </div>
+            </AlertDescription>
+          </Alert>
+        ) : null}
         <Button
           onClick={handlePlaceOrder}
           className="w-full p-6"
@@ -677,7 +816,7 @@ export function BuyPreview() {
               <p className="font-medium text-sm">{t("PLACING_ORDER")}...</p>
             </>
           ) : (
-            <p className="font-medium text-sm">{t("PROCEED_TO_PAY")}</p>
+            <p className="font-medium text-sm">{t("BUY_UX_PLACE_ORDER")}</p>
           )}
         </Button>
       </footer>

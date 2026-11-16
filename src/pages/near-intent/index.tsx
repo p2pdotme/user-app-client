@@ -117,7 +117,7 @@ export function OneClick() {
           <SwapFormShimmer />
         ) : error ? (
           <p className="text-destructive text-sm">
-            {t("BRIDGE_LOAD_ASSETS_FAILED", { message: error.message })}
+            {t("PAYF_BRIDGE_LOAD_ASSETS_FAILED")}
           </p>
         ) : (
           <SwapForm

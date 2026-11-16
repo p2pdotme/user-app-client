@@ -1,5 +1,4 @@
 import { type CurrencyCode, getCountryOption } from "@p2pdotme/sdk/country";
-import QrScanner from "qr-scanner";
 
 export type PaymentQrError = "READ_ERROR" | "INVALID_QR";
 
@@ -16,6 +15,8 @@ export async function decodePaymentQrImage(
 
   let payload: string;
   try {
+    // Loaded on demand so the QR decoder isn't part of the startup bundle.
+    const { default: QrScanner } = await import("qr-scanner");
     const result = await QrScanner.scanImage(file, {
       returnDetailedScanResult: true,
     });

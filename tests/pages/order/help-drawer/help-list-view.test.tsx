@@ -138,6 +138,45 @@ describe("HelpListView dispute row", () => {
     expect(screen.getByText("Dispute resolved")).toBeInTheDocument();
   });
 
+  it("shows the BUY wait in minutes (15, not 30) while the row is locked", () => {
+    // Placed 5 minutes ago: BUY disputes open at 15 min, so ~10 min remain.
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        order={makeOrder({
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 5 * 60),
+        })}
+        disputeStatus="DEFAULT"
+      />,
+      { withDrawer: true },
+    );
+    expect(screen.getByText("Available in 10 min")).toBeInTheDocument();
+    expect(screen.getByText(/Disputes open 15 min after/)).toBeInTheDocument();
+    expect(screen.queryByText(/window closes/i)).not.toBeInTheDocument();
+  });
+
+  it("explains why a SELL order that isn't completed can't be disputed yet", () => {
+    renderWithProviders(
+      <HelpListView
+        {...base}
+        order={makeOrder({
+          orderType: "SELL",
+          status: "PAID",
+          placedTimestamp: String(Math.floor(Date.now() / 1000) - 3600),
+        })}
+        disputeStatus="DEFAULT"
+        onChatWithUs={noop}
+      />,
+      { withDrawer: true },
+    );
+    expect(
+      screen.getByText(
+        /Disputes open after the merchant marks the payment as sent/,
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Chat with us")).toBeInTheDocument();
+  });
+
   it("falls back to the raise row when a dispute exists but the gate is shut", () => {
     // The regression this locks: writing the two row conditions separately
     // leaves a disputed order with no handler rendering neither row.
