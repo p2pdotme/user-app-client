@@ -40,6 +40,7 @@ import { INTERNAL_HREFS } from "@/lib/constants";
 import { extractEvmAddressFromQr } from "@/lib/evm-address-qr";
 import {
   getUserFacingErrorMessage,
+  isNetworkOrTimeoutError,
   isUserCancellation,
 } from "@/lib/user-facing-error";
 import { cn, truncateAmount } from "@/lib/utils";
@@ -276,12 +277,18 @@ function DirectWithdraw({
     toast.error(t("TRANSFER_FAILED"), {
       description: cancelled
         ? t("ERROR_USER_CANCELLED_DESCRIPTION")
-        : getUserFacingErrorMessage(
-            t,
-            error,
-            "PAYF_WITHDRAW_FAILED_DESCRIPTION",
-          ),
+        : getUserFacingErrorMessage(t, error, {
+            fallbackKey: "PAYF_WITHDRAW_FAILED_DESCRIPTION",
+            context: "send",
+          }),
     });
+    if (!cancelled && isNetworkOrTimeoutError(error)) {
+      // The transfer may have gone through even though we never saw the
+      // receipt. Refresh the balance and leave the Confirm step so the user
+      // isn't one tap away from sending the same amount again.
+      queryClient.invalidateQueries({ queryKey: ["usdc", "balance"] });
+      setStep("form");
+    }
   }
 
   if (step === "sent" && sentTx) {

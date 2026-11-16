@@ -94,7 +94,7 @@ export function SellAccepted({ order }: { order: Order }) {
   const [prefillAddress] = useState(() =>
     order.currency === CURRENCY.IDR
       ? undefined
-      : getLastSellPaymentDetails(order.currency),
+      : getLastSellPaymentDetails(order.user, order.currency),
   );
   const needsDetails = !storedPaymentAddress;
   const showForm = needsDetails || showDetailsForm;
@@ -272,6 +272,7 @@ export function SellAccepted({ order }: { order: Order }) {
             onChange={setInlineDetails}
             initialManualAddress={prefillAddress}
             analyticsContext="accepted"
+            currency={order.currency}
           />
           {inlineDetails.isValid ? (
             <p className="truncate text-center text-muted-foreground text-xs">
