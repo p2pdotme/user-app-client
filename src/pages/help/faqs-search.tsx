@@ -1,6 +1,7 @@
 import { Bot } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { NonHomeHeader } from "@/components";
 import { FAQAccordion } from "@/components/faq-accordion";
 import { SectionHeader } from "@/components/section-header";
@@ -40,7 +41,7 @@ export function FAQsSearch() {
 
   return (
     <>
-      <NonHomeHeader title={t("Search FAQS")} showHelp={false} />
+      <NonHomeHeader title={t("SEARCH_FAQS")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
         <section className="flex w-full flex-col gap-4 py-4">
           <SearchInput
@@ -69,7 +70,7 @@ export function FAQsSearch() {
             <p className="font-regular text-sm">
               {searchQuery ? (
                 <>
-                  Results for{" "}
+                  {t("RESULTS_FOR")}{" "}
                   <span className="text-green-600">"{searchQuery}"</span>
                 </>
               ) : null}
@@ -93,7 +94,7 @@ export function FAQsSearch() {
                   currency.currency || "global",
                   account?.address,
                   searchQuery,
-                );
+                ).catch(() => toast.error(t("SUP_CHAT_UNAVAILABLE")));
               }}
               className="flex w-full items-center justify-between gap-4 rounded-lg bg-primary/10 px-4 py-3 text-left transition-colors hover:bg-primary/15">
               <div className="flex items-center gap-2">
