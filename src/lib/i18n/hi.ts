@@ -164,6 +164,50 @@ export const hi = {
     BUY_SELL_USDC_WITHIN_SECONDS: "कुछ ही सेकंड में USDC खरीदें/बेचें",
     BUY_USDC: "USDC खरीदें",
     BUY_USDC_FAQS: "USDC खरीदने से जुड़े FAQs",
+    BUY_UX_ALREADY_PAID_DESCRIPTION:
+      "सहायता से विवाद दर्ज करें — यह विकल्प ऑर्डर देने के {{minutes}} मिनट बाद खुलता है।",
+    BUY_UX_ALREADY_PAID_GET_HELP: "मैंने भुगतान कर दिया है — मदद लें",
+    BUY_UX_ALREADY_PAID_TITLE: "भुगतान कर चुके हैं?",
+    BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
+      "राशि लोड नहीं हो सकी — फिर से कोशिश करने के लिए टैप करें",
+    BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
+      "भुगतान की पुष्टि होने से पहले ही भुगतान का समय खत्म हो गया।",
+    BUY_UX_CANCEL_ALREADY_PAID_WARNING:
+      "अगर आप पैसे भेज चुके हैं तो रद्द न करें — इसके बजाय मदद लें।",
+    BUY_UX_DECRYPT_FAILED_DESCRIPTION:
+      "अभी कोई पैसा न भेजें। फिर से कोशिश करें, या अगर ऐसा बार-बार हो तो सपोर्ट से संपर्क करें।",
+    BUY_UX_DECRYPT_FAILED_TITLE: "हम भुगतान विवरण लोड नहीं कर सके",
+    BUY_UX_EXCHANGE_RATE: "1 USDC ≈ {{rate}}",
+    BUY_UX_FRAUD_REJECTED_NEXT_STEP:
+      "और वेरिफ़िकेशन पूरे करने से यह पाबंदी हट सकती है। अगर आपको लगता है कि यह गलती है, तो सहायता से संपर्क करें।",
+    BUY_UX_FRAUD_REJECTED_TITLE: "हम अभी यह ऑर्डर नहीं दे सकते",
+    BUY_UX_GET_HELP: "मदद लें",
+    BUY_UX_HOW_TO_PAY: "भुगतान कैसे करें",
+    BUY_UX_MIN_AMOUNT_REASON:
+      "{{min}} USDC से ज़्यादा राशि डालें। इससे छोटे ऑर्डर में फ़िक्स्ड फ़ीस कवर नहीं होती।",
+    BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "हम इसे अपने आप नहीं खोल सके। यह आपको ट्रांजैक्शन में मिल जाएगा, इसलिए कृपया दोबारा ऑर्डर न दें।",
+    BUY_UX_ORDER_PLACED_ID_MISSING_TITLE: "आपका ऑर्डर दे दिया गया है",
+    BUY_UX_PAYMENT_WINDOW_ENDED_DESCRIPTION:
+      "अब इस ऑर्डर के लिए पैसे न भेजें। अगर आप भुगतान कर चुके हैं, तो मदद लें और हम इसे सुलझा देंगे।",
+    BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "भुगतान का समय खत्म हो गया है",
+    BUY_UX_PAY_IN_UPI_APP: "अपने UPI ऐप में {{amount}} का भुगतान करें",
+    BUY_UX_PLACED_CAN_LEAVE:
+      "इसमें आमतौर पर 20–90 सेकंड लगते हैं। आप यह पेज छोड़ सकते हैं — आपका ऑर्डर ट्रांजैक्शन में सेव रहेगा।",
+    BUY_UX_PLACED_TIMEOUT_INFO:
+      "अगर 3 मिनट में कोई मर्चेंट ऑर्डर स्वीकार नहीं करता, तो ऑर्डर अपने आप रद्द हो जाता है। आपने अभी तक कोई भुगतान नहीं किया है।",
+    BUY_UX_PLACE_ORDER: "ऑर्डर दें",
+    BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION:
+      "आपका ऑर्डर नहीं दिया गया और आपसे कोई पैसा नहीं कटा। कृपया फिर से कोशिश करें।",
+    BUY_UX_PROCESSING_TIME_UNAVAILABLE: "अभी उपलब्ध नहीं",
+    BUY_UX_STEP_CONFIRM: 'फिर "मैंने भुगतान कर दिया है" पर टैप करें।',
+    BUY_UX_STEP_EXACT_AMOUNT: "बिल्कुल यही राशि भेजें: {{amount}}।",
+    BUY_UX_STEP_NO_CRYPTO_REMARKS:
+      "भुगतान के रिमार्क्स में crypto, USDC या P2P.me का ज़िक्र न करें।",
+    BUY_UX_STEP_OWN_ACCOUNT: "अपने ही नाम वाले अकाउंट से भुगतान करें।",
+    BUY_UX_TIMER_LOAD_FAILED:
+      "हम भुगतान टाइमर लोड नहीं कर सके। कृपया जल्द से जल्द भुगतान पूरा करें।",
+    BUY_UX_VERIFY_TO_CONTINUE: "वेरिफ़िकेशन पूरा करें",
     BUY_VOLUME: "खरीद वॉल्यूम",
     BVN_ALREADY_VERIFIED: "BVN पहले से सत्यापित है",
     BVN_ALTERNATE_PHONE_PLACEHOLDER: "वैकल्पिक फ़ोन नंबर",
@@ -228,6 +272,7 @@ export const hi = {
     CLAIM_ACCESS: "एक्सेस क्लेम करें",
     CLAIM_MONTHLY_REWARD: "रिवॉर्ड क्लेम करें",
     CLAIM_REWARD: "रिवॉर्ड क्लेम करें",
+    CLEAR: "साफ करें",
     CLOSE: "बंद करें",
     COINSME_BANNER_ALT: "coins.me",
     COINSME_BANNER_BITCOIN_SIPS: "बिटकॉइन SIP।",
@@ -256,6 +301,21 @@ export const hi = {
     CONNECTION_STATUS: "कनेक्शन स्थिति",
     CONNECT_ANY_SERVER_REFRESH: "किसी भी सर्वर से कनेक्ट करें और रीफ्रेश करें",
     CONNECT_WALLET_FIRST: "पहले एक वॉलेट कनेक्ट करें",
+    CONN_CHECKING: "आपका कनेक्शन जाँचा जा रहा है…",
+    CONN_CHECK_AGAIN: "फिर से जाँचें",
+    CONN_DEGRADED_DESCRIPTION:
+      "आपका इंटरनेट चल रहा है, लेकिन P2P.me नीचे दी गई सेवाओं तक नहीं पहुँच पा रहा। अक्सर ऐसा आपके नेटवर्क या इंटरनेट प्रोवाइडर के इन्हें ब्लॉक करने की वजह से होता है। आपका फंड सुरक्षित है।",
+    CONN_DEGRADED_TITLE: "P2P.me की कुछ सेवाओं तक पहुँचा नहीं जा पा रहा",
+    CONN_FIXES_TITLE: "ये उपाय आज़माएँ",
+    CONN_OFFLINE_DESCRIPTION:
+      "आपका डिवाइस इंटरनेट से कनेक्ट नहीं है। Wi‑Fi या मोबाइल डेटा से दोबारा कनेक्ट करें और फिर से कोशिश करें। आपका फंड सुरक्षित है।",
+    CONN_OFFLINE_TITLE: "आप ऑफ़लाइन हैं",
+    CONN_SERVICE_APP: "P2P.me सर्वर",
+    CONN_SERVICE_BLOCKCHAIN: "ब्लॉकचेन (Base नेटवर्क और कॉन्ट्रैक्ट)",
+    CONN_SERVICE_ORDERS: "ऑर्डर हिस्ट्री और मर्चेंट डेटा",
+    CONN_STATE_DOWN: "पहुँच से बाहर",
+    CONN_STATE_OK: "पहुँच में",
+    CONTACT_SUPPORT: "सपोर्ट से संपर्क करें",
     CONTINUE: "जारी रखें",
     CONTINUE_TO_VERIFICATION: "सत्यापन के लिए आगे बढ़ें",
     CONTINUE_VERIFICATION_FOR_PLATFORM: "{{platform}} का सत्यापन जारी रखें",
@@ -296,6 +356,7 @@ export const hi = {
       "समर्थित चेन से Base में USDC जमा करें",
     DETAILS_SENT: "विवरण भेजा गया",
     DEV_TOASTS_ACTIONS: "क्रियाएं",
+    DEV_TOASTS_ACTION_BUTTON: "एक्शन",
     DEV_TOASTS_BASIC: "बेसिक वेरिएंट",
     DEV_TOASTS_BTN_ERROR: "त्रुटि",
     DEV_TOASTS_BTN_INFO: "जानकारी",
@@ -306,6 +367,7 @@ export const hi = {
     DEV_TOASTS_DEFAULT_WITH_DESC: "डिफ़ॉल्ट + विवरण",
     DEV_TOASTS_ERROR_WITH_DESC: "त्रुटि + विवरण",
     DEV_TOASTS_FAILED: "विफल",
+    DEV_TOASTS_FYI_OPTIONAL_SUBTITLE: "वैकल्पिक सबटाइटल",
     DEV_TOASTS_HEADS_UP: "ध्यान दें",
     DEV_TOASTS_INFO_WITH_DESC: "जानकारी + विवरण",
     DEV_TOASTS_INSUFFICIENT_FUNDS: "अपर्याप्त धन",
@@ -433,6 +495,10 @@ export const hi = {
     DOWNLOAD_CONFIRMATION_TITLE: "लेनदेन डाउनलोड करें",
     DROP_A_QUICK_RATING: "झट से एक रेटिंग दें!",
     DUPLICATE_PAYMENT_CHANNEL: "डुप्लिकेट भुगतान चैनल",
+    DURATION_DAY: "{{count}} दिन",
+    DURATION_DAYS: "{{count}} दिन",
+    DURATION_HOUR: "{{count}} घंटा",
+    DURATION_HOURS: "{{count}} घंटे",
     DYNAMIC_QR_EXPIRES_QUICKLY: "डायनामिक QR जल्दी एक्सपायर हो जाता है",
     EARN_REFERRAL_BONUS: "उनके वॉल्यूम का {{referralRewardPercentage}}% कमाएं",
     ECOSYSTEM_CARD_SUBTITLE: "यह ऐप P2P प्रोटोकॉल पर चलता है। इससे जुड़े और ऐप्स खोजें।",
@@ -451,6 +517,8 @@ export const hi = {
     ENTER_TIP_AMOUNT: "टिप राशि दर्ज करें (USDC)",
     ENTER_WALLET_NAME: "वॉलेट का नाम दर्ज करें",
     ERROR: "त्रुटि",
+    ERROR_ALREADY_VERIFIED_DESCRIPTION:
+      "यह अकाउंट पहले से वेरिफ़ाइड है, इसी वॉलेट पर या किसी दूसरे वॉलेट पर। हर अकाउंट सिर्फ़ एक वॉलेट की लिमिट बढ़ा सकता है, इसलिए दोबारा कोशिश करने से फ़ायदा नहीं होगा। कोई दूसरा तरीका आज़माएँ।",
     ERROR_BOUNDARY_COPIED: "त्रुटि कॉपी की गई",
     ERROR_BOUNDARY_COPY: "त्रुटि कॉपी करें",
     ERROR_BOUNDARY_DESCRIPTION:
@@ -459,10 +527,22 @@ export const hi = {
     ERROR_BOUNDARY_TITLE: "कुछ गड़बड़ हो गई",
     ERROR_FETCHING_LIMITS: "सीमाएँ लाने में त्रुटि",
     ERROR_FETCHING_PRICE: "कीमत लाने में त्रुटि",
+    ERROR_GENERIC_DESCRIPTION:
+      "कुछ गलत हो गया। कृपया फिर से कोशिश करें। अगर ऐसा बार-बार हो, तो सपोर्ट से संपर्क करें।",
+    ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
+      "इसके लिए आपके पास पर्याप्त USDC नहीं है। फंड जोड़ें और फिर से कोशिश करें।",
     ERROR_LOADING_DATA: "डेटा लोड करने में त्रुटि",
     ERROR_LOADING_PROGRESS: "प्रगति लोड करने में त्रुटि",
     ERROR_LOADING_TASK_LEDGER: "टास्क लेजर लोड करने में त्रुटि",
     ERROR_LOADING_TRANSACTIONS: "लेनदेन लोड करने में त्रुटि",
+    ERROR_NETWORK_DESCRIPTION:
+      "कनेक्शन में दिक्कत है। अपना इंटरनेट जाँचें और फिर से कोशिश करें।",
+    ERROR_TIMEOUT_DESCRIPTION:
+      "इसमें बहुत ज़्यादा समय लग रहा है। कृपया फिर से कोशिश करें।",
+    ERROR_TRANSACTION_REVERTED_DESCRIPTION:
+      "ट्रांजैक्शन पूरा नहीं हुआ और कोई फंड ट्रांसफ़र नहीं हुआ। कृपया फिर से कोशिश करें।",
+    ERROR_USER_CANCELLED_DESCRIPTION:
+      "आपने अनुरोध रद्द कर दिया। कुछ भी नहीं बदला गया।",
     ESTIMATED_TIME: "अनुमानित समय",
     EXCHANGE_NOT_OPERATIONAL: "एक्सचेंज अभी काम नहीं कर रहा",
     EXPIRED: "समाप्त",
@@ -876,6 +956,38 @@ export const hi = {
     LIMIT_CARD_MAX_USDC: "अधिकतम {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / ऑर्डर",
     LIMIT_UPDATES: "लिमिट अपडेट",
+    LIMR_CONTINUE: "{{flow}} ऑर्डर पर वापस जाएँ",
+    LIMR_CURRENT_LIMIT: "आपकी लिमिट: {{limit}} USDC प्रति ऑर्डर",
+    LIMR_DISMISS: "हटाएँ",
+    LIMR_FLOW_BUY: "खरीद",
+    LIMR_FLOW_PAY: "भुगतान",
+    LIMR_FLOW_SELL: "बिक्री",
+    LIMR_MAX_FOR_MARKET: "आपके मार्केट के लिए अधिकतम",
+    LIMR_ORDER_FITS: "अब आपकी लिमिट इस ऑर्डर के लिए काफ़ी है।",
+    LIMR_ORDER_STILL_ABOVE:
+      "यह ऑर्डर अब भी आपकी लिमिट से ज़्यादा है। कोई दूसरा तरीका वेरिफ़ाई करें, या आगे बढ़कर राशि कम करें।",
+    LIMR_TITLE: "अपना {{flow}} ऑर्डर जारी रखें",
+    LIMR_TITLE_WITH_AMOUNT: "{{amount}} का अपना {{flow}} ऑर्डर जारी रखें",
+    LIMR_UPDATING_LIMIT: "आपकी लिमिट अपडेट हो रही है…",
+    LIM_KYC_FAILED_TITLE: "पासपोर्ट वेरिफ़िकेशन पूरा नहीं हो सका",
+    LIM_LIVENESS_FAILED_TITLE: "लाइवनेस चेक पूरा नहीं हो सका",
+    LIM_METHOD_BADGE_TAKES_MINUTES: "3-5 मिनट लगते हैं",
+    LIM_METHOD_DONE: "हो गया: आपकी लिमिट पहले से बढ़ा रहा है",
+    LIM_METHOD_GAIN: "आपकी प्रति-ऑर्डर लिमिट में +{{amount}} USDC जोड़ता है",
+    LIM_METHOD_GAIN_GENERIC: "आपकी प्रति-ऑर्डर लिमिट बढ़ाता है",
+    LIM_METHOD_GAIN_PER_ACCOUNT: "हर अकाउंट के लिए प्रति ऑर्डर +{{amount}} USDC तक",
+    LIM_METHOD_GAIN_STAKE: "जितना ज़्यादा स्टेक करेंगे, आपकी लिमिट उतनी ज़्यादा होगी",
+    LIM_METHOD_UNAVAILABLE_BADGE: "आपके क्षेत्र में अभी उपलब्ध नहीं",
+    LIM_METHOD_ZK_DESCRIPTION:
+      "साबित करें कि X, LinkedIn या GitHub जैसा कोई अकाउंट आपका है। यह प्राइवेट वेरिफ़िकेशन है: हम आपका पासवर्ड या डेटा कभी नहीं देखते।",
+    LIM_METHOD_ZK_TITLE: "सोशल अकाउंट वेरिफ़ाई करें",
+    LIM_REFERRAL_BONUS_READY: "आपका रिवॉर्ड क्लेम करने के लिए तैयार है।",
+    LIM_REFERRAL_BONUS_VERIFY_CTA: "अकाउंट वेरिफ़ाई करें",
+    LIM_REFERRAL_BONUS_VERIFY_SOCIAL:
+      "अपना रिवॉर्ड क्लेम करने के लिए कोई एक सोशल अकाउंट (जैसे X या LinkedIn) वेरिफ़ाई करें।",
+    LIM_VERIFICATION_FAILED_DESCRIPTION:
+      "हम वेरिफ़िकेशन पूरा नहीं कर सके। कृपया फिर से कोशिश करें।",
+    LIM_ZK_KYC_SUBTITLE: "प्राइवेट वेरिफ़िकेशन: हम आपका डेटा कभी नहीं देखते",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn सिर्फ़ RP अपडेट सपोर्ट करता है",
     LIQUIDITY: "लिक्विडिटी",
     LIVENESS_DESCRIPTION: "झटपट फ़ेस चेक, कोई दस्तावेज़ नहीं",
@@ -1016,6 +1128,7 @@ export const hi = {
     NO_ADDRESSES_SAVED: "कोई {{paymentAddressName}} सेव नहीं किया गया",
     NO_ADDRESS_TO_COPY: "कॉपी करने के लिए कोई पता नहीं",
     NO_ADDRESS_TO_DEPOSIT: "जमा करने के लिए कोई पता नहीं",
+    NO_AMOUNT_TO_COPY: "राशि अभी उपलब्ध नहीं है",
     NO_CAMPAIGN_PARAMETERS_FOUND: "कोई कैंपेन पैरामीटर नहीं मिला",
     NO_DISPUTE: "कोई विवाद नहीं",
     NO_DISPUTE_DECISION: "फ़ाइनल करने के लिए कोई निर्णय नहीं है",
@@ -1044,11 +1157,30 @@ export const hi = {
     NO_TASK_LEDGER_ENTRIES: "टास्क लेजर में कोई एंट्री नहीं मिली",
     NO_TRANSACTIONS_FOUND: "कोई ट्रांजैक्शन नहीं मिला",
     NO_WITHDRAWABLE_AMOUNT: "निकालने के लिए कोई राशि नहीं है",
-    NULLIFIER_ALREADY_VERIFIED: "नलिफ़ायर पहले से सत्यापित है",
+    NULLIFIER_ALREADY_VERIFIED:
+      "इस पहचान का इस्तेमाल पहले ही किसी वॉलेट को वेरिफ़ाई करने के लिए हो चुका है।",
     OLD_AND_NEW_PAYMENT_CHANNELS_ARE_THE_SAME: "पुराने और नए भुगतान चैनल समान हैं",
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "पुराना भुगतान चैनल नहीं मिला",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "पुराना भुगतान चैनल निष्क्रिय होना चाहिए",
+    ONB_BALANCE_LOAD_ERROR: "हम आपका बैलेंस लोड नहीं कर सके।",
+    ONB_CAMPAIGN_PARAMS_DESCRIPTION:
+      "अपना बोनस क्लेम करने के लिए लॉग इन करें। यह होम स्क्रीन पर आपका इंतज़ार कर रहा होगा।",
+    ONB_CHECK_CONNECTION_TRY_AGAIN: "अपना कनेक्शन जाँचें और फिर से कोशिश करें।",
+    ONB_FIRST_BUY_CTA: "अपना पहला USDC खरीदें",
+    ONB_FIRST_BUY_DESCRIPTION:
+      "USDC एक डिजिटल डॉलर है (1 USDC ≈ US$1)। {{currency}} में भुगतान करें और अपने वॉलेट में USDC पाएँ।",
+    ONB_FIRST_BUY_TITLE: "अपने पहले USDC से शुरुआत करें",
+    ONB_INVITE_CLAIM_FAILED_TITLE: "हम आपका इनवाइट क्लेम नहीं कर सके",
+    ONB_LIMITS_LOAD_ERROR: "हम आपकी लिमिट लोड नहीं कर सके।",
+    ONB_LOGIN_PAGE_TITLE: "{{currency}} से डिजिटल डॉलर (USDC) खरीदें और बेचें",
+    ONB_LOGIN_USDC_EXPLAINER:
+      "USDC एक डिजिटल डॉलर है: 1 USDC की कीमत लगभग 1 अमेरिकी डॉलर होती है।",
+    ONB_NEED_HELP_LINK: "मदद चाहिए? हेल्प और सपोर्ट पर जाएँ",
+    ONB_REFERRAL_PARAMS_DESCRIPTION:
+      "अपना इनवाइट स्वीकार करने के लिए लॉग इन करें। यह होम स्क्रीन पर आपका इंतज़ार कर रहा होगा।",
+    ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
+      "हम नेटवर्क पर इसकी पुष्टि कर रहे हैं। आमतौर पर इसमें कुछ सेकंड लगते हैं, इसलिए कृपया ऐप खुला रखें।",
     ONE_TIME_ADDRESS: "एक बार का पता",
     ONE_TIME_PAYMENT_ADDRESS: "एक बार का {{paymentAddressName}}",
     ONLY_4_PEOPLE_PER_MONTH: "एक महीने में केवल 4 लोग",
@@ -1067,13 +1199,22 @@ export const hi = {
     ORDER_AMOUNT_UPDATED_DESCRIPTION: "{{from}} से बदलकर {{to}} किया गया",
     ORDER_CANCELLED: "ऑर्डर रद्द कर दिया गया",
     ORDER_DETAILS: "ऑर्डर विवरण",
+    ORDER_ELAPSED_TIME: "{{elapsed}} बीत गए · आमतौर पर {{expected}} मिनट से कम",
+    ORDER_ELAPSED_TIME_SECONDS:
+      "{{elapsed}} बीत गए · आमतौर पर {{expected}} सेकंड से कम",
     ORDER_EXPIRED: "ऑर्डर एक्सपायर हो गया",
     ORDER_ID: "ऑर्डर आईडी",
     ORDER_ID_NOT_FOUND: "ऑर्डर आईडी नहीं मिली",
+    ORDER_LOAD_FAILED_DESCRIPTION:
+      "आपका फंड सुरक्षित है। अपना कनेक्शन जाँचें और फिर से कोशिश करें, या यह ऑर्डर अपने ट्रांजैक्शन में देखें।",
+    ORDER_LOAD_FAILED_TITLE: "हम यह ऑर्डर लोड नहीं कर सके",
     ORDER_NOT_ASSIGNED: "ऑर्डर असाइन नहीं हुआ",
     ORDER_NOT_FOUND: "ऑर्डर नहीं मिला",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED: "ऑर्डर स्वीकार किए जाने की स्थिति में नहीं है",
     ORDER_PREVIEW: "ऑर्डर प्रीव्यू",
+    ORDER_TAKING_LONGER_ANNOUNCEMENT: "इस ऑर्डर में सामान्य से ज़्यादा समय लग रहा है।",
+    ORDER_TAKING_LONGER_THAN_USUAL:
+      "{{elapsed}} बीत गए · सामान्य से ज़्यादा समय लग रहा है।",
     ORDER_TYPE: "ऑर्डर का प्रकार",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "सिर्फ़ प्लेस्ड स्टेटस वाले ऑर्डर ही दोबारा असाइन किए जा सकते हैं",
@@ -1225,6 +1366,94 @@ export const hi = {
     PAY: "भुगतान करें",
     PAYBILL_ACCOUNT_NUMBER: "खाता नंबर",
     PAYBILL_NUMBER: "पेबिल नंबर",
+    PAYF_AMOUNT_CHANGE_CANCEL: "न बदलें, फिर से स्कैन करें",
+    PAYF_AMOUNT_CHANGE_CONFIRM: "{{amount}} का भुगतान करें",
+    PAYF_AMOUNT_CHANGE_DESCRIPTION:
+      "इस QR कोड की राशि आपकी डाली गई राशि से अलग है। आगे बढ़ने से पहले दुकानदार से इसकी पुष्टि करें। अगर आप कन्फ़र्म करते हैं, तो आपका ऑर्डर QR वाली राशि पर अपडेट हो जाएगा।",
+    PAYF_AMOUNT_CHANGE_ORDER_AMOUNT: "आपकी डाली गई राशि",
+    PAYF_AMOUNT_CHANGE_QR_AMOUNT: "QR कोड की राशि",
+    PAYF_AMOUNT_CHANGE_REJECTED:
+      "राशि नहीं बदली गई। दुकानदार से सही राशि वाला QR माँगें और फिर से स्कैन करें।",
+    PAYF_AMOUNT_CHANGE_TITLE: "QR की राशि अलग है",
+    PAYF_BILL_TOTAL: "बिल की कुल राशि",
+    PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX:
+      "मैंने जाँच लिया है कि यह पता {{chain}} नेटवर्क पर है",
+    PAYF_BRIDGE_ADDRESS_FORMAT_INVALID:
+      "यह सही {{chain}} नेटवर्क पता नहीं लगता। जाँचें और फिर से कोशिश करें।",
+    PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING:
+      "गलत पते पर या {{chain}} के अलावा किसी दूसरे नेटवर्क के पते पर भेजा गया फंड वापस नहीं मिल सकता।",
+    PAYF_BRIDGE_AMOUNT_TOO_LOW:
+      "ब्रिज करने के लिए यह राशि बहुत कम है। ज़्यादा राशि आज़माएँ।",
+    PAYF_BRIDGE_DEPOSIT_DEADLINE:
+      "{{deadline}} से पहले भेजें। इस समय के बाद किए गए डिपॉज़िट ब्रिज होने के बजाय रिफ़ंड हो सकते हैं।",
+    PAYF_BRIDGE_LOAD_ASSETS_FAILED:
+      "हम समर्थित टोकन लोड नहीं कर सके। अपना कनेक्शन जाँचें और फिर से कोशिश करें।",
+    PAYF_BRIDGE_ORIGIN_CHAIN: "भेजने वाले",
+    PAYF_BRIDGE_QUOTE_FAILED:
+      "हम अभी कोट नहीं ले सके। राशि और पता जाँचें, फिर से कोशिश करें।",
+    PAYF_BRIDGE_RECIPIENT: "प्राप्तकर्ता",
+    PAYF_BRIDGE_RECIPIENT_ADDRESS_ON: "{{chain}} नेटवर्क पर प्राप्तकर्ता का पता",
+    PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER:
+      "अगर ब्रिज पूरा नहीं हो पाता, तो आपके टोकन इसी पते पर वापस भेजे जाते हैं। {{chain}} नेटवर्क पर अपना कोई पता डालें, जैसे वह वॉलेट जिससे आप भेज रहे हैं।",
+    PAYF_BRIDGE_SEND_FAILED: "USDC नहीं भेजा जा सका",
+    PAYF_BRIDGE_USDC_SENT: "USDC भेज दिया गया",
+    PAYF_BRIDGE_USDC_SENT_DESCRIPTION:
+      "ब्रिजिंग जारी है। आप इसे नीचे ब्रिज इतिहास में ट्रैक कर सकते हैं।",
+    PAYF_CAMERA_PERMISSION_DENIED_HELP:
+      'स्कैन करने के लिए इस साइट को कैमरा एक्सेस दें: एड्रेस बार के पास लॉक या सेटिंग्स आइकन पर टैप करें, या अपने फ़ोन की सेटिंग्स में इस ब्राउज़र के लिए कैमरा चालू करें, फिर "फिर से कोशिश करें" पर टैप करें।',
+    PAYF_CAMERA_START_TIMEOUT: "कैमरा शुरू होने में बहुत ज़्यादा समय लग रहा है",
+    PAYF_CAMERA_START_TIMEOUT_DESCRIPTION:
+      '"फिर से कोशिश करें" पर टैप करें। अगर ऐसा बार-बार हो, तो ऐप बंद करके दोबारा खोलें।',
+    PAYF_CAMERA_USE_UPLOAD_INSTEAD:
+      'आप नीचे "QR अपलोड करें" से QR कोड का स्क्रीनशॉट भी अपलोड कर सकते हैं।',
+    PAYF_COPY_ADDRESS: "पता कॉपी करें",
+    PAYF_DEPOSIT_BASE_ONLY_WARNING:
+      "USDC सिर्फ़ Base नेटवर्क पर भेजें। किसी दूसरे नेटवर्क (जैसे Ethereum, Tron या Solana) से भेजा गया USDC या कोई दूसरा टोकन खो सकता है।",
+    PAYF_DEPOSIT_USDC_TO_CONTINUE: "USDC जमा करें",
+    PAYF_MAINTENANCE_DESCRIPTION:
+      "हम P2P.me को बेहतर बनाने के लिए तय मेंटेनेंस कर रहे हैं। ऐप जल्द ही वापस आएगा।",
+    PAYF_MAINTENANCE_FOLLOW_UPDATES: "अपडेट हमारे सपोर्ट चैनल पर पोस्ट किए जाते हैं।",
+    PAYF_MAINTENANCE_FUNDS_SAFE: "आपका फंड सुरक्षित है",
+    PAYF_MAINTENANCE_ORDERS_RESUME:
+      "आपका USDC आपके वॉलेट में ही रहता है। अगर आपका कोई ऑर्डर चल रहा था, तो हमारे वापस आने पर उसे ट्रांजैक्शन में देखें — अगर कुछ गलत लगे, तो सपोर्ट से संपर्क करें।",
+    PAYF_MAINTENANCE_RETRY: "फिर से कोशिश करें",
+    PAYF_MERCHANT_GETS: "दुकानदार को मिलेगा",
+    PAYF_PASTE: "पेस्ट करें",
+    PAYF_PASTE_FAILED: "आपका क्लिपबोर्ड पढ़ा नहीं जा सका। पता खुद पेस्ट करें।",
+    PAYF_QR_FETCH_FAILED: "इस QR के भुगतान विवरण लोड नहीं हो सके",
+    PAYF_QR_FETCH_FAILED_DESCRIPTION: "अपना कनेक्शन जाँचें और फिर से स्कैन करें।",
+    PAYF_QR_INVALID_AMOUNT: "इस QR में राशि सही नहीं है",
+    PAYF_QR_INVALID_AMOUNT_DESCRIPTION:
+      "दुकानदार से सही राशि वाला नया QR बनाने को कहें।",
+    PAYF_QR_NOT_SUPPORTED: "यह QR कोड समर्थित नहीं है",
+    PAYF_QR_NOT_SUPPORTED_DESCRIPTION:
+      "दुकानदार से उनका पेमेंट QR कोड माँगें और फिर से स्कैन करें।",
+    PAYF_QR_SUPPORTED_TYPES: "समर्थित: {{types}}।",
+    PAYF_QR_UPLOAD_UNREADABLE: "उस इमेज में QR कोड पढ़ा नहीं जा सका",
+    PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION:
+      "QR कोड का साफ़ और बिना कटा हुआ स्क्रीनशॉट आज़माएँ।",
+    PAYF_QR_WRONG_CURRENCY: "यह QR किसी दूसरी मुद्रा के लिए है",
+    PAYF_QR_WRONG_CURRENCY_DESCRIPTION:
+      "{{currency}} में भुगतान के लिए QR कोड स्कैन करें।",
+    PAYF_STARTING_CAMERA: "कैमरा शुरू हो रहा है...",
+    PAYF_TXN_EMPTY_FILTERED_HINT: "सिर्फ़ चुनी गई अवधि और फ़िल्टर दिखाए जा रहे हैं।",
+    PAYF_TXN_SHOW_ALL_TIME: "पूरा इतिहास दिखाएँ",
+    PAYF_TXN_STATUS_CANCELLED_REFUNDED: "रद्द — रिफ़ंड हो गया",
+    PAYF_TXN_STATUS_DISPUTE_SETTLED: "विवाद निपट गया",
+    PAYF_TXN_STATUS_FINDING_MERCHANT: "मर्चेंट ढूँढा जा रहा है",
+    PAYF_TXN_STATUS_IN_DISPUTE: "विवाद में",
+    PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "मर्चेंट असाइन हो गया",
+    PAYF_TXN_STATUS_PAYMENT_SENT: "भुगतान भेजा गया",
+    PAYF_VIEW_ON_BASESCAN: "BaseScan पर देखें",
+    PAYF_WITHDRAW_AMOUNT: "राशि",
+    PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
+      "इससे USDC Base नेटवर्क पर भेजा जाता है और इसे वापस नहीं किया जा सकता। पक्का करें कि पाने वाला वॉलेट या एक्सचेंज Base पर USDC सपोर्ट करता है — अगर नहीं करता, तो आपका फंड खो सकता है।",
+    PAYF_WITHDRAW_CONFIRM_SEND: "पुष्टि करें और {{amount}} USDC भेजें",
+    PAYF_WITHDRAW_CONFIRM_TITLE: "निकासी की पुष्टि करें",
+    PAYF_WITHDRAW_FAILED_DESCRIPTION:
+      "आपका USDC नहीं भेजा गया। कृपया फिर से कोशिश करें।",
+    PAYF_WITHDRAW_REVIEW: "निकासी की समीक्षा करें",
+    PAYF_WITHDRAW_SENT_TITLE: "USDC भेज दिया गया",
     PAYMENT_ADDRESS_ALREADY_SENT: "भुगतान पता पहले ही भेजा जा चुका है",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} को क्लिपबोर्ड पर कॉपी किया गया",
@@ -1571,6 +1800,8 @@ export const hi = {
     REWARD_CLAIMED_DESCRIPTION:
       "आपने सफलतापूर्वक {{amount}} USDC क्लेम कर लिए। अपनी जीत दोस्तों के साथ शेयर करें!",
     RIF_LABEL: "Cédula/RIF",
+    RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION:
+      "हम पुष्टि नहीं कर सके कि यह पूरा हुआ या नहीं। फिर से कोशिश करने से पहले अपना बैलेंस या BaseScan चेक करें।",
     SAFETY_NOTICE_WALLET:
       "हम कभी भी आपका OTP, प्राइवेट की या बाहरी लिंक के ज़रिए लॉगिन नहीं मांगेंगे। अपनी लॉगिन जानकारी कभी किसी के साथ साझा न करें।",
     SAVE: "सेव करें",
@@ -1631,6 +1862,36 @@ export const hi = {
     SELL_QUIZ_TRY_AGAIN: "यह सही नहीं है। आगे बढ़ने के लिए सबसे सही जवाब चुनें।",
     SELL_USDC: "USDC बेचें",
     SELL_USDC_FAQS: "USDC बेचने से जुड़े FAQs",
+    SELL_UX_ACCEPTED_TIMEOUT_NOTE:
+      "अगर मर्चेंट को समय पर आपके भुगतान विवरण नहीं मिलते, तो ऑर्डर रद्द हो जाता है और आपका USDC आपके वॉलेट में वापस आ जाता है।",
+    SELL_UX_APPROVING_USDC_STEP: "USDC अप्रूव हो रहा है (1/2)…",
+    SELL_UX_CLIPBOARD_EMPTY:
+      "आपका क्लिपबोर्ड खाली है। पहले अपना {{paymentAddressName}} कॉपी करें।",
+    SELL_UX_COMPLETED_DESCRIPTION:
+      "{{amount}} मिलने की पुष्टि के लिए अपना बैंक या पेमेंट ऐप चेक करें।",
+    SELL_UX_COMPLETED_TITLE: "मर्चेंट ने आपका भुगतान भेजा गया मार्क कर दिया है",
+    SELL_UX_DEPOSIT_USDC: "USDC जमा करें",
+    SELL_UX_DETAILS_MISSING_DESCRIPTION:
+      "इस डिवाइस पर इस ऑर्डर के भुगतान विवरण नहीं मिले। बताएँ कि आप पैसे कहाँ पाना चाहते हैं, ताकि मर्चेंट आपको पैसे भेज सके।",
+    SELL_UX_DETAILS_MISSING_TITLE: "अपने भुगतान विवरण डालें",
+    SELL_UX_DIDNT_RECEIVE_IT: "पैसे नहीं मिले?",
+    SELL_UX_INVALID_PAYMENT_ID:
+      "यह सही {{paymentAddressName}} नहीं लगता। कृपया इसे जाँचें।",
+    SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "हम इसे अपने आप नहीं खोल सके। इसे अपने ट्रांजैक्शन से खोलें — अगर पूछा जाए, तो वहाँ अपने भुगतान विवरण डालें।",
+    SELL_UX_ORDER_PLACED_ID_MISSING_TITLE: "आपका ऑर्डर दे दिया गया है",
+    SELL_UX_PAID_TIMEOUT_NOTE:
+      "काफ़ी देर बाद भी पैसे नहीं मिले? इस ऑर्डर पर मदद पाने के लिए ऊपर हेल्प आइकन पर टैप करें।",
+    SELL_UX_PLACED_DESCRIPTION:
+      "यह पेज खुला रखें — मर्चेंट के स्वीकार करते ही हम आपके भुगतान विवरण भेज देंगे (आमतौर पर 20–90 सेकंड)। अगर आप पेज छोड़ते हैं, तो विवरण डालने के लिए इस ऑर्डर पर वापस आएँ।",
+    SELL_UX_PLACED_TIMEOUT_NOTE:
+      "अगर समय पर कोई मर्चेंट स्वीकार नहीं करता, तो ऑर्डर रद्द हो जाता है और आपका USDC आपके वॉलेट में वापस आ जाता है।",
+    SELL_UX_PLACING_ORDER: "ऑर्डर दिया जा रहा है…",
+    SELL_UX_PLACING_ORDER_STEP: "ऑर्डर दिया जा रहा है (2/2)…",
+    SELL_UX_PROCESSING_TIMES_UNAVAILABLE: "आमतौर पर कुछ मिनट",
+    SELL_UX_SEND_PAYMENT_DETAILS: "भुगतान विवरण भेजें",
+    SELL_UX_USE_DIFFERENT_DETAILS: "दूसरे भुगतान विवरण इस्तेमाल करें",
+    SELL_UX_YOU_WILL_BE_PAID_TO: "आपको यहाँ भुगतान मिलेगा:",
     SEND: "भेजें",
     SENDING: "भेजा जा रहा है",
     SENDING_PAYMENT_DETAILS: "भुगतान विवरण भेजा जा रहा है",
@@ -1682,6 +1943,7 @@ export const hi = {
     SMART_LIMITS_NO_FREEZES: "स्मार्ट लिमिट = कोई फ्रीज नहीं",
     SOCIAL_ALREADY_VERIFIED: "सोशल पहले से सत्यापित",
     SOLD_VIA: "बेचने का तरीका",
+    SOMETHING_WENT_WRONG: "कुछ गलत हो गया",
     SOUNDS: "आवाज़ें",
     SPEI: "SPEI",
     SPEND_USDC_ANYWHERE_SCAN_QR: "Scan & Pay से कहीं भी USDC खर्च करें",
@@ -1694,6 +1956,9 @@ export const hi = {
     STAKE_CTA_SUBTITLE: "खरीद, भुगतान और बिक्री पर {{amount}} USDC तक",
     STAKE_CTA_TITLE: "सीमाएं बढ़ाएं",
     STAKE_EXCEEDS_MAX_TOKENS: "स्टेक तय अधिकतम टोकन से ज़्यादा है",
+    STAKE_IN_PROGRESS_DESCRIPTION:
+      "आप यह स्क्रीन छोड़ सकते हैं। पूरा होने पर हम आपको बताएँगे और आपकी लिमिट अपने आप अपडेट हो जाएगी। इसके पूरा होने के बाद आप फिर से स्टेक कर सकते हैं।",
+    STAKE_IN_PROGRESS_TITLE: "आपके स्टेक की पुष्टि हो रही है",
     STAKE_NOT_ACTIVE: "कोई सक्रिय स्टेक नहीं है",
     STAKE_NOT_IN_COOLDOWN: "स्टेक कूलडाउन अवधि में नहीं है",
     STAKE_SEIZED: "आपका स्टेक जब्त कर लिया गया है",
@@ -1711,6 +1976,41 @@ export const hi = {
     SUPPORTED_NETWORKS: "सपोर्टेड नेटवर्क",
     SUPPORT_SCAM_WARNING:
       "Telegram पर नकली सपोर्ट अकाउंट से सावधान रहें। हमारी टीम आपको कभी भी DM या कॉल नहीं करेगी। सपोर्ट के लिए केवल ऊपर दिए गए हमारे आधिकारिक Telegram ग्रुप लिंक का उपयोग करें।",
+    SUP_CHAT_UNAVAILABLE:
+      "अभी चैट नहीं खुल सकी। कृपया फिर से कोशिश करें या Telegram पर हमसे संपर्क करें।",
+    SUP_DISPUTE_ALREADY_RAISED: "इस ऑर्डर पर पहले से एक विवाद खुला है।",
+    SUP_DISPUTE_AVAILABLE_IN: "{{minutes}} मिनट में उपलब्ध",
+    SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
+      "हमें बताएँ कि मर्चेंट ने भुगतान नहीं किया है (बिक्री में आपको, या जिस QR का आपने भुगतान किया उसे)। सपोर्ट टीम चैट में आपसे संपर्क करेगी।",
+    SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
+      "ज़्यादातर भुगतानों की पुष्टि मर्चेंट कुछ ही मिनटों में कर देता है। ऑर्डर देने के {{minutes}} मिनट बाद विवाद दर्ज किया जा सकता है, ताकि मर्चेंट को अपना अकाउंट जाँचने का समय मिल सके। अपना पेमेंट रेफ़रेंस (UTR) तैयार रखें।",
+    SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
+      "भुगतान आने में थोड़ा समय लग सकता है। अगर यह अब भी नहीं आया है, तो आप ऑर्डर देने के {{minutes}} मिनट बाद विवाद दर्ज कर सकते हैं।",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
+      "यह ऑर्डर पूरा हो चुका है, इसलिए इस पर विवाद की ज़रूरत नहीं है। फिर भी कुछ गड़बड़ है? हमसे चैट करें।",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
+      "विवाद सिर्फ़ उन ऑर्डर के लिए है जिनका आपने भुगतान कर दिया है। अगर आप भुगतान कर चुके हैं, तो पहले ऑर्डर को भुगतान किया गया मार्क करें।",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
+      "यह ऑर्डर रद्द हो चुका है, इसलिए इस पर विवाद दर्ज नहीं किया जा सकता। अगर कुछ गलत लगे, तो हमसे चैट करें।",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
+      "मर्चेंट के भुगतान को भेजा गया मार्क करने के बाद ही विवाद दर्ज किया जा सकता है। अगर बहुत ज़्यादा समय लग रहा है, तो हमसे चैट करें।",
+    SUP_DISPUTE_PAYMENT_WINDOW_ENDED:
+      "ऑर्डर को भुगतान किया गया मार्क करने से पहले ही भुगतान का समय खत्म हो गया, इसलिए विवाद दर्ज नहीं किया जा सकता। अगर आप पैसे भेज चुके हैं, तो हमसे चैट करें और अपना UPI रेफ़रेंस (UTR) शेयर करें — हम मर्चेंट से इसकी जाँच करेंगे।",
+    SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
+      "अगर मर्चेंट ने पेमेंट रेफ़रेंस शेयर किया है, तो उसके आखिरी 4 अंक डालें। अगर कोई भुगतान नहीं हुआ है, तो इसे खाली छोड़ दें।",
+    SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL: "पेमेंट रेफ़रेंस के आखिरी 4 अंक (वैकल्पिक)",
+    SUP_DISPUTE_TXN_ID_WHERE_BUY:
+      "कहाँ मिलेगा: अपना पेमेंट ऐप (जैसे आपका UPI ऐप) खोलें, इस भुगतान पर टैप करें, और ट्रांजैक्शन विवरण में UTR या रेफ़रेंस नंबर देखें।",
+    SUP_LOGIN_TO_CHAT_IN_APP:
+      'ऐप में हमारी टीम से चैट करने और अपनी बातचीत देखने के लिए लॉग इन करें। तब तक, "हमसे चैट करें" हमारा Telegram ग्रुप खोलता है।',
+    SUP_ORDER_DETAILS_COPIED:
+      "ऑर्डर विवरण कॉपी हो गया। इसे अपने मैसेज में पेस्ट करें, ताकि हम जल्दी मदद कर सकें।",
+    SUP_ORDER_DETAILS_COPIED_CHAT:
+      "ऑर्डर विवरण कॉपी हो गया। इसे अपने पहले मैसेज के रूप में पेस्ट करें, ताकि हम जल्दी मदद कर सकें।",
+    SUP_ORDER_ID_SHARED_HINT:
+      "हम आपका ऑर्डर नंबर (#{{id}}) कॉपी कर देंगे, ताकि आप इसे चैट में पेस्ट कर सकें।",
+    SUP_ORDER_SUMMARY:
+      "ऑर्डर #{{id}} · {{type}} · {{status}} · {{minutes}} मिनट पहले दिया गया",
     SWAP: "स्वैप",
     SWAPPING: "स्वैप हो रहा है",
     SWAP_EXCEEDS_LIMIT: "प्रति स्वैप अधिकतम {{amount}} {{token}}",
@@ -1895,6 +2195,23 @@ export const hi = {
       "अपनी सीमाएं बढ़ाने के लिए कम से कम एक सोशल अकाउंट सत्यापित करें, फिर जैसे-जैसे आप लेन-देन पूरे करेंगे, सीमाएं बढ़ती रहेंगी।",
     VERIFY_TO_RAISE: "बढ़ाने के लिए वेरिफ़ाई करें",
     VERIFY_ZK_PROOF: "zk प्रूफ़ सत्यापित करें",
+    VFX_ATTESTATION_EXPIRED:
+      "आपके वेरिफ़िकेशन का नतीजा सेव होने से पहले ही एक्सपायर हो गया। कृपया फिर से शुरू करें।",
+    VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "दूसरा फ़ोन नंबर",
+    VFX_BVN_OTP_METHOD_EMAIL: "ईमेल",
+    VFX_BVN_OTP_METHOD_OTHER: "दूसरा विकल्प",
+    VFX_BVN_OTP_METHOD_PHONE: "फ़ोन",
+    VFX_BVN_OTP_METHOD_PHONE_1: "दूसरा फ़ोन",
+    VFX_BVN_OTP_NOT_SENT:
+      "हम कोड नहीं भेज सके। कोई दूसरा विकल्प आज़माएँ या थोड़ी देर में फिर से कोशिश करें।",
+    VFX_CODE_RESENT: "हमने नया कोड भेज दिया है",
+    VFX_FINISH_VERIFICATION: "वेरिफ़िकेशन पूरा करें",
+    VFX_RESEND_CODE: "कोड दोबारा भेजें",
+    VFX_SESSION_EXPIRED_DESCRIPTION:
+      "इस वेरिफ़िकेशन में बहुत ज़्यादा समय लगा, इसलिए इसे रोक दिया गया। नया सेशन पाने के लिए फिर से शुरू करें।",
+    VFX_SESSION_EXPIRED_TITLE: "सेशन एक्सपायर हो गया",
+    VFX_START_AGAIN: "फिर से शुरू करें",
+    VFX_STATUS_CHECK_FAILED: "स्टेटस जाँचा नहीं जा सका",
     VIA_JUPITER: "Jupiter से",
     VIDEO_APP_TOUR: "ऐप टूर",
     VIDEO_BUY_FLOW: "खरीद फ्लो",
@@ -1915,6 +2232,7 @@ export const hi = {
     VIDEO_SCAN_AND_PAY: "Scan & Pay",
     VIDEO_SELL_FLOW: "बिक्री फ्लो",
     VIEW_HOLDINGS: "होल्डिंग्स देखें",
+    VIEW_MY_ORDERS: "मेरे ऑर्डर देखें",
     VIEW_ON: "देखें",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "{{orderType}} ऑर्डर के बारे में अक्सर पूछे जाने वाले प्रश्न देखें",
