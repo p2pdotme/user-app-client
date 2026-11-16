@@ -15,17 +15,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useSafeDynamicContext } from "@/contexts";
+import { DynamicProviderWrapper } from "@/contexts/dynamic-provider-wrapper";
 import { OFFICIAL_RANGO_SUPPORT_CHANNELS } from "@/core/rango";
 import { handleDeposit as executeDepositTransaction } from "@/core/rango/bridgeHandler/deposit";
 import type { RangoSwapResponse } from "@/core/rango/types";
-import {
-  useAnalytics,
-  usePageMeta,
-  useRangoQuote,
-  useRangoSwap,
-  useSounds,
-  useThirdweb,
-} from "@/hooks";
+import { useAnalytics, usePageMeta, useSounds, useThirdweb } from "@/hooks";
+import { useRangoQuote } from "@/hooks/use-rango-quote";
+import { useRangoSwap } from "@/hooks/use-rango-swap";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
@@ -36,7 +32,19 @@ import { FromToCards } from "./from-to-cards";
 import { QuoteDetails } from "./quote-details";
 import type { DepositState } from "./shared";
 
+/**
+ * The Dynamic external-wallet provider is mounted here (not app-wide) so the
+ * Dynamic SDK only loads when this screen is used.
+ */
 export function Deposit() {
+  return (
+    <DynamicProviderWrapper>
+      <DepositContent />
+    </DynamicProviderWrapper>
+  );
+}
+
+function DepositContent() {
   const { t } = useTranslation();
   usePageMeta({ title: t("DEPOSIT") });
   const { isAvailable: isDynamicAvailable, primaryWallet } =

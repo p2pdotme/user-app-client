@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { formatUnits, parseUnits } from "viem";
 import ASSETS from "@/assets";
-import { BridgeTokenSelectorDrawer } from "@/components";
+import { BridgeTokenSelectorDrawer } from "@/components/bridge-token-selector-drawer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,9 @@ import {
   CHAIN_TO_CHAINID_MAP,
   RANGO_ALL_CHAINS_SET,
 } from "@/core/rango/config";
-import { useRangoFetch, useRangoQuote, useUSDCBalance } from "@/hooks";
+import { useUSDCBalance } from "@/hooks";
+import { useRangoFetch } from "@/hooks/use-rango-fetch";
+import { useRangoQuote } from "@/hooks/use-rango-quote";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { truncateAmount } from "@/lib/utils";
 import type { DepositState } from "./shared";

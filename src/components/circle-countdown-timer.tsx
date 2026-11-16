@@ -62,7 +62,9 @@ export const CircleCountdownTimer = ({
 
   React.useEffect(() => {
     updateTimer(); // Initial update
-    intervalRef.current = setInterval(updateTimer, 100);
+    // The text only shows whole seconds and the ring moves <1% per second,
+    // so 500 ms is visually identical to 100 ms at a fifth of the re-renders.
+    intervalRef.current = setInterval(updateTimer, 500);
 
     return () => {
       if (intervalRef.current) {

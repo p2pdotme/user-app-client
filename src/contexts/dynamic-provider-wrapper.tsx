@@ -3,20 +3,18 @@ import {
   DynamicContextProvider,
   mergeNetworks,
   useDynamicContext,
-  type Wallet,
 } from "@dynamic-labs/sdk-react-core";
 import { SolanaWalletConnectors } from "@dynamic-labs/solana";
 import type { GenericNetwork } from "@dynamic-labs/types";
 import {
   Component,
-  createContext,
   type ErrorInfo,
   type ReactNode,
   useCallback,
-  useContext,
   useState,
 } from "react";
 import { captureError } from "@/lib/sentry";
+import { DynamicStatusContext } from "./dynamic-status";
 
 /** HyperEVM (chain 999) network config for Dynamic – ensures switchNetwork(999) finds a mapping when multiple networks are enabled */
 const HYPEREVM_NETWORK: GenericNetwork = {
@@ -41,29 +39,6 @@ const HYPEREVM_NETWORK: GenericNetwork = {
     "https://explorer.hyperliquid.xyz",
   ],
 };
-
-// Context to expose Dynamic availability status and safe wallet access
-interface DynamicStatusContextValue {
-  isAvailable: boolean;
-  error: Error | null;
-  primaryWallet: Wallet | null;
-}
-
-const DynamicStatusContext = createContext<DynamicStatusContextValue>({
-  isAvailable: true,
-  error: null,
-  primaryWallet: null,
-});
-
-export const useDynamicStatus = () => useContext(DynamicStatusContext);
-
-/**
- * Safe wrapper around useDynamicContext that returns null when Dynamic is unavailable
- * This allows components to gracefully handle Dynamic SDK failures
- */
-export function useSafeDynamicContext() {
-  return useDynamicStatus();
-}
 
 interface DynamicProviderWrapperProps {
   children: ReactNode;

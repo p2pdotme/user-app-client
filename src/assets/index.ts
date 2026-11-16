@@ -72,8 +72,6 @@ const INSTANT_APP_CLICK_HERE = createAssetUrl(
   "images/instant-app-click-here-latest.png",
 );
 
-import { LoginPoster } from "./images/login-poster";
-
 const MASCOT_404 = createAssetUrl("images/mascot-404.png");
 const MASCOT_MAINTENANCE = createAssetUrl("images/mascot-maintenance.png");
 const REFERRAL_BADGE = createAssetUrl("images/referral-badge.svg");
@@ -277,7 +275,6 @@ const ASSETS = {
     MASCOT_MAINTENANCE,
     USDCFiatOverlapped,
     BUY_MERCHANT_ASSIGNMENT,
-    LoginPoster,
     IOS_RECLAIM_VERIFIER,
     INSTANT_APP_CLICK_HERE,
     TGE_BANNER,

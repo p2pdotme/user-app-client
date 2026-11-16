@@ -16,20 +16,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { DynamicProviderWrapper } from "@/contexts/dynamic-provider-wrapper";
 import { OFFICIAL_RANGO_SUPPORT_CHANNELS } from "@/core/rango";
 import { handleWithdraw as executeWithdrawTransaction } from "@/core/rango/bridgeHandler/withdraw";
 import type {
   RangoSwapResponse,
   SupportedBridgeChains,
 } from "@/core/rango/types";
-import {
-  useAnalytics,
-  usePageMeta,
-  useRangoQuote,
-  useRangoSwap,
-  useSounds,
-  useThirdweb,
-} from "@/hooks";
+import { useAnalytics, usePageMeta, useSounds, useThirdweb } from "@/hooks";
+import { useRangoQuote } from "@/hooks/use-rango-quote";
+import { useRangoSwap } from "@/hooks/use-rango-swap";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
@@ -39,7 +35,19 @@ import { FromToCards } from "./from-to-cards";
 import { QuoteDetails } from "./quote-details";
 import { isValidAddressForChain, type WithdrawState } from "./shared";
 
+/**
+ * The Dynamic external-wallet provider is mounted here (not app-wide) so the
+ * Dynamic SDK only loads when this screen is used.
+ */
 export function Withdraw() {
+  return (
+    <DynamicProviderWrapper>
+      <WithdrawContent />
+    </DynamicProviderWrapper>
+  );
+}
+
+function WithdrawContent() {
   const { t } = useTranslation();
   usePageMeta({ title: t("WITHDRAW") });
   const { account } = useThirdweb();

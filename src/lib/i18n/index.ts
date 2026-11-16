@@ -1,22 +1,41 @@
-import i18n from "i18next";
+import i18n, { type BackendModule, type ResourceKey } from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getSettings } from "@/core/client/settings";
 import { setMomentLocale } from "@/lib/moment-locale";
 import { en } from "./en";
-import { es } from "./es";
-import { hi } from "./hi";
-import { id } from "./id";
-import { pt } from "./pt";
 
-const resources = {
-  en,
-  es,
+// English is bundled (it is also the fallback language). Every other locale is
+// a separate chunk that is downloaded only when that language is in use, so
+// users don't pay to download and parse five translation files at startup.
+const resources = { en };
+
+const LAZY_LOCALES: Record<
+  string,
+  () => Promise<{ translation: ResourceKey }>
+> = {
+  es: () => import("./es").then((m) => m.es),
   // TODO: Verify translations with a native speaker
-  pt,
+  pt: () => import("./pt").then((m) => m.pt),
   // TODO: Verify translations with a native speaker
-  id,
+  id: () => import("./id").then((m) => m.id),
   // TODO: Verify translations with a native speaker
-  hi,
+  hi: () => import("./hi").then((m) => m.hi),
+};
+
+const lazyLocaleBackend: BackendModule = {
+  type: "backend",
+  init() {},
+  read(language, _namespace, callback) {
+    const load = LAZY_LOCALES[language] ?? LAZY_LOCALES[language.split("-")[0]];
+    if (!load) {
+      // Unknown language (or English, which is bundled): nothing to load.
+      callback(null, {});
+      return;
+    }
+    load()
+      .then((bundle) => callback(null, bundle.translation))
+      .catch((error: Error) => callback(error, null));
+  },
 };
 
 // Get the saved language from settings
@@ -36,15 +55,28 @@ const getInitialLanguage = () => {
 
 const initialLanguage = getInitialLanguage();
 
-i18n.use(initReactI18next).init({
-  debug: true,
-  lng: initialLanguage,
-  fallbackLng: "en",
-  resources,
-  interpolation: {
-    escapeValue: false,
-  },
-});
+/**
+ * Resolves once the initial language's translations are available. `main.tsx`
+ * awaits this before the first render so non-English users don't see a flash
+ * of English text.
+ */
+export const i18nReady = i18n
+  .use(lazyLocaleBackend)
+  .use(initReactI18next)
+  .init({
+    debug: import.meta.env.DEV,
+    lng: initialLanguage,
+    fallbackLng: "en",
+    resources,
+    // Keep the bundled English resources and load the rest via the backend.
+    partialBundledLanguages: true,
+    interpolation: {
+      escapeValue: false,
+    },
+    // Language switches load the new locale first and then re-render; don't
+    // suspend the whole tree while that happens.
+    react: { useSuspense: false },
+  });
 
 const syncDocumentLanguage = (lng: string) => {
   if (typeof document !== "undefined") {

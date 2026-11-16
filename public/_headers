@@ -4,3 +4,9 @@
   Permissions-Policy: camera=(self), clipboard-read=(self "https://partners.p2p.lol" "https://embedded-wallet.thirdweb.com"), clipboard-write=(self "https://partners.p2p.lol" "https://embedded-wallet.thirdweb.com")
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Build output in /assets has content-hashed file names, so it can be cached
+# forever. Saves a revalidation round-trip per file whenever the service worker
+# cache is cold (first visit, iOS eviction, private tabs).
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

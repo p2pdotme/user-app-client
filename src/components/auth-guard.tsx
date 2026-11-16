@@ -206,6 +206,19 @@ export function AuthGuard({ children }: AuthGuardProps) {
     );
   }
 
+  // A signed-out visitor on a protected route is about to be redirected to
+  // login by the effect above. Don't mount the protected screen in the
+  // meantime: rendering it for even one frame starts downloading that screen's
+  // code (Home pulls in animations, rewards, etc.) that a first-time visitor
+  // doesn't need yet.
+  const redirectToLoginPending =
+    connectionStatus === "disconnected" &&
+    !isPublicRoute(location.pathname) &&
+    !(isAutoConnectLoading && !connectTimedOut);
+  if (redirectToLoginPending) {
+    return null;
+  }
+
   return <>{children}</>;
 }
 

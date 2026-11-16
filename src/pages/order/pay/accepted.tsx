@@ -6,8 +6,9 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { parseUnits } from "viem";
 import ASSETS from "@/assets";
-import { DashedSeparator, OrderProgress, QrScanner } from "@/components";
+import { DashedSeparator, OrderProgress } from "@/components";
 import { OrderElapsedTime } from "@/components/order-elapsed-time";
+import { QrScanner } from "@/components/qr-scanner";
 import { TransferWarningAlert } from "@/components/transfer-warning-alert";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
