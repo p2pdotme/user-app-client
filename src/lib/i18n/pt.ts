@@ -621,9 +621,6 @@ export const pt = {
       "Posso usar o P2P.me para gastos do dia a dia com cripto?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
       "Sim! Com o P2P.me, os pagamentos do dia a dia são rápidos e simples. É só escanear um QR code, pagar em USDC e o valor é liquidado em moeda local em segundos.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "Posso sacar USDC para outras redes?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Sim. Use o recurso de saque cross-chain e:\n• Selecione a rede de destino correta\n• Confira bem o endereço da sua carteira antes de confirmar",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
       "Não quero vincular minhas redes sociais. É seguro?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
@@ -651,9 +648,6 @@ export const pt = {
     FAQ_HOW_MUCH_CAN_I_EARN: "Quanto posso ganhar?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
       "Você ganha 0,5% de cada negociação feita pelos usuários que indicou. Não há limite máximo: quanto mais eles negociam, mais você ganha.",
-    FAQ_HOW_PREVENT_FRAUD: "Como vocês evitam fraudes?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Em plataformas P2P tradicionais, a fraude costuma acontecer quando golpistas enviam dinheiro roubado para usuários desavisados, o que gera bloqueios de conta e muita dor de cabeça. O P2P.me tem proteções integradas para manter você seguro:\n\n• Provas de conhecimento zero (ZK) e checagem de histórico para todos os comerciantes: verificamos a atividade bancária para garantir que só comerciantes confiáveis possam negociar. Nada de gente suspeita.\n• Sistema de verificação zk-Social: usuários não verificados têm acesso limitado, para manter tudo mais seguro. Se você é verificado, está com tudo. Se não, tente de novo mais tarde.\n• Penalidade para quem indica fraudadores: somos rigorosos. Se você indicar alguém que se comporta mal, não é só essa pessoa que sai. Você também pode perder privilégios.\n\nCom mais de 55.000 transações processadas, nossa taxa de fraude é quase zero. Não dizemos que é perfeito, mas estamos bem perto.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
       "Como o P2P.me protege você contra fraudes que bloqueiam sua conta?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
@@ -714,9 +708,6 @@ export const pt = {
       "O lojista está pedindo para ver o pagamento – o que devo fazer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
       '1. Copie o ID UPI do comerciante no seu pedido.\n2. Cole no seu app UPI para ver o nome dele.\n3. Diga ao lojista: "Você deve ter recebido ₹XXXX de [Nome]."\n4. Se ele ainda negar, fale com o suporte. Enviaremos uma captura de tela para você mostrar.',
-    FAQ_WHAT_ARE_DEFAULT_LIMITS: "Quais são os limites padrão no P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Para novos usuários:\n• Pedidos de compra: indisponíveis. Faça pelo menos uma verificação zk para liberar a compra e começar com segurança!\n• Limite de venda: US$ 100 por pedido, até 10 pedidos por dia (limite diário de US$ 1.000, já que os comerciantes são verificados e estão prontos para negociar).\n\nPara usuários com pelo menos uma verificação zk:\n• Limite de compra: seu limite de transação por pedido, até 5 pedidos por dia.\n• Limite de venda: seu limite de transação por pedido, até 10 pedidos por dia.\n\nLimite máximo por transação: 400 USDC.\nLimite mensal de pedidos de compra: 25 pedidos.\nLimite de volume anual: {{yearlyVolumeLimit}} USDC por usuário.\nQuer limites maiores? Acesse a seção Meus limites para fazer verificações zk e liberar mais.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Quais são os limites padrão?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
       "Para novos usuários:\n• Pedidos de compra: indisponíveis. Faça pelo menos uma verificação zk para liberar a compra e começar com segurança!\n• Limite de venda: US$ 100 por pedido, até 10 pedidos por dia (limite diário de US$ 1.000, já que os comerciantes são verificados e estão prontos para negociar).\n\nPara usuários com pelo menos uma verificação zk:\n• Limite de compra: seu limite de transação por pedido, até 5 pedidos por dia.\n• Limite de venda: seu limite de transação por pedido, até 10 pedidos por dia.\n\nLimite máximo por transação: 400 USDC.\nLimite mensal de pedidos de compra: 25 pedidos.\nLimite de volume anual: {{yearlyVolumeLimit}} USDC por usuário.\nQuer limites maiores? Acesse a seção Meus limites para fazer verificações zk e liberar mais.",
@@ -776,10 +767,6 @@ export const pt = {
       "Onde posso encontrar meu histórico de depósitos e saques?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
       "Acesse a seção Transações no app. Você vai ver abas para:\n• Pedidos (compra/venda)\n• Depósitos\n• Saques",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Onde encontrar o histórico de pedidos ou transações no P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Acesse 'Transações' no app para ver pedidos, depósitos, saques e disputas.",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
       "Onde posso ver todas as minhas transações no P2P.me?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
@@ -791,9 +778,6 @@ export const pt = {
       "Quais moedas e redes o P2P.me suporta?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
       "No momento, o P2P.me suporta USDC na rede Base.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN: "Quem cuida das transações cross-chain?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Todas as operações cross-chain são feitas pela Near Intents. Se houver atrasos ou problemas, fale com o suporte da Near Intents aqui.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Quem desenvolve e mantém o P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "O P2P.me é um protocolo de bem público desenvolvido por uma comunidade de colaboradores open source do mundo todo. Construído na Base, é um protocolo que cresce com a colaboração. É totalmente open source, ou seja, qualquer pessoa pode olhar por dentro e ver o que está acontecendo. Sem segredos, só transparência.",

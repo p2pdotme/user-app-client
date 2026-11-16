@@ -582,235 +582,234 @@ export const en = {
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY:
       "Are buy and sell limits tracked separately?",
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY_ANSWER:
-      "Yes, your buy and sell limits are independent and increase based on usage.",
-    FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS:
-      "Are deposits and withdrawals gasless?",
+      "Yes. Your buy limit is separate from your sell and pay limits. Both go up as you complete verifications and more orders.",
+    FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS: "Do I pay network fees (gas)?",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS_ANSWER:
-      "Yes, all transactions on P2P.me are completely gasless, including deposits, withdrawals, and trades when using your in-app wallet on the Base network.",
+      "Not inside P2P.me. Network fees (gas) are covered for withdrawals, orders and anything else you do from your P2P.me wallet.\n\nTwo exceptions: the exchange or wallet you send from may charge its own fee, and cross-chain transfers include a bridge fee shown in the quote.",
     FAQ_ARE_THERE_RISKS_REFERRING: "Are there any risks in referring someone?",
     FAQ_ARE_THERE_RISKS_REFERRING_ANSWER:
-      "Yes, there's a small risk. Only refer users you trust. If your referred user engages in fraudulent or suspicious activity, your Referral privileges and Transaction limits could be slashed/suspended. The Protocol is ruthless, so choose your referrals wisely!",
+      "Yes. You vouch for the people you refer. If someone you referred commits fraud, you can lose your referral rewards, and your limits can be cut or suspended. Only refer people you know and trust.",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS: "Are there any withdrawal limits?",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS_ANSWER:
-      "No, there are no withdrawal limits on P2P.me.",
+      "No. You can withdraw any amount of USDC you hold, and your buy and sell limits don't apply. Cross-chain withdrawals have a small minimum amount.",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS:
-      "What is the Bank Freeze Protection for Indian transactions on P2P.me?",
+      "What is Bank Freeze Protection (India)?",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER:
-      "P2P.me offers a 100% refund guarantee for Indian users: if any P2P.me transaction (dated after September 1st, 2025) results in a bank freeze or a transaction marked with a lien, we will refund the full transaction amount in USDC directly to your P2P.me wallet, and our community legal team will support you through the resolution process.\n\nPlease visit https://unfreeze.pro (our dedicated portal for end users and P2P merchants) and submit the details of your fraud incident as soon as possible. Our support team will verify your Order ID and bank acknowledgment before issuing the refund and legal support.\n\nOnly the exact amount tied to that specific transaction ID is covered. As of now, this protection is supported in India only. Although such cases are already extremely rare, we still recommend using a separate burner bank account for off-ramping.",
+      "If a P2P.me order made after 1 September 2025 leads to a freeze or lien on your bank account, we refund that order's full amount in USDC to your P2P.me wallet. Our community legal team also helps you get the account released.\n\n1. Report it as soon as possible at unfreeze.pro.\n2. Share your order ID and the bank's notice.\n3. Once we verify it, we send the refund.\n\nOnly the amount of that order is covered. Available in India only.",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT:
+      "Why can't I cancel while waiting for a merchant?",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT_ANSWER:
+      "While your order is looking for a merchant, nothing has happened yet: you haven't paid, and on sell or pay orders your USDC is safely locked in the order.\n\nIf no merchant accepts within a few minutes, the order cancels itself and any USDC returns to your wallet. On a buy order, you can cancel after a merchant accepts, but only if you haven't paid.",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY:
       "Can I download my transaction history?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
-      "Yes! You can download the history of your completed orders directly from the Transactions section.",
+      "Yes. In Transactions, set the filters you want (for example a date range), then tap Download. You'll get a CSV file of the orders shown, which opens in Excel or Google Sheets.",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS: "Can I lose my increased limits?",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS_ANSWER:
-      "Yes. Limits may be reduced or removed if:\n• You're involved in fraudulent activity\n• You refer users who are flagged for misuse",
+      "Yes. Your limits can be lowered or removed if:\n• you take part in fraud or raise false disputes, or\n• someone you referred is caught committing fraud.",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING:
-      "Can I use P2P.me for daily crypto spending?",
+      "Can I use P2P.me for everyday payments?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
-      "Yes! With P2P.me, everyday payments are fast and effortless. Just scan a QR code, pay in USDC, and the amount is settled in local currency within seconds.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "Can I withdraw USDC to other networks?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Yes. Use the Cross-Chain Withdraw feature and:\n• Select the correct destination chain\n• Double-check your wallet address before confirming",
-    FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
-      "I don't want to link my social accounts. Is it safe?",
+      "Yes. With Scan & Pay you scan a shop's payment QR code and pay in USDC. A merchant pays the shop in local currency, usually within a minute. It works in most markets.",
+    FAQ_DONT_WANT_LINK_SOCIAL_SAFE: "Do I have to link my social accounts?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
-      "Yes, it's safe. You don't need to link any social accounts.\n\nP2P.me uses zk (zero-knowledge) proofs, a privacy-first method where you prove you're genuine without sharing any personal data.\n\nWe're fully decentralized with no servers or data storage. Your info stays private, encrypted, and secure always.",
-    FAQ_DO_I_NEED_KYC: "Do I need KYC to use P2P.me?",
+      "No. Verifying a social account is just one way to raise your limits. You can use a liveness check, Passport KYC (where available) or staking instead.\n\nIf you do verify a social account, it's private: you prove you own it, but P2P.me never sees your password, posts or profile, and nothing is posted.",
+    FAQ_DO_I_NEED_KYC: "Do I need to verify my ID (KYC)?",
     FAQ_DO_I_NEED_KYC_ANSWER:
-      "No, KYC is not required to get started. You can buy, sell, and pay instantly. For higher limits, you can optionally verify your identity in a privacy-friendly way.",
+      "No ID is needed to sell or pay.\n\nTo buy, you need at least one verification on My Limits. A passport isn't required: you can verify a social account like LinkedIn or GitHub instead. Passport KYC (where available) is an option if you want higher limits.",
+    FAQ_FINISH_VERIFICATION: 'What does "Finish verification" mean?',
+    FAQ_FINISH_VERIFICATION_ANSWER:
+      "You passed a check (like the liveness or passport check), but the result isn't saved to your account yet. Tap \"Finish verification\" on My Limits to save it and raise your limit.\n\nDo it soon: if you wait too long, the result expires and you'll need to start again.",
     FAQ_HOW_CAN_I_RAISE_DISPUTE: "How can I raise a dispute?",
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
-      "1. Open the Order Receipt page.\n2. Tap the help (?) icon in the top-right.\n3. Select 'Raise Dispute' and follow the instructions.",
+      '1. Open the order (Transactions → tap the order).\n2. Tap the help icon at the top.\n3. Tap "Raise a Dispute" and follow the steps.\n\nIf the option isn\'t available yet, the app shows when it opens or why. You can always use "Chat with us".',
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "How can I deposit USDC into my P2P.me wallet?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "You can deposit USDC in two ways:\n• Direct Deposit to your wallet address on the Base network\n• Cross-Chain Deposit using Near Intents (if you're sending from other networks)\n\nNote: Only deposit USDC on the Base network. Do not send ETH or other tokens, as your funds may be lost.",
+      'On Home, tap Deposit and choose:\n• Deposit Base USDC: copy your address and send USDC on the Base network to it.\n• Deposit from other chains: bring in USDC or other tokens from another network. They arrive as USDC on Base.\n\nOnly send USDC on Base to your address. Other tokens or networks can be lost. If that happened, see "I sent funds on the wrong network".',
     FAQ_HOW_DO_I_START_EARNING: "How do I start earning?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
-      "To start earning:\n1. Go to the 'Refer & Earn' section in the app.\n2. Generate your referral link.\n3. Share it with trusted friends.\n4. Make sure they sign up and trade using your link.\n\nNote: Each referral link can be used by only one friend.",
+      "1. Open Refer & Earn.\n2. Create a referral link.\n3. Send it to someone you trust.\n4. They sign up with your link and start trading.\n\nEach link works for one person only, so create a new link for each friend.",
     FAQ_HOW_MANY_USERS_CAN_I_REFER: "How many users can I refer?",
     FAQ_HOW_MANY_USERS_CAN_I_REFER_ANSWER:
-      "You can refer up to 4 users per month",
+      "You can refer a limited number of people each month. Refer & Earn shows how many referrals you have left.",
     FAQ_HOW_MERCHANTS_SELECTED: "How are merchants selected on P2P.me?",
     FAQ_HOW_MERCHANTS_SELECTED_ANSWER:
-      "Anyone can stake USDC to become a merchant, but they must pass strict verification checks. They must submit ZK-proofs showing valid bank accounts and demonstrate no history of account freezes or suspicious activity. Only merchants who meet these standards can fulfill buy orders.",
+      "Anyone can apply to become a merchant, but they must lock up (stake) USDC and pass checks first. They privately prove they have an active bank account with no history of freezes or suspicious activity. Only merchants who pass can fill buy, sell and pay orders.",
     FAQ_HOW_MUCH_CAN_I_EARN: "How much can I earn?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
-      "You earn 0.5% of every trade made by the users you have referred. There's no upper limit: the more they trade, the more you earn.",
-    FAQ_HOW_PREVENT_FRAUD: "How do you prevent fraud?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Fraud in traditional P2P platforms often happens when scammers send stolen fiat to unsuspecting users, leading to account freezes and headaches. P2P.me has built-in safeguards to keep you safe:\n\n• Zero-Knowledge (ZK) Proofs and history checks for all merchants: We make sure only trusted merchants can trade by verifying their banking activity. No shady characters allowed.\n• Zk-Social verification system: Unverified users have limited access, so we keep things exclusive. If you're verified, you're gold in our book. If not, well, try again later.\n• Penalizing users who endorse fraudsters: We take a tough stance: if you refer someone who engages in bad behavior, it's not just them who gets the boot. You might lose privileges too.\n\nWith over 55,000+ transactions processed, our fraud rate is close to zero. We're not saying it's perfect, but we're pretty close.",
-    FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
-      "How does P2P.me protect you from account freeze fraud?",
+      "You earn a percentage of every trade made by the people you refer. The current rate is shown on the Refer & Earn page. There's no cap: the more they trade, the more you earn.",
+    FAQ_HOW_PROTECT_ACCOUNT_FREEZE: "How can I avoid a bank account freeze?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
-      "1. First-Degree Protection\n• ZK-Social Verification blocks fraudsters before they can access the protocol.\n• Our fraud rate is very low its less then 1 in 25,000 transactions\n\n2. Second-Degree Protection\n• Always use a separate bank account for P2P offramps.\n• Avoid mixing funds from this account with your main account.\n• Tip: Opening a separate account is easy with Jio Payments Bank or Airtel Payments Bank in India.\n\n3. Third-Degree Protection\n• If your account is ever frozen, head to Unfreeze.pro, a dedicated portal we've built for P2P.me users and merchants. Our legal team will help you recover your funds, free of charge.",
+      "P2P.me checks users and merchants to keep stolen money out, so freezes are rare. You can lower the risk further:\n• Use a separate bank account just for P2P orders, and keep your main savings elsewhere.\n• Pay and receive only from accounts in your own name.\n• Don't mention crypto, USDC or P2P.me in payment notes.\n\nIf it still happens, report it at unfreeze.pro for free legal help.",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
-      "How do I recover my funds if I sent the wrong token or used the wrong network?",
+      "I sent funds on the wrong network. Can I get them back?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "If you accidentally sent an unsupported token or used a different network, your funds can still be recovered, as long as they were sent to your correct wallet address.\n\nYou can use cross-chain bridges like Relay.link or Jumper.Exchange to convert those tokens into USDC on the Base network, which is supported on P2P.me.\n\nHere’s how to do it:\n1. Open Relay.link in desktop view.\n2. Connect your wallet using WalletConnect.\n3. On the bridge site, select WalletConnect and copy the connection URI.\n4. In the P2P.me app homescreen, go to Wallet → Manage Wallets → Connect an App, paste the URI, and confirm to connect to Relay.link.\n5. Return to the Relay Bridge and select the token and network you mistakenly used under the 'From/Buy' section, and choose USDC on Base in the 'To/Sell' section.\n6. Click the Swap button to start the transaction, and wait for it to complete.\n7. Return to the P2P.me app and refresh your wallet. Your USDC should appear.\n\nNeed help? Contact the P2P.me Telegram support channel.\n\nMake sure: You’re selecting USDC on Base as the destination.",
-    FAQ_HOW_SECURE_TRANSACTIONS: "How does P2P.me ensure secure transactions?",
+      "Often, yes, if you sent them to your own P2P.me address on another network like Ethereum, Arbitrum, Polygon or BNB Chain. Your address is the same on all of them.\n1. Go to Help & Support → Sent funds on the wrong network? → Recover tokens.\n2. Pick the network you sent on.\n3. Choose the token and send it to an address you control, like your exchange.\n\nYou may need a little of that network's coin for the fee. Funds sent on Tron or Solana can't be recovered this way.",
+    FAQ_HOW_SECURE_TRANSACTIONS: "How does P2P.me keep my orders safe?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
-      "The protocol doesn't hold user funds. All transactions are P2P between buyer and merchant. To ensure safety, merchants undergo ZK-based verification and their banking activity is reviewed before they're allowed to accept trades. This reduces the risk of fraud or account freezing.",
-    FAQ_HOW_TO_BUY_USDC_FIAT:
-      "How to Buy USDC on P2P.me Using Fiat or Local Currency",
+      "• Merchants are checked before they can fill orders, using private proofs of their bank history.\n• On sell and pay orders, your USDC is locked in the order until the merchant marks the payment as sent. If no merchant accepts, it comes back to you.\n• If a merchant doesn't pay, or doesn't confirm your payment, you can raise a dispute from the order's help screen.",
+    FAQ_HOW_TO_BUY_USDC_FIAT: "How do I buy USDC with my local currency?",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Tap 'Buy USDC' on Home.\n2. Enter amount and recipient address → Proceed to Payment.\n3. A merchant is assigned and shares payment details.\n4. Pay via UPI/PIX/QRIS in your local app, then tap 'I have made the payment'.\n5. After the merchant confirms, USDC is sent within seconds.\n\nNote: New users (0 zk verifications) start at $10 per order, 1 buy/day. Verify zk proofs to increase limits.",
+      "1. On Home, tap Buy USDC, enter the amount and place the order.\n2. Wait for a merchant to accept (usually under 90 seconds). If no one accepts within 3 minutes, the order is cancelled. You haven't paid anything.\n3. Pay the exact amount to the merchant's details, from an account in your name, before the timer ends (about 5 minutes). Don't mention crypto or USDC in the payment note.\n4. Tap \"I have made the payment\".\n5. When the merchant confirms, USDC arrives in your wallet.\n\nYour first buy needs at least one verification on My Limits.",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "How do I calculate tax on my P2P.me orders?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
-      "Open the tax report from Help & Support. It reads your completed P2P.me orders and estimates your crypto (VDA) income tax for the Indian financial year you pick: 30% on gains, plus surcharge and cess. You also get a Schedule VDA table, advance-tax dates and a TDS check to use while filing.\n\nFiling your taxes is your own responsibility. P2P.me does not deduct, report or file anything for you, and the figures are an estimate, not tax advice. Please confirm with a Chartered Accountant before filing.",
+      "Open Help & Support → Tax report. It uses your completed P2P.me orders to estimate your crypto (VDA) tax for the financial year you pick: 30% on gains, plus surcharge and cess. It also gives you a Schedule VDA table, advance-tax dates and a TDS check.\n\nThe figures are an estimate, not tax advice. P2P.me doesn't file anything for you, so check with a Chartered Accountant before filing.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
-      "How to Deposit and Withdraw from Exchanges like Binance, MEXC or other wallets to P2P.me",
+      "How do I move USDC between an exchange (like Binance) and P2P.me?",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
-      "To Deposit USDC:\nFrom Exchanges (Binance, MEXC, etc.):\n1. Go to Home → Deposit.\n2. Tap 'Receive USDC' to copy your Base wallet address.\n3. In your exchange, Withdraw USDC to that address on Base.\n\nFrom Wallets (MetaMask, Phantom, etc.):\n1. Open your wallet and switch to Base.\n2. Send USDC to your P2P.me wallet address (shown in 'Receive USDC').\n\nTo Withdraw USDC:\nTo Exchanges:\n1. Home → Withdraw → USDC.\n2. Paste your exchange's USDC deposit address on Base.\n3. Confirm.\n\nTo Wallets:\n1. Home → Withdraw → USDC.\n2. Enter your wallet address. If it's on another network, use Cross-Chain Withdraw.\n\nNote: P2P.me runs on Base. For direct deposits/withdrawals, use Base only. If you sent to the wrong network/token, see 'How do I recover my funds...'.",
-    FAQ_HOW_TO_EARN_MONEY: "How to Earn Money on P2P.me",
+      'P2P.me uses USDC on the Base network, so always choose Base when you send or withdraw.\n\nTo add USDC:\n1. On Home, tap Deposit → Deposit Base USDC and copy your address.\n2. On the exchange, withdraw USDC to that address and choose the Base network.\n\nTo send USDC out:\n1. On Home, tap Withdraw → Withdraw Base USDC.\n2. Paste the exchange\'s USDC deposit address for Base, enter the amount and confirm.\n\nExchange doesn\'t support Base? Use "Deposit from other chains" or "Withdraw USDC cross-chain".',
+    FAQ_HOW_TO_EARN_MONEY: "How can I earn with P2P.me?",
     FAQ_HOW_TO_EARN_MONEY_ANSWER:
-      "There are two ways you can earn on P2P.me:\n\n1. Refer Users: Once your Buy limits are above $150, you can start referring users through the P2P.me App and earn 0.5% of their trading volume.\n2. Become a Verified Merchant: You can also earn by becoming a Verified Merchant on the lp.p2p.me protocol and fulfilling peer-to-peer orders.",
-    FAQ_HOW_TO_INCREASE_LIMITS: "How do I increase my Buy/Sell limits?",
+      "There are two ways:\n1. Refer friends: once your buy limit reaches 150 USDC, share your link from Refer & Earn and earn a share of every trade your friends make.\n2. Become a merchant: fill orders for other users and earn on each one. Learn more at lp.p2p.me.",
+    FAQ_HOW_TO_INCREASE_LIMITS: "How do I increase my limits?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "You can increase your limits in two ways:\n\n1. Complete at least one zk social verification on your My Limits page to instantly increase your limits and unlock up to 5 buy orders per day.\n\n2. Verify your identity using:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nAfter completing your first zk verification, you can continue increasing your limits by completing more transactions on P2P.me.\n\nNote: We don't collect or share your personal data. All verifications use zero-knowledge proofs, ensuring your information remains private and secure while proving only what's needed. As we don't store your data we cannot share it with anyone in the future.",
-    FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "How do I pay with Scan & Pay on P2P.me?",
+      "Open My Limits from the menu (or tap Increase Transaction Limits on Home) and complete any of these:\n• Liveness check: a quick face scan, no documents (not offered in India)\n• Passport KYC: scan your passport and take a selfie (where available)\n• Verify a social account, like LinkedIn, GitHub or X\n• BVN check (Nigeria only)\n• Stake $P2P tokens\n\nEach option shows how much it adds to your per-order limit. Completing more orders also raises your limits over time.",
+    FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "How do I pay a shop with Scan & Pay?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
-      "- Get the bill amount: Ask the shop for your bill and confirm the total.\n- Open P2P.me: Tap Scan & Pay, enter the bill amount, and place the order. Once it's assigned to a P2P.me merchant, the in-app scanner will open.\n- Ask the shop to generate the payment QR code: Request the shop to generate the QR on their POS machine only after the P2P.me scanner opens. (Note: POS QRs usually expire in ~2 minutes, so timing is crucial.)\n- Scan & wait: Use the P2P.me scanner to scan the QR. Most payments are processed within 60 seconds, so wait patiently.\n- Static QRs: If the shop has a static QR code, it's simpler since you'll have more time to complete the payment.",
-    FAQ_HOW_TO_SCAN_PAY_QR:
-      "Can I Scan Any QR Code and Pay with USDC on P2P.me?",
+      "1. Confirm the bill amount with the shop.\n2. On Home, tap Scan & Pay, enter the amount and place the order.\n3. Wait for a merchant to accept. The scanner then opens.\n4. Only now ask the shop to create the payment QR. QR codes on card machines often expire in about 2 minutes.\n5. Scan the QR and keep the page open. Most payments go through within 60 seconds.\n\nPrinted (static) QR codes don't expire, so you have more time.",
+    FAQ_HOW_TO_SCAN_PAY_QR: "Which QR codes can I pay with Scan & Pay?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
-      "Yes. You can scan UPI (India), PIX (Brazil), or QRIS (Indonesia) QRs.\n\n1. Tap 'Scan & Pay QR'.\n2. Enter amount if the QR is not prefilled.\n3. A merchant is assigned to fulfill the payment.\n4. Scan the UPI/PIX/QRIS QR; details are sent to the merchant.\n\nNote: Stay on the page until your payment details are submitted.",
+      "You can pay your country's local payment QR codes, like UPI in India, PIX in Brazil or QRIS in Indonesia. You pay in USDC, and a merchant pays the QR in local currency.\n\nScan & Pay works in most markets. It isn't available yet in Mexico, Kenya, Egypt or for Revolut (USD/EUR). If you don't see Scan & Pay on Home, it isn't available for your selected currency.",
     FAQ_HOW_TO_SELL_USDC:
-      "How do I sell USDC and get deposited to my payment details?",
+      "How do I sell USDC and get paid to my bank or payment app?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Tap 'Sell USDC'.\n2. Enter amount and your UPI/PIX/QRIS details → Proceed.\n3. A merchant is assigned.\n4. After your USDC is received, fiat is sent to your payment details.\n\nNote: Default sell limit is $100 per order, max 10 orders/day. Verify zk proofs to increase limits.",
+      "1. On Home, tap Sell USDC, enter the amount, add where you want to be paid (for example your UPI ID or PIX key) and place the order. Your USDC is locked in the order until it's done.\n2. Keep the page open. When a merchant accepts (usually 20–90 seconds), the app sends them your payment details.\n3. The merchant sends the money and marks it as sent.\n4. Check your bank or payment app.\n\nIf no merchant accepts in time, the order is cancelled and your USDC returns to your wallet.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
-      "How do I verify my social accounts with zk proofs to increase my limits?",
+      "How do I verify a social account to raise my limits?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
-      "You can increase your limits by verifying your social accounts (X, Instagram, LinkedIn, or GitHub) using zk proofs. Powered by Reclaim for secure, privacy-preserving verification without requiring a full app install, making the process fast and easy.\n\nHere's how:\nStep 1: After clicking verify, tap to open the app clip.\nStep 2: Complete the social login (X, Instagram, LinkedIn, or GitHub) and follow the on-screen instructions.\nStep 3: Wait for the proof to generate. Verification will complete automatically once your proof is ready.\n\nNote: If it doesn't work on the first try, please retry patiently. Generating zk proofs may take a moment as the process completes securely.",
+      "1. Open My Limits → Verify a social account and pick one (like LinkedIn, GitHub or X).\n2. Follow the link to the Reclaim Verifier app. Install it from the App Store or Google Play if asked.\n3. Log in to your social account there and follow the steps.\n4. Come back to P2P.me. The check finishes by itself, usually in 3–5 minutes.\n\nIf it fails, try again. In India, other accounts appear only after you verify LinkedIn, GitHub or Passport KYC.",
     FAQ_HOW_WITHDRAW_FUNDS: "How do I withdraw funds from P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "You can withdraw USDC by:\n• Sending directly to a Base wallet address, or\n• Using Cross-Chain Withdraw via Near Intents to move funds to other chains.",
+      "On Home, tap Withdraw and choose:\n• Withdraw Base USDC: enter the address and amount, check the details, then tap Confirm & send. The receiving wallet or exchange must support USDC on Base.\n• Withdraw USDC cross-chain: send to another network (the supported list is shown there). This uses NEAR Intents.\n\nWithdrawals can't be undone, so double-check the address.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
-      "Is P2P.me compliant with anti-money laundering (AML) laws?",
+      "Does P2P.me follow anti-money-laundering (AML) rules?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
-      "Yes, we take AML seriously, but in a privacy-friendly way! P2P.me is aligned with the ethos of the FATF guidelines through:\n\n• Small default limits: To keep things low-risk in the beginning.\n• Zero-knowledge KYC: We don't store your info, but we still verify you for trust.\n• On-chain reputation: A reputation system that helps prevent shady activity.\n\nWe've created guardrails that protect you while respecting your privacy. It's the best of both worlds!",
+      "P2P.me follows the spirit of the international AML guidelines (FATF) while protecting your privacy:\n• New accounts start with small limits.\n• Higher limits need verification, done with private proofs.\n• Every account builds a reputation from its history, which helps block bad actors.",
     FAQ_IS_P2P_ME_SAFE: "Is P2P.me safe to use?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
-      "Yes. P2P.me is designed with user safety at its core. All merchants on the platform are personally verified. Before onboarding, they must submit zero-knowledge proofs (ZK-proofs) of their banking activity to prove that they are legitimate, active users with no history of bank freezes or fraudulent behavior. This makes merchant funds secure and transactions trustworthy.",
+      "Yes. Every merchant is checked before they can fill orders: they privately prove their bank account is active and has no history of freezes or fraud.\n\nWhen you sell or pay, your USDC is locked in the order until the merchant pays. If something goes wrong, you can raise a dispute from the order. Your wallet is yours, and P2P.me can't move your funds.",
+    FAQ_PAID_BUT_ORDER_CANCELLED:
+      "I paid, but my buy order was cancelled or the timer ran out. What now?",
+    FAQ_PAID_BUT_ORDER_CANCELLED_ANSWER:
+      "Don't pay again. Your money isn't lost.\n• If the order shows Cancelled: open it, tap the help icon and raise a dispute. Disputes open 15 minutes after you placed the order and stay open for 24 hours.\n• If it says the payment window has ended: tap \"Chat with us\" and share your payment reference (like the UPI UTR).\n\nSupport will check with the merchant and sort it out.",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "How do I recover funds using my private key?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      'If you lost access to your account but still have your wallet\'s private key, you can recover your USDC.\n\n1. Open the "Recover Funds" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.',
+      "If you can't log in but have your wallet's private key (the secret code that controls your wallet):\n1. Open Recover Funds (link below).\n2. Paste your private key to load your wallet.\n3. Choose USDC or $P2P, then enter a Base address you control and the amount.\n4. Tap Recover funds.\n\nNever share your private key. P2P.me support will never ask for it.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "The shopkeeper is asking to see the payment. What should I do?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
-      "1. Copy the merchant's UPI ID from your order.\n2. Paste it in your UPI app to see their name.\n3. Tell the shopkeeper: \"You should've received ₹XXXX from [Name].\"\n4. If they still deny it, contact support and we'll send you a screenshot to show them.",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS: "What are the default limits on P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: $100 per order, up to 10 orders per day ($1,000 daily limit, since merchants are verified and ready to trade).\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "What are the default limits?",
+      '1. Open the completed order and tap "Request proof". The merchant uploads a payment receipt, and "View proof" appears when it\'s ready.\n2. Meanwhile, copy the merchant\'s payment ID from the order (for example their UPI ID) and check their name in your payment app.\n3. Tell the shop: "You received [amount] from [name]."\n\nStill a problem? Use "Chat with us" in Help & Support.',
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED:
+      "I verified, but my limit didn't go up. Why?",
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED_ANSWER:
+      'Check these:\n1. On My Limits, if the option shows "Finish verification", tap it. Your result isn\'t saved until you do.\n2. Close and reopen the app. Updates can take a minute.\n3. You may already be at the highest per-order limit for your country.\n4. Some checks don\'t count on their own for new accounts. Add LinkedIn, GitHub or Passport KYC.\n\nStill stuck? Use "Chat with us".',
+    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "What are the starting limits?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "For new users:\n• Buy orders: Not available. Complete at least one zk-verification to unlock buy functionality and get started safely!\n• Sell Limit: $100 per order, up to 10 orders per day ($1,000 daily limit, since merchants are verified and ready to trade).\n\nFor users with at least one zk-verification:\n• Buy Limit: Your transaction limit per order, up to 5 orders per day.\n• Sell Limit: Your transaction limit per order, up to 10 orders per day.\n\nMax per-transaction limit: $400 USDC.\nMonthly buy order count limit: 25 orders.\nYearly volume limit: {{yearlyVolumeLimit}} USDC per user.\nWant higher limits? Visit the My Limits section to complete zk-verifications and unlock more.",
-    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "What are Disputed transactions?",
+      "Limits depend on your country and your verifications. My Limits shows your exact numbers.\n• New accounts can sell and pay, but need at least one verification before they can buy.\n• Each verification raises your per-order limit (the most USDC in one order).\n• There are also daily and monthly order limits, and a yearly limit of {{yearlyVolumeLimit}} USDC.\n\nComplete more verifications on My Limits to raise your limits.",
+    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "What is a dispute?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
-      "Disputed transactions are those where a user has raised a dispute due to some issue in the transaction process. If you run into any trouble, you can raise one too.",
+      "A dispute asks P2P.me support to step in when an order goes wrong, for example you paid but didn't get your USDC, or a merchant didn't pay you. Support checks the payment with the merchant and settles the order. Orders with an open dispute show \"In dispute\" in Transactions.",
     FAQ_WHAT_ARE_ORDER_STATUSES: "What are the different statuses of an order?",
     FAQ_WHAT_ARE_ORDER_STATUSES_ANSWER:
-      "• Processing: The order is currently active and being processed on the protocol.\n• Completed: The order was successfully fulfilled.\n• Cancelled: The order was either cancelled manually or expired automatically.",
+      "• Finding merchant: waiting for a merchant to accept.\n• Merchant assigned: a merchant accepted and the payment step is in progress.\n• Payment sent: the payment was marked as sent and is waiting to be confirmed.\n• Completed: the order is done.\n• Cancelled: the order was cancelled or timed out. For sell and pay orders, your USDC is refunded.\n• In dispute / Dispute settled: a dispute is open, or has been resolved.",
     FAQ_WHAT_FEES_CHARGED: "What fees does P2P.me charge?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
-      "There are no fees charged by the protocol at the moment. The USDC price you see is set by the P2P.me protocol to ensure fairness and simplicity for early users.",
+      "Most orders have no separate fee: you pay the price shown.\n\nSmall orders have a flat USDC fee. If your amount is below the limit, the app shows the fee and exactly what you'll get or pay before you place the order.\n\nSending USDC from your P2P.me wallet is free, as network fees (gas) are covered. Cross-chain transfers include a bridge fee, shown in the quote.",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE: "What happens if I raise a false dispute?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
-      "If you raise false or abusive disputes, there will be consequences. This could result in:\n• Suspension of services\n• Loss of trading privileges\n\nSo, play fair and keep it honest.",
+      "False or abusive disputes can get your account suspended and stop you from trading. Only raise a dispute when something really went wrong.",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
       "What will happen if I'm found doing fraudulent activity?",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
-      "You will be blacklisted, and if you have staked $P2P tokens, it will be seized.",
+      "Your account will be blocked from P2P.me, and any $P2P tokens you have staked can be taken.",
     FAQ_WHAT_IF_BANK_FROZEN:
-      "What happens if my account freezes? Will P2P.me help unfreeze it?",
+      "My bank account was frozen after a P2P.me order. What do I do?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      "If your account is frozen due to a transaction on P2P.me, head to Unfreeze.pro, a dedicated portal we've built for P2P.me users and merchants in India. Submit your case and our legal team will guide you through the unfreezing process, free of charge.\n\nYou can also join the P2P.me community channels, where users and volunteers can help you through the process.",
+      'Report it at unfreeze.pro, our free portal for P2P.me users and merchants. Share your order ID and the bank\'s notice. Our legal team will guide you through getting the account unfrozen.\n\nIn India, eligible orders are also covered by a full refund (see "What is Bank Freeze Protection?").\n\nYou can also ask for help in your P2P.me Telegram group.',
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
-      "What if my cross-chain transaction gets stuck?",
+      "My cross-chain deposit or withdrawal is stuck. What do I do?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "If your Near Intents transaction is stuck:\n\n1. Visit the Near Intents Explorer from your transaction confirmation.\n2. Copy your Request ID from the transaction.\n3. Contact Near Intents support: https://t.me/near_intents Only use verified channels to avoid scams.",
+      "Cross-chain transfers are run by NEAR Intents, not P2P.me.\n1. Open the bridge (Deposit → Deposit from other chains, or Withdraw → Withdraw USDC cross-chain) and find the transfer in Bridge History.\n2. Open it in the NEAR Intents explorer and copy its details.\n3. Contact NEAR Intents support at near.com/support.\n\nIf a transfer can't complete, your tokens go back to the refund address you entered. Only use official support links.",
     FAQ_WHAT_IS_P2P_ME: "What is P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
-      "P2P.me is a global platform that lets you easily buy, sell, and pay using USDC, securely and privately. It supports popular local payment methods like UPI, PIX, and QRIS, while keeping your funds fully in your control.",
+      "P2P.me lets you buy, sell and spend USDC, a digital dollar, with local payment methods like UPI, PIX, QRIS, M-Pesa or bank transfer. Each order is filled by a verified merchant. Your USDC stays in your own wallet, which only you control.",
     FAQ_WHAT_IS_REFER_AND_EARN: "What is Refer & Earn on P2P.me?",
     FAQ_WHAT_IS_REFER_AND_EARN_ANSWER:
-      "Refer & Earn is your chance to earn passive rewards by inviting trusted users to trade on P2P.me. Once eligible, you can generate a referral link, share it, and earn 0.5% of the total trading volume of users who join through your link.",
-    FAQ_WHAT_IS_ZERO_KNOWLEDGE: "What's this whole zero-knowledge thing?",
+      "Invite people you trust to P2P.me and earn a share of every trade they make. Once you're eligible, create a link in Refer & Earn and share it. The current reward rate is shown on the Refer & Earn page.",
+    FAQ_WHAT_IS_USDC: "What is USDC, and what is the Base network?",
+    FAQ_WHAT_IS_USDC_ANSWER:
+      "USDC is a digital dollar: 1 USDC is worth about 1 US dollar. It's a \"stablecoin\", so its value doesn't swing like other crypto.\n\nBase is the blockchain network P2P.me uses to move USDC quickly and cheaply. When you send or receive USDC outside the app, always choose the Base network.",
+    FAQ_WHAT_IS_ZERO_KNOWLEDGE: 'What is "zero-knowledge" (zk) verification?',
     FAQ_WHAT_IS_ZERO_KNOWLEDGE_ANSWER:
-      "Zero-knowledge verification lets you prove things like your age or ID without sharing your personal details with us. Your data stays private while you verify and increase your limits on P2P.me.\n\nIn short: you can prove what's needed, but your personal information stays with you.",
+      "It's a private way to prove something without showing the details. For example, you can prove you own a LinkedIn account without sharing your password or profile. P2P.me only learns that the check passed. Your personal information stays with you.",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "What networks are supported for deposits?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "Currently, USDC on Base network is the only supported deposit method. If your funds are on a different chain, use the Cross-Chain Deposit option powered by Near Intents.",
+      "Your P2P.me wallet holds USDC on the Base network, and you can send USDC on Base straight to your address.\n\nFor other networks, tap Deposit → Deposit from other chains. It lists the supported networks and tokens, and they arrive as USDC on Base.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE: "When do I become eligible to earn?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
-      "You can start referring and earning once your Reputation Points (RP) crosses 150.",
+      "When your buy limit reaches 150 USDC. You can raise it on My Limits by completing verifications.",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER:
       "When should I raise a dispute for a Buy order?",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER_ANSWER:
-      "Raise a dispute for your Buy order only if you made the payment, but the order was cancelled and you didn't get a refund.",
+      'Raise a dispute if you paid the merchant but didn\'t get your USDC, for example the merchant hasn\'t confirmed, or the order was cancelled after you paid.\n• You can raise it from 15 minutes after placing the order, for up to 24 hours.\n• Tap "I have made the payment" on the order first, if you haven\'t yet.\n• Keep your payment reference (like the UPI UTR) ready.\n\nIf the payment window ended before you marked it as paid, use "Chat with us" instead.',
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER:
       "When should I raise a dispute for a Sell order?",
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER_ANSWER:
-      "For your Sell order, raise a dispute only if your USDC was deducted, but you didn't receive the payment from the buyer.",
+      "Raise a dispute if the merchant marked your payment as sent, but the money didn't arrive in your bank or payment app.\n• You can raise it from 30 minutes after placing the order, for up to 7 days.\n• Check your bank or app first, as some payments take a little time.\n\nThe same applies to Scan & Pay orders when the shop didn't receive the money.",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS:
       "Where can I check my transaction limits?",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS_ANSWER:
-      "Go to the “My Limits” page in the homepage menu to view your buy and sell/pay limits.",
+      "Open My Limits from the menu, or tap Increase Transaction Limits on Home. Home also shows your current per-order limits for buy, sell and pay.",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY:
       "Where can I find my deposit and withdrawal history?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
-      "Go to the Transactions section in the app. You'll see tabs for:\n• Orders (Buy/Sell)\n• Deposits\n• Withdrawals",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Where to Find Your Order or Transaction History on P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Go to the 'Transactions' section in the app to see your orders, deposits, withdrawals, and disputes.",
-    FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
-      "Where can I view all my transactions on P2P.me?",
+      "Transactions only lists buy, sell and pay orders.\n• Cross-chain transfers: see Bridge History on the bridge page (Deposit → Deposit from other chains). It's saved on this device. For the full history, open the NEAR Intents explorer.\n• Base deposits and withdrawals: search your wallet address on BaseScan (basescan.org). After a withdrawal, you can also tap View on BaseScan.",
+    FAQ_WHERE_VIEW_ALL_TRANSACTIONS: "Where can I see my orders?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
-      "Go to the Transactions section in the app to view all your activity including deposits, withdrawals and disputes.",
+      'Open Transactions from the menu. It lists all your buy, sell and pay orders, with filters for type, status, date and disputes. Tap an order to open it.\n\nDeposits and withdrawals aren\'t listed there. See "Where can I find my deposit and withdrawal history?"',
     FAQ_WHERE_VIEW_CLAIM_REWARDS: "Where do I view and claim my rewards?",
     FAQ_WHERE_VIEW_CLAIM_REWARDS_ANSWER:
-      "Track and claim your rewards in the 'Refer & Earn' section. View activity and claim anytime.",
+      "In Refer & Earn. You can see your referrals and rewards there, and tap Claim to move your rewards to your wallet at any time.",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED:
       "Which coins and networks does P2P.me support?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
-      "Currently, P2P.me supports USDC on the Base network.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN: "Who handles cross-chain transactions?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "All cross-chain actions are powered by Near Intents. If there are any delays or issues, you'll need to contact Near Intents support here.",
+      "P2P.me works with USDC on the Base network. USDC is a digital dollar (1 USDC ≈ 1 US dollar), and Base is the blockchain network the app uses.\n\nHave USDC or other tokens on another network? Tap Deposit → Deposit from other chains to bring them in as USDC on Base.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Who is building and maintaining P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
-      "P2P.me is a public goods protocol developed by a community of open-source contributors from around the world. Built on Base, it's a protocol that thrives on collaboration. It's fully open-source, meaning anyone can peek under the hood and see what's happening. No secrets, just transparency.",
+      "P2P.me is an open-source protocol on the Base network, built by a community of contributors around the world. Anyone can read the code and check how it works.",
     FAQ_WHY_APP_BLOCKED_REGIONS:
-      "App Not Loading in Your Region? Here's How to Access It",
+      "The app won't load in my region. What can I do?",
     FAQ_WHY_APP_BLOCKED_REGIONS_ANSWER:
-      "Sometimes P2P.me may be restricted by local ISPs. To access and stay updated:\n\nOption 1: Use a VPN (Turbo VPN on mobile, Zenmate on desktop). Connect to any region and refresh the app.\n\nOption 2: Change DNS:\n• Android: Settings → Network → Private DNS → Add 8.8.8.8 or 1.1.1.1\n• iOS: Wi‑Fi → Tap 'i' → Configure DNS → Manual → Add 8.8.8.8 or 1.1.1.1\n\nEven if the app is already installed, VPN/DNS ensures smooth access and updates.",
+      "Some internet providers block P2P.me. Try one of these:\n1. Use a VPN app, connect to any country and reload the app.\n2. Or change your DNS:\n• Android: Settings → Network & internet → Private DNS → enter dns.google\n• iPhone: Settings → Wi‑Fi → tap (i) → Configure DNS → Manual → add 8.8.8.8 or 1.1.1.1\n\nThis also helps the installed app get updates.",
+    FAQ_WHY_CANT_I_BUY: "Why can't I place a buy order?",
+    FAQ_WHY_CANT_I_BUY_ANSWER:
+      "Common reasons:\n• You haven't verified yet. New accounts need at least one verification on My Limits before they can buy.\n• The amount is above your per-order limit, or too small to cover the fixed fee.\n• You've reached your daily or monthly order limit. Try again later.\n• Our safety checks paused buying on your account. Completing more verifications can lift this. If you think it's a mistake, contact Help.",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
-      "Why can't I text on the P2P.me Telegram channel? What should I do?",
+      "Why can't I send messages in the P2P.me Telegram group?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
-      "When you join the P2P.me India community channel for the first time, you'll see a welcome message under the \"Verify (For New Members)\" topic. To start texting in the group, you need to click the verification prompt in that message and complete a simple CAPTCHA.\n\nIf you missed it or didn't complete it: Just exit the group completely and rejoin, and the welcome message and verification prompt will appear again.\n\nOnce verified, you'll be able to participate in the conversation.",
+      'New members must pass a quick check before they can post.\n\n1. Find the welcome message in the group (in the India group it\'s under the "Verify (For New Members)" topic).\n2. Tap the verification button and solve the CAPTCHA.\n\nMissed it? Leave the group and join again, and the welcome message will appear again.\n\nNeed help with an order right now? Use "Chat with us" in Help & Support.',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA:
-      "Why am I seeing 'Didn't meet eligible criteria' when I try to verify?",
+      'Why do I see "You do not meet the eligibility criteria" when I verify?',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER:
-      "This means your account didn't meet certain confidential eligibility checks used by the protocol to keep verification fair and secure for everyone.\nIf this happens, please try verifying with another social account (X, Instagram, LinkedIn, or GitHub) to complete your zk-verification.",
-    FAQ_WHY_SELL_RATES_LOW: "Why are SELL USDC rates low sometimes?",
+      "That account didn't pass one of the checks that keep verification fair. We can't share the exact rules, as that would help fraudsters.\n\nTry a different social account, or another option on My Limits, like a liveness check or Passport KYC.",
+    FAQ_WHY_SELL_RATES_LOW: "Why is the sell price sometimes lower?",
     FAQ_WHY_SELL_RATES_LOW_ANSWER:
-      "Most of the time, sell prices on P2P.me are competitive. However, when there's a surge in sell orders and fewer buy orders, merchants may not have enough liquidity to complete the transactions. In such cases, we lower the sell prices to reduce the pressure and encourage more buy orders. As the protocol grows, these liquidity imbalances will be less frequent.",
-    FAQ_WILL_P2P_HANDLE_TAXES: "Will P2P take care of my taxes?",
+      "When many people are selling and few are buying, merchants run short of local money to pay out. The sell price drops for a while to balance this. It usually recovers as more buy orders come in.",
+    FAQ_WILL_P2P_HANDLE_TAXES: "Does P2P.me handle my taxes?",
     FAQ_WILL_P2P_HANDLE_TAXES_ANSWER:
-      "No. P2P.me is a decentralized, non-custodial protocol. It does not deduct or report any taxes. You are responsible for complying with your local tax regulations. A full transaction history is available to help with tax reporting.",
+      "No. P2P.me doesn't deduct, report or file taxes for you. You're responsible for following your country's tax rules.\n\nYou can download your order history from Transactions to help you file. In India, you can also use the tax report in Help & Support.",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT:
-      "Will you ever submit my data to the government in the future?",
+      "Will P2P.me share my data with the government?",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT_ANSWER:
-      "No, we can't and we won't. P2P.me is a fully decentralized protocol, meaning we don't have access to your data in the first place. All payment and personal details are end-to-end encrypted and shared only between you and the merchant. No third party (including us) can access or view this information.",
+      "P2P.me is built to know as little about you as possible. We don't ask for your ID to sell or pay, and we don't store your documents or account logins. Your payment details are encrypted and only shown to the merchant on your order. Verifications use private proofs: we only learn that a check passed, not the details behind it.",
     FAQ_WITHDRAWAL_HASNT_ARRIVED:
       "What should I do if my withdrawal hasn't arrived?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "For direct Base withdrawals:\n• Check your wallet and Base block explorer.\n\nFor cross-chain withdrawals:\n• Visit the Near Intents\n• Contact Near Intents support if the transaction is stuck",
+      "• Base withdrawal: open it on BaseScan (tap View on BaseScan, or search your address). If it shows Success, the USDC was sent. Check that the receiving wallet or exchange supports USDC on Base, and contact them.\n• Cross-chain withdrawal: check its status in Bridge History. If it's stuck, contact NEAR Intents support at near.com/support.",
     FDV: "FDV",
     FEE: "Fee",
     FIAT_AMOUNT: "Fiat Amount",
