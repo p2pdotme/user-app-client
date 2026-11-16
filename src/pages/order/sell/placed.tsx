@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -87,7 +88,10 @@ export function SellPlaced({ order }: { order: Order }) {
           <p className="text-center text-sm">
             {t("WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER")}
           </p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={90}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { parseUnits } from "viem";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress, QrScanner } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { TransferWarningAlert } from "@/components/transfer-warning-alert";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -267,7 +268,10 @@ export function PayAccepted({ order }: { order: Order }) {
           <p className="text-center text-sm">
             {t("ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS")}
           </p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={300}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress

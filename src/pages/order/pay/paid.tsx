@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -94,7 +95,10 @@ export function PayPaid({ order }: { order: Order }) {
         className="mx-auto mt-auto flex w-full max-w-lg flex-shrink-0 flex-col justify-center gap-2 rounded-t-3xl border-t bg-background py-4 shadow-[0_-4px_16px_var(--primary-shadow)]">
         <section className="flex w-full flex-col items-center">
           <p className="text-center text-sm">{t("PAYMENT_DETAILS_SENT")}</p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={600}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress

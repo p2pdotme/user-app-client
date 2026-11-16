@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { OrderProgress } from "@/components";
 import { DisputeEscalationCard } from "@/components/dispute-escalation-card";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -64,7 +65,10 @@ export function BuyPaid({ order }: { order: Order }) {
           <p className="text-center text-sm">
             {t("MERCHANT_IS_VERIFYING_YOUR_PAYMENT")}
           </p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={900}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress
