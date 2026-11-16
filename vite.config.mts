@@ -2,15 +2,42 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { VitePWA } from "vite-plugin-pwa";
 import packageJson from "./package.json";
+
+/**
+ * Point `crypto` imports inside @p2pdotme/sdk at a tiny Web Crypto shim. See
+ * src/lib/shims/web-crypto.ts for why. Only the SDK's files are touched.
+ */
+function sdkWebCrypto(): Plugin {
+  const shim = path.resolve(__dirname, "src/lib/shims/web-crypto.ts");
+  // The node-polyfills plugin aliases "crypto" before resolveId hooks run, so
+  // rewrite the import in the SDK's own files instead of resolving it.
+  const importPattern = /from\s+["'](?:node:)?crypto["']/g;
+  return {
+    name: "sdk-web-crypto",
+    enforce: "pre",
+    transform(code, id) {
+      if (!id.includes("/@p2pdotme/sdk/dist/") || !importPattern.test(code)) {
+        importPattern.lastIndex = 0;
+        return null;
+      }
+      importPattern.lastIndex = 0;
+      return {
+        code: code.replace(importPattern, `from ${JSON.stringify(shim)}`),
+        map: null,
+      };
+    },
+  };
+}
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
     plugins: [
+      sdkWebCrypto(),
       react(),
       tailwindcss(),
       nodePolyfills({
@@ -139,7 +166,11 @@ export default ({ mode }: { mode: string }) => {
               ? `${parts[0]}/${parts[1]}`
               : parts[0];
 
-            // Mapping of chunk names to package name prefixes.
+            // Only group packages that every screen needs at startup. Grouping
+            // lazily-used libraries (ethers, Radix, QR/Lottie, ...) into named
+            // vendor chunks forced them to download and parse before the first
+            // paint; Rollup's automatic splitting keeps them with the screens
+            // that use them.
             const groups: Record<string, string[]> = {
               // Intentionally keep React and its helpers together.
               "react-vendor": [
@@ -148,23 +179,20 @@ export default ({ mode }: { mode: string }) => {
                 "scheduler",
                 "react-router",
                 "react-router-dom",
-                "@sentry"
+                "@sentry",
               ],
-              "ui-vendor": ["@radix-ui", "lucide-react", "framer-motion"],
-              "web3-vendor": [
-                "@thirdweb-dev",
-                "ethers",
-                "viem",
-                "wagmi",
-                "walletconnect",
-                "biconomy",
-              ],
-              analytics: ["@amplitude"],
-              media: ["qr-scanner", "lottie", "lottie-web"],
             };
 
             for (const [chunkName, pkgs] of Object.entries(groups)) {
-              if (pkgs.some((prefix) => pkgName.startsWith(prefix)))
+              // Exact package match (a prefix match would also catch e.g.
+              // react-day-picker and react-hook-form). "@sentry" is a scope.
+              if (
+                pkgs.some((pkg) =>
+                  pkg.startsWith("@") && !pkg.includes("/")
+                    ? pkgName.startsWith(`${pkg}/`)
+                    : pkgName === pkg,
+                )
+              )
                 return chunkName;
             }
 

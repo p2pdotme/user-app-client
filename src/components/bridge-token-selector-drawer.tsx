@@ -21,7 +21,8 @@ import type {
   BridgeToken,
   SupportedBridgeChains,
 } from "@/core/rango/types";
-import { useRangoFetch } from "@/hooks";
+import { useRangoFetch } from "@/hooks/use-rango-fetch";
+
 import { cn } from "@/lib/utils";
 
 interface TokenListViewProps {

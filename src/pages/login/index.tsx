@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
+// Imported directly (not via ASSETS) so this ~240 KB illustration ships with
+// the login screen only, not in the startup bundle.
+import { LoginPoster } from "@/assets/images/login-poster";
 import { TextLogo } from "@/components/text-logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -452,7 +455,7 @@ export function LoginPage() {
             )}
           </section>
 
-          <ASSETS.IMAGES.LoginPoster className="pointer-events-none h-72 w-72 select-none object-contain" />
+          <LoginPoster className="pointer-events-none h-72 w-72 select-none object-contain" />
         </>
       )}
 

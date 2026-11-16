@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { formatUnits } from "viem";
 import ASSETS from "@/assets";
-import { BridgeTokenSelectorDrawer } from "@/components";
+import { BridgeTokenSelectorDrawer } from "@/components/bridge-token-selector-drawer";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
