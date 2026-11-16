@@ -1,9 +1,20 @@
-import { ChevronDown, EqualApproximately, Eye, EyeOff } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  AlertCircle,
+  ChevronDown,
+  EqualApproximately,
+  Eye,
+  EyeOff,
+  RotateCw,
+} from "lucide-react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { CountryFlag } from "@/components/country-flag";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
-import { useBalances, useBalanceVisibility } from "@/hooks";
+import { useAnalytics, useBalances, useBalanceVisibility } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { formatFiatAmount, truncateAmount } from "@/lib/utils";
 import { CurrencyDrawer } from "../settings/currency-drawer";
 
@@ -14,10 +25,26 @@ export function BalanceIndicator() {
   const {
     settings: { currency },
   } = useSettings();
-  const { balances, isBalancesLoading, isBalancesError, balancesError } =
-    useBalances();
+  const { balances, isBalancesLoading, isBalancesError } = useBalances();
   const { isHidden, toggle } = useBalanceVisibility();
   const VisibilityIcon = isHidden ? EyeOff : Eye;
+  const queryClient = useQueryClient();
+  const { track } = useAnalytics();
+
+  useEffect(() => {
+    if (isBalancesError) {
+      track(EVENTS.FEATURE, {
+        status: "load_error_shown",
+        location: "homescreen",
+        section: "balance",
+      });
+    }
+  }, [isBalancesError, track]);
+
+  // Raw SDK/RPC errors are never shown; a short message + Retry instead.
+  const handleRetry = () => {
+    queryClient.refetchQueries({ queryKey: ["balances"] });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -32,8 +59,21 @@ export function BalanceIndicator() {
       </button>
       <div className="flex h-12 w-full items-center justify-center">
         {isBalancesLoading && <Skeleton className="w-full" />}
-        {isBalancesError && (
-          <p className="text-destructive">{balancesError?.message}</p>
+        {isBalancesError && !balances && (
+          <div role="alert" className="flex items-center gap-2 text-sm">
+            <AlertCircle className="size-4 shrink-0 text-destructive" />
+            <span className="text-destructive">
+              {t("ONB_BALANCE_LOAD_ERROR")}
+            </span>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-9 px-3"
+              onClick={handleRetry}>
+              <RotateCw className="size-3.5" />
+              {t("RETRY")}
+            </Button>
+          </div>
         )}
         {balances && (
           <button
@@ -60,8 +100,8 @@ export function BalanceIndicator() {
           {isBalancesLoading && (
             <span className="h-4 w-20 animate-pulse rounded-md bg-accent" />
           )}
-          {isBalancesError && (
-            <span className="text-destructive">{balancesError?.message}</span>
+          {isBalancesError && !balances && (
+            <span className="text-muted-foreground">--</span>
           )}
           {balances && (
             <span className="text-md">

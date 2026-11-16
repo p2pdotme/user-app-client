@@ -25,7 +25,7 @@ export function RequestInProgressDrawer({
               {t("REQUEST_IN_PROGRESS")}
             </h2>
             <p className="text-muted-foreground">
-              {t("YOU_VE_RECEIVED_A_SPECIAL_INVITE")}
+              {t("ONB_REQUEST_IN_PROGRESS_DESCRIPTION")}
             </p>
           </div>
         </div>

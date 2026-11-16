@@ -6,7 +6,8 @@ import {
   useYouTubeVideoDialog,
   YouTubeVideoDialog,
 } from "@/components";
-import { usePageMeta } from "@/hooks";
+import { useAnalytics, usePageMeta, useSupportChat } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { ChatButton } from "./components/chat-button";
 import { VideoGuideBanner } from "./components/video-guide-banner";
@@ -23,6 +24,8 @@ export function SupportPage({ title }: { title: string }) {
     title: t("HELP_AND_SUPPORT"),
     description: t("SEO_DESCRIPTION_HELP"),
   });
+  const { track } = useAnalytics();
+  const { openSupportChat } = useSupportChat();
   const faqs = getSupportPageFAQs(title as SupportPageTitle);
   const videoGuides = getSupportPageVideoGuides(title as SupportPageTitle);
   const {
@@ -83,7 +86,16 @@ export function SupportPage({ title }: { title: string }) {
           <span className="w-1/2 font-regular text-sm">
             {t("DIDNT_FIND_WHAT_YOU_RE_LOOKING_FOR")}
           </span>
-          <ChatButton className="w-1/2" />
+          <ChatButton
+            className="w-1/2"
+            onClick={() => {
+              track(EVENTS.HELP, {
+                status: "telegram_support_clicked",
+                section: title,
+              });
+              openSupportChat();
+            }}
+          />
         </section>
       </main>
 
