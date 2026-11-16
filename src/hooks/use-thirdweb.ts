@@ -1,5 +1,6 @@
 import { createRelayIdentity } from "@p2pdotme/sdk/orders";
 import { useFraudEngine } from "@p2pdotme/sdk/react";
+import { useQueryClient } from "@tanstack/react-query";
 import type { TFunction } from "i18next";
 import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,6 +26,7 @@ import { getResolvedTheme } from "@/core/client/settings";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { EVENTS } from "@/lib/analytics";
 import { STORAGE_KEYS } from "@/lib/constants";
+import { clearLimitReturn } from "@/lib/limit-increase";
 import { identifyUser } from "@/lib/sentry";
 import {
   getUserFacingErrorMessage,
@@ -72,6 +74,7 @@ export function useThirdweb() {
   const resolvedTheme = getResolvedTheme(settings.theme);
   const { track, identify } = useAnalytics();
   const fraudEngine = useFraudEngine();
+  const queryClient = useQueryClient();
 
   // Theme with colors from index.css
   const theme = useMemo(() => {
@@ -247,14 +250,18 @@ export function useThirdweb() {
         localStorage.removeItem(STORAGE_KEYS.RELAY_IDENTITY);
         localStorage.removeItem(STORAGE_KEYS.SETTINGS);
         fraudEngine.cleanupSeonStorage();
+        clearLimitReturn();
       } catch {}
+      // Drop every cached query (limits, balances, verification status...) so
+      // the next account never sees the previous one's data.
+      queryClient.clear();
       toast.success(t("LOGGED_OUT_SUCCESSFULLY"));
     } catch (error) {
       toast.error(t("LOGGED_OUT_FAILED"), {
         description: getUserFacingErrorMessage(t, error),
       });
     }
-  }, [wallet, t, fraudEngine]);
+  }, [wallet, t, fraudEngine, queryClient]);
 
   return {
     account,

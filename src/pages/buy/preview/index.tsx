@@ -51,6 +51,7 @@ import { useContractVersion } from "@/hooks/use-contract-version";
 import { EVENTS } from "@/lib/analytics";
 import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { saveLimitReturn } from "@/lib/limit-increase";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import {
   addLocalOrderPaymentDetails,
@@ -79,6 +80,15 @@ import { WalletAddressesDrawer } from "./wallet-addresses-drawer";
 export function BuyPreview() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  // Remember the order so /limits can bring the user back with the amount
+  // filled in after they verify.
+  const goVerifyFromFraudCheck = () => {
+    saveLimitReturn({
+      flow: "buy",
+      cryptoAmount: Number(buyPreviewState?.amount?.crypto),
+    });
+    navigate(INTERNAL_HREFS.LIMITS);
+  };
   const { state: locationState } = useLocation();
   const { account, wallet } = useThirdweb();
   const fraudEngine = useFraudEngine();
@@ -506,7 +516,7 @@ export function BuyPreview() {
         duration: 5000,
         action: {
           label: t("BUY_UX_VERIFY_TO_CONTINUE"),
-          onClick: () => navigate(INTERNAL_HREFS.LIMITS),
+          onClick: () => goVerifyFromFraudCheck(),
         },
       });
       fraudStatusTimeoutRef.current = setTimeout(
@@ -775,7 +785,7 @@ export function BuyPreview() {
                 <Button
                   size="sm"
                   className="flex-1"
-                  onClick={() => navigate(INTERNAL_HREFS.LIMITS)}>
+                  onClick={() => goVerifyFromFraudCheck()}>
                   {t("BUY_UX_VERIFY_TO_CONTINUE")}
                 </Button>
                 <Button

@@ -645,6 +645,8 @@ export const en = {
     ENTER_TIP_AMOUNT: "Enter tip amount (USDC)",
     ENTER_WALLET_NAME: "Enter wallet name",
     ERROR: "Error",
+    ERROR_ALREADY_VERIFIED_DESCRIPTION:
+      "This account is already verified, either on this wallet or on another one. Each account can only raise the limit of one wallet, so trying again won't help. Try a different method.",
     ERROR_BOUNDARY_COPIED: "Error copied",
     ERROR_BOUNDARY_COPY: "Copy error",
     ERROR_BOUNDARY_DESCRIPTION:
@@ -1154,6 +1156,20 @@ export const en = {
     LIMIT_CARD_MAX_USDC: "Max {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Limit Updates",
+    LIMR_CONTINUE: "Back to {{flow}}",
+    LIMR_CURRENT_LIMIT: "Your limit: {{limit}} USDC per order",
+    LIMR_DISMISS: "Dismiss",
+    LIMR_FLOW_BUY: "Buy",
+    LIMR_FLOW_PAY: "Pay",
+    LIMR_FLOW_SELL: "Sell",
+    LIMR_MAX_FOR_MARKET: "Max for your market",
+    LIMR_ORDER_FITS: "Your limit now covers this order.",
+    LIMR_ORDER_STILL_ABOVE:
+      "This order is still above your limit. Verify another method, or continue and lower the amount.",
+    LIMR_RP_NEXT_UNLOCK: "Next unlock: +{{amount}} USDC per order",
+    LIMR_TITLE: "Continue your {{flow}} order",
+    LIMR_TITLE_WITH_AMOUNT: "Continue your {{flow}} of {{amount}}",
+    LIMR_UPDATING_LIMIT: "Updating your limit…",
     LIM_KYC_FAILED_TITLE: "Passport verification didn't go through",
     LIM_LIVENESS_FAILED_TITLE: "Liveness check didn't go through",
     LIM_METHOD_BADGE_TAKES_MINUTES: "Takes 3-5 min",
@@ -1384,7 +1400,8 @@ export const en = {
     NO_TASK_LEDGER_ENTRIES: "No task ledger entries found",
     NO_TRANSACTIONS_FOUND: "No transactions found",
     NO_WITHDRAWABLE_AMOUNT: "No withdrawable amount",
-    NULLIFIER_ALREADY_VERIFIED: "Nullifier already verified",
+    NULLIFIER_ALREADY_VERIFIED:
+      "This identity has already been used to verify a wallet.",
     OFFICIAL_RANGO_SUPPORT_CHANNELS: "Official Rango Support Channels",
     OFFICIAL_RANGO_SUPPORT_CHANNELS_NOTE:
       "Note : If your cross-chain deposit or withdraw runs into issues, contact Rango support via the official links above.",
@@ -2616,6 +2633,23 @@ export const en = {
       "Verify at least one social account to grow your limits and keep increasing limits as you complete transactions.",
     VERIFY_TO_RAISE: "Verify to raise",
     VERIFY_ZK_PROOF: "Verify zk proof",
+    VFX_ATTESTATION_EXPIRED:
+      "Your verification result expired before it was saved. Please start again.",
+    VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Another phone number",
+    VFX_BVN_OTP_METHOD_EMAIL: "Email",
+    VFX_BVN_OTP_METHOD_OTHER: "Other option",
+    VFX_BVN_OTP_METHOD_PHONE: "Phone",
+    VFX_BVN_OTP_METHOD_PHONE_1: "Second phone",
+    VFX_BVN_OTP_NOT_SENT:
+      "We couldn't send the code. Try another option or try again in a moment.",
+    VFX_CODE_RESENT: "We sent a new code",
+    VFX_FINISH_VERIFICATION: "Finish verification",
+    VFX_RESEND_CODE: "Resend code",
+    VFX_SESSION_EXPIRED_DESCRIPTION:
+      "This verification took too long and was stopped. Start again to get a fresh session.",
+    VFX_SESSION_EXPIRED_TITLE: "Session expired",
+    VFX_START_AGAIN: "Start again",
+    VFX_STATUS_CHECK_FAILED: "Couldn't check status",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "App Tour",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
