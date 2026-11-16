@@ -20,7 +20,6 @@ import { formatUnits } from "viem";
 import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
 import { SendP2PDrawer } from "@/components/p2p-token/send-p2p-drawer";
-import { JUP_URL } from "@/components/tge-countdown-banner";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -43,6 +42,9 @@ import {
 } from "@/hooks";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { cn, formatTokenBalance, truncateAddress } from "@/lib/utils";
+
+const JUP_URL =
+  "https://jup.ag/tokens/P2PXup1ZvMpCDkJn3PQxtBYgxeCSfH39SFeurGSmeta";
 
 interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

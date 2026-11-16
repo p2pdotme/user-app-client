@@ -33,16 +33,6 @@ export interface TransactionFilters {
     | "custom";
 }
 
-// Empty filters (no filtering applied)
-export const EMPTY_FILTERS: TransactionFilters = {
-  types: ["BUY", "SELL", "PAY"],
-  statuses: ["PLACED", "ACCEPTED", "PAID", "COMPLETED", "CANCELLED"],
-  disputeStatuses: ["NONE", "RAISED", "SETTLED", "DEFAULT"],
-  currencies: [...SUPPORTED_CURRENCIES],
-  dateRange: {},
-  datePreset: "last30days",
-};
-
 // Sane default filters (all statuses + this month)
 export const SANE_DEFAULT_FILTERS: TransactionFilters = {
   types: ["BUY", "SELL", "PAY"],
@@ -52,9 +42,6 @@ export const SANE_DEFAULT_FILTERS: TransactionFilters = {
   dateRange: {},
   datePreset: "thisMonth", // This month instead of last 30 days
 };
-
-// Keep DEFAULT_FILTERS for backward compatibility
-export const DEFAULT_FILTERS = EMPTY_FILTERS;
 
 // Filter options constants
 export const TRANSACTION_TYPES = [

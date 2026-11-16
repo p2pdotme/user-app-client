@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/main.tsx",
+    "src/sw.ts",
+    "netlify/edge-functions/*.ts",
+    "scripts/*.mts",
+    "pwa-assets.config.ts",
+    "src/lib/shims/web-crypto.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx}", "scripts/**/*.mts", "netlify/**/*.ts"],
+  "ignore": ["src/vite-env.d.ts"],
+  "ignoreDependencies": ["tw-animate-css", "tailwindcss"],
+  "rules": {
+    "types": "off",
+    "duplicates": "off"
+  },
+  "ignoreExportsUsedInFile": true,
+  "includeEntryExports": false
+}
