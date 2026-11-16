@@ -1,6 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { ArrowDownIcon, ChevronDownIcon, SettingsIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import {
+  ArrowDownIcon,
+  ChevronDownIcon,
+  ClipboardPasteIcon,
+  SettingsIcon,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { Address } from "thirdweb";
@@ -36,6 +41,12 @@ import {
   useTokenIcons,
 } from "@/hooks/use-oneclick";
 import { useUSDCBalance } from "@/hooks/use-usdc";
+import { analytics, EVENTS } from "@/lib/analytics";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
+import { isValidChainAddress } from "./address-validation";
 
 // ---------------------------------------------------------------------------
 // Chain selector — pill trigger + searchable bottom drawer
@@ -373,6 +384,34 @@ function toBaseUnits(value: string, decimals: number): string | null {
   return units === 0n ? null : units.toString();
 }
 
+/**
+ * 1Click errors are either already localized by `humanizeError` (invalid
+ * recipient / refund address, missing Stellar memo) or raw API text. Only the
+ * former are shown as-is; everything else gets a plain-language message.
+ */
+function getBridgeErrorMessage(
+  t: (key: string) => string,
+  error: unknown,
+  fallbackKey: string,
+  context?: "send",
+): string {
+  const message = error instanceof Error ? error.message : "";
+  const passthrough = [
+    t("BRIDGE_RECIPIENT_INVALID"),
+    t("BRIDGE_REFUND_ADDRESS_INVALID"),
+    t("BRIDGE_STELLAR_MEMO_MISSING"),
+  ];
+  if (message && passthrough.includes(message)) return message;
+  if (/amount is too low|too low/i.test(message)) {
+    return t("PAYF_BRIDGE_AMOUNT_TOO_LOW");
+  }
+  return getUserFacingErrorMessage(
+    t as Parameters<typeof getUserFacingErrorMessage>[0],
+    error,
+    { fallbackKey, context },
+  );
+}
+
 type SwapFormProps = {
   account: Account;
   tokens: OneClickToken[];
@@ -427,15 +466,33 @@ export function SwapForm({
   const insufficientFunds =
     isWithdraw && usdcBalance !== undefined && Number(amountText) > usdcBalance;
 
+  // The address lives on the selected (non-Base) chain in both directions:
+  // the recipient when withdrawing, the refund address when depositing.
+  const addressChain = token?.blockchain ?? chain;
+  const trimmedAddress = address.trim();
+  const isAddressValid =
+    !!addressChain && isValidChainAddress(addressChain, trimmedAddress);
+  const showAddressError = trimmedAddress.length > 0 && !isAddressValid;
+  const flowType = isWithdraw ? "bridge_withdraw" : "bridge_deposit";
+
+  const handlePasteAddress = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) setAddress(text.trim());
+    } catch {
+      toast.error(t("PAYF_PASTE_FAILED"));
+    }
+  };
+
   const quoteParams =
-    token && amount && address
+    token && amount && isAddressValid
       ? isWithdraw
         ? {
             originAsset: BASE_USDC_ASSET_ID,
             originBlockchain: "base",
             destinationAsset: token.assetId,
             amount,
-            recipient: address,
+            recipient: trimmedAddress,
             refundTo: account.address,
             slippageBps,
           }
@@ -445,13 +502,25 @@ export function SwapForm({
             destinationAsset: BASE_USDC_ASSET_ID,
             amount,
             recipient: account.address,
-            refundTo: address,
+            refundTo: trimmedAddress,
             slippageBps,
           }
       : null;
 
   const dryQuote = useOneClickQuote(quoteParams);
   const quote = dryQuote.data?.quote;
+  const quoteErrorMessage = dryQuote.error
+    ? getBridgeErrorMessage(t, dryQuote.error, "PAYF_BRIDGE_QUOTE_FAILED")
+    : null;
+
+  useEffect(() => {
+    if (!quoteErrorMessage) return;
+    analytics.track(EVENTS.TRANSACTION, {
+      transaction_type: flowType,
+      status: "quote_error",
+      chain: addressChain ?? undefined,
+    });
+  }, [quoteErrorMessage, flowType, addressChain]);
 
   const rate =
     quote && Number(quote.amountInFormatted) > 0
@@ -460,8 +529,13 @@ export function SwapForm({
   const fromSymbol = isWithdraw ? "USDC" : (token?.symbol ?? "…");
   const toSymbol = isWithdraw ? (token?.symbol ?? "…") : "USDC";
 
+  // Set once the USDC transfer has been submitted: a network / timeout error
+  // after that point is ambiguous (the send may have landed), so the error
+  // copy tells the user to check before retrying.
+  const sendAttemptedRef = useRef(false);
   const swap = useMutation({
     mutationFn: async () => {
+      sendAttemptedRef.current = false;
       if (!quoteParams || !token) throw new Error("Missing quote inputs");
       const response = await getQuote(buildQuoteRequest(quoteParams, false));
       const { depositAddress, depositMemo } = response.quote;
@@ -496,6 +570,7 @@ export function SwapForm({
       onBridgeCreated(bridge);
 
       if (isWithdraw) {
+        sendAttemptedRef.current = true;
         const result = await transferUSDC(
           {
             address: depositAddress as Address,
@@ -517,10 +592,32 @@ export function SwapForm({
     onSuccess: () => {
       setAmountText("");
       if (isWithdraw) {
-        toast.success("USDC sent, bridging in progress");
+        toast.success(t("PAYF_BRIDGE_USDC_SENT"), {
+          description: t("PAYF_BRIDGE_USDC_SENT_DESCRIPTION"),
+        });
       }
     },
-    onError: (error) => toast.error(error.message),
+    onError: (error) => {
+      console.error("Bridge failed", error);
+      analytics.track(EVENTS.TRANSACTION, {
+        transaction_type: flowType,
+        status: "failed",
+        chain: addressChain ?? undefined,
+        cancelled: isUserCancellation(error),
+      });
+      if (isUserCancellation(error)) {
+        toast.info(t("ERROR_USER_CANCELLED_DESCRIPTION"));
+        return;
+      }
+      toast.error(t("PAYF_BRIDGE_SEND_FAILED"), {
+        description: getBridgeErrorMessage(
+          t,
+          error,
+          "ERROR_GENERIC_DESCRIPTION",
+          sendAttemptedRef.current ? "send" : undefined,
+        ),
+      });
+    },
   });
 
   const chainSelector = (
@@ -578,24 +675,56 @@ export function SwapForm({
     </div>
   );
 
+  const addressChainName = addressChain ? getChainName(addressChain) : null;
   const addressInput = (
     <div className="flex flex-col gap-2">
       <span className="flex items-center gap-1.5 font-medium">
-        {isWithdraw ? t("ADDRESS") : t("BRIDGE_REFUND_ADDRESS")}
-      </span>
-      <Input
-        placeholder={`${
-          token
-            ? t("BRIDGE_ADDRESS_PLACEHOLDER", { chain: token.blockchain })
+        {isWithdraw
+          ? addressChainName
+            ? t("PAYF_BRIDGE_RECIPIENT_ADDRESS_ON", { chain: addressChainName })
             : t("ADDRESS")
-        }…`}
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-        className="h-14 rounded-xl border-0 bg-primary/10 placeholder:capitalize"
-      />
+          : t("BRIDGE_REFUND_ADDRESS")}
+      </span>
+      <div className="relative">
+        <Input
+          placeholder={`${
+            addressChainName
+              ? t("BRIDGE_ADDRESS_PLACEHOLDER", { chain: addressChainName })
+              : t("ADDRESS")
+          }…`}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          aria-invalid={showAddressError}
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck={false}
+          className={`h-14 rounded-xl border-0 bg-primary/10 pr-24 font-mono text-sm ${
+            showAddressError ? "border border-destructive" : ""
+          }`}
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="-translate-y-1/2 absolute top-1/2 right-2 gap-1"
+          onClick={handlePasteAddress}>
+          <ClipboardPasteIcon className="size-4" />
+          {t("PAYF_PASTE")}
+        </Button>
+      </div>
+      {showAddressError && (
+        <p className="text-destructive text-sm">
+          {t("PAYF_BRIDGE_ADDRESS_FORMAT_INVALID", {
+            chain: addressChainName ?? "",
+          })}
+        </p>
+      )}
       {!isWithdraw && (
         <p className="text-muted-foreground text-sm">
-          {t("BRIDGE_REFUND_ADDRESS_HINT")}
+          {t("PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER", {
+            chain: addressChainName ?? t("PAYF_BRIDGE_ORIGIN_CHAIN"),
+          })}
         </p>
       )}
     </div>
@@ -679,8 +808,8 @@ export function SwapForm({
             {rate ? `1 ${fromSymbol} = ${rate.toFixed(4)} ${toSymbol}` : "—"}
           </span>
         </div>
-        {dryQuote.error && (
-          <p className="text-destructive text-sm">{dryQuote.error.message}</p>
+        {quoteErrorMessage && (
+          <p className="text-destructive text-sm">{quoteErrorMessage}</p>
         )}
       </div>
 
@@ -694,7 +823,14 @@ export function SwapForm({
           !!dryQuote.error ||
           swap.isPending
         }
-        onClick={() => setReviewOpen(true)}>
+        onClick={() => {
+          analytics.track(EVENTS.TRANSACTION, {
+            transaction_type: flowType,
+            status: "review_opened",
+            chain: addressChain ?? undefined,
+          });
+          setReviewOpen(true);
+        }}>
         {swap.isPending
           ? isWithdraw
             ? t("BRIDGE_WITHDRAWING")
@@ -728,7 +864,19 @@ export function SwapForm({
           }}
           slippageBps={slippageBps}
           pending={swap.isPending}
+          addressCheck={{
+            label: isWithdraw
+              ? t("PAYF_BRIDGE_RECIPIENT")
+              : t("BRIDGE_REFUND_ADDRESS"),
+            address: trimmedAddress,
+            chainName: getChainName(token.blockchain),
+          }}
           onConfirm={() => {
+            analytics.track(EVENTS.TRANSACTION, {
+              transaction_type: flowType,
+              status: "confirmed",
+              chain: token.blockchain,
+            });
             setReviewOpen(false);
             swap.mutate();
           }}

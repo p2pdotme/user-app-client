@@ -1,9 +1,12 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useQuery } from "@tanstack/react-query";
+import { Info } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -16,31 +19,48 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
+import { useAnalytics } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { cn, formatFiatAmount, truncateAddress } from "@/lib/utils";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
 
 export function BuyPlaced({ order }: { order: Order }) {
   const { t } = useTranslation();
+  const { trackWithDedupe } = useAnalytics();
 
-  const {
-    data: orderFeeDetails,
-    isLoading: isLoadingOrderFeeDetails,
-    error: orderFeeDetailsError,
-  } = useQuery({
-    queryKey: ["orderFeeDetails", order.id],
-    queryFn: () =>
-      getOrderFeeDetails(Number(order.id)).match(
-        (details) => details,
-        (error) => {
-          throw error;
-        },
-      ),
-    enabled: !!order.id,
-  });
+  useEffect(() => {
+    trackWithDedupe(
+      EVENTS.TRANSACTION,
+      `transaction_${order.id}_placed_screen_viewed`,
+      {
+        transaction_type: "buy",
+        status: "placed_screen_viewed",
+        orderId: order.id.toString(),
+        amount: Number(order.amount),
+        currency: order.currency,
+      },
+    );
+  }, [order.id, order.amount, order.currency, trackWithDedupe]);
+
+  const { data: orderFeeDetails, isLoading: isLoadingOrderFeeDetails } =
+    useQuery({
+      queryKey: ["orderFeeDetails", order.id],
+      queryFn: () =>
+        getOrderFeeDetails(Number(order.id)).match(
+          (details) => details,
+          (error) => {
+            throw error;
+          },
+        ),
+      enabled: !!order.id,
+    });
 
   // Extract values from the combined query result
   const fixedFeePaid = orderFeeDetails?.fixedFeePaid ?? 0;
   const actualUsdcAmount = orderFeeDetails?.actualUsdtAmount;
+  // Fall back to the on-chain order amount if fee details fail to load,
+  // instead of an endless skeleton.
+  // Exact amount incl. fees only (order.fiatAmount can exclude the fee).
   const actualFiatAmount = orderFeeDetails?.actualFiatAmount;
   return (
     <main className="flex h-full w-full flex-col overflow-y-auto pt-4">
@@ -55,10 +75,14 @@ export function BuyPlaced({ order }: { order: Order }) {
           {t("CONNECTING_YOU_TO_A_MERCHANT_FOR_PAYMENT")}...
         </h2>
         <p className="text-center text-muted-foreground text-sm">
-          {t(
-            "HANG_TIGHT_THIS_SHOULD_TAKE_ABOUT_20_90_SECONDS_PLEASE_DONT_LEAVE_THIS_PAGE",
-          )}
+          {t("BUY_UX_PLACED_CAN_LEAVE")}
         </p>
+        <div className="flex items-start gap-2 rounded-lg bg-primary/10 p-3 text-left text-sm">
+          <Info className="mt-0.5 size-4 shrink-0 text-primary" />
+          <p className="text-muted-foreground">
+            {t("BUY_UX_PLACED_TIMEOUT_INFO")}
+          </p>
+        </div>
       </section>
 
       <motion.footer
@@ -70,7 +94,10 @@ export function BuyPlaced({ order }: { order: Order }) {
           <p className="text-center text-sm">
             {t("WAITING_FOR_MERCHANT_TO_ACCEPT_ORDER")}
           </p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={90}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress
@@ -150,7 +177,7 @@ export function BuyPlaced({ order }: { order: Order }) {
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{t("YOU_SEND")} </span>
                       <span className="text-muted-foreground">
-                        {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
+                        {isLoadingOrderFeeDetails ? (
                           <Skeleton className="h-5 w-20" />
                         ) : (
                           formatFiatAmount(
@@ -180,7 +207,7 @@ export function BuyPlaced({ order }: { order: Order }) {
             <div className="flex w-full items-center justify-between">
               <span className="font-medium">{t("TOTAL_PAYABLE_AMOUNT")}</span>
               <span className="text-muted-foreground">
-                {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
+                {isLoadingOrderFeeDetails ? (
                   <Skeleton className="h-5 w-20" />
                 ) : actualFiatAmount ? (
                   formatFiatAmount(actualFiatAmount, order.currency)
