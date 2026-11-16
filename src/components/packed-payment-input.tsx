@@ -143,11 +143,11 @@ export function PackedPaymentInput({
             </div>
             {showOr ? (
               <div className="flex items-center gap-3">
-                <span className="bg-border h-px flex-1" />
+                <span className="h-px flex-1 bg-border" />
                 <span className="text-muted-foreground text-xs uppercase">
                   {t("OR")}
                 </span>
-                <span className="bg-border h-px flex-1" />
+                <span className="h-px flex-1 bg-border" />
               </div>
             ) : null}
           </Fragment>

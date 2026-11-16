@@ -3,32 +3,32 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { INTERNAL_HREFS } from "@/lib/constants";
 import { toast } from "sonner";
+import { formatUnits, parseUnits } from "viem";
 import ASSETS from "@/assets";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  useP2PBalance,
-  useP2PSwapQuote,
-  useP2PSwap,
-  useP2PSwapInfo,
-  useUSDCBalance,
-  useP2PSwapHistory,
-} from "@/hooks";
-import { SwapCard } from "@/pages/p2p-token/history";
-import { UnrecordedDeposits } from "./unrecorded-deposits";
-import { Card, CardContent } from "../ui/card";
-import { Input } from "../ui/input";
-import { cn, truncateAmount } from "@/lib/utils";
-import { Skeleton } from "../ui/skeleton";
-import { formatUnits, parseUnits } from "viem";
 import type { SwapDirection } from "@/core/p2p-swap";
 import {
   fetchQuoteP2PToUsdc,
   fetchQuoteUsdcToP2P,
   getBackendErrorKey,
 } from "@/core/p2p-swap";
+import {
+  useP2PBalance,
+  useP2PSwap,
+  useP2PSwapHistory,
+  useP2PSwapInfo,
+  useP2PSwapQuote,
+  useUSDCBalance,
+} from "@/hooks";
+import { INTERNAL_HREFS } from "@/lib/constants";
+import { cn, truncateAmount } from "@/lib/utils";
+import { SwapCard } from "@/pages/p2p-token/history";
+import { Card, CardContent } from "../ui/card";
+import { Input } from "../ui/input";
+import { Skeleton } from "../ui/skeleton";
+import { UnrecordedDeposits } from "./unrecorded-deposits";
 
 export type { SwapDirection } from "@/core/p2p-swap";
 
@@ -75,7 +75,7 @@ export function FromPanel({
             type="text"
             inputMode="decimal"
             pattern="[0-9]*\.?[0-9]*"
-            className="h-auto flex-1 border-none bg-transparent p-0 font-bold text-3xl leading-none tracking-tight text-foreground tabular-nums shadow-none placeholder:text-muted-foreground/30 focus-visible:ring-0 md:text-3xl"
+            className="h-auto flex-1 border-none bg-transparent p-0 font-bold text-3xl text-foreground tabular-nums leading-none tracking-tight shadow-none placeholder:text-muted-foreground/30 focus-visible:ring-0 md:text-3xl"
             placeholder="0.00"
             value={amount}
             disabled={disabled}
@@ -92,13 +92,12 @@ export function FromPanel({
                 onClick={() => onPercent(pct)}
                 disabled={balance === null || disabled}
                 className={cn(
-                  "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                  "rounded-md px-2.5 py-1 font-medium text-xs transition-colors",
                   "cursor-pointer disabled:cursor-not-allowed disabled:opacity-40",
                   selectedPct === pct
                     ? "bg-primary text-primary-foreground"
                     : "bg-background text-foreground hover:bg-background",
-                )}
-              >
+                )}>
                 {labelKey === "MAX" ? t("MAX") : labelKey}
               </button>
             ))}
@@ -214,7 +213,11 @@ export const P2PSwapForm = ({
   const { p2pBalanceRaw } = useP2PBalance();
   const { outputAmount, isQuoteLoading, isQuoteError, isLowReserve } =
     useP2PSwapQuote(direction, amount);
-  const { executeSwap, isSwapping: isMutating, swapStep } = useP2PSwap(direction, amount);
+  const {
+    executeSwap,
+    isSwapping: isMutating,
+    swapStep,
+  } = useP2PSwap(direction, amount);
   const { usdcLimit, p2pLimit } = useP2PSwapInfo();
   const [isValidating, setIsValidating] = useState(false);
   const isSwapping = isMutating || isValidating;
@@ -349,14 +352,12 @@ export const P2PSwapForm = ({
           size="icon"
           className="relative z-10 size-9 rounded-full border-border bg-background shadow-sm hover:bg-background"
           onClick={toggleDirection}
-          disabled={isSwapping}
-        >
+          disabled={isSwapping}>
           <motion.div
             key={direction}
             initial={{ rotate: 0, scale: 0.8, opacity: 0 }}
             animate={{ rotate: 180, scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
+            transition={{ duration: 0.3, ease: "easeInOut" }}>
             <ArrowUpDown className="size-4 text-foreground" />
           </motion.div>
         </Button>
@@ -372,13 +373,13 @@ export const P2PSwapForm = ({
       />
 
       {hasAmount && isLowReserve && !isQuoteLoading && (
-        <p className="px-1 my-2 text-center text-muted-foreground text-xs">
+        <p className="my-2 px-1 text-center text-muted-foreground text-xs">
           {t("SWAP_QUOTE_UNAVAILABLE")}
         </p>
       )}
 
       <Button
-        className="mt-1 w-full rounded-2xl py-6 text-base font-semibold"
+        className="mt-1 w-full rounded-2xl py-6 font-semibold text-base"
         disabled={
           isOverLimit ||
           !hasAmount ||
@@ -388,8 +389,7 @@ export const P2PSwapForm = ({
           isInsufficientBalance ||
           isLowReserve
         }
-        onClick={handleSwap}
-      >
+        onClick={handleSwap}>
         {isSwapping ? (
           <span className="flex items-center gap-2">
             <Loader2 className="size-4 animate-spin" />
@@ -474,8 +474,7 @@ function P2PSwapBalances({ disabled = false }: { disabled?: boolean }) {
         type="button"
         onClick={handleRefresh}
         disabled={isLoading || disabled}
-        className="flex cursor-pointer items-center justify-center rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
-      >
+        className="flex cursor-pointer items-center justify-center rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40">
         <RefreshCw
           className={cn("size-4", (isLoading || spinning) && "animate-spin")}
         />
@@ -510,7 +509,7 @@ export const P2PSwapMain = () => {
       <UnrecordedDeposits />
       {processingSwaps.length > 0 && (
         <div className="mt-2 space-y-2">
-          <p className="px-1 text-xs font-medium text-muted-foreground uppercase tracking-wide">
+          <p className="px-1 font-medium text-muted-foreground text-xs uppercase tracking-wide">
             {t("IN_PROGRESS")}
           </p>
           {processingSwaps.map((swap) => (
@@ -523,8 +522,7 @@ export const P2PSwapMain = () => {
           type="button"
           disabled={isSwapping}
           onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP_HISTORY)}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
-        >
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border py-3 font-medium text-muted-foreground text-sm transition-colors hover:bg-primary/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-muted-foreground">
           <Clock className="size-4" />
           {t("SWAP_HISTORY")}
         </button>

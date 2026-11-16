@@ -70,7 +70,7 @@ export function ConfirmP2pStake({
         </p>
         <p className="mt-1 font-bold text-4xl text-foreground tabular-nums tracking-tight">
           {truncateAmount(numericAmount)}{" "}
-          <span className="text-muted-foreground text-2xl">$P2P</span>
+          <span className="text-2xl text-muted-foreground">$P2P</span>
         </p>
 
         <div className="my-4 h-px bg-border/60" />
@@ -116,7 +116,7 @@ export function ConfirmP2pStake({
 
         <dl className="mt-2.5 flex items-stretch gap-2">
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("P2P_STAKE_BUY_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -127,7 +127,7 @@ export function ConfirmP2pStake({
             </dd>
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("P2P_STAKE_SELL_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -138,7 +138,7 @@ export function ConfirmP2pStake({
             </dd>
           </div>
           <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-            <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("P2P_STAKE_PAY_LIMIT")}
             </dt>
             <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -208,20 +208,18 @@ export function ConfirmP2pStake({
         </ul>
       </section>
 
-      <div className="sticky bottom-0 -mx-4 mt-auto flex flex-col gap-2 border-t border-border/60 bg-background px-4 py-4">
+      <div className="-mx-4 sticky bottom-0 mt-auto flex flex-col gap-2 border-border/60 border-t bg-background px-4 py-4">
         <Button
           variant="outline"
           onClick={onBack}
           disabled={isProcessing}
-          className="w-full rounded-2xl py-6 text-base font-semibold"
-        >
+          className="w-full rounded-2xl py-6 font-semibold text-base">
           {t("CANCEL")}
         </Button>
         <Button
           onClick={handleConfirm}
           disabled={isProcessing}
-          className="w-full rounded-2xl py-6 text-base font-semibold"
-        >
+          className="w-full rounded-2xl py-6 font-semibold text-base">
           {isProcessing ? <Loader2 className="size-4 animate-spin" /> : null}
           {t("CONFIRM")}
         </Button>
@@ -243,11 +241,11 @@ function FraudWarningBanner() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
         <span
           aria-hidden
-          className="absolute -top-16 -right-16 size-48 animate-pulse rounded-full bg-amber-500/10 blur-3xl"
+          className="-top-16 -right-16 absolute size-48 animate-pulse rounded-full bg-amber-500/10 blur-3xl"
         />
         <span
           aria-hidden
-          className="absolute inset-y-0 -left-1/3 w-1/3 animate-shimmer bg-gradient-to-r from-transparent via-amber-500/[0.06] to-transparent"
+          className="-left-1/3 absolute inset-y-0 w-1/3 animate-shimmer bg-gradient-to-r from-transparent via-amber-500/[0.06] to-transparent"
         />
       </div>
       <div className="relative flex items-start gap-3 pl-2">

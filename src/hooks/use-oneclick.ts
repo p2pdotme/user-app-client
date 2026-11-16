@@ -100,7 +100,10 @@ export function buildQuoteRequest(
     ...(ONECLICK_APP_FEE_RECIPIENT
       ? {
           appFees: [
-            { recipient: ONECLICK_APP_FEE_RECIPIENT, fee: ONECLICK_APP_FEE_BPS },
+            {
+              recipient: ONECLICK_APP_FEE_RECIPIENT,
+              fee: ONECLICK_APP_FEE_BPS,
+            },
           ],
         }
       : {}),
@@ -261,7 +264,6 @@ async function fetchIcons(ids: string[]): Promise<Map<string, string>> {
   return new Map(parsed.data.map((coin) => [coin.id, coin.image]));
 }
 
-
 const TRUST_WALLET_CHAINS: Record<string, string> = {
   aptos: "aptos",
   arb: "arbitrum",
@@ -344,7 +346,6 @@ export function useTokenIcons(tokens: OneClickToken[]) {
 // ---------------------------------------------------------------------------
 // Chain name display
 // ---------------------------------------------------------------------------
-
 
 // 1Click blockchain slug → human-readable chain name. Unknown slugs fall back
 // to a capitalised slug in getChainName().

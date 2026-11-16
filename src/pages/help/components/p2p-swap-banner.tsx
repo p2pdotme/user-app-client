@@ -1,11 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { BannerItem } from "@/components";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import { useNavigate } from "react-router";
-
 
 export function P2PSwapBanner() {
   const { track } = useAnalytics();

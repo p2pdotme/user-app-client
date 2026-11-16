@@ -73,7 +73,7 @@ export function RedAtmBanner() {
             className="h-9 w-auto object-contain brightness-0 invert"
           />
           <div
-            className="relative flex h-9 items-center gap-1 overflow-hidden rounded-lg px-3 font-semibold text-xs text-white"
+            className="relative flex h-9 items-center gap-1 overflow-hidden rounded-lg px-3 font-semibold text-white text-xs"
             style={{
               backgroundColor: "#3B6EF5",
               backgroundImage:

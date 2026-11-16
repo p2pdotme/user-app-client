@@ -1,10 +1,5 @@
 import { Copy, RotateCw, TriangleAlert } from "lucide-react";
-import {
-  Component,
-  type ErrorInfo,
-  type ReactNode,
-  useCallback,
-} from "react";
+import { Component, type ErrorInfo, type ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
