@@ -4,9 +4,12 @@ import {
   BookOpen,
   Clock,
   FileText,
+  Info,
   MessageCircle,
+  MessagesSquare,
 } from "lucide-react";
 import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { SafetyNotice } from "@/components/safety-notice";
@@ -19,8 +22,14 @@ import {
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import type { DisputeStatus, Order } from "@/core/adapters/thirdweb/validation";
+import { useAnalytics } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
-import { canRaiseDispute, getDisputeTimeRemaining } from "./utils";
+import {
+  type DisputeAvailability,
+  getDisputeAvailability,
+  getDisputeTimeRemaining,
+} from "./utils";
 
 interface HelpListViewProps {
   order?: Order;
@@ -31,7 +40,22 @@ interface HelpListViewProps {
   onOrderTypeFAQs: () => void;
   onChatOnTelegram: () => void;
   onOpenDisputeChat?: () => void;
+  /**
+   * In-app human support chat (the same one the Help page's "Chat with us"
+   * opens). Omitted when it can't be reached; Telegram stays either way.
+   */
+  onChatWithUs?: () => void;
 }
+
+const NOT_ELIGIBLE_KEYS: Record<
+  Extract<DisputeAvailability, { state: "not_eligible" }>["reason"],
+  string
+> = {
+  buy_not_paid: "SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID",
+  buy_completed: "SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED",
+  sell_not_completed: "SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED",
+  sell_cancelled: "SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED",
+};
 
 export function HelpListView({
   order,
@@ -42,9 +66,10 @@ export function HelpListView({
   onOrderTypeFAQs,
   onChatOnTelegram,
   onOpenDisputeChat,
+  onChatWithUs,
 }: HelpListViewProps) {
   const { t } = useTranslation();
-  const canDispute = order ? canRaiseDispute(order) : false;
+  const { track } = useAnalytics();
   // Exactly one of the two rows renders whenever there is an order. The chat
   // row needs a dispute AND a handler, because without one it would lead
   // nowhere. Everything else falls through to the normal "Raise a Dispute"
@@ -55,9 +80,16 @@ export function HelpListView({
   const hasDispute = Boolean(disputeStatus && disputeStatus !== "DEFAULT");
   const isSettled = disputeStatus === "SETTLED";
   const showDisputeChatRow = Boolean(order && hasDispute && onOpenDisputeChat);
-  const { timeRemaining, canRaiseNow } = order
+
+  const availability: DisputeAvailability | null = order
+    ? hasDispute
+      ? { state: "already_raised" }
+      : getDisputeAvailability(order)
+    : null;
+  const canRaiseNow = availability?.state === "available";
+  const { timeRemaining } = order
     ? getDisputeTimeRemaining(order, t)
-    : { timeRemaining: "", canRaiseNow: false };
+    : { timeRemaining: "" };
 
   // Determine the effective order type for FAQ section
   const effectiveOrderType = order?.orderType || orderType;
@@ -65,6 +97,42 @@ export function HelpListView({
   // BUY is the only side where the user pays fiat and awaits USDC. On SELL/PAY
   // the merchant pays fiat to the user, so the dispute copy must flip.
   const userPaysFiat = effectiveOrderType === "BUY";
+
+  // One "viewed" event per distinct dispute state, so funnels can tell how
+  // often users reach the row while it is still locked.
+  const trackedState = useRef<string | null>(null);
+  useEffect(() => {
+    if (!order || !availability || showDisputeChatRow) return;
+    const key = `${order.id}:${availability.state}`;
+    if (trackedState.current === key) return;
+    trackedState.current = key;
+    track(EVENTS.HELP, {
+      status: "dispute_row_viewed",
+      state: availability.state,
+      reason:
+        availability.state === "not_eligible" ? availability.reason : undefined,
+      orderType: order.orderType,
+      orderStatus: order.status,
+    });
+  }, [order, availability, showDisputeChatRow, track]);
+
+  const disabledRowText = (() => {
+    if (!availability) return "";
+    switch (availability.state) {
+      case "locked":
+        return t("SUP_DISPUTE_AVAILABLE_IN", {
+          minutes: availability.minutesUntil,
+        });
+      case "not_eligible":
+        return t(NOT_ELIGIBLE_KEYS[availability.reason]);
+      case "already_raised":
+        return t("SUP_DISPUTE_ALREADY_RAISED");
+      case "expired":
+        return timeRemaining;
+      default:
+        return "";
+    }
+  })();
 
   return (
     <motion.div
@@ -147,47 +215,70 @@ export function HelpListView({
           <>
             <Button
               variant="ghost"
+              aria-disabled={!canRaiseNow}
               className={cn(
-                "flex h-fit items-start gap-4 rounded-lg p-4 transition-colors",
-                canDispute && canRaiseNow
+                "flex h-fit items-start gap-4 whitespace-normal rounded-lg p-4 transition-colors",
+                canRaiseNow
                   ? "cursor-pointer hover:bg-accent/50"
-                  : "cursor-not-allowed opacity-60",
+                  : "cursor-not-allowed",
               )}
-              onClick={canDispute && canRaiseNow ? onRaiseDispute : undefined}>
+              onClick={canRaiseNow ? onRaiseDispute : undefined}>
               <div
                 className={cn(
                   "flex size-12 shrink-0 items-center justify-center rounded-lg",
-                  canDispute && canRaiseNow
-                    ? "bg-destructive/10"
-                    : "bg-muted/30",
+                  canRaiseNow ? "bg-destructive/10" : "bg-muted/30",
                 )}>
                 <AlertTriangle
                   className={cn(
                     "size-6",
-                    canDispute && canRaiseNow
-                      ? "text-destructive"
-                      : "text-muted-foreground",
+                    canRaiseNow ? "text-destructive" : "text-muted-foreground",
                   )}
                 />
               </div>
               <div className="flex-1">
-                <h3 className="text-left font-medium text-base">
+                <h3
+                  className={cn(
+                    "text-left font-medium text-base",
+                    !canRaiseNow && "text-muted-foreground",
+                  )}>
                   {t("RAISE_A_DISPUTE")}
                 </h3>
-                <p className="text-left font-light text-muted-foreground text-sm">
-                  {canDispute && canRaiseNow
-                    ? t(
+                {canRaiseNow ? (
+                  <>
+                    <p className="text-left font-light text-muted-foreground text-sm">
+                      {t(
                         userPaysFiat
                           ? "RAISE_DISPUTE_DESCRIPTION_BUY"
                           : "RAISE_DISPUTE_DESCRIPTION_SELL_PAY",
-                      )
-                    : timeRemaining}
-                </p>
-                {canDispute && canRaiseNow && (
-                  <div className="mt-2 flex items-center gap-1">
-                    <Clock className="size-3 text-muted-foreground" />
-                    <p className="text-muted-foreground text-xs">
-                      {t("TIME_REMAINING")}: {timeRemaining}
+                      )}
+                    </p>
+                    <div className="mt-2 flex items-center gap-1">
+                      <Clock className="size-3 text-muted-foreground" />
+                      <p className="text-muted-foreground text-xs">
+                        {timeRemaining}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <p className="flex items-center gap-1 text-left font-medium text-muted-foreground text-sm">
+                    {availability?.state === "locked" && (
+                      <Clock className="size-3.5 shrink-0" />
+                    )}
+                    {disabledRowText}
+                  </p>
+                )}
+                {/* While locked, say what happens meanwhile so waiting
+                    doesn't feel like being ignored. */}
+                {availability?.state === "locked" && (
+                  <div className="mt-2 flex items-start gap-1">
+                    <Info className="mt-0.5 size-3 shrink-0 text-muted-foreground" />
+                    <p className="text-left text-muted-foreground text-xs">
+                      {t(
+                        userPaysFiat
+                          ? "SUP_DISPUTE_LOCKED_EXPLAINER_BUY"
+                          : "SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY",
+                        { minutes: availability.minWaitMinutes },
+                      )}
                     </p>
                   </div>
                 )}
@@ -229,7 +320,7 @@ export function HelpListView({
                 </h3>
                 <p className="text-left text-muted-foreground text-sm">
                   {t("VIEW_ORDER_TYPE_FAQS_DESCRIPTION", {
-                    orderType: effectiveOrderType.toLowerCase(),
+                    orderType: t(effectiveOrderType).toLowerCase(),
                   })}
                 </p>
               </div>
@@ -260,8 +351,15 @@ export function HelpListView({
         </Button>
       </div>
 
-      {/* Action Button */}
-      <div className="mt-6 px-4">
+      {/* Support channels. "Chat with us" lands in the ops support queue
+          in-app; Telegram is the always-available fallback. */}
+      <div className="mt-6 flex flex-col gap-2 px-4">
+        {onChatWithUs && (
+          <Button className="w-full gap-2 p-6" onClick={onChatWithUs}>
+            <MessagesSquare className="size-5" />
+            {t("CHAT_WITH_US")}
+          </Button>
+        )}
         <Button
           variant="outline"
           className="w-full gap-2 p-6"
@@ -273,6 +371,11 @@ export function HelpListView({
           <ASSETS.ICONS.Telegram className="size-5" />
           {t("CHAT_ON_TELEGRAM")}
         </Button>
+        {order && (
+          <p className="text-center text-muted-foreground text-xs">
+            {t("SUP_ORDER_ID_SHARED_HINT", { id: order.id })}
+          </p>
+        )}
       </div>
     </motion.div>
   );

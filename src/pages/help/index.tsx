@@ -63,13 +63,30 @@ export function Help() {
   // back to the Telegram group, synchronously, so the popup stays inside the
   // click gesture. A failed widget load says so rather than doing nothing.
   const handleChatWithUs = () => {
-    track(EVENTS.HELP, { status: "chat_with_us_clicked" });
-    if (!canOpenSupportHumanChat()) {
+    const canChatInApp = canOpenSupportHumanChat();
+    track(EVENTS.HELP, {
+      status: "chat_with_us_clicked",
+      channel: canChatInApp ? "in_app" : "telegram_fallback",
+      loggedIn: !!account?.address,
+    });
+    if (!canChatInApp) {
       handleTelegramSupport();
       return;
     }
-    openSupportHumanChat(currency.currency || "global", account?.address).catch(
-      () => toast.error(t("SOMETHING_WENT_WRONG")),
+    openSupportHumanChat(currency.currency || "global", account?.address)
+      .then((opened) => {
+        if (!opened) toast.error(t("SUP_CHAT_UNAVAILABLE"));
+      })
+      .catch(() => toast.error(t("SUP_CHAT_UNAVAILABLE")));
+  };
+
+  const handleAskAi = () => {
+    track(EVENTS.HELP, {
+      status: "ai_assistant_clicked",
+      loggedIn: !!account?.address,
+    });
+    openAiSupportChat(currency.currency || "global", account?.address).catch(
+      () => toast.error(t("SUP_CHAT_UNAVAILABLE")),
     );
   };
 
@@ -178,11 +195,17 @@ export function Help() {
               <p className="text-foreground">{t("SUPPORT_SCAM_WARNING")}</p>
             </AlertDescription>
           </Alert>
+          {/* Signed out, "Chat with us" can only fall back to Telegram (the
+              in-app thread is tied to a wallet). Say so instead of letting the
+              button silently open another app. */}
+          {!account?.address && (
+            <p className="w-full text-muted-foreground text-xs">
+              {t("SUP_LOGIN_TO_CHAT_IN_APP")}
+            </p>
+          )}
           <button
             type="button"
-            onClick={() =>
-              openAiSupportChat(currency.currency || "global", account?.address)
-            }
+            onClick={handleAskAi}
             className="flex w-full items-center justify-between gap-4 rounded-lg bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
             <div className="flex items-center gap-2">
               <Bot className="size-4 text-primary" />
