@@ -138,6 +138,11 @@
   --accent-foreground: oklch(0.19 0 0);
   --success: oklch(0.68 0.1432 164.63);
   --warning: oklch(0.83 0.1539 77.11);
+  /* Text-on-background variants of success/warning. The bright fill colours
+     above are ~1.7:1 (warning) and ~2.7:1 (success) against white, which is
+     unreadable as text; these meet WCAG AA (~5:1). Fills keep the bright tone. */
+  --warning-text: oklch(0.55 0.13 70);
+  --success-text: oklch(0.53 0.12 164.63);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0 0);
   --input: oklch(0.92 0 0);
@@ -168,7 +173,9 @@
   --popover: oklch(0.24 0 0);
   --popover-foreground: oklch(1 0 0);
   --primary: oklch(0.6939 0.1345 285.27);
-  --primary-foreground: oklch(1 0 0);
+  /* Dark label on the lighter dark-mode primary: white was 2.8:1 (fails WCAG
+     AA); this is ~6.5:1. Same convention as Material's dark "on-primary". */
+  --primary-foreground: oklch(0.19 0.0122 285.15);
   --primary-shadow: oklch(0.6939 0.1345 285.27 / 0.2);
   --secondary: oklch(1 0 0);
   --secondary-foreground: oklch(0.19 0.0122 285.15);
@@ -178,6 +185,8 @@
   --accent-foreground: oklch(1 0 0);
   --success: oklch(0.696 0.17 162.48);
   --warning: oklch(0.769 0.188 70.08);
+  --warning-text: var(--warning);
+  --success-text: var(--success);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -442,5 +451,16 @@
       .tw-otp-login-screen form
     )::before {
     animation: tw-otp-warning-in 0.3s ease-out 0.3s both;
+  }
+}
+
+/* Use the readable text variants for text utilities only; bg-/border- etc.
+   keep the bright --success/--warning fills. */
+@layer utilities {
+  .text-success {
+    color: var(--success-text);
+  }
+  .text-warning {
+    color: var(--warning-text);
   }
 }
