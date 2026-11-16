@@ -33,14 +33,6 @@ export function getPaymentIdFields(
 }
 
 /**
- * Returns display labels for each field of a currency's payment ID.
- * e.g. VEN → [null, "RIF"], INR → [null]
- */
-export function getDisplayLabels(currency: CurrencyType): (string | null)[] {
-  return getPaymentIdFields(currency).map((f) => f.displayLabel);
-}
-
-/**
  * Formats a payment ID for display using the currency's config.
  * Packed QR-only ids return "" so callers can substitute a label.
  */

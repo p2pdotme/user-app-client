@@ -31,7 +31,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useDomainReachability } from "@/contexts/domain-reachability";
 import { thirdwebClient } from "@/core/adapters/thirdweb";
 import { useP2PBalance, useThirdweb } from "@/hooks";
 import { INTERNAL_HREFS, URLS } from "@/lib/constants";
@@ -240,7 +239,6 @@ export function Sidebar({ children }: { children: ReactNode }) {
         };
     }
   }, [profiles, t]);
-  const { isReachable } = useDomainReachability();
 
   // const handlePromoCardClick = () => {
   //   window.open(URLS.LP_APP, "_blank");
@@ -274,16 +272,9 @@ export function Sidebar({ children }: { children: ReactNode }) {
                   <Radio className="size-5 text-primary" />
                   <p className="font-medium">{t("CONNECTION_STATUS")}</p>
                 </div>
-                {isReachable && (
-                  <div className="rounded-full bg-success/20 p-1">
-                    <div className="size-2 animate-scale rounded-full bg-success" />
-                  </div>
-                )}
-                {!isReachable && (
-                  <div className="rounded-full bg-destructive/20 p-1">
-                    <div className="size-2 animate-scale rounded-full bg-destructive" />
-                  </div>
-                )}
+                <div className="rounded-full bg-success/20 p-1">
+                  <div className="size-2 animate-scale rounded-full bg-success" />
+                </div>
               </div>
             </ConnectionStatusDrawer>
           </div>

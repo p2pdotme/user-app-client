@@ -44,7 +44,7 @@ import type {
   Settings,
   TdsEntry,
 } from "@/tax/core/types";
-import { D, type Dec, parseAmount, sum, ZERO } from "@/tax/lib/decimal";
+import { type Dec, parseAmount, sum, ZERO } from "@/tax/lib/decimal";
 import { shortHash } from "@/tax/lib/format";
 import {
   fyMonthKeys,
@@ -639,7 +639,3 @@ export function computeFyReport(input: ReportInput): FyReport {
     }),
   };
 }
-
-export const EFFECTIVE_RATE_NO_SURCHARGE: Dec = VDA_TAX_RATE.mul(
-  new D(1).plus(CESS_RATE),
-);

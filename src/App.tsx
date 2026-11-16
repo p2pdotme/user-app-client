@@ -12,8 +12,6 @@ import {
   ErrorBoundary,
   PageTransitioner,
   PWABadge,
-  // AuthStatusDebug,
-  // PWAStatusDebug,
 } from "@/components";
 import { Toaster } from "@/components/ui/sonner";
 import { PWAProvider, SettingsProvider } from "@/contexts";
@@ -123,7 +121,6 @@ function App() {
       <PWAProvider>
         {/* PWA Badge */}
         <PWABadge />
-        {/* <PWAStatusDebug /> */}
         {/* Main content wrapped with page transitioner */}
         <QueryClientProvider client={queryClient}>
           <ThirdwebProvider>
@@ -165,8 +162,6 @@ function App() {
                     {/* AI support chat launcher is mounted by the Help &
                           Support page only (see pages/help), not globally —
                           so the floating icon isn't shown on every screen. */}
-                    {/* Debug component for development */}
-                    {/* <AuthStatusDebug /> */}
                   </PageTransitioner>
                 </AuthGuard>
               </SettingsProvider>

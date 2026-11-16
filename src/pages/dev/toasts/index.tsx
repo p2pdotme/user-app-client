@@ -254,5 +254,3 @@ export function ToastsDemo() {
     </>
   );
 }
-
-export default ToastsDemo;
