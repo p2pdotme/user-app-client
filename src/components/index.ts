@@ -1,13 +1,11 @@
+// Heavy, screen-specific components (e.g. the QR scanner) are
+// intentionally not re-exported here; import them by path so they stay out
+// of the startup bundle.
 export * from "./auth-guard";
-export * from "./auth-status-debug";
 export * from "./banner";
-export * from "./bridge-token-selector-drawer";
 export * from "./cashback-reward-card";
 export * from "./circle-countdown-timer";
 export * from "./coinsme-button";
-export * from "./coinsme-drawer";
-export * from "./comprehensive-haptic-test";
-export * from "./comprehensive-sound-test";
 export * from "./connection-status";
 export * from "./countdown-timer";
 export * from "./country-flag";
@@ -29,20 +27,15 @@ export * from "./packed-payment-input";
 export * from "./page-transitioner";
 export * from "./pull-to-refresh";
 export * from "./pwa-badge";
-export * from "./pwa-status-debug";
-export * from "./qr-scanner";
 export * from "./receipt-payment-id-field";
 export * from "./safety-notice";
 export * from "./section-header";
 export * from "./sidebar";
 export * from "./slippage-drawer";
 export * from "./social-links";
-export * from "./spaceship-speed-indicator";
-export * from "./spaceship-speed-indicator";
 export * from "./support-widget";
 export * from "./sw-checker";
 export * from "./task-ledger";
-export * from "./test-haptic-components";
 export * from "./text-logo";
 export * from "./tip-merchant-card";
 export * from "./token-icon";

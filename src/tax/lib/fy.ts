@@ -49,17 +49,8 @@ export function fyLabel(fy: number): string {
   return `FY ${fy}-${String((fy + 1) % 100).padStart(2, "0")}`;
 }
 
-/** "Tax year" under the 2025 Act / assessment year under the 1961 Act. */
-export function ayLabel(fy: number): string {
-  return `AY ${fy + 1}-${String((fy + 2) % 100).padStart(2, "0")}`;
-}
-
 export function lawForFy(fy: number): LawVersion {
   return fy >= ITA_2025_FIRST_FY ? "ITA_2025" : "ITA_1961";
-}
-
-export function lawForDate(date: Date): LawVersion {
-  return lawForFy(fyOf(date));
 }
 
 /** IST "YYYY-MM-DD" → instant of 00:00 IST that day. Returns null if invalid. */

@@ -349,7 +349,7 @@ console.log(getAllHapticPatternNames());
 
 ## Examples
 
-See `src/components/examples/haptic-integration-examples.tsx` for comprehensive examples showing:
+See the dev haptics page (`src/pages/dev/haptics`) for live examples showing:
 
 - Button integration with different patterns
 - Form validation with error/success feedback

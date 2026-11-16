@@ -51,8 +51,6 @@ export const INTERNAL_HREFS = {
   TAX: "/tax",
   TAX_SOURCES: "/tax/sources",
   TAX_CONFIG: "/tax/config",
-  DEPOSIT: "/deposit",
-  WITHDRAW: "/withdraw",
   BRIDGE: "/bridge",
   HELP: "/help",
   HELP_FAQS_SEARCH: "/help/faqs-search",
