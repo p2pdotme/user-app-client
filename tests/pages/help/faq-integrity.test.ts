@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { en } from "@/lib/i18n/en";
+import { es } from "@/lib/i18n/es";
+import { hi } from "@/lib/i18n/hi";
+import { id } from "@/lib/i18n/id";
+import { pt } from "@/lib/i18n/pt";
 import {
   ALL_FAQS,
   FAQ_ON_PAGES,
@@ -38,5 +42,20 @@ describe("Help FAQs", () => {
       .flatMap((list) => list.faqIds)
       .filter((id) => !known.has(id));
     expect(dangling).toEqual([]);
+  });
+
+  it("is translated in every language, with the same placeholders", () => {
+    const keys = ALL_FAQS.flatMap((faq) => [faq.questionKey, faq.answerKey]);
+    const placeholders = (text: string) =>
+      (text.match(/\{\{\w+\}\}/g) ?? []).sort().join(",");
+    for (const [name, locale] of Object.entries({ es, pt, id, hi })) {
+      const translation = locale.translation as Record<string, string>;
+      const problems = keys.filter(
+        (key) =>
+          !translation[key] ||
+          placeholders(translation[key]) !== placeholders(english[key]),
+      );
+      expect(problems, name).toEqual([]);
+    }
   });
 });

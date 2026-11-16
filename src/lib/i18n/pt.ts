@@ -629,7 +629,7 @@ export const pt = {
       "Não. Verificar uma rede social é só uma das formas de aumentar seus limites. Você pode usar a prova de vida, o KYC com passaporte (onde disponível) ou staking.\n\nSe você verificar uma rede social, isso é privado: você prova que a conta é sua, mas o P2P.me nunca vê sua senha, suas publicações ou seu perfil, e nada é publicado.",
     FAQ_DO_I_NEED_KYC: "Preciso verificar minha identidade (KYC)?",
     FAQ_DO_I_NEED_KYC_ANSWER:
-      "Não é preciso documento para vender ou pagar.\n\nPara comprar, você precisa de pelo menos uma verificação em Meus limites. O passaporte não é obrigatório: você pode verificar uma rede social, como LinkedIn ou GitHub. O KYC com passaporte (onde disponível) é uma opção se você quiser limites maiores.",
+      "Não é preciso documento para vender ou pagar.\n\nPara comprar, faça a verificação em Meus limites com LinkedIn, GitHub ou KYC com passaporte (onde disponível). O passaporte não é obrigatório: LinkedIn ou GitHub já basta. Outras verificações, como prova de vida ou X, aumentam seus limites, mas sozinhas não liberam a compra.",
     FAQ_FINISH_VERIFICATION: 'O que significa "Concluir verificação"?',
     FAQ_FINISH_VERIFICATION_ANSWER:
       'Você passou em uma verificação (como a prova de vida ou a de passaporte), mas o resultado ainda não foi salvo na sua conta. Toque em "Concluir verificação" em Meus limites para salvar e aumentar seu limite.\n\nFaça isso logo: se demorar demais, o resultado expira e você vai precisar começar de novo.',
@@ -639,7 +639,7 @@ export const pt = {
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "Como posso depositar USDC na minha carteira P2P.me?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      'No Início, toque em Depositar e escolha:\n• Depositar USDC na Base: copie seu endereço e envie USDC na rede Base para ele.\n• Depositar de outras redes: traga USDC ou outros tokens de outra rede. Eles chegam como USDC na Base.\n\nEnvie para o seu endereço apenas USDC na Base. Outros tokens ou redes podem ser perdidos. Se isso aconteceu, veja "Enviei fundos pela rede errada".',
+      'No Início, toque em Depositar e escolha:\n• Depositar USDC na Base: copie seu endereço e envie USDC na rede Base para ele.\n• Depositar de outras redes: traga USDC ou outros tokens de outra rede. Eles chegam como USDC na Base.\n\nEnvie para o seu endereço apenas USDC na Base. Outros tokens ou redes podem ser perdidos. Se isso aconteceu, veja "Enviei fundos pela rede errada. Consigo recuperá-los?".',
     FAQ_HOW_DO_I_START_EARNING: "Como começo a ganhar?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
       "1. Abra Indique e Ganhe.\n2. Crie um link de indicação.\n3. Envie para alguém em quem você confia.\n4. A pessoa se cadastra com seu link e começa a negociar.\n\nCada link funciona para apenas uma pessoa, então crie um link novo para cada amigo.",
@@ -666,7 +666,7 @@ export const pt = {
       "• Os comerciantes são verificados antes de poder atender pedidos, com provas privadas do histórico bancário deles.\n• Em pedidos de venda e pagamento, seu USDC fica bloqueado no pedido até o comerciante marcar o pagamento como enviado. Se nenhum comerciante aceitar, ele volta para você.\n• Se um comerciante não pagar ou não confirmar seu pagamento, você pode abrir uma disputa na tela de ajuda do pedido.",
     FAQ_HOW_TO_BUY_USDC_FIAT: "Como compro USDC com a minha moeda local?",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      '1. No Início, toque em Comprar USDC, informe o valor e faça o pedido.\n2. Aguarde um comerciante aceitar (normalmente em menos de 90 segundos). Se ninguém aceitar em 3 minutos, o pedido é cancelado. Você não pagou nada.\n3. Pague o valor exato para os dados do comerciante, de uma conta no seu nome, antes de o tempo acabar (cerca de 5 minutos). Não mencione cripto nem USDC na descrição do pagamento.\n4. Toque em "Já fiz o pagamento".\n5. Quando o comerciante confirmar, o USDC chega na sua carteira.\n\nSua primeira compra exige pelo menos uma verificação em Meus limites.',
+      '1. No Início, toque em Comprar USDC, informe o valor e faça o pedido.\n2. Aguarde um comerciante aceitar (normalmente em menos de 90 segundos). Se ninguém aceitar em 3 minutos, o pedido é cancelado. Você não pagou nada.\n3. Pague o valor exato para os dados do comerciante, de uma conta no seu nome, antes de o tempo acabar (cerca de 5 minutos). Não mencione cripto nem USDC na descrição do pagamento.\n4. Toque em "Já fiz o pagamento".\n5. Quando o comerciante confirmar, o USDC chega na sua carteira.\n\nAntes da sua primeira compra, faça a verificação em Meus limites com LinkedIn, GitHub ou KYC com passaporte (onde disponível).',
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "Como calculo o imposto dos meus pedidos no P2P.me?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
@@ -686,7 +686,7 @@ export const pt = {
       "1. Confirme o valor da conta com a loja.\n2. No Início, toque em Scan & Pay, informe o valor e faça o pedido.\n3. Aguarde um comerciante aceitar. Em seguida, o leitor de QR abre.\n4. Só agora peça para a loja gerar o QR de pagamento. QR codes de maquininhas costumam expirar em cerca de 2 minutos.\n5. Escaneie o QR e mantenha a página aberta. A maioria dos pagamentos é concluída em até 60 segundos.\n\nQR codes impressos (estáticos) não expiram, então você tem mais tempo.",
     FAQ_HOW_TO_SCAN_PAY_QR: "Quais QR codes posso pagar com o Scan & Pay?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
-      "Você pode pagar os QR codes de pagamento locais do seu país, como UPI na Índia, PIX no Brasil ou QRIS na Indonésia. Você paga em USDC, e um comerciante paga o QR em moeda local.\n\nO Scan & Pay funciona na maioria dos mercados. Ainda não está disponível no México, no Quênia, no Egito nem para Revolut (USD/EUR). Se você não vê o Scan & Pay no Início, ele não está disponível para a moeda selecionada.",
+      "Você pode pagar os QR codes de pagamento locais do seu país, como UPI na Índia, PIX no Brasil ou QRIS na Indonésia. Você paga em USDC, e um comerciante paga o QR em moeda local.\n\nO Scan & Pay funciona na maioria dos mercados, mas ainda não no Quênia. Se você não vê o Scan & Pay no Início, ele não está disponível para a moeda selecionada.",
     FAQ_HOW_TO_SELL_USDC:
       "Como vendo USDC e recebo no meu banco ou app de pagamento?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
@@ -723,7 +723,7 @@ export const pt = {
       'Confira estes pontos:\n1. Em Meus limites, se a opção mostrar "Concluir verificação", toque nela. Seu resultado só é salvo depois disso.\n2. Feche e abra o app de novo. As atualizações podem levar um minuto.\n3. Você pode já estar no maior limite por pedido do seu país.\n4. Algumas verificações não contam sozinhas para contas novas. Adicione LinkedIn, GitHub ou KYC com passaporte.\n\nAinda com problema? Use "Fale com a gente".',
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Quais são os limites iniciais?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Os limites dependem do seu país e das suas verificações. Meus limites mostra seus valores exatos.\n• Contas novas podem vender e pagar, mas precisam de pelo menos uma verificação antes de comprar.\n• Cada verificação aumenta seu limite por pedido (o máximo de USDC em um pedido).\n• Também há limites diários e mensais de pedidos, e um limite anual de {{yearlyVolumeLimit}} USDC.\n\nConclua mais verificações em Meus limites para aumentar seus limites.",
+      "Os limites dependem do seu país e das suas verificações. Meus limites mostra seus valores exatos.\n• Contas novas podem vender e pagar. Para comprar, faça a verificação com LinkedIn, GitHub ou KYC com passaporte (onde disponível).\n• Cada verificação aumenta seu limite por pedido (o máximo de USDC em um pedido).\n• Também há limites diários e mensais de pedidos, e um limite anual de {{yearlyVolumeLimit}} USDC.\n\nConclua mais verificações em Meus limites para aumentar seus limites.",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "O que é uma disputa?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
       'Uma disputa pede que o suporte do P2P.me intervenha quando um pedido dá errado, por exemplo: você pagou mas não recebeu seu USDC, ou um comerciante não pagou você. O suporte confere o pagamento com o comerciante e resolve o pedido. Pedidos com disputa aberta aparecem como "Em disputa" em Transações.',
@@ -744,7 +744,7 @@ export const pt = {
     FAQ_WHAT_IF_BANK_FROZEN:
       "Minha conta bancária foi bloqueada depois de um pedido no P2P.me. O que faço?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      'Informe o caso em unfreeze.pro, nosso portal gratuito para usuários e comerciantes do P2P.me. Envie o ID do pedido e o aviso do banco. Nossa equipe jurídica vai orientar você para desbloquear a conta.\n\nNa Índia, pedidos elegíveis também têm reembolso total (veja "O que é a Proteção contra Bloqueio Bancário?").\n\nVocê também pode pedir ajuda no seu grupo do P2P.me no Telegram.',
+      'Informe o caso em unfreeze.pro, nosso portal gratuito para usuários e comerciantes do P2P.me. Envie o ID do pedido e o aviso do banco. Nossa equipe jurídica vai orientar você para desbloquear a conta.\n\nNa Índia, pedidos elegíveis também têm reembolso total (veja "O que é a Proteção contra Bloqueio Bancário (Índia)?").\n\nVocê também pode pedir ajuda no seu grupo do P2P.me no Telegram.',
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
       "Meu depósito ou saque cross-chain está travado. O que faço?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
@@ -787,7 +787,7 @@ export const pt = {
       "Transações mostra apenas pedidos de compra, venda e pagamento.\n• Transferências cross-chain: veja o Histórico de pontes na página da ponte (Depositar → Depositar de outras redes). Ele fica salvo neste dispositivo. Para o histórico completo, abra o explorador da NEAR Intents.\n• Depósitos e saques na Base: pesquise o endereço da sua carteira no BaseScan (basescan.org). Depois de um saque, você também pode tocar em Ver no BaseScan.",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS: "Onde vejo meus pedidos?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
-      'Abra Transações no menu. Lá aparecem todos os seus pedidos de compra, venda e pagamento, com filtros por tipo, status, data e disputas. Toque em um pedido para abri-lo.\n\nDepósitos e saques não aparecem lá. Veja "Onde encontro meu histórico de depósitos e saques?"',
+      'Abra Transações no menu. Lá aparecem todos os seus pedidos de compra, venda e pagamento, com filtros por tipo, status, data e disputas. Toque em um pedido para abri-lo.\n\nDepósitos e saques não aparecem lá. Veja "Onde posso encontrar meu histórico de depósitos e saques?"',
     FAQ_WHERE_VIEW_CLAIM_REWARDS: "Onde vejo e resgato minhas recompensas?",
     FAQ_WHERE_VIEW_CLAIM_REWARDS_ANSWER:
       "Em Indique e Ganhe. Lá você vê suas indicações e recompensas, e pode tocar em Resgatar para mover suas recompensas para a carteira a qualquer momento.",
@@ -804,7 +804,7 @@ export const pt = {
       "Alguns provedores de internet bloqueiam o P2P.me. Tente uma destas opções:\n1. Use um app de VPN, conecte a qualquer país e recarregue o app.\n2. Ou mude seu DNS:\n• Android: Configurações → Rede e internet → DNS privado → digite dns.google\n• iPhone: Ajustes → Wi‑Fi → toque em (i) → Configurar DNS → Manual → adicione 8.8.8.8 ou 1.1.1.1\n\nIsso também ajuda o app instalado a receber atualizações.",
     FAQ_WHY_CANT_I_BUY: "Por que não consigo fazer um pedido de compra?",
     FAQ_WHY_CANT_I_BUY_ANSWER:
-      "Motivos comuns:\n• Você ainda não fez nenhuma verificação. Contas novas precisam de pelo menos uma verificação em Meus limites antes de comprar.\n• O valor está acima do seu limite por pedido, ou é pequeno demais para cobrir a taxa fixa.\n• Você atingiu seu limite diário ou mensal de pedidos. Tente de novo mais tarde.\n• Nossas checagens de segurança pausaram as compras na sua conta. Concluir mais verificações pode liberar isso. Se você acha que é um erro, fale com a Ajuda.",
+      "Motivos comuns:\n• Você ainda não fez uma verificação que libera a compra. Para uma conta nova, isso é LinkedIn, GitHub ou KYC com passaporte (onde disponível) em Meus limites. Outras verificações, como prova de vida ou X, aumentam seus limites, mas sozinhas não liberam a compra.\n• O valor está acima do seu limite por pedido, ou é pequeno demais para cobrir a taxa fixa.\n• Você atingiu seu limite diário ou mensal de pedidos. Tente de novo mais tarde.\n• Nossas checagens de segurança pausaram as compras na sua conta. Concluir mais verificações pode liberar isso. Se você acha que é um erro, fale com a Ajuda.",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
       "Por que não consigo enviar mensagens no grupo do P2P.me no Telegram?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
