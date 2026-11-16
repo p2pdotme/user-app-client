@@ -43,7 +43,6 @@ The sound system is built on a layered architecture with clear separation of con
 #### 3. Direct Integration Points
 
 - **Blockchain Event Listeners**: `src/hooks/use-event-listeners.ts`
-- **Bridge Handlers**: `src/core/rango/bridgeHandler/`
 - **UI Components**: Settings, transaction flows, and user interactions
 
 ### Design Principles
@@ -247,85 +246,6 @@ export function useEventListeners(orderId: string | undefined) {
 }
 ```
 
-### Bridge Handler Integration
-
-**Deposit Handler:**
-
-```typescript
-// src/core/rango/bridgeHandler/deposit.ts
-import { useSounds } from "@/hooks";
-
-export const handleDeposit = async (
-  swapRes: RangoSwapResponse,
-  primaryWallet: Wallet | null,
-  setDepositData: React.Dispatch<React.SetStateAction<DepositState>>,
-  sounds: ReturnType<typeof useSounds>,
-) => {
-  try {
-    const success = await processDeposit(swapRes, primaryWallet);
-
-    if (success) {
-      toast.success("Deposit completed successfully");
-      sounds.triggerSuccessSound(); // Success sound for successful deposit
-      console.log("Deposit completed successfully");
-    } else {
-      setDepositData((prev) => ({ ...prev, status: "failed" }));
-      sounds.triggerFailureSound(); // Failure sound for failed deposit
-      throw new Error("Deposit failed");
-    }
-  } catch (error) {
-    sounds.triggerFailureSound(); // Failure sound for deposit errors
-    throw error;
-  }
-};
-```
-
-**Withdraw Handler:**
-
-```typescript
-// src/core/rango/bridgeHandler/withdraw.ts
-import { useSounds } from "@/hooks";
-
-export const handleWithdraw = async (
-  swapRes: RangoSwapResponse,
-  account: Account | undefined,
-  setWithdrawData: React.Dispatch<React.SetStateAction<WithdrawState>>,
-  sounds: ReturnType<typeof useSounds>,
-) => {
-  try {
-    // Approve transaction
-    const approveTransaction = await prepareApproveTransaction(swapRes);
-    if (approveTransaction.isErr()) {
-      setWithdrawData((prev) => ({ ...prev, status: "failed" }));
-      sounds.triggerFailureSound(); // Failure sound for approve failure
-      throw new Error("Approve transaction preparation failed");
-    }
-
-    // Main transaction
-    const mainTransaction = await prepareMainTransaction(swapRes);
-    if (mainTransaction.isErr()) {
-      setWithdrawData((prev) => ({ ...prev, status: "failed" }));
-      sounds.triggerFailureSound(); // Failure sound for main transaction failure
-      throw new Error("Main transaction preparation failed");
-    }
-
-    const success = await executeWithdraw(swapRes);
-    if (success) {
-      toast.success("Withdrawal completed successfully");
-      sounds.triggerSuccessSound(); // Success sound for successful withdrawal
-      console.log("Withdrawal completed successfully");
-    } else {
-      setWithdrawData((prev) => ({ ...prev, status: "failed" }));
-      sounds.triggerFailureSound(); // Failure sound for failed withdrawal
-      throw new Error("Withdrawal failed");
-    }
-  } catch (error) {
-    sounds.triggerFailureSound(); // Failure sound for withdrawal errors
-    throw error;
-  }
-};
-```
-
 ### Direct USDC Transfer
 
 **Withdraw Drawer:**
@@ -471,46 +391,6 @@ function SettingsComponent() {
 }
 ```
 
-### Pattern 3: Bridge Operation Integration
-
-**For cross-chain operations:**
-
-```typescript
-import { useSoundInteractions } from "@/hooks/use-sound-interactions";
-
-function BridgeComponent() {
-  const soundInteractions = useSoundInteractions();
-
-  const handleBridgeOperation = async () => {
-    try {
-      await executeBridge();
-      soundInteractions.onBridgeSuccess(); // Bridge-specific success
-    } catch (error) {
-      soundInteractions.onBridgeFailure(); // Bridge-specific failure
-    }
-  };
-
-  return <button onClick={handleBridgeOperation}>Bridge Assets</button>;
-}
-```
-
-### Pattern 4: Function Parameter Integration
-
-**For core handlers that need sound feedback:**
-
-```typescript
-// Component usage
-function BridgeHandlerComponent() {
-  const sounds = useSounds();
-
-  const handleDeposit = async (swapRes: RangoSwapResponse) => {
-    await handleDeposit(swapRes, primaryWallet, setDepositData, sounds);
-  };
-
-  return <button onClick={() => handleDeposit(swapRes)}>Deposit</button>;
-}
-```
-
 ## Best Practices
 
 ### When to Use Sound Feedback
@@ -519,7 +399,6 @@ function BridgeHandlerComponent() {
 
 - Transaction completions (success/failure)
 - Order state changes (placed, accepted, completed, cancelled)
-- Bridge operations (deposit/withdraw)
 - Critical user actions (payments, transfers)
 - Settings saves and configuration changes
 - QR code scanning success
@@ -684,43 +563,6 @@ const handleAction = async () => {
   } catch (error) {
     triggerFailureSound(); // Add failure sound
     toast.error("Action failed!");
-  }
-};
-```
-
-### Updating Core Handlers
-
-**Before:**
-
-```typescript
-export const handleDeposit = async (
-  swapRes: RangoSwapResponse,
-  primaryWallet: Wallet | null,
-  setDepositData: React.Dispatch<React.SetStateAction<DepositState>>,
-) => {
-  // Handler logic without sound feedback
-};
-```
-
-**After:**
-
-```typescript
-export const handleDeposit = async (
-  swapRes: RangoSwapResponse,
-  primaryWallet: Wallet | null,
-  setDepositData: React.Dispatch<React.SetStateAction<DepositState>>,
-  sounds: ReturnType<typeof useSounds>, // Add sounds parameter
-) => {
-  try {
-    // Handler logic
-    if (success) {
-      sounds.triggerSuccessSound(); // Add success sound
-    } else {
-      sounds.triggerFailureSound(); // Add failure sound
-    }
-  } catch (error) {
-    sounds.triggerFailureSound(); // Add error sound
-    throw error;
   }
 };
 ```
