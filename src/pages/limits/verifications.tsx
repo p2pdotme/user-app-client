@@ -50,7 +50,6 @@ import {
   VerifiedButton,
 } from "@/components/verification-row";
 import { useSettings } from "@/contexts";
-import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
 import { useLowTrustGate } from "@/hooks/use-low-trust-gate";
 import { useThirdweb } from "@/hooks/use-thirdweb";
@@ -471,8 +470,6 @@ function VerificationItem({
       setShowVerificationOverlay(false);
     }
   }, [isLoading]);
-
-  const { isReachable } = useDomainReachability();
 
   useEffect(() => {
     if (isSocialVerifyLoading) {
@@ -1196,12 +1193,6 @@ function VerificationItem({
             </Button>
           ) : isVerified ? (
             <VerifiedButton />
-          ) : !isReachable ? (
-            <div className="flex items-center justify-center rounded-full bg-primary/70 px-4 py-2">
-              <p className="text-center text-sm text-text-light">
-                {t("P2P_ME_UNREACHABLE")}
-              </p>
-            </div>
           ) : socialStatusError ? (
             <StatusCheckFailedAction onRetry={() => refetchSocialStatus()} />
           ) : (

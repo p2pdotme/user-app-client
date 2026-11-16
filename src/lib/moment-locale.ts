@@ -38,10 +38,3 @@ export function setMomentLocale(languageCode: string): void {
     `[MomentLocale] Set moment locale to "${momentLocale}" for language "${languageCode}"`,
   );
 }
-
-/**
- * Gets the current moment locale
- */
-export function getMomentLocale(): string {
-  return moment.locale();
-}

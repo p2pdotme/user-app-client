@@ -236,5 +236,3 @@ export function SellQuiz() {
     </>
   );
 }
-
-export default SellQuiz;

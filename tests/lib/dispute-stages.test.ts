@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { DisputeStep } from "@/core/p2pdotme/shared/validation";
-import type { DisputeEscalation } from "./dispute-escalation";
-import { buildDisputeStages } from "./dispute-stages";
+import type { DisputeEscalation } from "@/lib/dispute-escalation";
+import { buildDisputeStages } from "@/lib/dispute-stages";
 
 const ADDR = "0x0000000000000000000000000000000000000001";
 const step = (over: Partial<DisputeStep>): DisputeStep => ({

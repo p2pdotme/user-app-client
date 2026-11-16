@@ -11,7 +11,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useSettings } from "@/contexts/settings";
 import { CONNECTION_STATUS_TUTORIAL_LINK } from "@/lib/constants";
 
@@ -63,43 +62,26 @@ export function ConnectionStatusDrawer({
 }: {
   children: React.ReactNode;
 }) {
-  const { isReachable } = useDomainReachability();
   const { t } = useTranslation();
   const {
     settings: { currency },
   } = useSettings();
 
-  const status = isReachable
-    ? {
-        icon: <span className="font-satoshiBold text-emerald-500">●</span>,
-        title: t("YOU_RE_CONNECTED"),
-        titleIcon: (
-          <span className="inline-block h-3 w-3 rounded-full bg-emerald-400 shadow-md" />
-        ),
-        description: t("YOU_RE_CONNECTED_DESCRIPTION"),
-        extraInfo: (
-          <div className="mb-6 text-center text-base text-muted-foreground">
-            {t("YOU_RE_CONNECTED_EXTRA_INFO")}
-          </div>
-        ),
-      }
-    : {
-        icon: (
-          <>
-            <span className="font-satoshiBold text-destructive">●</span>
-          </>
-        ),
-        title: t("NETWORK_ISSUE_DETECTED"),
-        titleIcon: (
-          <span className="inline-block h-3 w-3 rounded-full bg-red-500 shadow-md" />
-        ),
-        description: t("NETWORK_ISSUE_DESCRIPTION"),
-        extraInfo: (
-          <div className="mb-2 font-satoshiBold text-base text-green-500">
-            {t("QUICK_FIXES")}
-          </div>
-        ),
-      };
+  // There is no live connectivity check (the reachability provider was never
+  // mounted), so this drawer only ever showed the connected state.
+  const status = {
+    icon: <span className="font-satoshiBold text-emerald-500">●</span>,
+    title: t("YOU_RE_CONNECTED"),
+    titleIcon: (
+      <span className="inline-block h-3 w-3 rounded-full bg-emerald-400 shadow-md" />
+    ),
+    description: t("YOU_RE_CONNECTED_DESCRIPTION"),
+    extraInfo: (
+      <div className="mb-6 text-center text-base text-muted-foreground">
+        {t("YOU_RE_CONNECTED_EXTRA_INFO")}
+      </div>
+    ),
+  };
 
   return (
     <Drawer>
@@ -162,5 +144,3 @@ export function ConnectionStatusDrawer({
     </Drawer>
   );
 }
-
-export default ConnectionStatusDrawer;
