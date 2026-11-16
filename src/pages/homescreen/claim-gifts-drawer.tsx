@@ -74,7 +74,7 @@ export function ClaimGiftsDrawer({
                 <p className="font-medium text-destructive text-sm">
                   {t("FAILED_TO_CLAIM_CAMPAIGN_REWARD")}
                 </p>
-                <p className="text-destructive/80 text-xs">{errorMessage}</p>
+                <p className="text-destructive text-xs">{errorMessage}</p>
               </div>
             </div>
           )}

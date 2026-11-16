@@ -69,7 +69,7 @@ export function PerTxnLimit() {
               <p className="font-medium text-destructive text-sm">
                 {t("ONB_LIMITS_LOAD_ERROR")}
               </p>
-              <p className="text-destructive/80 text-xs">
+              <p className="text-destructive text-xs">
                 {t("ONB_CHECK_CONNECTION_TRY_AGAIN")}
               </p>
             </div>

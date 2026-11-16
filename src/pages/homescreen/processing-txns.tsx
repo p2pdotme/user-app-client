@@ -86,7 +86,7 @@ export function ProcessingTransactions() {
             <p className="font-medium text-destructive text-sm">
               {t("ERROR_LOADING_TRANSACTIONS")}
             </p>
-            <p className="text-destructive/80 text-xs">
+            <p className="text-destructive text-xs">
               {t("ONB_CHECK_CONNECTION_TRY_AGAIN")}
             </p>
           </div>
