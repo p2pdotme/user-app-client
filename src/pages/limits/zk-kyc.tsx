@@ -9,13 +9,13 @@ import { Verifications } from "./verifications";
 export function LimitsZkKyc() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  usePageMeta({ title: t("METHOD_ZK_KYC_TITLE") });
+  usePageMeta({ title: t("LIM_METHOD_ZK_TITLE") });
 
   return (
     <>
       <NonHomeHeader
-        title={t("METHOD_ZK_KYC_TITLE")}
-        subtitle={t("LIMITS_ZK_KYC_SUBTITLE")}
+        title={t("LIM_METHOD_ZK_TITLE")}
+        subtitle={t("LIM_ZK_KYC_SUBTITLE")}
         onBack={() => navigate(INTERNAL_HREFS.LIMITS)}
       />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto pt-6 pb-4">

@@ -1112,6 +1112,26 @@ export const en = {
     LIMIT_CARD_MAX_USDC: "Max {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Limit Updates",
+    LIM_KYC_FAILED_TITLE: "Passport verification didn't go through",
+    LIM_LIVENESS_FAILED_TITLE: "Liveness check didn't go through",
+    LIM_METHOD_BADGE_TAKES_MINUTES: "Takes 3-5 min",
+    LIM_METHOD_DONE: "Done: already raising your limits",
+    LIM_METHOD_GAIN: "Adds +{{amount}} USDC to your per-order limit",
+    LIM_METHOD_GAIN_GENERIC: "Raises your per-order limit",
+    LIM_METHOD_GAIN_PER_ACCOUNT:
+      "Up to +{{amount}} USDC per order for each account",
+    LIM_METHOD_GAIN_STAKE: "The more you stake, the higher your limits",
+    LIM_METHOD_UNAVAILABLE_BADGE: "Not available in your region yet",
+    LIM_METHOD_ZK_DESCRIPTION:
+      "Prove you own an account like X, LinkedIn or GitHub. It's private verification: we never see your password or your data.",
+    LIM_METHOD_ZK_TITLE: "Verify a social account",
+    LIM_REFERRAL_BONUS_READY: "Your reward is ready to claim.",
+    LIM_REFERRAL_BONUS_VERIFY_CTA: "Verify an account",
+    LIM_REFERRAL_BONUS_VERIFY_SOCIAL:
+      "Verify any one social account (like X or LinkedIn) to claim your reward.",
+    LIM_VERIFICATION_FAILED_DESCRIPTION:
+      "We couldn't finish the verification. Please try again.",
+    LIM_ZK_KYC_SUBTITLE: "Private verification: we never see your data",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn only supports RP updates",
     LIQUIDITY: "Liquidity",
     LIVENESS_DESCRIPTION: "Quick face check, no documents",
@@ -2139,6 +2159,40 @@ export const en = {
     SUPPORTED_NETWORKS: "Supported networks",
     SUPPORT_SCAM_WARNING:
       "Beware of fake support accounts on Telegram. Our team will NEVER DM or call you. Use only our official Telegram group link above for support.",
+    SUP_CHAT_UNAVAILABLE:
+      "Chat couldn't open right now. Please try again or reach us on Telegram.",
+    SUP_DISPUTE_ALREADY_RAISED: "A dispute is already open for this order.",
+    SUP_DISPUTE_AVAILABLE_IN: "Available in {{minutes}} min",
+    SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
+      "Tell us the merchant hasn't paid you. Support will follow up in chat.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
+      "Most payments are confirmed by the merchant within a few minutes. Disputes open {{minutes}} min after you place the order, so the merchant has time to check their account. Keep your payment reference (UTR) handy.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
+      "Bank transfers can take a little while to show up. If the payment still isn't in your account, you can raise a dispute {{minutes}} min after the order was placed.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
+      "This order is complete, so there's nothing to dispute. Something still wrong? Chat with us.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
+      "Disputes are for orders you've paid. If you've already paid, mark the order as paid first.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
+      "This order was cancelled, so it can't be disputed. If something looks wrong, chat with us.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
+      "Disputes open after the order completes. Only confirm once the money is in your account. If the merchant says they've paid but it hasn't arrived, chat with us.",
+    SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
+      "If the merchant shared a payment reference, enter its last 4 digits. If you never received anything, leave this blank.",
+    SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL:
+      "Payment reference, last 4 digits (optional)",
+    SUP_DISPUTE_TXN_ID_WHERE_BUY:
+      "Where to find it: open your payment app (e.g. your UPI app), tap this payment, and look for the UTR or reference number in the transaction details.",
+    SUP_LOGIN_TO_CHAT_IN_APP:
+      "Log in to chat with our team in the app and see your conversations. Until then, Chat with us opens our Telegram group.",
+    SUP_ORDER_DETAILS_COPIED:
+      "Order details copied. Paste them in your message so we can help faster.",
+    SUP_ORDER_DETAILS_COPIED_CHAT:
+      "Order details copied. Paste them as your first message so we can help faster.",
+    SUP_ORDER_ID_SHARED_HINT:
+      "We'll copy your order number (#{{id}}) so you can paste it in the chat.",
+    SUP_ORDER_SUMMARY:
+      "Order #{{id}} · {{type}} · {{status}} · placed {{minutes}} min ago",
     SWAP: "Swap",
     SWAPPED: "Swapped",
     SWAPPER: "Swapper",
