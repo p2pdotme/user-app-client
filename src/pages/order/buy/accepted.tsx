@@ -13,6 +13,7 @@ import {
   OrderProgress,
   TransferWarningAlert,
 } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -451,7 +452,10 @@ export function BuyAccepted({ order }: { order: Order }) {
           <p className="text-center text-sm">
             {t("A_MERCHANT_ACCEPTED_YOUR_ORDER")}
           </p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={480}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress

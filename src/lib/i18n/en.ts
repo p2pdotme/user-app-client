@@ -379,6 +379,7 @@ export const en = {
     CONNECT_WALLET_FIRST: "Connect a wallet first",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Connect your source wallet to deposit from Solana and 5 EVM chains.",
+    CONTACT_SUPPORT: "Contact support",
     CONTINUE: "Continue",
     CONTINUE_TO_VERIFICATION: "Continue to Verification",
     CONTINUE_VERIFICATION_FOR_PLATFORM:
@@ -610,11 +611,22 @@ export const en = {
     ERROR_BOUNDARY_TITLE: "Something went wrong",
     ERROR_FETCHING_LIMITS: "Error fetching limits",
     ERROR_FETCHING_PRICE: "Error fetching price",
+    ERROR_GENERIC_DESCRIPTION:
+      "Something went wrong. Please try again. If it keeps happening, contact support.",
+    ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
+      "You don't have enough USDC for this. Add funds and try again.",
     ERROR_LOADING_ADDRESS_BOOK: "Error loading address book",
     ERROR_LOADING_DATA: "Error loading data",
     ERROR_LOADING_PROGRESS: "Error loading progress",
     ERROR_LOADING_TASK_LEDGER: "Error loading task ledger",
     ERROR_LOADING_TRANSACTIONS: "Error loading transactions",
+    ERROR_NETWORK_DESCRIPTION:
+      "Connection problem. Check your internet and try again.",
+    ERROR_TIMEOUT_DESCRIPTION: "This is taking too long. Please try again.",
+    ERROR_TRANSACTION_REVERTED_DESCRIPTION:
+      "The transaction didn't go through and no funds were moved. Please try again.",
+    ERROR_USER_CANCELLED_DESCRIPTION:
+      "You cancelled the request. Nothing was changed.",
     ESTIMATED_FEE: "Estimated Fee",
     ESTIMATED_TIME: "Estimated Time",
     ESTIMATED_TIME_RANGE: "2 - 5 min",
@@ -1339,15 +1351,21 @@ export const en = {
     ORDER_AMOUNT_UPDATED_DESCRIPTION: "Updated from {{from}} to {{to}}",
     ORDER_CANCELLED: "Order cancelled",
     ORDER_DETAILS: "Order Details",
+    ORDER_ELAPSED_TIME: "{{elapsed}} elapsed · usually under {{expected}} min",
     ORDER_ERROR_DESCRIPTION:
       "Oops! There was an issue with your order. Please contact support with the order details so we can help!",
     ORDER_EXPIRED: "Order expired",
     ORDER_ID: "Order ID",
     ORDER_ID_NOT_FOUND: "Order ID not found",
+    ORDER_LOAD_FAILED_DESCRIPTION:
+      "Your funds are safe. Check your connection and try again, or find this order in your transactions.",
+    ORDER_LOAD_FAILED_TITLE: "We couldn't load this order",
     ORDER_NOT_ASSIGNED: "Order not assigned",
     ORDER_NOT_FOUND: "Order not found",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED: "Order not placed to be accepted",
     ORDER_PREVIEW: "Order Preview",
+    ORDER_TAKING_LONGER_THAN_USUAL:
+      "{{elapsed}} elapsed · taking longer than usual. Your funds are safe.",
     ORDER_TYPE: "Order Type",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Order with placed status only can be re-assigned",
@@ -2462,6 +2480,7 @@ export const en = {
     VIEW_HOLDINGS: "View holdings",
     VIEW_MORE: "View more",
     VIEW_MORE_DETAILS: "View more details",
+    VIEW_MY_ORDERS: "View my orders",
     VIEW_ON: "View on",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "View frequently asked questions about {{orderType}} orders",
