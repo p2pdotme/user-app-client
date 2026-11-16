@@ -5,11 +5,12 @@ import {
   type BvnSession,
   createBvnFlow,
 } from "@p2pdotme/sdk/zkkyc";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
 import type { Address } from "thirdweb";
 import { sendPreparedTx } from "@/core/adapters/thirdweb/actions/reputation-manager";
 import { BVN_API_BASE_URL, BVN_TENANT } from "@/lib/constants";
+import { refreshLimitsAfterVerification } from "@/lib/limit-increase";
 import { captureError } from "@/lib/sentry";
 import { useThirdweb } from "./use-thirdweb";
 
@@ -30,6 +31,7 @@ export type { BvnMethod, BvnOtpMethod };
 export function useBvnVerification() {
   const { account } = useThirdweb();
   const zkkyc = useZkkyc();
+  const queryClient = useQueryClient();
   // Guarded by `IS_BVN_ENABLED`: the card (and thus this hook) only renders when
   // both the backend URL and tenant are configured, so they are non-null here.
   const bvnFlow = useMemo(
@@ -87,7 +89,11 @@ export function useBvnVerification() {
         },
       );
     },
-    onSuccess: () => setStep("otp"),
+    // The backend answers `sent: false` when it couldn't deliver the code;
+    // stay on the method step so the user can pick another channel.
+    onSuccess: (sent) => {
+      if (sent) setStep("otp");
+    },
     onError: (error) => console.error("[BVN] sendOtp failed", error),
   });
 
@@ -130,7 +136,10 @@ export function useBvnVerification() {
         },
       );
     },
-    onSuccess: () => setStep("done"),
+    onSuccess: () => {
+      setStep("done");
+      refreshLimitsAfterVerification(queryClient);
+    },
     onError: (error) => {
       console.error("[BVN] confirm/submit failed", error);
       captureError(error, {
