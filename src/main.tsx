@@ -4,11 +4,8 @@ import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
 import "./index.css";
 import { i18nReady } from "./lib/i18n";
-import { installStaleChunkReload } from "./lib/stale-chunk-reload";
 import "./lib/sentry";
 import { reactErrorHandler } from "@sentry/react";
-
-installStaleChunkReload();
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
