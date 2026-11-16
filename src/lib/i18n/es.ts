@@ -624,9 +624,6 @@ export const es = {
       "¿Puedo usar P2P.me para mis gastos diarios con criptomonedas?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
       "¡Sí! Con P2P.me, tus pagos del día a día son rápidos y sencillos. Solo escanea un código QR, paga en USDC y el monto se acredita en moneda local en segundos.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "¿Puedo retirar USDC a otras redes?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Sí. Usa la función Retiro cross-chain y:\n• Selecciona la cadena de destino correcta\n• Revisa bien la dirección de tu wallet antes de confirmar",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
       "No quiero vincular mis redes sociales, ¿es seguro?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
@@ -654,9 +651,6 @@ export const es = {
     FAQ_HOW_MUCH_CAN_I_EARN: "¿Cuánto puedo ganar?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
       "Ganas el 0.5% de cada operación que hagan los usuarios que referiste. No hay tope: cuanto más operen, más ganas.",
-    FAQ_HOW_PREVENT_FRAUD: "¿Cómo previenen el fraude?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "El fraude en las plataformas P2P tradicionales suele ocurrir cuando estafadores envían dinero robado a usuarios desprevenidos, lo que termina en cuentas congeladas y muchos dolores de cabeza. P2P.me tiene protecciones integradas para cuidarte:\n\n• Pruebas de conocimiento cero (ZK) y revisión de historial para todos los comerciantes: verificamos su actividad bancaria para que solo operen comerciantes de confianza. Aquí no entran personajes sospechosos.\n• Sistema de verificación social zk: los usuarios no verificados tienen acceso limitado, así mantenemos la comunidad segura. Si estás verificado, tienes todo nuestro respaldo. Si no, puedes intentarlo más tarde.\n• Sanciones a quienes avalan a estafadores: somos estrictos. Si refieres a alguien que se porta mal, no solo lo sacamos a él. Tú también podrías perder beneficios.\n\nCon más de 55,000 transacciones procesadas, nuestra tasa de fraude es casi cero. No decimos que sea perfecta, pero estamos muy cerca.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
       "¿Cómo te protege P2P.me del fraude de congelamiento de cuentas?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
@@ -720,10 +714,6 @@ export const es = {
       "El comercio me pide ver el comprobante de pago, ¿qué hago?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
       '1. Copia el ID de UPI del comerciante desde tu pedido.\n2. Pégalo en tu app de UPI para ver su nombre.\n3. Dile al vendedor: "Deberías haber recibido ₹XXXX de [Nombre]".\n4. Si aún lo niega, contacta a soporte y te enviaremos una captura de pantalla para que se la muestres.',
-    FAQ_WHAT_ARE_DEFAULT_LIMITS:
-      "¿Cuáles son los límites predeterminados en P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Para usuarios nuevos:\n• Pedidos de compra: No disponibles. Completa al menos una verificación zk para habilitar las compras y empezar de forma segura.\n• Límite de venta: $100 por pedido, hasta 10 pedidos por día (límite diario de $1,000, ya que los comerciantes están verificados y listos para operar).\n\nPara usuarios con al menos una verificación zk:\n• Límite de compra: Tu límite de transacción por pedido, hasta 5 pedidos por día.\n• Límite de venta: Tu límite de transacción por pedido, hasta 10 pedidos por día.\n\nLímite máximo por transacción: $400 USDC.\nLímite mensual de pedidos de compra: 25 pedidos.\nLímite de volumen anual: {{yearlyVolumeLimit}} USDC por usuario.\n¿Quieres límites más altos? Ve a la sección Mis límites para completar verificaciones zk y desbloquear más.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS:
       "¿Cuáles son los límites predeterminados?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
@@ -786,10 +776,6 @@ export const es = {
       "¿Dónde puedo encontrar mi historial de depósitos y retiros?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
       "Ve a la sección Transacciones de la app. Verás pestañas para:\n• Pedidos (Compra/Venta)\n• Depósitos\n• Retiros",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Dónde encontrar tu historial de pedidos o transacciones en P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Ve a la sección 'Transacciones' en la aplicación para ver tus pedidos, depósitos, retiros y disputas.",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
       "¿Dónde puedo ver todas mis transacciones en P2P.me?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
@@ -800,10 +786,6 @@ export const es = {
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED: "¿Qué monedas y redes admite P2P.me?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
       "Actualmente, P2P.me admite USDC en la red Base.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN:
-      "¿Quién gestiona las transacciones cross-chain?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Todas las operaciones cross-chain funcionan con Near Intents. Si hay demoras o problemas, deberás contactar al soporte de Near Intents aquí.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "¿Quién desarrolla y mantiene P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "P2P.me es un protocolo de bien público desarrollado por una comunidad de colaboradores de código abierto de todo el mundo. Construido sobre Base, es un protocolo que crece gracias a la colaboración. Es totalmente de código abierto, así que cualquiera puede mirar por dentro y ver qué pasa. Sin secretos, solo transparencia.",

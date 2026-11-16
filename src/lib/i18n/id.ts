@@ -616,10 +616,6 @@ export const id = {
       "Bisakah saya memakai P2P.me untuk belanja kripto sehari-hari?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
       "Ya! Dengan P2P.me, pembayaran sehari-hari jadi cepat dan mudah. Cukup scan kode QR, bayar dengan USDC, dan pembayaran diterima dalam mata uang lokal dalam hitungan detik.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS:
-      "Bisakah saya menarik USDC ke jaringan lain?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Ya, gunakan fitur Penarikan Cross-Chain lalu:\n• Pilih chain tujuan yang benar\n• Periksa kembali alamat dompet Anda sebelum konfirmasi",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
       "Saya tidak ingin menautkan akun sosial, apakah tetap aman?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
@@ -647,9 +643,6 @@ export const id = {
     FAQ_HOW_MUCH_CAN_I_EARN: "Berapa banyak yang bisa saya dapatkan?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
       "Anda mendapatkan 0,5% dari setiap transaksi pengguna yang Anda ajak. Tidak ada batas maksimal, semakin sering mereka trading, semakin banyak yang Anda dapatkan.",
-    FAQ_HOW_PREVENT_FRAUD: "Bagaimana P2P.me mencegah penipuan?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Penipuan di platform P2P tradisional sering terjadi saat penipu mengirim dana fiat curian ke pengguna yang tidak curiga, sehingga rekening dibekukan dan bikin repot. P2P.me punya perlindungan bawaan untuk menjaga Anda tetap aman:\n\n• Bukti Zero-Knowledge (ZK) dan pemeriksaan riwayat untuk semua merchant: Kami memastikan hanya merchant tepercaya yang bisa trading dengan memeriksa aktivitas perbankan mereka. Tidak ada tempat bagi pihak yang mencurigakan.\n• Sistem verifikasi Zk-Social: Pengguna yang belum terverifikasi punya akses terbatas, jadi semuanya tetap eksklusif. Jika Anda sudah terverifikasi, Anda pengguna istimewa bagi kami. Jika belum, coba lagi nanti.\n• Penalti bagi pengguna yang merekomendasikan penipu: Kami bersikap tegas. Jika Anda mengajak seseorang yang berperilaku buruk, bukan hanya mereka yang dikeluarkan. Anda juga bisa kehilangan hak istimewa.\n\nDengan lebih dari 55.000 transaksi yang sudah diproses, tingkat penipuan kami hampir nol. Memang belum sempurna, tapi sudah sangat mendekati.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
       "Bagaimana P2P.me melindungi Anda dari pembekuan rekening akibat penipuan?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
@@ -715,9 +708,6 @@ export const id = {
       "Penjaga toko minta bukti pembayaran, apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
       '1. Salin UPI ID merchant dari pesanan Anda.\n2. Tempel di aplikasi UPI Anda untuk melihat nama mereka.\n3. Sampaikan ke penjaga toko: "Anda seharusnya sudah menerima ₹XXXX dari [Nama]."\n4. Jika mereka masih menyangkal, hubungi dukungan. Kami akan mengirimkan screenshot untuk ditunjukkan kepada mereka.',
-    FAQ_WHAT_ARE_DEFAULT_LIMITS: "Apa batas default di P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Apa batas default?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
       "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
@@ -779,10 +769,6 @@ export const id = {
       "Di mana saya bisa melihat riwayat deposit dan penarikan?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
       "Buka bagian Transaksi di aplikasi. Anda akan melihat tab untuk:\n• Pesanan (Beli/Jual)\n• Deposit\n• Penarikan",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Di Mana Melihat Riwayat Pesanan atau Transaksi Anda di P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Buka bagian 'Transaksi' di aplikasi untuk melihat pesanan, deposit, penarikan, dan sengketa Anda.",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
       "Di mana saya dapat melihat semua transaksi saya di P2P.me?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
@@ -795,9 +781,6 @@ export const id = {
       "Koin dan jaringan apa yang didukung P2P.me?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
       "Saat ini, P2P.me mendukung USDC di jaringan Base.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN: "Siapa yang menangani transaksi cross-chain?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Semua transaksi cross-chain diproses oleh Near Intents. Jika ada keterlambatan atau masalah, Anda perlu menghubungi dukungan Near Intents di sini.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Siapa yang membangun dan memelihara P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
       "P2P.me adalah protokol public goods yang dikembangkan oleh komunitas kontributor open-source dari seluruh dunia. Dibangun di Base, protokol ini tumbuh lewat kolaborasi. Seluruhnya open-source, jadi siapa pun bisa melihat langsung cara kerjanya. Tanpa rahasia, hanya transparansi.",
