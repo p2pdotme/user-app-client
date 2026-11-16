@@ -1,9 +1,13 @@
-import { Copy, RotateCw, TriangleAlert } from "lucide-react";
+import { Copy, Loader2, RotateCw, TriangleAlert } from "lucide-react";
 import { Component, type ErrorInfo, type ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { captureError } from "@/lib/sentry";
+import {
+  isStaleChunkError,
+  reloadForStaleChunk,
+} from "@/lib/stale-chunk-reload";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -12,6 +16,8 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   error: Error | null;
   componentStack: string | null;
+  /** A stale-chunk error that may not auto-reload (loop guard, offline). */
+  staleReloadRefused: boolean;
 }
 
 /**
@@ -97,6 +103,20 @@ function ErrorFallback({
   );
 }
 
+/** Shown while the app reloads into a newly deployed version. */
+function ReloadingFallback() {
+  const { t } = useTranslation();
+  return (
+    <div
+      className="flex h-dvh w-full flex-col items-center justify-center gap-3 text-muted-foreground"
+      role="status"
+      aria-live="polite">
+      <Loader2 className="size-8 animate-spin text-primary" />
+      <span className="text-sm">{t("LOADING_APP")}</span>
+    </div>
+  );
+}
+
 /**
  * Catches render-time errors anywhere in the child tree, reports them to
  * Sentry, and shows a recoverable fallback (copy details + reload).
@@ -105,13 +125,23 @@ export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
-  state: ErrorBoundaryState = { error: null, componentStack: null };
+  state: ErrorBoundaryState = {
+    error: null,
+    componentStack: null,
+    staleReloadRefused: false,
+  };
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
-    return { error };
+    return { error, staleReloadRefused: false };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // A file from the previous deploy: reload into the new version instead
+    // of showing the error page (see stale-chunk-reload.ts).
+    if (isStaleChunkError(error)) {
+      if (reloadForStaleChunk()) return;
+      this.setState({ staleReloadRefused: true });
+    }
     this.setState({ componentStack: errorInfo.componentStack ?? null });
     captureError(error, {
       operation: "react_render",
@@ -121,8 +151,13 @@ export class ErrorBoundary extends Component<
   }
 
   render() {
-    const { error, componentStack } = this.state;
+    const { error, componentStack, staleReloadRefused } = this.state;
     if (error) {
+      // Shown for the moment between the failed load and the reload (or
+      // until componentDidCatch decides the reload isn't allowed).
+      if (isStaleChunkError(error) && !staleReloadRefused) {
+        return <ReloadingFallback />;
+      }
       return <ErrorFallback error={error} componentStack={componentStack} />;
     }
     return this.props.children;
