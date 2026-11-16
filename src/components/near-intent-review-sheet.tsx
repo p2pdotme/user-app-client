@@ -1,13 +1,16 @@
-import { ArrowRightIcon, InfoIcon } from "lucide-react";
+import { ArrowRightIcon, InfoIcon, TriangleAlertIcon } from "lucide-react";
+import { useEffect, useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TokenIcon } from "@/components/token-icon";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { Label } from "@/components/ui/label";
 
 type ReviewSide = {
   symbol: string;
@@ -24,6 +27,13 @@ function formatUsd(value: string | null): string | null {
   return Number.isFinite(parsed) ? `$${parsed.toFixed(2)}` : null;
 }
 
+/** External address the user typed; must be shown in full and confirmed. */
+type AddressCheck = {
+  label: string;
+  address: string;
+  chainName: string;
+};
+
 type NearIntentReviewSheetProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -32,6 +42,7 @@ type NearIntentReviewSheetProps = {
   slippageBps: number;
   pending: boolean;
   onConfirm: () => void;
+  addressCheck?: AddressCheck;
 };
 
 /** Review Quote bottom sheet shown before executing the bridge. */
@@ -43,8 +54,16 @@ export function NearIntentReviewSheet({
   slippageBps,
   pending,
   onConfirm,
+  addressCheck,
 }: NearIntentReviewSheetProps) {
   const { t } = useTranslation();
+  const checkboxId = useId();
+  const [addressConfirmed, setAddressConfirmed] = useState(false);
+  // Re-confirm every time the sheet opens or the address changes.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset trigger
+  useEffect(() => {
+    setAddressConfirmed(false);
+  }, [open, addressCheck?.address]);
   const maxLossUsd =
     to.usd !== null && Number.isFinite(Number(to.usd))
       ? new Intl.NumberFormat("en-US", {
@@ -125,6 +144,42 @@ export function NearIntentReviewSheet({
             </div>
           </div>
 
+          {addressCheck && (
+            <div className="flex flex-col gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4">
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground text-sm">
+                  {addressCheck.label} · {addressCheck.chainName}
+                </span>
+                <code className="break-all font-mono text-sm">
+                  {addressCheck.address}
+                </code>
+              </div>
+              <p className="flex items-start gap-2 text-sm">
+                <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-warning" />
+                {t("PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING", {
+                  chain: addressCheck.chainName,
+                })}
+              </p>
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id={checkboxId}
+                  checked={addressConfirmed}
+                  onCheckedChange={(checked) =>
+                    setAddressConfirmed(checked === true)
+                  }
+                  className="mt-0.5"
+                />
+                <Label
+                  htmlFor={checkboxId}
+                  className="font-medium text-sm leading-snug">
+                  {t("PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX", {
+                    chain: addressCheck.chainName,
+                  })}
+                </Label>
+              </div>
+            </div>
+          )}
+
           {maxLossUsd && (
             <div className="flex items-start gap-2 rounded-xl bg-muted p-3">
               <InfoIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
@@ -139,7 +194,7 @@ export function NearIntentReviewSheet({
 
           <Button
             className="mt-2 w-full p-6"
-            disabled={pending}
+            disabled={pending || (!!addressCheck && !addressConfirmed)}
             onClick={onConfirm}>
             {pending ? t("BRIDGE_CONFIRMING") : t("CONFIRM")}
           </Button>

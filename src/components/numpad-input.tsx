@@ -28,10 +28,14 @@ const renderKey = (key: string, t: TFunction) => {
   switch (key) {
     case "Delete":
       return <Delete className="size-6" />;
+    // Literal keys (not t(key.toUpperCase())) so unused-key tooling can see
+    // them; a computed key let CLEAR be deleted as "unused".
+    case "Max":
+      return t("MAX");
+    case "Clear":
+      return t("CLEAR");
     default:
-      return Number.isNaN(Number(key)) && key !== "."
-        ? t(key.toUpperCase())
-        : key;
+      return key;
   }
 };
 

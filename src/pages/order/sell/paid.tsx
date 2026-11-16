@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -14,7 +15,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 import { getOrderFeeDetails } from "@/core/fees";
@@ -27,6 +27,7 @@ import {
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
 import { SELL_FLOW_PROGRESS_TEXT } from "../shared";
+import { FeeDetailValue } from "./fee-detail-value";
 import { SellReceivingPaymentRow } from "./sell-receiving-payment-row";
 
 export function SellPaid({ order }: { order: Order }) {
@@ -90,6 +91,9 @@ export function SellPaid({ order }: { order: Order }) {
             },
           )}
         </p>
+        <p className="text-center text-muted-foreground text-xs">
+          {t("SELL_UX_PAID_TIMEOUT_NOTE")}
+        </p>
       </section>
       <motion.footer
         initial={{ opacity: 0, y: 400 }}
@@ -98,7 +102,10 @@ export function SellPaid({ order }: { order: Order }) {
         className="mx-auto mt-auto flex w-full max-w-lg flex-shrink-0 flex-col justify-center gap-2 rounded-t-3xl border-t bg-background py-4 shadow-[0_-4px_16px_var(--primary-shadow)]">
         <section className="flex w-full flex-col items-center">
           <p className="text-center text-sm">{t("PAYMENT_DETAILS_SENT")}</p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={900}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress
@@ -142,33 +149,44 @@ export function SellPaid({ order }: { order: Order }) {
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("YOU_SEND")} </span>
                 <span className="text-muted-foreground">
-                  {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
-                    <Skeleton className="h-4 w-20" />
-                  ) : (
-                    `${actualUsdcAmount?.toFixed(3)} USDC`
-                  )}
+                  <FeeDetailValue
+                    isLoading={isLoadingOrderFeeDetails}
+                    isError={!!orderFeeDetailsError}
+                    skeletonClassName="h-4 w-20"
+                    value={`${actualUsdcAmount?.toFixed(3)} USDC`}
+                  />
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("FEE")} </span>
                 <span className="text-muted-foreground">
-                  {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
-                    <Skeleton className="h-4 w-16" />
-                  ) : (
-                    `${fixedFeePaid.toFixed(3)} USDC`
-                  )}
+                  <FeeDetailValue
+                    isLoading={isLoadingOrderFeeDetails}
+                    isError={!!orderFeeDetailsError}
+                    skeletonClassName="h-4 w-16"
+                    value={`${fixedFeePaid.toFixed(3)} USDC`}
+                  />
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">{t("YOU_RECEIVE")} </span>
                 <span className="text-muted-foreground">
-                  {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
-                    <Skeleton className="h-4 w-20" />
-                  ) : actualFiatAmount ? (
-                    formatFiatAmount(actualFiatAmount, order.currency)
-                  ) : null}
+                  <FeeDetailValue
+                    isLoading={isLoadingOrderFeeDetails}
+                    isError={!!orderFeeDetailsError}
+                    skeletonClassName="h-4 w-20"
+                    value={
+                      actualFiatAmount
+                        ? formatFiatAmount(actualFiatAmount, order.currency)
+                        : null
+                    }
+                    fallback={formatFiatAmount(
+                      Number(order.fiatAmount),
+                      order.currency,
+                    )}
+                  />
                 </span>
               </div>
 
