@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { z } from "zod";
 import { NonHomeHeader, NumpadInput } from "@/components";
 import FlatfeeAlert from "@/components/flat-fee-alert";
@@ -21,6 +21,7 @@ import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS, MIN_ORDER_FIAT_BY_CURRENCY } from "@/lib/constants";
 import { calculateFee, truncateAmount } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
+import { DepositDrawer } from "../homescreen/deposit-drawer";
 import { HelpDrawer } from "../order/help-drawer";
 import { AmountDisplay } from "./amount-display";
 import { LimitBanner } from "./limit-banner";
@@ -30,6 +31,7 @@ export function Sell() {
   const { t } = useTranslation();
   usePageMeta({ title: t("SELL"), description: t("SEO_DESCRIPTION_SELL") });
   const navigate = useNavigate();
+  const { state: locationState } = useLocation();
   const { track } = useAnalytics();
   const {
     settings: { currency },
@@ -112,6 +114,9 @@ export function Sell() {
   const [denomination, setDenomination] = useState<"crypto" | "fiat">("crypto");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
+  const [errorReason, setErrorReason] = useState<
+    "insufficient_balance" | "limit" | "invalid" | null
+  >(null);
 
   const updateAmount = useCallback(
     (
@@ -183,14 +188,25 @@ export function Sell() {
         (validData) => {
           setAmount(validData);
           setError(null);
+          setErrorReason(null);
         },
         (errorMessage, newAmount) => {
           setAmount(newAmount);
           setError(errorMessage);
+          const reason = errorMessage.includes(
+            t("VALIDATION_INSUFFICIENT_BALANCE"),
+          )
+            ? "insufficient_balance"
+            : errorMessage.includes(
+                  t("VALIDATION_MAXIMUM_SELL_LIMIT", { limit: MAX_SELL_LIMIT }),
+                )
+              ? "limit"
+              : "invalid";
+          setErrorReason(reason);
         },
       );
     },
-    [denomination, updateAmount],
+    [denomination, updateAmount, t, MAX_SELL_LIMIT],
   );
 
   const handleInput = useCallback(
@@ -209,9 +225,19 @@ export function Sell() {
   const handleClear = useCallback(() => {
     setAmount({ crypto: "", fiat: "" });
     setError(null);
+    setErrorReason(null);
   }, []);
 
+  // Max needs the real balance (and the live price in fiat mode); until they
+  // load it does nothing rather than guessing.
+  const isMaxReady =
+    !isUsdcBalanceLoading &&
+    usdcBalance !== undefined &&
+    !isTxLimitLoading &&
+    (denomination === "crypto" || !!priceConfig?.sellPrice);
+
   const handleMax = useCallback(() => {
+    if (!isMaxReady) return;
     let effectiveMax = Math.min(usdcBalance ?? Infinity, MAX_SELL_LIMIT);
 
     // Subtract the fixed fee if it applies
@@ -225,10 +251,12 @@ export function Sell() {
     if (denomination === "crypto") {
       handleUpdateAmount(effectiveMax.toString());
     } else {
-      const maxFiatAmount = effectiveMax * (priceConfig?.sellPrice ?? 85);
+      if (!priceConfig?.sellPrice) return;
+      const maxFiatAmount = effectiveMax * priceConfig.sellPrice;
       handleUpdateAmount(maxFiatAmount.toString());
     }
   }, [
+    isMaxReady,
     denomination,
     handleUpdateAmount,
     MAX_SELL_LIMIT,
@@ -237,6 +265,52 @@ export function Sell() {
     feeConfigSmallOrderThreshold,
     feeConfigSmallOrderFixedFee,
   ]);
+
+  // Prefill the amount when coming back from the preview (e.g. after a price
+  // change) so the user doesn't have to type it again.
+  const prefillCryptoAmount = (
+    locationState as { prefillCryptoAmount?: unknown } | null
+  )?.prefillCryptoAmount;
+  const hasPrefilledRef = useRef(false);
+  useEffect(() => {
+    if (hasPrefilledRef.current) return;
+    if (typeof prefillCryptoAmount !== "number" || !(prefillCryptoAmount > 0))
+      return;
+    if (!priceConfig?.sellPrice || isUsdcBalanceLoading || isTxLimitLoading)
+      return;
+    hasPrefilledRef.current = true;
+    updateAmount(
+      prefillCryptoAmount.toString(),
+      "crypto",
+      (validData) => {
+        setAmount(validData);
+        setError(null);
+      },
+      (errorMessage, newAmount) => {
+        setAmount(newAmount);
+        setError(errorMessage);
+      },
+    );
+  }, [
+    prefillCryptoAmount,
+    priceConfig?.sellPrice,
+    isUsdcBalanceLoading,
+    isTxLimitLoading,
+    updateAmount,
+  ]);
+
+  // Analytics: record why an amount was blocked (once per distinct reason).
+  const lastTrackedReasonRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!errorReason || lastTrackedReasonRef.current === errorReason) return;
+    lastTrackedReasonRef.current = errorReason;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "sell",
+      status: "amount_blocked",
+      reason: errorReason,
+      currency: currency.currency,
+    });
+  }, [errorReason, track, currency.currency]);
 
   const toggleCurrency = useCallback(() => {
     setDenomination((prev) => (prev === "crypto" ? "fiat" : "crypto"));
@@ -361,6 +435,31 @@ export function Sell() {
               fiatAmount={Number(amount.fiat)}
               exchangeRate={priceConfig?.sellPrice}
             />
+            {error ? (
+              <div className="mt-3 flex flex-col items-center gap-2">
+                <p
+                  className="text-center text-destructive text-sm"
+                  role="alert">
+                  {error}
+                </p>
+                {errorReason === "insufficient_balance" ? (
+                  <DepositDrawer>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        track(EVENTS.TRANSACTION, {
+                          transaction_type: "sell",
+                          status: "deposit_tapped_from_amount",
+                          currency: currency.currency,
+                        })
+                      }>
+                      {t("SELL_UX_DEPOSIT_USDC")}
+                    </Button>
+                  </DepositDrawer>
+                ) : null}
+              </div>
+            ) : null}
             <LimitBanner
               isLoading={isTxLimitLoading}
               isError={isTxLimitError}
