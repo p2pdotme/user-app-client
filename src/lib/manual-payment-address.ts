@@ -38,12 +38,15 @@ export function resolveManualPaymentAddress({
 }: ManualPaymentAddressParams): ManualPaymentAddress {
   // IDR-specific: bank → account number, e-wallet → phone; pack as `Provider|number`.
   if (currency.currency === CURRENCY.IDR) {
-    const isBank = getIndonesianPaymentProviderType(idrPaymentMethod) === "bank";
+    const isBank =
+      getIndonesianPaymentProviderType(idrPaymentMethod) === "bank";
     const value = manualAddress.trim();
     return {
       paymentAddressName: isBank ? "ACCOUNT_NUMBER" : "PHONE_NUMBER",
       isValid: validateIndonesianPaymentId(idrPaymentMethod, value),
-      paymentId: value ? serializeCompoundPaymentId(idrPaymentMethod, value) : "",
+      paymentId: value
+        ? serializeCompoundPaymentId(idrPaymentMethod, value)
+        : "",
     };
   }
 

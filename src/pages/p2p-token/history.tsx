@@ -1,18 +1,18 @@
+import { Copy, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Copy, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import ASSETS from "@/assets";
 import { NonHomeHeader } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { SwapRecord } from "@/core/p2p-swap";
+import { useP2PSwapHistory } from "@/hooks";
 import {
   cn,
   formatDateTime,
   formatTokenAmount,
   truncateAddress,
 } from "@/lib/utils";
-import { useP2PSwapHistory } from "@/hooks";
-import ASSETS from "@/assets";
-import type { SwapRecord } from "@/core/p2p-swap";
 
 function CopyHash({ value }: { value: string }) {
   const { t } = useTranslation();
@@ -25,8 +25,7 @@ function CopyHash({ value }: { value: string }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="flex items-center gap-1 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
-    >
+      className="flex items-center gap-1 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground">
       <span>{truncateAddress(value, 8)}</span>
       <Copy className="size-3 shrink-0" />
     </button>
@@ -49,10 +48,9 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <span
       className={cn(
-        "rounded-full px-2 py-0.5 text-xs font-medium capitalize",
+        "rounded-full px-2 py-0.5 font-medium text-xs capitalize",
         color,
-      )}
-    >
+      )}>
       {label}
     </span>
   );
@@ -100,7 +98,7 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
       {/* Header row */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-sm text-foreground">
+          <span className="font-semibold text-foreground text-sm">
             {t("SWAP_NUMBER", { id: swap.id })}
           </span>
           <StatusBadge status={swap.status} />
@@ -139,8 +137,8 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
 
       {/* Refunded badge */}
       {swap.refunded && (
-        <div className="mt-3 border-t border-border/50 pt-3">
-          <div className="flex items-center justify-center gap-1.5 rounded-xl bg-green-500/10 px-3 py-2 text-xs font-medium text-green-600 dark:text-green-400">
+        <div className="mt-3 border-border/50 border-t pt-3">
+          <div className="flex items-center justify-center gap-1.5 rounded-xl bg-green-500/10 px-3 py-2 font-medium text-green-600 text-xs dark:text-green-400">
             {t("SWAP_REFUNDED")}
           </div>
         </div>
@@ -151,7 +149,7 @@ export function SwapCard({ swap }: { swap: SwapRecord }) {
 
 function SwapCardSkeleton() {
   return (
-    <div className="rounded-2xl bg-primary/5 p-4 space-y-3">
+    <div className="space-y-3 rounded-2xl bg-primary/5 p-4">
       <div className="flex items-center justify-between">
         <Skeleton className="h-4 w-24" />
         <Skeleton className="h-3 w-32" />
@@ -184,8 +182,7 @@ export function P2PSwapHistory() {
             type="button"
             onClick={handleRefresh}
             disabled={isLoading}
-            className="flex cursor-pointer items-center justify-center rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
-          >
+            className="flex cursor-pointer items-center justify-center rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40">
             <RefreshCw
               className={cn(
                 "size-4",
@@ -210,8 +207,7 @@ export function P2PSwapHistory() {
             <button
               type="button"
               onClick={handleRefresh}
-              className="text-primary text-sm underline"
-            >
+              className="text-primary text-sm underline">
               {t("RETRY")}
             </button>
           </div>

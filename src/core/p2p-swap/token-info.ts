@@ -91,7 +91,8 @@ export type P2PTokenInfo = z.infer<typeof TokenInfoSchema>;
 export type P2PTokenStats = z.infer<typeof StatsSchema>;
 
 export async function fetchP2PTokenInfo(): Promise<P2PTokenInfo> {
-  if (!import.meta.env.VITE_P2P_SWAP_URL) throw new Error("VITE_P2P_SWAP_URL is not configured");
+  if (!import.meta.env.VITE_P2P_SWAP_URL)
+    throw new Error("VITE_P2P_SWAP_URL is not configured");
   const res = await fetch(`${import.meta.env.VITE_P2P_SWAP_URL}/api/token/p2p`);
   const contentType = res.headers.get("content-type") ?? "";
   if (!contentType.includes("application/json")) {
