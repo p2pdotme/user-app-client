@@ -55,35 +55,6 @@ export function useOrderExpiresAt(orderId: number) {
   });
 }
 
-export function useAcceptedTimestamp(orderId: number) {
-  return useQuery({
-    queryKey: ["order", "acceptedTimestamp", orderId],
-    enabled: orderId !== undefined,
-    staleTime: Infinity,
-    queryFn: async () => {
-      const events = await viemPublicClient.getContractEvents({
-        address: CONTRACT_ADDRESSES.DIAMOND,
-        abi: ABIS.DIAMOND,
-        eventName: "OrderAccepted",
-        args: { orderId: BigInt(orderId) },
-        fromBlock: 0n,
-        toBlock: "latest",
-      });
-
-      if (events.length === 0) return undefined;
-
-      const latestEvent = events[events.length - 1];
-      if (!latestEvent?.blockHash) return undefined;
-
-      const block = await viemPublicClient.getBlock({
-        blockHash: latestEvent.blockHash,
-      });
-
-      return Number(block.timestamp);
-    },
-  });
-}
-
 export function useUsdcTransferTxHash(params: {
   orderId: number;
   recipientAddr: string;
