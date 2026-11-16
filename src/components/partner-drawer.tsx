@@ -24,8 +24,10 @@ export function PartnerDrawer({ children }: PartnerDrawerProps) {
   return (
     <Drawer onOpenChange={(open) => !open && setLoaded(false)}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="mx-auto !max-h-[90vh] max-w-md">
-        <DrawerTitle className="sr-only">{t("BECOME_A_LIQUIDITY_PARTNER")}</DrawerTitle>
+      <DrawerContent className="!max-h-[90vh] mx-auto max-w-md">
+        <DrawerTitle className="sr-only">
+          {t("BECOME_A_LIQUIDITY_PARTNER")}
+        </DrawerTitle>
         <div className="flex h-[90vh] w-full flex-col">
           <div className="flex flex-shrink-0 items-center justify-between px-4 pt-10 pb-2">
             <Button
