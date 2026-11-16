@@ -196,6 +196,48 @@ export const en = {
     BUY_SELL_USDC_WITHIN_SECONDS: "Buy/sell USDC within seconds",
     BUY_USDC: "Buy USDC",
     BUY_USDC_FAQS: "Buy USDC FAQs",
+    BUY_UX_ALREADY_PAID_DESCRIPTION:
+      "Raise a dispute from Help. It becomes available about 15 minutes after you placed the order.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "I already paid — get help",
+    BUY_UX_ALREADY_PAID_TITLE: "Already paid?",
+    BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
+      "The payment window expired before the payment was confirmed.",
+    BUY_UX_CANCEL_ALREADY_PAID_WARNING:
+      "Don't cancel if you've already sent money — get help instead.",
+    BUY_UX_DECRYPT_FAILED_DESCRIPTION:
+      "Don't send any money yet. Try again, or contact support if this keeps happening.",
+    BUY_UX_DECRYPT_FAILED_TITLE: "We couldn't load the payment details",
+    BUY_UX_EXCHANGE_RATE: "1 USDC ≈ {{rate}}",
+    BUY_UX_FRAUD_REJECTED_NEXT_STEP:
+      "Completing more verifications can lift this restriction. If you think this is a mistake, contact Help.",
+    BUY_UX_FRAUD_REJECTED_TITLE: "We can't place this order right now",
+    BUY_UX_GET_HELP: "Get help",
+    BUY_UX_HOW_TO_PAY: "How to pay",
+    BUY_UX_MIN_AMOUNT_REASON:
+      "Enter more than {{min}} USDC. Smaller orders don't cover the fixed fee.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "We couldn't open it automatically. You'll find it in Transactions, so please don't place it again.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_TITLE: "Your order was placed",
+    BUY_UX_PAYMENT_WINDOW_ENDED_DESCRIPTION:
+      "Don't send money for this order now. If you already paid, get help and we'll sort it out.",
+    BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "The payment window has ended",
+    BUY_UX_PAY_IN_UPI_APP: "Pay {{amount}} in your UPI app",
+    BUY_UX_PLACED_CAN_LEAVE:
+      "This usually takes 20–90 seconds. You can leave this page — we'll keep your order in Transactions.",
+    BUY_UX_PLACED_TIMEOUT_INFO:
+      "If no merchant accepts within 3 minutes, the order is cancelled automatically. You haven't paid anything yet.",
+    BUY_UX_PLACE_ORDER: "Place order",
+    BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION:
+      "Your order wasn't placed and you haven't been charged. Please try again.",
+    BUY_UX_PROCESSING_TIME_UNAVAILABLE: "Unavailable right now",
+    BUY_UX_STEP_CONFIRM: 'Then tap "I have made the payment".',
+    BUY_UX_STEP_EXACT_AMOUNT: "Pay the exact amount: {{amount}}.",
+    BUY_UX_STEP_NO_CRYPTO_REMARKS:
+      "Don't mention crypto, USDC or P2P.me in the payment remarks.",
+    BUY_UX_STEP_OWN_ACCOUNT: "Pay from an account in your own name.",
+    BUY_UX_TIMER_LOAD_FAILED:
+      "We couldn't load the payment timer. Please complete your payment soon.",
+    BUY_UX_VERIFY_TO_CONTINUE: "Complete verification",
     BUY_VOLUME: "Buy Volume",
     BVN_ALREADY_VERIFIED: "BVN already verified",
     BVN_ALTERNATE_PHONE_PLACEHOLDER: "Alternate phone number",
