@@ -192,7 +192,7 @@ export const id = {
     BUY_CANCELLED_REASON_2:
       "Dibatalkan otomatis karena tidak diterima dalam 3 menit. Ini bisa terjadi di luar jam sibuk. Silakan buat pesanan ulang, atau coba lagi saat jam aktif kami!",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan di bawah {{orderMinimumAmount}} USDC. Anda akan menerima {{deductedAmount}}",
+      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang. Anda akan menerima {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT: "Jumlah pesanan beli melebihi batas",
     BUY_PRICE: "Harga Beli",
     BUY_SELL_USDC_WITHIN_SECONDS: "Beli/jual USDC dalam hitungan detik",
@@ -733,7 +733,7 @@ export const id = {
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
       "Bagaimana cara memulihkan dana jika saya salah mengirim token atau salah jaringan?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "Jika Anda tidak sengaja mengirim token yang tidak didukung atau menggunakan jaringan yang berbeda, dana Anda masih bisa dipulihkan, selama dikirim ke alamat dompet Anda yang benar.\n\nAnda bisa menggunakan bridge cross-chain seperti Relay.link atau Jumper.Exchange untuk mengonversi token tersebut menjadi USDC di jaringan Base, yang didukung di P2P.me.\n\nCara melakukannya:\n1. Buka Relay.link dalam tampilan desktop.\n2. Hubungkan dompet Anda menggunakan WalletConnect.\n3. Di situs bridge, pilih WalletConnect dan salin URI koneksi.\n4. Di beranda aplikasi P2P.me, buka Wallet → Kelola Dompet → Hubungkan Aplikasi, tempel URI, dan konfirmasi untuk terhubung ke Relay.link.\n5. Kembali ke Relay Bridge dan pilih token serta jaringan yang salah Anda gunakan di bagian 'From/Buy', lalu pilih USDC di Base pada bagian 'To/Sell'.\n6. Klik tombol Swap untuk memulai transaksi, dan tunggu sampai selesai.\n7. Kembali ke aplikasi P2P.me dan segarkan dompet Anda. USDC Anda seharusnya sudah muncul.\n\nButuh bantuan? Hubungi kanal dukungan Telegram P2P.me.\n\nPastikan: Anda memilih USDC di Base sebagai tujuan.",
+      "Jika Anda mengirim dana ke alamat dompet P2P.me Anda di jaringan yang salah, dana itu masih bisa dipulihkan: dompet Anda punya alamat yang sama di setiap jaringan EVM yang didukung.\n\n1. Buka Bantuan → Pulihkan token (“Mengirim dana di jaringan yang salah?”).\n2. Pilih jaringan tempat Anda mengirim dan ikuti langkahnya untuk memindahkan token kembali.\n\nP2P.me berjalan di Base. Untuk deposit dan penarikan langsung, selalu gunakan USDC di Base; untuk jaringan lain, gunakan Deposit / Penarikan Cross-Chain di aplikasi. Jika jaringan Anda tidak ada di daftar, atau Anda mengirim token lain di Base, hubungi dukungan dengan hash transaksinya.",
     FAQ_HOW_SECURE_TRANSACTIONS:
       "Bagaimana P2P.me menjamin keamanan transaksi?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
@@ -741,7 +741,7 @@ export const id = {
     FAQ_HOW_TO_BUY_USDC_FIAT:
       "Cara Membeli USDC di P2P.me Menggunakan Fiat atau Mata Uang Lokal",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Ketuk 'Beli USDC' di Beranda.\n2. Masukkan jumlah dan alamat penerima → Lanjut ke Pembayaran.\n3. Merchant akan ditunjuk dan membagikan detail pembayaran.\n4. Bayar via UPI/PIX/QRIS di aplikasi lokal Anda, lalu ketuk 'Saya sudah melakukan pembayaran'.\n5. Setelah merchant mengonfirmasi, USDC dikirim dalam hitungan detik.\n\nCatatan: Pengguna baru (0 verifikasi zk) mulai dari $10 per pesanan, 1 pembelian/hari. Selesaikan verifikasi zk untuk menaikkan limit.",
+      "1. Ketuk 'Beli USDC' di Beranda.\n2. Masukkan jumlah dan alamat penerima → Lanjut ke Pembayaran.\n3. Merchant akan ditunjuk dan membagikan detail pembayaran.\n4. Bayar via UPI/PIX/QRIS di aplikasi lokal Anda, lalu ketuk 'Saya sudah melakukan pembayaran'.\n5. Setelah merchant mengonfirmasi, USDC dikirim dalam hitungan detik.\n\nCatatan: Pengguna baru belum bisa membeli: selesaikan setidaknya satu verifikasi zk (atau stake $P2P) untuk membuka fungsi beli, lalu verifikasi lebih banyak untuk menaikkan limit. Limit Anda saat ini ada di Limit Saya.",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "Bagaimana cara menghitung pajak atas pesanan P2P.me saya?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
@@ -768,7 +768,7 @@ export const id = {
     FAQ_HOW_TO_SELL_USDC:
       "Bagaimana cara menjual USDC dan menerima dana ke detail pembayaran saya?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Ketuk 'Jual USDC'.\n2. Masukkan jumlah dan detail UPI/PIX/QRIS Anda → Lanjut.\n3. Merchant akan ditunjuk.\n4. Setelah USDC Anda diterima, fiat dikirim ke detail pembayaran Anda.\n\nCatatan: Batas jual default $100 per pesanan, maksimal 10 pesanan/hari. Verifikasi zk untuk menaikkan limit.",
+      "1. Ketuk 'Jual USDC'.\n2. Masukkan jumlah dan detail UPI/PIX/QRIS Anda → Lanjut.\n3. Merchant akan ditunjuk.\n4. Setelah USDC Anda diterima, fiat dikirim ke detail pembayaran Anda.\n\nCatatan: Pengguna baru mulai dengan limit jual per pesanan yang ditetapkan untuk pasarnya (lihat di Limit Saya), maksimal 10 pesanan/hari. Verifikasi zk untuk menaikkan limit.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
       "Bagaimana cara memverifikasi akun sosial saya dengan bukti zk untuk menaikkan limit?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
@@ -793,10 +793,10 @@ export const id = {
       '1. Salin UPI ID merchant dari pesanan Anda.\n2. Tempel di aplikasi UPI Anda untuk melihat nama mereka.\n3. Sampaikan ke penjaga toko: "Anda seharusnya sudah menerima ₹XXXX dari [Nama]."\n4. Jika mereka masih menyangkal, hubungi dukungan. Kami akan mengirimkan screenshot untuk ditunjukkan kepada mereka.',
     FAQ_WHAT_ARE_DEFAULT_LIMITS: "Apa batas default di P2P.me?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
+      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: limit awal per pesanan yang ditetapkan untuk pasar Anda (lihat di Limit Saya), hingga 10 pesanan per hari.\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Apa batas default?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
+      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: limit awal per pesanan yang ditetapkan untuk pasar Anda (lihat di Limit Saya), hingga 10 pesanan per hari.\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "Apa itu transaksi yang disengketakan?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
       "Transaksi yang disengketakan adalah transaksi yang diajukan sengketanya oleh pengguna karena ada masalah dalam prosesnya. Jika Anda mengalami kendala, Anda juga bisa mengajukan sengketa.",
@@ -929,7 +929,7 @@ export const id = {
     FILTER_TYPES: "Jenis",
     FIND_US_ON: "Temukan kami di",
     FLAT_FEE_MINIMUM_ORDER_REQUIRED:
-      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan di bawah {{orderMinimumAmount}} USDC. Pesanan Anda harus lebih dari {{flatFee}} USDC",
+      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang. Pesanan Anda harus lebih dari {{flatFee}} USDC",
     FOR_DYNAMIC_QR_WITH_EXPIRY_TIMERS_GENERATE_THEM_AFTER_THE_SCANNER_OPENS_FOR_MAXIMUM_PAYMENT_TIME:
       "Untuk QR dinamis dengan batas waktu, minta QR dibuat setelah scanner terbuka agar waktu bayar maksimal",
     FRAUD_ACTIVITY_WARNING:
@@ -1570,7 +1570,7 @@ export const id = {
     PAYMENT_QR_VIEW: "Lihat QR",
     PAYMENT_TIMEOUT_EXPIRED: "Waktu pembayaran telah berakhir",
     PAY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan di bawah {{orderMinimumAmount}} USDC. Anda akan membayar {{deductedAmount}}",
+      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang. Anda akan membayar {{deductedAmount}}",
     PAY_MERCHANT: "Bayar Merchant",
     PAY_NOTE: "Cukup tanyakan jumlah tagihan ke vendor. Jangan minta QR dulu.",
     PAY_NOTES: "Catatan Pembayaran",
@@ -2015,7 +2015,7 @@ export const id = {
     SELL_CANCELLED_REASON_2: "Detail pembayaran tidak valid.",
     SELL_CANCELLED_REASON_3: "Batas pembayaran telah tercapai.",
     SELL_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan di bawah {{orderMinimumAmount}} USDC. Anda akan dikenakan biaya {{deductedAmount}}",
+      "Biaya tetap {{flatFee}} USDC berlaku untuk pesanan {{orderMinimumAmount}} USDC atau kurang. Anda akan dikenakan biaya {{deductedAmount}}",
     SELL_ORDER_AMOUNT_EXCEEDS_LIMIT: "Jumlah pesanan jual melebihi batas",
     SELL_ORDER_AMOUNT_LIMIT_EXCEEDED: "Batas jumlah pesanan jual terlampaui",
     SELL_PAY_VOLUME: "Volume Jual & Bayar",
