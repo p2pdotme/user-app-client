@@ -5,7 +5,7 @@ import {
   ClipboardPasteIcon,
   SettingsIcon,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { Address } from "thirdweb";
@@ -393,6 +393,7 @@ function getBridgeErrorMessage(
   t: (key: string) => string,
   error: unknown,
   fallbackKey: string,
+  context?: "send",
 ): string {
   const message = error instanceof Error ? error.message : "";
   const passthrough = [
@@ -407,7 +408,7 @@ function getBridgeErrorMessage(
   return getUserFacingErrorMessage(
     t as Parameters<typeof getUserFacingErrorMessage>[0],
     error,
-    fallbackKey,
+    { fallbackKey, context },
   );
 }
 
@@ -528,8 +529,13 @@ export function SwapForm({
   const fromSymbol = isWithdraw ? "USDC" : (token?.symbol ?? "…");
   const toSymbol = isWithdraw ? (token?.symbol ?? "…") : "USDC";
 
+  // Set once the USDC transfer has been submitted: a network / timeout error
+  // after that point is ambiguous (the send may have landed), so the error
+  // copy tells the user to check before retrying.
+  const sendAttemptedRef = useRef(false);
   const swap = useMutation({
     mutationFn: async () => {
+      sendAttemptedRef.current = false;
       if (!quoteParams || !token) throw new Error("Missing quote inputs");
       const response = await getQuote(buildQuoteRequest(quoteParams, false));
       const { depositAddress, depositMemo } = response.quote;
@@ -564,6 +570,7 @@ export function SwapForm({
       onBridgeCreated(bridge);
 
       if (isWithdraw) {
+        sendAttemptedRef.current = true;
         const result = await transferUSDC(
           {
             address: depositAddress as Address,
@@ -607,6 +614,7 @@ export function SwapForm({
           t,
           error,
           "ERROR_GENERIC_DESCRIPTION",
+          sendAttemptedRef.current ? "send" : undefined,
         ),
       });
     },

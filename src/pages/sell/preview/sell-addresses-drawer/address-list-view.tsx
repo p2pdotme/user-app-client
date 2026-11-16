@@ -13,7 +13,7 @@ import { useSettings } from "@/contexts/settings";
 import { useSellAddressBook } from "@/hooks/use-sell-address-book";
 import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import { cn } from "@/lib/utils";
-import { getAvatarContent } from "../shared";
+import { getAvatarContent, resolveSellCurrency } from "../shared";
 
 interface AddressListViewProps {
   isActiveAddress: (id: string) => boolean;
@@ -24,6 +24,8 @@ interface AddressListViewProps {
     address: string;
   }) => void;
   handleAddAddress: () => void;
+  /** Address book currency; defaults to the settings currency. */
+  currency?: string;
 }
 
 export function AddressListView({
@@ -31,12 +33,12 @@ export function AddressListView({
   handleSelectAddress,
   handleEditAddress,
   handleAddAddress,
+  currency: currencyOverride,
 }: AddressListViewProps) {
   const { t } = useTranslation();
-  const {
-    settings: { currency },
-  } = useSettings();
-  const { addressBook, isLoading } = useSellAddressBook();
+  const { settings } = useSettings();
+  const currency = resolveSellCurrency(settings.currency, currencyOverride);
+  const { addressBook, isLoading } = useSellAddressBook(currencyOverride);
 
   const hasAddresses =
     addressBook?.addresses && addressBook.addresses.length > 0;

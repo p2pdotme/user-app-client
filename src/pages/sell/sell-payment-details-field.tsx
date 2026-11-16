@@ -19,7 +19,7 @@ import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import { usesCatalogPaymentForm } from "@/lib/constants";
 import { resolveManualPaymentAddress } from "@/lib/manual-payment-address";
 import { SellAddressesDrawer } from "./preview/sell-addresses-drawer";
-import { getAvatarContent } from "./preview/shared";
+import { getAvatarContent, resolveSellCurrency } from "./preview/shared";
 
 export type SellPaymentDetailsValue = {
   /** Value stored locally and sent to the contract (IDR packs `Provider|number`). */
@@ -38,18 +38,26 @@ export function SellPaymentDetailsField({
   onChange,
   initialManualAddress,
   analyticsContext,
+  currency: currencyOverride,
 }: {
   onChange: (value: SellPaymentDetailsValue) => void;
   /** Prefills the manual input (e.g. details the user typed on an earlier attempt). */
   initialManualAddress?: string;
   analyticsContext: "preview" | "accepted";
+  /**
+   * Currency of an existing order (ACCEPTED screen). Drives validation, IDR
+   * packing, catalog forms and which saved address book is shown, so they
+   * match the order rather than the app's current currency. The preview
+   * omits it and uses the settings currency.
+   */
+  currency?: string;
 }) {
   const { t } = useTranslation();
-  const {
-    settings: { currency },
-  } = useSettings();
+  const { settings } = useSettings();
+  const currency = resolveSellCurrency(settings.currency, currencyOverride);
   const { track } = useAnalytics();
-  const { addressBook, refresh: refreshAddressBook } = useSellAddressBook();
+  const { addressBook, refresh: refreshAddressBook } =
+    useSellAddressBook(currencyOverride);
 
   const [manualAddress, setManualAddress] = useState<string>(
     initialManualAddress ?? "",
@@ -262,7 +270,9 @@ export function SellPaymentDetailsField({
               })}
             </p>
           ) : null}
-          <SellAddressesDrawer onAddressSelected={handleAddressSelection}>
+          <SellAddressesDrawer
+            onAddressSelected={handleAddressSelection}
+            currency={currencyOverride}>
             <Button variant="outline" className="w-full">
               <BookUser className="mr-2 size-4" />
               <p className="font-medium text-sm">

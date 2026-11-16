@@ -33,34 +33,47 @@ function migrateSellAddressBookContainer(
   return raw;
 }
 
-const SellAddressSchema = z.object({
-  id: z.uuid(),
-  label: z.string().min(1, { error: "LABEL_IS_REQUIRED" }),
-  address: z
-    .string()
-    .min(1, { error: "PAYMENT_DETAILS_ARE_REQUIRED" })
-    .refine(
-      (val) => {
-        // Get current currency for validation
-        const settingsResult = getSettings();
-        if (settingsResult.isErr()) return true; // Skip validation if settings error
+/**
+ * Address schema validating the payment ID against `currencyOverride` when
+ * given (e.g. an existing order's currency), else the app's current currency.
+ */
+const createSellAddressSchema = (currencyOverride?: string) =>
+  z.object({
+    id: z.uuid(),
+    label: z.string().min(1, { error: "LABEL_IS_REQUIRED" }),
+    address: z
+      .string()
+      .min(1, { error: "PAYMENT_DETAILS_ARE_REQUIRED" })
+      .refine(
+        (val) => {
+          if (currencyOverride) {
+            return validatePaymentAddress(val, currencyOverride);
+          }
+          // Get current currency for validation
+          const settingsResult = getSettings();
+          if (settingsResult.isErr()) return true; // Skip validation if settings error
 
-        const currency = settingsResult.value.currency.currency;
-        return validatePaymentAddress(val, currency);
-      },
-      {
-        error: "INVALID_PAYMENT_DETAILS_FORMAT",
-      },
-    ),
-});
+          const currency = settingsResult.value.currency.currency;
+          return validatePaymentAddress(val, currency);
+        },
+        {
+          error: "INVALID_PAYMENT_DETAILS_FORMAT",
+        },
+      ),
+  });
 
-const SellAddressBookSchema = z.object({
-  active: SellAddressSchema.optional(),
-  addresses: z.array(SellAddressSchema),
-});
+const createSellAddressBookSchema = (currencyOverride?: string) => {
+  const address = createSellAddressSchema(currencyOverride);
+  return z.object({
+    active: address.optional(),
+    addresses: z.array(address),
+  });
+};
 
-export type SellAddress = z.infer<typeof SellAddressSchema>;
-export type SellAddressBook = z.infer<typeof SellAddressBookSchema>;
+export type SellAddress = z.infer<ReturnType<typeof createSellAddressSchema>>;
+export type SellAddressBook = z.infer<
+  ReturnType<typeof createSellAddressBookSchema>
+>;
 export type SellAddressBookError = AppError<"SellAddressBook">;
 
 const createEmptySellAddressBook = (): SellAddressBook => ({
@@ -69,21 +82,13 @@ const createEmptySellAddressBook = (): SellAddressBook => ({
 });
 
 /**
- * Sorts an array of saved addresses lexically by label
+ * The address book is stored per currency. Defaults to the app's current
+ * currency; callers acting on an existing order pass the order's currency.
  */
-const sortAddressesByLabel = (addresses: SellAddress[]): SellAddress[] => {
-  return [...addresses].sort((a, b) =>
-    a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
-  );
-};
-
-/**
- * Gets the address book from localStorage for current currency
- */
-export function getSellAddressBook(): Result<
-  SellAddressBook,
-  SellAddressBookError
-> {
+function resolveCurrency(
+  currencyOverride?: string,
+): Result<string, SellAddressBookError> {
+  if (currencyOverride) return ok(currencyOverride);
   const settingsResult = getSettings();
   if (settingsResult.isErr()) {
     return err(
@@ -100,7 +105,27 @@ export function getSellAddressBook(): Result<
       ),
     );
   }
-  const currency = settingsResult.value.currency.currency;
+  return ok(settingsResult.value.currency.currency);
+}
+
+/**
+ * Sorts an array of saved addresses lexically by label
+ */
+const sortAddressesByLabel = (addresses: SellAddress[]): SellAddress[] => {
+  return [...addresses].sort((a, b) =>
+    a.label.toLowerCase().localeCompare(b.label.toLowerCase()),
+  );
+};
+
+/**
+ * Gets the address book from localStorage for current currency
+ */
+export function getSellAddressBook(
+  currencyOverride?: string,
+): Result<SellAddressBook, SellAddressBookError> {
+  const currencyResult = resolveCurrency(currencyOverride);
+  if (currencyResult.isErr()) return err(currencyResult.error);
+  const currency = currencyResult.value;
 
   const migrateSellAddressBook = (raw: unknown): unknown =>
     migrateSellAddressBookContainer(raw, currency);
@@ -119,7 +144,10 @@ export function getSellAddressBook(): Result<
       merged,
       createEmptySellAddressBook(),
     );
-    const v = safeParseWithResult(SellAddressBookSchema, pruned);
+    const v = safeParseWithResult(
+      createSellAddressBookSchema(currency),
+      pruned,
+    );
     return v.match(
       (value) => ok<SellAddressBook, never>(value),
       () => ok<SellAddressBook, never>(createEmptySellAddressBook()),
@@ -142,28 +170,14 @@ export function getSellAddressBook(): Result<
  */
 export function saveSellAddressBook(
   addressBook: SellAddressBook,
+  currencyOverride?: string,
 ): Result<SellAddressBook, SellAddressBookError> {
-  const settingsResult = getSettings();
-  if (settingsResult.isErr()) {
-    return err(
-      createAppError<"SellAddressBook">(
-        "FAILED_TO_GET_CURRENCY_SETTINGS_FOR_SELL_ADDRESS_BOOK_FROM_STORAGE",
-        {
-          domain: "SellAddressBook",
-          code: "StorageError",
-          cause: settingsResult.error,
-          context: {
-            storageKey: STORAGE_KEYS.SETTINGS,
-          },
-        },
-      ),
-    );
-  }
-
-  const currency = settingsResult.value.currency.currency;
+  const currencyResult = resolveCurrency(currencyOverride);
+  if (currencyResult.isErr()) return err(currencyResult.error);
+  const currency = currencyResult.value;
 
   const validationResult = safeParseWithResult(
-    SellAddressBookSchema,
+    createSellAddressBookSchema(currency),
     addressBook,
   ).mapErr((e: AppError<"Utils">) =>
     createAppError<"SellAddressBook">("ValidationError", {
@@ -219,6 +233,7 @@ export function saveSellAddressBook(
 export function createSellAddress(
   label: string,
   address: string,
+  currencyOverride?: string,
 ): Result<SellAddress, SellAddressBookError> {
   const newAddress = {
     id: crypto.randomUUID(),
@@ -226,16 +241,18 @@ export function createSellAddress(
     address,
   };
 
-  return safeParseWithResult(SellAddressSchema, newAddress).mapErr(
-    (validationError) =>
-      createAppError<"SellAddressBook">(validationError.message, {
-        domain: "SellAddressBook",
-        code: "ValidationError",
-        cause: validationError.cause,
-        context: {
-          parsedData: newAddress,
-        },
-      }),
+  return safeParseWithResult(
+    createSellAddressSchema(currencyOverride),
+    newAddress,
+  ).mapErr((validationError) =>
+    createAppError<"SellAddressBook">(validationError.message, {
+      domain: "SellAddressBook",
+      code: "ValidationError",
+      cause: validationError.cause,
+      context: {
+        parsedData: newAddress,
+      },
+    }),
   );
 }
 
@@ -244,8 +261,9 @@ export function createSellAddress(
  */
 export function findSellAddressById(
   id: string,
+  currencyOverride?: string,
 ): Result<SellAddress, SellAddressBookError> {
-  const addressBookResult = getSellAddressBook();
+  const addressBookResult = getSellAddressBook(currencyOverride);
   if (addressBookResult.isErr()) return err(addressBookResult.error);
 
   const addressBook = addressBookResult.value;
@@ -287,11 +305,14 @@ export function isDuplicateSellAddress(
 /**
  * Adds an address to the address book
  */
-export function addSellAddress(labelOrAddress: {
-  label: string;
-  address: string;
-}): Result<SellAddressBook, SellAddressBookError> {
-  const addressBookResult = getSellAddressBook();
+export function addSellAddress(
+  labelOrAddress: {
+    label: string;
+    address: string;
+  },
+  currencyOverride?: string,
+): Result<SellAddressBook, SellAddressBookError> {
+  const addressBookResult = getSellAddressBook(currencyOverride);
   if (addressBookResult.isErr()) return addressBookResult;
 
   const addressBook = addressBookResult.value;
@@ -313,14 +334,17 @@ export function addSellAddress(labelOrAddress: {
   }
 
   // Create new address with validation
-  const newAddressResult = createSellAddress(label, address);
+  const newAddressResult = createSellAddress(label, address, currencyOverride);
   if (newAddressResult.isErr()) return err(newAddressResult.error);
 
   // Update address book and save
-  return saveSellAddressBook({
-    ...addressBook,
-    addresses: [...addressBook.addresses, newAddressResult.value],
-  });
+  return saveSellAddressBook(
+    {
+      ...addressBook,
+      addresses: [...addressBook.addresses, newAddressResult.value],
+    },
+    currencyOverride,
+  );
 }
 
 /**
@@ -329,12 +353,13 @@ export function addSellAddress(labelOrAddress: {
 export function updateSellAddressById(
   id: string,
   updates: Partial<Omit<SellAddress, "id">>,
+  currencyOverride?: string,
 ): Result<SellAddressBook, SellAddressBookError> {
-  const addressBookResult = getSellAddressBook();
+  const addressBookResult = getSellAddressBook(currencyOverride);
   if (addressBookResult.isErr()) return addressBookResult;
   const addressBook = addressBookResult.value;
 
-  const addressResult = findSellAddressById(id);
+  const addressResult = findSellAddressById(id, currencyOverride);
   if (addressResult.isErr()) return err(addressResult.error);
   const existingAddress = addressResult.value;
 
@@ -348,7 +373,7 @@ export function updateSellAddressById(
   // This ensures all fields are correct according to the schema and applies any transformations
   // (e.g., trim for labels, toLowerCase for addresses) defined in SavedAddressSchema.
   const validationResult = safeParseWithResult(
-    SellAddressSchema,
+    createSellAddressSchema(currencyOverride),
     proposedAddressData,
   );
 
@@ -411,11 +436,14 @@ export function updateSellAddressById(
   }
 
   // Save the updated address book
-  return saveSellAddressBook({
-    ...addressBook,
-    addresses: updatedAddresses,
-    active: newActive,
-  });
+  return saveSellAddressBook(
+    {
+      ...addressBook,
+      addresses: updatedAddresses,
+      active: newActive,
+    },
+    currencyOverride,
+  );
 }
 
 /**
@@ -423,12 +451,13 @@ export function updateSellAddressById(
  */
 export function removeSellAddressById(
   id: string,
+  currencyOverride?: string,
 ): Result<SellAddressBook, SellAddressBookError> {
-  const addressBookResult = getSellAddressBook();
+  const addressBookResult = getSellAddressBook(currencyOverride);
   if (addressBookResult.isErr()) return addressBookResult;
 
   const addressBook = addressBookResult.value;
-  const addressResult = findSellAddressById(id);
+  const addressResult = findSellAddressById(id, currencyOverride);
   if (addressResult.isErr()) return err(addressResult.error);
 
   const addressToRemove = addressResult.value;
@@ -443,11 +472,14 @@ export function removeSellAddressById(
   }
 
   // Save updated address book
-  return saveSellAddressBook({
-    ...addressBook,
-    addresses: updatedAddresses,
-    active: newDefault,
-  });
+  return saveSellAddressBook(
+    {
+      ...addressBook,
+      addresses: updatedAddresses,
+      active: newDefault,
+    },
+    currencyOverride,
+  );
 }
 
 /**
@@ -455,27 +487,34 @@ export function removeSellAddressById(
  */
 export function setActiveSellAddressById(
   id?: string | null,
+  currencyOverride?: string,
 ): Result<SellAddressBook, SellAddressBookError> {
-  const addressBookResult = getSellAddressBook();
+  const addressBookResult = getSellAddressBook(currencyOverride);
   if (addressBookResult.isErr()) return addressBookResult;
 
   const addressBook = addressBookResult.value;
 
   // If no ID is provided, use the in-app wallet as default
   if (!id) {
-    return saveSellAddressBook({
-      ...addressBook,
-      active: undefined,
-    });
+    return saveSellAddressBook(
+      {
+        ...addressBook,
+        active: undefined,
+      },
+      currencyOverride,
+    );
   }
 
   // Otherwise, find the address by ID and set it as default
-  const addressResult = findSellAddressById(id);
+  const addressResult = findSellAddressById(id, currencyOverride);
   if (addressResult.isErr()) return err(addressResult.error);
 
   // Save updated address book with new default
-  return saveSellAddressBook({
-    ...addressBook,
-    active: addressResult.value,
-  });
+  return saveSellAddressBook(
+    {
+      ...addressBook,
+      active: addressResult.value,
+    },
+    currencyOverride,
+  );
 }

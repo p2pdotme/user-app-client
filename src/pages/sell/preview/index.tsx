@@ -152,7 +152,7 @@ export function SellPreview() {
     const placeStartedAt = Date.now();
 
     // Check contract version before proceeding
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setIsPlacingOrder(false);
@@ -194,7 +194,11 @@ export function SellPreview() {
             );
             // Keep what the user entered so the ACCEPTED screen can prefill it
             // even if we can't key it by order ID below.
-            saveLastSellPaymentDetails(currentAddress, currency.currency);
+            saveLastSellPaymentDetails(
+              account?.address,
+              currentAddress,
+              currency.currency,
+            );
 
             if (!orderId) {
               // The USDC is already escrowed — the order exists, we just couldn't

@@ -12,8 +12,16 @@ const VERSION_CACHE_MS = 5 * 60 * 1000;
 let cachedVersion: { value: string; readAt: number } | null = null;
 let inFlight: Promise<string | null> | null = null;
 
-async function readContractVersion(): Promise<string | null> {
-  if (cachedVersion && Date.now() - cachedVersion.readAt < VERSION_CACHE_MS) {
+async function readContractVersion({
+  fresh = false,
+}: {
+  fresh?: boolean;
+} = {}): Promise<string | null> {
+  if (
+    !fresh &&
+    cachedVersion &&
+    Date.now() - cachedVersion.readAt < VERSION_CACHE_MS
+  ) {
     return cachedVersion.value;
   }
   if (!inFlight) {
@@ -46,10 +54,24 @@ export const useContractVersion = () => {
    * the app is NOT treated as outdated: showing the blocking "new update"
    * drawer to someone whose RPC call merely failed sends them into a reload
    * loop instead of letting them use the app.
+   *
+   * Pass `{ fresh: true }` at transaction gates (right before placing an
+   * order): it bypasses the 5-minute cache so a contract upgrade within that
+   * window is caught, and retries the read once if it fails. If both reads
+   * fail it still fails open (treated as in sync): the order tx itself goes
+   * through the same RPC and would fail on its own, whereas blocking here
+   * would strand users behind a flaky version read.
    */
-  const checkContractSync = async () => {
+  const checkContractSync = async ({
+    fresh = false,
+  }: {
+    fresh?: boolean;
+  } = {}) => {
     try {
-      const version = await readContractVersion();
+      let version = await readContractVersion({ fresh });
+      if (fresh && version === null) {
+        version = await readContractVersion({ fresh });
+      }
       setContractVersion(version);
       return version === null ? true : isSyncedWithContract(version);
     } catch {

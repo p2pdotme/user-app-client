@@ -9,12 +9,27 @@ import { parseContractError } from "@/lib/errors";
  *
  * Use this for toast descriptions and inline error text instead of
  * `error.message`.
+ *
+ * Pass `{ context: "send" }` for value transfers (withdraw, bridge send): a
+ * network / timeout error there is ambiguous (the tx may still have been
+ * broadcast), so the message tells the user to check their balance or
+ * BaseScan before retrying instead of implying it failed.
  */
+export type UserFacingErrorOptions = {
+  fallbackKey?: string;
+  context?: "send";
+};
+
 export function getUserFacingErrorMessage(
   t: TFunction,
   error: unknown,
-  fallbackKey = "ERROR_GENERIC_DESCRIPTION",
+  fallbackKeyOrOptions: string | UserFacingErrorOptions = {},
 ): string {
+  const { fallbackKey = "ERROR_GENERIC_DESCRIPTION", context } =
+    typeof fallbackKeyOrOptions === "string"
+      ? { fallbackKey: fallbackKeyOrOptions }
+      : fallbackKeyOrOptions;
+
   // "This account/passport/BVN is already linked" can't be fixed by retrying;
   // say so plainly instead of "the transaction didn't go through".
   if (isAlreadyVerifiedError(error)) {
@@ -52,20 +67,11 @@ export function getUserFacingErrorMessage(
     return t("ERROR_INSUFFICIENT_BALANCE_DESCRIPTION");
   }
 
-  if (
-    raw.includes("network") ||
-    raw.includes("failed to fetch") ||
-    raw.includes("fetch failed") ||
-    raw.includes("load failed") ||
-    raw.includes("offline") ||
-    raw.includes("econn") ||
-    raw.includes("socket")
-  ) {
-    return t("ERROR_NETWORK_DESCRIPTION");
-  }
-
-  if (raw.includes("timeout") || raw.includes("timed out")) {
-    return t("ERROR_TIMEOUT_DESCRIPTION");
+  if (isNetworkOrTimeoutMessage(raw)) {
+    if (context === "send") return t("RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION");
+    return isTimeoutMessage(raw)
+      ? t("ERROR_TIMEOUT_DESCRIPTION")
+      : t("ERROR_NETWORK_DESCRIPTION");
   }
 
   if (
@@ -77,6 +83,37 @@ export function getUserFacingErrorMessage(
   }
 
   return t(fallbackKey);
+}
+
+function isTimeoutMessage(raw: string): boolean {
+  return (
+    raw.includes("timeout") ||
+    raw.includes("timed out") ||
+    // fetch() aborted by an AbortSignal timeout: "The operation was aborted".
+    raw.includes("aborted")
+  );
+}
+
+function isNetworkOrTimeoutMessage(raw: string): boolean {
+  return (
+    raw.includes("network") ||
+    raw.includes("failed to fetch") ||
+    raw.includes("fetch failed") ||
+    raw.includes("load failed") ||
+    raw.includes("offline") ||
+    raw.includes("econn") ||
+    raw.includes("socket") ||
+    isTimeoutMessage(raw)
+  );
+}
+
+/**
+ * `true` for network / timeout failures (offline, fetch failed, request
+ * timed out or aborted). For a send, these are ambiguous: the transaction may
+ * have been broadcast even though we never saw the result.
+ */
+export function isNetworkOrTimeoutError(error: unknown): boolean {
+  return isNetworkOrTimeoutMessage(extractRawMessage(error).toLowerCase());
 }
 
 /** Contract error keys meaning "this identity is already used/verified". */
@@ -120,6 +157,9 @@ function safeParseContractError(error: unknown): string | null {
  * Returns `true` when the error represents the user deliberately dismissing a
  * wallet / auth / signing prompt. Callers usually want to stay silent (or show
  * a neutral message) in that case rather than an error toast.
+ *
+ * Deliberately does NOT match a bare "aborted": fetch timeouts surface as
+ * "The operation was aborted" and must be reported, not silenced.
  */
 export function isUserCancellation(error: unknown): boolean {
   const raw = extractRawMessage(error).toLowerCase();
@@ -130,8 +170,7 @@ export function isUserCancellation(error: unknown): boolean {
     raw.includes("user canceled") ||
     raw.includes("closed by user") ||
     raw.includes("popup closed") ||
-    raw.includes("modal closed") ||
-    raw.includes("aborted")
+    raw.includes("modal closed")
   );
 }
 

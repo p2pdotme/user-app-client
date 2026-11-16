@@ -331,7 +331,7 @@ export function Pay() {
     setIsPlacingOrder(true);
 
     // Check contract version before proceeding
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setIsPlacingOrder(false);

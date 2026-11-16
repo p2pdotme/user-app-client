@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Info } from "lucide-react";
 import { motion } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { parseUnits } from "viem";
@@ -64,6 +64,11 @@ export function PayAccepted({ order }: { order: Order }) {
   // bill total before the order is re-pinned to it.
   const [pendingAmountChange, setPendingAmountChange] =
     useState<PendingAmountChange | null>(null);
+  // Radix AlertDialogAction/Cancel fire onClick and then onOpenChange(false)
+  // in the same event, and onOpenChange's closure still sees the old
+  // pendingAmountChange. Confirm/cancel mark the prompt resolved first so the
+  // dismiss path (Esc / outside click) only rejects when nothing else did.
+  const amountChangeResolvedRef = useRef(false);
   const { setSellOrderUpiWithFiatMutation } = useOrderFlow();
   const { priceConfig, isPriceConfigError, priceConfigError } = usePriceConfig(
     order.currency,
@@ -106,6 +111,7 @@ export function PayAccepted({ order }: { order: Order }) {
       qrString: string,
       paymentAddress: string,
       updatedFiatAmount: bigint,
+      onSent?: () => void,
     ) => {
       // Store payment details (IDR gets GO_PAY prefix, others store address directly)
       addLocalOrderPaymentDetails(
@@ -131,6 +137,7 @@ export function PayAccepted({ order }: { order: Order }) {
               receipt,
             );
             toast.success(t("PAYMENT_DETAILS_SENT"));
+            onSent?.();
           },
           onError: (error) => {
             onQRError(); // Error haptic for mutation failure
@@ -254,6 +261,7 @@ export function PayAccepted({ order }: { order: Order }) {
         });
         // Don't silently re-price the order: let the payer confirm first.
         setIsProcessingQR(false);
+        amountChangeResolvedRef.current = false;
         setPendingAmountChange({
           qrString,
           paymentAddress,
@@ -286,7 +294,8 @@ export function PayAccepted({ order }: { order: Order }) {
 
   const handleConfirmAmountChange = async () => {
     const pending = pendingAmountChange;
-    if (!pending) return;
+    if (!pending || amountChangeResolvedRef.current) return;
+    amountChangeResolvedRef.current = true;
     setPendingAmountChange(null);
     track(EVENTS.TRANSACTION, {
       transaction_type: "pay",
@@ -294,20 +303,24 @@ export function PayAccepted({ order }: { order: Order }) {
       orderId: order.id.toString(),
       currency: order.currency,
     });
-    toast.warning(t("ORDER_AMOUNT_UPDATED"), {
-      description: t("ORDER_AMOUNT_UPDATED_DESCRIPTION", {
-        from: pending.from,
-        to: pending.to,
-      }),
-    });
+    // Only announce the new amount once the re-pin tx has actually landed.
     await submitPaymentDetails(
       pending.qrString,
       pending.paymentAddress,
       pending.updatedFiatAmount,
+      () =>
+        toast.warning(t("ORDER_AMOUNT_UPDATED"), {
+          description: t("ORDER_AMOUNT_UPDATED_DESCRIPTION", {
+            from: pending.from,
+            to: pending.to,
+          }),
+        }),
     );
   };
 
   const handleRejectAmountChange = () => {
+    if (amountChangeResolvedRef.current) return;
+    amountChangeResolvedRef.current = true;
     setPendingAmountChange(null);
     track(EVENTS.TRANSACTION, {
       transaction_type: "pay",
