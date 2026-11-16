@@ -93,9 +93,12 @@ export function SellPlaced({ order }: { order: Order }) {
         <p className="text-center text-muted-foreground text-sm">
           {t("SELL_UX_PLACED_DESCRIPTION")}
         </p>
-        <p className="text-center text-muted-foreground text-xs">
-          {t("SELL_UX_PLACED_TIMEOUT_NOTE")}
-        </p>
+        <div className="flex items-start gap-2 rounded-lg bg-primary/10 p-3 text-left text-sm">
+          <Info className="mt-0.5 size-4 shrink-0 text-primary" />
+          <p className="text-muted-foreground">
+            {t("SELL_UX_PLACED_TIMEOUT_NOTE")}
+          </p>
+        </div>
       </section>
 
       <motion.footer

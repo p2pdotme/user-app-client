@@ -50,16 +50,25 @@ export function OrderElapsedTime({
         "text-center text-sm tabular-nums",
         isSlow ? "text-warning" : "text-muted-foreground",
         className,
-      )}
-      aria-live="polite">
+      )}>
       {isSlow
         ? t("ORDER_TAKING_LONGER_THAN_USUAL", {
             elapsed: formatDuration(elapsed),
           })
-        : t("ORDER_ELAPSED_TIME", {
-            elapsed: formatDuration(elapsed),
-            expected: Math.ceil(expectedSeconds / 60),
-          })}
+        : expectedSeconds < 120
+          ? t("ORDER_ELAPSED_TIME_SECONDS", {
+              elapsed: formatDuration(elapsed),
+              expected: expectedSeconds,
+            })
+          : t("ORDER_ELAPSED_TIME", {
+              elapsed: formatDuration(elapsed),
+              expected: Math.ceil(expectedSeconds / 60),
+            })}
+      {/* The visible text ticks every second, so it is not a live region.
+          Screen readers only hear the switch to "taking longer". */}
+      <span className="sr-only" aria-live="polite">
+        {isSlow ? t("ORDER_TAKING_LONGER_ANNOUNCEMENT") : ""}
+      </span>
     </p>
   );
 }

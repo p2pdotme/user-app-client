@@ -42,30 +42,26 @@ export function BuyPlaced({ order }: { order: Order }) {
     );
   }, [order.id, order.amount, order.currency, trackWithDedupe]);
 
-  const {
-    data: orderFeeDetails,
-    isLoading: isLoadingOrderFeeDetails,
-    error: orderFeeDetailsError,
-  } = useQuery({
-    queryKey: ["orderFeeDetails", order.id],
-    queryFn: () =>
-      getOrderFeeDetails(Number(order.id)).match(
-        (details) => details,
-        (error) => {
-          throw error;
-        },
-      ),
-    enabled: !!order.id,
-  });
+  const { data: orderFeeDetails, isLoading: isLoadingOrderFeeDetails } =
+    useQuery({
+      queryKey: ["orderFeeDetails", order.id],
+      queryFn: () =>
+        getOrderFeeDetails(Number(order.id)).match(
+          (details) => details,
+          (error) => {
+            throw error;
+          },
+        ),
+      enabled: !!order.id,
+    });
 
   // Extract values from the combined query result
   const fixedFeePaid = orderFeeDetails?.fixedFeePaid ?? 0;
   const actualUsdcAmount = orderFeeDetails?.actualUsdtAmount;
   // Fall back to the on-chain order amount if fee details fail to load,
   // instead of an endless skeleton.
-  const actualFiatAmount =
-    orderFeeDetails?.actualFiatAmount ??
-    (orderFeeDetailsError ? Number(order.fiatAmount) || undefined : undefined);
+  // Exact amount incl. fees only (order.fiatAmount can exclude the fee).
+  const actualFiatAmount = orderFeeDetails?.actualFiatAmount;
   return (
     <main className="flex h-full w-full flex-col overflow-y-auto pt-4">
       <section className="container-narrow flex flex-col items-center justify-center gap-4 py-8">

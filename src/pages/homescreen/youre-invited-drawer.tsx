@@ -210,7 +210,7 @@ export function YoureInvitedDrawer({
                 {account?.address ? (
                   <Button
                     size="lg"
-                    className="w-full bg-primary text-white hover:bg-primary/90"
+                    className="w-full"
                     onClick={handleClaimRecommendation}
                     disabled={isClaiming || isLoading}>
                     {(isClaiming || isLoading) && (
@@ -221,7 +221,7 @@ export function YoureInvitedDrawer({
                 ) : (
                   <Button
                     size="lg"
-                    className="w-full bg-primary text-white hover:bg-primary/90"
+                    className="w-full"
                     onClick={handleLoginAndClaim}>
                     {t("LOGIN_TO_CLAIM_YOUR_REWARDS")}
                   </Button>
