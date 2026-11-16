@@ -11,13 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
-import {
-  NonHomeHeader,
-  SectionHeader,
-  SupportWidget,
-  useYouTubeVideoDialog,
-  YouTubeVideoDialog,
-} from "@/components";
+import { NonHomeHeader, SupportWidget } from "@/components";
 import { SocialLinks } from "@/components/social-links";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -34,9 +28,6 @@ import { FAQSearchSection } from "./components/faq-search-section";
 import { RecoveryCard } from "./components/recovery-card";
 import { SettingsItem } from "./components/settings-item";
 import { TaxReportCard } from "./components/tax-report-card";
-import { VideoGuideBanner } from "./components/video-guide-banner";
-import { VideoGuideCard } from "./components/video-guide-card";
-import { ALL_VIDEO_GUIDES } from "./constants";
 
 export function Help() {
   const { t } = useTranslation();
@@ -50,8 +41,6 @@ export function Help() {
     settings: { currency },
   } = useSettings();
   const { account } = useThirdweb();
-  const { isOpen, videoUrl, title, isPortrait, openVideo, closeVideo } =
-    useYouTubeVideoDialog();
 
   // "Chat with us" opens the support widget on its human thread, not Telegram.
   // A Telegram group is a room ops may or may not be watching; the widget's
@@ -151,17 +140,7 @@ export function Help() {
       <SupportWidget />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
-        <YouTubeVideoDialog
-          isOpen={isOpen}
-          onClose={closeVideo}
-          videoUrl={videoUrl}
-          title={title}
-          isPortrait={isPortrait}
-        />
         <section className="flex w-full flex-col items-center justify-center gap-4 py-8">
-          <div className="my-4 w-full">
-            <VideoGuideBanner onVideoOpen={openVideo} />
-          </div>
           {/* flex-wrap, not a fixed row: "Chat with us" + "Chat on Telegram"
               side by side overflow a narrow phone next to the label, so the
               button pair drops to its own full-width line instead of squashing
@@ -230,23 +209,6 @@ export function Help() {
               }}
             />
           )}
-        </section>
-
-        <section className="flex w-full flex-col justify-between gap-4">
-          <SectionHeader
-            title={t("HELPFUL_VIDEO_GUIDES")}
-            seeAllLink={INTERNAL_HREFS.HELP_HELPFUL_VIDEO_GUIDES}
-          />
-          <div className="no-scrollbar flex w-full gap-4 overflow-x-auto pb-4">
-            {ALL_VIDEO_GUIDES.map((guide) => (
-              <VideoGuideCard
-                key={guide.id}
-                {...guide}
-                className="min-w-[160px]"
-                onVideoOpen={openVideo}
-              />
-            ))}
-          </div>
         </section>
 
         <FAQSearchSection />

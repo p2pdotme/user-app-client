@@ -56,7 +56,6 @@ export const INTERNAL_HREFS = {
   BRIDGE: "/bridge",
   HELP: "/help",
   HELP_FAQS_SEARCH: "/help/faqs-search",
-  HELP_HELPFUL_VIDEO_GUIDES: "/help/video-guides",
   STATUS: "/status",
   WALLET: "/wallet",
 
@@ -282,9 +281,6 @@ export const MIN_ORDER_FIAT_BY_CURRENCY: Partial<Record<CurrencyType, number>> =
   {
     IDR: 1000,
   };
-
-export const CONNECTION_STATUS_TUTORIAL_LINK =
-  "https://youtu.be/your-tutorial-link";
 
 export const RECLAIM_APP_LINKS = {
   ANDROID:
