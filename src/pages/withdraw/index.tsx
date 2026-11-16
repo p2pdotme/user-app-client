@@ -32,7 +32,7 @@ import {
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import type { AppError } from "@/lib/errors";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { cn, truncateAddress } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
 import { FromToCards } from "./from-to-cards";
@@ -242,13 +242,11 @@ export function Withdraw() {
       // Success state will be handled by the bridge handler
     } catch (error: unknown) {
       console.error("[Withdraw] Withdraw process failed:", error);
-      const err = error as AppError<"RangoWithdraw">;
-
       // Set failed status
       setWithdrawData((prev) => ({ ...prev, status: "failed" }));
 
       toast.error(t("SWAP_TXN_NOT_CREATED"), {
-        description: err.message,
+        description: getUserFacingErrorMessage(t, error),
       });
     }
   };

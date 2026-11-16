@@ -34,6 +34,7 @@ import {
   PAY_DISABLED_CURRENCIES,
 } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import {
   calculateFee,
   cn,
@@ -41,6 +42,7 @@ import {
   truncateAmount,
 } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
+import { DepositDrawer } from "../homescreen/deposit-drawer";
 import { HelpDrawer } from "../order/help-drawer";
 import { AmountDisplay } from "./amount-display";
 import { LimitBanner } from "./limit-banner";
@@ -392,7 +394,7 @@ export function Pay() {
             t(key),
             key === "FAILED_TO_PLACE_ORDER"
               ? {
-                  description: error.message,
+                  description: getUserFacingErrorMessage(t, error),
                 }
               : undefined,
           );
@@ -415,6 +417,31 @@ export function Pay() {
   ]);
 
   const handleRetry = () => window.location.reload();
+
+  const isInsufficientBalance =
+    !!error && error === t("VALIDATION_INSUFFICIENT_BALANCE");
+
+  // Analytics: why "Place Order" is blocked (one event per distinct reason).
+  const blockedReason = !error
+    ? null
+    : isInsufficientBalance
+      ? "insufficient_balance"
+      : error === t("VALIDATION_MAXIMUM_PAY_LIMIT", { limit: MAX_PAY_LIMIT }) ||
+          error ===
+            t("VALIDATION_MAXIMUM_LIMIT_EXCEEDED", { limit: MAX_PAY_LIMIT })
+        ? "max_limit"
+        : error === t("VALIDATION_PLEASE_ENTER_AMOUNT")
+          ? "empty_amount"
+          : "invalid_amount";
+  useEffect(() => {
+    if (!blockedReason) return;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "pay",
+      status: "amount_blocked",
+      reason: blockedReason,
+      currency: currency.currency,
+    });
+  }, [blockedReason, track, currency.currency]);
 
   const hasCriticalError = isPriceConfigError || isTxLimitError;
 
@@ -507,6 +534,30 @@ export function Pay() {
           />
 
           <div>
+            {error && !hasExceededLimit ? (
+              <div
+                role="alert"
+                className="my-2 flex flex-col items-center gap-2 text-center">
+                <p className="text-destructive text-sm">{error}</p>
+                {isInsufficientBalance ? (
+                  <DepositDrawer triggerAsChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        track(EVENTS.TRANSACTION, {
+                          transaction_type: "pay",
+                          status: "deposit_clicked",
+                          reason: "insufficient_balance",
+                        })
+                      }>
+                      {t("PAYF_DEPOSIT_USDC_TO_CONTINUE")}
+                    </Button>
+                  </DepositDrawer>
+                ) : null}
+              </div>
+            ) : null}
             {isBelowMinimum ? (
               <p className="my-2 text-center text-destructive text-sm">
                 {t("VALIDATION_MINIMUM_ORDER", {

@@ -110,14 +110,14 @@ export function OneClick() {
       <NonHomeHeader title={title} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-6 overflow-y-auto py-8">
         {!account ? (
-          <p className="text-muted-foreground text-sm text-center">
+          <p className="text-center text-muted-foreground text-sm">
             {t("BRIDGE_CONNECT_WALLET")}
           </p>
         ) : isLoading ? (
           <SwapFormShimmer />
         ) : error ? (
           <p className="text-destructive text-sm">
-            {t("BRIDGE_LOAD_ASSETS_FAILED", { message: error.message })}
+            {t("PAYF_BRIDGE_LOAD_ASSETS_FAILED")}
           </p>
         ) : (
           <SwapForm
@@ -131,7 +131,7 @@ export function OneClick() {
         {account && <SafetyNotice variant="wallet" />}
 
         {bridges.length > 0 && (
-          <section className="flex flex-col gap-3 mt-6">
+          <section className="mt-6 flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <h2 className="font-medium text-lg">
                 {t("BRIDGE_HISTORY_TITLE")}
