@@ -28,7 +28,7 @@ import {
 } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
-import type { AppError } from "@/lib/errors";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { truncateAddress } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
 import { ConnectSourceWallet } from "./connect-source-wallet";
@@ -217,10 +217,13 @@ export function Deposit() {
         return;
       }
 
-      // Handle other errors
-      const err = error as AppError<"RangoDeposit">;
-      toast.error(err.code || t("DEPOSIT_FAILED"), {
-        description: err.message || t("DEPOSIT_FAILED_GENERIC"),
+      // Handle other errors (never surface raw error codes / messages)
+      toast.error(t("DEPOSIT_FAILED"), {
+        description: getUserFacingErrorMessage(
+          t,
+          error,
+          "DEPOSIT_FAILED_GENERIC",
+        ),
       });
     }
   };
