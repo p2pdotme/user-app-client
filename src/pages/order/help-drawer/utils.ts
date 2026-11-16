@@ -2,7 +2,7 @@ import type { TFunction } from "i18next";
 import moment from "moment";
 import type { Order } from "@/core/adapters/thirdweb/validation";
 
-const DISPUTE_MIN_WAIT_BUY = 15 * 60 * 1000; // 15 minutes for BUY orders
+export const DISPUTE_MIN_WAIT_BUY = 15 * 60 * 1000; // 15 minutes for BUY orders
 const DISPUTE_MIN_WAIT_SELL_PAY = 30 * 60 * 1000; // 30 minutes for SELL/PAY orders
 const DISPUTE_MAX_WINDOW_BUY = 24 * 60 * 60 * 1000; // 24 hours for BUY orders
 const DISPUTE_MAX_WINDOW_SELL_PAY = 7 * 24 * 60 * 60 * 1000;

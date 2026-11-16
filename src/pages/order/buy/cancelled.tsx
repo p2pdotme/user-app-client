@@ -21,6 +21,10 @@ import { INTERNAL_HREFS } from "@/lib/constants";
 import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { formatFiatAmount, truncateAddress } from "@/lib/utils";
 import { HelpDrawer } from "../help-drawer";
+import {
+  DISPUTE_MIN_WAIT_BUY,
+  getDisputeAvailability,
+} from "../help-drawer/utils";
 
 export function BuyCancelled({ order }: { order: Order }) {
   const { t } = useTranslation();
@@ -206,36 +210,40 @@ export function BuyCancelled({ order }: { order: Order }) {
           </CardContent>
         </Card>
 
-        {wasAccepted && order.disputeInfo.status === "DEFAULT" && (
-          <Card className="w-full gap-2 border-none bg-warning/15 shadow-none">
-            <CardContent className="space-y-1">
-              <p className="font-medium text-sm">
-                {t("BUY_UX_ALREADY_PAID_TITLE")}
-              </p>
-              <p className="font-light text-sm">
-                {t("BUY_UX_ALREADY_PAID_DESCRIPTION")}
-              </p>
-            </CardContent>
-            <CardFooter>
-              <Button
-                className="gap-2 p-5"
-                variant="outline"
-                onClick={() => {
-                  track(EVENTS.TRANSACTION, {
-                    transaction_type: "buy",
-                    status: "already_paid_help_tapped",
-                    orderId: order.id.toString(),
-                    currency: order.currency,
-                    source: "cancelled",
-                  });
-                  setShowHelpDrawer(true);
-                }}>
-                <LifeBuoy className="size-4" />
-                <p className="font-medium text-sm">{t("BUY_UX_GET_HELP")}</p>
-              </Button>
-            </CardFooter>
-          </Card>
-        )}
+        {wasAccepted &&
+          order.disputeInfo.status === "DEFAULT" &&
+          getDisputeAvailability(order).state !== "expired" && (
+            <Card className="w-full gap-2 border-none bg-warning/15 shadow-none">
+              <CardContent className="space-y-1">
+                <p className="font-medium text-sm">
+                  {t("BUY_UX_ALREADY_PAID_TITLE")}
+                </p>
+                <p className="font-light text-sm">
+                  {t("BUY_UX_ALREADY_PAID_DESCRIPTION", {
+                    minutes: DISPUTE_MIN_WAIT_BUY / 60000,
+                  })}
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="gap-2 p-5"
+                  variant="outline"
+                  onClick={() => {
+                    track(EVENTS.TRANSACTION, {
+                      transaction_type: "buy",
+                      status: "already_paid_help_tapped",
+                      orderId: order.id.toString(),
+                      currency: order.currency,
+                      source: "cancelled",
+                    });
+                    setShowHelpDrawer(true);
+                  }}>
+                  <LifeBuoy className="size-4" />
+                  <p className="font-medium text-sm">{t("BUY_UX_GET_HELP")}</p>
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
 
         {/* Tiered dispute escalation: challenge / escalate / finalize */}
         <DisputeEscalationCard

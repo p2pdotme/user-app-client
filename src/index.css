@@ -35,6 +35,9 @@
   --color-border: var(--border);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  /* Readable text tones (see --warning-text / --success-text below). */
+  --color-warning-text: var(--warning-text);
+  --color-success-text: var(--success-text);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);

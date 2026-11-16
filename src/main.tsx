@@ -14,7 +14,12 @@ if (!rootElement) {
 
 // Wait for the user's language (a small chunk for non-English users) so the
 // first paint is already translated. Never block rendering on a failure.
-await i18nReady.catch(() => undefined);
+// Capped at 3 s: a stalled locale download must not keep the splash up
+// forever (the language still switches in when its file arrives).
+await Promise.race([
+  i18nReady.catch(() => undefined),
+  new Promise((resolve) => setTimeout(resolve, 3000)),
+]);
 
 createRoot(rootElement, {
   onUncaughtError: reactErrorHandler((error, errorInfo) => {

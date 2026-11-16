@@ -20,7 +20,6 @@ import {
   OrderProgress,
   TransferWarningAlert,
 } from "@/components";
-import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -213,6 +212,8 @@ export function BuyAccepted({ order }: { order: Order }) {
     data: orderFeeDetails,
     isLoading: isLoadingOrderFeeDetails,
     error: orderFeeDetailsError,
+    refetch: refetchOrderFeeDetails,
+    isFetching: isFetchingOrderFeeDetails,
   } = useQuery({
     queryKey: ["orderFeeDetails", order.id],
     queryFn: () =>
@@ -467,11 +468,10 @@ export function BuyAccepted({ order }: { order: Order }) {
     }
   };
 
-  // Fall back to the on-chain order amount if the fee-details query fails,
-  // instead of showing an endless skeleton.
-  const payableFiatAmount: number | undefined =
-    actualFiatAmount ??
-    (orderFeeDetailsError ? Number(order.fiatAmount) || undefined : undefined);
+  // Only ever show / copy / deep-link the exact amount to pay, which
+  // includes fees. order.fiatAmount can exclude the fee, so falling back to
+  // it could make the user underpay; on error show Retry instead.
+  const payableFiatAmount: number | undefined = actualFiatAmount;
 
   const upiLink =
     order.currency === "INR" &&
@@ -509,6 +509,7 @@ export function BuyAccepted({ order }: { order: Order }) {
         onOpenChange={setShowHelpDrawer}
         order={order}
         orderType="BUY"
+        paymentWindowEnded={isPaymentTimeoutExpired}
       />
       <main
         className={cn(
@@ -598,10 +599,6 @@ export function BuyAccepted({ order }: { order: Order }) {
             <p className="text-center text-sm">
               {t("A_MERCHANT_ACCEPTED_YOUR_ORDER")}
             </p>
-            <OrderElapsedTime
-              sinceTimestamp={order.placedTimestamp}
-              expectedSeconds={480}
-            />
           </section>
           <Separator className="h-4 animate-pulse bg-primary py-1" />
           <OrderProgress
@@ -668,6 +665,14 @@ export function BuyAccepted({ order }: { order: Order }) {
                             <Skeleton className="h-5 w-20" />
                           ) : payableFiatAmount ? (
                             formatFiatAmount(payableFiatAmount, order.currency)
+                          ) : orderFeeDetailsError ? (
+                            <button
+                              type="button"
+                              disabled={isFetchingOrderFeeDetails}
+                              onClick={() => void refetchOrderFeeDetails()}
+                              className="font-medium text-primary underline underline-offset-2">
+                              {t("BUY_UX_AMOUNT_LOAD_FAILED_RETRY")}
+                            </button>
                           ) : null}
                         </span>
                         <Button
@@ -867,7 +872,7 @@ export function BuyAccepted({ order }: { order: Order }) {
             <Button
               className="h-12 w-full"
               variant={
-                upiDeepLink && !isPaymentTimeoutExpired ? "outline" : "default"
+                upiDeepLink || isPaymentTimeoutExpired ? "outline" : "default"
               }
               disabled={
                 isPaymentTimeoutExpired ||
@@ -887,10 +892,7 @@ export function BuyAccepted({ order }: { order: Order }) {
               )}
             </Button>
             {isPaymentTimeoutExpired && (
-              <Button
-                variant="secondary"
-                className="h-12 w-full"
-                onClick={openHelpForAlreadyPaid}>
+              <Button className="h-12 w-full" onClick={openHelpForAlreadyPaid}>
                 <LifeBuoy className="size-4" />
                 <p className="font-medium text-sm">
                   {t("BUY_UX_ALREADY_PAID_GET_HELP")}

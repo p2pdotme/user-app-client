@@ -168,9 +168,10 @@ export const en = {
     BUY_USDC: "Buy USDC",
     BUY_USDC_FAQS: "Buy USDC FAQs",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Raise a dispute from Help. It becomes available about 15 minutes after you placed the order.",
+      "Raise a dispute from Help — it opens {{minutes}} min after you placed the order.",
     BUY_UX_ALREADY_PAID_GET_HELP: "I already paid — get help",
     BUY_UX_ALREADY_PAID_TITLE: "Already paid?",
+    BUY_UX_AMOUNT_LOAD_FAILED_RETRY: "Couldn't load amount — tap to retry",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "The payment window expired before the payment was confirmed.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
@@ -275,6 +276,7 @@ export const en = {
     CLAIM_ACCESS: "Claim Access",
     CLAIM_MONTHLY_REWARD: "Claim Reward",
     CLAIM_REWARD: "Claim reward",
+    CLEAR: "Clear",
     CLOSE: "Close",
     COINSME_BANNER_ALT: "coins.me",
     COINSME_BANNER_BITCOIN_SIPS: "Bitcoin SIPs.",
@@ -361,6 +363,7 @@ export const en = {
       "Deposit USDC to Base from supported chains",
     DETAILS_SENT: "Details sent",
     DEV_TOASTS_ACTIONS: "Actions",
+    DEV_TOASTS_ACTION_BUTTON: "Action",
     DEV_TOASTS_BASIC: "Basic Variants",
     DEV_TOASTS_BTN_ERROR: "Error",
     DEV_TOASTS_BTN_INFO: "Info",
@@ -371,6 +374,7 @@ export const en = {
     DEV_TOASTS_DEFAULT_WITH_DESC: "Default + Desc",
     DEV_TOASTS_ERROR_WITH_DESC: "Error + Desc",
     DEV_TOASTS_FAILED: "Failed",
+    DEV_TOASTS_FYI_OPTIONAL_SUBTITLE: "Optional subtitle",
     DEV_TOASTS_HEADS_UP: "Heads up",
     DEV_TOASTS_INFO_WITH_DESC: "Info + Desc",
     DEV_TOASTS_INSUFFICIENT_FUNDS: "Insufficient funds",
@@ -1152,6 +1156,7 @@ export const en = {
     NO_ADDRESSES_SAVED: "No {{paymentAddressName}}s saved",
     NO_ADDRESS_TO_COPY: "No address to copy",
     NO_ADDRESS_TO_DEPOSIT: "No address to deposit",
+    NO_AMOUNT_TO_COPY: "The amount isn't available yet",
     NO_CAMPAIGN_PARAMETERS_FOUND: "No campaign parameters found",
     NO_DISPUTE: "No Dispute",
     NO_DISPUTE_DECISION: "There is no decision to finalize",
@@ -1225,6 +1230,8 @@ export const en = {
     ORDER_CANCELLED: "Order cancelled",
     ORDER_DETAILS: "Order Details",
     ORDER_ELAPSED_TIME: "{{elapsed}} elapsed · usually under {{expected}} min",
+    ORDER_ELAPSED_TIME_SECONDS:
+      "{{elapsed}} elapsed · usually under {{expected}} sec",
     ORDER_EXPIRED: "Order expired",
     ORDER_ID: "Order ID",
     ORDER_ID_NOT_FOUND: "Order ID not found",
@@ -1235,8 +1242,9 @@ export const en = {
     ORDER_NOT_FOUND: "Order not found",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED: "Order not placed to be accepted",
     ORDER_PREVIEW: "Order Preview",
+    ORDER_TAKING_LONGER_ANNOUNCEMENT: "This order is taking longer than usual.",
     ORDER_TAKING_LONGER_THAN_USUAL:
-      "{{elapsed}} elapsed · taking longer than usual. Your funds are safe.",
+      "{{elapsed}} elapsed · taking longer than usual.",
     ORDER_TYPE: "Order Type",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Order with placed status only can be re-assigned",
@@ -1443,7 +1451,7 @@ export const en = {
       "Updates are posted in our support channel.",
     PAYF_MAINTENANCE_FUNDS_SAFE: "Your funds are safe",
     PAYF_MAINTENANCE_ORDERS_RESUME:
-      "Your USDC stays in your wallet. Any order that was in progress will continue where it left off once maintenance is over.",
+      "Your USDC stays in your wallet. If you had an order in progress, check it in Transactions once we're back — if anything looks wrong, contact support.",
     PAYF_MAINTENANCE_RETRY: "Try again",
     PAYF_MERCHANT_GETS: "Merchant gets",
     PAYF_PASTE: "Paste",
@@ -1836,6 +1844,8 @@ export const en = {
     REWARD_CLAIMED_DESCRIPTION:
       "You have successfully claimed {{amount}} USDC. Share your win with your friends!",
     RIF_LABEL: "Cédula/RIF",
+    RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION:
+      "We couldn't confirm whether this went through. Check your balance or BaseScan before trying again.",
     SAFETY_NOTICE_WALLET:
       "We’ll never ask for your OTP, private key, or login through external links. Never share your credentials with anyone.",
     SAVE: "Save",
@@ -1920,7 +1930,7 @@ export const en = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "Haven't received the money after a while? Tap the help icon at the top to get support for this order.",
     SELL_UX_PLACED_DESCRIPTION:
-      "This usually takes 20–90 seconds. Keep this page open so your payment details are sent as soon as a merchant accepts. If you leave, come back to this order to enter them.",
+      "Keep this page open — we'll send your payment details as soon as a merchant accepts (usually 20–90 seconds). If you leave, come back to this order to enter them.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "If no merchant accepts in time, the order is cancelled and your USDC is returned to your wallet.",
     SELL_UX_PLACING_ORDER: "Placing order…",
@@ -2020,11 +2030,11 @@ export const en = {
     SUP_DISPUTE_ALREADY_RAISED: "A dispute is already open for this order.",
     SUP_DISPUTE_AVAILABLE_IN: "Available in {{minutes}} min",
     SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
-      "Tell us the merchant hasn't paid you. Support will follow up in chat.",
+      "Tell us the merchant hasn't made the payment (to you for a sell, or to the QR you paid). Support will follow up in chat.",
     SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
       "Most payments are confirmed by the merchant within a few minutes. Disputes open {{minutes}} min after you place the order, so the merchant has time to check their account. Keep your payment reference (UTR) handy.",
     SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
-      "Bank transfers can take a little while to show up. If the payment still isn't in your account, you can raise a dispute {{minutes}} min after the order was placed.",
+      "Payments can take a little while to arrive. If it still hasn't arrived, you can raise a dispute {{minutes}} min after the order was placed.",
     SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
       "This order is complete, so there's nothing to dispute. Something still wrong? Chat with us.",
     SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
@@ -2032,9 +2042,11 @@ export const en = {
     SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
       "This order was cancelled, so it can't be disputed. If something looks wrong, chat with us.",
     SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
-      "Disputes open after the order completes. Only confirm once the money is in your account. If the merchant says they've paid but it hasn't arrived, chat with us.",
+      "Disputes open after the merchant marks the payment as sent. If it's taking too long, chat with us.",
+    SUP_DISPUTE_PAYMENT_WINDOW_ENDED:
+      "The payment window ended before the order was marked as paid, so a dispute isn't possible. If you already sent money, chat with us and share your UPI reference (UTR) — we'll check it with the merchant.",
     SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
-      "If the merchant shared a payment reference, enter its last 4 digits. If you never received anything, leave this blank.",
+      "If the merchant shared a payment reference, enter its last 4 digits. If there's no payment, leave this blank.",
     SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL:
       "Payment reference, last 4 digits (optional)",
     SUP_DISPUTE_TXN_ID_WHERE_BUY:

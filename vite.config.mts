@@ -25,6 +25,22 @@ function sdkWebCrypto(): Plugin {
         return null;
       }
       importPattern.lastIndex = 0;
+      // The shim only provides `webcrypto` (for noble-hashes' cryptoNode.js).
+      // If an SDK upgrade uses Node crypto any other way, fail loudly here
+      // instead of breaking at runtime.
+      const namespaceImports =
+        code.match(/import \* as \w+ from\s+["'](?:node:)?crypto["']/g) ?? [];
+      const allImports = code.match(importPattern) ?? [];
+      importPattern.lastIndex = 0;
+      if (
+        namespaceImports.length !== allImports.length ||
+        /require\(\s*["'](?:node:)?crypto["']\s*\)/.test(code) ||
+        /\b(createHash|createHmac|createCipheriv|randomUUID|pbkdf2)\b/.test(code)
+      ) {
+        this.error(
+          `sdk-web-crypto: ${id} uses Node "crypto" beyond webcrypto; update src/lib/shims/web-crypto.ts or remove the shim.`,
+        );
+      }
       return {
         code: code.replace(importPattern, `from ${JSON.stringify(shim)}`),
         map: null,

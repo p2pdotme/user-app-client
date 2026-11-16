@@ -98,7 +98,7 @@ export function ResumeOrderCard({ className }: { className?: string }) {
         type="button"
         onClick={handleDismiss}
         aria-label={t("LIMR_DISMISS")}
-        className="absolute top-3 right-3 text-muted-foreground">
+        className="absolute top-1 right-1 p-2.5 text-muted-foreground">
         <X className="size-4" />
       </button>
       <div className="flex flex-col gap-1 pr-6">

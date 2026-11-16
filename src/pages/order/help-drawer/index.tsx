@@ -55,11 +55,14 @@ export function HelpDrawer({
   onOpenChange,
   order,
   orderType,
+  paymentWindowEnded,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   order?: Order;
   orderType?: "BUY" | "SELL" | "PAY";
+  /** See HelpListView. */
+  paymentWindowEnded?: boolean;
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -386,6 +389,7 @@ export function HelpDrawer({
               onOrderTypeFAQs={handleOrderTypeFAQs}
               onChatOnTelegram={handleChatOnTelegram}
               onChatWithUs={canChatWithUs ? handleChatWithUs : undefined}
+              paymentWindowEnded={paymentWindowEnded}
               onOpenDisputeChat={
                 canChatInApp ? handleOpenDisputeChat : undefined
               }
