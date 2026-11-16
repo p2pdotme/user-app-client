@@ -190,7 +190,7 @@ export const en = {
     BUY_CANCELLED_REASON_2:
       "Automatically cancelled because it wasn't accepted within 3 minutes. This might happen during off-peak hours. Please try reordering, or try again during our active hours!",
     BUY_FLOW_FLAT_FEE_APPLIES_FOR_ORDER_BELOW_AMOUNT:
-      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less. You will receive {{deductedAmount}}",
+      "Flat {{flatFee}} USDC fee applies to orders of {{orderMinimumAmount}} USDC or less and is added to your payment. You will receive {{deductedAmount}}",
     BUY_ORDER_AMOUNT_EXCEEDS_LIMIT: "Buy order amount exceeds limit",
     BUY_PRICE: "Buy Price",
     BUY_SELL_USDC_WITHIN_SECONDS: "Buy/sell USDC within seconds",
