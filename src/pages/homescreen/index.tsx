@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router";
 import ASSETS from "@/assets";
-import {
-  Banner,
-  useYouTubeVideoDialog,
-  YouTubeVideoDialog,
-} from "@/components";
+import { Banner } from "@/components";
 import { useIsCurrencyGateOpen } from "@/components/currency-gate";
 import { EcosystemCard } from "@/components/p2p-ecosystem";
 import { Button } from "@/components/ui/button";
@@ -198,9 +194,6 @@ export function HomeScreen() {
     // Link navigation will be handled by React Router
   };
 
-  const { isOpen, videoUrl, title, openVideo, closeVideo } =
-    useYouTubeVideoDialog();
-
   return (
     <>
       <Header />
@@ -256,7 +249,7 @@ export function HomeScreen() {
         <ClaimMonthlyDropCard />
 
         <section className="flex w-full flex-col items-center justify-center py-4">
-          <Banner openVideo={openVideo} />
+          <Banner />
         </section>
 
         <ProcessingTransactions />
@@ -297,13 +290,6 @@ export function HomeScreen() {
             errorMessage={campaignClaimErrorMessage}
           />
         )}
-
-        <YouTubeVideoDialog
-          isOpen={isOpen}
-          onClose={closeVideo}
-          videoUrl={videoUrl}
-          title={title}
-        />
       </main>
       <Footer />
     </>
