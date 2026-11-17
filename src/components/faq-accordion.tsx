@@ -26,7 +26,11 @@ interface FAQAccordionProps {
   slice?: number;
 }
 
-export const FAQAccordion = ({ faqs, showAll = false, slice = 3 }: FAQAccordionProps) => {
+export const FAQAccordion = ({
+  faqs,
+  showAll = false,
+  slice = 3,
+}: FAQAccordionProps) => {
   const { track } = useAnalytics();
   const { t, i18n } = useTranslation();
   const {

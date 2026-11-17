@@ -68,7 +68,7 @@ export function StakeBoostPreviewCard({
           </p>
         </div>
         {hasRate && (
-          <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-background/60 px-2 py-0.5 text-xs text-foreground">
+          <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-background/60 px-2 py-0.5 text-foreground text-xs">
             <span className="font-semibold tabular-nums">1</span>
             <span className="text-muted-foreground">$P2P</span>
             <span className="text-muted-foreground">=</span>
@@ -85,7 +85,7 @@ export function StakeBoostPreviewCard({
       {/* Buy / Sell / Pay row */}
       <dl className="mt-2.5 flex items-stretch gap-2">
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
             {t("P2P_STAKE_BUY_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -96,7 +96,7 @@ export function StakeBoostPreviewCard({
           </dd>
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
             {t("P2P_STAKE_SELL_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -107,7 +107,7 @@ export function StakeBoostPreviewCard({
           </dd>
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-2 py-1.5">
-          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
             {t("P2P_STAKE_PAY_LIMIT")}
           </dt>
           <dd className="font-bold text-foreground text-sm tabular-nums">
@@ -229,8 +229,7 @@ export function NoP2pBalanceCta() {
     <button
       type="button"
       onClick={() => navigate(INTERNAL_HREFS.P2P_TOKEN_SWAP)}
-      className="mt-auto flex w-full items-center gap-3 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3 text-left transition-transform duration-150 ease-out active:scale-[0.99]"
-    >
+      className="mt-auto flex w-full items-center gap-3 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/15 to-primary/5 p-3 text-left transition-transform duration-150 ease-out active:scale-[0.99]">
       <div className="relative flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/15">
         <span className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
         <ArrowLeftRight className="relative size-4 animate-pulse text-primary" />
@@ -348,11 +347,10 @@ export function StakeP2pStart({
             type="button"
             onClick={handleMax}
             disabled={!canMax}
-            className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50"
-          >
+            className="shrink-0 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-wider transition hover:bg-primary/15 disabled:cursor-not-allowed disabled:opacity-50">
             {t("MAX")}
           </button>
-          <span className="font-semibold text-muted-foreground text-base">
+          <span className="font-semibold text-base text-muted-foreground">
             $P2P
           </span>
         </div>
@@ -379,8 +377,7 @@ export function StakeP2pStart({
         <Button
           disabled={!isValid}
           onClick={onContinue}
-          className="w-full rounded-2xl py-6 text-base font-semibold"
-        >
+          className="w-full rounded-2xl py-6 font-semibold text-base">
           {t("CONTINUE")}
         </Button>
       </div>

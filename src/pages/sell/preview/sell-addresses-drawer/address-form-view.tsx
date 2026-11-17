@@ -1,9 +1,9 @@
+import { CURRENCY } from "@p2pdotme/sdk/country";
 import { ArrowLeftCircle, Clipboard, Trash2, X } from "lucide-react";
 import { motion } from "motion/react";
 import type { UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { CURRENCY } from "@p2pdotme/sdk/country";
 import {
   IdrPaymentIdInput,
   PackedPaymentInput,

@@ -198,6 +198,50 @@ export const id = {
     BUY_SELL_USDC_WITHIN_SECONDS: "Beli/jual USDC dalam hitungan detik",
     BUY_USDC: "Beli USDC",
     BUY_USDC_FAQS: "FAQ Beli USDC",
+    BUY_UX_ALREADY_PAID_DESCRIPTION:
+      "Ajukan sengketa dari menu Bantuan — fitur ini terbuka {{minutes}} menit setelah Anda membuat pesanan.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "Saya sudah bayar — minta bantuan",
+    BUY_UX_ALREADY_PAID_TITLE: "Sudah bayar?",
+    BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
+      "Gagal memuat jumlah — ketuk untuk mencoba lagi",
+    BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
+      "Batas waktu pembayaran habis sebelum pembayaran dikonfirmasi.",
+    BUY_UX_CANCEL_ALREADY_PAID_WARNING:
+      "Jangan batalkan jika Anda sudah mengirim uang — minta bantuan saja.",
+    BUY_UX_DECRYPT_FAILED_DESCRIPTION:
+      "Jangan kirim uang dulu. Coba lagi, atau hubungi dukungan jika ini terus terjadi.",
+    BUY_UX_DECRYPT_FAILED_TITLE: "Kami tidak dapat memuat detail pembayaran",
+    BUY_UX_EXCHANGE_RATE: "1 USDC ≈ {{rate}}",
+    BUY_UX_FRAUD_REJECTED_NEXT_STEP:
+      "Menyelesaikan lebih banyak verifikasi dapat mencabut pembatasan ini. Jika menurut Anda ini keliru, hubungi Bantuan.",
+    BUY_UX_FRAUD_REJECTED_TITLE: "Kami belum bisa membuat pesanan ini sekarang",
+    BUY_UX_GET_HELP: "Minta bantuan",
+    BUY_UX_HOW_TO_PAY: "Cara membayar",
+    BUY_UX_MIN_AMOUNT_REASON:
+      "Masukkan lebih dari {{min}} USDC. Pesanan yang lebih kecil tidak menutupi biaya tetap.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "Kami tidak dapat membukanya secara otomatis. Anda bisa menemukannya di Transaksi, jadi jangan buat pesanan lagi.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_TITLE: "Pesanan Anda sudah dibuat",
+    BUY_UX_PAYMENT_WINDOW_ENDED_DESCRIPTION:
+      "Jangan kirim uang untuk pesanan ini sekarang. Jika Anda sudah membayar, minta bantuan dan kami akan menyelesaikannya.",
+    BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "Batas waktu pembayaran sudah habis",
+    BUY_UX_PAY_IN_UPI_APP: "Bayar {{amount}} di aplikasi UPI Anda",
+    BUY_UX_PLACED_CAN_LEAVE:
+      "Biasanya butuh 20–90 detik. Anda boleh meninggalkan halaman ini — pesanan Anda tetap tersimpan di Transaksi.",
+    BUY_UX_PLACED_TIMEOUT_INFO:
+      "Jika tidak ada merchant yang menerima dalam 3 menit, pesanan dibatalkan otomatis. Anda belum membayar apa pun.",
+    BUY_UX_PLACE_ORDER: "Buat pesanan",
+    BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION:
+      "Pesanan Anda tidak dibuat dan Anda tidak dikenakan biaya. Silakan coba lagi.",
+    BUY_UX_PROCESSING_TIME_UNAVAILABLE: "Tidak tersedia saat ini",
+    BUY_UX_STEP_CONFIRM: 'Lalu ketuk "Saya sudah melakukan pembayaran".',
+    BUY_UX_STEP_EXACT_AMOUNT: "Bayar jumlah yang persis: {{amount}}.",
+    BUY_UX_STEP_NO_CRYPTO_REMARKS:
+      "Jangan sebut kripto, USDC, atau P2P.me di catatan pembayaran.",
+    BUY_UX_STEP_OWN_ACCOUNT: "Bayar dari rekening atas nama Anda sendiri.",
+    BUY_UX_TIMER_LOAD_FAILED:
+      "Kami tidak dapat memuat timer pembayaran. Segera selesaikan pembayaran Anda.",
+    BUY_UX_VERIFY_TO_CONTINUE: "Selesaikan verifikasi",
     BUY_VOLUME: "Volume Beli",
     BVN_ALREADY_VERIFIED: "BVN sudah terverifikasi",
     BVN_ALTERNATE_PHONE_PLACEHOLDER: "Nomor telepon alternatif",
@@ -384,6 +428,21 @@ export const id = {
     CONNECT_WALLET_FIRST: "Hubungkan dompet terlebih dahulu",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Hubungkan dompet sumber Anda untuk deposit dari Solana dan 5 chain EVM.",
+    CONN_CHECKING: "Memeriksa koneksi Anda…",
+    CONN_CHECK_AGAIN: "Periksa lagi",
+    CONN_DEGRADED_DESCRIPTION:
+      "Internet Anda berfungsi, tetapi P2P.me tidak dapat menjangkau layanan di bawah ini. Biasanya ini karena jaringan atau penyedia internet Anda memblokirnya. Dana Anda aman.",
+    CONN_DEGRADED_TITLE: "Beberapa layanan P2P.me tidak dapat dijangkau",
+    CONN_FIXES_TITLE: "Coba solusi berikut",
+    CONN_OFFLINE_DESCRIPTION:
+      "Perangkat Anda tidak terhubung ke internet. Sambungkan kembali ke Wi‑Fi atau data seluler, lalu coba lagi. Dana Anda aman.",
+    CONN_OFFLINE_TITLE: "Anda sedang offline",
+    CONN_SERVICE_APP: "Server P2P.me",
+    CONN_SERVICE_BLOCKCHAIN: "Blockchain (jaringan Base & kontrak)",
+    CONN_SERVICE_ORDERS: "Riwayat pesanan & data merchant",
+    CONN_STATE_DOWN: "Tidak terjangkau",
+    CONN_STATE_OK: "Terjangkau",
+    CONTACT_SUPPORT: "Hubungi dukungan",
     CONTINUE: "Lanjutkan",
     CONTINUE_TO_VERIFICATION: "Lanjutkan ke Verifikasi",
     CONTINUE_VERIFICATION_FOR_PLATFORM:
@@ -437,6 +496,7 @@ export const id = {
     DESTINATION_WALLET_NOT_CONNECTED: "Dompet tujuan tidak terhubung",
     DETAILS_SENT: "Detail terkirim",
     DEV_TOASTS_ACTIONS: "Aksi",
+    DEV_TOASTS_ACTION_BUTTON: "Aksi",
     DEV_TOASTS_BASIC: "Varian Dasar",
     DEV_TOASTS_BTN_ERROR: "Error",
     DEV_TOASTS_BTN_INFO: "Info",
@@ -447,6 +507,7 @@ export const id = {
     DEV_TOASTS_DEFAULT_WITH_DESC: "Default + Deskripsi",
     DEV_TOASTS_ERROR_WITH_DESC: "Error + Deskripsi",
     DEV_TOASTS_FAILED: "Gagal",
+    DEV_TOASTS_FYI_OPTIONAL_SUBTITLE: "Subjudul opsional",
     DEV_TOASTS_HEADS_UP: "Perhatian",
     DEV_TOASTS_INFO_WITH_DESC: "Info + Deskripsi",
     DEV_TOASTS_INSUFFICIENT_FUNDS: "Dana tidak cukup",
@@ -581,6 +642,10 @@ export const id = {
     DOWNLOAD_CONFIRMATION_TITLE: "Unduh Transaksi",
     DROP_A_QUICK_RATING: "Yuk, beri rating!",
     DUPLICATE_PAYMENT_CHANNEL: "Saluran pembayaran duplikat",
+    DURATION_DAY: "{{count}} hari",
+    DURATION_DAYS: "{{count}} hari",
+    DURATION_HOUR: "{{count}} jam",
+    DURATION_HOURS: "{{count}} jam",
     DYNAMIC_QR_EXPIRES_QUICKLY: "QR dinamis kedaluwarsa dengan cepat",
     EARN_REFERRAL_BONUS:
       "Dapatkan {{referralRewardPercentage}}% dari volume mereka",
@@ -607,6 +672,8 @@ export const id = {
     ENTER_TIP_AMOUNT: "Masukkan jumlah tip (USDC)",
     ENTER_WALLET_NAME: "Masukkan nama dompet",
     ERROR: "Error",
+    ERROR_ALREADY_VERIFIED_DESCRIPTION:
+      "Akun ini sudah diverifikasi, baik di dompet ini maupun di dompet lain. Setiap akun hanya bisa menaikkan limit satu dompet, jadi mencoba lagi tidak akan membantu. Coba metode lain.",
     ERROR_BOUNDARY_COPIED: "Error disalin",
     ERROR_BOUNDARY_COPY: "Salin error",
     ERROR_BOUNDARY_DESCRIPTION:
@@ -615,11 +682,22 @@ export const id = {
     ERROR_BOUNDARY_TITLE: "Terjadi kesalahan",
     ERROR_FETCHING_LIMITS: "Gagal memuat batas",
     ERROR_FETCHING_PRICE: "Gagal memuat harga",
+    ERROR_GENERIC_DESCRIPTION:
+      "Terjadi kesalahan. Silakan coba lagi. Jika terus terjadi, hubungi dukungan.",
+    ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
+      "USDC Anda tidak cukup untuk ini. Tambahkan dana lalu coba lagi.",
     ERROR_LOADING_ADDRESS_BOOK: "Gagal memuat buku alamat",
     ERROR_LOADING_DATA: "Gagal memuat data",
     ERROR_LOADING_PROGRESS: "Gagal memuat progres",
     ERROR_LOADING_TASK_LEDGER: "Gagal memuat riwayat tugas",
     ERROR_LOADING_TRANSACTIONS: "Gagal memuat transaksi",
+    ERROR_NETWORK_DESCRIPTION:
+      "Masalah koneksi. Periksa internet Anda lalu coba lagi.",
+    ERROR_TIMEOUT_DESCRIPTION: "Prosesnya terlalu lama. Silakan coba lagi.",
+    ERROR_TRANSACTION_REVERTED_DESCRIPTION:
+      "Transaksi tidak berhasil dan tidak ada dana yang berpindah. Silakan coba lagi.",
+    ERROR_USER_CANCELLED_DESCRIPTION:
+      "Anda membatalkan permintaan. Tidak ada yang berubah.",
     ESTIMATED_FEE: "Estimasi Biaya",
     ESTIMATED_TIME: "Estimasi Waktu",
     ESTIMATED_TIME_RANGE: "2 - 5 menit",
@@ -1118,6 +1196,42 @@ export const id = {
     LIMIT_CARD_MAX_USDC: "Maks {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / Pesanan",
     LIMIT_UPDATES: "Pembaruan Batas",
+    LIMR_CONTINUE: "Kembali ke pesanan {{flow}}",
+    LIMR_CURRENT_LIMIT: "Limit Anda: {{limit}} USDC per pesanan",
+    LIMR_DISMISS: "Tutup",
+    LIMR_FLOW_BUY: "beli",
+    LIMR_FLOW_PAY: "bayar",
+    LIMR_FLOW_SELL: "jual",
+    LIMR_MAX_FOR_MARKET: "Maksimum untuk pasar Anda",
+    LIMR_ORDER_FITS: "Limit Anda sekarang mencukupi pesanan ini.",
+    LIMR_ORDER_STILL_ABOVE:
+      "Pesanan ini masih melebihi limit Anda. Verifikasi metode lain, atau lanjutkan dan kurangi jumlahnya.",
+    LIMR_TITLE: "Lanjutkan pesanan {{flow}} Anda",
+    LIMR_TITLE_WITH_AMOUNT:
+      "Lanjutkan pesanan {{flow}} Anda sebesar {{amount}}",
+    LIMR_UPDATING_LIMIT: "Memperbarui limit Anda…",
+    LIM_KYC_FAILED_TITLE: "Verifikasi paspor tidak berhasil",
+    LIM_LIVENESS_FAILED_TITLE: "Pemeriksaan liveness tidak berhasil",
+    LIM_METHOD_BADGE_TAKES_MINUTES: "Butuh 3-5 menit",
+    LIM_METHOD_DONE: "Selesai: sudah menaikkan limit Anda",
+    LIM_METHOD_GAIN: "Menambah +{{amount}} USDC ke limit per pesanan Anda",
+    LIM_METHOD_GAIN_GENERIC: "Menaikkan limit per pesanan Anda",
+    LIM_METHOD_GAIN_PER_ACCOUNT:
+      "Hingga +{{amount}} USDC per pesanan untuk setiap akun",
+    LIM_METHOD_GAIN_STAKE:
+      "Semakin banyak Anda stake, semakin tinggi limit Anda",
+    LIM_METHOD_UNAVAILABLE_BADGE: "Belum tersedia di wilayah Anda",
+    LIM_METHOD_ZK_DESCRIPTION:
+      "Buktikan bahwa Anda pemilik akun seperti X, LinkedIn, atau GitHub. Verifikasinya privat: kami tidak pernah melihat kata sandi atau data Anda.",
+    LIM_METHOD_ZK_TITLE: "Verifikasi akun sosial",
+    LIM_REFERRAL_BONUS_READY: "Hadiah Anda siap diklaim.",
+    LIM_REFERRAL_BONUS_VERIFY_CTA: "Verifikasi akun",
+    LIM_REFERRAL_BONUS_VERIFY_SOCIAL:
+      "Verifikasi salah satu akun sosial (seperti X atau LinkedIn) untuk mengklaim hadiah Anda.",
+    LIM_VERIFICATION_FAILED_DESCRIPTION:
+      "Kami tidak dapat menyelesaikan verifikasi. Silakan coba lagi.",
+    LIM_ZK_KYC_SUBTITLE:
+      "Verifikasi privat: kami tidak pernah melihat data Anda",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn hanya mendukung pembaruan RP",
     LIQUIDITY: "Likuiditas",
     LIVENESS_DESCRIPTION: "Pemeriksaan wajah cepat, tanpa dokumen",
@@ -1290,6 +1404,7 @@ export const id = {
     NO_ADDRESSES_SAVED: "Tidak ada {{paymentAddressName}} tersimpan",
     NO_ADDRESS_TO_COPY: "Tidak ada alamat untuk disalin",
     NO_ADDRESS_TO_DEPOSIT: "Tidak ada alamat untuk deposit",
+    NO_AMOUNT_TO_COPY: "Jumlahnya belum tersedia",
     NO_CAMPAIGN_PARAMETERS_FOUND: "Parameter kampanye tidak ditemukan",
     NO_COMPLETED_TRANSACTIONS: "Tidak ada transaksi selesai",
     NO_DISPUTE: "Tidak Ada Sengketa",
@@ -1330,7 +1445,8 @@ export const id = {
     NO_TASK_LEDGER_ENTRIES: "Belum ada riwayat tugas",
     NO_TRANSACTIONS_FOUND: "Tidak ada transaksi",
     NO_WITHDRAWABLE_AMOUNT: "Tidak ada jumlah yang dapat ditarik",
-    NULLIFIER_ALREADY_VERIFIED: "Nullifier sudah diverifikasi",
+    NULLIFIER_ALREADY_VERIFIED:
+      "Identitas ini sudah pernah digunakan untuk memverifikasi dompet.",
     OFFICIAL_RANGO_SUPPORT_CHANNELS: "Kanal Dukungan Resmi Rango",
     OFFICIAL_RANGO_SUPPORT_CHANNELS_NOTE:
       "Catatan: Jika deposit atau penarikan cross-chain Anda mengalami masalah, hubungi dukungan Rango melalui link resmi di atas.",
@@ -1339,6 +1455,25 @@ export const id = {
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "Saluran pembayaran lama tidak ditemukan",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "Saluran pembayaran lama harus tidak aktif",
+    ONB_BALANCE_LOAD_ERROR: "Kami tidak dapat memuat saldo Anda.",
+    ONB_CAMPAIGN_PARAMS_DESCRIPTION:
+      "Masuk untuk mengklaim bonus Anda. Bonus akan menunggu Anda di layar beranda.",
+    ONB_CHECK_CONNECTION_TRY_AGAIN: "Periksa koneksi Anda lalu coba lagi.",
+    ONB_FIRST_BUY_CTA: "Beli USDC pertama Anda",
+    ONB_FIRST_BUY_DESCRIPTION:
+      "USDC adalah dolar digital (1 USDC ≈ US$1). Bayar dengan {{currency}} dan terima USDC di dompet Anda.",
+    ONB_FIRST_BUY_TITLE: "Mulai dengan USDC pertama Anda",
+    ONB_INVITE_CLAIM_FAILED_TITLE: "Kami tidak dapat mengklaim undangan Anda",
+    ONB_LIMITS_LOAD_ERROR: "Kami tidak dapat memuat limit Anda.",
+    ONB_LOGIN_PAGE_TITLE:
+      "Beli dan jual dolar digital (USDC) dengan {{currency}}",
+    ONB_LOGIN_USDC_EXPLAINER:
+      "USDC adalah dolar digital: 1 USDC bernilai sekitar 1 dolar AS.",
+    ONB_NEED_HELP_LINK: "Butuh bantuan? Kunjungi Bantuan & Dukungan",
+    ONB_REFERRAL_PARAMS_DESCRIPTION:
+      "Masuk untuk menerima undangan Anda. Undangan akan menunggu Anda di layar beranda.",
+    ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
+      "Kami sedang mengonfirmasi ini di jaringan. Biasanya hanya beberapa detik, jadi biarkan aplikasi tetap terbuka.",
     ONE_TIME: "{{paymentAddressName}} Sekali Pakai",
     ONE_TIME_ADDRESS: "Alamat Sekali Pakai",
     ONE_TIME_PAYMENT_ADDRESS: "{{paymentAddressName}} Sekali Pakai",
@@ -1359,16 +1494,27 @@ export const id = {
     ORDER_AMOUNT_UPDATED_DESCRIPTION: "Diperbarui dari {{from}} menjadi {{to}}",
     ORDER_CANCELLED: "Pesanan dibatalkan",
     ORDER_DETAILS: "Detail Pesanan",
+    ORDER_ELAPSED_TIME:
+      "{{elapsed}} berlalu · biasanya kurang dari {{expected}} menit",
+    ORDER_ELAPSED_TIME_SECONDS:
+      "{{elapsed}} berlalu · biasanya kurang dari {{expected}} detik",
     ORDER_ERROR_DESCRIPTION:
       "Ups! Ada masalah dengan pesanan Anda. Silakan hubungi dukungan dengan menyertakan detail pesanan agar kami bisa membantu!",
     ORDER_EXPIRED: "Pesanan kedaluwarsa",
     ORDER_ID: "ID Pesanan",
     ORDER_ID_NOT_FOUND: "ID pesanan tidak ditemukan",
+    ORDER_LOAD_FAILED_DESCRIPTION:
+      "Dana Anda aman. Periksa koneksi Anda lalu coba lagi, atau temukan pesanan ini di transaksi Anda.",
+    ORDER_LOAD_FAILED_TITLE: "Kami tidak dapat memuat pesanan ini",
     ORDER_NOT_ASSIGNED: "Pesanan belum mendapat merchant",
     ORDER_NOT_FOUND: "Pesanan tidak ditemukan",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED:
       "Pesanan belum dibuat sehingga belum bisa diterima",
     ORDER_PREVIEW: "Pratinjau Pesanan",
+    ORDER_TAKING_LONGER_ANNOUNCEMENT:
+      "Pesanan ini memakan waktu lebih lama dari biasanya.",
+    ORDER_TAKING_LONGER_THAN_USUAL:
+      "{{elapsed}} berlalu · lebih lama dari biasanya.",
     ORDER_TYPE: "Jenis Pesanan",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Hanya pesanan berstatus dibuat yang dapat dialihkan ulang",
@@ -1543,6 +1689,97 @@ export const id = {
     PAY: "Bayar",
     PAYBILL_ACCOUNT_NUMBER: "Nomor Akun",
     PAYBILL_NUMBER: "Nomor Paybill",
+    PAYF_AMOUNT_CHANGE_CANCEL: "Jangan ubah, pindai lagi",
+    PAYF_AMOUNT_CHANGE_CONFIRM: "Bayar {{amount}}",
+    PAYF_AMOUNT_CHANGE_DESCRIPTION:
+      "Jumlah di kode QR ini berbeda dari jumlah yang Anda masukkan. Cek dengan merchant sebelum melanjutkan. Jika Anda konfirmasi, pesanan Anda akan diperbarui sesuai jumlah di QR.",
+    PAYF_AMOUNT_CHANGE_ORDER_AMOUNT: "Yang Anda masukkan",
+    PAYF_AMOUNT_CHANGE_QR_AMOUNT: "Jumlah di kode QR",
+    PAYF_AMOUNT_CHANGE_REJECTED:
+      "Jumlah tidak diubah. Minta merchant membuat QR dengan jumlah yang benar, lalu pindai lagi.",
+    PAYF_AMOUNT_CHANGE_TITLE: "Jumlah di QR berbeda",
+    PAYF_BILL_TOTAL: "Total tagihan",
+    PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX:
+      "Saya sudah memastikan alamat ini ada di jaringan {{chain}}",
+    PAYF_BRIDGE_ADDRESS_FORMAT_INVALID:
+      "Ini sepertinya bukan alamat jaringan {{chain}} yang valid. Periksa lalu coba lagi.",
+    PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING:
+      "Dana yang dikirim ke alamat yang salah atau ke alamat di jaringan selain {{chain}} tidak dapat dipulihkan.",
+    PAYF_BRIDGE_AMOUNT_TOO_LOW:
+      "Jumlah ini terlalu kecil untuk di-bridge. Coba jumlah yang lebih besar.",
+    PAYF_BRIDGE_DEPOSIT_DEADLINE:
+      "Kirim sebelum {{deadline}}. Deposit setelah waktu ini mungkin akan dikembalikan, bukan di-bridge.",
+    PAYF_BRIDGE_LOAD_ASSETS_FAILED:
+      "Kami tidak dapat memuat token yang didukung. Periksa koneksi Anda lalu coba lagi.",
+    PAYF_BRIDGE_ORIGIN_CHAIN: "pengirim",
+    PAYF_BRIDGE_QUOTE_FAILED:
+      "Kami tidak bisa mendapatkan kuotasi saat ini. Periksa jumlah dan alamat, lalu coba lagi.",
+    PAYF_BRIDGE_RECIPIENT: "Penerima",
+    PAYF_BRIDGE_RECIPIENT_ADDRESS_ON: "Alamat penerima di jaringan {{chain}}",
+    PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER:
+      "Jika bridge tidak dapat diselesaikan, token Anda akan dikirim kembali ke alamat ini. Masukkan alamat milik Anda di jaringan {{chain}}, misalnya dompet yang Anda gunakan untuk mengirim.",
+    PAYF_BRIDGE_SEND_FAILED: "Gagal mengirim USDC",
+    PAYF_BRIDGE_USDC_SENT: "USDC terkirim",
+    PAYF_BRIDGE_USDC_SENT_DESCRIPTION:
+      "Bridge sedang diproses. Anda bisa memantaunya di Riwayat Bridge di bawah.",
+    PAYF_CAMERA_PERMISSION_DENIED_HELP:
+      "Untuk memindai, izinkan akses kamera untuk situs ini: ketuk ikon gembok atau pengaturan di samping bilah alamat, atau buka Pengaturan ponsel untuk browser ini, aktifkan Kamera, lalu ketuk Coba Lagi.",
+    PAYF_CAMERA_START_TIMEOUT: "Kamera terlalu lama untuk dimulai",
+    PAYF_CAMERA_START_TIMEOUT_DESCRIPTION:
+      "Ketuk Coba Lagi. Jika terus terjadi, tutup lalu buka kembali aplikasi.",
+    PAYF_CAMERA_USE_UPLOAD_INSTEAD:
+      'Anda juga bisa mengunggah screenshot kode QR melalui "Unggah QR" di bawah.',
+    PAYF_COPY_ADDRESS: "Salin alamat",
+    PAYF_DEPOSIT_BASE_ONLY_WARNING:
+      "Hanya kirim USDC di jaringan Base. USDC yang dikirim dari jaringan lain (seperti Ethereum, Tron, atau Solana) atau token lain bisa hilang.",
+    PAYF_DEPOSIT_USDC_TO_CONTINUE: "Deposit USDC",
+    PAYF_MAINTENANCE_DESCRIPTION:
+      "Kami sedang melakukan pemeliharaan terjadwal untuk meningkatkan P2P.me. Aplikasi akan segera kembali.",
+    PAYF_MAINTENANCE_FOLLOW_UPDATES:
+      "Info terbaru diumumkan di kanal dukungan kami.",
+    PAYF_MAINTENANCE_FUNDS_SAFE: "Dana Anda aman",
+    PAYF_MAINTENANCE_ORDERS_RESUME:
+      "USDC Anda tetap ada di dompet Anda. Jika ada pesanan yang sedang berjalan, cek di Transaksi setelah kami kembali — jika ada yang tampak salah, hubungi dukungan.",
+    PAYF_MAINTENANCE_RETRY: "Coba lagi",
+    PAYF_MERCHANT_GETS: "Diterima merchant",
+    PAYF_PASTE: "Tempel",
+    PAYF_PASTE_FAILED:
+      "Tidak dapat membaca clipboard Anda. Tempel alamat secara manual.",
+    PAYF_QR_FETCH_FAILED: "Tidak dapat memuat detail pembayaran QR ini",
+    PAYF_QR_FETCH_FAILED_DESCRIPTION: "Periksa koneksi Anda lalu pindai lagi.",
+    PAYF_QR_INVALID_AMOUNT: "Jumlah di QR ini tidak valid",
+    PAYF_QR_INVALID_AMOUNT_DESCRIPTION:
+      "Minta merchant membuat QR baru dengan jumlah yang benar.",
+    PAYF_QR_NOT_SUPPORTED: "Kode QR ini tidak didukung",
+    PAYF_QR_NOT_SUPPORTED_DESCRIPTION:
+      "Minta kode QR pembayaran dari merchant, lalu pindai lagi.",
+    PAYF_QR_SUPPORTED_TYPES: "Didukung: {{types}}.",
+    PAYF_QR_UPLOAD_UNREADABLE: "Tidak dapat membaca kode QR di gambar itu",
+    PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION:
+      "Coba screenshot kode QR yang jelas dan tidak terpotong.",
+    PAYF_QR_WRONG_CURRENCY: "QR ini untuk mata uang lain",
+    PAYF_QR_WRONG_CURRENCY_DESCRIPTION:
+      "Pindai kode QR untuk pembayaran dalam {{currency}}.",
+    PAYF_STARTING_CAMERA: "Memulai kamera...",
+    PAYF_TXN_EMPTY_FILTERED_HINT:
+      "Hanya periode dan filter yang dipilih yang ditampilkan.",
+    PAYF_TXN_SHOW_ALL_TIME: "Tampilkan semua waktu",
+    PAYF_TXN_STATUS_CANCELLED_REFUNDED: "Dibatalkan — dana dikembalikan",
+    PAYF_TXN_STATUS_DISPUTE_SETTLED: "Sengketa selesai",
+    PAYF_TXN_STATUS_FINDING_MERCHANT: "Mencari merchant",
+    PAYF_TXN_STATUS_IN_DISPUTE: "Dalam sengketa",
+    PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant ditetapkan",
+    PAYF_TXN_STATUS_PAYMENT_SENT: "Pembayaran dikirim",
+    PAYF_VIEW_ON_BASESCAN: "Lihat di BaseScan",
+    PAYF_WITHDRAW_AMOUNT: "Jumlah",
+    PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
+      "Ini mengirim USDC di jaringan Base dan tidak dapat dibatalkan. Pastikan dompet atau exchange penerima mendukung USDC di Base — jika tidak, dana Anda bisa hilang.",
+    PAYF_WITHDRAW_CONFIRM_SEND: "Konfirmasi & kirim {{amount}} USDC",
+    PAYF_WITHDRAW_CONFIRM_TITLE: "Konfirmasi penarikan",
+    PAYF_WITHDRAW_FAILED_DESCRIPTION:
+      "USDC Anda tidak terkirim. Silakan coba lagi.",
+    PAYF_WITHDRAW_REVIEW: "Tinjau penarikan",
+    PAYF_WITHDRAW_SENT_TITLE: "USDC terkirim",
     PAYMENT_ADDRESS_ALREADY_SENT: "Alamat pembayaran sudah dikirim",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} disalin ke clipboard",
@@ -1958,6 +2195,8 @@ export const id = {
     REWARD_CLAIMED_DESCRIPTION:
       "Anda berhasil mengklaim {{amount}} USDC. Bagikan kabar gembira ini ke teman-teman!",
     RIF_LABEL: "Cédula/RIF",
+    RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION:
+      "Kami tidak dapat memastikan apakah ini berhasil. Cek saldo Anda atau BaseScan sebelum mencoba lagi.",
     SAFETY_NOTICE_WALLET:
       "Kami tidak akan pernah meminta OTP, kunci pribadi, atau login Anda melalui tautan eksternal. Jangan pernah bagikan kredensial Anda kepada siapa pun.",
     SAVE: "Simpan",
@@ -2045,6 +2284,36 @@ export const id = {
     SELL_QUIZ_TRY_AGAIN: "Belum tepat. Pilih jawaban terbaik untuk lanjut.",
     SELL_USDC: "Jual USDC",
     SELL_USDC_FAQS: "FAQ Jual USDC",
+    SELL_UX_ACCEPTED_TIMEOUT_NOTE:
+      "Jika merchant tidak menerima detail pembayaran Anda tepat waktu, pesanan dibatalkan dan USDC Anda dikembalikan ke dompet Anda.",
+    SELL_UX_APPROVING_USDC_STEP: "Menyetujui USDC (1/2)…",
+    SELL_UX_CLIPBOARD_EMPTY:
+      "Clipboard Anda kosong. Salin {{paymentAddressName}} Anda terlebih dahulu.",
+    SELL_UX_COMPLETED_DESCRIPTION:
+      "Cek bank atau aplikasi pembayaran Anda untuk memastikan Anda sudah menerima {{amount}}.",
+    SELL_UX_COMPLETED_TITLE: "Merchant menandai pembayaran Anda sudah dikirim",
+    SELL_UX_DEPOSIT_USDC: "Deposit USDC",
+    SELL_UX_DETAILS_MISSING_DESCRIPTION:
+      "Kami tidak menemukan detail pembayaran untuk pesanan ini di perangkat ini. Masukkan tujuan pembayaran Anda agar merchant bisa mengirim uang Anda.",
+    SELL_UX_DETAILS_MISSING_TITLE: "Masukkan detail pembayaran Anda",
+    SELL_UX_DIDNT_RECEIVE_IT: "Belum menerimanya?",
+    SELL_UX_INVALID_PAYMENT_ID:
+      "Ini sepertinya bukan {{paymentAddressName}} yang valid. Silakan periksa kembali.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "Kami tidak dapat membukanya secara otomatis. Buka dari transaksi Anda — jika diminta, masukkan detail pembayaran Anda di sana.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_TITLE: "Pesanan Anda sudah dibuat",
+    SELL_UX_PAID_TIMEOUT_NOTE:
+      "Sudah agak lama tapi uangnya belum masuk? Ketuk ikon bantuan di atas untuk mendapatkan dukungan untuk pesanan ini.",
+    SELL_UX_PLACED_DESCRIPTION:
+      "Biarkan halaman ini tetap terbuka — kami akan mengirim detail pembayaran Anda begitu merchant menerima (biasanya 20–90 detik). Jika Anda keluar, kembali ke pesanan ini untuk memasukkannya.",
+    SELL_UX_PLACED_TIMEOUT_NOTE:
+      "Jika tidak ada merchant yang menerima tepat waktu, pesanan dibatalkan dan USDC Anda dikembalikan ke dompet Anda.",
+    SELL_UX_PLACING_ORDER: "Membuat pesanan…",
+    SELL_UX_PLACING_ORDER_STEP: "Membuat pesanan (2/2)…",
+    SELL_UX_PROCESSING_TIMES_UNAVAILABLE: "Biasanya beberapa menit",
+    SELL_UX_SEND_PAYMENT_DETAILS: "Kirim detail pembayaran",
+    SELL_UX_USE_DIFFERENT_DETAILS: "Gunakan detail pembayaran lain",
+    SELL_UX_YOU_WILL_BE_PAID_TO: "Anda akan dibayar ke:",
     SEND: "Kirim",
     SENDING: "Mengirim",
     SENDING_PAYMENT_DETAILS: "Mengirim detail pembayaran",
@@ -2105,6 +2374,7 @@ export const id = {
     SOCIAL_ALREADY_VERIFIED: "Akun sosial sudah diverifikasi",
     SOCIAL_VERIFICATION: "Verifikasi sosial untuk {{name}}",
     SOLD_VIA: "Dijual via",
+    SOMETHING_WENT_WRONG: "Terjadi kesalahan",
     SOUNDS: "Suara",
     SOUNDS_ALL: "Semua Suara",
     SOUNDS_ALL_DESC: "Putar semua suara notifikasi dan interaksi",
@@ -2133,6 +2403,9 @@ export const id = {
     STAKE_CTA_TITLE: "Naikkan Batas",
     STAKE_CTA_TITLE_CARD: "Stake $P2P, Naikkan Batas",
     STAKE_EXCEEDS_MAX_TOKENS: "Stake melebihi token maksimum yang diizinkan",
+    STAKE_IN_PROGRESS_DESCRIPTION:
+      "Anda boleh meninggalkan layar ini. Kami akan memberi tahu saat selesai dan limit Anda akan diperbarui otomatis. Anda bisa stake lagi setelah proses ini selesai.",
+    STAKE_IN_PROGRESS_TITLE: "Stake Anda sedang dikonfirmasi",
     STAKE_NOT_ACTIVE: "Tidak ada stake aktif",
     STAKE_NOT_IN_COOLDOWN: "Stake tidak dalam masa cooldown",
     STAKE_SEIZED: "Stake Anda telah disita",
@@ -2154,6 +2427,43 @@ export const id = {
     SUPPORTED_NETWORKS: "Jaringan yang didukung",
     SUPPORT_SCAM_WARNING:
       "Waspadai akun dukungan palsu di Telegram. Tim kami TIDAK AKAN PERNAH mengirim DM atau menelepon Anda. Gunakan hanya tautan grup Telegram resmi kami di atas untuk bantuan.",
+    SUP_CHAT_UNAVAILABLE:
+      "Chat tidak bisa dibuka saat ini. Silakan coba lagi atau hubungi kami di Telegram.",
+    SUP_DISPUTE_ALREADY_RAISED:
+      "Sudah ada sengketa yang dibuka untuk pesanan ini.",
+    SUP_DISPUTE_AVAILABLE_IN: "Tersedia dalam {{minutes}} menit",
+    SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
+      "Beri tahu kami bahwa merchant belum melakukan pembayaran (kepada Anda untuk penjualan, atau ke QR yang Anda bayar). Tim dukungan akan menindaklanjuti lewat chat.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
+      "Sebagian besar pembayaran dikonfirmasi merchant dalam beberapa menit. Sengketa bisa diajukan {{minutes}} menit setelah Anda membuat pesanan, agar merchant punya waktu untuk mengecek rekeningnya. Siapkan nomor referensi pembayaran (UTR) Anda.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
+      "Pembayaran bisa butuh sedikit waktu untuk masuk. Jika masih belum masuk, Anda bisa mengajukan sengketa {{minutes}} menit setelah pesanan dibuat.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
+      "Pesanan ini sudah selesai, jadi tidak ada yang perlu disengketakan. Masih ada masalah? Chat dengan kami.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
+      "Sengketa hanya untuk pesanan yang sudah Anda bayar. Jika Anda sudah membayar, tandai pesanan sebagai sudah dibayar terlebih dahulu.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
+      "Pesanan ini sudah dibatalkan, jadi tidak bisa disengketakan. Jika ada yang tampak salah, chat dengan kami.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
+      "Sengketa bisa diajukan setelah merchant menandai pembayaran sudah dikirim. Jika terlalu lama, chat dengan kami.",
+    SUP_DISPUTE_PAYMENT_WINDOW_ENDED:
+      "Batas waktu pembayaran habis sebelum pesanan ditandai sudah dibayar, jadi sengketa tidak bisa diajukan. Jika Anda sudah mengirim uang, chat dengan kami dan bagikan referensi UPI (UTR) Anda — kami akan mengeceknya dengan merchant.",
+    SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
+      "Jika merchant membagikan nomor referensi pembayaran, masukkan 4 digit terakhirnya. Jika tidak ada pembayaran, kosongkan saja.",
+    SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL:
+      "Referensi pembayaran, 4 digit terakhir (opsional)",
+    SUP_DISPUTE_TXN_ID_WHERE_BUY:
+      "Cara menemukannya: buka aplikasi pembayaran Anda (mis. aplikasi UPI Anda), ketuk pembayaran ini, lalu cari UTR atau nomor referensi di detail transaksi.",
+    SUP_LOGIN_TO_CHAT_IN_APP:
+      "Masuk untuk chat dengan tim kami di aplikasi dan melihat percakapan Anda. Sebelum itu, Chat dengan kami akan membuka grup Telegram kami.",
+    SUP_ORDER_DETAILS_COPIED:
+      "Detail pesanan disalin. Tempel di pesan Anda agar kami bisa membantu lebih cepat.",
+    SUP_ORDER_DETAILS_COPIED_CHAT:
+      "Detail pesanan disalin. Tempel sebagai pesan pertama Anda agar kami bisa membantu lebih cepat.",
+    SUP_ORDER_ID_SHARED_HINT:
+      "Kami akan menyalin nomor pesanan Anda (#{{id}}) agar Anda bisa menempelkannya di chat.",
+    SUP_ORDER_SUMMARY:
+      "Pesanan #{{id}} · {{type}} · {{status}} · dibuat {{minutes}} menit lalu",
     SWAP: "Tukar",
     SWAPPED: "Ditukar",
     SWAPPER: "Swapper",
@@ -2402,6 +2712,23 @@ export const id = {
       "Verifikasi minimal satu akun sosial untuk menaikkan batas transaksi, lalu batas Anda akan terus naik seiring transaksi yang Anda selesaikan.",
     VERIFY_TO_RAISE: "Verifikasi untuk menaikkan",
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
+    VFX_ATTESTATION_EXPIRED:
+      "Hasil verifikasi Anda kedaluwarsa sebelum tersimpan. Silakan mulai lagi.",
+    VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Nomor telepon lain",
+    VFX_BVN_OTP_METHOD_EMAIL: "Email",
+    VFX_BVN_OTP_METHOD_OTHER: "Opsi lain",
+    VFX_BVN_OTP_METHOD_PHONE: "Telepon",
+    VFX_BVN_OTP_METHOD_PHONE_1: "Telepon kedua",
+    VFX_BVN_OTP_NOT_SENT:
+      "Kami tidak dapat mengirim kode. Coba opsi lain atau coba lagi sebentar lagi.",
+    VFX_CODE_RESENT: "Kami sudah mengirim kode baru",
+    VFX_FINISH_VERIFICATION: "Selesaikan verifikasi",
+    VFX_RESEND_CODE: "Kirim ulang kode",
+    VFX_SESSION_EXPIRED_DESCRIPTION:
+      "Verifikasi ini terlalu lama sehingga dihentikan. Mulai lagi untuk mendapatkan sesi baru.",
+    VFX_SESSION_EXPIRED_TITLE: "Sesi kedaluwarsa",
+    VFX_START_AGAIN: "Mulai lagi",
+    VFX_STATUS_CHECK_FAILED: "Tidak dapat memeriksa status",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "Tur Aplikasi",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
@@ -2503,6 +2830,7 @@ export const id = {
     VIEW_HOLDINGS: "Lihat aset",
     VIEW_MORE: "Lihat lebih banyak",
     VIEW_MORE_DETAILS: "Lihat detail lainnya",
+    VIEW_MY_ORDERS: "Lihat pesanan saya",
     VIEW_ON: "Lihat di",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Lihat pertanyaan yang sering diajukan tentang pesanan {{orderType}}",
@@ -2569,4 +2897,4 @@ export const id = {
     ZK_PRIVACY_BANNER_TITLE: "Privat sejak awal",
     ZK_VERIFICATION_REQUIRED: "Perlu verifikasi ZK",
   },
-};
+} as const;

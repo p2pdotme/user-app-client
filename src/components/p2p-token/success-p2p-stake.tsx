@@ -51,7 +51,7 @@ export function OrderLimitCard({
 
       <dl className="mt-2.5 flex items-stretch gap-2">
         <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
-          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
             {t("BUY")}
           </dt>
           {isTxLimitLoading ? (
@@ -80,7 +80,7 @@ export function OrderLimitCard({
           )}
         </div>
         <div className="flex-1 rounded-lg bg-background/60 px-3 py-2">
-          <dt className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <dt className="text-[10px] text-muted-foreground uppercase tracking-wider">
             {t("SELL")} / {t("PAY")}
           </dt>
           {isTxLimitLoading ? (
@@ -143,7 +143,7 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
     <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto px-4 pt-2 pb-8">
       {/* Hero — animation + status */}
       <section className="flex flex-col items-center text-center">
-        <div className="relative -mb-2 overflow-hidden">
+        <div className="-mb-2 relative overflow-hidden">
           <DotLottieReact
             className="h-40 w-80 origin-center scale-200"
             src={ASSETS.ANIMATIONS.COMPLETED}
@@ -168,7 +168,7 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
         ) : (
           <p className="mt-1 font-bold text-4xl text-foreground tabular-nums tracking-tight">
             {truncateAmount(stakedAmount)}{" "}
-            <span className="text-muted-foreground text-2xl">$P2P</span>
+            <span className="text-2xl text-muted-foreground">$P2P</span>
           </p>
         )}
       </section>
@@ -184,8 +184,7 @@ export function SuccessP2pStake({ amount }: SuccessP2pStakeProps) {
         <Link
           to={INTERNAL_HREFS.P2P_TOKEN_MY_STAKE}
           replace
-          className="font-medium text-primary underline underline-offset-2 hover:opacity-80"
-        >
+          className="font-medium text-primary underline underline-offset-2 hover:opacity-80">
           {t("MY_STAKE")}
         </Link>
         .

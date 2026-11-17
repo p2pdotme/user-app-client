@@ -32,8 +32,7 @@ const quoterAbi = [
 
 const USDC_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS_USDC as Address;
 const USDC_DECIMALS = 6;
-const QUOTER_ADDRESS =
-  "0x222cA98F00eD15B1faE10B61c277703a194cf5d2" as Address;
+const QUOTER_ADDRESS = "0x222cA98F00eD15B1faE10B61c277703a194cf5d2" as Address;
 const QUOTER_FEE = 500;
 
 interface CbBtcPriceSummary {
