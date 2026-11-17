@@ -84,7 +84,15 @@ function P2PCoin(props: React.SVGProps<SVGSVGElement>) {
         stroke={INK}
         strokeWidth="1.5"
       />
-      <circle cx="12" cy="12" r="7" fill="none" stroke={INK} strokeWidth="1" opacity="0.35" />
+      <circle
+        cx="12"
+        cy="12"
+        r="7"
+        fill="none"
+        stroke={INK}
+        strokeWidth="1"
+        opacity="0.35"
+      />
       <path
         d="M9.4 15.6V8.4h3.1c1.55 0 2.55.95 2.55 2.4s-1 2.4-2.55 2.4h-1.35v2.4H9.4Zm1.75-3.85h1.1c.6 0 .95-.35.95-.95s-.35-.95-.95-.95h-1.1v1.9Z"
         fill={INK}
