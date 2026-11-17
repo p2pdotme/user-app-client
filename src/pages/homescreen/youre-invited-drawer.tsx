@@ -1,4 +1,4 @@
-import { Loader2, MailCheck, QrCode, Zap } from "lucide-react";
+import { AlertCircle, Loader2, MailCheck, QrCode, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -10,16 +10,23 @@ import {
   DrawerFooter,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { useThirdweb } from "@/hooks";
+import { useAnalytics, useThirdweb } from "@/hooks";
 import {
   useClaimRecommendation,
   useRecommendationUrlParams,
 } from "@/hooks/use-referral-link";
+import { getUserFacingErrorReasonKey } from "@/hooks/use-thirdweb";
+import { EVENTS } from "@/lib/analytics";
+import { parseContractError } from "@/lib/errors";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { truncateAddress } from "@/lib/utils";
 import { AccessGrantedDrawer } from "./access-granted-drawer";
 import { RequestInProgressDrawer } from "./request-in-progress-drawer";
 
-type ClaimStatus = "idle" | "success" | "loading";
+type ClaimStatus = "idle" | "success" | "loading" | "error";
 
 interface YoureInvitedDrawerProps {
   open: boolean;
@@ -36,12 +43,15 @@ export function YoureInvitedDrawer({
 }: YoureInvitedDrawerProps) {
   const { t } = useTranslation();
   const { account, connect } = useThirdweb();
+  const { track } = useAnalytics();
   const [claimStatus, setClaimStatus] = useState<ClaimStatus>("idle");
+  // Friendly, already-translated reason for the last failed claim.
+  const [claimError, setClaimError] = useState<string | null>(null);
 
   const { senderAddr, checkRecommendationParams, clearUrlParams } =
     useRecommendationUrlParams();
 
-  const { mutateAsync: claimRecommendationMutate, isPending: isClaiming } =
+  const { mutate: claimRecommendationMutate, isPending: isClaiming } =
     useClaimRecommendation();
 
   // Check for recommendation URL parameters when drawer opens
@@ -50,9 +60,17 @@ export function YoureInvitedDrawer({
       const { hasParams } = checkRecommendationParams();
       if (hasParams) {
         setClaimStatus("idle");
+        setClaimError(null);
       }
     }
   }, [open, checkRecommendationParams]);
+
+  // Invitee funnel: drawer shown (once per open).
+  useEffect(() => {
+    if (open) {
+      track(EVENTS.REFERRAL, { status: "invite_drawer_shown" });
+    }
+  }, [open, track]);
 
   const handleClaimRecommendation = async () => {
     if (!account?.address) {
@@ -68,6 +86,8 @@ export function YoureInvitedDrawer({
     }
 
     setClaimStatus("loading");
+    setClaimError(null);
+    track(EVENTS.REFERRAL, { status: "invite_claim_started" });
 
     claimRecommendationMutate(
       {
@@ -78,12 +98,30 @@ export function YoureInvitedDrawer({
       },
       {
         onSuccess: () => {
+          track(EVENTS.REFERRAL, { status: "invite_claim_success" });
           setClaimStatus("success");
           clearUrlParams();
           onClaim();
         },
-        onError: () => {
-          handleClose();
+        onError: (error) => {
+          // Keep the drawer (and the invite params) so the user can retry
+          // instead of silently losing the invite.
+          if (isUserCancellation(error)) {
+            track(EVENTS.REFERRAL, { status: "invite_claim_cancelled" });
+            setClaimStatus("idle");
+            return;
+          }
+          const contractErrorKey = parseContractError(error);
+          track(EVENTS.REFERRAL, {
+            status: "invite_claim_failed",
+            reason: contractErrorKey ?? getUserFacingErrorReasonKey(error),
+          });
+          setClaimError(
+            contractErrorKey
+              ? t(contractErrorKey)
+              : getUserFacingErrorMessage(t, error),
+          );
+          setClaimStatus("error");
         },
       },
     );
@@ -97,6 +135,7 @@ export function YoureInvitedDrawer({
 
   const handleClose = () => {
     setClaimStatus("idle");
+    setClaimError(null);
     clearUrlParams();
     onClose();
   };
@@ -151,23 +190,38 @@ export function YoureInvitedDrawer({
                 {t("SPEND_USDC_ANYWHERE_SCAN_QR")}
               </div>
             </div>
+            {claimStatus === "error" && (
+              <div
+                role="alert"
+                className="flex w-full items-start gap-2 rounded-lg border border-destructive/20 bg-destructive/10 p-3 text-left">
+                <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+                <div className="flex flex-col gap-0.5">
+                  <p className="font-medium text-destructive text-sm">
+                    {t("ONB_INVITE_CLAIM_FAILED_TITLE")}
+                  </p>
+                  {claimError && (
+                    <p className="text-destructive text-xs">{claimError}</p>
+                  )}
+                </div>
+              </div>
+            )}
             <DrawerFooter className="w-full flex-shrink-0 px-0">
               <div className="w-full space-y-3">
                 {account?.address ? (
                   <Button
                     size="lg"
-                    className="w-full bg-primary text-white hover:bg-primary/90"
+                    className="w-full"
                     onClick={handleClaimRecommendation}
                     disabled={isClaiming || isLoading}>
                     {(isClaiming || isLoading) && (
                       <Loader2 className="mr-2 size-4 animate-spin" />
                     )}
-                    {t("CLAIM_ACCESS")}
+                    {claimStatus === "error" ? t("RETRY") : t("CLAIM_ACCESS")}
                   </Button>
                 ) : (
                   <Button
                     size="lg"
-                    className="w-full bg-primary text-white hover:bg-primary/90"
+                    className="w-full"
                     onClick={handleLoginAndClaim}>
                     {t("LOGIN_TO_CLAIM_YOUR_REWARDS")}
                   </Button>

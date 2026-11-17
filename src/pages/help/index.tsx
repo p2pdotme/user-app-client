@@ -11,13 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
-import {
-  NonHomeHeader,
-  SectionHeader,
-  SupportWidget,
-  useYouTubeVideoDialog,
-  YouTubeVideoDialog,
-} from "@/components";
+import { NonHomeHeader, SupportWidget } from "@/components";
 import { SocialLinks } from "@/components/social-links";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -34,9 +28,6 @@ import { FAQSearchSection } from "./components/faq-search-section";
 import { RecoveryCard } from "./components/recovery-card";
 import { SettingsItem } from "./components/settings-item";
 import { TaxReportCard } from "./components/tax-report-card";
-import { VideoGuideBanner } from "./components/video-guide-banner";
-import { VideoGuideCard } from "./components/video-guide-card";
-import { ALL_VIDEO_GUIDES } from "./constants";
 
 export function Help() {
   const { t } = useTranslation();
@@ -50,8 +41,6 @@ export function Help() {
     settings: { currency },
   } = useSettings();
   const { account } = useThirdweb();
-  const { isOpen, videoUrl, title, isPortrait, openVideo, closeVideo } =
-    useYouTubeVideoDialog();
 
   // "Chat with us" opens the support widget on its human thread, not Telegram.
   // A Telegram group is a room ops may or may not be watching; the widget's
@@ -63,13 +52,30 @@ export function Help() {
   // back to the Telegram group, synchronously, so the popup stays inside the
   // click gesture. A failed widget load says so rather than doing nothing.
   const handleChatWithUs = () => {
-    track(EVENTS.HELP, { status: "chat_with_us_clicked" });
-    if (!canOpenSupportHumanChat()) {
+    const canChatInApp = canOpenSupportHumanChat();
+    track(EVENTS.HELP, {
+      status: "chat_with_us_clicked",
+      channel: canChatInApp ? "in_app" : "telegram_fallback",
+      loggedIn: !!account?.address,
+    });
+    if (!canChatInApp) {
       handleTelegramSupport();
       return;
     }
-    openSupportHumanChat(currency.currency || "global", account?.address).catch(
-      () => toast.error(t("SOMETHING_WENT_WRONG")),
+    openSupportHumanChat(currency.currency || "global", account?.address)
+      .then((opened) => {
+        if (!opened) toast.error(t("SUP_CHAT_UNAVAILABLE"));
+      })
+      .catch(() => toast.error(t("SUP_CHAT_UNAVAILABLE")));
+  };
+
+  const handleAskAi = () => {
+    track(EVENTS.HELP, {
+      status: "ai_assistant_clicked",
+      loggedIn: !!account?.address,
+    });
+    openAiSupportChat(currency.currency || "global", account?.address).catch(
+      () => toast.error(t("SUP_CHAT_UNAVAILABLE")),
     );
   };
 
@@ -134,17 +140,7 @@ export function Help() {
       <SupportWidget />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
-        <YouTubeVideoDialog
-          isOpen={isOpen}
-          onClose={closeVideo}
-          videoUrl={videoUrl}
-          title={title}
-          isPortrait={isPortrait}
-        />
-        <section className="flex w-full flex-col items-center justify-center gap-4 py-8">
-          <div className="my-4 w-full">
-            <VideoGuideBanner onVideoOpen={openVideo} />
-          </div>
+        <section className="flex w-full flex-col items-center justify-center gap-4 pt-8">
           {/* flex-wrap, not a fixed row: "Chat with us" + "Chat on Telegram"
               side by side overflow a narrow phone next to the label, so the
               button pair drops to its own full-width line instead of squashing
@@ -178,11 +174,17 @@ export function Help() {
               <p className="text-foreground">{t("SUPPORT_SCAM_WARNING")}</p>
             </AlertDescription>
           </Alert>
+          {/* Signed out, "Chat with us" can only fall back to Telegram (the
+              in-app thread is tied to a wallet). Say so instead of letting the
+              button silently open another app. */}
+          {!account?.address && (
+            <p className="w-full text-muted-foreground text-xs">
+              {t("SUP_LOGIN_TO_CHAT_IN_APP")}
+            </p>
+          )}
           <button
             type="button"
-            onClick={() =>
-              openAiSupportChat(currency.currency || "global", account?.address)
-            }
+            onClick={handleAskAi}
             className="flex w-full items-center justify-between gap-4 rounded-lg bg-primary/10 px-4 py-3 transition-colors hover:bg-primary/15">
             <div className="flex items-center gap-2">
               <Bot className="size-4 text-primary" />
@@ -192,14 +194,18 @@ export function Help() {
             </div>
             <ArrowRight className="size-3 text-primary" />
           </button>
-          <RecoveryCard
-            onClick={() => {
-              track(EVENTS.HELP, { status: "opened", section: "recovery" });
-              navigate(INTERNAL_HREFS.RECOVERY);
-            }}
-          />
+          {/* Recovery and the tax report both need a connected wallet; signed
+              out, tapping them would only bounce to login. */}
+          {account?.address && (
+            <RecoveryCard
+              onClick={() => {
+                track(EVENTS.HELP, { status: "opened", section: "recovery" });
+                navigate(INTERNAL_HREFS.RECOVERY);
+              }}
+            />
+          )}
           {/* The tax report follows Indian tax law, so only INR users see it */}
-          {currency.currency === CURRENCY.INR && (
+          {account?.address && currency.currency === CURRENCY.INR && (
             <TaxReportCard
               onClick={() => {
                 track(EVENTS.HELP, { status: "opened", section: "tax-report" });
@@ -207,23 +213,6 @@ export function Help() {
               }}
             />
           )}
-        </section>
-
-        <section className="flex w-full flex-col justify-between gap-4">
-          <SectionHeader
-            title={t("HELPFUL_VIDEO_GUIDES")}
-            seeAllLink={INTERNAL_HREFS.HELP_HELPFUL_VIDEO_GUIDES}
-          />
-          <div className="no-scrollbar flex w-full gap-4 overflow-x-auto pb-4">
-            {ALL_VIDEO_GUIDES.map((guide) => (
-              <VideoGuideCard
-                key={guide.id}
-                {...guide}
-                className="min-w-[160px]"
-                onVideoOpen={openVideo}
-              />
-            ))}
-          </div>
         </section>
 
         <FAQSearchSection />

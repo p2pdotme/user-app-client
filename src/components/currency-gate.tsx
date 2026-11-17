@@ -1,6 +1,7 @@
 // no React import needed for jsx runtime
 
 import { Check } from "lucide-react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +13,8 @@ import {
 } from "@/components/ui/drawer";
 import { useSettings } from "@/contexts/settings";
 import type { Currency } from "@/core/client/settings";
-import { useThirdweb } from "@/hooks";
+import { useAnalytics, useThirdweb } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { COUNTRY_OPTIONS, getCurrencyLabel } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -23,21 +25,40 @@ import { cn } from "@/lib/utils";
  * when no prior selection exists. It opens a modal drawer automatically and
  * cannot be dismissed until a currency is chosen.
  */
+/**
+ * Whether the (non-dismissable) CurrencyGate is currently showing. Other
+ * first-run overlays (invite / campaign / gift drawers) wait for this to be
+ * false so they never stack on top of the gate.
+ */
+export function useIsCurrencyGateOpen(): boolean {
+  const { settings } = useSettings();
+  const { connectionStatus, account } = useThirdweb();
+  const isConnected = !!account?.address && connectionStatus === "connected";
+  return isConnected && !settings.isCurrencyConfirmed;
+}
+
 export function CurrencyGate() {
   const { t } = useTranslation();
   const { settings, setCurrency, isLoading } = useSettings();
-  const { connectionStatus, account } = useThirdweb();
-
-  const isConfirmed = settings.isCurrencyConfirmed;
-  const isConnected = !!account?.address && connectionStatus === "connected";
+  const { track } = useAnalytics();
 
   const handleSelect = async (currency: Currency) => {
+    track(EVENTS.SETTINGS, {
+      status: "currency_gate_selected",
+      currency: currency.currency,
+    });
     await setCurrency(currency);
     // setCurrency will also mark isCurrencyConfirmed = true via SettingsProvider
   };
 
   // Keep the drawer open until user confirms
-  const open = isConnected && !isConfirmed;
+  const open = useIsCurrencyGateOpen();
+
+  useEffect(() => {
+    if (open) {
+      track(EVENTS.SETTINGS, { status: "currency_gate_shown" });
+    }
+  }, [open, track]);
 
   return (
     <Drawer open={open} onOpenChange={() => {}}>
