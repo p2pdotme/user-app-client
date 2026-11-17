@@ -203,15 +203,15 @@ export const es = {
     BUY_USDC: "Comprar USDC",
     BUY_USDC_FAQS: "Preguntas frecuentes sobre comprar USDC",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Abre una disputa desde Ayuda — se habilita {{minutes}} min después de realizar el pedido.",
-    BUY_UX_ALREADY_PAID_GET_HELP: "Ya pagué — obtener ayuda",
+      "Abre una disputa desde Ayuda. Se habilita {{minutes}} min después de realizar el pedido.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "¿Ya pagaste? Obtén ayuda",
     BUY_UX_ALREADY_PAID_TITLE: "¿Ya pagaste?",
     BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
       "No se pudo cargar el monto — toca para reintentar",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "El plazo de pago venció antes de que se confirmara el pago.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
-      "No canceles si ya enviaste dinero — mejor pide ayuda.",
+      "¿Ya enviaste el dinero? No canceles. Mejor pide ayuda.",
     BUY_UX_DECRYPT_FAILED_DESCRIPTION:
       "Todavía no envíes dinero. Inténtalo de nuevo o contacta a soporte si esto sigue pasando.",
     BUY_UX_DECRYPT_FAILED_TITLE: "No pudimos cargar los datos de pago",
@@ -232,7 +232,7 @@ export const es = {
     BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "El plazo de pago terminó",
     BUY_UX_PAY_IN_UPI_APP: "Paga {{amount}} en tu app de UPI",
     BUY_UX_PLACED_CAN_LEAVE:
-      "Esto suele tardar entre 20 y 90 segundos. Puedes salir de esta página — guardaremos tu pedido en Transacciones.",
+      "Esto suele tardar entre 20 y 90 segundos. Puedes salir de esta página. Guardaremos tu pedido en Transacciones.",
     BUY_UX_PLACED_TIMEOUT_INFO:
       "Si ningún comerciante lo acepta en 3 minutos, el pedido se cancela automáticamente. Todavía no has pagado nada.",
     BUY_UX_PLACE_ORDER: "Realizar pedido",
@@ -2351,7 +2351,6 @@ export const es = {
       "Tu portapapeles está vacío. Primero copia tu {{paymentAddressName}}.",
     SELL_UX_COMPLETED_DESCRIPTION:
       "Revisa tu banco o app de pagos para confirmar que recibiste {{amount}}.",
-    SELL_UX_COMPLETED_TITLE: "El comerciante marcó tu pago como enviado",
     SELL_UX_DEPOSIT_USDC: "Depositar USDC",
     SELL_UX_DETAILS_MISSING_DESCRIPTION:
       "No encontramos los datos de pago de este pedido en este dispositivo. Indica dónde quieres recibir el pago para que el comerciante pueda enviarte tu dinero.",
@@ -2365,7 +2364,7 @@ export const es = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "¿Pasó un rato y no recibiste el dinero? Toca el ícono de ayuda arriba para obtener soporte con este pedido.",
     SELL_UX_PLACED_DESCRIPTION:
-      "Mantén esta página abierta — enviaremos tus datos de pago en cuanto un comerciante acepte (normalmente entre 20 y 90 segundos). Si sales, vuelve a este pedido para ingresarlos.",
+      "Mantén esta página abierta. Enviaremos tus datos de pago en cuanto un comerciante acepte (normalmente entre 20 y 90 segundos). Si sales, vuelve a este pedido para ingresarlos.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "Si ningún comerciante acepta a tiempo, el pedido se cancela y tus USDC vuelven a tu wallet.",
     SELL_UX_PLACING_ORDER: "Realizando pedido…",

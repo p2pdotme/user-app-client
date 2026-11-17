@@ -199,15 +199,15 @@ export const id = {
     BUY_USDC: "Beli USDC",
     BUY_USDC_FAQS: "FAQ Beli USDC",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Ajukan sengketa dari menu Bantuan — fitur ini terbuka {{minutes}} menit setelah Anda membuat pesanan.",
-    BUY_UX_ALREADY_PAID_GET_HELP: "Saya sudah bayar — minta bantuan",
+      "Ajukan sengketa dari menu Bantuan. Fitur ini terbuka {{minutes}} menit setelah Anda membuat pesanan.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "Sudah bayar? Minta bantuan",
     BUY_UX_ALREADY_PAID_TITLE: "Sudah bayar?",
     BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
       "Gagal memuat jumlah — ketuk untuk mencoba lagi",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "Batas waktu pembayaran habis sebelum pembayaran dikonfirmasi.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
-      "Jangan batalkan jika Anda sudah mengirim uang — minta bantuan saja.",
+      "Sudah mengirim uang? Jangan batalkan. Minta bantuan saja.",
     BUY_UX_DECRYPT_FAILED_DESCRIPTION:
       "Jangan kirim uang dulu. Coba lagi, atau hubungi dukungan jika ini terus terjadi.",
     BUY_UX_DECRYPT_FAILED_TITLE: "Kami tidak dapat memuat detail pembayaran",
@@ -227,7 +227,7 @@ export const id = {
     BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "Batas waktu pembayaran sudah habis",
     BUY_UX_PAY_IN_UPI_APP: "Bayar {{amount}} di aplikasi UPI Anda",
     BUY_UX_PLACED_CAN_LEAVE:
-      "Biasanya butuh 20–90 detik. Anda boleh meninggalkan halaman ini — pesanan Anda tetap tersimpan di Transaksi.",
+      "Biasanya butuh 20–90 detik. Anda boleh meninggalkan halaman ini. Pesanan Anda tetap tersimpan di Transaksi.",
     BUY_UX_PLACED_TIMEOUT_INFO:
       "Jika tidak ada merchant yang menerima dalam 3 menit, pesanan dibatalkan otomatis. Anda belum membayar apa pun.",
     BUY_UX_PLACE_ORDER: "Buat pesanan",
@@ -2289,7 +2289,6 @@ export const id = {
       "Clipboard Anda kosong. Salin {{paymentAddressName}} Anda terlebih dahulu.",
     SELL_UX_COMPLETED_DESCRIPTION:
       "Cek bank atau aplikasi pembayaran Anda untuk memastikan Anda sudah menerima {{amount}}.",
-    SELL_UX_COMPLETED_TITLE: "Merchant menandai pembayaran Anda sudah dikirim",
     SELL_UX_DEPOSIT_USDC: "Deposit USDC",
     SELL_UX_DETAILS_MISSING_DESCRIPTION:
       "Kami tidak menemukan detail pembayaran untuk pesanan ini di perangkat ini. Masukkan tujuan pembayaran Anda agar merchant bisa mengirim uang Anda.",
@@ -2303,7 +2302,7 @@ export const id = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "Sudah agak lama tapi uangnya belum masuk? Ketuk ikon bantuan di atas untuk mendapatkan dukungan untuk pesanan ini.",
     SELL_UX_PLACED_DESCRIPTION:
-      "Biarkan halaman ini tetap terbuka — kami akan mengirim detail pembayaran Anda begitu merchant menerima (biasanya 20–90 detik). Jika Anda keluar, kembali ke pesanan ini untuk memasukkannya.",
+      "Biarkan halaman ini tetap terbuka. Kami akan mengirim detail pembayaran Anda begitu merchant menerima (biasanya 20–90 detik). Jika Anda keluar, kembali ke pesanan ini untuk memasukkannya.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "Jika tidak ada merchant yang menerima tepat waktu, pesanan dibatalkan dan USDC Anda dikembalikan ke dompet Anda.",
     SELL_UX_PLACING_ORDER: "Membuat pesanan…",
