@@ -216,7 +216,15 @@ export function AuthGuard({ children }: AuthGuardProps) {
     !isPublicRoute(location.pathname) &&
     !(isAutoConnectLoading && !connectTimedOut);
   if (redirectToLoginPending) {
-    return null;
+    // A solid page, not `null`: the router keeps showing this while the login
+    // page's code loads, and with nothing rendered the App wrapper's purple
+    // backdrop gradient flashed full-screen on every logout.
+    return (
+      <div
+        aria-hidden="true"
+        className="flex h-dvh w-full bg-background text-foreground"
+      />
+    );
   }
 
   return <>{children}</>;
