@@ -53,8 +53,7 @@ function ChainIcon({
   if (!url || failed) {
     return (
       <span
-        className={`${className} flex shrink-0 items-center justify-center rounded-full bg-muted font-semibold text-[10px] uppercase`}
-      >
+        className={`${className} flex shrink-0 items-center justify-center rounded-full bg-muted font-semibold text-[10px] uppercase`}>
         {chain.slice(0, 2)}
       </span>
     );
@@ -96,8 +95,7 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
       <DrawerTrigger asChild>
         <button
           type="button"
-          className="flex h-14 w-full items-center gap-2 rounded-xl bg-primary/10 px-3 text-left"
-        >
+          className="flex h-14 w-full items-center gap-2 rounded-xl bg-primary/10 px-3 text-left">
           {selected ? (
             <>
               <ChainIcon chain={selected} />
@@ -106,7 +104,9 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
               </span>
             </>
           ) : (
-            <span className="font-medium text-sm">{t("BRIDGE_SELECT_CHAIN")}</span>
+            <span className="font-medium text-sm">
+              {t("BRIDGE_SELECT_CHAIN")}
+            </span>
           )}
           <ChevronDownIcon className="ml-auto size-4 text-muted-foreground" />
         </button>
@@ -132,8 +132,7 @@ function ChainSelector({ chains, selected, onSelect }: ChainSelectorProps) {
                 onSelect(chain);
                 setSearch("");
                 setOpen(false);
-              }}
-            >
+              }}>
               <ChainIcon chain={chain} className="size-8" />
               <span className="font-semibold text-sm">
                 {getChainName(chain)}
@@ -256,8 +255,7 @@ function TokenSelector({
         <button
           type="button"
           disabled={disabled}
-          className="flex h-14 items-center gap-2 rounded-xl bg-primary/10 px-3 text-left disabled:opacity-50"
-        >
+          className="flex h-14 items-center gap-2 rounded-xl bg-primary/10 px-3 text-left disabled:opacity-50">
           {selected ? (
             <>
               <TokenIcon
@@ -274,7 +272,9 @@ function TokenSelector({
               </span>
             </>
           ) : (
-            <span className="font-medium text-sm">{t("BRIDGE_SELECT_TOKEN")}</span>
+            <span className="font-medium text-sm">
+              {t("BRIDGE_SELECT_TOKEN")}
+            </span>
           )}
           <ChevronDownIcon className="size-4 text-muted-foreground" />
         </button>
@@ -300,8 +300,7 @@ function TokenSelector({
                 onSelect(token);
                 setSearch("");
                 setOpen(false);
-              }}
-            >
+              }}>
               <TokenIcon
                 symbol={token.symbol}
                 iconUrl={getTokenIconUrl(token)}
@@ -610,8 +609,7 @@ export function SwapForm({
           <span className="font-medium">{t("FROM")}</span>
           {isWithdraw && usdcBalance !== undefined && (
             <span
-              className={`text-sm ${insufficientFunds ? "text-destructive" : "text-muted-foreground"}`}
-            >
+              className={`text-sm ${insufficientFunds ? "text-destructive" : "text-muted-foreground"}`}>
               {t("BRIDGE_SPENDABLE", { balance: usdcBalance.toFixed(4) })}
             </span>
           )}
@@ -662,8 +660,7 @@ export function SwapForm({
           <button
             type="button"
             className="flex items-center gap-1.5 rounded-xl bg-muted px-3 py-1.5 text-sm transition-colors hover:bg-muted/80"
-            onClick={() => setSlippageOpen(true)}
-          >
+            onClick={() => setSlippageOpen(true)}>
             {slippageBps / 100}%
             <SettingsIcon className="size-3.5 text-muted-foreground" />
           </button>
@@ -697,8 +694,7 @@ export function SwapForm({
           !!dryQuote.error ||
           swap.isPending
         }
-        onClick={() => setReviewOpen(true)}
-      >
+        onClick={() => setReviewOpen(true)}>
         {swap.isPending
           ? isWithdraw
             ? t("BRIDGE_WITHDRAWING")

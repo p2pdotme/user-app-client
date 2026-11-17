@@ -69,7 +69,9 @@ export function PerpsBanner() {
         {/* radial gold glow (right) */}
         <div
           className="-right-12 -translate-y-1/2 absolute top-1/2 size-44 rounded-full bg-amber-400/25 blur-3xl"
-          style={{ animation: "perps-glow-pulse 3.4s ease-in-out infinite 1.2s" }}
+          style={{
+            animation: "perps-glow-pulse 3.4s ease-in-out infinite 1.2s",
+          }}
         />
 
         {/* faint grid */}
@@ -122,7 +124,9 @@ export function PerpsBanner() {
             </span>
             <span
               className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-[2px] font-medium text-[10px] text-rose-200 ring-1 ring-rose-400/40"
-              style={{ animation: "perps-chip-pop 2.4s ease-in-out infinite 0.5s" }}>
+              style={{
+                animation: "perps-chip-pop 2.4s ease-in-out infinite 0.5s",
+              }}>
               <span aria-hidden="true">📉</span>
               {t("PERPS_BANNER_BEAR")}
             </span>

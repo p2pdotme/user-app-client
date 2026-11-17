@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { toast } from "sonner";
+import { z } from "zod";
 import { i18n } from "@/lib/i18n";
 import { isTimeoutError } from "./errors";
 
@@ -218,4 +218,3 @@ export async function fetchUnrecordedDeposits(
     amountRaw: t.amountRaw,
   }));
 }
-

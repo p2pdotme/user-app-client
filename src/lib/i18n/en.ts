@@ -196,6 +196,49 @@ export const en = {
     BUY_SELL_USDC_WITHIN_SECONDS: "Buy/sell USDC within seconds",
     BUY_USDC: "Buy USDC",
     BUY_USDC_FAQS: "Buy USDC FAQs",
+    BUY_UX_ALREADY_PAID_DESCRIPTION:
+      "Raise a dispute from Help — it opens {{minutes}} min after you placed the order.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "I already paid — get help",
+    BUY_UX_ALREADY_PAID_TITLE: "Already paid?",
+    BUY_UX_AMOUNT_LOAD_FAILED_RETRY: "Couldn't load amount — tap to retry",
+    BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
+      "The payment window expired before the payment was confirmed.",
+    BUY_UX_CANCEL_ALREADY_PAID_WARNING:
+      "Don't cancel if you've already sent money — get help instead.",
+    BUY_UX_DECRYPT_FAILED_DESCRIPTION:
+      "Don't send any money yet. Try again, or contact support if this keeps happening.",
+    BUY_UX_DECRYPT_FAILED_TITLE: "We couldn't load the payment details",
+    BUY_UX_EXCHANGE_RATE: "1 USDC ≈ {{rate}}",
+    BUY_UX_FRAUD_REJECTED_NEXT_STEP:
+      "Completing more verifications can lift this restriction. If you think this is a mistake, contact Help.",
+    BUY_UX_FRAUD_REJECTED_TITLE: "We can't place this order right now",
+    BUY_UX_GET_HELP: "Get help",
+    BUY_UX_HOW_TO_PAY: "How to pay",
+    BUY_UX_MIN_AMOUNT_REASON:
+      "Enter more than {{min}} USDC. Smaller orders don't cover the fixed fee.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "We couldn't open it automatically. You'll find it in Transactions, so please don't place it again.",
+    BUY_UX_ORDER_PLACED_ID_MISSING_TITLE: "Your order was placed",
+    BUY_UX_PAYMENT_WINDOW_ENDED_DESCRIPTION:
+      "Don't send money for this order now. If you already paid, get help and we'll sort it out.",
+    BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "The payment window has ended",
+    BUY_UX_PAY_IN_UPI_APP: "Pay {{amount}} in your UPI app",
+    BUY_UX_PLACED_CAN_LEAVE:
+      "This usually takes 20–90 seconds. You can leave this page — we'll keep your order in Transactions.",
+    BUY_UX_PLACED_TIMEOUT_INFO:
+      "If no merchant accepts within 3 minutes, the order is cancelled automatically. You haven't paid anything yet.",
+    BUY_UX_PLACE_ORDER: "Place order",
+    BUY_UX_PLACE_ORDER_FAILED_DESCRIPTION:
+      "Your order wasn't placed and you haven't been charged. Please try again.",
+    BUY_UX_PROCESSING_TIME_UNAVAILABLE: "Unavailable right now",
+    BUY_UX_STEP_CONFIRM: 'Then tap "I have made the payment".',
+    BUY_UX_STEP_EXACT_AMOUNT: "Pay the exact amount: {{amount}}.",
+    BUY_UX_STEP_NO_CRYPTO_REMARKS:
+      "Don't mention crypto, USDC or P2P.me in the payment remarks.",
+    BUY_UX_STEP_OWN_ACCOUNT: "Pay from an account in your own name.",
+    BUY_UX_TIMER_LOAD_FAILED:
+      "We couldn't load the payment timer. Please complete your payment soon.",
+    BUY_UX_VERIFY_TO_CONTINUE: "Complete verification",
     BUY_VOLUME: "Buy Volume",
     BVN_ALREADY_VERIFIED: "BVN already verified",
     BVN_ALTERNATE_PHONE_PLACEHOLDER: "Alternate phone number",
@@ -379,6 +422,21 @@ export const en = {
     CONNECT_WALLET_FIRST: "Connect a wallet first",
     CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
       "Connect your source wallet to deposit from Solana and 5 EVM chains.",
+    CONN_CHECKING: "Checking your connection…",
+    CONN_CHECK_AGAIN: "Check again",
+    CONN_DEGRADED_DESCRIPTION:
+      "Your internet works, but P2P.me can't reach the services below. This is often caused by your network or internet provider blocking them. Your funds are safe.",
+    CONN_DEGRADED_TITLE: "Some P2P.me services can't be reached",
+    CONN_FIXES_TITLE: "Try these fixes",
+    CONN_OFFLINE_DESCRIPTION:
+      "Your device isn't connected to the internet. Reconnect to Wi‑Fi or mobile data and try again. Your funds are safe.",
+    CONN_OFFLINE_TITLE: "You're offline",
+    CONN_SERVICE_APP: "P2P.me servers",
+    CONN_SERVICE_BLOCKCHAIN: "Blockchain (Base network & contracts)",
+    CONN_SERVICE_ORDERS: "Order history & merchant data",
+    CONN_STATE_DOWN: "Not reachable",
+    CONN_STATE_OK: "Reachable",
+    CONTACT_SUPPORT: "Contact support",
     CONTINUE: "Continue",
     CONTINUE_TO_VERIFICATION: "Continue to Verification",
     CONTINUE_VERIFICATION_FOR_PLATFORM:
@@ -432,6 +490,7 @@ export const en = {
     DESTINATION_WALLET_NOT_CONNECTED: "Destination wallet not connected",
     DETAILS_SENT: "Details sent",
     DEV_TOASTS_ACTIONS: "Actions",
+    DEV_TOASTS_ACTION_BUTTON: "Action",
     DEV_TOASTS_BASIC: "Basic Variants",
     DEV_TOASTS_BTN_ERROR: "Error",
     DEV_TOASTS_BTN_INFO: "Info",
@@ -442,6 +501,7 @@ export const en = {
     DEV_TOASTS_DEFAULT_WITH_DESC: "Default + Desc",
     DEV_TOASTS_ERROR_WITH_DESC: "Error + Desc",
     DEV_TOASTS_FAILED: "Failed",
+    DEV_TOASTS_FYI_OPTIONAL_SUBTITLE: "Optional subtitle",
     DEV_TOASTS_HEADS_UP: "Heads up",
     DEV_TOASTS_INFO_WITH_DESC: "Info + Desc",
     DEV_TOASTS_INSUFFICIENT_FUNDS: "Insufficient funds",
@@ -602,6 +662,8 @@ export const en = {
     ENTER_TIP_AMOUNT: "Enter tip amount (USDC)",
     ENTER_WALLET_NAME: "Enter wallet name",
     ERROR: "Error",
+    ERROR_ALREADY_VERIFIED_DESCRIPTION:
+      "This account is already verified, either on this wallet or on another one. Each account can only raise the limit of one wallet, so trying again won't help. Try a different method.",
     ERROR_BOUNDARY_COPIED: "Error copied",
     ERROR_BOUNDARY_COPY: "Copy error",
     ERROR_BOUNDARY_DESCRIPTION:
@@ -610,11 +672,22 @@ export const en = {
     ERROR_BOUNDARY_TITLE: "Something went wrong",
     ERROR_FETCHING_LIMITS: "Error fetching limits",
     ERROR_FETCHING_PRICE: "Error fetching price",
+    ERROR_GENERIC_DESCRIPTION:
+      "Something went wrong. Please try again. If it keeps happening, contact support.",
+    ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
+      "You don't have enough USDC for this. Add funds and try again.",
     ERROR_LOADING_ADDRESS_BOOK: "Error loading address book",
     ERROR_LOADING_DATA: "Error loading data",
     ERROR_LOADING_PROGRESS: "Error loading progress",
     ERROR_LOADING_TASK_LEDGER: "Error loading task ledger",
     ERROR_LOADING_TRANSACTIONS: "Error loading transactions",
+    ERROR_NETWORK_DESCRIPTION:
+      "Connection problem. Check your internet and try again.",
+    ERROR_TIMEOUT_DESCRIPTION: "This is taking too long. Please try again.",
+    ERROR_TRANSACTION_REVERTED_DESCRIPTION:
+      "The transaction didn't go through and no funds were moved. Please try again.",
+    ERROR_USER_CANCELLED_DESCRIPTION:
+      "You cancelled the request. Nothing was changed.",
     ESTIMATED_FEE: "Estimated Fee",
     ESTIMATED_TIME: "Estimated Time",
     ESTIMATED_TIME_RANGE: "2 - 5 min",
@@ -1100,6 +1173,39 @@ export const en = {
     LIMIT_CARD_MAX_USDC: "Max {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / Order",
     LIMIT_UPDATES: "Limit Updates",
+    LIMR_CONTINUE: "Back to {{flow}}",
+    LIMR_CURRENT_LIMIT: "Your limit: {{limit}} USDC per order",
+    LIMR_DISMISS: "Dismiss",
+    LIMR_FLOW_BUY: "Buy",
+    LIMR_FLOW_PAY: "Pay",
+    LIMR_FLOW_SELL: "Sell",
+    LIMR_MAX_FOR_MARKET: "Max for your market",
+    LIMR_ORDER_FITS: "Your limit now covers this order.",
+    LIMR_ORDER_STILL_ABOVE:
+      "This order is still above your limit. Verify another method, or continue and lower the amount.",
+    LIMR_TITLE: "Continue your {{flow}} order",
+    LIMR_TITLE_WITH_AMOUNT: "Continue your {{flow}} of {{amount}}",
+    LIMR_UPDATING_LIMIT: "Updating your limit…",
+    LIM_KYC_FAILED_TITLE: "Passport verification didn't go through",
+    LIM_LIVENESS_FAILED_TITLE: "Liveness check didn't go through",
+    LIM_METHOD_BADGE_TAKES_MINUTES: "Takes 3-5 min",
+    LIM_METHOD_DONE: "Done: already raising your limits",
+    LIM_METHOD_GAIN: "Adds +{{amount}} USDC to your per-order limit",
+    LIM_METHOD_GAIN_GENERIC: "Raises your per-order limit",
+    LIM_METHOD_GAIN_PER_ACCOUNT:
+      "Up to +{{amount}} USDC per order for each account",
+    LIM_METHOD_GAIN_STAKE: "The more you stake, the higher your limits",
+    LIM_METHOD_UNAVAILABLE_BADGE: "Not available in your region yet",
+    LIM_METHOD_ZK_DESCRIPTION:
+      "Prove you own an account like X, LinkedIn or GitHub. It's private verification: we never see your password or your data.",
+    LIM_METHOD_ZK_TITLE: "Verify a social account",
+    LIM_REFERRAL_BONUS_READY: "Your reward is ready to claim.",
+    LIM_REFERRAL_BONUS_VERIFY_CTA: "Verify an account",
+    LIM_REFERRAL_BONUS_VERIFY_SOCIAL:
+      "Verify any one social account (like X or LinkedIn) to claim your reward.",
+    LIM_VERIFICATION_FAILED_DESCRIPTION:
+      "We couldn't finish the verification. Please try again.",
+    LIM_ZK_KYC_SUBTITLE: "Private verification: we never see your data",
     LINKEDIN_ONLY_SUPPORTS_RP_UPDATES: "LinkedIn only supports RP updates",
     LIQUIDITY: "Liquidity",
     LIVENESS_DESCRIPTION: "Quick face check, no documents",
@@ -1270,6 +1376,7 @@ export const en = {
     NO_ADDRESSES_SAVED: "No {{paymentAddressName}}s saved",
     NO_ADDRESS_TO_COPY: "No address to copy",
     NO_ADDRESS_TO_DEPOSIT: "No address to deposit",
+    NO_AMOUNT_TO_COPY: "The amount isn't available yet",
     NO_CAMPAIGN_PARAMETERS_FOUND: "No campaign parameters found",
     NO_COMPLETED_TRANSACTIONS: "No completed transactions",
     NO_DISPUTE: "No Dispute",
@@ -1310,7 +1417,8 @@ export const en = {
     NO_TASK_LEDGER_ENTRIES: "No task ledger entries found",
     NO_TRANSACTIONS_FOUND: "No transactions found",
     NO_WITHDRAWABLE_AMOUNT: "No withdrawable amount",
-    NULLIFIER_ALREADY_VERIFIED: "Nullifier already verified",
+    NULLIFIER_ALREADY_VERIFIED:
+      "This identity has already been used to verify a wallet.",
     OFFICIAL_RANGO_SUPPORT_CHANNELS: "Official Rango Support Channels",
     OFFICIAL_RANGO_SUPPORT_CHANNELS_NOTE:
       "Note : If your cross-chain deposit or withdraw runs into issues, contact Rango support via the official links above.",
@@ -1319,6 +1427,25 @@ export const en = {
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "Old payment channel not found",
     OLD_PAYMENT_CHANNEL_SHOULD_BE_INACTIVE:
       "Old payment channel should be inactive",
+    ONB_BALANCE_LOAD_ERROR: "We couldn't load your balance.",
+    ONB_CAMPAIGN_PARAMS_DESCRIPTION:
+      "Log in to claim your bonus. It will be waiting for you on the home screen.",
+    ONB_CHECK_CONNECTION_TRY_AGAIN: "Check your connection and try again.",
+    ONB_FIRST_BUY_CTA: "Buy your first USDC",
+    ONB_FIRST_BUY_DESCRIPTION:
+      "USDC is a digital dollar (1 USDC ≈ US$1). Pay in {{currency}} and receive USDC in your wallet.",
+    ONB_FIRST_BUY_TITLE: "Get started with your first USDC",
+    ONB_INVITE_CLAIM_FAILED_TITLE: "We couldn't claim your invite",
+    ONB_LIMITS_LOAD_ERROR: "We couldn't load your limits.",
+    ONB_LOGIN_PAGE_TITLE:
+      "Buy and sell digital dollars (USDC) with {{currency}}",
+    ONB_LOGIN_USDC_EXPLAINER:
+      "USDC is a digital dollar: 1 USDC is worth about 1 US dollar.",
+    ONB_NEED_HELP_LINK: "Need help? Visit Help & Support",
+    ONB_REFERRAL_PARAMS_DESCRIPTION:
+      "Log in to accept your invite. It will be waiting for you on the home screen.",
+    ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
+      "We're confirming this on the network. It usually takes a few seconds, so please keep the app open.",
     ONE_TIME: "One-time {{paymentAddressName}}",
     ONE_TIME_ADDRESS: "One-time Address",
     ONE_TIME_PAYMENT_ADDRESS: "One-time {{paymentAddressName}}",
@@ -1339,15 +1466,24 @@ export const en = {
     ORDER_AMOUNT_UPDATED_DESCRIPTION: "Updated from {{from}} to {{to}}",
     ORDER_CANCELLED: "Order cancelled",
     ORDER_DETAILS: "Order Details",
+    ORDER_ELAPSED_TIME: "{{elapsed}} elapsed · usually under {{expected}} min",
+    ORDER_ELAPSED_TIME_SECONDS:
+      "{{elapsed}} elapsed · usually under {{expected}} sec",
     ORDER_ERROR_DESCRIPTION:
       "Oops! There was an issue with your order. Please contact support with the order details so we can help!",
     ORDER_EXPIRED: "Order expired",
     ORDER_ID: "Order ID",
     ORDER_ID_NOT_FOUND: "Order ID not found",
+    ORDER_LOAD_FAILED_DESCRIPTION:
+      "Your funds are safe. Check your connection and try again, or find this order in your transactions.",
+    ORDER_LOAD_FAILED_TITLE: "We couldn't load this order",
     ORDER_NOT_ASSIGNED: "Order not assigned",
     ORDER_NOT_FOUND: "Order not found",
     ORDER_NOT_PLACED_TO_BE_ACCEPTED: "Order not placed to be accepted",
     ORDER_PREVIEW: "Order Preview",
+    ORDER_TAKING_LONGER_ANNOUNCEMENT: "This order is taking longer than usual.",
+    ORDER_TAKING_LONGER_THAN_USUAL:
+      "{{elapsed}} elapsed · taking longer than usual.",
     ORDER_TYPE: "Order Type",
     ORDER_WITH_PLACED_STATUS_ONLY_CAN_BE_REASSIGNED:
       "Order with placed status only can be re-assigned",
@@ -1520,6 +1656,97 @@ export const en = {
     PAY: "Pay",
     PAYBILL_ACCOUNT_NUMBER: "Account Number",
     PAYBILL_NUMBER: "Paybill Number",
+    PAYF_AMOUNT_CHANGE_CANCEL: "Don't change, scan again",
+    PAYF_AMOUNT_CHANGE_CONFIRM: "Pay {{amount}}",
+    PAYF_AMOUNT_CHANGE_DESCRIPTION:
+      "The amount in this QR code is different from the amount you entered. Check it with the merchant before you continue. If you confirm, your order will be updated to the QR amount.",
+    PAYF_AMOUNT_CHANGE_ORDER_AMOUNT: "You entered",
+    PAYF_AMOUNT_CHANGE_QR_AMOUNT: "QR code amount",
+    PAYF_AMOUNT_CHANGE_REJECTED:
+      "Amount not changed. Ask the merchant for a QR with the right amount and scan again.",
+    PAYF_AMOUNT_CHANGE_TITLE: "The QR amount is different",
+    PAYF_BILL_TOTAL: "Bill total",
+    PAYF_BRIDGE_ADDRESS_CONFIRM_CHECKBOX:
+      "I've checked this address is on {{chain}}",
+    PAYF_BRIDGE_ADDRESS_FORMAT_INVALID:
+      "This doesn't look like a valid {{chain}} address. Check it and try again.",
+    PAYF_BRIDGE_ADDRESS_IRREVERSIBLE_WARNING:
+      "Funds sent to a wrong address or to an address on a network other than {{chain}} can't be recovered.",
+    PAYF_BRIDGE_AMOUNT_TOO_LOW:
+      "This amount is too small to bridge. Try a larger amount.",
+    PAYF_BRIDGE_DEPOSIT_DEADLINE:
+      "Send before {{deadline}}. Deposits after this time may be refunded instead of bridged.",
+    PAYF_BRIDGE_LOAD_ASSETS_FAILED:
+      "We couldn't load the supported tokens. Check your connection and try again.",
+    PAYF_BRIDGE_ORIGIN_CHAIN: "the sending network",
+    PAYF_BRIDGE_QUOTE_FAILED:
+      "We couldn't get a quote right now. Check the amount and address, then try again.",
+    PAYF_BRIDGE_RECIPIENT: "Recipient",
+    PAYF_BRIDGE_RECIPIENT_ADDRESS_ON: "Recipient address on {{chain}}",
+    PAYF_BRIDGE_REFUND_ADDRESS_EXPLAINER:
+      "If the bridge can't be completed, your tokens are sent back to this address. Enter an address you own on {{chain}}, for example the wallet you're sending from.",
+    PAYF_BRIDGE_SEND_FAILED: "Couldn't send USDC",
+    PAYF_BRIDGE_USDC_SENT: "USDC sent",
+    PAYF_BRIDGE_USDC_SENT_DESCRIPTION:
+      "Bridging is in progress. You can track it in Bridge History below.",
+    PAYF_CAMERA_PERMISSION_DENIED_HELP:
+      "To scan, allow camera access for this site: tap the lock or settings icon next to the address bar, or open your phone's Settings for this browser, turn on Camera, then tap Retry.",
+    PAYF_CAMERA_START_TIMEOUT: "The camera is taking too long to start",
+    PAYF_CAMERA_START_TIMEOUT_DESCRIPTION:
+      "Tap Retry. If it keeps happening, close and reopen the app.",
+    PAYF_CAMERA_USE_UPLOAD_INSTEAD:
+      'You can also upload a screenshot of the QR code instead using "Upload QR" below.',
+    PAYF_COPY_ADDRESS: "Copy address",
+    PAYF_DEPOSIT_BASE_ONLY_WARNING:
+      "Only send USDC on the Base network. USDC sent from another network (like Ethereum, Tron or Solana) or any other token can be lost.",
+    PAYF_DEPOSIT_USDC_TO_CONTINUE: "Deposit USDC",
+    PAYF_MAINTENANCE_DESCRIPTION:
+      "We're doing scheduled maintenance to improve P2P.me. The app will be back shortly.",
+    PAYF_MAINTENANCE_FOLLOW_UPDATES:
+      "Updates are posted in our support channel.",
+    PAYF_MAINTENANCE_FUNDS_SAFE: "Your funds are safe",
+    PAYF_MAINTENANCE_ORDERS_RESUME:
+      "Your USDC stays in your wallet. If you had an order in progress, check it in Transactions once we're back — if anything looks wrong, contact support.",
+    PAYF_MAINTENANCE_RETRY: "Try again",
+    PAYF_MERCHANT_GETS: "Merchant gets",
+    PAYF_PASTE: "Paste",
+    PAYF_PASTE_FAILED:
+      "Couldn't read your clipboard. Paste the address manually.",
+    PAYF_QR_FETCH_FAILED: "Couldn't load this QR's payment details",
+    PAYF_QR_FETCH_FAILED_DESCRIPTION: "Check your connection and scan again.",
+    PAYF_QR_INVALID_AMOUNT: "This QR has an invalid amount",
+    PAYF_QR_INVALID_AMOUNT_DESCRIPTION:
+      "Ask the merchant to create a new QR with the correct amount.",
+    PAYF_QR_NOT_SUPPORTED: "This QR code isn't supported",
+    PAYF_QR_NOT_SUPPORTED_DESCRIPTION:
+      "Ask the merchant for their payment QR code and scan again.",
+    PAYF_QR_SUPPORTED_TYPES: "Supported: {{types}}.",
+    PAYF_QR_UPLOAD_UNREADABLE: "Couldn't read a QR code in that image",
+    PAYF_QR_UPLOAD_UNREADABLE_DESCRIPTION:
+      "Try a clear, uncropped screenshot of the QR code.",
+    PAYF_QR_WRONG_CURRENCY: "This QR is for a different currency",
+    PAYF_QR_WRONG_CURRENCY_DESCRIPTION:
+      "Scan a QR code for payments in {{currency}}.",
+    PAYF_STARTING_CAMERA: "Starting camera...",
+    PAYF_TXN_EMPTY_FILTERED_HINT:
+      "Only the selected period and filters are shown.",
+    PAYF_TXN_SHOW_ALL_TIME: "Show all time",
+    PAYF_TXN_STATUS_CANCELLED_REFUNDED: "Cancelled — refunded",
+    PAYF_TXN_STATUS_DISPUTE_SETTLED: "Dispute settled",
+    PAYF_TXN_STATUS_FINDING_MERCHANT: "Finding merchant",
+    PAYF_TXN_STATUS_IN_DISPUTE: "In dispute",
+    PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant assigned",
+    PAYF_TXN_STATUS_PAYMENT_SENT: "Payment sent",
+    PAYF_VIEW_ON_BASESCAN: "View on BaseScan",
+    PAYF_WITHDRAW_AMOUNT: "Amount",
+    PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
+      "This sends USDC on the Base network and can't be undone. Make sure the receiving wallet or exchange supports USDC on Base — if it doesn't, your funds may be lost.",
+    PAYF_WITHDRAW_CONFIRM_SEND: "Confirm & send {{amount}} USDC",
+    PAYF_WITHDRAW_CONFIRM_TITLE: "Confirm withdrawal",
+    PAYF_WITHDRAW_FAILED_DESCRIPTION:
+      "Your USDC was not sent. Please try again.",
+    PAYF_WITHDRAW_REVIEW: "Review withdrawal",
+    PAYF_WITHDRAW_SENT_TITLE: "USDC sent",
     PAYMENT_ADDRESS_ALREADY_SENT: "Payment address already sent",
     PAYMENT_ADDRESS_COPIED_TO_CLIPBOARD:
       "{{paymentAddressName}} copied to clipboard",
@@ -1929,6 +2156,8 @@ export const en = {
     REWARD_CLAIMED_DESCRIPTION:
       "You have successfully claimed {{amount}} USDC. Share your win with your friends!",
     RIF_LABEL: "Cédula/RIF",
+    RVW_ERROR_SEND_UNCONFIRMED_DESCRIPTION:
+      "We couldn't confirm whether this went through. Check your balance or BaseScan before trying again.",
     SAFETY_NOTICE_WALLET:
       "We’ll never ask for your OTP, private key, or login through external links. Never share your credentials with anyone.",
     SAVE: "Save",
@@ -2013,6 +2242,36 @@ export const en = {
     SELL_QUIZ_TRY_AGAIN: "Not quite. Pick the best answer to continue.",
     SELL_USDC: "Sell USDC",
     SELL_USDC_FAQS: "Sell USDC FAQs",
+    SELL_UX_ACCEPTED_TIMEOUT_NOTE:
+      "If the merchant doesn't get your payment details in time, the order is cancelled and your USDC is returned to your wallet.",
+    SELL_UX_APPROVING_USDC_STEP: "Approving USDC (1/2)…",
+    SELL_UX_CLIPBOARD_EMPTY:
+      "Your clipboard is empty. Copy your {{paymentAddressName}} first.",
+    SELL_UX_COMPLETED_DESCRIPTION:
+      "Check your bank or payment app to confirm you received {{amount}}.",
+    SELL_UX_COMPLETED_TITLE: "Merchant marked your payment as sent",
+    SELL_UX_DEPOSIT_USDC: "Deposit USDC",
+    SELL_UX_DETAILS_MISSING_DESCRIPTION:
+      "We couldn't find the payment details for this order on this device. Enter where you want to be paid so the merchant can send your money.",
+    SELL_UX_DETAILS_MISSING_TITLE: "Enter your payment details",
+    SELL_UX_DIDNT_RECEIVE_IT: "Didn't receive it?",
+    SELL_UX_INVALID_PAYMENT_ID:
+      "This doesn't look like a valid {{paymentAddressName}}. Please check it.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION:
+      "We couldn't open it automatically. Open it from your transactions — if asked, enter your payment details there.",
+    SELL_UX_ORDER_PLACED_ID_MISSING_TITLE: "Your order was placed",
+    SELL_UX_PAID_TIMEOUT_NOTE:
+      "Haven't received the money after a while? Tap the help icon at the top to get support for this order.",
+    SELL_UX_PLACED_DESCRIPTION:
+      "Keep this page open — we'll send your payment details as soon as a merchant accepts (usually 20–90 seconds). If you leave, come back to this order to enter them.",
+    SELL_UX_PLACED_TIMEOUT_NOTE:
+      "If no merchant accepts in time, the order is cancelled and your USDC is returned to your wallet.",
+    SELL_UX_PLACING_ORDER: "Placing order…",
+    SELL_UX_PLACING_ORDER_STEP: "Placing order (2/2)…",
+    SELL_UX_PROCESSING_TIMES_UNAVAILABLE: "Usually a few minutes",
+    SELL_UX_SEND_PAYMENT_DETAILS: "Send payment details",
+    SELL_UX_USE_DIFFERENT_DETAILS: "Use different payment details",
+    SELL_UX_YOU_WILL_BE_PAID_TO: "You'll be paid to:",
     SEND: "Send",
     SENDING: "Sending",
     SENDING_PAYMENT_DETAILS: "Sending payment details",
@@ -2100,6 +2359,9 @@ export const en = {
     STAKE_CTA_TITLE: "Raise Limits",
     STAKE_CTA_TITLE_CARD: "Stake $P2P, Raise Limits",
     STAKE_EXCEEDS_MAX_TOKENS: "Stake exceeds the maximum allowed tokens",
+    STAKE_IN_PROGRESS_DESCRIPTION:
+      "You can leave this screen. We'll let you know when it's done and your limit will update automatically. You can stake again once it finishes.",
+    STAKE_IN_PROGRESS_TITLE: "Your stake is being confirmed",
     STAKE_NOT_ACTIVE: "No active stake",
     STAKE_NOT_IN_COOLDOWN: "Stake is not in cooldown",
     STAKE_SEIZED: "Your stake has been seized",
@@ -2121,6 +2383,42 @@ export const en = {
     SUPPORTED_NETWORKS: "Supported networks",
     SUPPORT_SCAM_WARNING:
       "Beware of fake support accounts on Telegram. Our team will NEVER DM or call you. Use only our official Telegram group link above for support.",
+    SUP_CHAT_UNAVAILABLE:
+      "Chat couldn't open right now. Please try again or reach us on Telegram.",
+    SUP_DISPUTE_ALREADY_RAISED: "A dispute is already open for this order.",
+    SUP_DISPUTE_AVAILABLE_IN: "Available in {{minutes}} min",
+    SUP_DISPUTE_FORM_DESCRIPTION_SELL_PAY:
+      "Tell us the merchant hasn't made the payment (to you for a sell, or to the QR you paid). Support will follow up in chat.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_BUY:
+      "Most payments are confirmed by the merchant within a few minutes. Disputes open {{minutes}} min after you place the order, so the merchant has time to check their account. Keep your payment reference (UTR) handy.",
+    SUP_DISPUTE_LOCKED_EXPLAINER_SELL_PAY:
+      "Payments can take a little while to arrive. If it still hasn't arrived, you can raise a dispute {{minutes}} min after the order was placed.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_COMPLETED:
+      "This order is complete, so there's nothing to dispute. Something still wrong? Chat with us.",
+    SUP_DISPUTE_NOT_ELIGIBLE_BUY_NOT_PAID:
+      "Disputes are for orders you've paid. If you've already paid, mark the order as paid first.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_CANCELLED:
+      "This order was cancelled, so it can't be disputed. If something looks wrong, chat with us.",
+    SUP_DISPUTE_NOT_ELIGIBLE_SELL_NOT_COMPLETED:
+      "Disputes open after the merchant marks the payment as sent. If it's taking too long, chat with us.",
+    SUP_DISPUTE_PAYMENT_WINDOW_ENDED:
+      "The payment window ended before the order was marked as paid, so a dispute isn't possible. If you already sent money, chat with us and share your UPI reference (UTR) — we'll check it with the merchant.",
+    SUP_DISPUTE_REFERENCE_HINT_SELL_PAY:
+      "If the merchant shared a payment reference, enter its last 4 digits. If there's no payment, leave this blank.",
+    SUP_DISPUTE_REFERENCE_LABEL_OPTIONAL:
+      "Payment reference, last 4 digits (optional)",
+    SUP_DISPUTE_TXN_ID_WHERE_BUY:
+      "Where to find it: open your payment app (e.g. your UPI app), tap this payment, and look for the UTR or reference number in the transaction details.",
+    SUP_LOGIN_TO_CHAT_IN_APP:
+      "Log in to chat with our team in the app and see your conversations. Until then, Chat with us opens our Telegram group.",
+    SUP_ORDER_DETAILS_COPIED:
+      "Order details copied. Paste them in your message so we can help faster.",
+    SUP_ORDER_DETAILS_COPIED_CHAT:
+      "Order details copied. Paste them as your first message so we can help faster.",
+    SUP_ORDER_ID_SHARED_HINT:
+      "We'll copy your order number (#{{id}}) so you can paste it in the chat.",
+    SUP_ORDER_SUMMARY:
+      "Order #{{id}} · {{type}} · {{status}} · placed {{minutes}} min ago",
     SWAP: "Swap",
     SWAPPED: "Swapped",
     SWAPPER: "Swapper",
@@ -2362,6 +2660,23 @@ export const en = {
       "Verify at least one social account to grow your limits and keep increasing limits as you complete transactions.",
     VERIFY_TO_RAISE: "Verify to raise",
     VERIFY_ZK_PROOF: "Verify zk proof",
+    VFX_ATTESTATION_EXPIRED:
+      "Your verification result expired before it was saved. Please start again.",
+    VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Another phone number",
+    VFX_BVN_OTP_METHOD_EMAIL: "Email",
+    VFX_BVN_OTP_METHOD_OTHER: "Other option",
+    VFX_BVN_OTP_METHOD_PHONE: "Phone",
+    VFX_BVN_OTP_METHOD_PHONE_1: "Second phone",
+    VFX_BVN_OTP_NOT_SENT:
+      "We couldn't send the code. Try another option or try again in a moment.",
+    VFX_CODE_RESENT: "We sent a new code",
+    VFX_FINISH_VERIFICATION: "Finish verification",
+    VFX_RESEND_CODE: "Resend code",
+    VFX_SESSION_EXPIRED_DESCRIPTION:
+      "This verification took too long and was stopped. Start again to get a fresh session.",
+    VFX_SESSION_EXPIRED_TITLE: "Session expired",
+    VFX_START_AGAIN: "Start again",
+    VFX_STATUS_CHECK_FAILED: "Couldn't check status",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR: "App Tour",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
@@ -2462,6 +2777,7 @@ export const en = {
     VIEW_HOLDINGS: "View holdings",
     VIEW_MORE: "View more",
     VIEW_MORE_DETAILS: "View more details",
+    VIEW_MY_ORDERS: "View my orders",
     VIEW_ON: "View on",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "View frequently asked questions about {{orderType}} orders",

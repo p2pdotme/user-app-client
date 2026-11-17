@@ -42,8 +42,7 @@ export function TokenIcon({
         />
       ) : (
         <span
-          className={`${color} flex size-full items-center justify-center rounded-full font-semibold text-sm text-white`}
-        >
+          className={`${color} flex size-full items-center justify-center rounded-full font-semibold text-sm text-white`}>
           {symbol.slice(0, 2).toUpperCase()}
         </span>
       )}
