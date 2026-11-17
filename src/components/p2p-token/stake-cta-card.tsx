@@ -24,7 +24,9 @@ export function StakeCtaCard() {
   const hasRate =
     usdPerToken !== null && Number.isFinite(usdPerToken) && usdPerToken > 0;
   const hasActiveStake =
-    userStake !== undefined && userStake !== null && userStake.stakedAmount > 0n;
+    userStake !== undefined &&
+    userStake !== null &&
+    userStake.stakedAmount > 0n;
 
   const handleClick = () => {
     navigate(
@@ -52,8 +54,8 @@ export function StakeCtaCard() {
 
       {hasRate && (
         <div className="mt-3 flex items-stretch gap-2">
-          <div className="flex-1 rounded-xl bg-background/60 px-3 py-2 flex flex-1 flex-col justify-center">
-            <p className="text-muted-foreground text-[10px] uppercase tracking-wider">
+          <div className="flex flex-1 flex-1 flex-col justify-center rounded-xl bg-background/60 px-3 py-2">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("STAKE_CTA_RATE_STAKE")}
             </p>
             <p className="font-bold text-foreground text-sm tabular-nums">
@@ -66,7 +68,7 @@ export function StakeCtaCard() {
             </div>
           </div>
           <div className="flex-1 rounded-xl bg-background/60 px-3 py-2">
-            <p className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("STAKE_CTA_RATE_UNLOCK")}
             </p>
             <p className="font-bold text-emerald-500 text-sm tabular-nums">
@@ -76,7 +78,7 @@ export function StakeCtaCard() {
               </span>
               <span className="font-medium text-muted-foreground"> Limit </span>
             </p>
-            <p className="text-muted-foreground text-[10px] uppercase tracking-wider">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
               {t("BUY")}, {t("SELL")} & {t("PAY")}
             </p>
           </div>
@@ -86,9 +88,10 @@ export function StakeCtaCard() {
       <Button
         onClick={handleClick}
         disabled={isUserStakeLoading}
-        className="mt-3 w-full rounded-2xl py-6 font-semibold text-base"
-      >
-        {hasActiveStake ? t("STAKE_CTA_BUTTON_MY_STAKE") : t("STAKE_CTA_BUTTON")}
+        className="mt-3 w-full rounded-2xl py-6 font-semibold text-base">
+        {hasActiveStake
+          ? t("STAKE_CTA_BUTTON_MY_STAKE")
+          : t("STAKE_CTA_BUTTON")}
         <ArrowRight className="size-4" />
       </Button>
     </section>

@@ -155,7 +155,7 @@ function StakedSummaryCard({
         <ChevronRight className="ml-auto size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
       </div>
       <div className="flex items-baseline gap-1">
-        <p className="font-bold text-2xl text-foreground leading-none tabular-nums tracking-wide">
+        <p className="font-bold text-2xl text-foreground tabular-nums leading-none tracking-wide">
           {formatTokenBalance(stakedAmount)}
         </p>
         <span className="font-semibold text-[11px] text-muted-foreground">
@@ -325,7 +325,7 @@ function TokenHoldingInfo() {
               <Skeleton className="h-7 w-24 bg-primary/20" />
             ) : (
               <div className="flex items-baseline gap-1">
-                <p className="font-bold text-[26px] text-foreground leading-none tabular-nums tracking-wide">
+                <p className="font-bold text-[26px] text-foreground tabular-nums leading-none tracking-wide">
                   {formatTokenBalance(balanceNum)}
                 </p>
                 <span className="font-semibold text-[11px] text-muted-foreground">
@@ -490,13 +490,13 @@ function StatCard({
 }) {
   return (
     <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-border/60 bg-card/40 px-3 py-3">
-      <p className="text-muted-foreground text-[11px] uppercase tracking-wider">
+      <p className="text-[11px] text-muted-foreground uppercase tracking-wider">
         {label}
       </p>
       {isLoading ? (
         <Skeleton className="h-5 w-16 bg-primary/20" />
       ) : (
-        <p className="font-bold text-foreground text-base tabular-nums">
+        <p className="font-bold text-base text-foreground tabular-nums">
           {value}
         </p>
       )}
@@ -541,11 +541,11 @@ function AboutToken() {
     <section
       aria-label={t("ABOUT_P2P_TOKEN")}
       className="rounded-2xl border border-border/60 bg-card/40 p-4">
-      <h2 className="mb-2 font-semibold text-foreground text-base">
+      <h2 className="mb-2 font-semibold text-base text-foreground">
         {t("ABOUT_P2P_TOKEN")}
       </h2>
       <TokenStats />
-      <p className="text-muted-foreground text-sm leading-relaxed mt-2">
+      <p className="mt-2 text-muted-foreground text-sm leading-relaxed">
         {t("ABOUT_P2P_TOKEN_DESCRIPTION")}
       </p>
       <p className="mt-2 text-muted-foreground text-sm">
@@ -596,10 +596,10 @@ function SolanaTradeFooter() {
         <span className="font-semibold text-foreground text-xs">
           {t("TRADE_ON_SOLANA")}
         </span>
-        <span className="font-medium text-muted-foreground text-[10px]">
+        <span className="font-medium text-[10px] text-muted-foreground">
           {t("VIA_JUPITER")}
         </span>
-        <ArrowUpRight className="size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+        <ArrowUpRight className="group-hover:-translate-y-0.5 size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
       </a>
     </div>
   );
