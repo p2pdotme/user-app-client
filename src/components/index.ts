@@ -49,4 +49,3 @@ export * from "./token-icon";
 export * from "./transfer-warning-alert";
 export * from "./verification-row";
 export * from "./version-badge";
-export * from "./youtube-video-dialog";
