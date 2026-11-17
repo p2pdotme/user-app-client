@@ -23,10 +23,7 @@ export function useUserP2PStakeActivities() {
       return result.match(
         (activities) => activities,
         (error) => {
-          console.error(
-            "[useUserP2PStakeActivities] subgraph error",
-            error,
-          );
+          console.error("[useUserP2PStakeActivities] subgraph error", error);
           throw error;
         },
       );

@@ -3,8 +3,8 @@ import { AlertTriangle, Loader2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { formatUnits, isAddress, parseUnits } from "viem";
 import type { Address } from "thirdweb";
+import { formatUnits, isAddress, parseUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -19,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { transferP2PToken } from "@/core/adapters/thirdweb/actions/p2p-token";
 import { useP2PBalance, useSounds, useThirdweb } from "@/hooks";
 import { cn, truncateAmount } from "@/lib/utils";
-
 
 export function SendP2PDrawer({
   children,
@@ -87,7 +86,9 @@ export function SendP2PDrawer({
         return;
       }
 
-      toast.success(t("P2P_SENT_SUCCESSFULLY", { amount: truncateAmount(numAmount) }));
+      toast.success(
+        t("P2P_SENT_SUCCESSFULLY", { amount: truncateAmount(numAmount) }),
+      );
       sounds.triggerSuccessSound();
       queryClient.invalidateQueries({ queryKey: ["p2p", "balance"] });
       setOpen(false);
@@ -106,8 +107,7 @@ export function SendP2PDrawer({
         if (next && disabled) return;
         setOpen(next);
       }}
-      onClose={reset}
-    >
+      onClose={reset}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
@@ -143,7 +143,9 @@ export function SendP2PDrawer({
               disabled={isLoading}
               className={cn(
                 "h-12 text-base",
-                parseFloat(amount) > balance && balance > 0 && "border-destructive",
+                parseFloat(amount) > balance &&
+                  balance > 0 &&
+                  "border-destructive",
               )}
             />
             <div className="mt-1 flex items-center justify-end gap-1.5">
@@ -151,16 +153,14 @@ export function SendP2PDrawer({
                 type="button"
                 disabled={isLoading || balance <= 0}
                 onClick={() => setAmount(String(balance * 0.5))}
-                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
-              >
+                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 font-medium text-foreground text-xs transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40">
                 50%
               </button>
               <button
                 type="button"
                 disabled={isLoading || balance <= 0}
                 onClick={() => setAmount(String(balance))}
-                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
-              >
+                className="cursor-pointer rounded-md bg-primary/10 px-2.5 py-1 font-medium text-foreground text-xs transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40">
                 {t("MAX")}
               </button>
             </div>
@@ -177,17 +177,25 @@ export function SendP2PDrawer({
             size="lg"
             className="h-12 w-full text-base"
             onClick={handleSend}
-            disabled={!address || !amount || isValidAddress !== true || isLoading || parseFloat(amount) > balance}
-          >
-            {isLoading ? <Loader2 className="size-4 animate-spin" /> : t("SEND_P2P")}
+            disabled={
+              !address ||
+              !amount ||
+              isValidAddress !== true ||
+              isLoading ||
+              parseFloat(amount) > balance
+            }>
+            {isLoading ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              t("SEND_P2P")
+            )}
           </Button>
           <DrawerClose asChild>
             <Button
               variant="outline"
               size="lg"
               className="h-12 w-full text-base"
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
               {t("CLOSE")}
             </Button>
           </DrawerClose>

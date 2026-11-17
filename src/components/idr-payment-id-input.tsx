@@ -29,7 +29,10 @@ function splitStoredValue(value: string): {
 } {
   const parsed = parseIndonesianPaymentId(value);
   if (!parsed) return { provider: DEFAULT_IDR_PAYMENT_METHOD, number: "" };
-  return { provider: parsed.provider as IdrPaymentMethod, number: parsed.value };
+  return {
+    provider: parsed.provider as IdrPaymentMethod,
+    number: parsed.value,
+  };
 }
 
 /**
@@ -74,7 +77,10 @@ export function IdrPaymentIdInput({ value, onChange }: IdrPaymentIdInputProps) {
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <IdrPaymentMethodSelect value={provider} onChange={handleProviderChange} />
+        <IdrPaymentMethodSelect
+          value={provider}
+          onChange={handleProviderChange}
+        />
       </div>
       <div className="space-y-2">
         <p className="font-medium text-sm">{t(numberLabelKey)}</p>
