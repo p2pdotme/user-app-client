@@ -65,7 +65,6 @@ const BUY_MERCHANT_ASSIGNMENT = createAssetUrl(
 // IMAGES (CDN except TSX components)
 const COINSME_BANNER_LIGHT = createAssetUrl("images/coinsme-banner-dark.svg");
 const COINSME_BANNER_DARK = createAssetUrl("images/coinsme-banner-light.svg");
-const HOME_GUIDE_BANNER_BG = createAssetUrl("images/home-guide-banner-bg.png");
 const TGE_BANNER = createAssetUrl("images/p2ptgebannerapp.png");
 const P2P_FOUNDATION_LOGO = createAssetUrl("images/p2pfoundationlogo.svg");
 const INSTANT_APP_CLICK_HERE = createAssetUrl(
@@ -78,152 +77,6 @@ const MASCOT_404 = createAssetUrl("images/mascot-404.png");
 const MASCOT_MAINTENANCE = createAssetUrl("images/mascot-maintenance.png");
 const REFERRAL_BADGE = createAssetUrl("images/referral-badge.svg");
 const REFERRAL_GIFTS = createAssetUrl("images/referral-gifts.svg");
-const THUMBNAIL_APP_TOUR = createAssetUrl("images/thumbnails/app-tour.png");
-
-const THUMBNAIL_CLAIM_REFERRAL_REWARDS = createAssetUrl(
-  "images/thumbnails/claim-referral-rewards.png",
-);
-const THUMBNAIL_CLAIM_REFERRAL_REWARDS_PT = createAssetUrl(
-  "images/thumbnails/claim-referral-rewards-pt.png",
-);
-const THUMBNAIL_CROSS_CHAIN_DEPOSIT = createAssetUrl(
-  "images/thumbnails/cross-chain-deposit.png",
-);
-const THUMBNAIL_CROSS_CHAIN_DEPOSIT_PT = createAssetUrl(
-  "images/thumbnails/cross-chain-deposit-pt.png",
-);
-const THUMBNAIL_CROSS_CHAIN_WITHDRAWAL = createAssetUrl(
-  "images/thumbnails/cross-chain-withdrawal.png",
-);
-const THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_PT = createAssetUrl(
-  "images/thumbnails/cross-chain-withdrawal-pt.png",
-);
-const THUMBNAIL_DEPOSIT_DIRECT = createAssetUrl(
-  "images/thumbnails/deposit-direct.png",
-);
-const THUMBNAIL_DEPOSIT_DIRECT_PT = createAssetUrl(
-  "images/thumbnails/deposit-direct-pt.png",
-);
-const THUMBNAIL_DEPOSIT_DIRECT_ES = createAssetUrl(
-  "images/thumbnails/deposit-direct-es.png",
-);
-const THUMBNAIL_GENERATE_REFERRAL_LINK = createAssetUrl(
-  "images/thumbnails/generate-referral-link.png",
-);
-const THUMBNAIL_GENERATE_REFERRAL_LINK_PT = createAssetUrl(
-  "images/thumbnails/generate-referral-link-pt.png",
-);
-const THUMBNAIL_GENERATE_REFERRAL_LINK_ES = createAssetUrl(
-  "images/thumbnails/generate-referral-link-es.png",
-);
-const THUMBNAIL_INCREASE_TRANSACTION_LIMITS = createAssetUrl(
-  "images/thumbnails/increase-transaction-limits.png",
-);
-const THUMBNAIL_INCREASE_TRANSACTION_LIMITS_PT = createAssetUrl(
-  "images/thumbnails/increase-transaction-limits-pt.png",
-);
-const THUMBNAIL_INCREASE_TRANSACTION_LIMITS_ES = createAssetUrl(
-  "images/thumbnails/increase-transaction-limits-es.png",
-);
-const THUMBNAIL_PLACE_BUY_ORDER = createAssetUrl(
-  "images/thumbnails/place-buy-order.png",
-);
-const THUMBNAIL_PLACE_BUY_ORDER_PT = createAssetUrl(
-  "images/thumbnails/place-buy-order-pt.png",
-);
-const THUMBNAIL_PLACE_BUY_ORDER_ES = createAssetUrl(
-  "images/thumbnails/place-buy-order-es.png",
-);
-const THUMBNAIL_PLACE_SELL_ORDER = createAssetUrl(
-  "images/thumbnails/place-sell-order.png",
-);
-const THUMBNAIL_PLACE_SELL_ORDER_PT = createAssetUrl(
-  "images/thumbnails/place-sell-order-pt.png",
-);
-const THUMBNAIL_PLACE_SELL_ORDER_ES = createAssetUrl(
-  "images/thumbnails/place-sell-order-es.png",
-);
-const THUMBNAIL_RAISE_DISPUTE_ON_ORDER = createAssetUrl(
-  "images/thumbnails/raise-dispute-on-order.png",
-);
-const THUMBNAIL_RAISE_DISPUTE_ON_ORDER_PT = createAssetUrl(
-  "images/thumbnails/raise-dispute-on-order-pt.png",
-);
-const THUMBNAIL_RAISE_DISPUTE_ON_ORDER_ES = createAssetUrl(
-  "images/thumbnails/raise-dispute-on-order-es.png",
-);
-const THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET = createAssetUrl(
-  "images/thumbnails/raise-rango-support-ticket.png",
-);
-const THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_PT = createAssetUrl(
-  "images/thumbnails/raise-rango-support-ticket-pt.png",
-);
-const THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_ES = createAssetUrl(
-  "images/thumbnails/raise-rango-support-ticket-es.png",
-);
-const THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT = createAssetUrl(
-  "images/thumbnails/recover-unsupported-token-deposit.png",
-);
-const THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_PT = createAssetUrl(
-  "images/thumbnails/recover-unsupported-token-deposit-pt.png",
-);
-const THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_ES = createAssetUrl(
-  "images/thumbnails/recover-unsupported-token-deposit-es.png",
-);
-const THUMBNAIL_SCAN_AND_PAY_ORDER = createAssetUrl(
-  "images/thumbnails/scan-and-pay-order.png",
-);
-const THUMBNAIL_SCAN_AND_PAY_ORDER_PT = createAssetUrl(
-  "images/thumbnails/scan-and-pay-order-pt.png",
-);
-const THUMBNAIL_SCAN_AND_PAY_ORDER_ES = createAssetUrl(
-  "images/thumbnails/scan-and-pay-order-es.png",
-);
-const THUMBNAIL_WITHDRAW_DIRECT = createAssetUrl(
-  "images/thumbnails/withdraw-direct.png",
-);
-const THUMBNAIL_WITHDRAW_DIRECT_PT = createAssetUrl(
-  "images/thumbnails/withdraw-direct-pt.png",
-);
-const THUMBNAIL_WITHDRAW_DIRECT_ES = createAssetUrl(
-  "images/thumbnails/withdraw-direct-es.png",
-);
-const THUMBNAIL_ZK_VERIFY_GITHUB = createAssetUrl(
-  "images/thumbnails/zk-verify-github.png",
-);
-const THUMBNAIL_ZK_VERIFY_GITHUB_PT = createAssetUrl(
-  "images/thumbnails/zk-verify-github-pt.png",
-);
-const THUMBNAIL_ZK_VERIFY_GITHUB_ES = createAssetUrl(
-  "images/thumbnails/zk-verify-github-es.png",
-);
-const THUMBNAIL_ZK_VERIFY_INSTAGRAM = createAssetUrl(
-  "images/thumbnails/zk-verify-instagram.png",
-);
-const THUMBNAIL_ZK_VERIFY_INSTAGRAM_PT = createAssetUrl(
-  "images/thumbnails/zk-verify-instagram-pt.png",
-);
-const THUMBNAIL_ZK_VERIFY_INSTAGRAM_ES = createAssetUrl(
-  "images/thumbnails/zk-verify-instagram-es.png",
-);
-const THUMBNAIL_ZK_VERIFY_LINKEDIN = createAssetUrl(
-  "images/thumbnails/zk-verify-linkedin.png",
-);
-const THUMBNAIL_ZK_VERIFY_LINKEDIN_PT = createAssetUrl(
-  "images/thumbnails/zk-verify-linkedin-pt.png",
-);
-const THUMBNAIL_ZK_VERIFY_LINKEDIN_ES = createAssetUrl(
-  "images/thumbnails/zk-verify-linkedin-es.png",
-);
-const THUMBNAIL_CROSS_CHAIN_DEPOSIT_ES = createAssetUrl(
-  "images/thumbnails/cross-chain-deposit-es.png",
-);
-const THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_ES = createAssetUrl(
-  "images/thumbnails/cross-chain-withdrawal-es.png",
-);
-const THUMBNAIL_CLAIM_REFERRAL_REWARDS_ES = createAssetUrl(
-  "images/thumbnails/claim-referral-rewards-es.png",
-);
 
 import { USDCFiatOverlapped } from "./images/usdc-fiat-overlapped";
 
@@ -268,7 +121,6 @@ const ASSETS = {
     GoPay,
   },
   IMAGES: {
-    HOME_GUIDE_BANNER_BG,
     COINSME_BANNER_LIGHT,
     COINSME_BANNER_DARK,
     REFERRAL_BADGE,
@@ -282,60 +134,6 @@ const ASSETS = {
     INSTANT_APP_CLICK_HERE,
     TGE_BANNER,
     P2P_FOUNDATION_LOGO,
-    THUMBNAILS: {
-      RAISE_RANGO_SUPPORT_TICKET: THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET,
-      RAISE_RANGO_SUPPORT_TICKET_PT: THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_PT,
-      RAISE_RANGO_SUPPORT_TICKET_ES: THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_ES,
-      INCREASE_TRANSACTION_LIMITS: THUMBNAIL_INCREASE_TRANSACTION_LIMITS,
-      INCREASE_TRANSACTION_LIMITS_PT: THUMBNAIL_INCREASE_TRANSACTION_LIMITS_PT,
-      INCREASE_TRANSACTION_LIMITS_ES: THUMBNAIL_INCREASE_TRANSACTION_LIMITS_ES,
-      PLACE_BUY_ORDER: THUMBNAIL_PLACE_BUY_ORDER,
-      PLACE_BUY_ORDER_PT: THUMBNAIL_PLACE_BUY_ORDER_PT,
-      PLACE_BUY_ORDER_ES: THUMBNAIL_PLACE_BUY_ORDER_ES,
-      RECOVER_UNSUPPORTED_TOKEN_DEPOSIT:
-        THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT,
-      RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_PT:
-        THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_PT,
-      RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_ES:
-        THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_ES,
-      ZK_VERIFY_GITHUB: THUMBNAIL_ZK_VERIFY_GITHUB,
-      ZK_VERIFY_GITHUB_PT: THUMBNAIL_ZK_VERIFY_GITHUB_PT,
-      ZK_VERIFY_GITHUB_ES: THUMBNAIL_ZK_VERIFY_GITHUB_ES,
-      RAISE_DISPUTE_ON_ORDER: THUMBNAIL_RAISE_DISPUTE_ON_ORDER,
-      RAISE_DISPUTE_ON_ORDER_PT: THUMBNAIL_RAISE_DISPUTE_ON_ORDER_PT,
-      RAISE_DISPUTE_ON_ORDER_ES: THUMBNAIL_RAISE_DISPUTE_ON_ORDER_ES,
-      PLACE_SELL_ORDER: THUMBNAIL_PLACE_SELL_ORDER,
-      PLACE_SELL_ORDER_PT: THUMBNAIL_PLACE_SELL_ORDER_PT,
-      PLACE_SELL_ORDER_ES: THUMBNAIL_PLACE_SELL_ORDER_ES,
-      CROSS_CHAIN_DEPOSIT: THUMBNAIL_CROSS_CHAIN_DEPOSIT,
-      CROSS_CHAIN_DEPOSIT_PT: THUMBNAIL_CROSS_CHAIN_DEPOSIT_PT,
-      CROSS_CHAIN_DEPOSIT_ES: THUMBNAIL_CROSS_CHAIN_DEPOSIT_ES,
-      SCAN_AND_PAY_ORDER: THUMBNAIL_SCAN_AND_PAY_ORDER,
-      SCAN_AND_PAY_ORDER_PT: THUMBNAIL_SCAN_AND_PAY_ORDER_PT,
-      SCAN_AND_PAY_ORDER_ES: THUMBNAIL_SCAN_AND_PAY_ORDER_ES,
-      ZK_VERIFY_LINKEDIN: THUMBNAIL_ZK_VERIFY_LINKEDIN,
-      ZK_VERIFY_LINKEDIN_PT: THUMBNAIL_ZK_VERIFY_LINKEDIN_PT,
-      ZK_VERIFY_LINKEDIN_ES: THUMBNAIL_ZK_VERIFY_LINKEDIN_ES,
-      ZK_VERIFY_INSTAGRAM: THUMBNAIL_ZK_VERIFY_INSTAGRAM,
-      ZK_VERIFY_INSTAGRAM_PT: THUMBNAIL_ZK_VERIFY_INSTAGRAM_PT,
-      ZK_VERIFY_INSTAGRAM_ES: THUMBNAIL_ZK_VERIFY_INSTAGRAM_ES,
-      GENERATE_REFERRAL_LINK: THUMBNAIL_GENERATE_REFERRAL_LINK,
-      GENERATE_REFERRAL_LINK_PT: THUMBNAIL_GENERATE_REFERRAL_LINK_PT,
-      GENERATE_REFERRAL_LINK_ES: THUMBNAIL_GENERATE_REFERRAL_LINK_ES,
-      WITHDRAW_DIRECT: THUMBNAIL_WITHDRAW_DIRECT,
-      WITHDRAW_DIRECT_PT: THUMBNAIL_WITHDRAW_DIRECT_PT,
-      WITHDRAW_DIRECT_ES: THUMBNAIL_WITHDRAW_DIRECT_ES,
-      DEPOSIT_DIRECT: THUMBNAIL_DEPOSIT_DIRECT,
-      DEPOSIT_DIRECT_PT: THUMBNAIL_DEPOSIT_DIRECT_PT,
-      DEPOSIT_DIRECT_ES: THUMBNAIL_DEPOSIT_DIRECT_ES,
-      CROSS_CHAIN_WITHDRAWAL: THUMBNAIL_CROSS_CHAIN_WITHDRAWAL,
-      CROSS_CHAIN_WITHDRAWAL_PT: THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_PT,
-      CROSS_CHAIN_WITHDRAWAL_ES: THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_ES,
-      CLAIM_REFERRAL_REWARDS: THUMBNAIL_CLAIM_REFERRAL_REWARDS,
-      CLAIM_REFERRAL_REWARDS_PT: THUMBNAIL_CLAIM_REFERRAL_REWARDS_PT,
-      CLAIM_REFERRAL_REWARDS_ES: THUMBNAIL_CLAIM_REFERRAL_REWARDS_ES,
-      APP_TOUR: THUMBNAIL_APP_TOUR,
-    },
   },
   ANIMATIONS: {
     ORDER_ASSIGNMENT,
@@ -367,7 +165,6 @@ export const CDN_ASSET_URLS = [
   // Icons (non-TSX)
   RANGO_LOGO,
   // Images
-  HOME_GUIDE_BANNER_BG,
   COINSME_BANNER_LIGHT,
   COINSME_BANNER_DARK,
   REFERRAL_BADGE,
@@ -378,56 +175,6 @@ export const CDN_ASSET_URLS = [
   INSTANT_APP_CLICK_HERE,
   TGE_BANNER,
   P2P_FOUNDATION_LOGO,
-  // Thumbnails
-  THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET,
-  THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_PT,
-  THUMBNAIL_RAISE_RANGO_SUPPORT_TICKET_ES,
-  THUMBNAIL_INCREASE_TRANSACTION_LIMITS,
-  THUMBNAIL_INCREASE_TRANSACTION_LIMITS_PT,
-  THUMBNAIL_INCREASE_TRANSACTION_LIMITS_ES,
-  THUMBNAIL_PLACE_BUY_ORDER,
-  THUMBNAIL_PLACE_BUY_ORDER_PT,
-  THUMBNAIL_PLACE_BUY_ORDER_ES,
-  THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT,
-  THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_PT,
-  THUMBNAIL_RECOVER_UNSUPPORTED_TOKEN_DEPOSIT_ES,
-  THUMBNAIL_ZK_VERIFY_GITHUB,
-  THUMBNAIL_ZK_VERIFY_GITHUB_PT,
-  THUMBNAIL_ZK_VERIFY_GITHUB_ES,
-  THUMBNAIL_RAISE_DISPUTE_ON_ORDER,
-  THUMBNAIL_RAISE_DISPUTE_ON_ORDER_PT,
-  THUMBNAIL_RAISE_DISPUTE_ON_ORDER_ES,
-  THUMBNAIL_PLACE_SELL_ORDER,
-  THUMBNAIL_PLACE_SELL_ORDER_PT,
-  THUMBNAIL_PLACE_SELL_ORDER_ES,
-  THUMBNAIL_CROSS_CHAIN_DEPOSIT,
-  THUMBNAIL_CROSS_CHAIN_DEPOSIT_PT,
-  THUMBNAIL_CROSS_CHAIN_DEPOSIT_ES,
-  THUMBNAIL_SCAN_AND_PAY_ORDER,
-  THUMBNAIL_SCAN_AND_PAY_ORDER_PT,
-  THUMBNAIL_SCAN_AND_PAY_ORDER_ES,
-  THUMBNAIL_ZK_VERIFY_LINKEDIN,
-  THUMBNAIL_ZK_VERIFY_LINKEDIN_PT,
-  THUMBNAIL_ZK_VERIFY_LINKEDIN_ES,
-  THUMBNAIL_ZK_VERIFY_INSTAGRAM,
-  THUMBNAIL_ZK_VERIFY_INSTAGRAM_PT,
-  THUMBNAIL_ZK_VERIFY_INSTAGRAM_ES,
-  THUMBNAIL_GENERATE_REFERRAL_LINK,
-  THUMBNAIL_GENERATE_REFERRAL_LINK_PT,
-  THUMBNAIL_GENERATE_REFERRAL_LINK_ES,
-  THUMBNAIL_WITHDRAW_DIRECT,
-  THUMBNAIL_WITHDRAW_DIRECT_PT,
-  THUMBNAIL_WITHDRAW_DIRECT_ES,
-  THUMBNAIL_DEPOSIT_DIRECT,
-  THUMBNAIL_DEPOSIT_DIRECT_PT,
-  THUMBNAIL_DEPOSIT_DIRECT_ES,
-  THUMBNAIL_CROSS_CHAIN_WITHDRAWAL,
-  THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_PT,
-  THUMBNAIL_CROSS_CHAIN_WITHDRAWAL_ES,
-  THUMBNAIL_CLAIM_REFERRAL_REWARDS,
-  THUMBNAIL_CLAIM_REFERRAL_REWARDS_PT,
-  THUMBNAIL_CLAIM_REFERRAL_REWARDS_ES,
-  THUMBNAIL_APP_TOUR,
 ] as const;
 
 export default ASSETS;

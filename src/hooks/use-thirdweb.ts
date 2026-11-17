@@ -1,5 +1,7 @@
 import { createRelayIdentity } from "@p2pdotme/sdk/orders";
 import { useFraudEngine } from "@p2pdotme/sdk/react";
+import { useQueryClient } from "@tanstack/react-query";
+import type { TFunction } from "i18next";
 import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -24,7 +26,32 @@ import { getResolvedTheme } from "@/core/client/settings";
 import { useAnalytics } from "@/hooks/use-analytics";
 import { EVENTS } from "@/lib/analytics";
 import { STORAGE_KEYS } from "@/lib/constants";
+import { clearLimitReturn } from "@/lib/limit-increase";
 import { identifyUser } from "@/lib/sentry";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
+import { clearLastSellPaymentDetails } from "@/pages/sell/last-sell-payment-details";
+
+/**
+ * Outcome of `connect()`. It never throws; callers branch on this instead.
+ * - "connected": wallet connected
+ * - "cancelled": the user closed the login modal (neutral, nothing shown)
+ * - "failed": a real failure; a friendly error toast was already shown
+ */
+export type ConnectResult = "connected" | "cancelled" | "failed";
+
+/**
+ * Stable, non-sensitive reason for analytics: the i18n key the friendly
+ * message maps to (e.g. "ERROR_NETWORK_DESCRIPTION"), never the raw message.
+ */
+export function getUserFacingErrorReasonKey(error: unknown): string {
+  return getUserFacingErrorMessage(
+    ((key: string) => key) as unknown as TFunction,
+    error,
+  );
+}
 
 const thirdwebThemeOverrides: ThemeOverrides = {
   colors: {
@@ -48,6 +75,7 @@ export function useThirdweb() {
   const resolvedTheme = getResolvedTheme(settings.theme);
   const { track, identify } = useAnalytics();
   const fraudEngine = useFraudEngine();
+  const queryClient = useQueryClient();
 
   // Theme with colors from index.css
   const theme = useMemo(() => {
@@ -142,7 +170,7 @@ export function useThirdweb() {
     }
   }, [isAutoConnectSuccess, account?.address, t]);
 
-  const connect = useCallback(async () => {
+  const connect = useCallback(async (): Promise<ConnectResult> => {
     try {
       const connectedWallet = await _connect({
         ...walletConfig,
@@ -182,23 +210,30 @@ export function useThirdweb() {
         }
       }
 
-      toast.success(t("LOGGED_IN_SUCCESSFULLY"), {
-        description: walletAddress,
-      });
+      // No wallet address in the toast: a raw 0x string means nothing to
+      // most users and exposes the address on shared screens.
+      toast.success(t("LOGGED_IN_SUCCESSFULLY"));
+      return "connected";
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : t("LOGIN_CANCELLED");
+      // thirdweb's connect modal rejects with `undefined` when the user closes
+      // it, so a missing error is a deliberate dismissal, not a failure.
+      if (error == null || isUserCancellation(error)) {
+        track(EVENTS.WALLET, { status: "cancelled", walletType: "unknown" });
+        return "cancelled";
+      }
 
-      // Track failed wallet connection
+      // Analytics get the stable mapped reason (an i18n key), never the raw
+      // SDK message.
       track(EVENTS.WALLET, {
         status: "failed",
         walletType: "unknown",
-        errorMessage,
+        reason: getUserFacingErrorReasonKey(error),
       });
 
       toast.error(t("LOGGED_IN_FAILED"), {
-        description: errorMessage,
+        description: getUserFacingErrorMessage(t, error),
       });
+      return "failed";
     }
   }, [_connect, t, theme, track, identify, walletConfig]);
 
@@ -216,14 +251,19 @@ export function useThirdweb() {
         localStorage.removeItem(STORAGE_KEYS.RELAY_IDENTITY);
         localStorage.removeItem(STORAGE_KEYS.SETTINGS);
         fraudEngine.cleanupSeonStorage();
+        clearLimitReturn();
+        clearLastSellPaymentDetails();
       } catch {}
+      // Drop every cached query (limits, balances, verification status...) so
+      // the next account never sees the previous one's data.
+      queryClient.clear();
       toast.success(t("LOGGED_OUT_SUCCESSFULLY"));
     } catch (error) {
       toast.error(t("LOGGED_OUT_FAILED"), {
-        description: error instanceof Error ? error.message : "Unknown error",
+        description: getUserFacingErrorMessage(t, error),
       });
     }
-  }, [wallet, t, fraudEngine]);
+  }, [wallet, t, fraudEngine, queryClient]);
 
   return {
     account,
