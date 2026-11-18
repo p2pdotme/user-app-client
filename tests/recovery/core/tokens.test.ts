@@ -20,7 +20,7 @@ vi.mock("@/recovery/core/account", () => ({
 }));
 
 const CELO = RECOVERY_NETWORKS.celo;
-const USDC = CELO.usdcAddress;
+const USDC = CELO.usdcAddress as Address;
 const USDT = CELO.extraTokens[0].address;
 const OTHER_A = "0x00000000000000000000000000000000000000a1" as Address;
 const OTHER_B = "0x00000000000000000000000000000000000000b1" as Address;
@@ -137,9 +137,19 @@ describe("fetchRecoveryTokens", () => {
     ]);
   });
 
+  it("lists USDT and no USDC on opBNB, which has no USDC", async () => {
+    const opbnbUsdt = RECOVERY_NETWORKS.opbnb.extraTokens[0].address;
+    chain({ [opbnbUsdt.toLowerCase()]: { balance: 25n * 10n ** 17n } });
+    const tokens = await fetchRecoveryTokens("opbnb", SMART_ACCOUNT);
+    expect(tokens.map((t) => [t.symbol, t.formatted])).toEqual([
+      ["BNB", "0"],
+      ["USDT", "2.5"],
+    ]);
+  });
+
   it("formats USDC with the network's own decimals (BNB uses 18)", async () => {
     chain({
-      [RECOVERY_NETWORKS.bnb.usdcAddress.toLowerCase()]: {
+      [(RECOVERY_NETWORKS.bnb.usdcAddress as Address).toLowerCase()]: {
         balance: 15n * 10n ** 17n,
       },
     });
