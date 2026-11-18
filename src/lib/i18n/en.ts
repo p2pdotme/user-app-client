@@ -608,6 +608,7 @@ export const en = {
       "{{tier}} ruled in your favour ({{fault}} at fault). The decision is applied automatically after {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Settled on {{date}}. {{fault}} was found at fault.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "This dispute is settled.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} did not decide in time. You can escalate the dispute to {{next}} now.",
     DISPUTE_TIER_1: "Circle review",

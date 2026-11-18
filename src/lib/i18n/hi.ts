@@ -592,6 +592,7 @@ export const hi = {
       "{{tier}} ने आपके पक्ष में निर्णय दिया ({{fault}} का दोष)। {{date}} के बाद निर्णय अपने आप लागू हो जाएगा।",
     DISPUTE_SUMMARY_SETTLED:
       "{{date}} को निपटारा हुआ। {{fault}} का दोष पाया गया।",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "इस विवाद का निपटारा हो गया है।",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} ने समय पर निर्णय नहीं लिया। आप अभी विवाद को {{next}} पर एस्केलेट कर सकते हैं।",
     DISPUTE_TIER_1: "सर्कल समीक्षा",
