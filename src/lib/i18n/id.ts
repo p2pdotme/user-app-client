@@ -615,6 +615,7 @@ export const id = {
       "{{tier}} memutuskan berpihak kepada Anda (kesalahan {{fault}}). Keputusan diterapkan otomatis setelah {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Diselesaikan pada {{date}}. {{fault}} dinyatakan bersalah.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "Sengketa ini sudah diselesaikan.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} tidak memutuskan tepat waktu. Anda dapat mengeskalasi sengketa ke {{next}} sekarang.",
     DISPUTE_TIER_1: "Peninjauan Circle",
