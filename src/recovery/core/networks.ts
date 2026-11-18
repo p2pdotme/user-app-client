@@ -23,6 +23,7 @@ export const DEFAULT_LOG_SCAN_BLOCKS = 500;
 export type RecoveryNetworkKey =
   | "monad"
   | "bnb"
+  | "opbnb"
   | "avax"
   | "polygon"
   | "optimism"
@@ -56,7 +57,8 @@ export type RecoveryNetwork = {
   bundlerUrl: string | null;
   entryPoint: Address;
   factoryAddress: Address;
-  usdcAddress: Address;
+  /** null on networks with no USDC; their stablecoins are in extraTokens. */
+  usdcAddress: Address | null;
   usdcDecimals: number;
   /** Tokens always listed for recovery alongside native and USDC. */
   extraTokens: readonly RecoveryTokenConfig[];
@@ -73,7 +75,7 @@ type NetworkSpec = {
   explorer: { name: string; url: string };
   /** false when Pimlico has no bundler for the chain. */
   hasBundler: boolean;
-  usdcAddress: Address;
+  usdcAddress: Address | null;
   usdcDecimals?: number;
   extraTokens?: readonly RecoveryTokenConfig[];
   logScanBlocks?: number;
@@ -105,6 +107,25 @@ const NETWORK_SPECS: Record<RecoveryNetworkKey, NetworkSpec> = {
     hasBundler: true,
     usdcAddress: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
     usdcDecimals: 18,
+  },
+  opbnb: {
+    label: "opBNB",
+    id: 204,
+    name: "opBNB Mainnet",
+    native: { name: "BNB", symbol: "BNB" },
+    rpc: "https://opbnb-mainnet-rpc.bnbchain.org",
+    explorer: { name: "opBNB BscScan", url: "https://opbnb.bscscan.com" },
+    hasBundler: true,
+    // opBNB has no USDC; users deposit USDT there
+    usdcAddress: null,
+    extraTokens: [
+      {
+        address: "0x9e5AAC1Ba1a2e6aEd6b32689DFcF62A509Ca96f3",
+        symbol: "USDT",
+        name: "Tether USD",
+        decimals: 18,
+      },
+    ],
   },
   avax: {
     label: "Avalanche",
