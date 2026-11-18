@@ -714,7 +714,7 @@ export const en = {
       "A dispute asks P2P.me support to step in when an order goes wrong, for example you paid but didn't get your USDC, or a merchant didn't pay you. Support checks the payment with the merchant and settles the order. Orders with an open dispute show \"In dispute\" in Transactions.",
     FAQ_WHAT_ARE_ORDER_STATUSES: "What are the different statuses of an order?",
     FAQ_WHAT_ARE_ORDER_STATUSES_ANSWER:
-      "• Finding merchant: waiting for a merchant to accept.\n• Merchant assigned: a merchant accepted and the payment step is in progress.\n• Payment sent: the payment was marked as sent and is waiting to be confirmed.\n• Completed: the order is done.\n• Cancelled: the order was cancelled or timed out. For sell and pay orders, your USDC is refunded.\n• In dispute / Dispute settled: a dispute is open, or has been resolved.",
+      "• Finding merchant: waiting for a merchant to accept.\n• Merchant assigned: a merchant accepted and the payment step is in progress.\n• Payment in progress: the payment was marked as sent and is waiting to be confirmed.\n• Completed: the order is done.\n• Cancelled: the order was cancelled or timed out. For sell and pay orders, your USDC is refunded.\n• In dispute / Dispute settled: a dispute is open, or has been resolved.",
     FAQ_WHAT_FEES_CHARGED: "What fees does P2P.me charge?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
       "Most orders have no separate fee: you pay the price shown.\n\nSmall orders have a flat USDC fee. If your amount is below the limit, the app shows the fee and exactly what you'll get or pay before you place the order.\n\nSending USDC from your P2P.me wallet is free, as network fees (gas) are covered. Cross-chain transfers include a bridge fee, shown in the quote.",

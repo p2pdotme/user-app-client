@@ -734,7 +734,7 @@ export const es = {
     FAQ_WHAT_ARE_ORDER_STATUSES:
       "¿Cuáles son los diferentes estados de un pedido?",
     FAQ_WHAT_ARE_ORDER_STATUSES_ANSWER:
-      "• Buscando comerciante: esperando a que un comerciante lo acepte.\n• Comerciante asignado: un comerciante lo aceptó y el paso de pago está en curso.\n• Pago enviado: el pago se marcó como enviado y está esperando confirmación.\n• Completado: el pedido terminó.\n• Cancelado: el pedido se canceló o se agotó el tiempo. En los pedidos de venta y pago, se te reembolsa el USDC.\n• En disputa / Disputa resuelta: hay una disputa abierta, o ya se resolvió.",
+      "• Buscando comerciante: esperando a que un comerciante lo acepte.\n• Comerciante asignado: un comerciante lo aceptó y el paso de pago está en curso.\n• Pago en progreso: el pago se marcó como enviado y está esperando confirmación.\n• Completado: el pedido terminó.\n• Cancelado: el pedido se canceló o se agotó el tiempo. En los pedidos de venta y pago, se te reembolsa el USDC.\n• En disputa / Disputa resuelta: hay una disputa abierta, o ya se resolvió.",
     FAQ_WHAT_FEES_CHARGED: "¿Qué tarifas cobra P2P.me?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
       "La mayoría de los pedidos no tienen una comisión aparte: pagas el precio que se muestra.\n\nLos pedidos pequeños tienen una comisión fija en USDC. Si tu monto está por debajo del límite, la app te muestra la comisión y exactamente lo que recibirás o pagarás antes de crear el pedido.\n\nEnviar USDC desde tu wallet de P2P.me es gratis, porque las comisiones de red (gas) están cubiertas. Las transferencias cross-chain incluyen una comisión del puente, que se muestra en la cotización.",
