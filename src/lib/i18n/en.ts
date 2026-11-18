@@ -850,6 +850,9 @@ export const en = {
       "How do I recover funds using my private key?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'If you lost access to your account but still have your wallet\'s private key, you can recover your USDC.\n\n1. Open the "Recover Funds" page.\n2. Paste your private key to load your smart wallet.\n3. Enter another P2P.me wallet address and the amount.\n4. Tap Recover funds to send.\n\nNever share your private key with anyone.',
+    FAQ_SCAN_PAY_REFUND_POLICY: "Can I get a refund on a Scan & Pay order?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Yes, but only Scan & Pay orders can be refunded, and a 4% refund fee applies.\n\nIf you pay a QR online with Scan & Pay and later ask our support for a refund:\n- 4% of the INR amount is deducted as a refund fee. The merchant keeps this fee.\n- You get the rest back, in INR only.\n\nExample: You ask for a refund of ₹10,000. You get ₹9,600 back. The ₹400 fee goes to the merchant.\n\nPlease check the QR and amount carefully before you pay. By using P2P.me, you agree to this refund policy.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "The shopkeeper is asking to see the payment. What should I do?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
