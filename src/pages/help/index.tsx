@@ -140,7 +140,7 @@ export function Help() {
       <SupportWidget />
       <NonHomeHeader title={t("HELP_AND_SUPPORT")} showHelp={false} />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-2 overflow-y-auto">
-        <section className="flex w-full flex-col items-center justify-center gap-4 py-8">
+        <section className="flex w-full flex-col items-center justify-center gap-4 pt-8">
           {/* flex-wrap, not a fixed row: "Chat with us" + "Chat on Telegram"
               side by side overflow a narrow phone next to the label, so the
               button pair drops to its own full-width line instead of squashing
@@ -194,14 +194,18 @@ export function Help() {
             </div>
             <ArrowRight className="size-3 text-primary" />
           </button>
-          <RecoveryCard
-            onClick={() => {
-              track(EVENTS.HELP, { status: "opened", section: "recovery" });
-              navigate(INTERNAL_HREFS.RECOVERY);
-            }}
-          />
+          {/* Recovery and the tax report both need a connected wallet; signed
+              out, tapping them would only bounce to login. */}
+          {account?.address && (
+            <RecoveryCard
+              onClick={() => {
+                track(EVENTS.HELP, { status: "opened", section: "recovery" });
+                navigate(INTERNAL_HREFS.RECOVERY);
+              }}
+            />
+          )}
           {/* The tax report follows Indian tax law, so only INR users see it */}
-          {currency.currency === CURRENCY.INR && (
+          {account?.address && currency.currency === CURRENCY.INR && (
             <TaxReportCard
               onClick={() => {
                 track(EVENTS.HELP, { status: "opened", section: "tax-report" });

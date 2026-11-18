@@ -250,9 +250,13 @@ function summary({
   settledFault?: string;
 }): string {
   if (!view || !escalation) {
+    // Until the indexer has the settle time and fault, say only that it is
+    // settled rather than "Settled on . Default was found at fault."
+    if (!settledAt || !settledFault || settledFault === "DEFAULT")
+      return t("DISPUTE_SUMMARY_SETTLED_NO_DETAILS");
     return t("DISPUTE_SUMMARY_SETTLED", {
       date: fmt(settledAt),
-      fault: t(settledFault ?? "DEFAULT"),
+      fault: t(settledFault),
     });
   }
   const tier = tierLabel(
