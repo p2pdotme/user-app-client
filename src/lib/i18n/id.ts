@@ -1768,7 +1768,6 @@ export const id = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Mencari merchant",
     PAYF_TXN_STATUS_IN_DISPUTE: "Dalam sengketa",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant ditetapkan",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Pembayaran dikirim",
     PAYF_VIEW_ON_BASESCAN: "Lihat di BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Jumlah",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:

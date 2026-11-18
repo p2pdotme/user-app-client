@@ -1778,7 +1778,6 @@ export const pt = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Procurando comerciante",
     PAYF_TXN_STATUS_IN_DISPUTE: "Em disputa",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Comerciante atribuído",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Pagamento enviado",
     PAYF_VIEW_ON_BASESCAN: "Ver no BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Valor",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
