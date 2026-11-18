@@ -10,7 +10,6 @@ const UPI_MANDATE_PARAMS = [
   "amrule",
   "validitystart",
   "validityend",
-  "txntype",
 ] as const;
 
 /**

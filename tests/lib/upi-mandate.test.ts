@@ -10,7 +10,6 @@ describe("isUpiMandateQr", () => {
     ["uppercase scheme", MANDATE_QR.replace("upi://mandate", "UPI://MANDATE")],
     ["pay + recur", "upi://pay?pa=foo@bar&am=10&recur=MONTHLY"],
     ["pay + amrule", "upi://pay?pa=foo@bar&amrule=MAX"],
-    ["pay + txnType", "upi://pay?pa=foo@bar&txnType=CREATE"],
     ["scheme-less + validityend", "pa=foo@bar&validityend=15112036"],
   ])("flags %s", (_label, qr) => {
     expect(isUpiMandateQr(qr)).toBe(true);
@@ -20,6 +19,7 @@ describe("isUpiMandateQr", () => {
     ["plain pay", "upi://pay?pa=merchant@okaxis&am=800&cu=INR"],
     ["uppercase pay", "UPI://PAY?pa=merchant@okaxis"],
     ["scheme-less pay", "pa=merchant@okaxis&am=10"],
+    ["pay with txnType", "upi://pay?pa=foo@bar&txnType=PAY"],
     ["non-mandate intent", "upi://collect?pa=foo@bar&am=10"],
     [
       "fonepay EMVCo",
