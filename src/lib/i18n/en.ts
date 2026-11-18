@@ -1735,7 +1735,6 @@ export const en = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Finding merchant",
     PAYF_TXN_STATUS_IN_DISPUTE: "In dispute",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant assigned",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Payment sent",
     PAYF_VIEW_ON_BASESCAN: "View on BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Amount",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
