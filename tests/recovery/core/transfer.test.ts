@@ -68,7 +68,7 @@ const PIMLICO_URL = OP.bundlerUrl as string;
 const USER_OP_HASH = `0x${"11".repeat(32)}` as Hex;
 const TX = `0x${"33".repeat(32)}` as Hex;
 const SPONSORED = `0x${"cc".repeat(60)}` as Hex;
-const USDC = OP.usdcAddress;
+const USDC = OP.usdcAddress as string;
 
 const signMessage = vi.fn();
 function makeWallet({ connected = true } = {}): Wallet {
