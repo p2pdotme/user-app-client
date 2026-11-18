@@ -27,6 +27,26 @@ export function formatTokenAmount(raw: string | null, decimals = 6): string {
 }
 
 /**
+ * Shorten a decimal amount string for display only (never for math or tx
+ * params): caps significant digits so long-precision quotes such as
+ * "0.000560482980256875" fit their row ("0.000560483").
+ */
+export function formatDisplayAmount(
+  value: string | null | undefined,
+  maxSignificantDigits = 6,
+): string {
+  const parsed = Number(value);
+  if (!value || !Number.isFinite(parsed)) return value ?? "";
+  return parsed.toLocaleString("en-US", {
+    maximumSignificantDigits: Math.max(
+      maxSignificantDigits,
+      // Keep every integer digit: 1,234,567.89 must not become 1,234,570.
+      Math.floor(Math.log10(Math.max(Math.abs(parsed), 1))) + 1,
+    ),
+  });
+}
+
+/**
  * Format a numeric token balance with locale grouping.
  * Hides decimals when the value is a whole number; otherwise shows up to
  * `maxDecimals` fractional digits.
