@@ -26,6 +26,8 @@ export type ReclaimPollState = {
   generationFailedSince: number | null;
   /** When the attempt started (session created or resumed from the URL). */
   startedAt: number;
+  /** When the last transient failure was handled (null before the first). */
+  lastFailureAt: number | null;
 };
 
 export type ReclaimPollDecision =
@@ -42,6 +44,13 @@ export const RECLAIM_GENERATION_FAILED_GRACE_MS = 30_000;
 /** A freshly created / resumed session can briefly 404 on Reclaim's API. */
 export const RECLAIM_NOT_FOUND_GRACE_MS = 60_000;
 export const RECLAIM_MAX_POLL_RETRIES = 8;
+/**
+ * A failure this long after the previous one means polling recovered in
+ * between, so it's a separate outage and gets a fresh retry budget. Longer
+ * than the max backoff (15 s), so back-to-back failures of one outage never
+ * reset it. The 10-minute attempt cap still bounds the whole attempt.
+ */
+export const RECLAIM_RETRY_BUDGET_RESET_MS = 30_000;
 const BASE_DELAY_MS = 2_000;
 const MAX_DELAY_MS = 15_000;
 
@@ -55,7 +64,12 @@ const TERMINAL_CODES = new Set([
 ]);
 
 export function initialReclaimPollState(now = Date.now()): ReclaimPollState {
-  return { retries: 0, generationFailedSince: null, startedAt: now };
+  return {
+    retries: 0,
+    generationFailedSince: null,
+    startedAt: now,
+    lastFailureAt: null,
+  };
 }
 
 function errorCode(error: unknown): string | undefined {
@@ -74,7 +88,12 @@ export function decideReclaimPollRetry(
   const code = errorCode(error) ?? "UNKNOWN";
 
   if (TERMINAL_CODES.has(code)) return { action: "stop", reason: code };
-  if (state.retries >= RECLAIM_MAX_POLL_RETRIES) {
+  const retries =
+    state.lastFailureAt !== null &&
+    now - state.lastFailureAt > RECLAIM_RETRY_BUDGET_RESET_MS
+      ? 0
+      : state.retries;
+  if (retries >= RECLAIM_MAX_POLL_RETRIES) {
     return { action: "stop", reason: "max_retries" };
   }
 
@@ -93,15 +112,16 @@ export function decideReclaimPollRetry(
   // non-JSON 5xx page from the status API, or an unknown code) is treated as
   // a transient polling failure, bounded by RECLAIM_MAX_POLL_RETRIES.
 
-  const delayMs = Math.min(BASE_DELAY_MS * 2 ** state.retries, MAX_DELAY_MS);
+  const delayMs = Math.min(BASE_DELAY_MS * 2 ** retries, MAX_DELAY_MS);
   return {
     action: "retry",
     delayMs,
     reason: code,
     nextState: {
       ...state,
-      retries: state.retries + 1,
+      retries: retries + 1,
       generationFailedSince,
+      lastFailureAt: now,
     },
   };
 }

@@ -2591,6 +2591,8 @@ export const hi = {
     VERIFY_ZK_PROOF: "zk प्रूफ़ सत्यापित करें",
     VFX_ATTESTATION_EXPIRED:
       "आपके वेरिफ़िकेशन का नतीजा सेव होने से पहले ही एक्सपायर हो गया। कृपया फिर से शुरू करें।",
+    VFX_ATTESTATION_INVALID:
+      "हम इस सत्यापन परिणाम की पुष्टि नहीं कर सके। कृपया फिर से शुरू करें।",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "दूसरा फ़ोन नंबर",
     VFX_BVN_OTP_METHOD_EMAIL: "ईमेल",
     VFX_BVN_OTP_METHOD_OTHER: "दूसरा विकल्प",
@@ -2606,6 +2608,8 @@ export const hi = {
     VFX_SESSION_EXPIRED_TITLE: "सेशन एक्सपायर हो गया",
     VFX_START_AGAIN: "फिर से शुरू करें",
     VFX_STATUS_CHECK_FAILED: "स्टेटस जाँचा नहीं जा सका",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "यह सत्यापन अभी उपलब्ध नहीं है। कृपया बाद में फिर से कोशिश करें।",
     VIA_JUPITER: "Jupiter से",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
