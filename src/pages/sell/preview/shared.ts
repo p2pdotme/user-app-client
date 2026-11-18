@@ -1,6 +1,30 @@
 import { z } from "zod";
 import { getSettings } from "@/core/client";
+import type { Currency } from "@/core/client/settings";
+import { COUNTRY_OPTIONS } from "@/lib/constants";
 import { validatePaymentAddress } from "@/lib/utils";
+
+/**
+ * Currency config the sell payment-details UI validates against: the
+ * `currencyOverride` (an existing order's currency) when given and known,
+ * else the app's current settings currency.
+ */
+export const resolveSellCurrency = (
+  settingsCurrency: Currency,
+  currencyOverride?: string,
+): Pick<Currency, "currency" | "paymentAddressName"> => {
+  if (!currencyOverride || currencyOverride === settingsCurrency.currency) {
+    return settingsCurrency;
+  }
+  const option = COUNTRY_OPTIONS.find((c) => c.currency === currencyOverride);
+  return option
+    ? {
+        currency: option.currency as Currency["currency"],
+        paymentAddressName:
+          option.paymentAddressName as Currency["paymentAddressName"],
+      }
+    : settingsCurrency;
+};
 
 export const SellPreviewStateSchema = z.object({
   amount: z.object({
@@ -12,9 +36,9 @@ export const SellPreviewStateSchema = z.object({
 export type SellPreviewState = z.infer<typeof SellPreviewStateSchema>;
 
 // Create form schema that validates based on currency
-export const createSellAddressFormSchema = () => {
+export const createSellAddressFormSchema = (currencyOverride?: string) => {
   const settingsResult = getSettings();
-  if (settingsResult.isErr()) {
+  if (!currencyOverride && settingsResult.isErr()) {
     return z.object({
       id: z.string().optional(),
       label: z.string().min(1, { error: "Label is required" }),
@@ -22,7 +46,9 @@ export const createSellAddressFormSchema = () => {
       isActive: z.boolean(),
     });
   }
-  const currency = settingsResult.value.currency.currency;
+  const currency =
+    currencyOverride ??
+    (settingsResult.isOk() ? settingsResult.value.currency.currency : "");
   return z.object({
     id: z.string().optional(),
     label: z.string().min(1, { error: "Label is required" }),

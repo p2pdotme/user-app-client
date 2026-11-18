@@ -14,6 +14,7 @@ export function useGetOrderById(orderId: number) {
     isPending: isOrderPending,
     isError: isOrderError,
     error: orderError,
+    refetch,
   } = useQuery({
     queryKey: ["order", "getOrderById", orderId],
     queryFn: async () => {
@@ -55,5 +56,6 @@ export function useGetOrderById(orderId: number) {
     isOrderPending,
     isOrderError,
     orderError,
+    refetchOrder: refetch,
   };
 }

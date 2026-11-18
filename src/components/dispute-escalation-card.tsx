@@ -22,6 +22,7 @@ import {
   deriveDisputeEscalationView,
 } from "@/lib/dispute-escalation";
 import { buildDisputeStages, type DisputeStage } from "@/lib/dispute-stages";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { cn } from "@/lib/utils";
 import {
   type DisputeChallengeAction,
@@ -133,7 +134,7 @@ export function DisputeEscalationCard({
       toast.error(
         t(isFinalize ? "DISPUTE_FINALIZE_FAILED" : "DISPUTE_CHALLENGE_FAILED"),
         {
-          description: error instanceof Error ? error.message : undefined,
+          description: getUserFacingErrorMessage(t, error),
         },
       );
       return;
@@ -249,9 +250,13 @@ function summary({
   settledFault?: string;
 }): string {
   if (!view || !escalation) {
+    // Until the indexer has the settle time and fault, say only that it is
+    // settled rather than "Settled on . Default was found at fault."
+    if (!settledAt || !settledFault || settledFault === "DEFAULT")
+      return t("DISPUTE_SUMMARY_SETTLED_NO_DETAILS");
     return t("DISPUTE_SUMMARY_SETTLED", {
       date: fmt(settledAt),
-      fault: t(settledFault ?? "DEFAULT"),
+      fault: t(settledFault),
     });
   }
   const tier = tierLabel(
