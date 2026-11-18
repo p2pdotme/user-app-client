@@ -1,7 +1,7 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
-import { Share } from "lucide-react";
+import { LifeBuoy, Share } from "lucide-react";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -28,12 +28,24 @@ import {
   formatFiatAmount,
   getPaymentAddressFromOrderDetails,
 } from "@/lib/utils";
+import { HelpDrawer } from "../help-drawer";
 
 export function SellCompleted({ order }: { order: Order }) {
   const { t } = useTranslation();
   const orders = useOrders();
   const navigate = useNavigate();
-  const { trackWithDedupe } = useAnalytics();
+  const { track, trackWithDedupe } = useAnalytics();
+  const [showHelpDrawer, setShowHelpDrawer] = useState(false);
+
+  const handleDidntReceive = () => {
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "sell",
+      status: "didnt_receive_tapped",
+      orderId: order.id.toString(),
+      currency: order.currency,
+    });
+    setShowHelpDrawer(true);
+  };
   const {
     data: orderFeeDetails,
     isLoading: isLoadingOrderFeeDetails,
@@ -136,8 +148,15 @@ export function SellCompleted({ order }: { order: Order }) {
 
   return (
     <>
+      <HelpDrawer
+        open={showHelpDrawer}
+        onOpenChange={setShowHelpDrawer}
+        order={order}
+      />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto">
-        <section className="flex flex-col items-center justify-center py-2">
+        <section className="flex flex-col items-center justify-center gap-2 py-2">
+          {/* Same size as the Buy/Pay completed animation. The copy below
+              still asks the user to confirm the money actually arrived. */}
           <div className="relative overflow-hidden">
             <DotLottieReact
               className="h-40 w-80 origin-center scale-200"
@@ -145,9 +164,9 @@ export function SellCompleted({ order }: { order: Order }) {
               autoplay
             />
           </div>
-          <h2 className="text-center font-medium text-5xl text-primary">
+          <p className="text-center font-medium text-4xl text-primary">
             {formatFiatAmount(order.fiatAmount, order.currency)}
-          </h2>
+          </p>
         </section>
         <div className="items-center-safe justify-center-safe flex gap-2 py-2">
           <ASSETS.ICONS.Logo className="size-7 text-primary" />
@@ -155,6 +174,20 @@ export function SellCompleted({ order }: { order: Order }) {
             {t("SOLD_VIA")} P2P.me
           </p>
         </div>
+        <section className="flex flex-col items-center justify-center gap-2">
+          <p className="text-center text-muted-foreground text-sm">
+            {t("SELL_UX_COMPLETED_DESCRIPTION", {
+              amount: formatFiatAmount(order.fiatAmount, order.currency),
+            })}
+          </p>
+          <Button
+            variant="outline"
+            className="mt-1 gap-2"
+            onClick={handleDidntReceive}>
+            <LifeBuoy className="size-4" />
+            {t("SELL_UX_DIDNT_RECEIVE_IT")}
+          </Button>
+        </section>
 
         {/* Prizerail draw card. Entries are sent server-side on completed
             non-B2B SELLs — no on-chain hook to wait on, so the UI promises them

@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import ASSETS from "@/assets";
 import { DashedSeparator, OrderProgress } from "@/components";
+import { OrderElapsedTime } from "@/components/order-elapsed-time";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -75,7 +76,10 @@ export function PayPlaced({ order }: { order: Order }) {
         className="mx-auto mt-auto flex w-full max-w-lg flex-shrink-0 flex-col justify-center gap-2 rounded-t-3xl border-t bg-background py-4 shadow-[0_-4px_16px_var(--primary-shadow)]">
         <section className="flex w-full flex-col items-center">
           <p className="text-center text-sm">{t("DONT_ASK_FOR_A_QR_YET")}</p>
-          <p className="text-center text-sm text-success">{t("ON_TIME")}</p>
+          <OrderElapsedTime
+            sinceTimestamp={order.placedTimestamp}
+            expectedSeconds={90}
+          />
         </section>
         <Separator className="h-4 animate-pulse bg-primary py-1" />
         <OrderProgress
@@ -139,7 +143,7 @@ export function PayPlaced({ order }: { order: Order }) {
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="font-medium">{t("YOU_RECEIVE")} </span>
+                <span className="font-medium">{t("PAYF_MERCHANT_GETS")} </span>
                 <span className="text-muted-foreground">
                   {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
                     <Skeleton className="h-5 w-20" />
@@ -165,9 +169,7 @@ export function PayPlaced({ order }: { order: Order }) {
 
               return (
                 <div className="flex w-full items-center justify-between">
-                  <span className="font-medium">
-                    {t("TOTAL_RECEIVABLE_AMOUNT")}
-                  </span>
+                  <span className="font-medium">{t("PAYF_BILL_TOTAL")}</span>
                   <span className="text-muted-foreground">
                     {isLoadingOrderFeeDetails || orderFeeDetailsError ? (
                       <Skeleton className="h-5 w-20" />

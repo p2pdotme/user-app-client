@@ -1,12 +1,14 @@
 import { Filter } from "lucide-react";
 import moment from "moment";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FAQAccordion, NonHomeHeader, SectionHeader } from "@/components";
 import { Button } from "@/components/ui/button";
 import type { EnrichedSubgraphOrder } from "@/core/p2pdotme/shared/validation";
 import { usePageMeta, useTxnHistory } from "@/hooks";
+import { analytics, EVENTS } from "@/lib/analytics";
 import { getFiatUnit, INTERNAL_HREFS } from "@/lib/constants";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { exportTransactionsToCSV } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
 import {
@@ -20,6 +22,9 @@ import { TransactionCard } from "./txn-card";
 import { TransactionCardSkeleton } from "./txn-card-skeleton";
 import { TransactionsSummary } from "./txn-summary";
 import { TransactionsSummarySkeleton } from "./txn-summary-skeleton";
+
+// Earliest date the app could have orders; used for the "Show all time" range.
+const ALL_TIME_START = new Date(2023, 0, 1);
 
 // Render skeleton loaders
 const renderSkeletons = (count: number) => (
@@ -47,7 +52,30 @@ export function Transactions() {
 
   // Handler for filters change from drawer
   const handleFiltersChange = (newFilters: TransactionFilters) => {
+    analytics.track(EVENTS.FEATURE, {
+      status: "txn_filter_changed",
+      location: "transactions",
+      datePreset: newFilters.datePreset,
+      types: newFilters.types.length,
+      statuses: newFilters.statuses.length,
+    });
     setFilters(newFilters);
+  };
+
+  const isAllTime =
+    filters.datePreset === "custom" &&
+    filters.dateRange.from?.getTime() === ALL_TIME_START.getTime();
+
+  const handleShowAllTime = () => {
+    analytics.track(EVENTS.FEATURE, {
+      status: "txn_show_all_clicked",
+      location: "transactions",
+    });
+    setFilters({
+      ...SANE_DEFAULT_FILTERS,
+      datePreset: "custom",
+      dateRange: { from: ALL_TIME_START, to: new Date() },
+    });
   };
 
   const {
@@ -197,9 +225,11 @@ export function Transactions() {
       );
 
     if (!isSameAsDefaultDisputeStatuses) {
-      const disputeLabels = filters.disputeStatuses.map((status: string) =>
-        status === "NONE" ? t("NO_DISPUTE") : t(status),
-      );
+      const disputeLabels = filters.disputeStatuses
+        .filter((status) => status !== "DEFAULT")
+        .map((status: string) =>
+          status === "NONE" ? t("NO_DISPUTE") : t(status),
+        );
       appliedFilters.push({
         key: "disputes",
         label: t("DISPUTE_FILTER", { disputes: disputeLabels.join(", ") }),
@@ -251,6 +281,19 @@ export function Transactions() {
 
   const appliedFilters = getAppliedFilters();
 
+  const isEmpty =
+    !isTxnHistoryPending &&
+    !isTxnHistoryError &&
+    sortedTransactions.length === 0;
+  useEffect(() => {
+    if (!isEmpty) return;
+    analytics.track(EVENTS.FEATURE, {
+      status: "txn_empty_state_shown",
+      location: "transactions",
+      datePreset: filters.datePreset,
+    });
+  }, [isEmpty, filters.datePreset]);
+
   const renderContent = () => {
     if (isTxnHistoryPending) {
       return renderSkeletons(4);
@@ -259,8 +302,9 @@ export function Transactions() {
     if (isTxnHistoryError) {
       return (
         <div className="py-6 text-center">
-          <p className="text-destructive">
-            {t("ERROR_LOADING_TRANSACTIONS")}: {txnHistoryError?.message}
+          <p className="text-destructive">{t("ERROR_LOADING_TRANSACTIONS")}</p>
+          <p className="mt-1 text-muted-foreground text-sm">
+            {getUserFacingErrorMessage(t, txnHistoryError)}
           </p>
         </div>
       );
@@ -268,9 +312,19 @@ export function Transactions() {
 
     if (sortedTransactions.length === 0) {
       return (
-        <p className="py-6 text-center text-muted-foreground">
-          {t("NO_TRANSACTIONS_FOUND")}
-        </p>
+        <div className="flex flex-col items-center gap-3 py-6 text-center">
+          <p className="text-muted-foreground">{t("NO_TRANSACTIONS_FOUND")}</p>
+          {!isAllTime || appliedFilters.length > 0 ? (
+            <>
+              <p className="text-muted-foreground text-sm">
+                {t("PAYF_TXN_EMPTY_FILTERED_HINT")}
+              </p>
+              <Button variant="outline" size="sm" onClick={handleShowAllTime}>
+                {t("PAYF_TXN_SHOW_ALL_TIME")}
+              </Button>
+            </>
+          ) : null}
+        </div>
       );
     }
 

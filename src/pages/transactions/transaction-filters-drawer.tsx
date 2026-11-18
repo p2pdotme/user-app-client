@@ -35,6 +35,7 @@ import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES,
   type TransactionFilters,
+  withDisputeAliases,
 } from "./shared";
 
 interface TransactionFiltersDrawerProps {
@@ -353,7 +354,7 @@ function FilterContent({
             badge={
               filters.disputeStatuses.length !==
               SANE_DEFAULT_FILTERS.disputeStatuses.length
-                ? filters.disputeStatuses.length
+                ? filters.disputeStatuses.filter((s) => s !== "DEFAULT").length
                 : undefined
             }>
             <ToggleGroup
@@ -362,7 +363,9 @@ function FilterContent({
               onValueChange={(values) =>
                 setFilters({
                   ...filters,
-                  disputeStatuses: values as typeof filters.disputeStatuses,
+                  disputeStatuses: withDisputeAliases(
+                    values as typeof filters.disputeStatuses,
+                  ),
                 })
               }
               className="flex-wrap justify-start">

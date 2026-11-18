@@ -1,11 +1,12 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useOrders } from "@p2pdotme/sdk/react";
-import { MessageCircle, X } from "lucide-react";
+import { LifeBuoy, MessageCircle, X } from "lucide-react";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { zeroAddress } from "viem";
 import ASSETS from "@/assets";
 import { DisputeEscalationCard } from "@/components/dispute-escalation-card";
 import { DisputeStatusValue } from "@/components/dispute-status-value";
@@ -17,14 +18,26 @@ import type { Order } from "@/core/adapters/thirdweb/validation";
 import { useAnalytics, useCancelledTimestamp, useSupportChat } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import { formatFiatAmount, truncateAddress } from "@/lib/utils";
+import { HelpDrawer } from "../help-drawer";
+import {
+  DISPUTE_MIN_WAIT_BUY,
+  getDisputeAvailability,
+} from "../help-drawer/utils";
 
 export function BuyCancelled({ order }: { order: Order }) {
   const { t } = useTranslation();
   const orders = useOrders();
   const navigate = useNavigate();
-  const { trackWithDedupe } = useAnalytics();
+  const { track, trackWithDedupe } = useAnalytics();
   const { openSupportChat } = useSupportChat();
+  const [showHelpDrawer, setShowHelpDrawer] = useState(false);
+  // A merchant accepted the order (so payment details were shown) before it
+  // was cancelled — the user may have paid before the window expired.
+  const wasAccepted =
+    !!order.acceptedMerchant &&
+    order.acceptedMerchant.toLowerCase() !== zeroAddress;
   const [decryptedPaymentAddress, setDecryptedPaymentAddress] = useState<
     string | undefined
   >(undefined);
@@ -96,6 +109,12 @@ export function BuyCancelled({ order }: { order: Order }) {
 
   return (
     <>
+      <HelpDrawer
+        open={showHelpDrawer}
+        onOpenChange={setShowHelpDrawer}
+        order={order}
+        orderType="BUY"
+      />
       <main className="container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto">
         <section className="flex flex-col items-center justify-center py-2">
           <div className="relative">
@@ -166,7 +185,7 @@ export function BuyCancelled({ order }: { order: Order }) {
                   )}
                   {isErrorCancelledTimestamp && (
                     <p className="text-destructive">
-                      {errorCancelledTimestamp.message}
+                      {getUserFacingErrorMessage(t, errorCancelledTimestamp)}
                     </p>
                   )}
                   {cancelledTimestamp
@@ -191,6 +210,41 @@ export function BuyCancelled({ order }: { order: Order }) {
           </CardContent>
         </Card>
 
+        {wasAccepted &&
+          order.disputeInfo.status === "DEFAULT" &&
+          getDisputeAvailability(order).state !== "expired" && (
+            <Card className="w-full gap-2 border-none bg-warning/15 shadow-none">
+              <CardContent className="space-y-1">
+                <p className="font-medium text-sm">
+                  {t("BUY_UX_ALREADY_PAID_TITLE")}
+                </p>
+                <p className="font-light text-sm">
+                  {t("BUY_UX_ALREADY_PAID_DESCRIPTION", {
+                    minutes: DISPUTE_MIN_WAIT_BUY / 60000,
+                  })}
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button
+                  className="gap-2 p-5"
+                  variant="outline"
+                  onClick={() => {
+                    track(EVENTS.TRANSACTION, {
+                      transaction_type: "buy",
+                      status: "already_paid_help_tapped",
+                      orderId: order.id.toString(),
+                      currency: order.currency,
+                      source: "cancelled",
+                    });
+                    setShowHelpDrawer(true);
+                  }}>
+                  <LifeBuoy className="size-4" />
+                  <p className="font-medium text-sm">{t("BUY_UX_GET_HELP")}</p>
+                </Button>
+              </CardFooter>
+            </Card>
+          )}
+
         {/* Tiered dispute escalation: challenge / escalate / finalize */}
         <DisputeEscalationCard
           orderId={order.id.toString()}
@@ -208,6 +262,11 @@ export function BuyCancelled({ order }: { order: Order }) {
               <li>
                 <p>{t("BUY_CANCELLED_REASON_2")}</p>
               </li>
+              {wasAccepted && (
+                <li>
+                  <p>{t("BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED")}</p>
+                </li>
+              )}
             </ul>
           </CardContent>
           <CardFooter>
@@ -231,7 +290,10 @@ export function BuyCancelled({ order }: { order: Order }) {
         </Button>
         <Button
           onClick={() => {
-            navigate(INTERNAL_HREFS.BUY);
+            // Prefill the same fiat amount the user tried to pay last time.
+            navigate(INTERNAL_HREFS.BUY, {
+              state: { prefill: { fiat: Number(order.fiatAmount) } },
+            });
           }}
           className="w-1/2 p-6">
           <p className="font-medium text-sm">{t("REORDER")}</p>

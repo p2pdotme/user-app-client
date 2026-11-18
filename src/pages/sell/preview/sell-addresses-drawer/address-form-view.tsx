@@ -24,7 +24,11 @@ import { Input } from "@/components/ui/input";
 import { useSettings } from "@/contexts/settings";
 import { getPaymentIdFields } from "@/lib/compound-payment-id";
 import { usesCatalogPaymentForm } from "@/lib/constants";
-import type { SellAddressesPage, SellAddressFormData } from "../shared";
+import {
+  resolveSellCurrency,
+  type SellAddressesPage,
+  type SellAddressFormData,
+} from "../shared";
 
 interface AddressFormViewProps {
   page: SellAddressesPage;
@@ -32,6 +36,8 @@ interface AddressFormViewProps {
   setPage: (page: SellAddressesPage) => void;
   handleSave: (values: SellAddressFormData) => void;
   onDelete: () => void;
+  /** Address book currency; defaults to the settings currency. */
+  currency?: string;
 }
 
 export function AddressFormView({
@@ -40,11 +46,11 @@ export function AddressFormView({
   setPage,
   handleSave,
   onDelete,
+  currency: currencyOverride,
 }: AddressFormViewProps) {
   const { t } = useTranslation();
-  const {
-    settings: { currency },
-  } = useSettings();
+  const { settings } = useSettings();
+  const currency = resolveSellCurrency(settings.currency, currencyOverride);
 
   const fields = getPaymentIdFields(currency.currency);
   const catalogForm = usesCatalogPaymentForm(currency.currency);
