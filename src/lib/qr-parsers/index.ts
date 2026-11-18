@@ -7,6 +7,7 @@ import {
   type SupportedCurrency,
 } from "@p2pdotme/sdk/qr-parsers";
 import { err } from "neverthrow";
+import { isUpiMandateQr } from "./upi-mandate";
 
 export type { ParsedQR, SupportedCurrency };
 
@@ -16,6 +17,15 @@ export async function parseQRData(
   sellPrice: number,
   orderId: string,
 ) {
+  // UPI AutoPay mandates register a recurring debit, never a one-off payment.
+  if (currency === "INR" && isUpiMandateQr(qrData)) {
+    return err(
+      new QRParserError("UPI mandate/AutoPay QRs are not supported", {
+        code: "INVALID_QR",
+      }),
+    );
+  }
+
   const parseResult = await parseQR({
     qrData,
     currency: currency as SupportedCurrency,
