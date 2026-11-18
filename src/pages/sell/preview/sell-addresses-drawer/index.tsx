@@ -24,17 +24,21 @@ import { DeleteConfirmationView } from "./delete-confirmation-view";
 export function SellAddressesDrawer({
   children,
   onAddressSelected,
+  currency,
 }: {
   children: React.ReactNode;
   onAddressSelected?: () => void;
+  /** Address book / validation currency; defaults to the settings currency. */
+  currency?: string;
 }) {
   const { t } = useTranslation();
-  const { addressBook, add, update, remove, setActive } = useSellAddressBook();
+  const { addressBook, add, update, remove, setActive } =
+    useSellAddressBook(currency);
   const [page, setPage] = useState<SellAddressesPage>("list");
   const closeRef = useRef<HTMLButtonElement>(null);
 
   // Get current currency for form validation
-  const formSchema = createSellAddressFormSchema();
+  const formSchema = createSellAddressFormSchema(currency);
 
   // Create form with currency-aware validation
   const form = useForm<SellAddressFormData>({
@@ -186,6 +190,7 @@ export function SellAddressesDrawer({
           {page === "list" && (
             <AddressListView
               key="address-list"
+              currency={currency}
               isActiveAddress={isActiveAddress}
               handleSelectAddress={handleSelectAddress}
               handleEditAddress={handleEditAddress}
@@ -196,6 +201,7 @@ export function SellAddressesDrawer({
             <AddressFormView
               key={page === "add" ? "add-address" : "edit-address"}
               page={page}
+              currency={currency}
               form={form}
               setPage={setPage}
               handleSave={handleSave}

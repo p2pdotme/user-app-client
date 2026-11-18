@@ -2,8 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   AlertTriangle,
   ArrowLeftCircle,
+  CheckCircle2,
   ChevronRight,
   Clipboard,
+  ExternalLink,
   Loader2,
   ScanLine,
 } from "lucide-react";
@@ -31,10 +33,20 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { transferUSDC } from "@/core/adapters/thirdweb/actions/usdc";
+import { viemChain } from "@/core/adapters/thirdweb/chain";
 import { useSounds, useThirdweb, useUSDCBalance } from "@/hooks";
+import { analytics, EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { extractEvmAddressFromQr } from "@/lib/evm-address-qr";
+import {
+  getUserFacingErrorMessage,
+  isNetworkOrTimeoutError,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { cn, truncateAmount } from "@/lib/utils";
+
+const BLOCK_EXPLORER_URL =
+  viemChain.blockExplorers?.default.url ?? "https://basescan.org";
 
 function DirectOrCross({ onSendUSDC }: { onSendUSDC: () => void }) {
   const { t } = useTranslation();
@@ -122,6 +134,13 @@ function DirectWithdraw({
   const [recipientAddress, setRecipientAddress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isPasting, setIsPasting] = useState(false);
+  // form → confirm (review amount/address/network) → sent (tx hash)
+  const [step, setStep] = useState<"form" | "confirm" | "sent">("form");
+  const [sentTx, setSentTx] = useState<{
+    hash: string;
+    amount: string;
+    address: string;
+  } | null>(null);
 
   const balance = usdcBalance || 0;
 
@@ -171,7 +190,7 @@ function DirectWithdraw({
     toast.success(t("ADDRESS_SCANNED"));
   };
 
-  const handleSend = async () => {
+  const handleReview = () => {
     if (!account) {
       toast.warning(t("WALLET_NOT_CONNECTED"));
       return;
@@ -193,6 +212,18 @@ function DirectWithdraw({
       return;
     }
 
+    analytics.track(EVENTS.TRANSACTION, {
+      transaction_type: "withdraw_base",
+      status: "confirm_shown",
+      amount: numAmount,
+    });
+    setStep("confirm");
+  };
+
+  const handleSend = async () => {
+    if (!account || !isAddress(recipientAddress)) return;
+    const numAmount = parseFloat(amount);
+
     setIsLoading(true);
 
     try {
@@ -206,24 +237,183 @@ function DirectWithdraw({
       );
 
       if (result.isErr()) {
-        toast.error(t("TRANSFER_FAILED"));
-        sounds.triggerFailureSound(); // Sound feedback for transfer error
+        handleSendError(result.error, numAmount);
         return;
       }
 
+      analytics.track(EVENTS.TRANSACTION, {
+        transaction_type: "withdraw_base",
+        status: "sent",
+        amount: numAmount,
+      });
       toast.success(t("USDC_SENT_SUCCESSFULLY", { amount }));
       sounds.triggerSuccessSound(); // Sound feedback for successful USDC transfer
       queryClient.invalidateQueries({ queryKey: ["usdc", "balance"] });
+      setSentTx({
+        hash: result.value.transactionHash,
+        amount,
+        address: recipientAddress,
+      });
+      setStep("sent");
       setAmount("");
       setRecipientAddress("");
-      onBack();
-    } catch {
-      toast.error(t("TRANSFER_FAILED"));
-      sounds.triggerFailureSound(); // Sound feedback for failed USDC transfer
+    } catch (error) {
+      handleSendError(error, numAmount);
     } finally {
       setIsLoading(false);
     }
   };
+
+  function handleSendError(error: unknown, numAmount: number) {
+    console.error("USDC withdraw failed", error);
+    const cancelled = isUserCancellation(error);
+    analytics.track(EVENTS.TRANSACTION, {
+      transaction_type: "withdraw_base",
+      status: "failed",
+      amount: numAmount,
+      cancelled,
+    });
+    sounds.triggerFailureSound(); // Sound feedback for failed USDC transfer
+    toast.error(t("TRANSFER_FAILED"), {
+      description: cancelled
+        ? t("ERROR_USER_CANCELLED_DESCRIPTION")
+        : getUserFacingErrorMessage(t, error, {
+            fallbackKey: "PAYF_WITHDRAW_FAILED_DESCRIPTION",
+            context: "send",
+          }),
+    });
+    if (!cancelled && isNetworkOrTimeoutError(error)) {
+      // The transfer may have gone through even though we never saw the
+      // receipt. Refresh the balance and leave the Confirm step so the user
+      // isn't one tap away from sending the same amount again.
+      queryClient.invalidateQueries({ queryKey: ["usdc", "balance"] });
+      setStep("form");
+    }
+  }
+
+  if (step === "sent" && sentTx) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="w-full">
+        <DrawerHeader className="w-full text-center">
+          <DrawerTitle>{t("PAYF_WITHDRAW_SENT_TITLE")}</DrawerTitle>
+          <DrawerDescription className="hidden">
+            {t("PAYF_WITHDRAW_SENT_TITLE")}
+          </DrawerDescription>
+        </DrawerHeader>
+        <section className="flex flex-col items-center gap-4 px-4 pb-4">
+          <CheckCircle2 className="size-14 text-success" />
+          <p className="text-center font-semibold text-xl">
+            {sentTx.amount} USDC
+          </p>
+          <div className="w-full space-y-1 rounded-lg bg-primary/10 p-3 text-sm">
+            <p className="text-muted-foreground">{t("RECIPIENT")}</p>
+            <p className="break-all font-mono">{sentTx.address}</p>
+          </div>
+          <div className="w-full space-y-1 rounded-lg bg-primary/10 p-3 text-sm">
+            <p className="text-muted-foreground">{t("TRANSACTION_HASH")}</p>
+            <p className="break-all font-mono">{sentTx.hash}</p>
+          </div>
+          <Button asChild variant="outline" className="w-full">
+            <a
+              href={`${BLOCK_EXPLORER_URL}/tx/${sentTx.hash}`}
+              target="_blank"
+              rel="noopener noreferrer">
+              <ExternalLink className="size-4" />
+              {t("PAYF_VIEW_ON_BASESCAN")}
+            </a>
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => {
+              setSentTx(null);
+              setStep("form");
+              onBack();
+            }}>
+            {t("DONE")}
+          </Button>
+        </section>
+      </motion.div>
+    );
+  }
+
+  if (step === "confirm") {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="w-full">
+        <DrawerHeader className="w-full text-center">
+          <div className="flex w-full items-center justify-between">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={t("GO_BACK")}
+              onClick={() => setStep("form")}
+              disabled={isLoading}>
+              <ArrowLeftCircle className="size-6" />
+            </Button>
+            <DrawerTitle>{t("PAYF_WITHDRAW_CONFIRM_TITLE")}</DrawerTitle>
+            <div className="w-6" />
+          </div>
+          <DrawerDescription className="hidden">
+            {t("PAYF_WITHDRAW_CONFIRM_TITLE")}
+          </DrawerDescription>
+        </DrawerHeader>
+        <section className="flex max-h-[60vh] flex-col gap-4 overflow-y-auto px-4 pb-4">
+          <div className="space-y-3 rounded-lg bg-primary/10 p-4 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">
+                {t("PAYF_WITHDRAW_AMOUNT")}
+              </span>
+              <span className="font-semibold text-base">{amount} USDC</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-muted-foreground">{t("NETWORK")}</span>
+              <span className="flex items-center gap-1 font-semibold">
+                <ASSETS.ICONS.NetworkBase className="size-4" />
+                Base
+              </span>
+            </div>
+            <div className="space-y-1">
+              <span className="text-muted-foreground">{t("RECIPIENT")}</span>
+              <p className="break-all font-mono">{recipientAddress}</p>
+            </div>
+          </div>
+          <Alert variant="warning" className="w-full border-2">
+            <AlertTriangle className="size-5" />
+            <AlertDescription className="text-foreground text-sm">
+              {t("PAYF_WITHDRAW_BASE_SUPPORT_WARNING")}
+            </AlertDescription>
+          </Alert>
+          <Button
+            className="h-12 w-full p-4"
+            onClick={handleSend}
+            disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t("SENDING")}...
+              </>
+            ) : (
+              t("PAYF_WITHDRAW_CONFIRM_SEND", { amount })
+            )}
+          </Button>
+          <Button
+            variant="outline"
+            className="h-12 w-full"
+            onClick={() => setStep("form")}
+            disabled={isLoading}>
+            {t("GO_BACK")}
+          </Button>
+        </section>
+      </motion.div>
+    );
+  }
 
   if (isScanning) {
     return (
@@ -248,7 +438,11 @@ function DirectWithdraw({
           </DrawerDescription>
         </DrawerHeader>
         <section className="flex justify-center px-4">
-          <QrScanner onScan={handleScan} className="w-full max-w-sm" />
+          <QrScanner
+            analyticsLocation="withdraw_base"
+            onScan={handleScan}
+            className="w-full max-w-sm"
+          />
         </section>
       </motion.div>
     );
@@ -406,18 +600,11 @@ function DirectWithdraw({
 
         <Button
           className="h-12 w-full p-4"
-          onClick={handleSend}
+          onClick={handleReview}
           disabled={
             !amount || !recipientAddress || !isValidAddress || isLoading
           }>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 size-4 animate-spin" />
-              {t("SENDING")}...
-            </>
-          ) : (
-            t("WITHDRAW_USDC")
-          )}
+          {t("PAYF_WITHDRAW_REVIEW")}
         </Button>
       </section>
     </motion.div>

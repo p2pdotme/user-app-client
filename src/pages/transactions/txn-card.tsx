@@ -55,6 +55,44 @@ export function TransactionCard({
     navigate(`${INTERNAL_HREFS.ORDER}/${id}`);
   };
 
+  // Short, plain-language status so the state isn't conveyed by icon alone.
+  const statusPill: { label: string; className: string } = isDisputeRaised
+    ? {
+        label: t("PAYF_TXN_STATUS_IN_DISPUTE"),
+        className: "bg-warning/15 text-warning",
+      }
+    : isDisputeSettled
+      ? {
+          label: t("PAYF_TXN_STATUS_DISPUTE_SETTLED"),
+          className: "bg-blue-500/15 text-blue-500",
+        }
+      : isCompleted
+        ? { label: t("COMPLETED"), className: "bg-success/15 text-success" }
+        : isCancelled
+          ? {
+              // SELL / PAY lock the user's USDC in escrow, which is returned on
+              // cancel; BUY never debited USDC.
+              label:
+                type === "BUY"
+                  ? t("CANCELLED")
+                  : t("PAYF_TXN_STATUS_CANCELLED_REFUNDED"),
+              className: "bg-muted text-muted-foreground",
+            }
+          : status === "PLACED"
+            ? {
+                label: t("PAYF_TXN_STATUS_FINDING_MERCHANT"),
+                className: "bg-warning/15 text-warning",
+              }
+            : status === "ACCEPTED"
+              ? {
+                  label: t("PAYF_TXN_STATUS_MERCHANT_ASSIGNED"),
+                  className: "bg-warning/15 text-warning",
+                }
+              : {
+                  label: t("PAYMENT_IN_PROGRESS"),
+                  className: "bg-warning/15 text-warning",
+                };
+
   return (
     <Card
       onClick={handleClick}
@@ -89,8 +127,15 @@ export function TransactionCard({
             </div>
           </div>
           <div className="flex h-full flex-col">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               <p className="font-medium">{t(type)} USDC</p>
+              <span
+                className={cn(
+                  "rounded-full px-2 py-0.5 font-medium text-xs",
+                  statusPill.className,
+                )}>
+                {statusPill.label}
+              </span>
             </div>
             <div className="flex gap-2 text-muted-foreground text-sm">
               <span>{moment.unix(createdAt).format("DD MMM YYYY")}</span>
@@ -117,13 +162,27 @@ export function TransactionCard({
         </div>
 
         <div className="flex flex-col items-end justify-between">
-          <p className="font-medium">
-            {type === "BUY" ? "+" : "-"} {truncateAmount(cryptoAmount)} USDC
-          </p>
-          <div className="flex gap-2 text-muted-foreground text-sm">
-            {type === "BUY" ? "-" : "+"}
-            <span>{formatFiatAmount(fiatAmount, currency)}</span>
-          </div>
+          {isCancelled ? (
+            <>
+              {/* Nothing moved: no +/- sign, struck through and muted. */}
+              <p className="font-medium text-muted-foreground line-through">
+                {truncateAmount(cryptoAmount)} USDC
+              </p>
+              <div className="flex gap-2 text-muted-foreground text-sm line-through">
+                <span>{formatFiatAmount(fiatAmount, currency)}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="font-medium">
+                {type === "BUY" ? "+" : "-"} {truncateAmount(cryptoAmount)} USDC
+              </p>
+              <div className="flex gap-2 text-muted-foreground text-sm">
+                {type === "BUY" ? "-" : "+"}
+                <span>{formatFiatAmount(fiatAmount, currency)}</span>
+              </div>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>

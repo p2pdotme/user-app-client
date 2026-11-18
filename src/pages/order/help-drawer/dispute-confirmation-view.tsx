@@ -106,10 +106,13 @@ export function DisputeConfirmationView({
         {order && (
           <div className="rounded-lg bg-muted/50 p-4">
             <p className="text-muted-foreground text-xs">
-              {t("ORDER_TYPE")}: {order.orderType}
+              {t("ORDER_ID")}: #{order.id}
             </p>
             <p className="text-muted-foreground text-xs">
-              {t("STATUS")}: {order.status}
+              {t("ORDER_TYPE")}: {t(order.orderType)}
+            </p>
+            <p className="text-muted-foreground text-xs">
+              {t("STATUS")}: {t(order.status)}
             </p>
           </div>
         )}

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { parseUnits, zeroAddress } from "viem";
 import { z } from "zod";
@@ -26,6 +26,7 @@ import {
   useUSDCBalance,
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
+import { useMaxSellTxLimit } from "@/hooks/use-tx-limits";
 import { EVENTS } from "@/lib/analytics";
 import {
   INTERNAL_HREFS,
@@ -34,6 +35,8 @@ import {
   PAY_DISABLED_CURRENCIES,
 } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
+import { saveLimitReturn } from "@/lib/limit-increase";
+import { getUserFacingErrorMessage } from "@/lib/user-facing-error";
 import {
   calculateFee,
   cn,
@@ -41,6 +44,7 @@ import {
   truncateAmount,
 } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
+import { DepositDrawer } from "../homescreen/deposit-drawer";
 import { HelpDrawer } from "../order/help-drawer";
 import { AmountDisplay } from "./amount-display";
 import { LimitBanner } from "./limit-banner";
@@ -51,6 +55,7 @@ export function Pay() {
   const { t } = useTranslation();
   usePageMeta({ title: t("PAY"), description: t("SEO_DESCRIPTION_PAY") });
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     settings: { currency },
   } = useSettings();
@@ -76,6 +81,7 @@ export function Pay() {
     hasPriceChanged,
   } = useQuotedPrice("sell");
   const { txLimit, isTxLimitLoading, isTxLimitError } = useTxLimits();
+  const { maxSellTxLimit } = useMaxSellTxLimit();
   const { usdcBalance, isUsdcBalanceLoading } = useUSDCBalance();
 
   const { data: feeConfig } = useQuery({
@@ -93,7 +99,13 @@ export function Pay() {
   const feeConfigSmallOrderThreshold = feeConfig?.smallOrderThreshold ?? 0;
   const feeConfigSmallOrderFixedFee = feeConfig?.smallOrderFixedFee ?? 0;
 
-  const MAX_PAY_LIMIT = useMemo(() => txLimit?.sellLimit ?? 0, [txLimit]);
+  // Until the real limit loads, don't validate against (or show) a limit of 0;
+  // a typed or prefilled amount used to flash "Maximum limit is 0 USDC".
+  const isLimitKnown = txLimit?.sellLimit !== undefined;
+  const MAX_PAY_LIMIT = useMemo(
+    () => txLimit?.sellLimit ?? Number.POSITIVE_INFINITY,
+    [txLimit],
+  );
 
   const ZodPayAmountSchema = useMemo(
     () =>
@@ -238,6 +250,32 @@ export function Pay() {
     [denomination, updateAmount],
   );
 
+  // Prefill the bill amount when coming back from raising the limit
+  // (/limits "Back to Pay"), once price and limits are known.
+  const prefillFiat = (
+    location.state as { prefill?: { fiat?: unknown } } | null
+  )?.prefill?.fiat;
+  const hasPrefilledRef = useRef(false);
+  useEffect(() => {
+    if (hasPrefilledRef.current) return;
+    if (typeof prefillFiat !== "number" || !(prefillFiat > 0)) return;
+    if (!priceConfig?.sellPrice || !isLimitKnown) return;
+    hasPrefilledRef.current = true;
+    setDenomination("fiat");
+    updateAmount(
+      prefillFiat.toString(),
+      "fiat",
+      (validData) => {
+        setAmount(validData);
+        setError(null);
+      },
+      (errorMessage, newAmount) => {
+        setAmount(newAmount);
+        setError(errorMessage);
+      },
+    );
+  }, [prefillFiat, priceConfig?.sellPrice, isLimitKnown, updateAmount]);
+
   const handleInput = useCallback(
     (value: string) => {
       const currentValue = amount[denomination];
@@ -257,6 +295,7 @@ export function Pay() {
   }, []);
 
   const handleMax = useCallback(() => {
+    if (!isLimitKnown) return;
     let effectiveMax = Math.min(usdcBalance ?? Infinity, MAX_PAY_LIMIT);
 
     // Subtract the fixed fee if it applies
@@ -274,6 +313,7 @@ export function Pay() {
       handleUpdateAmount(maxFiatAmount.toString());
     }
   }, [
+    isLimitKnown,
     denomination,
     handleUpdateAmount,
     MAX_PAY_LIMIT,
@@ -291,7 +331,7 @@ export function Pay() {
     setIsPlacingOrder(true);
 
     // Check contract version before proceeding
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setIsPlacingOrder(false);
@@ -392,7 +432,7 @@ export function Pay() {
             t(key),
             key === "FAILED_TO_PLACE_ORDER"
               ? {
-                  description: error.message,
+                  description: getUserFacingErrorMessage(t, error),
                 }
               : undefined,
           );
@@ -416,6 +456,31 @@ export function Pay() {
 
   const handleRetry = () => window.location.reload();
 
+  const isInsufficientBalance =
+    !!error && error === t("VALIDATION_INSUFFICIENT_BALANCE");
+
+  // Analytics: why "Place Order" is blocked (one event per distinct reason).
+  const blockedReason = !error
+    ? null
+    : isInsufficientBalance
+      ? "insufficient_balance"
+      : error === t("VALIDATION_MAXIMUM_PAY_LIMIT", { limit: MAX_PAY_LIMIT }) ||
+          error ===
+            t("VALIDATION_MAXIMUM_LIMIT_EXCEEDED", { limit: MAX_PAY_LIMIT })
+        ? "max_limit"
+        : error === t("VALIDATION_PLEASE_ENTER_AMOUNT")
+          ? "empty_amount"
+          : "invalid_amount";
+  useEffect(() => {
+    if (!blockedReason) return;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "pay",
+      status: "amount_blocked",
+      reason: blockedReason,
+      currency: currency.currency,
+    });
+  }, [blockedReason, track, currency.currency]);
+
   const hasCriticalError = isPriceConfigError || isTxLimitError;
 
   if (hasCriticalError) {
@@ -438,7 +503,11 @@ export function Pay() {
   }
 
   const hasExceededLimit =
-    Number(amount.crypto) > MAX_PAY_LIMIT && !!amount.crypto;
+    isLimitKnown && Number(amount.crypto) > MAX_PAY_LIMIT && !!amount.crypto;
+  const isAtMarketMax =
+    maxSellTxLimit !== undefined &&
+    txLimit?.sellLimit !== undefined &&
+    txLimit.sellLimit >= maxSellTxLimit;
 
   const minOrderFiat = MIN_ORDER_FIAT_BY_CURRENCY[currency.currency];
   const isBelowMinimum =
@@ -507,6 +576,30 @@ export function Pay() {
           />
 
           <div>
+            {error && !hasExceededLimit ? (
+              <div
+                role="alert"
+                className="my-2 flex flex-col items-center gap-2 text-center">
+                <p className="text-destructive text-sm">{error}</p>
+                {isInsufficientBalance ? (
+                  <DepositDrawer triggerAsChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        track(EVENTS.TRANSACTION, {
+                          transaction_type: "pay",
+                          status: "deposit_clicked",
+                          reason: "insufficient_balance",
+                        })
+                      }>
+                      {t("PAYF_DEPOSIT_USDC_TO_CONTINUE")}
+                    </Button>
+                  </DepositDrawer>
+                ) : null}
+              </div>
+            ) : null}
             {isBelowMinimum ? (
               <p className="my-2 text-center text-destructive text-sm">
                 {t("VALIDATION_MINIMUM_ORDER", {
@@ -526,6 +619,13 @@ export function Pay() {
               isError={isTxLimitError}
               limit={txLimit?.sellLimit}
               hasExceededLimit={hasExceededLimit}
+              isAtMarketMax={isAtMarketMax}
+              onBeforeVerify={() =>
+                saveLimitReturn({
+                  flow: "pay",
+                  fiatAmount: Number(amount.fiat),
+                })
+              }
             />
           </div>
         </section>

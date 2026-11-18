@@ -1,4 +1,4 @@
-import { CopyIcon, TriangleAlertIcon } from "lucide-react";
+import { ClockIcon, CopyIcon, TriangleAlertIcon } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { Trans, useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -13,9 +13,21 @@ import {
 import type { PendingBridge } from "@/core/near-intents";
 import {
   getChainIconUrl,
+  getChainName,
   useOneClickTokens,
   useTokenIcons,
 } from "@/hooks/use-oneclick";
+import { analytics, EVENTS } from "@/lib/analytics";
+
+function formatDeadline(deadline: string, locale: string): string | null {
+  if (!deadline) return null;
+  const date = new Date(deadline);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
+}
 
 type DepositSheetProps = {
   bridge: PendingBridge;
@@ -32,8 +44,9 @@ export function DepositSheet({
   open,
   onOpenChange,
 }: DepositSheetProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { tokens } = useOneClickTokens();
+  const deadlineLabel = formatDeadline(bridge.deadline, i18n.language);
   const { getTokenIconUrl } = useTokenIcons(tokens);
   const token = tokens.find((item) => item.assetId === bridge.originAsset);
 
@@ -48,6 +61,10 @@ export function DepositSheet({
   const copyAddress = async () => {
     await navigator.clipboard.writeText(bridge.depositAddress);
     toast.success(t("ADDRESS_COPIED"));
+    analytics.track(EVENTS.FEATURE, {
+      status: "deposit_address_copied",
+      location: "bridge_deposit_sheet",
+    });
   };
 
   const copyAmount = async () => {
@@ -139,6 +156,13 @@ export function DepositSheet({
             </div>
           )}
 
+          {deadlineLabel && (
+            <p className="flex w-full items-start gap-2 rounded-xl bg-muted p-3 text-sm">
+              <ClockIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+              {t("PAYF_BRIDGE_DEPOSIT_DEADLINE", { deadline: deadlineLabel })}
+            </p>
+          )}
+
           <div className="mt-4 flex w-full items-start gap-2 rounded-xl bg-yellow-500/10 p-3">
             <TriangleAlertIcon className="mt-0.5 size-4 shrink-0 text-yellow-600 dark:text-yellow-500" />
             <p className="text-sm text-yellow-600 dark:text-yellow-500">
@@ -146,7 +170,9 @@ export function DepositSheet({
                 i18nKey="BRIDGE_SEND_ONLY_WARNING"
                 values={{
                   token: bridge.originSymbol,
-                  network: token?.blockchain ?? "origin",
+                  network: token
+                    ? getChainName(token.blockchain)
+                    : t("PAYF_BRIDGE_ORIGIN_CHAIN"),
                 }}>
                 <span className="font-medium capitalize" />
               </Trans>
