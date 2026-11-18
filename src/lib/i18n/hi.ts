@@ -1686,7 +1686,6 @@ export const hi = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "मर्चेंट ढूँढा जा रहा है",
     PAYF_TXN_STATUS_IN_DISPUTE: "विवाद में",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "मर्चेंट असाइन हो गया",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "भुगतान भेजा गया",
     PAYF_VIEW_ON_BASESCAN: "BaseScan पर देखें",
     PAYF_WITHDRAW_AMOUNT: "राशि",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
