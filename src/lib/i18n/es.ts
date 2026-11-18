@@ -630,6 +630,7 @@ export const es = {
       "{{tier}} falló a tu favor (culpa de {{fault}}). La decisión se aplica automáticamente después del {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Resuelta el {{date}}. Se determinó que la culpa fue de {{fault}}.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "Esta disputa está resuelta.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} no decidió a tiempo. Puedes escalar la disputa a {{next}} ahora.",
     DISPUTE_TIER_1: "Revisión del círculo",

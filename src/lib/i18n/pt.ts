@@ -623,6 +623,7 @@ export const pt = {
       "{{tier}} decidiu a seu favor (culpa de {{fault}}). A decisão é aplicada automaticamente após {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Resolvida em {{date}}. Culpa atribuída a {{fault}}.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "Esta disputa foi resolvida.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} não decidiu a tempo. Você pode escalar a disputa para {{next}} agora.",
     DISPUTE_TIER_1: "Revisão do círculo",
