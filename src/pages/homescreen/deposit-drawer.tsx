@@ -201,18 +201,21 @@ export function DepositDrawer({
     <Drawer autoFocus={true} onClose={() => setPage("directOrCross")}>
       <DrawerTrigger asChild={triggerAsChild}>{children}</DrawerTrigger>
       <DrawerContent>
-        <AnimatePresence mode="wait" initial={false}>
-          {page === "directOrCross" && (
-            <DirectOrCross
-              key="direct-or-cross"
-              onReceiveUSDC={handleReceiveUSDC}
-            />
-          )}
-          {page === "directDeposit" && (
-            <DirectDeposit key="direct-deposit" onBack={handleBack} />
-          )}
-        </AnimatePresence>
-        <DrawerFooter>
+        {/* Scroll inside the 80dvh drawer; keep the footer visible. */}
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+          <AnimatePresence mode="wait" initial={false}>
+            {page === "directOrCross" && (
+              <DirectOrCross
+                key="direct-or-cross"
+                onReceiveUSDC={handleReceiveUSDC}
+              />
+            )}
+            {page === "directDeposit" && (
+              <DirectDeposit key="direct-deposit" onBack={handleBack} />
+            )}
+          </AnimatePresence>
+        </div>
+        <DrawerFooter className="shrink-0">
           <DrawerClose className="w-full cursor-pointer rounded-lg bg-primary p-4 text-primary-foreground">
             {t("CLOSE")}
           </DrawerClose>
