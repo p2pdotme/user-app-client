@@ -104,6 +104,7 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "transactions-7", // How can I raise a dispute?
       "transactions-8", // What happens if I raise a false dispute?
       "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
+      "transactions-10", // Can I get a refund on a Scan & Pay order? (INR only)
     ],
   },
   [SUPPORT_PAGE_TITLES.DEPOSITS_WITHDRAWALS]: {
@@ -186,6 +187,7 @@ export const FAQ_ON_PAGES = {
   PAY_PAGE: {
     faqIds: [
       "getting-started-4", // Can I Scan Any QR Code and Pay with USDC on P2P.me?
+      "transactions-10", // Can I get a refund on a Scan & Pay order? (INR only)
       "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
       "general-12", // Can I use P2P.me for daily crypto spending?
     ],
@@ -443,6 +445,12 @@ export const ALL_FAQS: FAQ[] = [
     id: "transactions-9",
     questionKey: "FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF",
     answerKey: "FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER",
+  },
+  {
+    id: "transactions-10",
+    questionKey: "FAQ_SCAN_PAY_REFUND_POLICY",
+    answerKey: "FAQ_SCAN_PAY_REFUND_POLICY_ANSWER",
+    onlyForCurrencies: ["INR"],
   },
   {
     id: "limits-1",

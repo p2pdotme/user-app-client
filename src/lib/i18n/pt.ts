@@ -868,6 +868,10 @@ export const pt = {
       "Como recupero fundos usando minha chave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'Se você perdeu o acesso à sua conta, mas ainda tem a chave privada da sua carteira, pode recuperar seu USDC.\n\n1. Abra a página "Recuperar fundos".\n2. Cole sua chave privada para carregar sua carteira inteligente.\n3. Informe o endereço de outra carteira P2P.me e o valor.\n4. Toque em Recuperar fundos para enviar.\n\nNunca compartilhe sua chave privada com ninguém.',
+    FAQ_SCAN_PAY_REFUND_POLICY:
+      "Posso pedir reembolso de um pedido Scan & Pay?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Sim, mas apenas pedidos Scan & Pay podem ser reembolsados, e é cobrada uma taxa de reembolso de 4%.\n\nSe você pagar um QR online com o Scan & Pay e depois pedir reembolso ao nosso suporte:\n- 4% do valor em INR é descontado como taxa de reembolso. O comerciante fica com essa taxa.\n- Você recebe o restante de volta, apenas em INR.\n\nExemplo: Você pede um reembolso de ₹10.000. Você recebe ₹9.600. A taxa de ₹400 fica com o comerciante.\n\nConfira o QR e o valor com atenção antes de pagar. Ao usar o P2P.me, você concorda com esta política de reembolso.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "O lojista está pedindo para ver o pagamento – o que devo fazer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:

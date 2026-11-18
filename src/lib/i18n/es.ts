@@ -881,6 +881,10 @@ export const es = {
       "¿Cómo recupero fondos usando mi clave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'Si perdiste el acceso a tu cuenta pero aún tienes la clave privada de tu wallet, puedes recuperar tus USDC.\n\n1. Abre la página "Recuperar fondos".\n2. Pega tu clave privada para cargar tu smart wallet.\n3. Ingresa la dirección de otra wallet de P2P.me y el monto.\n4. Toca Recuperar fondos para enviar.\n\nNunca compartas tu clave privada con nadie.',
+    FAQ_SCAN_PAY_REFUND_POLICY:
+      "¿Puedo obtener un reembolso de una orden de Escanear y Pagar?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Sí, pero solo las órdenes de Escanear y Pagar se pueden reembolsar, y se aplica una tarifa de reembolso del 4%.\n\nSi pagas un QR en línea con Escanear y Pagar y luego pides un reembolso a nuestro soporte:\n- Se descuenta el 4% del monto en INR como tarifa de reembolso. El comerciante se queda con esta tarifa.\n- Recibes el resto, solo en INR.\n\nEjemplo: Pides un reembolso de ₹10,000. Recibes ₹9,600. La tarifa de ₹400 es para el comerciante.\n\nRevisa bien el QR y el monto antes de pagar. Al usar P2P.me, aceptas esta política de reembolso.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "El comercio me pide ver el comprobante de pago, ¿qué hago?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
