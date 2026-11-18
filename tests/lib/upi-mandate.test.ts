@@ -8,7 +8,6 @@ describe("isUpiMandateQr", () => {
   it.each([
     ["upi://mandate", MANDATE_QR],
     ["uppercase scheme", MANDATE_QR.replace("upi://mandate", "UPI://MANDATE")],
-    ["upi://collect", "upi://collect?pa=foo@bar&am=10"],
     ["pay + recur", "upi://pay?pa=foo@bar&am=10&recur=MONTHLY"],
     ["pay + amrule", "upi://pay?pa=foo@bar&amrule=MAX"],
     ["pay + txnType", "upi://pay?pa=foo@bar&txnType=CREATE"],
@@ -21,6 +20,7 @@ describe("isUpiMandateQr", () => {
     ["plain pay", "upi://pay?pa=merchant@okaxis&am=800&cu=INR"],
     ["uppercase pay", "UPI://PAY?pa=merchant@okaxis"],
     ["scheme-less pay", "pa=merchant@okaxis&am=10"],
+    ["non-mandate intent", "upi://collect?pa=foo@bar&am=10"],
     [
       "fonepay EMVCo",
       "0002010102110216427142002163748726400011fonepay.com5802NP6304ecfd",
