@@ -1,6 +1,6 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { NonHomeHeader } from "@/components";
@@ -10,6 +10,8 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getSellQuizState, markSellQuizCompleted } from "@/core/client";
+import { useAnalytics } from "@/hooks";
+import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -74,6 +76,7 @@ export function SellQuiz() {
   const navigate = useNavigate();
   const { state: locationState } = useLocation();
   const QUIZ_QUESTIONS = useMemo(() => createQuizQuestions(t), [t]);
+  const { track } = useAnalytics();
 
   // If quiz already completed, skip
   useEffect(() => {
@@ -87,12 +90,22 @@ export function SellQuiz() {
     }
   }, [navigate, locationState]);
 
+  // Analytics: quiz started (once per mount, only when actually shown)
+  const startedAtRef = useRef(Date.now());
+  const wrongAnswersRef = useRef(0);
+  useEffect(() => {
+    const res = getSellQuizState();
+    if (res.isOk() && res.value.completed) return;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "sell",
+      status: "quiz_started",
+    });
+  }, [track]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isInteractionLocked, setIsInteractionLocked] = useState(false);
   const [isLastSlide, setIsLastSlide] = useState(false);
-  const [countdown, setCountdown] = useState(0);
 
   const question = QUIZ_QUESTIONS[currentIndex];
   const progress = useMemo(() => {
@@ -106,50 +119,37 @@ export function SellQuiz() {
   const selectedChoice = question.choices.find((c) => c.id === selected);
   const isAnswerCorrect = selectedChoice?.isCorrect ?? false;
 
+  // Continue is enabled as soon as the correct answer is picked — the
+  // explanation stays on screen, so there's no forced wait.
   const handleChoice = (value: string) => {
-    if (isInteractionLocked) return;
     setSelected(value);
     setShowExplanation(true);
 
     const chosen = question.choices.find((c) => c.id === value);
-    if (chosen?.isCorrect) {
-      setCountdown(3);
-      setIsInteractionLocked(true);
-    } else {
-      setCountdown(0);
-      setIsInteractionLocked(false);
+    if (chosen && !chosen.isCorrect) {
+      wrongAnswersRef.current += 1;
+      track(EVENTS.TRANSACTION, {
+        transaction_type: "sell",
+        status: "quiz_wrong_answer",
+        questionId: question.id,
+        choiceId: chosen.id,
+      });
     }
   };
 
-  // Countdown effect for correct answer delay
-  useEffect(() => {
-    if (!showExplanation) return;
-    if (!isAnswerCorrect) return;
-    if (countdown <= 0) return;
-
-    const interval = setInterval(() => {
-      setCountdown((s) => {
-        if (s <= 1) {
-          clearInterval(interval);
-          setIsInteractionLocked(false);
-          return 0;
-        }
-        return s - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countdown, showExplanation, isAnswerCorrect]);
-
   const handleNext = () => {
-    if (isInteractionLocked) return;
     if (!selected) return;
     if (!isAnswerCorrect) return;
 
     if (isLastSlide) {
       // Mark one-time completion and replace so back doesn't land on quiz
       markSellQuizCompleted();
+      track(EVENTS.TRANSACTION, {
+        transaction_type: "sell",
+        status: "quiz_completed",
+        wrongAnswers: wrongAnswersRef.current,
+        durationMs: Date.now() - startedAtRef.current,
+      });
       navigate(INTERNAL_HREFS.SELL_PREVIEW, {
         state: locationState,
         replace: true,
@@ -188,7 +188,6 @@ export function SellQuiz() {
                   className={cn(
                     "w-full cursor-pointer border-2 bg-background/40 p-3 transition",
                     stateColor,
-                    isInteractionLocked && "pointer-events-none opacity-80",
                   )}
                   onClick={() => handleChoice(choice.id)}>
                   <div className="flex items-center gap-3">
@@ -215,11 +214,7 @@ export function SellQuiz() {
                   {selectedChoice.explanation}
                 </AlertDescription>
               </Alert>
-              {isAnswerCorrect ? (
-                <p className="mt-2 text-center text-muted-foreground text-xs">
-                  {t("SELL_QUIZ_NEXT_IN_SECONDS", { seconds: countdown })}
-                </p>
-              ) : (
+              {isAnswerCorrect ? null : (
                 <p className="mt-2 text-center text-destructive text-xs">
                   {t("SELL_QUIZ_TRY_AGAIN")}
                 </p>
@@ -232,9 +227,7 @@ export function SellQuiz() {
         <div className="w-full">
           <Button
             onClick={handleNext}
-            disabled={
-              !showExplanation || isInteractionLocked || !isAnswerCorrect
-            }
+            disabled={!showExplanation || !isAnswerCorrect}
             className="w-full p-6">
             {isLastSlide ? t("SELL_QUIZ_FINISH") : t("SELL_QUIZ_NEXT")}
           </Button>
@@ -243,5 +236,3 @@ export function SellQuiz() {
     </>
   );
 }
-
-export default SellQuiz;

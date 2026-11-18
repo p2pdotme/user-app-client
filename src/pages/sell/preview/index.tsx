@@ -1,39 +1,15 @@
 import { ABIS } from "@p2pdotme";
-import { CURRENCY } from "@p2pdotme/sdk/country";
-import {
-  AlertTriangle,
-  ArrowDownCircle,
-  ArrowUpCircle,
-  BookUser,
-  Clipboard,
-  Clock4,
-  ClockFading,
-  Loader2,
-  Wallet,
-  X,
-} from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { ArrowDownCircle, ArrowUpCircle, Clock4, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { parseUnits, zeroAddress } from "viem";
 import ASSETS from "@/assets";
-import {
-  DashedSeparator,
-  NonHomeHeader,
-  PackedPaymentInput,
-  TransferWarningAlert,
-} from "@/components";
-import {
-  DEFAULT_IDR_PAYMENT_METHOD,
-  type IdrPaymentMethod,
-  IdrPaymentMethodSelect,
-} from "@/components/idr-payment-method-select";
+import { DashedSeparator, NonHomeHeader } from "@/components";
 import { PWAUpdateDrawer } from "@/components/pwa-update-drawer";
 import { SlippageDrawer } from "@/components/slippage-drawer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSettings } from "@/contexts/settings";
 import {
@@ -41,20 +17,17 @@ import {
   useOrderFlow,
   useProcessingTimes,
   useQuotedPrice,
-  useSellAddressBook,
   useThirdweb,
 } from "@/hooks";
 import { useContractVersion } from "@/hooks/use-contract-version";
+import type { PlaceOrderStep } from "@/hooks/use-order-flow";
 import { EVENTS } from "@/lib/analytics";
-import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
-import {
-  getFiatUnit,
-  INTERNAL_HREFS,
-  ORDER_TYPE,
-  usesCatalogPaymentForm,
-} from "@/lib/constants";
+import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
-import { resolveManualPaymentAddress } from "@/lib/manual-payment-address";
+import {
+  getUserFacingErrorMessage,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import {
   addLocalOrderPaymentDetails,
   cn,
@@ -63,13 +36,13 @@ import {
 } from "@/lib/utils";
 import { safeParseWithResult } from "@/lib/zod-neverthrow";
 import { HelpDrawer } from "../../order/help-drawer";
-import { FundProtectionGuidelines } from "./fund-protection-guidelines";
-import { SellAddressesDrawer } from "./sell-addresses-drawer";
+import { saveLastSellPaymentDetails } from "../last-sell-payment-details";
 import {
-  getAvatarContent,
-  type SellPreviewState,
-  SellPreviewStateSchema,
-} from "./shared";
+  SellPaymentDetailsField,
+  type SellPaymentDetailsValue,
+} from "../sell-payment-details-field";
+import { FundProtectionGuidelines } from "./fund-protection-guidelines";
+import { type SellPreviewState, SellPreviewStateSchema } from "./shared";
 
 /**
  * @description This page uses the amount passed from the previous page.
@@ -86,8 +59,6 @@ export function SellPreview() {
     settings: { currency },
   } = useSettings();
 
-  const { addressBook, refresh: refreshAddressBook } = useSellAddressBook();
-  const { placeOrderMutation } = useOrderFlow();
   const { account } = useThirdweb();
   const { quotedPrice: quotedSellPrice, hasPriceChanged } =
     useQuotedPrice("sell");
@@ -95,7 +66,6 @@ export function SellPreview() {
     data: processingTimes,
     isLoading: isProcessingTimesLoading,
     isError: isProcessingTimesError,
-    error: processingTimesError,
   } = useProcessingTimes();
   const { track } = useAnalytics();
 
@@ -106,29 +76,35 @@ export function SellPreview() {
     },
   });
 
-  // State for manual address input
-  // Determine if we're using manual input (no saved payment methods)
-  const hasNoSavedPaymentMethods = !addressBook?.active;
-  const [showInput, setShowInput] = useState(hasNoSavedPaymentMethods);
-  const [manualAddress, setManualAddress] = useState<string>("");
+  const [paymentDetails, setPaymentDetails] = useState<SellPaymentDetailsValue>(
+    { paymentId: "", isValid: false, source: "none" },
+  );
   const [showHelpDrawer, setShowHelpDrawer] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  // IDR-specific: provider picked in the Payment Method dropdown (banks + e-wallets).
-  const [idrPaymentMethod, setIdrPaymentMethod] = useState<IdrPaymentMethod>(
-    DEFAULT_IDR_PAYMENT_METHOD,
-  );
-
-  const catalogForm = usesCatalogPaymentForm(currency.currency);
-  const isIDR = currency.currency === CURRENCY.IDR;
-  // IDR-specific inside: label/validator follow the provider, id packs as `Provider|number`.
-  const {
-    paymentAddressName,
-    isValid: isManualAddressValid,
-    paymentId: manualPaymentId,
-  } = resolveManualPaymentAddress({
-    currency,
-    manualAddress,
-    idrPaymentMethod,
+  const [placeOrderStep, setPlaceOrderStep] = useState<
+    PlaceOrderStep | "approved-then-placing" | null
+  >(null);
+  const approvalStartedAtRef = useRef<number | null>(null);
+  const { placeOrderMutation } = useOrderFlow({
+    onPlaceOrderStep: (step) => {
+      if (step === "approving") {
+        approvalStartedAtRef.current = Date.now();
+        setPlaceOrderStep("approving");
+        return;
+      }
+      if (approvalStartedAtRef.current !== null) {
+        track(EVENTS.TRANSACTION, {
+          transaction_type: "sell",
+          status: "approval_step_completed",
+          approvalDurationMs: Date.now() - approvalStartedAtRef.current,
+          currency: currency.currency,
+        });
+        approvalStartedAtRef.current = null;
+        setPlaceOrderStep("approved-then-placing");
+        return;
+      }
+      setPlaceOrderStep("placing");
+    },
   });
 
   // State for contract version mismatch dialog
@@ -150,88 +126,32 @@ export function SellPreview() {
     );
   }, [navigate, locationState]);
 
-  // initial load of address book
+  // Track preview viewed once the amount is known
+  const previewTrackedRef = useRef(false);
+  const previewCryptoAmount = sellPreviewState.amount.crypto;
   useEffect(() => {
-    refreshAddressBook();
-  }, [refreshAddressBook]);
+    if (previewTrackedRef.current || !(previewCryptoAmount > 0)) return;
+    previewTrackedRef.current = true;
+    track(EVENTS.TRANSACTION, {
+      transaction_type: "sell",
+      status: "preview_viewed",
+      amount: previewCryptoAmount,
+      currency: currency.currency,
+    });
+  }, [previewCryptoAmount, track, currency.currency]);
 
-  // Get the current active address, either from addressBook or manual input
-  const getCurrentAddress = () => {
-    if (showInput && manualAddress) {
-      return manualPaymentId;
-    }
+  const currentAddress = paymentDetails.paymentId;
 
-    if (addressBook?.active) {
-      return addressBook.active.address;
-    }
-
-    return ""; // No fallback - user must enter payment details
-  };
-
-  // Get current address label
-  const getCurrentLabel = () => {
-    if (showInput && manualAddress) {
-      return `${t(`ONE_TIME_PAYMENT_ADDRESS`, {
-        paymentAddressName: currency.paymentAddressName,
-      })}`;
-    }
-
-    if (addressBook?.active) {
-      return addressBook.active.label;
-    }
-
-    return t(`ENTER_PAYMENT_DETAILS`, {
-      paymentMethod: currency.paymentMethod,
-    }); // Prompt user to enter details
-  };
-
-  const clearAddress = () => {
-    setShowInput(true);
-    setManualAddress("");
-  };
-
-  const handleManualAddressChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setManualAddress(e.target.value);
-  };
-
-  const handlePasteAddress = async () => {
-    try {
-      const clipboardText = await navigator.clipboard.readText();
-      if (clipboardText?.trim()) {
-        setManualAddress(clipboardText.trim());
-        setShowInput(true);
-      } else {
-        toast.error(t("INVALID_WALLET_ADDRESS_FORMAT"));
-      }
-    } catch (error) {
-      toast.error(t("COULD_NOT_ACCESS_CLIPBOARD"));
-      console.error("Clipboard error:", error);
-    }
-  };
-
-  // Function to handle address selection from the drawer
-  const handleAddressSelection = useCallback(() => {
-    refreshAddressBook();
-    setShowInput(false);
-  }, [refreshAddressBook]);
-
-  // Current effective address for display and form submission
-  const currentAddress = getCurrentAddress();
-  const currentLabel = getCurrentLabel();
-
-  const isPlacingOrderDisabled =
-    isPlacingOrder ||
-    (!addressBook?.active && !manualAddress.trim()) || // No saved method and no manual input
-    (showInput && !isManualAddressValid) || // Manual input mode but invalid
-    (addressBook?.active && !addressBook.active.address.trim()); // Saved method but invalid
+  const isPlacingOrderDisabled = isPlacingOrder || !paymentDetails.isValid;
 
   const handlePlaceOrder = async () => {
     setIsPlacingOrder(true);
+    setPlaceOrderStep(null);
+    approvalStartedAtRef.current = null;
+    const placeStartedAt = Date.now();
 
     // Check contract version before proceeding
-    const isSynced = await checkContractSync();
+    const isSynced = await checkContractSync({ fresh: true });
     if (!isSynced) {
       setShowContractMismatch(true);
       setIsPlacingOrder(false);
@@ -253,73 +173,114 @@ export function SellPreview() {
     // price movements.
     const fiatAmountLimit = (cryptoBig * sellPriceBig) / 1_000_000n;
 
-    await placeOrderMutation.mutateAsync(
-      {
-        amount: cryptoBig,
-        recipientAddr: zeroAddress,
-        orderType: ORDER_TYPE.SELL,
-        currency: currency.currency,
-        fiatAmount: parseUnits(sellPreviewState.amount.fiat.toString(), 6),
-        fiatAmountLimit,
-        user: account?.address as `0x${string}`,
-      },
-      {
-        onSuccess: (receipt) => {
-          const orderId = extractOrderIdFromOrderPlaced(
-            ABIS.DIAMOND,
-            receipt.logs,
-            account?.address as `0x${string}`,
-          );
-          if (!orderId) {
-            toast.error(t("ORDER_ID_NOT_FOUND"));
-            return;
-          }
-
-          // Track transaction started upon successful order placement
-          track(EVENTS.TRANSACTION, {
-            transaction_type: "sell",
-            status: "placed",
-            amount: sellPreviewState.amount.crypto,
-            orderId: orderId.toString(),
-            currency: currency.currency,
-            paymentChannel: 0,
-          });
-          // Store payment details; IDR is already packed as `Provider|number`
-          addLocalOrderPaymentDetails(orderId.toString(), currentAddress);
-          navigate(`${INTERNAL_HREFS.ORDER}/${orderId}`);
+    await placeOrderMutation
+      .mutateAsync(
+        {
+          amount: cryptoBig,
+          recipientAddr: zeroAddress,
+          orderType: ORDER_TYPE.SELL,
+          currency: currency.currency,
+          fiatAmount: parseUnits(sellPreviewState.amount.fiat.toString(), 6),
+          fiatAmountLimit,
+          user: account?.address as `0x${string}`,
         },
-        onError: (error) => {
-          // Track failed sell transaction
-          track(EVENTS.TRANSACTION, {
-            transaction_type: "sell",
-            status: "failed",
-            amount: sellPreviewState.amount.crypto,
-            errorMessage: error.message,
-            currency: currency.currency,
-            paymentChannel: 0,
-          });
+        {
+          onSuccess: (receipt) => {
+            const orderId = extractOrderIdFromOrderPlaced(
+              ABIS.DIAMOND,
+              receipt.logs,
+              account?.address as `0x${string}`,
+            );
+            // Keep what the user entered so the ACCEPTED screen can prefill it
+            // even if we can't key it by order ID below.
+            saveLastSellPaymentDetails(
+              account?.address,
+              currentAddress,
+              currency.currency,
+            );
 
-          console.error("Error placing order", error);
-          setIsPlacingOrder(false);
+            if (!orderId) {
+              // The USDC is already escrowed — the order exists, we just couldn't
+              // read its ID from the receipt. Don't leave the page frozen.
+              track(EVENTS.TRANSACTION, {
+                transaction_type: "sell",
+                status: "placed_order_id_missing",
+                amount: sellPreviewState.amount.crypto,
+                currency: currency.currency,
+                address_source: paymentDetails.source,
+              });
+              setIsPlacingOrder(false);
+              setPlaceOrderStep(null);
+              toast.success(t("SELL_UX_ORDER_PLACED_ID_MISSING_TITLE"), {
+                description: t("SELL_UX_ORDER_PLACED_ID_MISSING_DESCRIPTION"),
+              });
+              navigate(INTERNAL_HREFS.TRANSACTIONS, { replace: true });
+              return;
+            }
 
-          if (isSlippageError(error)) {
-            setShowSlippageDrawer(true);
-            return;
-          }
+            // Track transaction started upon successful order placement
+            track(EVENTS.TRANSACTION, {
+              transaction_type: "sell",
+              status: "placed",
+              amount: sellPreviewState.amount.crypto,
+              orderId: orderId.toString(),
+              currency: currency.currency,
+              paymentChannel: 0,
+              address_source: paymentDetails.source,
+              placeDurationMs: Date.now() - placeStartedAt,
+            });
+            // Store payment details; IDR is already packed as `Provider|number`
+            addLocalOrderPaymentDetails(orderId.toString(), currentAddress);
+            navigate(`${INTERNAL_HREFS.ORDER}/${orderId}`);
+          },
+          onError: (error) => {
+            // Track failed sell transaction
+            track(EVENTS.TRANSACTION, {
+              transaction_type: "sell",
+              status: "failed",
+              amount: sellPreviewState.amount.crypto,
+              errorMessage: error.message,
+              currency: currency.currency,
+              paymentChannel: 0,
+              address_source: paymentDetails.source,
+            });
 
-          const key = placeOrderErrorKey(error);
-          toast.error(
-            t(key),
-            key === "FAILED_TO_PLACE_ORDER"
-              ? {
-                  description: error.message,
-                }
-              : undefined,
-          );
+            console.error("Error placing order", error);
+            setIsPlacingOrder(false);
+            setPlaceOrderStep(null);
+
+            if (isUserCancellation(error)) {
+              return;
+            }
+
+            if (isSlippageError(error)) {
+              setShowSlippageDrawer(true);
+              return;
+            }
+
+            const key = placeOrderErrorKey(error);
+            toast.error(
+              t(key),
+              key === "FAILED_TO_PLACE_ORDER"
+                ? {
+                    description: getUserFacingErrorMessage(t, error),
+                  }
+                : undefined,
+            );
+          },
         },
-      },
-    );
+      )
+      .catch(() => {
+        // onError above already handled UI state; avoid an unhandled rejection.
+      });
   };
+
+  const placingOrderLabel =
+    placeOrderStep === "approving"
+      ? t("SELL_UX_APPROVING_USDC_STEP")
+      : placeOrderStep === "approved-then-placing"
+        ? t("SELL_UX_PLACING_ORDER_STEP")
+        : t("SELL_UX_PLACING_ORDER");
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col">
@@ -337,7 +298,12 @@ export function SellPreview() {
         onOpenChange={setShowSlippageDrawer}
         onConfirm={() => {
           setShowSlippageDrawer(false);
-          navigate(-1);
+          // Back to the amount screen with the same amount prefilled so the
+          // user only has to re-quote, not re-type.
+          navigate(INTERNAL_HREFS.SELL, {
+            replace: true,
+            state: { prefillCryptoAmount: sellPreviewState.amount.crypto },
+          });
         }}
       />
       <NonHomeHeader
@@ -392,12 +358,9 @@ export function SellPreview() {
               {isProcessingTimesLoading ? (
                 <Skeleton className="h-4 w-24 rounded-sm" />
               ) : isProcessingTimesError ? (
-                <>
-                  <AlertTriangle className="size-4 text-destructive" />
-                  <p className="text-destructive text-sm">
-                    {processingTimesError.message}
-                  </p>
-                </>
+                <p className="text-muted-foreground text-sm">
+                  {t("SELL_UX_PROCESSING_TIMES_UNAVAILABLE")}
+                </p>
               ) : (
                 <p className="text-muted-foreground text-sm">
                   {t("FROM_TO_MINUTES", {
@@ -414,113 +377,13 @@ export function SellPreview() {
           dashSize="10px"
           dashGap="10px"
         />
-        <section className="flex w-full flex-col gap-3">
-          {/* IDR-specific: provider dropdown above the payment details input */}
-          {isIDR ? (
-            <IdrPaymentMethodSelect
-              value={idrPaymentMethod}
-              onChange={setIdrPaymentMethod}
-            />
-          ) : null}
-          <p className="font-medium text-md">{t("CONFIRM_PAYMENT_DETAILS")}</p>
-          <TransferWarningAlert currency={currency.currency} />
-          <Card className="w-full gap-0 border-none bg-primary/10 shadow-none">
-            {(showInput && manualAddress) || addressBook?.active ? (
-              <div className="-translate-x-2 -translate-y-4 w-fit bg-background">
-                <div className="flex w-fit items-center gap-2 rounded-sm bg-primary/30 px-2 py-1">
-                  {showInput ? (
-                    <ClockFading className="size-4" />
-                  ) : (
-                    <Wallet className="size-4" />
-                  )}
-                  <p className="rounded-sm font-medium text-xs">
-                    {showInput
-                      ? t("ONE_TIME_PAYMENT_ADDRESS", {
-                          paymentAddressName: t(paymentAddressName),
-                        })
-                      : t("SAVED_PAYMENT_ADDRESS", {
-                          paymentAddressName: t(currency.paymentAddressName),
-                        })}
-                  </p>
-                </div>
-              </div>
-            ) : null}
-            <CardContent className="flex flex-col gap-2">
-              {showInput || hasNoSavedPaymentMethods ? (
-                catalogForm ? (
-                  <PackedPaymentInput
-                    currency={currency.currency}
-                    value={manualAddress}
-                    onChange={(payload) => {
-                      setManualAddress(payload);
-                      setShowInput(true);
-                    }}
-                  />
-                ) : (
-                  <div className="relative flex items-center gap-2">
-                    <Input
-                      className="rounded-sm bg-background pr-10 placeholder:text-primary/30"
-                      placeholder={t("ENTER_PAYMENT_DETAILS", {
-                        paymentAddressName: t(paymentAddressName),
-                      })}
-                      value={manualAddress}
-                      onChange={handleManualAddressChange}
-                    />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-0"
-                      onClick={
-                        manualAddress ? clearAddress : handlePasteAddress
-                      }>
-                      {manualAddress ? (
-                        <X className="size-4 text-primary" />
-                      ) : (
-                        <Clipboard className="size-4 text-primary" />
-                      )}
-                    </Button>
-                  </div>
-                )
-              ) : (
-                <div className="flex items-center justify-between rounded-md bg-background p-2">
-                  <div className="flex items-center gap-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
-                      <span className="font-medium text-primary text-sm">
-                        {getAvatarContent(currentLabel)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">{currentLabel}</p>
-                      <p className="max-w-[14rem] truncate font-light text-muted-foreground text-xs">
-                        {formatPaymentIdPreview(
-                          currentAddress,
-                          currency.currency,
-                          t,
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="icon" onClick={clearAddress}>
-                    <X className="size-4 text-primary" />
-                  </Button>
-                </div>
-              )}
-              <SellAddressesDrawer onAddressSelected={handleAddressSelection}>
-                <Button variant="outline" className="w-full">
-                  <BookUser className="mr-2 size-4" />
-                  <p className="font-medium text-sm">
-                    {t("SAVED_ADDRESSES", {
-                      paymentAddressName: t(currency.paymentAddressName),
-                    })}
-                  </p>
-                </Button>
-              </SellAddressesDrawer>
-            </CardContent>
-          </Card>
-        </section>
+        <SellPaymentDetailsField
+          onChange={setPaymentDetails}
+          analyticsContext="preview"
+        />
         <FundProtectionGuidelines />
       </main>
-      <footer className="container-narrow flex w-full items-center justify-center gap-2 p-4">
+      <footer className="container-narrow flex w-full flex-col items-center justify-center gap-2 p-4">
         <Button
           onClick={handlePlaceOrder}
           className="w-full p-6"
@@ -528,7 +391,9 @@ export function SellPreview() {
           {isPlacingOrder ? (
             <>
               <Loader2 className="mr-2 size-4 animate-spin" />
-              <p className="font-medium text-sm">{t("PLACING_ORDER")}...</p>
+              <p className="font-medium text-sm" aria-live="polite">
+                {placingOrderLabel}
+              </p>
             </>
           ) : (
             <p className="font-medium text-sm">{t("PLACE_ORDER")}</p>
