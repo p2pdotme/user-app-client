@@ -2787,6 +2787,8 @@ export const es = {
     VERIFY_ZK_PROOF: "Verificar prueba zk",
     VFX_ATTESTATION_EXPIRED:
       "El resultado de tu verificación venció antes de guardarse. Vuelve a empezar.",
+    VFX_ATTESTATION_INVALID:
+      "No pudimos confirmar este resultado de verificación. Vuelve a empezar.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Otro número de teléfono",
     VFX_BVN_OTP_METHOD_EMAIL: "Correo electrónico",
     VFX_BVN_OTP_METHOD_OTHER: "Otra opción",
@@ -2802,6 +2804,8 @@ export const es = {
     VFX_SESSION_EXPIRED_TITLE: "Sesión vencida",
     VFX_START_AGAIN: "Volver a empezar",
     VFX_STATUS_CHECK_FAILED: "No se pudo comprobar el estado",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "Esta verificación no está disponible temporalmente. Inténtalo más tarde.",
     VIA_JUPITER: "vía Jupiter",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
