@@ -712,6 +712,10 @@ export const id = {
       "Bagaimana cara memulihkan dana menggunakan kunci pribadi saya?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       'Jika Anda kehilangan akses ke akun tetapi masih punya kunci pribadi dompet, Anda tetap bisa memulihkan USDC Anda.\n\n1. Buka halaman "Pulihkan Dana".\n2. Tempel kunci pribadi Anda untuk memuat smart wallet Anda.\n3. Masukkan alamat dompet P2P.me lain dan jumlahnya.\n4. Ketuk Pulihkan dana untuk mengirim.\n\nJangan pernah membagikan kunci pribadi Anda kepada siapa pun.',
+    FAQ_SCAN_PAY_REFUND_POLICY:
+      "Bisakah saya mendapatkan refund untuk pesanan Scan & Pay?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Bisa, tetapi hanya pesanan Scan & Pay yang bisa di-refund, dan dikenakan biaya refund 4%.\n\nJika kamu membayar QR secara online dengan Scan & Pay lalu meminta refund ke tim support kami:\n- 4% dari jumlah INR dipotong sebagai biaya refund. Biaya ini diambil oleh merchant.\n- Sisanya dikembalikan kepadamu, hanya dalam INR.\n\nContoh: Kamu meminta refund ₹10.000. Kamu menerima ₹9.600. Biaya ₹400 diberikan ke merchant.\n\nPeriksa QR dan jumlahnya dengan teliti sebelum membayar. Dengan menggunakan P2P.me, kamu menyetujui kebijakan refund ini.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "Penjaga toko minta bukti pembayaran, apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:

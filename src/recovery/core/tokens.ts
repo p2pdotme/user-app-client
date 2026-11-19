@@ -127,12 +127,16 @@ export async function fetchRecoveryTokens(
   const network = RECOVERY_NETWORKS[key];
   const native = network.chain.nativeCurrency;
   const known = [
-    {
-      address: network.usdcAddress,
-      symbol: "USDC",
-      name: "USD Coin",
-      decimals: network.usdcDecimals,
-    },
+    ...(network.usdcAddress
+      ? [
+          {
+            address: network.usdcAddress,
+            symbol: "USDC",
+            name: "USD Coin",
+            decimals: network.usdcDecimals,
+          },
+        ]
+      : []),
     ...network.extraTokens,
   ];
 

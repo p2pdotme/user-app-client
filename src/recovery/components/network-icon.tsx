@@ -10,6 +10,7 @@ const CHAIN_ICON_SLUGS: Partial<Record<RecoveryNetworkKey, string>> = {
   arbitrum: "arb",
   avax: "avax",
   bnb: "bsc",
+  opbnb: "bsc",
   ethereum: "eth",
   hyperliquid: "hypercore",
   monad: "monad",
