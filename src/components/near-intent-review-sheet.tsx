@@ -11,6 +11,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Label } from "@/components/ui/label";
+import { formatDisplayAmount } from "@/lib/utils";
 
 type ReviewSide = {
   symbol: string;
@@ -74,7 +75,7 @@ export function NearIntentReviewSheet({
 
   const side = (data: ReviewSide, align: "left" | "right") => (
     <div
-      className={`flex flex-col gap-3 ${align === "right" ? "items-end" : "items-start"}`}>
+      className={`flex min-w-0 flex-1 flex-col gap-3 ${align === "right" ? "items-end" : "items-start"}`}>
       <div
         className={`flex items-center gap-2 ${align === "right" ? "flex-row-reverse" : ""}`}>
         <TokenIcon
@@ -91,8 +92,11 @@ export function NearIntentReviewSheet({
           </span>
         </span>
       </div>
-      <span className={`flex flex-col ${align === "right" ? "items-end" : ""}`}>
-        <span className="font-semibold">{data.amount}</span>
+      <span
+        className={`flex min-w-0 max-w-full flex-col ${align === "right" ? "items-end" : ""}`}>
+        <span className="max-w-full truncate font-semibold" title={data.amount}>
+          {formatDisplayAmount(data.amount)}
+        </span>
         {formatUsd(data.usd) && (
           <span className="text-muted-foreground text-sm">
             {formatUsd(data.usd)}
@@ -111,7 +115,9 @@ export function NearIntentReviewSheet({
           </DrawerTitle>
         </DrawerHeader>
 
-        <div className="container-narrow flex flex-col gap-4 pb-8">
+        {/* Scrolls inside the 80dvh drawer so the address check never pushes
+            Confirm off-screen on short phones. */}
+        <div className="container-narrow flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain pb-4">
           {/* From → To card */}
           <div className="flex items-center justify-between gap-3 rounded-xl bg-muted p-4">
             {side(from, "left")}
@@ -191,9 +197,11 @@ export function NearIntentReviewSheet({
               </p>
             </div>
           )}
+        </div>
 
+        <div className="container-narrow shrink-0 border-t pt-3 pb-6">
           <Button
-            className="mt-2 w-full p-6"
+            className="w-full p-6"
             disabled={pending || (!!addressCheck && !addressConfirmed)}
             onClick={onConfirm}>
             {pending ? t("BRIDGE_CONFIRMING") : t("CONFIRM")}

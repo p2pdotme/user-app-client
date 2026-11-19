@@ -635,21 +635,28 @@ export function WithdrawDrawer({ children }: { children: React.ReactNode }) {
       }}>
       <DrawerTrigger>{children}</DrawerTrigger>
       <DrawerContent>
-        <AnimatePresence mode="wait" initial={false}>
-          {page === "directOrCross" && (
-            <DirectOrCross key="direct-or-cross" onSendUSDC={handleSendUSDC} />
-          )}
-          {page === "directWithdraw" && (
-            <DirectWithdraw
-              key="direct-withdraw"
-              onBack={handleBack}
-              isScanning={isScanning}
-              onScanningChange={setIsScanning}
-            />
-          )}
-        </AnimatePresence>
+        {/* Steps scroll inside the 80dvh drawer so tall ones (e.g. "USDC
+            sent" with recipient + hash) never push the footer off-screen. */}
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+          <AnimatePresence mode="wait" initial={false}>
+            {page === "directOrCross" && (
+              <DirectOrCross
+                key="direct-or-cross"
+                onSendUSDC={handleSendUSDC}
+              />
+            )}
+            {page === "directWithdraw" && (
+              <DirectWithdraw
+                key="direct-withdraw"
+                onBack={handleBack}
+                isScanning={isScanning}
+                onScanningChange={setIsScanning}
+              />
+            )}
+          </AnimatePresence>
+        </div>
         {!isScanning && (
-          <DrawerFooter>
+          <DrawerFooter className="shrink-0">
             <DrawerClose className="w-full cursor-pointer rounded-md bg-primary p-4 text-primary-foreground">
               {t("CLOSE")}
             </DrawerClose>
