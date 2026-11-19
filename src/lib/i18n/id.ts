@@ -2715,6 +2715,8 @@ export const id = {
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VFX_ATTESTATION_EXPIRED:
       "Hasil verifikasi Anda kedaluwarsa sebelum tersimpan. Silakan mulai lagi.",
+    VFX_ATTESTATION_INVALID:
+      "Kami tidak dapat mengonfirmasi hasil verifikasi ini. Silakan mulai lagi.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Nomor telepon lain",
     VFX_BVN_OTP_METHOD_EMAIL: "Email",
     VFX_BVN_OTP_METHOD_OTHER: "Opsi lain",
@@ -2730,6 +2732,8 @@ export const id = {
     VFX_SESSION_EXPIRED_TITLE: "Sesi kedaluwarsa",
     VFX_START_AGAIN: "Mulai lagi",
     VFX_STATUS_CHECK_FAILED: "Tidak dapat memeriksa status",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "Verifikasi ini sementara tidak tersedia. Silakan coba lagi nanti.",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
