@@ -172,15 +172,15 @@ export const es = {
     BUY_USDC: "Comprar USDC",
     BUY_USDC_FAQS: "Preguntas frecuentes sobre comprar USDC",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Abre una disputa desde Ayuda — se habilita {{minutes}} min después de realizar el pedido.",
-    BUY_UX_ALREADY_PAID_GET_HELP: "Ya pagué — obtener ayuda",
+      "Abre una disputa desde Ayuda. Se habilita {{minutes}} min después de realizar el pedido.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "¿Ya pagaste? Obtén ayuda",
     BUY_UX_ALREADY_PAID_TITLE: "¿Ya pagaste?",
     BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
       "No se pudo cargar el monto — toca para reintentar",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "El plazo de pago venció antes de que se confirmara el pago.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
-      "No canceles si ya enviaste dinero — mejor pide ayuda.",
+      "¿Ya enviaste el dinero? No canceles. Mejor pide ayuda.",
     BUY_UX_DECRYPT_FAILED_DESCRIPTION:
       "Todavía no envíes dinero. Inténtalo de nuevo o contacta a soporte si esto sigue pasando.",
     BUY_UX_DECRYPT_FAILED_TITLE: "No pudimos cargar los datos de pago",
@@ -201,7 +201,7 @@ export const es = {
     BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "El plazo de pago terminó",
     BUY_UX_PAY_IN_UPI_APP: "Paga {{amount}} en tu app de UPI",
     BUY_UX_PLACED_CAN_LEAVE:
-      "Esto suele tardar entre 20 y 90 segundos. Puedes salir de esta página — guardaremos tu pedido en Transacciones.",
+      "Esto suele tardar entre 20 y 90 segundos. Puedes salir de esta página. Guardaremos tu pedido en Transacciones.",
     BUY_UX_PLACED_TIMEOUT_INFO:
       "Si ningún comerciante lo acepta en 3 minutos, el pedido se cancela automáticamente. Todavía no has pagado nada.",
     BUY_UX_PLACE_ORDER: "Realizar pedido",
@@ -486,6 +486,7 @@ export const es = {
       "{{tier}} falló a tu favor (culpa de {{fault}}). La decisión se aplica automáticamente después del {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Resuelta el {{date}}. Se determinó que la culpa fue de {{fault}}.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "Esta disputa está resuelta.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} no decidió a tiempo. Puedes escalar la disputa a {{next}} ahora.",
     DISPUTE_TIER_1: "Revisión del círculo",
@@ -717,6 +718,10 @@ export const es = {
       "¿Cómo recupero fondos usando mi clave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       "Si no puedes iniciar sesión pero tienes la clave privada de tu wallet (el código secreto que controla tu wallet):\n1. Abre Recuperar fondos (enlace abajo).\n2. Pega tu clave privada para cargar tu wallet.\n3. Elige USDC o $P2P, luego ingresa una dirección de Base que controles y el monto.\n4. Toca Recuperar fondos.\n\nNunca compartas tu clave privada. El soporte de P2P.me nunca te la pedirá.",
+    FAQ_SCAN_PAY_REFUND_POLICY:
+      "¿Puedo obtener un reembolso de una orden de Escanear y Pagar?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Sí, pero solo las órdenes de Escanear y Pagar se pueden reembolsar, y se aplica una tarifa de reembolso del 4%.\n\nSi pagas un QR en línea con Escanear y Pagar y luego pides un reembolso a nuestro soporte:\n- Se descuenta el 4% del monto en INR como tarifa de reembolso. El comerciante se queda con esta tarifa.\n- Recibes el resto, solo en INR.\n\nEjemplo: Pides un reembolso de ₹10,000. Recibes ₹9,600. La tarifa de ₹400 es para el comerciante.\n\nRevisa bien el QR y el monto antes de pagar. Al usar P2P.me, aceptas esta política de reembolso.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "El comercio me pide ver el comprobante de pago, ¿qué hago?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1534,7 +1539,6 @@ export const es = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Buscando comerciante",
     PAYF_TXN_STATUS_IN_DISPUTE: "En disputa",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Comerciante asignado",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Pago enviado",
     PAYF_VIEW_ON_BASESCAN: "Ver en BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Monto",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
@@ -1988,7 +1992,6 @@ export const es = {
       "Tu portapapeles está vacío. Primero copia tu {{paymentAddressName}}.",
     SELL_UX_COMPLETED_DESCRIPTION:
       "Revisa tu banco o app de pagos para confirmar que recibiste {{amount}}.",
-    SELL_UX_COMPLETED_TITLE: "El comerciante marcó tu pago como enviado",
     SELL_UX_DEPOSIT_USDC: "Depositar USDC",
     SELL_UX_DETAILS_MISSING_DESCRIPTION:
       "No encontramos los datos de pago de este pedido en este dispositivo. Indica dónde quieres recibir el pago para que el comerciante pueda enviarte tu dinero.",
@@ -2002,7 +2005,7 @@ export const es = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "¿Pasó un rato y no recibiste el dinero? Toca el ícono de ayuda arriba para obtener soporte con este pedido.",
     SELL_UX_PLACED_DESCRIPTION:
-      "Mantén esta página abierta — enviaremos tus datos de pago en cuanto un comerciante acepte (normalmente entre 20 y 90 segundos). Si sales, vuelve a este pedido para ingresarlos.",
+      "Mantén esta página abierta. Enviaremos tus datos de pago en cuanto un comerciante acepte (normalmente entre 20 y 90 segundos). Si sales, vuelve a este pedido para ingresarlos.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "Si ningún comerciante acepta a tiempo, el pedido se cancela y tus USDC vuelven a tu wallet.",
     SELL_UX_PLACING_ORDER: "Realizando pedido…",
@@ -2336,6 +2339,8 @@ export const es = {
     VERIFY_ZK_PROOF: "Verificar prueba zk",
     VFX_ATTESTATION_EXPIRED:
       "El resultado de tu verificación venció antes de guardarse. Vuelve a empezar.",
+    VFX_ATTESTATION_INVALID:
+      "No pudimos confirmar este resultado de verificación. Vuelve a empezar.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Otro número de teléfono",
     VFX_BVN_OTP_METHOD_EMAIL: "Correo electrónico",
     VFX_BVN_OTP_METHOD_OTHER: "Otra opción",
@@ -2351,6 +2356,8 @@ export const es = {
     VFX_SESSION_EXPIRED_TITLE: "Sesión vencida",
     VFX_START_AGAIN: "Volver a empezar",
     VFX_STATUS_CHECK_FAILED: "No se pudo comprobar el estado",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "Esta verificación no está disponible temporalmente. Inténtalo más tarde.",
     VIA_JUPITER: "vía Jupiter",
     VIEW_HOLDINGS: "Ver tenencias",
     VIEW_MY_ORDERS: "Ver mis pedidos",

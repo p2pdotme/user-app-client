@@ -17,7 +17,7 @@ const KEYS = Object.keys(RECOVERY_NETWORKS) as RecoveryNetworkKey[];
 // Pinned from the original standalone app (p2p-recovery src/lib/network.ts).
 const EXPECTED: Record<
   RecoveryNetworkKey,
-  { id: number; usdc: string; decimals: number; native: string }
+  { id: number; usdc: string | null; decimals: number; native: string }
 > = {
   monad: {
     id: 143,
@@ -29,6 +29,13 @@ const EXPECTED: Record<
     id: 56,
     usdc: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
     decimals: 18,
+    native: "BNB",
+  },
+  // Added here (not in the original app): opBNB has USDT and no USDC
+  opbnb: {
+    id: 204,
+    usdc: null,
+    decimals: 6,
     native: "BNB",
   },
   avax: {
@@ -106,7 +113,7 @@ const EXPECTED: Record<
 };
 
 describe("network table", () => {
-  it("has the 14 expected networks", () => {
+  it("has the 15 expected networks", () => {
     expect(KEYS.sort()).toEqual(Object.keys(EXPECTED).sort());
   });
 
@@ -138,7 +145,7 @@ describe("network table", () => {
       const addresses = [
         n.entryPoint,
         n.factoryAddress,
-        n.usdcAddress,
+        ...(n.usdcAddress ? [n.usdcAddress] : []),
         ...n.extraTokens.map((t) => t.address),
       ];
       for (const address of addresses) {
@@ -189,6 +196,14 @@ describe("network table", () => {
     expect(RECOVERY_NETWORKS.xlayer.extraTokens.map((t) => t.symbol)).toEqual([
       "USDC.e",
     ]);
+    expect(RECOVERY_NETWORKS.opbnb.extraTokens).toEqual([
+      {
+        address: "0x9e5AAC1Ba1a2e6aEd6b32689DFcF62A509Ca96f3",
+        symbol: "USDT",
+        name: "Tether USD",
+        decimals: 18,
+      },
+    ]);
     expect(RECOVERY_NETWORKS.ethereum.extraTokens).toEqual([]);
   });
 
@@ -201,7 +216,7 @@ describe("network table", () => {
 
 describe("RECOVERY_NETWORK_LIST", () => {
   it("lists every network once, alphabetically by label", () => {
-    expect(RECOVERY_NETWORK_LIST).toHaveLength(14);
+    expect(RECOVERY_NETWORK_LIST).toHaveLength(15);
     const labels = RECOVERY_NETWORK_LIST.map((n) => n.label);
     expect(labels).toEqual([...labels].sort((a, b) => a.localeCompare(b)));
   });

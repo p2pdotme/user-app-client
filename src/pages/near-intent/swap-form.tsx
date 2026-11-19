@@ -3,6 +3,7 @@ import {
   ArrowDownIcon,
   ChevronDownIcon,
   ClipboardPasteIcon,
+  Loader2Icon,
   SettingsIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -46,6 +47,7 @@ import {
   getUserFacingErrorMessage,
   isUserCancellation,
 } from "@/lib/user-facing-error";
+import { formatDisplayAmount } from "@/lib/utils";
 import { isValidChainAddress } from "./address-validation";
 
 // ---------------------------------------------------------------------------
@@ -513,6 +515,32 @@ export function SwapForm({
     ? getBridgeErrorMessage(t, dryQuote.error, "PAYF_BRIDGE_QUOTE_FAILED")
     : null;
 
+  // A click only waits on an in-flight quote; a failed or stale one is
+  // re-fetched, then the review opens once a quote is in hand.
+  const isGettingQuote = dryQuote.isFetching && !quote;
+  const handleGetQuote = async () => {
+    const openReview = () => {
+      analytics.track(EVENTS.TRANSACTION, {
+        transaction_type: flowType,
+        status: "review_opened",
+        chain: addressChain ?? undefined,
+      });
+      setReviewOpen(true);
+    };
+    if (quote && !dryQuote.error) {
+      openReview();
+      return;
+    }
+    const result = await dryQuote.refetch();
+    if (result.data?.quote && !result.error) {
+      openReview();
+      return;
+    }
+    toast.error(
+      getBridgeErrorMessage(t, result.error, "PAYF_BRIDGE_QUOTE_FAILED"),
+    );
+  };
+
   useEffect(() => {
     if (!quoteErrorMessage) return;
     analytics.track(EVENTS.TRANSACTION, {
@@ -656,6 +684,18 @@ export function SwapForm({
     </div>
   );
 
+  // Long outputs (e.g. "0.000560483" ETH) shrink instead of being clipped
+  // next to the token selector on narrow phones.
+  const amountOutDisplay = quote
+    ? formatDisplayAmount(quote.amountOutFormatted, 4)
+    : "0.00";
+  const amountOutSizeClass =
+    amountOutDisplay.length <= 6
+      ? "text-3xl"
+      : amountOutDisplay.length <= 8
+        ? "text-2xl"
+        : "text-xl";
+
   const toRow = (
     <div className="flex items-center justify-between gap-3">
       {isWithdraw ? (
@@ -669,8 +709,10 @@ export function SwapForm({
       ) : (
         <UsdcBadge iconUrl={usdcIconUrl} address={account.address} />
       )}
-      <span className="font-semibold text-3xl">
-        {quote?.amountOutFormatted ?? "0.00"}
+      <span
+        className={`min-w-0 truncate text-right font-semibold ${amountOutSizeClass}`}
+        title={quote?.amountOutFormatted}>
+        {amountOutDisplay}
       </span>
     </div>
   );
@@ -813,30 +855,37 @@ export function SwapForm({
         )}
       </div>
 
-      <Button
-        size="lg"
-        className="h-14 rounded-xl text-base"
-        disabled={
-          !quoteParams ||
-          insufficientFunds ||
-          dryQuote.isLoading ||
-          !!dryQuote.error ||
-          swap.isPending
-        }
-        onClick={() => {
-          analytics.track(EVENTS.TRANSACTION, {
-            transaction_type: flowType,
-            status: "review_opened",
-            chain: addressChain ?? undefined,
-          });
-          setReviewOpen(true);
-        }}>
-        {swap.isPending
-          ? isWithdraw
-            ? t("BRIDGE_WITHDRAWING")
-            : t("BRIDGE_CREATING")
-          : t("BRIDGE_GET_QUOTE")}
-      </Button>
+      {/* Sticky so picking a chain (address field, hints, errors) never
+          pushes the button below the fold on short screens. */}
+      <div className="sticky bottom-0 z-10 bg-background pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        <Button
+          size="lg"
+          className="h-14 w-full rounded-xl text-base"
+          // Clickable as soon as the form is valid: a loading or failed
+          // background quote must not leave the user with a dead button.
+          disabled={
+            !quoteParams ||
+            insufficientFunds ||
+            swap.isPending ||
+            isGettingQuote
+          }
+          onClick={handleGetQuote}>
+          {swap.isPending ? (
+            isWithdraw ? (
+              t("BRIDGE_WITHDRAWING")
+            ) : (
+              t("BRIDGE_CREATING")
+            )
+          ) : isGettingQuote ? (
+            <>
+              <Loader2Icon className="size-4 animate-spin" />
+              {t("LOADING")}
+            </>
+          ) : (
+            t("BRIDGE_GET_QUOTE")
+          )}
+        </Button>
+      </div>
 
       {quote && token && (
         <NearIntentReviewSheet

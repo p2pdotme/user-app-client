@@ -1,5 +1,3 @@
-import { usePrices } from "@p2pdotme/sdk/react";
-import { useQuery } from "@tanstack/react-query";
 import {
   Check,
   ChevronRight,
@@ -14,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useSettings } from "@/contexts";
 import { useAnalytics, useUserStake } from "@/hooks";
+import { useRpToUsdcMultiplier } from "@/hooks/use-rp-to-usdc-multiplier";
 import {
   useKycRpReward,
   useKycVerificationStatus,
@@ -41,31 +40,6 @@ const BADGE_TONE_CLASSES: Record<BadgeTone, string> = {
 };
 
 type MethodId = "liveness" | "passport" | "stake" | "zk_kyc";
-
-/**
- * USDC of per-order limit granted per reputation point in the user's market.
- * Same query (and cache key) the verification rows on the sub-pages use, so
- * the number on the card matches the number on the row it leads to.
- */
-export function useRpToUsdcMultiplier(): number | undefined {
-  const { settings } = useSettings();
-  const prices = usePrices();
-  const { data } = useQuery({
-    queryKey: ["rp-per-usdt-limit", settings.currency.currency],
-    queryFn: async () =>
-      prices
-        .getReputationPerUsdcLimit({ currency: settings.currency.currency })
-        .match(
-          (value) => value.multiplier,
-          // Don't fall back to 1: that showed raw reputation points as if
-          // they were USDC. Unknown -> the gain label is simply hidden.
-          (error) => {
-            throw error;
-          },
-        ),
-  });
-  return data;
-}
 
 interface MethodCardProps {
   Icon: LucideIcon;
