@@ -5,6 +5,7 @@ import {
   RECLAIM_GENERATION_FAILED_GRACE_MS,
   RECLAIM_MAX_POLL_RETRIES,
   RECLAIM_NOT_FOUND_GRACE_MS,
+  RECLAIM_RETRY_BUDGET_RESET_MS,
   type ReclaimPollState,
 } from "@/lib/reclaim-poll-policy";
 
@@ -39,6 +40,32 @@ describe("Reclaim polling retry policy", () => {
     expect(
       decideReclaimPollRetry(err("RECLAIM_INIT_FAILED"), state, t0),
     ).toEqual({ action: "stop", reason: "max_retries" });
+  });
+
+  it("gives a second outage in the same attempt a fresh retry budget", () => {
+    const exhausted = {
+      ...initialReclaimPollState(t0),
+      retries: RECLAIM_MAX_POLL_RETRIES,
+      lastFailureAt: t0,
+    };
+    // Same outage (next failure soon after the last): still out of retries.
+    expect(
+      decideReclaimPollRetry(
+        err("RECLAIM_INIT_FAILED"),
+        exhausted,
+        t0 + RECLAIM_RETRY_BUDGET_RESET_MS,
+      ),
+    ).toEqual({ action: "stop", reason: "max_retries" });
+    // Polling recovered, then a new drop: the budget starts over.
+    const d = decideReclaimPollRetry(
+      err("RECLAIM_INIT_FAILED"),
+      exhausted,
+      t0 + RECLAIM_RETRY_BUDGET_RESET_MS + 1,
+    );
+    expect(d.action).toBe("retry");
+    if (d.action !== "retry") return;
+    expect(d.delayMs).toBe(2_000);
+    expect(d.nextState.retries).toBe(1);
   });
 
   it("never retries cancellations or errors a retry can't fix", () => {
