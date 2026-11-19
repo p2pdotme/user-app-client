@@ -168,14 +168,14 @@ export const en = {
     BUY_USDC: "Buy USDC",
     BUY_USDC_FAQS: "Buy USDC FAQs",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Raise a dispute from Help — it opens {{minutes}} min after you placed the order.",
-    BUY_UX_ALREADY_PAID_GET_HELP: "I already paid — get help",
+      "Raise a dispute from Help. It opens {{minutes}} min after you placed the order.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "Already paid? Get help",
     BUY_UX_ALREADY_PAID_TITLE: "Already paid?",
     BUY_UX_AMOUNT_LOAD_FAILED_RETRY: "Couldn't load amount — tap to retry",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "The payment window expired before the payment was confirmed.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
-      "Don't cancel if you've already sent money — get help instead.",
+      "Already sent the money? Don't cancel. Get help instead.",
     BUY_UX_DECRYPT_FAILED_DESCRIPTION:
       "Don't send any money yet. Try again, or contact support if this keeps happening.",
     BUY_UX_DECRYPT_FAILED_TITLE: "We couldn't load the payment details",
@@ -195,7 +195,7 @@ export const en = {
     BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "The payment window has ended",
     BUY_UX_PAY_IN_UPI_APP: "Pay {{amount}} in your UPI app",
     BUY_UX_PLACED_CAN_LEAVE:
-      "This usually takes 20–90 seconds. You can leave this page — we'll keep your order in Transactions.",
+      "This usually takes 20–90 seconds. You can leave this page. We'll keep your order in Transactions.",
     BUY_UX_PLACED_TIMEOUT_INFO:
       "If no merchant accepts within 3 minutes, the order is cancelled automatically. You haven't paid anything yet.",
     BUY_UX_PLACE_ORDER: "Place order",
@@ -477,6 +477,7 @@ export const en = {
       "{{tier}} ruled in your favour ({{fault}} at fault). The decision is applied automatically after {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Settled on {{date}}. {{fault}} was found at fault.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "This dispute is settled.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} did not decide in time. You can escalate the dispute to {{next}} now.",
     DISPUTE_TIER_1: "Circle review",
@@ -1480,7 +1481,6 @@ export const en = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Finding merchant",
     PAYF_TXN_STATUS_IN_DISPUTE: "In dispute",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant assigned",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Payment sent",
     PAYF_VIEW_ON_BASESCAN: "View on BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Amount",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
@@ -1914,7 +1914,6 @@ export const en = {
       "Your clipboard is empty. Copy your {{paymentAddressName}} first.",
     SELL_UX_COMPLETED_DESCRIPTION:
       "Check your bank or payment app to confirm you received {{amount}}.",
-    SELL_UX_COMPLETED_TITLE: "Merchant marked your payment as sent",
     SELL_UX_DEPOSIT_USDC: "Deposit USDC",
     SELL_UX_DETAILS_MISSING_DESCRIPTION:
       "We couldn't find the payment details for this order on this device. Enter where you want to be paid so the merchant can send your money.",
@@ -1928,7 +1927,7 @@ export const en = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "Haven't received the money after a while? Tap the help icon at the top to get support for this order.",
     SELL_UX_PLACED_DESCRIPTION:
-      "Keep this page open — we'll send your payment details as soon as a merchant accepts (usually 20–90 seconds). If you leave, come back to this order to enter them.",
+      "Keep this page open. We'll send your payment details as soon as a merchant accepts (usually 20–90 seconds). If you leave, come back to this order to enter them.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "If no merchant accepts in time, the order is cancelled and your USDC is returned to your wallet.",
     SELL_UX_PLACING_ORDER: "Placing order…",
@@ -2246,6 +2245,8 @@ export const en = {
     VERIFY_ZK_PROOF: "Verify zk proof",
     VFX_ATTESTATION_EXPIRED:
       "Your verification result expired before it was saved. Please start again.",
+    VFX_ATTESTATION_INVALID:
+      "We couldn't confirm this verification result. Please start again.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Another phone number",
     VFX_BVN_OTP_METHOD_EMAIL: "Email",
     VFX_BVN_OTP_METHOD_OTHER: "Other option",
@@ -2261,6 +2262,8 @@ export const en = {
     VFX_SESSION_EXPIRED_TITLE: "Session expired",
     VFX_START_AGAIN: "Start again",
     VFX_STATUS_CHECK_FAILED: "Couldn't check status",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "This verification is temporarily unavailable. Please try again later.",
     VIA_JUPITER: "via Jupiter",
     VIEW_HOLDINGS: "View holdings",
     VIEW_MY_ORDERS: "View my orders",
