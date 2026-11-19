@@ -216,6 +216,20 @@ export const contractErrors = {
   BvnNullifierAlreadySpent: "BVN_NULLIFIER_ALREADY_SPENT",
   BvnInvalidSignature: "BVN_INVALID_SIGNATURE",
   BvnAlreadyVerified: "BVN_ALREADY_VERIFIED",
+  // Liveness (RpHelper) and passport KYC attestation submits. Same shape as
+  // the Bvn* errors; all are parameterless.
+  LivenessSignerNotSet: "VFX_VERIFICATION_UNAVAILABLE",
+  LivenessAttestationExpired: "VFX_ATTESTATION_EXPIRED",
+  LivenessNullifierZero: "VFX_ATTESTATION_INVALID",
+  LivenessNullifierAlreadySpent: "NULLIFIER_ALREADY_VERIFIED",
+  LivenessAlreadyVerified: "ALREADY_VERIFIED",
+  LivenessInvalidSignature: "VFX_ATTESTATION_INVALID",
+  KycSignerNotSet: "VFX_VERIFICATION_UNAVAILABLE",
+  KycAttestationExpired: "VFX_ATTESTATION_EXPIRED",
+  KycNullifierZero: "VFX_ATTESTATION_INVALID",
+  KycNullifierAlreadySpent: "NULLIFIER_ALREADY_VERIFIED",
+  KycAlreadyVerified: "PASSPORT_ALREADY_VERIFIED",
+  KycInvalidSignature: "VFX_ATTESTATION_INVALID",
   // Diamond R6.1: order fiat would land under the currency's configured
   // minimum. Raised on placement and on a PAY-order amount update via
   // setSellOrderUpiWithFiat, so a QR total can't duck the floor.
@@ -440,6 +454,21 @@ export const hexContractErrors = {
   "0xc9080ed9": contractErrors.BvnNullifierAlreadySpent,
   "0x15940c9c": contractErrors.BvnInvalidSignature,
   "0x27fec7ec": contractErrors.BvnAlreadyVerified,
+  // Liveness*() — names from the RpHelper ABI (rp-helper-1.ts).
+  "0x66790623": contractErrors.LivenessSignerNotSet,
+  "0x54710b53": contractErrors.LivenessAttestationExpired,
+  "0xfa82e304": contractErrors.LivenessNullifierZero,
+  "0x61746f27": contractErrors.LivenessNullifierAlreadySpent,
+  "0x95182781": contractErrors.LivenessAlreadyVerified,
+  "0x9cfb0729": contractErrors.LivenessInvalidSignature,
+  // Kyc*() — not in any ABI the app ships; selectors assume the same
+  // parameterless names as Liveness*/Bvn*. A wrong guess just never matches.
+  "0x2477577f": contractErrors.KycSignerNotSet,
+  "0xeb1a0215": contractErrors.KycAttestationExpired,
+  "0x311fde50": contractErrors.KycNullifierZero,
+  "0xbdbb1a03": contractErrors.KycNullifierAlreadySpent,
+  "0x10afbce2": contractErrors.KycAlreadyVerified,
+  "0x80686e11": contractErrors.KycInvalidSignature,
   "0x56391615": contractErrors.FiatAmountBelowMinimum, // FiatAmountBelowMinimum(uint256 minimum, uint256 actual)
 };
 

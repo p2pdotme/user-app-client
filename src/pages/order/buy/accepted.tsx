@@ -3,11 +3,13 @@ import { useOrders } from "@p2pdotme/sdk/react";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
+  ArrowUpRight,
   Copy,
   LifeBuoy,
   Loader2,
   QrCode,
   RefreshCw,
+  Smartphone,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { QRCodeSVG } from "qrcode.react";
@@ -58,6 +60,8 @@ import {
   formatFiatAmountNumeric,
   generateUPILink,
   getPaymentMethodFromOrderDetails,
+  isAndroid,
+  isIOS,
 } from "@/lib/utils";
 import { HelpDrawer } from "../help-drawer";
 import { BUY_FLOW_PROGRESS_TEXT } from "../shared";
@@ -170,9 +174,10 @@ function CancelOrderDrawer({
               "THIS_ACTION_CANNOT_BE_UNDONE_THE_ORDER_WILL_BE_PERMANENTLY_CANCELLED",
             )}
           </p>
-          <Alert variant="warning">
-            <AlertTriangle className="size-4" />
-            <AlertDescription className="text-foreground text-sm">
+          <Alert
+            variant="warning"
+            className="flex flex-col items-center gap-1 text-center">
+            <AlertDescription className="justify-items-center text-center text-foreground text-sm">
               {t("BUY_UX_CANCEL_ALREADY_PAID_WARNING")}
             </AlertDescription>
           </Alert>
@@ -473,7 +478,11 @@ export function BuyAccepted({ order }: { order: Order }) {
   // it could make the user underpay; on error show Retry instead.
   const payableFiatAmount: number | undefined = actualFiatAmount;
 
+  // One-tap "Pay in your UPI app" link (upi://pay?pa=…&am=…). Phones only:
+  // on a laptop there is no UPI app, so the link would do nothing there.
+  const isPhone = isAndroid() || isIOS();
   const upiLink =
+    isPhone &&
     order.currency === "INR" &&
     paymentMethod === "UPI" &&
     decryptedPaymentAddress &&
@@ -486,6 +495,7 @@ export function BuyAccepted({ order }: { order: Order }) {
           order.id.toString(),
         )
       : null;
+  // Fonepay (Nepal) QRs come back as a raw QR string, not a upi:// link.
   const upiDeepLink = upiLink?.startsWith("upi://") ? upiLink : null;
 
   const handleCopyFiatAmount = () => {
@@ -826,7 +836,13 @@ export function BuyAccepted({ order }: { order: Order }) {
           {!isPaymentTimeoutExpired && (
             <div className="mx-4 flex flex-col gap-3 pt-2">
               {upiDeepLink ? (
-                <Button asChild className="h-12 w-full">
+                // Secondary action: opens the UPI app with the payee and
+                // exact amount filled in. "I have made the payment" stays
+                // the primary button.
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 w-full gap-2 border-primary bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary">
                   <a
                     href={upiDeepLink}
                     onClick={() =>
@@ -838,12 +854,16 @@ export function BuyAccepted({ order }: { order: Order }) {
                         fiatAmount: payableFiatAmount,
                       })
                     }>
-                    {t("BUY_UX_PAY_IN_UPI_APP", {
-                      amount: formatFiatAmount(
-                        payableFiatAmount ?? 0,
-                        order.currency,
-                      ),
-                    })}
+                    <Smartphone className="size-4" />
+                    <span className="font-semibold text-sm">
+                      {t("BUY_UX_PAY_IN_UPI_APP", {
+                        amount: formatFiatAmount(
+                          payableFiatAmount ?? 0,
+                          order.currency,
+                        ),
+                      })}
+                    </span>
+                    <ArrowUpRight className="size-4" />
                   </a>
                 </Button>
               ) : null}
@@ -869,28 +889,26 @@ export function BuyAccepted({ order }: { order: Order }) {
           )}
 
           <div className="flex w-full flex-col gap-2 px-4 py-4">
-            <Button
-              className="h-12 w-full"
-              variant={
-                upiDeepLink || isPaymentTimeoutExpired ? "outline" : "default"
-              }
-              disabled={
-                isPaymentTimeoutExpired ||
-                isPaymentDetailsUnavailable ||
-                paidBuyOrderMutation.isPending ||
-                isLoadingAcceptedTimestamp
-              }
-              onClick={handleMadePayment}>
-              {paidBuyOrderMutation.isPending ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : (
-                <p className="font-medium text-sm">
-                  {isPaymentTimeoutExpired
-                    ? t("ORDER_EXPIRED")
-                    : t("I_HAVE_MADE_THE_PAYMENT")}
-                </p>
-              )}
-            </Button>
+            {/* Expired: the page header already says the payment window has
+                ended, so no disabled "Order expired" button here. */}
+            {!isPaymentTimeoutExpired && (
+              <Button
+                className="h-12 w-full"
+                disabled={
+                  isPaymentDetailsUnavailable ||
+                  paidBuyOrderMutation.isPending ||
+                  isLoadingAcceptedTimestamp
+                }
+                onClick={handleMadePayment}>
+                {paidBuyOrderMutation.isPending ? (
+                  <Loader2 className="size-4 animate-spin" />
+                ) : (
+                  <p className="font-medium text-sm">
+                    {t("I_HAVE_MADE_THE_PAYMENT")}
+                  </p>
+                )}
+              </Button>
+            )}
             {isPaymentTimeoutExpired && (
               <Button className="h-12 w-full" onClick={openHelpForAlreadyPaid}>
                 <LifeBuoy className="size-4" />

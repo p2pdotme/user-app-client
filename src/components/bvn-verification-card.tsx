@@ -1,6 +1,4 @@
-import { usePrices } from "@p2pdotme/sdk/react";
 import type { BvnMethod, BvnOtpMethod } from "@p2pdotme/sdk/zkkyc";
-import { useQuery } from "@tanstack/react-query";
 import {
   Check,
   ChevronRight,
@@ -30,8 +28,8 @@ import {
   VerificationRow,
   VerifiedButton,
 } from "@/components/verification-row";
-import { useSettings } from "@/contexts";
 import { useBvnVerification } from "@/hooks/use-bvn";
+import { useRpToUsdcMultiplier } from "@/hooks/use-rp-to-usdc-multiplier";
 import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useBvnRpReward,
@@ -127,7 +125,8 @@ function BvnCard({
   isVerified: boolean | undefined;
   statusError: boolean;
   onRetryStatus: () => void;
-  limit: number;
+  /** `undefined` while the RP-to-USDC rate is unknown (line hidden). */
+  limit?: number;
   onGetVerified: () => void;
 }) {
   const { t } = useTranslation();
@@ -366,8 +365,6 @@ function BvnStepDone() {
 export function BvnVerificationCard() {
   const { t } = useTranslation();
   const { account } = useThirdweb();
-  const { settings } = useSettings();
-  const prices = usePrices();
   const [open, setOpen] = useState(false);
   const {
     isBvnVerified,
@@ -377,26 +374,13 @@ export function BvnVerificationCard() {
   } = useBvnVerificationStatus();
   const { bvnRp, isBvnRpLoading, isBvnRpError } = useBvnRpReward();
 
-  const { data: rpPerUsdtLimit } = useQuery({
-    queryKey: ["rp-per-usdt-limit", settings.currency.currency],
-    queryFn: async () => {
-      return prices
-        .getReputationPerUsdcLimit({ currency: settings.currency.currency })
-        .match(
-          (data) => data.multiplier,
-          (error: unknown) => {
-            console.error(
-              "[BvnVerificationCard] Error fetching RP/USDT limit",
-              error,
-            );
-            return 1;
-          },
-        );
-    },
-  });
+  const rpPerUsdtLimit = useRpToUsdcMultiplier();
 
+  // Hidden (undefined) until the RP-to-USDC rate is known.
   const limit =
-    (isBvnRpLoading || isBvnRpError ? 0 : (bvnRp ?? 0)) * (rpPerUsdtLimit ?? 1);
+    rpPerUsdtLimit === undefined
+      ? undefined
+      : (isBvnRpLoading || isBvnRpError ? 0 : (bvnRp ?? 0)) * rpPerUsdtLimit;
   const {
     step,
     methods,

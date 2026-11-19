@@ -1,4 +1,3 @@
-import { usePrices } from "@p2pdotme/sdk/react";
 import {
   createLivenessFlow,
   createReclaimFlow,
@@ -16,7 +15,7 @@ import {
   type SocialVerifyParams,
   type ZkkycError,
 } from "@p2pdotme/sdk/zkkyc";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import type { TFunction } from "i18next";
 import {
   ClipboardCheck,
@@ -29,7 +28,7 @@ import type { ResultAsync } from "neverthrow";
 import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { BvnVerificationCard } from "@/components/bvn-verification-card";
@@ -52,6 +51,7 @@ import {
 import { useSettings } from "@/contexts";
 import { useAnalytics } from "@/hooks";
 import { useLowTrustGate } from "@/hooks/use-low-trust-gate";
+import { useRpToUsdcMultiplier } from "@/hooks/use-rp-to-usdc-multiplier";
 import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useKycRpReward,
@@ -78,6 +78,7 @@ import {
   SIMPLE_KYC_BASE_URL,
   SIMPLE_KYC_TENANT,
 } from "@/lib/constants";
+import { parseContractError } from "@/lib/errors";
 import { refreshLimitsAfterVerification } from "@/lib/limit-increase";
 import {
   decideReclaimPollRetry,
@@ -379,33 +380,13 @@ function VerificationItem({
   const { t, i18n } = useTranslation();
 
   const { account } = useThirdweb();
-  const { settings } = useSettings();
-  const prices = usePrices();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const locationRef = useRef(location);
-  locationRef.current = location;
 
-  const { data: rpPerUsdtLimit } = useQuery({
-    queryKey: ["rp-per-usdt-limit", settings.currency.currency],
-    queryFn: async () => {
-      return prices
-        .getReputationPerUsdcLimit({ currency: settings.currency.currency })
-        .match(
-          (data) => data.multiplier,
-          (error: unknown) => {
-            console.error(
-              "[VerificationItem] Error fetching RP/USDT limit",
-              error,
-            );
-            return 1;
-          },
-        );
-    },
-  });
+  const rpPerUsdtLimit = useRpToUsdcMultiplier();
 
-  const limit = rpReward * (rpPerUsdtLimit ?? 1);
+  // Hidden (undefined) until the RP-to-USDC rate is known.
+  const limit =
+    rpPerUsdtLimit === undefined ? undefined : rpReward * rpPerUsdtLimit;
 
   const [showVerificationOverlay, setShowVerificationOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -451,12 +432,15 @@ function VerificationItem({
   // defined below (the toasts are raised from callbacks declared earlier).
   const retryRef = useRef<() => void>(() => {});
 
-  // Drop ?sessionId=…&socialPlatform=… through the router so its location
-  // stays in sync (window.history.replaceState bypasses it).
+  // Drop ?sessionId=…&socialPlatform=… from the address bar. Not through the
+  // router: navigate() gives the location a new key, and PageTransitioner
+  // keys the page on it, so the page would remount, and the unmount cleanup
+  // aborts the attempt that was just started (e.g. "Retry verification").
+  // The router's copy of the stale params is harmless:
+  // processedSessionIdRef and submittedReclaimSessions stop a re-resume.
   const clearUrlParams = useCallback(() => {
-    const { pathname, search } = locationRef.current;
-    if (search) navigate(pathname, { replace: true });
-  }, [navigate]);
+    clearAddressBarParams();
+  }, []);
 
   const clearExpiryTimer = useCallback(() => {
     if (expiryTimerRef.current !== null) {
@@ -720,6 +704,9 @@ function VerificationItem({
   // timeout. Synchronous, so it can run inside the user's tap.
   const beginAttempt = useCallback(() => {
     stopActiveSession();
+    // A failed attempt sets this; reset it here so an attempt started from
+    // the row (not only the toast's Retry) can show its result or error.
+    toastShownRef.current = false;
     pollStateRef.current = initialReclaimPollState();
     const attempt = attemptRef.current;
     expiryTimerRef.current = window.setTimeout(() => {
@@ -1286,6 +1273,32 @@ function VerificationItem({
  * cancelling is not a failure and gets a neutral note instead, and an account
  * that is already used gets the reason without Retry (retrying can't help).
  */
+/** Removes the query string from the address bar without a router navigation. */
+function clearAddressBarParams() {
+  if (!window.location.search) return;
+  // Keep history.state: react-router stores its location key/index there.
+  window.history.replaceState(
+    window.history.state,
+    "",
+    window.location.pathname + window.location.hash,
+  );
+}
+
+/** Contract errors after which a saved liveness/passport attestation can never land. */
+const UNUSABLE_ATTESTATION_KEYS = new Set([
+  "VFX_ATTESTATION_EXPIRED",
+  "VFX_ATTESTATION_INVALID",
+]);
+
+function isUnusableAttestationError(error: unknown): boolean {
+  try {
+    const key = parseContractError(error);
+    return typeof key === "string" && UNUSABLE_ATTESTATION_KEYS.has(key);
+  } catch {
+    return false;
+  }
+}
+
 function showHostedVerificationFailure(
   t: TFunction,
   title: string,
@@ -1425,7 +1438,6 @@ function useHostedVerification({
   const { account } = useThirdweb();
   const { track } = useAnalytics();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const location = useLocation();
   const address = account?.address;
   const [busy, setBusy] = useState(false);
@@ -1505,6 +1517,11 @@ function useHostedVerification({
           // Used by another wallet: resubmitting can never succeed.
           clearPendingAttestation(kind, address);
           setPending(null);
+        } else if (isUnusableAttestationError(error)) {
+          // Expired on-chain or rejected (bad signature / empty nullifier):
+          // drop it so Retry starts a fresh check instead of resubmitting.
+          clearPendingAttestation(kind, address);
+          setPending(null);
         }
         toast.dismiss(toastId);
         track(EVENTS.VERIFICATION, {
@@ -1551,10 +1568,11 @@ function useHostedVerification({
     const state = params.get("state");
     if (!code || !state || !state.startsWith(kind)) return;
     processed.current = true;
-    const pathname = location.pathname;
-    // Through the router (not history.replaceState) so its location stays in
-    // sync; `processed` keeps the re-run from redeeming twice.
-    const clearUrl = () => navigate(pathname, { replace: true });
+    // Not through the router: navigate() remounts the page (PageTransitioner
+    // keys it on location.key) in the middle of the submit, and the fresh
+    // instance offered "Finish verification" while the first submit was
+    // still in flight. `processed` keeps the effect from redeeming twice.
+    const clearUrl = clearAddressBarParams;
     track(EVENTS.VERIFICATION, {
       verification_type: kind,
       status: "returned",
@@ -1587,8 +1605,6 @@ function useHostedVerification({
     address,
     kind,
     location.search,
-    location.pathname,
-    navigate,
     resume,
     submitStored,
     failedTitleKey,
