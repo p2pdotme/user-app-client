@@ -1,8 +1,8 @@
-import { usePrices } from "@p2pdotme/sdk/react";
 import {
   createLivenessFlow,
   createReclaimFlow,
   createSimpleKycFlow,
+  type LivenessAttestation,
   type ReclaimFlowParams,
   type ReclaimLocale,
   type ReclaimProofResult,
@@ -10,10 +10,13 @@ import {
   type ReclaimStatus,
   resumeLivenessFlow,
   resumeSimpleKycFlow,
+  type SimpleKycAttestation,
   type SocialPlatform,
   type SocialVerifyParams,
+  type ZkkycError,
 } from "@p2pdotme/sdk/zkkyc";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import type { TFunction } from "i18next";
 import {
   ClipboardCheck,
   Clock4,
@@ -21,13 +24,15 @@ import {
   ScanFace,
   SmilePlus,
 } from "lucide-react";
+import type { ResultAsync } from "neverthrow";
 import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
 import ASSETS from "@/assets";
 import { BvnVerificationCard } from "@/components/bvn-verification-card";
+import { StatusCheckFailedAction } from "@/components/status-check-failed-action";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,9 +49,9 @@ import {
   VerifiedButton,
 } from "@/components/verification-row";
 import { useSettings } from "@/contexts";
-import { useDomainReachability } from "@/contexts/domain-reachability";
 import { useAnalytics } from "@/hooks";
 import { useLowTrustGate } from "@/hooks/use-low-trust-gate";
+import { useRpToUsdcMultiplier } from "@/hooks/use-rp-to-usdc-multiplier";
 import { useThirdweb } from "@/hooks/use-thirdweb";
 import {
   useKycRpReward,
@@ -73,10 +78,22 @@ import {
   SIMPLE_KYC_BASE_URL,
   SIMPLE_KYC_TENANT,
 } from "@/lib/constants";
+import { parseContractError } from "@/lib/errors";
+import { refreshLimitsAfterVerification } from "@/lib/limit-increase";
+import {
+  decideReclaimPollRetry,
+  initialReclaimPollState,
+  type ReclaimPollState,
+} from "@/lib/reclaim-poll-policy";
 import {
   clearStoredParams,
   getStoredParams,
 } from "@/lib/url-param-preservation";
+import {
+  getUserFacingErrorMessage,
+  isAlreadyVerifiedError,
+  isUserCancellation,
+} from "@/lib/user-facing-error";
 import { getScreenType, isAndroid, isIOS } from "@/lib/utils";
 import { PrivacyBanner } from "./privacy-banner";
 
@@ -180,6 +197,15 @@ export function Verifications() {
     isError: isRpError,
   } = useSocialRpRewards();
 
+  // Fresh on-chain read for one platform, used right before (and after a
+  // failed) socialVerify so a proof already landed from another tab/device
+  // isn't submitted twice.
+  const isSocialVerifiedOnChain = async (key: string) => {
+    const result = await refetchSocialStatus();
+    if (result.isError || !result.data) return false;
+    return !!result.data[key as keyof typeof result.data];
+  };
+
   const statusMap = {
     isLinkedInVerified,
     isGitHubVerified,
@@ -272,6 +298,7 @@ export function Verifications() {
           isStatusLoading={isSocialStatusLoading}
           socialStatusError={socialStatusError}
           refetchSocialStatus={refetchSocialStatus}
+          isVerifiedOnChain={() => isSocialVerifiedOnChain(social.key)}
           sessionId={
             socialPlatform && socialPlatform === social.name
               ? sessionId || undefined
@@ -288,6 +315,8 @@ export function Verifications() {
 
 interface VerificationItemProps {
   name: SocialPlatformType;
+  /** Translated row title; defaults to `name` (brand names aren't translated). */
+  title?: string;
   description?: string;
   icon?: React.ReactNode;
   rpReward: number;
@@ -295,9 +324,21 @@ interface VerificationItemProps {
   isStatusLoading: boolean;
   socialStatusError: Error | null;
   refetchSocialStatus: () => void;
+  /** Re-reads the on-chain status for this method; true when verified. */
+  isVerifiedOnChain?: () => Promise<boolean>;
   sessionId?: string;
   customButton?: React.ReactNode;
 }
+
+/** Overall cap on one Reclaim attempt before we stop polling. */
+const RECLAIM_SESSION_TIMEOUT_MS = 10 * 60 * 1000;
+
+/**
+ * Reclaim session ids whose proof this page already handed to socialVerify.
+ * Module scope so a remount (or a URL/stored-params replay of the same
+ * sessionId) can never submit the same proof twice.
+ */
+const submittedReclaimSessions = new Set<string>();
 
 const reclaimConfig: Pick<ReclaimFlowParams, "sessionEndpoint" | "tenant"> = {
   sessionEndpoint: RECLAIM_BASE_URL,
@@ -324,6 +365,7 @@ function toReclaimLocale(language: string): ReclaimLocale {
 
 function VerificationItem({
   name,
+  title,
   description,
   icon,
   rpReward,
@@ -331,34 +373,20 @@ function VerificationItem({
   isStatusLoading,
   socialStatusError,
   refetchSocialStatus,
+  isVerifiedOnChain,
   sessionId,
   customButton,
 }: VerificationItemProps) {
   const { t, i18n } = useTranslation();
 
   const { account } = useThirdweb();
-  const { settings } = useSettings();
-  const prices = usePrices();
+  const queryClient = useQueryClient();
 
-  const { data: rpPerUsdtLimit } = useQuery({
-    queryKey: ["rp-per-usdt-limit", settings.currency.currency],
-    queryFn: async () => {
-      return prices
-        .getReputationPerUsdcLimit({ currency: settings.currency.currency })
-        .match(
-          (data) => data.multiplier,
-          (error: unknown) => {
-            console.error(
-              "[VerificationItem] Error fetching RP/USDT limit",
-              error,
-            );
-            return 1;
-          },
-        );
-    },
-  });
+  const rpPerUsdtLimit = useRpToUsdcMultiplier();
 
-  const limit = rpReward * (rpPerUsdtLimit ?? 1);
+  // Hidden (undefined) until the RP-to-USDC rate is known.
+  const limit =
+    rpPerUsdtLimit === undefined ? undefined : rpReward * rpPerUsdtLimit;
 
   const [showVerificationOverlay, setShowVerificationOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -366,21 +394,73 @@ function VerificationItem({
   // True while a Reclaim session is being preloaded; gates the Continue tap so
   // it only fires once the session is ready, keeping the trigger inside the tap.
   const [isPreloading, setIsPreloading] = useState(false);
+  // Set when an attempt ran past RECLAIM_SESSION_TIMEOUT_MS and was stopped.
+  const [sessionExpired, setSessionExpired] = useState(false);
 
   // Ref to track if polling is already in progress to prevent multiple executions
   const isPollingRef = useRef(false);
-  const hasProcessedSessionRef = useRef(false);
+  // The URL/stored sessionId this card already resumed. Keyed by id (not a
+  // boolean that gets reset) so a re-render after the URL is cleared can't
+  // resume — and re-submit — the same session.
+  const processedSessionIdRef = useRef<string | null>(null);
   const overlayShownRef = useRef(false);
   const toastShownRef = useRef(false);
   // A Reclaim session initialized off-gesture (during the tutorial) so the tap
   // that starts verification can call triggerReclaimFlow synchronously.
   const preloadedSessionRef = useRef<ReclaimSession | null>(null);
   const preloadingRef = useRef(false);
+  // The session currently polling, so Cancel / Retry / unmount can abort it.
+  const activeSessionRef = useRef<ReclaimSession | null>(null);
+  // Bumped whenever an attempt is started or abandoned; a result that arrives
+  // for an older attempt (e.g. a proof landing after Cancel) is ignored.
+  const attemptRef = useRef(0);
+  const expiryTimerRef = useRef<number | null>(null);
+  // Same-session polling resumes for the current attempt (see
+  // src/lib/reclaim-poll-policy.ts): a transient failure keeps polling the
+  // session the user already used instead of failing the verification.
+  const pollStateRef = useRef<ReclaimPollState>(initialReclaimPollState());
+  const resumeTimerRef = useRef<number | null>(null);
+  const resumePollingRef = useRef<(sessionId: string, attempt: number) => void>(
+    () => {},
+  );
 
   const { mutateAsync: socialVerify, isPending: isSocialVerifyLoading } =
     useSocialVerify();
 
   const { track } = useAnalytics();
+  // Retry action for failure toasts; points at handleVerifySocial once it is
+  // defined below (the toasts are raised from callbacks declared earlier).
+  const retryRef = useRef<() => void>(() => {});
+
+  // Drop ?sessionId=…&socialPlatform=… from the address bar. Not through the
+  // router: navigate() gives the location a new key, and PageTransitioner
+  // keys the page on it, so the page would remount, and the unmount cleanup
+  // aborts the attempt that was just started (e.g. "Retry verification").
+  // The router's copy of the stale params is harmless:
+  // processedSessionIdRef and submittedReclaimSessions stop a re-resume.
+  const clearUrlParams = useCallback(() => {
+    clearAddressBarParams();
+  }, []);
+
+  const clearExpiryTimer = useCallback(() => {
+    if (expiryTimerRef.current !== null) {
+      window.clearTimeout(expiryTimerRef.current);
+      expiryTimerRef.current = null;
+    }
+  }, []);
+
+  // Stops the polling attempt (if any) and invalidates its callbacks.
+  const stopActiveSession = useCallback(() => {
+    attemptRef.current += 1;
+    activeSessionRef.current?.abort?.();
+    activeSessionRef.current = null;
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    clearExpiryTimer();
+    isPollingRef.current = false;
+  }, [clearExpiryTimer]);
 
   useEffect(() => {
     if (isLoading && !overlayShownRef.current) {
@@ -391,8 +471,6 @@ function VerificationItem({
       setShowVerificationOverlay(false);
     }
   }, [isLoading]);
-
-  const { isReachable } = useDomainReachability();
 
   useEffect(() => {
     if (isSocialVerifyLoading) {
@@ -410,57 +488,92 @@ function VerificationItem({
         userAddress: account?.address,
       });
 
-      await socialVerify({
-        _socialName: reclaimResult._socialName,
-        proofs: reclaimResult.proofs as SocialVerifyParams["proofs"],
-      })
-        .then(() => {
-          // Track successful completion
-          track(EVENTS.VERIFICATION, {
-            verification_type: "social",
-            status: "completed",
-            platform: name,
-            userAddress: account?.address,
-          });
+      const checkVerifiedNow = async () =>
+        isVerifiedOnChain ? isVerifiedOnChain().catch(() => false) : false;
 
-          toast.success(t("VERIFICATION_SUCCESS"));
-          if (typeof window !== "undefined" && window.location) {
-            window.history.replaceState(
-              {},
-              document.title,
-              window.location.pathname,
-            );
-          }
-        })
-        .catch((error) => {
+      const onVerified = (skippedTx: boolean) => {
+        // Track successful completion
+        track(EVENTS.VERIFICATION, {
+          verification_type: "social",
+          status: "completed",
+          platform: name,
+          userAddress: account?.address,
+          ...(skippedTx ? { skippedTx: true } : {}),
+        });
+        toast.success(t("VERIFICATION_SUCCESS"));
+        refreshLimitsAfterVerification(queryClient);
+        clearUrlParams();
+      };
+
+      try {
+        // Another tab/device may have already submitted this platform's proof
+        // (e.g. the PWA and a browser tab both polled the same session).
+        if (await checkVerifiedNow()) {
+          onVerified(true);
+        } else {
+          await socialVerify({
+            _socialName: reclaimResult._socialName,
+            proofs: reclaimResult.proofs as SocialVerifyParams["proofs"],
+          });
+          onVerified(false);
+        }
+      } catch (error) {
+        if (isAlreadyVerifiedError(error) && (await checkVerifiedNow())) {
+          // Lost the race to the other tab, but this wallet is verified.
+          onVerified(true);
+        } else {
           // Track contract call failure
           track(EVENTS.VERIFICATION, {
             verification_type: "social",
             status: "contract_call_failed",
             platform: name,
             userAddress: account?.address,
-            errorMessage: error.message as string,
+            errorMessage: error instanceof Error ? error.message : undefined,
           });
-          toast.error(
-            t("VERIFICATION_FAILED_MESSAGE", {
-              errorMessage: error.message as string,
-            }),
-          );
-        });
+          if (isUserCancellation(error)) {
+            toast(t("VERIFICATION_CANCELLED"));
+          } else {
+            toast.error(t("VERIFICATION_FAILED"), {
+              description: getUserFacingErrorMessage(
+                t,
+                error,
+                "LIM_VERIFICATION_FAILED_DESCRIPTION",
+              ),
+              // Retrying can't help an account that is already used.
+              ...(isAlreadyVerifiedError(error)
+                ? {}
+                : {
+                    action: {
+                      label: t("RETRY"),
+                      onClick: () => retryRef.current(),
+                    },
+                  }),
+            });
+          }
+        }
+      }
 
       refetchSocialStatus();
 
       setIsLoading(false);
       setShowVerificationOverlay(false);
       overlayShownRef.current = false;
-      // Clear stored parameters after successful contract call
+      // Clear stored parameters after the contract call
       clearStoredParams();
-      // Reset the processed session ref to allow future verifications
-      hasProcessedSessionRef.current = false;
       // Reset toast ref for future verifications
       toastShownRef.current = false;
     },
-    [name, socialVerify, refetchSocialStatus, track, account, t],
+    [
+      name,
+      socialVerify,
+      refetchSocialStatus,
+      isVerifiedOnChain,
+      track,
+      account,
+      t,
+      queryClient,
+      clearUrlParams,
+    ],
   );
 
   const loginToGetVerified = () => {
@@ -471,6 +584,18 @@ function VerificationItem({
     async (reclaimResult: ReclaimProofResult) => {
       // Prevent multiple executions
       if (toastShownRef.current) {
+        return;
+      }
+
+      // Never hand the same proof to socialVerify twice.
+      if (
+        reclaimResult.sessionId &&
+        submittedReclaimSessions.has(reclaimResult.sessionId)
+      ) {
+        setIsLoading(false);
+        setShowVerificationOverlay(false);
+        clearStoredParams();
+        clearUrlParams();
         return;
       }
 
@@ -496,6 +621,9 @@ function VerificationItem({
 
       if (account) {
         toastShownRef.current = true;
+        if (reclaimResult.sessionId) {
+          submittedReclaimSessions.add(reclaimResult.sessionId);
+        }
         // Track proof received from Reclaim
         track(EVENTS.VERIFICATION, {
           verification_type: "social",
@@ -508,14 +636,17 @@ function VerificationItem({
         clearStoredParams();
       }
     },
-    [t, name, account, handleContractCall, track],
+    [t, name, account, handleContractCall, track, clearUrlParams],
   );
 
   const clearVerification = useCallback(
-    (message: string) => {
+    (message: string, cancelledByUser = false) => {
       // Determine status based on message
       const isCancelled =
-        message.includes("CANCELLED") || message.includes("cancelled");
+        cancelledByUser ||
+        message.includes("CANCELLED") ||
+        message.includes("cancelled") ||
+        isUserCancellation(message);
       const status = isCancelled ? "cancelled" : "failed";
 
       track(EVENTS.VERIFICATION, {
@@ -526,20 +657,34 @@ function VerificationItem({
         errorMessage: message,
       });
 
-      toast.error(t("VERIFICATION_FAILED_MESSAGE", { errorMessage: message }));
+      // Never surface the raw Reclaim / RPC message: a cancel is neutral, a
+      // failure gets a plain reason and a one-tap retry (unless retrying
+      // can't help because the account is already used).
+      if (isCancelled) {
+        toast(t("VERIFICATION_CANCELLED"));
+      } else {
+        toast.error(t("VERIFICATION_FAILED"), {
+          description: getUserFacingErrorMessage(
+            t,
+            message,
+            "LIM_VERIFICATION_FAILED_DESCRIPTION",
+          ),
+          ...(isAlreadyVerifiedError(message)
+            ? {}
+            : {
+                action: {
+                  label: t("RETRY"),
+                  onClick: () => retryRef.current(),
+                },
+              }),
+        });
+      }
       setIsLoading(false);
       setShowVerificationOverlay(false);
       clearStoredParams();
-
-      if (typeof window !== "undefined" && window.location) {
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname,
-        );
-      }
+      clearUrlParams();
     },
-    [track, name, account?.address, t],
+    [track, name, account?.address, t, clearUrlParams],
   );
 
   const handleVerificationError = useCallback(
@@ -555,8 +700,102 @@ function VerificationItem({
     [clearVerification],
   );
 
+  // Starts a new attempt: aborts any previous one and arms the overall
+  // timeout. Synchronous, so it can run inside the user's tap.
+  const beginAttempt = useCallback(() => {
+    stopActiveSession();
+    // A failed attempt sets this; reset it here so an attempt started from
+    // the row (not only the toast's Retry) can show its result or error.
+    toastShownRef.current = false;
+    pollStateRef.current = initialReclaimPollState();
+    const attempt = attemptRef.current;
+    expiryTimerRef.current = window.setTimeout(() => {
+      expiryTimerRef.current = null;
+      if (attemptRef.current !== attempt) return;
+      stopActiveSession();
+      track(EVENTS.VERIFICATION, {
+        verification_type: "social",
+        status: "expired",
+        platform: name,
+        userAddress: account?.address,
+      });
+      setIsLoading(false);
+      setShowVerificationOverlay(false);
+      overlayShownRef.current = false;
+      toastShownRef.current = false;
+      clearStoredParams();
+      clearUrlParams();
+      setSessionExpired(true);
+    }, RECLAIM_SESSION_TIMEOUT_MS);
+    return attempt;
+  }, [stopActiveSession, track, name, account?.address, clearUrlParams]);
+
+  // Polls `session` for this attempt; results for a stale attempt are dropped
+  // so a proof arriving after Cancel never submits a transaction.
+  const pollSession = useCallback(
+    (session: ReclaimSession, attempt: number) => {
+      activeSessionRef.current = session;
+      return session.start().match(
+        async (reclaimResult) => {
+          if (attemptRef.current !== attempt) return;
+          clearExpiryTimer();
+          activeSessionRef.current = null;
+          await handleVerificationSuccess(reclaimResult);
+        },
+        (error) => {
+          if (attemptRef.current !== attempt) return;
+          activeSessionRef.current = null;
+          // Transient failure (network blip, Reclaim 5xx / brief
+          // "generation failed" / "not found"): keep polling the SAME
+          // session after a backoff. The 10-minute attempt cap still applies.
+          const decision = decideReclaimPollRetry(error, pollStateRef.current);
+          if (decision.action === "retry" && session.sessionId) {
+            pollStateRef.current = decision.nextState;
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_poll_retry",
+              platform: name,
+              reason: decision.reason,
+              retry: decision.nextState.retries,
+              delayMs: decision.delayMs,
+            });
+            const sessionId = session.sessionId;
+            resumeTimerRef.current = window.setTimeout(() => {
+              resumeTimerRef.current = null;
+              if (attemptRef.current !== attempt) return;
+              resumePollingRef.current(sessionId, attempt);
+            }, decision.delayMs);
+            return;
+          }
+          clearExpiryTimer();
+          if (decision.action === "stop" && decision.reason !== error.code) {
+            track(EVENTS.VERIFICATION, {
+              verification_type: "social",
+              status: "reclaim_poll_gave_up",
+              platform: name,
+              reason: decision.reason,
+              code: error.code,
+            });
+          }
+          handleVerificationError(error.message);
+        },
+      );
+    },
+    [
+      clearExpiryTimer,
+      handleVerificationSuccess,
+      handleVerificationError,
+      track,
+      name,
+    ],
+  );
+
   const runReclaimFlow = useCallback(
-    async (platform: SocialPlatform, existingSessionId?: string) => {
+    async (
+      platform: SocialPlatform,
+      attempt: number,
+      existingSessionId?: string,
+    ) => {
       if (!account?.address) {
         toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
         return;
@@ -587,16 +826,15 @@ function VerificationItem({
       // runs the in-app flow and resolves the proof result.
       await sessionResult.match(
         async (session) => {
-          await session.start().match(
-            async (reclaimResult) => {
-              await handleVerificationSuccess(reclaimResult);
-            },
-            (error) => {
-              handleVerificationError(error.message);
-            },
-          );
+          if (attemptRef.current !== attempt) {
+            session.abort();
+            return;
+          }
+          await pollSession(session, attempt);
         },
         (error) => {
+          if (attemptRef.current !== attempt) return;
+          clearExpiryTimer();
           handleVerificationError(error.message);
         },
       );
@@ -607,10 +845,26 @@ function VerificationItem({
       t,
       i18n.language,
       track,
-      handleVerificationSuccess,
+      pollSession,
+      clearExpiryTimer,
       handleVerificationError,
     ],
   );
+
+  // Resume polling an existing session (no new session, no relaunch of the
+  // Reclaim app) for the same attempt.
+  useEffect(() => {
+    resumePollingRef.current = (sessionId, attempt) => {
+      isPollingRef.current = true;
+      void runReclaimFlow(
+        name.toLowerCase() as SocialPlatform,
+        attempt,
+        sessionId,
+      ).finally(() => {
+        if (attemptRef.current === attempt) isPollingRef.current = false;
+      });
+    };
+  }, [runReclaimFlow, name]);
 
   // Init a Reclaim session ahead of the user's tap. init()/getRequestUrl() are
   // network calls that need no user-activation, so running them off-gesture lets
@@ -662,31 +916,29 @@ function VerificationItem({
       toast.error(t("PLEASE_LOGIN_TO_VERIFY_SOCIAL"));
       return;
     }
+    setSessionExpired(false);
+    const attempt = beginAttempt();
     const session = preloadedSessionRef.current;
     if (!session) {
       // Preload not ready yet — fall back to init-on-tap. Works, but loses the
       // iOS user-activation optimization for this attempt.
       isPollingRef.current = true;
       setIsLoading(true);
-      void runReclaimFlow(name.toLowerCase() as SocialPlatform).finally(() => {
-        isPollingRef.current = false;
+      void runReclaimFlow(
+        name.toLowerCase() as SocialPlatform,
+        attempt,
+      ).finally(() => {
+        if (attemptRef.current === attempt) isPollingRef.current = false;
       });
       return;
     }
     preloadedSessionRef.current = null;
     // No await before this line — keeps the tap's user-activation intact.
-    const flow = session.start().match(
-      async (reclaimResult) => {
-        await handleVerificationSuccess(reclaimResult);
-      },
-      (error) => {
-        handleVerificationError(error.message);
-      },
-    );
+    const flow = pollSession(session, attempt);
     isPollingRef.current = true;
     setIsLoading(true);
     void flow.finally(() => {
-      isPollingRef.current = false;
+      if (attemptRef.current === attempt) isPollingRef.current = false;
     });
     // Prepare a fresh session for a possible retry.
     void preloadReclaimSession();
@@ -694,36 +946,48 @@ function VerificationItem({
     account?.address,
     name,
     t,
+    beginAttempt,
+    pollSession,
     runReclaimFlow,
-    handleVerificationSuccess,
-    handleVerificationError,
     preloadReclaimSession,
   ]);
 
   useEffect(() => {
-    // Only process sessionId once and when we have both sessionId and account
-    if (sessionId && account?.address && !hasProcessedSessionRef.current) {
-      hasProcessedSessionRef.current = true;
+    // Only process each sessionId once, and only when we have an account
+    if (
+      sessionId &&
+      account?.address &&
+      processedSessionIdRef.current !== sessionId
+    ) {
+      processedSessionIdRef.current = sessionId;
       setIsLoading(true);
+      const attempt = beginAttempt();
       isPollingRef.current = true;
-      runReclaimFlow(name.toLowerCase() as SocialPlatform, sessionId).finally(
-        () => {
-          isPollingRef.current = false;
-        },
-      );
+      runReclaimFlow(
+        name.toLowerCase() as SocialPlatform,
+        attempt,
+        sessionId,
+      ).finally(() => {
+        if (attemptRef.current === attempt) isPollingRef.current = false;
+      });
     }
-  }, [sessionId, account?.address, runReclaimFlow, name]);
+  }, [sessionId, account?.address, runReclaimFlow, beginAttempt, name]);
 
-  // Cleanup effect to reset refs when sessionId changes or component unmounts
+  // Stop polling and reset refs when the component unmounts
   useEffect(() => {
     return () => {
+      // A URL session that was still polling may be resumed by a remount
+      // (StrictMode, or coming back); submittedReclaimSessions still blocks
+      // a second submit of the same proof.
+      if (isPollingRef.current) processedSessionIdRef.current = null;
+      stopActiveSession();
+      preloadedSessionRef.current?.abort?.();
       isPollingRef.current = false;
-      hasProcessedSessionRef.current = false;
       overlayShownRef.current = false;
       toastShownRef.current = false;
       preloadedSessionRef.current = null;
     };
-  }, []);
+  }, [stopActiveSession]);
 
   const handleVerifySocial = () => {
     if (account?.address) {
@@ -748,6 +1012,31 @@ function VerificationItem({
     }
   };
 
+  useEffect(() => {
+    retryRef.current = () => {
+      // Never leave an earlier attempt polling behind a new one.
+      stopActiveSession();
+      setSessionExpired(false);
+      setShowTutorial(false);
+      track(EVENTS.VERIFICATION, {
+        verification_type: "social",
+        status: "retry",
+        platform: name,
+        userAddress: account?.address,
+      });
+      // A failed attempt leaves this latched, which would swallow the next
+      // attempt's result.
+      toastShownRef.current = false;
+      // Re-opens the tutorial and preloads a fresh session.
+      if (account?.address) {
+        setShowTutorial(true);
+        void preloadReclaimSession();
+      } else {
+        toast.error(t("PLEASE_LOGIN_TO_VERIFY"));
+      }
+    };
+  });
+
   const handleContinueToVerification = () => {
     setShowTutorial(false);
     // Track verification initiated when user continues from tutorial
@@ -760,6 +1049,11 @@ function VerificationItem({
     startPreloadedFlow();
   };
 
+  const cancelVerification = () => {
+    stopActiveSession();
+    clearVerification(t("VERIFICATION_CANCELLED"), true);
+  };
+
   return (
     <>
       {/* Verification In Progress Overlay */}
@@ -768,14 +1062,16 @@ function VerificationItem({
           open={showVerificationOverlay}
           onOpenChange={(open) => {
             if (!open) {
-              clearVerification(t("VERIFICATION_CANCELLED"));
+              cancelVerification();
             }
           }}>
           <DrawerContent className="bg-background">
             <DrawerHeader>
               <DrawerTitle>{t("VERIFICATION_IN_PROGRESS")}</DrawerTitle>
               <DrawerDescription>
-                {t("PLEASE_WAIT_WHILE_WE_VERIFY_YOUR", { title: name })}
+                {t("PLEASE_WAIT_WHILE_WE_VERIFY_YOUR", {
+                  title: title ?? name,
+                })}
               </DrawerDescription>
             </DrawerHeader>
             <div className="flex items-center justify-center p-6">
@@ -793,26 +1089,46 @@ function VerificationItem({
                     platform: name,
                     userAddress: account?.address,
                   });
+                  // Abort the current poll before starting a new one.
+                  stopActiveSession();
                   clearStoredParams();
                   // Also clear the URL to plain /limits after verification error
-                  if (typeof window !== "undefined" && window.location) {
-                    window.history.replaceState(
-                      {},
-                      document.title,
-                      window.location.pathname,
-                    );
-                  }
+                  clearUrlParams();
                   startPreloadedFlow();
                 }}>
                 {t("RETRY_VERIFICATION")}
               </Button>
-              <Button
-                onClick={() => {
-                  clearVerification(t("VERIFICATION_CANCELLED"));
-                }}
-                size="sm"
-                className="w-full">
+              <Button onClick={cancelVerification} size="sm" className="w-full">
                 {t("CANCEL_VERIFICATION")}
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      ) : null}
+
+      {sessionExpired ? (
+        <Drawer
+          open={sessionExpired}
+          onOpenChange={(open) => {
+            if (!open) setSessionExpired(false);
+          }}>
+          <DrawerContent className="bg-background">
+            <DrawerHeader>
+              <DrawerTitle>{t("VFX_SESSION_EXPIRED_TITLE")}</DrawerTitle>
+              <DrawerDescription>
+                {t("VFX_SESSION_EXPIRED_DESCRIPTION")}
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+              <Button className="w-full" onClick={() => retryRef.current()}>
+                {t("VFX_START_AGAIN")}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => setSessionExpired(false)}>
+                {t("CLOSE")}
               </Button>
             </DrawerFooter>
           </DrawerContent>
@@ -909,7 +1225,7 @@ function VerificationItem({
 
       <VerificationRow
         icon={icon}
-        title={name}
+        title={title ?? name}
         limit={limit}
         description={description}
         action={
@@ -934,19 +1250,8 @@ function VerificationItem({
             </Button>
           ) : isVerified ? (
             <VerifiedButton />
-          ) : !isReachable ? (
-            <div className="flex items-center justify-center rounded-full bg-primary/70 px-4 py-2">
-              <p className="text-center text-sm text-text-light">
-                {t("P2P_ME_UNREACHABLE")}
-              </p>
-            </div>
           ) : socialStatusError ? (
-            <Button
-              variant="outline"
-              className={ROW_BTN}
-              onClick={() => refetchSocialStatus()}>
-              {t("RETRY")}
-            </Button>
+            <StatusCheckFailedAction onRetry={() => refetchSocialStatus()} />
           ) : (
             <Button
               variant="outline"
@@ -959,6 +1264,449 @@ function VerificationItem({
         }
       />
     </>
+  );
+}
+
+/**
+ * Failure toast for the hosted (redirect) verifications: a plain-language
+ * reason plus a Retry action, never the raw service / RPC message. A user
+ * cancelling is not a failure and gets a neutral note instead, and an account
+ * that is already used gets the reason without Retry (retrying can't help).
+ */
+/** Removes the query string from the address bar without a router navigation. */
+function clearAddressBarParams() {
+  if (!window.location.search) return;
+  // Keep history.state: react-router stores its location key/index there.
+  window.history.replaceState(
+    window.history.state,
+    "",
+    window.location.pathname + window.location.hash,
+  );
+}
+
+/** Contract errors after which a saved liveness/passport attestation can never land. */
+const UNUSABLE_ATTESTATION_KEYS = new Set([
+  "VFX_ATTESTATION_EXPIRED",
+  "VFX_ATTESTATION_INVALID",
+]);
+
+function isUnusableAttestationError(error: unknown): boolean {
+  try {
+    const key = parseContractError(error);
+    return typeof key === "string" && UNUSABLE_ATTESTATION_KEYS.has(key);
+  } catch {
+    return false;
+  }
+}
+
+function showHostedVerificationFailure(
+  t: TFunction,
+  title: string,
+  error: unknown,
+  onRetry: () => void,
+) {
+  if (isUserCancellation(error)) {
+    toast(t("VERIFICATION_CANCELLED"));
+    return;
+  }
+  toast.error(title, {
+    description: getUserFacingErrorMessage(
+      t,
+      error,
+      "LIM_VERIFICATION_FAILED_DESCRIPTION",
+    ),
+    ...(isAlreadyVerifiedError(error)
+      ? {}
+      : { action: { label: t("RETRY"), onClick: onRetry } }),
+  });
+}
+
+type HostedKind = "liveness" | "kyc";
+// Liveness and simple-kyc attestations share one shape.
+type HostedAttestation = LivenessAttestation | SimpleKycAttestation;
+
+/**
+ * A redeemed attestation that hasn't landed on-chain yet. The one-time `code`
+ * is spent once redeemed, so if the submit fails or the page reloads this is
+ * the only copy — keep it until the submit succeeds or the status reads
+ * verified.
+ */
+function pendingAttestationKey(kind: HostedKind, address: string) {
+  return `@P2PME:PENDING_ATTESTATION:${kind}:${address.toLowerCase()}`;
+}
+
+function savePendingAttestation(
+  kind: HostedKind,
+  address: string,
+  att: HostedAttestation,
+) {
+  try {
+    localStorage.setItem(
+      pendingAttestationKey(kind, address),
+      JSON.stringify({
+        nullifier: att.nullifier,
+        limit: att.limit.toString(),
+        expiry: att.expiry.toString(),
+        signature: att.signature,
+        identityHash: att.identityHash,
+      }),
+    );
+  } catch {
+    // Storage unavailable (private mode / quota): the in-memory copy still
+    // drives this session's submit and Finish action.
+  }
+}
+
+function readPendingAttestation(
+  kind: HostedKind,
+  address: string,
+): HostedAttestation | null {
+  try {
+    const raw = localStorage.getItem(pendingAttestationKey(kind, address));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    if (
+      typeof parsed.nullifier !== "string" ||
+      typeof parsed.signature !== "string" ||
+      typeof parsed.limit !== "string" ||
+      typeof parsed.expiry !== "string"
+    ) {
+      return null;
+    }
+    return {
+      nullifier: parsed.nullifier as `0x${string}`,
+      signature: parsed.signature as `0x${string}`,
+      limit: BigInt(parsed.limit),
+      expiry: BigInt(parsed.expiry),
+      ...(typeof parsed.identityHash === "string"
+        ? { identityHash: parsed.identityHash }
+        : {}),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function clearPendingAttestation(kind: HostedKind, address: string) {
+  try {
+    localStorage.removeItem(pendingAttestationKey(kind, address));
+  } catch {
+    // ignore
+  }
+}
+
+/** `expiry` is unix seconds; leave a small margin for the tx to land. */
+function isAttestationExpired(att: HostedAttestation) {
+  if (att.expiry <= 0n) return false;
+  return att.expiry <= BigInt(Math.floor(Date.now() / 1000) + 60);
+}
+
+interface HostedVerificationConfig {
+  kind: HostedKind;
+  isVerified: boolean | undefined;
+  refetchStatus: () => Promise<{ data?: boolean; isError: boolean }>;
+  submitAttestation: (att: HostedAttestation) => Promise<unknown>;
+  resume: (code: string) => ResultAsync<HostedAttestation, ZkkycError>;
+  /** Creates the hosted-wizard session, or returns null to abort the start. */
+  createSession: (
+    address: `0x${string}`,
+  ) => ResultAsync<{ redirect: () => void }, ZkkycError> | null;
+  startTrackExtra?: Record<string, unknown>;
+  failedTitleKey: string;
+  verifyingKey: string;
+  successKey: string;
+}
+
+/**
+ * Shared redirect flow for the liveness and passport-KYC cards:
+ * start → hosted wizard → return with `?code&state=<kind>-…` → redeem the code
+ * into an attestation (persisted until it lands) → submit on-chain.
+ */
+function useHostedVerification({
+  kind,
+  isVerified,
+  refetchStatus,
+  submitAttestation,
+  resume,
+  createSession,
+  startTrackExtra,
+  failedTitleKey,
+  verifyingKey,
+  successKey,
+}: HostedVerificationConfig) {
+  const { t } = useTranslation();
+  const { account } = useThirdweb();
+  const { track } = useAnalytics();
+  const queryClient = useQueryClient();
+  const location = useLocation();
+  const address = account?.address;
+  const [busy, setBusy] = useState(false);
+  const [pending, setPending] = useState<HostedAttestation | null>(null);
+  const processed = useRef(false);
+  // Retry actions for failure toasts raised before the callbacks are declared.
+  const startRef = useRef<() => void>(() => {});
+  const finishRef = useRef<() => void>(() => {});
+
+  // Pick up an attestation a previous visit redeemed but never landed.
+  useEffect(() => {
+    if (!address) {
+      setPending(null);
+      return;
+    }
+    const stored = readPendingAttestation(kind, address);
+    if (stored && isAttestationExpired(stored)) {
+      clearPendingAttestation(kind, address);
+      setPending(null);
+      toast.info(t("VFX_ATTESTATION_EXPIRED"));
+      return;
+    }
+    setPending(stored);
+  }, [address, kind, t]);
+
+  // Once the chain says verified, the stored copy has done its job.
+  useEffect(() => {
+    if (isVerified && address) {
+      clearPendingAttestation(kind, address);
+      setPending(null);
+    }
+  }, [isVerified, address, kind]);
+
+  // Back from the hosted wizard restores this page from the bfcache with
+  // `busy` still set from before the redirect.
+  useEffect(() => {
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setBusy(false);
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, []);
+
+  const submitStored = useCallback(
+    async (att: HostedAttestation) => {
+      if (!address) return;
+      if (isAttestationExpired(att)) {
+        clearPendingAttestation(kind, address);
+        setPending(null);
+        toast.info(t("VFX_ATTESTATION_EXPIRED"));
+        return;
+      }
+      setBusy(true);
+      const toastId = toast.loading(t(verifyingKey));
+      const onVerified = async () => {
+        clearPendingAttestation(kind, address);
+        setPending(null);
+        toast.success(t(successKey), { id: toastId });
+        track(EVENTS.VERIFICATION, {
+          verification_type: kind,
+          status: "completed",
+        });
+        refreshLimitsAfterVerification(queryClient);
+        await refetchStatus();
+      };
+      try {
+        await submitAttestation(att);
+        await onVerified();
+      } catch (error) {
+        if (isAlreadyVerifiedError(error)) {
+          const fresh = await refetchStatus().catch(() => null);
+          if (fresh && !fresh.isError && fresh.data) {
+            // Already landed (e.g. an earlier submit we lost track of).
+            await onVerified();
+            return;
+          }
+          // Used by another wallet: resubmitting can never succeed.
+          clearPendingAttestation(kind, address);
+          setPending(null);
+        } else if (isUnusableAttestationError(error)) {
+          // Expired on-chain or rejected (bad signature / empty nullifier):
+          // drop it so Retry starts a fresh check instead of resubmitting.
+          clearPendingAttestation(kind, address);
+          setPending(null);
+        }
+        toast.dismiss(toastId);
+        track(EVENTS.VERIFICATION, {
+          verification_type: kind,
+          status: "failed",
+          stage: "submit",
+          errorMessage: error instanceof Error ? error.message : undefined,
+        });
+        showHostedVerificationFailure(t, t(failedTitleKey), error, () =>
+          finishRef.current(),
+        );
+      } finally {
+        setBusy(false);
+      }
+    },
+    [
+      address,
+      kind,
+      t,
+      verifyingKey,
+      successKey,
+      failedTitleKey,
+      track,
+      queryClient,
+      refetchStatus,
+      submitAttestation,
+    ],
+  );
+
+  // Retry after a submit failure resubmits the stored attestation; only with
+  // nothing stored does it fall back to a fresh wizard.
+  finishRef.current = () => {
+    const stored =
+      pending ?? (address ? readPendingAttestation(kind, address) : null);
+    if (stored) void submitStored(stored);
+    else startRef.current();
+  };
+
+  // Returning from the hosted wizard: ?code=<one-time>&state=<kind>-…
+  useEffect(() => {
+    if (processed.current || !address) return;
+    const params = new URLSearchParams(location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    if (!code || !state || !state.startsWith(kind)) return;
+    processed.current = true;
+    // Not through the router: navigate() remounts the page (PageTransitioner
+    // keys it on location.key) in the middle of the submit, and the fresh
+    // instance offered "Finish verification" while the first submit was
+    // still in flight. `processed` keeps the effect from redeeming twice.
+    const clearUrl = clearAddressBarParams;
+    track(EVENTS.VERIFICATION, {
+      verification_type: kind,
+      status: "returned",
+    });
+    (async () => {
+      setBusy(true);
+      const att = await resume(code);
+      if (att.isErr()) {
+        track(EVENTS.VERIFICATION, {
+          verification_type: kind,
+          status: "failed",
+          stage: "resume",
+          errorMessage: att.error.message,
+        });
+        clearUrl();
+        showHostedVerificationFailure(t, t(failedTitleKey), att.error, () =>
+          startRef.current(),
+        );
+        setBusy(false);
+        return;
+      }
+      // The code is spent: persist the attestation before anything else can
+      // fail, and drop the code so a reload doesn't try to redeem it again.
+      savePendingAttestation(kind, address, att.value);
+      setPending(att.value);
+      clearUrl();
+      await submitStored(att.value);
+    })();
+  }, [
+    address,
+    kind,
+    location.search,
+    resume,
+    submitStored,
+    failedTitleKey,
+    t,
+    track,
+  ]);
+
+  const start = useCallback(async () => {
+    if (!address) {
+      toast.error(t("CONNECT_WALLET_FIRST"));
+      return;
+    }
+    const sessionResult = createSession(address as `0x${string}`);
+    if (!sessionResult) return;
+    track(EVENTS.VERIFICATION, {
+      verification_type: kind,
+      status: "started",
+      ...startTrackExtra,
+    });
+    setBusy(true);
+    const session = await sessionResult;
+    if (session.isErr()) {
+      track(EVENTS.VERIFICATION, {
+        verification_type: kind,
+        status: "failed",
+        stage: "session",
+        errorMessage: session.error.message,
+      });
+      showHostedVerificationFailure(t, t(failedTitleKey), session.error, () =>
+        startRef.current(),
+      );
+      setBusy(false);
+      return;
+    }
+    track(EVENTS.VERIFICATION, {
+      verification_type: kind,
+      status: "redirected",
+    });
+    session.value.redirect();
+  }, [address, createSession, kind, startTrackExtra, failedTitleKey, t, track]);
+  startRef.current = start;
+
+  return {
+    busy,
+    pending,
+    start,
+    finish: () => finishRef.current(),
+  };
+}
+
+/** Row action shared by the liveness and KYC cards. */
+function HostedVerificationButton({
+  isVerified,
+  isStatusLoading,
+  statusError,
+  onRetryStatus,
+  busy,
+  hasPending,
+  onStart,
+  onFinish,
+}: {
+  isVerified: boolean;
+  isStatusLoading: boolean;
+  statusError: Error | null;
+  onRetryStatus: () => void;
+  busy: boolean;
+  hasPending: boolean;
+  onStart: () => void;
+  onFinish: () => void;
+}) {
+  const { t } = useTranslation();
+  if (isVerified) return <VerifiedButton />;
+  if (busy) {
+    return (
+      <Button variant="outline" className={ROW_BTN} disabled>
+        <Loader2 className="mr-2 size-4 animate-spin" />
+        {t("VERIFYING")}
+      </Button>
+    );
+  }
+  if (isStatusLoading) {
+    return (
+      <Button variant="outline" className={ROW_BTN} disabled>
+        <Loader2 className="mr-2 size-4 animate-spin" />
+        {t("LOADING")}
+      </Button>
+    );
+  }
+  // A redeemed attestation is waiting: land it, don't run a new wizard.
+  if (hasPending) {
+    return (
+      <Button className={ROW_BTN} onClick={onFinish}>
+        {t("VFX_FINISH_VERIFICATION")}
+      </Button>
+    );
+  }
+  // Unknown status must not read as "unverified".
+  if (statusError) return <StatusCheckFailedAction onRetry={onRetryStatus} />;
+  return (
+    <Button variant="outline" className={ROW_BTN} onClick={onStart}>
+      {t("GET_VERIFIED")}
+    </Button>
   );
 }
 
@@ -982,23 +1730,16 @@ function VerificationItem({
  */
 export function LivenessVerificationCard() {
   const { t } = useTranslation();
-  const { account } = useThirdweb();
   const { settings } = useSettings();
-  const {
-    livenessRp,
-    isLivenessRpLoading,
-    isLivenessRpError,
-    livenessRpError,
-  } = useLivenessRpReward();
+  const { livenessRp, isLivenessRpLoading, isLivenessRpError } =
+    useLivenessRpReward();
   const {
     isLivenessVerified,
     isLivenessStatusLoading,
     livenessStatusError,
     refetchLivenessStatus,
   } = useLivenessVerificationStatus();
-  const submit = useSubmitLivenessAttestation();
-  const [busy, setBusy] = useState(false);
-  const processed = useRef(false);
+  const { mutateAsync: submitLiveness } = useSubmitLivenessAttestation();
 
   // The liveness tier is offered in every market except the excluded ones.
   // Unlike KYC it needs no country prebound (no document is read), so there is
@@ -1007,70 +1748,40 @@ export function LivenessVerificationCard() {
     settings.currency.country,
   );
 
-  // Returning from the hosted wizard: ?code=<one-time>&state=liveness-…
-  useEffect(() => {
-    if (processed.current || !account?.address) return;
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    const state = params.get("state");
-    if (!code || !state || !state.startsWith("liveness")) return;
-    processed.current = true;
-    (async () => {
-      setBusy(true);
-      const att = await resumeLivenessFlow({
+  const resume = useCallback(
+    (code: string) => resumeLivenessFlow({ baseUrl: LIVENESS_BASE_URL, code }),
+    [],
+  );
+  const createSession = useCallback(
+    (walletAddress: `0x${string}`) =>
+      createLivenessFlow({
         baseUrl: LIVENESS_BASE_URL,
-        code,
-      });
-      if (att.isErr()) {
-        toast.error(t("LIVENESS_ERROR", { message: att.error.message }));
-        setBusy(false);
-        return;
-      }
-      try {
-        await toast
-          .promise(submit.mutateAsync(att.value), {
-            loading: t("LIVENESS_VERIFYING"),
-            success: t("LIVENESS_VERIFIED_WITH_REWARD"),
-            error: (e) =>
-              e instanceof Error ? e.message : t("LIVENESS_SUBMISSION_FAILED"),
-          })
-          .unwrap();
-        await refetchLivenessStatus();
-      } catch {
-        // toast.promise already surfaced the error to the user
-      } finally {
-        window.history.replaceState({}, "", window.location.pathname);
-        setBusy(false);
-      }
-    })();
-  }, [account?.address, submit, refetchLivenessStatus, t]);
+        walletAddress,
+        tenant: LIVENESS_TENANT,
+        redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_LIVENESS}`,
+        state: `liveness-${Math.random().toString(36).slice(2)}`,
+      }),
+    [],
+  );
 
-  const start = useCallback(async () => {
-    if (!account?.address) {
-      toast.error(t("CONNECT_WALLET_FIRST"));
-      return;
-    }
-    setBusy(true);
-    const session = await createLivenessFlow({
-      baseUrl: LIVENESS_BASE_URL,
-      walletAddress: account.address as `0x${string}`,
-      tenant: LIVENESS_TENANT,
-      redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_LIVENESS}`,
-      state: `liveness-${Math.random().toString(36).slice(2)}`,
-    });
-    if (session.isErr()) {
-      toast.error(t("LIVENESS_ERROR", { message: session.error.message }));
-      setBusy(false);
-      return;
-    }
-    session.value.redirect();
-  }, [account?.address, t]);
+  const { busy, pending, start, finish } = useHostedVerification({
+    kind: "liveness",
+    isVerified: isLivenessVerified,
+    refetchStatus: refetchLivenessStatus,
+    submitAttestation: submitLiveness,
+    resume,
+    createSession,
+    failedTitleKey: "LIM_LIVENESS_FAILED_TITLE",
+    verifyingKey: "LIVENESS_VERIFYING",
+    successKey: "LIVENESS_VERIFIED_WITH_REWARD",
+  });
 
   if (!isOffered) return null;
 
   return (
     <VerificationItem
       name="Liveness"
+      title={t("METHOD_LIVENESS_TITLE")}
       icon={<SmilePlus className="size-5 text-primary" />}
       description={t("LIVENESS_DESCRIPTION")}
       rpReward={
@@ -1078,27 +1789,19 @@ export function LivenessVerificationCard() {
       }
       isVerified={!!isLivenessVerified}
       isStatusLoading={isLivenessStatusLoading || isLivenessRpLoading}
-      socialStatusError={livenessStatusError || livenessRpError || null}
+      socialStatusError={livenessStatusError || null}
       refetchSocialStatus={refetchLivenessStatus}
       customButton={
-        isLivenessVerified ? (
-          <VerifiedButton />
-        ) : (
-          <Button
-            variant="outline"
-            className={ROW_BTN}
-            onClick={start}
-            disabled={busy}>
-            {busy ? (
-              <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
-                {t("VERIFYING")}
-              </>
-            ) : (
-              t("GET_VERIFIED")
-            )}
-          </Button>
-        )
+        <HostedVerificationButton
+          isVerified={!!isLivenessVerified}
+          isStatusLoading={isLivenessStatusLoading}
+          statusError={livenessStatusError || null}
+          onRetryStatus={() => void refetchLivenessStatus()}
+          busy={busy}
+          hasPending={!!pending}
+          onStart={() => void start()}
+          onFinish={finish}
+        />
       }
     />
   );
@@ -1116,86 +1819,59 @@ export function LivenessVerificationCard() {
  */
 export function KycVerificationCard() {
   const { t } = useTranslation();
-  const { account } = useThirdweb();
   const { settings } = useSettings();
   // simple-kyc requires the passport country up front (the wizard skips that
   // step). Derive it from the user's selected market; markets we can't map to a
   // supported KYC country (USD, EUR) don't get the card at all.
   const kycCountry = KYC_COUNTRY_BY_CURRENCY[settings.currency.currency];
-  const { kycRp, isKycRpLoading, isKycRpError, kycRpError } = useKycRpReward();
+  const { kycRp, isKycRpLoading, isKycRpError } = useKycRpReward();
   const {
     isKycVerified,
     isKycStatusLoading,
     kycStatusError,
     refetchKycStatus,
   } = useKycVerificationStatus();
-  const submit = useSubmitKycAttestation();
-  const [busy, setBusy] = useState(false);
-  const processed = useRef(false);
+  const { mutateAsync: submitKyc } = useSubmitKycAttestation();
 
-  // Returning from the hosted wizard: ?code=<one-time>&state=kyc-…
-  useEffect(() => {
-    if (processed.current || !account?.address) return;
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    const state = params.get("state");
-    if (!code || !state || !state.startsWith("kyc")) return;
-    processed.current = true;
-    (async () => {
-      setBusy(true);
-      const att = await resumeSimpleKycFlow({
+  const resume = useCallback(
+    (code: string) =>
+      resumeSimpleKycFlow({ baseUrl: SIMPLE_KYC_BASE_URL, code }),
+    [],
+  );
+  const createSession = useCallback(
+    (walletAddress: `0x${string}`) => {
+      if (!kycCountry) {
+        toast.error(t("KYC_NOT_AVAILABLE_FOR_REGION"));
+        return null;
+      }
+      return createSimpleKycFlow({
         baseUrl: SIMPLE_KYC_BASE_URL,
-        code,
+        walletAddress,
+        tenant: SIMPLE_KYC_TENANT,
+        redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_PASSPORT}`,
+        country: kycCountry,
+        state: `kyc-${Math.random().toString(36).slice(2)}`,
       });
-      if (att.isErr()) {
-        toast.error(t("KYC_ERROR", { message: att.error.message }));
-        setBusy(false);
-        return;
-      }
-      try {
-        await toast
-          .promise(submit.mutateAsync(att.value), {
-            loading: t("IDENTITY_VERIFYING"),
-            success: t("IDENTITY_VERIFIED_WITH_REWARD"),
-            error: (e) =>
-              e instanceof Error ? e.message : t("KYC_SUBMISSION_FAILED"),
-          })
-          .unwrap();
-        await refetchKycStatus();
-      } catch {
-        // toast.promise already surfaced the error to the user
-      } finally {
-        window.history.replaceState({}, "", window.location.pathname);
-        setBusy(false);
-      }
-    })();
-  }, [account?.address, submit, refetchKycStatus, t]);
+    },
+    [kycCountry, t],
+  );
+  const startTrackExtra = useMemo(
+    () => ({ country: kycCountry }),
+    [kycCountry],
+  );
 
-  const start = useCallback(async () => {
-    if (!account?.address) {
-      toast.error(t("CONNECT_WALLET_FIRST"));
-      return;
-    }
-    if (!kycCountry) {
-      toast.error(t("KYC_NOT_AVAILABLE_FOR_REGION"));
-      return;
-    }
-    setBusy(true);
-    const session = await createSimpleKycFlow({
-      baseUrl: SIMPLE_KYC_BASE_URL,
-      walletAddress: account.address as `0x${string}`,
-      tenant: SIMPLE_KYC_TENANT,
-      redirectUrl: `${window.location.origin}${INTERNAL_HREFS.LIMITS_PASSPORT}`,
-      country: kycCountry,
-      state: `kyc-${Math.random().toString(36).slice(2)}`,
-    });
-    if (session.isErr()) {
-      toast.error(t("KYC_ERROR", { message: session.error.message }));
-      setBusy(false);
-      return;
-    }
-    session.value.redirect();
-  }, [account?.address, kycCountry, t]);
+  const { busy, pending, start, finish } = useHostedVerification({
+    kind: "kyc",
+    isVerified: isKycVerified,
+    refetchStatus: refetchKycStatus,
+    submitAttestation: submitKyc,
+    resume,
+    createSession,
+    startTrackExtra,
+    failedTitleKey: "LIM_KYC_FAILED_TITLE",
+    verifyingKey: "IDENTITY_VERIFYING",
+    successKey: "IDENTITY_VERIFIED_WITH_REWARD",
+  });
 
   // KYC isn't offered for markets without a supported passport country.
   if (!kycCountry) return null;
@@ -1203,32 +1879,25 @@ export function KycVerificationCard() {
   return (
     <VerificationItem
       name="Identity (KYC)"
+      title={t("METHOD_PASSPORT_TITLE")}
       icon={<ScanFace className="size-5 text-primary" />}
       description={t("KYC_DESCRIPTION")}
       rpReward={isKycRpLoading || isKycRpError || !kycRp ? 0 : kycRp}
       isVerified={!!isKycVerified}
       isStatusLoading={isKycStatusLoading || isKycRpLoading}
-      socialStatusError={kycStatusError || kycRpError || null}
+      socialStatusError={kycStatusError || null}
       refetchSocialStatus={refetchKycStatus}
       customButton={
-        isKycVerified ? (
-          <VerifiedButton />
-        ) : (
-          <Button
-            variant="outline"
-            className={ROW_BTN}
-            onClick={start}
-            disabled={busy}>
-            {busy ? (
-              <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
-                {t("VERIFYING")}
-              </>
-            ) : (
-              t("GET_VERIFIED")
-            )}
-          </Button>
-        )
+        <HostedVerificationButton
+          isVerified={!!isKycVerified}
+          isStatusLoading={isKycStatusLoading}
+          statusError={kycStatusError || null}
+          onRetryStatus={() => void refetchKycStatus()}
+          busy={busy}
+          hasPending={!!pending}
+          onStart={() => void start()}
+          onFinish={finish}
+        />
       }
     />
   );
