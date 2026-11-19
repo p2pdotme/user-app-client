@@ -105,11 +105,12 @@ export const SUPPORT_PAGE_CONTENT: Record<
       "transactions-3", // Can I download my transaction history?
       "transactions-4", // What is a dispute?
       "transactions-5", // When should I raise a dispute for a Buy order?
-      "transactions-10", // I paid, but my buy order was cancelled or the timer ran out. What now?
+      "transactions-12", // I paid, but my buy order was cancelled or the timer ran out. What now?
       "transactions-6", // When should I raise a dispute for a Sell order?
       "transactions-7", // How can I raise a dispute?
       "transactions-8", // What happens if I raise a false dispute?
       "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
+      "transactions-10", // Can I get a refund on a Scan & Pay order? (INR only)
     ],
   },
   [SUPPORT_PAGE_TITLES.DEPOSITS_WITHDRAWALS]: {
@@ -149,7 +150,7 @@ export const FAQ_ON_PAGES = {
 
   TRANSACTIONS_PAGE: {
     faqIds: [
-      "transactions-10", // I paid, but my buy order was cancelled or the timer ran out. What now?
+      "transactions-12", // I paid, but my buy order was cancelled or the timer ran out. What now?
       "transactions-7", // How can I raise a dispute?
       "transactions-8", // What happens if I raise a false dispute?
       "transactions-9", // The shopkeeper is asking to see the payment. What should I do?
@@ -390,6 +391,12 @@ export const ALL_FAQS: FAQ[] = [
     answerKey: "FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER",
   },
   {
+    id: "transactions-10",
+    questionKey: "FAQ_SCAN_PAY_REFUND_POLICY",
+    answerKey: "FAQ_SCAN_PAY_REFUND_POLICY_ANSWER",
+    onlyForCurrencies: ["INR"],
+  },
+  {
     id: "limits-1",
     questionKey: "FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS",
     answerKey: "FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER",
@@ -487,7 +494,7 @@ export const ALL_FAQS: FAQ[] = [
     answerKey: "FAQ_WHY_CANT_I_BUY_ANSWER",
   },
   {
-    id: "transactions-10",
+    id: "transactions-12",
     questionKey: "FAQ_PAID_BUT_ORDER_CANCELLED",
     answerKey: "FAQ_PAID_BUT_ORDER_CANCELLED_ANSWER",
   },

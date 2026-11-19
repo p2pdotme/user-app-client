@@ -89,7 +89,7 @@ export function TransactionCard({
                   className: "bg-warning/15 text-warning",
                 }
               : {
-                  label: t("PAYF_TXN_STATUS_PAYMENT_SENT"),
+                  label: t("PAYMENT_IN_PROGRESS"),
                   className: "bg-warning/15 text-warning",
                 };
 

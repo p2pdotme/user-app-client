@@ -169,15 +169,15 @@ export const id = {
     BUY_USDC: "Beli USDC",
     BUY_USDC_FAQS: "FAQ Beli USDC",
     BUY_UX_ALREADY_PAID_DESCRIPTION:
-      "Ajukan sengketa dari menu Bantuan — fitur ini terbuka {{minutes}} menit setelah Anda membuat pesanan.",
-    BUY_UX_ALREADY_PAID_GET_HELP: "Saya sudah bayar — minta bantuan",
+      "Ajukan sengketa dari menu Bantuan. Fitur ini terbuka {{minutes}} menit setelah Anda membuat pesanan.",
+    BUY_UX_ALREADY_PAID_GET_HELP: "Sudah bayar? Minta bantuan",
     BUY_UX_ALREADY_PAID_TITLE: "Sudah bayar?",
     BUY_UX_AMOUNT_LOAD_FAILED_RETRY:
       "Gagal memuat jumlah — ketuk untuk mencoba lagi",
     BUY_UX_CANCELLED_REASON_PAYMENT_EXPIRED:
       "Batas waktu pembayaran habis sebelum pembayaran dikonfirmasi.",
     BUY_UX_CANCEL_ALREADY_PAID_WARNING:
-      "Jangan batalkan jika Anda sudah mengirim uang — minta bantuan saja.",
+      "Sudah mengirim uang? Jangan batalkan. Minta bantuan saja.",
     BUY_UX_DECRYPT_FAILED_DESCRIPTION:
       "Jangan kirim uang dulu. Coba lagi, atau hubungi dukungan jika ini terus terjadi.",
     BUY_UX_DECRYPT_FAILED_TITLE: "Kami tidak dapat memuat detail pembayaran",
@@ -197,7 +197,7 @@ export const id = {
     BUY_UX_PAYMENT_WINDOW_ENDED_TITLE: "Batas waktu pembayaran sudah habis",
     BUY_UX_PAY_IN_UPI_APP: "Bayar {{amount}} di aplikasi UPI Anda",
     BUY_UX_PLACED_CAN_LEAVE:
-      "Biasanya butuh 20–90 detik. Anda boleh meninggalkan halaman ini — pesanan Anda tetap tersimpan di Transaksi.",
+      "Biasanya butuh 20–90 detik. Anda boleh meninggalkan halaman ini. Pesanan Anda tetap tersimpan di Transaksi.",
     BUY_UX_PLACED_TIMEOUT_INFO:
       "Jika tidak ada merchant yang menerima dalam 3 menit, pesanan dibatalkan otomatis. Anda belum membayar apa pun.",
     BUY_UX_PLACE_ORDER: "Buat pesanan",
@@ -481,6 +481,7 @@ export const id = {
       "{{tier}} memutuskan berpihak kepada Anda (kesalahan {{fault}}). Keputusan diterapkan otomatis setelah {{date}}.",
     DISPUTE_SUMMARY_SETTLED:
       "Diselesaikan pada {{date}}. {{fault}} dinyatakan bersalah.",
+    DISPUTE_SUMMARY_SETTLED_NO_DETAILS: "Sengketa ini sudah diselesaikan.",
     DISPUTE_SUMMARY_SLA_MISSED:
       "{{tier}} tidak memutuskan tepat waktu. Anda dapat mengeskalasi sengketa ke {{next}} sekarang.",
     DISPUTE_TIER_1: "Peninjauan Circle",
@@ -714,6 +715,10 @@ export const id = {
       "Bagaimana cara memulihkan dana menggunakan kunci pribadi saya?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
       "Jika Anda tidak bisa login tetapi punya private key dompet Anda (kode rahasia yang mengendalikan dompet Anda):\n1. Buka Pulihkan Dana (link di bawah).\n2. Tempel private key untuk memuat dompet Anda.\n3. Pilih USDC atau $P2P, lalu masukkan alamat Base yang Anda kendalikan dan jumlahnya.\n4. Ketuk Pulihkan dana.\n\nJangan pernah membagikan private key Anda. Tim dukungan P2P.me tidak akan pernah memintanya.",
+    FAQ_SCAN_PAY_REFUND_POLICY:
+      "Bisakah saya mendapatkan refund untuk pesanan Scan & Pay?",
+    FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
+      "Bisa, tetapi hanya pesanan Scan & Pay yang bisa di-refund, dan dikenakan biaya refund 4%.\n\nJika kamu membayar QR secara online dengan Scan & Pay lalu meminta refund ke tim support kami:\n- 4% dari jumlah INR dipotong sebagai biaya refund. Biaya ini diambil oleh merchant.\n- Sisanya dikembalikan kepadamu, hanya dalam INR.\n\nContoh: Kamu meminta refund ₹10.000. Kamu menerima ₹9.600. Biaya ₹400 diberikan ke merchant.\n\nPeriksa QR dan jumlahnya dengan teliti sebelum membayar. Dengan menggunakan P2P.me, kamu menyetujui kebijakan refund ini.",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "Penjaga toko minta bukti pembayaran, apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
@@ -1511,7 +1516,6 @@ export const id = {
     PAYF_TXN_STATUS_FINDING_MERCHANT: "Mencari merchant",
     PAYF_TXN_STATUS_IN_DISPUTE: "Dalam sengketa",
     PAYF_TXN_STATUS_MERCHANT_ASSIGNED: "Merchant ditetapkan",
-    PAYF_TXN_STATUS_PAYMENT_SENT: "Pembayaran dikirim",
     PAYF_VIEW_ON_BASESCAN: "Lihat di BaseScan",
     PAYF_WITHDRAW_AMOUNT: "Jumlah",
     PAYF_WITHDRAW_BASE_SUPPORT_WARNING:
@@ -1951,7 +1955,6 @@ export const id = {
       "Clipboard Anda kosong. Salin {{paymentAddressName}} Anda terlebih dahulu.",
     SELL_UX_COMPLETED_DESCRIPTION:
       "Cek bank atau aplikasi pembayaran Anda untuk memastikan Anda sudah menerima {{amount}}.",
-    SELL_UX_COMPLETED_TITLE: "Merchant menandai pembayaran Anda sudah dikirim",
     SELL_UX_DEPOSIT_USDC: "Deposit USDC",
     SELL_UX_DETAILS_MISSING_DESCRIPTION:
       "Kami tidak menemukan detail pembayaran untuk pesanan ini di perangkat ini. Masukkan tujuan pembayaran Anda agar merchant bisa mengirim uang Anda.",
@@ -1965,7 +1968,7 @@ export const id = {
     SELL_UX_PAID_TIMEOUT_NOTE:
       "Sudah agak lama tapi uangnya belum masuk? Ketuk ikon bantuan di atas untuk mendapatkan dukungan untuk pesanan ini.",
     SELL_UX_PLACED_DESCRIPTION:
-      "Biarkan halaman ini tetap terbuka — kami akan mengirim detail pembayaran Anda begitu merchant menerima (biasanya 20–90 detik). Jika Anda keluar, kembali ke pesanan ini untuk memasukkannya.",
+      "Biarkan halaman ini tetap terbuka. Kami akan mengirim detail pembayaran Anda begitu merchant menerima (biasanya 20–90 detik). Jika Anda keluar, kembali ke pesanan ini untuk memasukkannya.",
     SELL_UX_PLACED_TIMEOUT_NOTE:
       "Jika tidak ada merchant yang menerima tepat waktu, pesanan dibatalkan dan USDC Anda dikembalikan ke dompet Anda.",
     SELL_UX_PLACING_ORDER: "Membuat pesanan…",
@@ -2292,6 +2295,8 @@ export const id = {
     VERIFY_ZK_PROOF: "Verifikasi bukti zk",
     VFX_ATTESTATION_EXPIRED:
       "Hasil verifikasi Anda kedaluwarsa sebelum tersimpan. Silakan mulai lagi.",
+    VFX_ATTESTATION_INVALID:
+      "Kami tidak dapat mengonfirmasi hasil verifikasi ini. Silakan mulai lagi.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Nomor telepon lain",
     VFX_BVN_OTP_METHOD_EMAIL: "Email",
     VFX_BVN_OTP_METHOD_OTHER: "Opsi lain",
@@ -2307,6 +2312,8 @@ export const id = {
     VFX_SESSION_EXPIRED_TITLE: "Sesi kedaluwarsa",
     VFX_START_AGAIN: "Mulai lagi",
     VFX_STATUS_CHECK_FAILED: "Tidak dapat memeriksa status",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "Verifikasi ini sementara tidak tersedia. Silakan coba lagi nanti.",
     VIA_JUPITER: "via Jupiter",
     VIEW_HOLDINGS: "Lihat aset",
     VIEW_MY_ORDERS: "Lihat pesanan saya",

@@ -24,8 +24,12 @@ interface VerificationRowProps {
   /** Leading icon, already sized by the caller. */
   icon: ReactNode;
   title: string;
-  /** Per-transaction USDC the method unlocks once verified. */
-  limit: number;
+  /**
+   * Per-transaction USDC the method unlocks once verified. `undefined` while
+   * the RP-to-USDC rate is unknown: the unlock line is hidden instead of
+   * showing a wrong amount.
+   */
+  limit?: number;
   /** Optional short description rendered under the unlock line. */
   description?: string;
   /** Trailing action slot (button, pill, retry…). */
@@ -56,14 +60,16 @@ export function VerificationRow({
           <p className="truncate font-bold text-foreground text-sm leading-[19px]">
             {title}
           </p>
-          <p className="text-muted-foreground text-sm leading-[19px]">
-            <span className="font-bold text-foreground">
-              {t("VERIFY_ROW_UNLOCKS_AMOUNT", {
-                amount: Math.floor(limit).toLocaleString(),
-              })}
-            </span>{" "}
-            {t("VERIFY_ROW_USDC_FOR_ALL")}
-          </p>
+          {limit !== undefined && (
+            <p className="text-muted-foreground text-sm leading-[19px]">
+              <span className="font-bold text-foreground">
+                {t("VERIFY_ROW_UNLOCKS_AMOUNT", {
+                  amount: Math.floor(limit).toLocaleString(),
+                })}
+              </span>{" "}
+              {t("VERIFY_ROW_USDC_FOR_ALL")}
+            </p>
+          )}
           {description && (
             <p className="text-muted-foreground text-xs leading-4">
               {description}

@@ -28,12 +28,13 @@ import {
   useUserOrderVolume,
   useVolumeMilestones,
 } from "@/hooks";
+import { useRpToUsdcMultiplier } from "@/hooks/use-rp-to-usdc-multiplier";
 import { EVENTS } from "@/lib/analytics";
 import { INTERNAL_HREFS } from "@/lib/constants";
 import { getStoredParams } from "@/lib/url-param-preservation";
 import { truncateAmount } from "@/lib/utils";
 import { getPageFAQs } from "@/pages/help/constants";
-import { IncreaseLimitMethods, useRpToUsdcMultiplier } from "./method-cards";
+import { IncreaseLimitMethods } from "./method-cards";
 import { VerifySocialCta } from "./verifications";
 
 // Truncate (floor) to whole units and format with locale grouping.
