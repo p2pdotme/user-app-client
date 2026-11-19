@@ -155,21 +155,26 @@ export function SellCompleted({ order }: { order: Order }) {
       />
       <main className="no-scrollbar container-narrow flex h-full w-full flex-col gap-4 overflow-y-auto">
         <section className="flex flex-col items-center justify-center gap-2 py-2">
-          {/* Toned-down celebration: the merchant says they paid, but the
-              user still has to confirm the money actually arrived. */}
+          {/* Same size as the Buy/Pay completed animation. The copy below
+              still asks the user to confirm the money actually arrived. */}
           <div className="relative overflow-hidden">
             <DotLottieReact
-              className="h-28 w-56 origin-center"
+              className="h-40 w-80 origin-center scale-200"
               src={ASSETS.ANIMATIONS.COMPLETED}
               autoplay
             />
           </div>
-          <h2 className="text-center font-medium text-lg">
-            {t("SELL_UX_COMPLETED_TITLE")}
-          </h2>
           <p className="text-center font-medium text-4xl text-primary">
             {formatFiatAmount(order.fiatAmount, order.currency)}
           </p>
+        </section>
+        <div className="items-center-safe justify-center-safe flex gap-2 py-2">
+          <ASSETS.ICONS.Logo className="size-7 text-primary" />
+          <p className="font-medium text-foreground text-sm">
+            {t("SOLD_VIA")} P2P.me
+          </p>
+        </div>
+        <section className="flex flex-col items-center justify-center gap-2">
           <p className="text-center text-muted-foreground text-sm">
             {t("SELL_UX_COMPLETED_DESCRIPTION", {
               amount: formatFiatAmount(order.fiatAmount, order.currency),
@@ -183,12 +188,6 @@ export function SellCompleted({ order }: { order: Order }) {
             {t("SELL_UX_DIDNT_RECEIVE_IT")}
           </Button>
         </section>
-        <div className="items-center-safe justify-center-safe flex gap-2 py-2">
-          <ASSETS.ICONS.Logo className="size-7 text-primary" />
-          <p className="font-medium text-foreground text-sm">
-            {t("SOLD_VIA")} P2P.me
-          </p>
-        </div>
 
         {/* Prizerail draw card. Entries are sent server-side on completed
             non-B2B SELLs — no on-chain hook to wait on, so the UI promises them

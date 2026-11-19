@@ -22,7 +22,6 @@ import {
 import { useContractVersion } from "@/hooks/use-contract-version";
 import type { PlaceOrderStep } from "@/hooks/use-order-flow";
 import { EVENTS } from "@/lib/analytics";
-import { formatPaymentIdPreview } from "@/lib/compound-payment-id";
 import { getFiatUnit, INTERNAL_HREFS, ORDER_TYPE } from "@/lib/constants";
 import { isSlippageError, placeOrderErrorKey } from "@/lib/errors";
 import {
@@ -385,18 +384,6 @@ export function SellPreview() {
         <FundProtectionGuidelines />
       </main>
       <footer className="container-narrow flex w-full flex-col items-center justify-center gap-2 p-4">
-        {paymentDetails.isValid ? (
-          <p className="w-full truncate text-center text-muted-foreground text-xs">
-            {t("SELL_UX_YOU_WILL_BE_PAID_TO")}{" "}
-            <span className="font-medium text-foreground">
-              {formatPaymentIdPreview(
-                paymentDetails.paymentId,
-                currency.currency,
-                t,
-              )}
-            </span>
-          </p>
-        ) : null}
         <Button
           onClick={handlePlaceOrder}
           className="w-full p-6"
