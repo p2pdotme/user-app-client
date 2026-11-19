@@ -22,8 +22,6 @@ import {
   getKycRp,
   getLinkedInRp,
   getLivenessRp,
-  getNumTxns,
-  getOnChainActivityBase,
   getOnChainActivityRp,
   getRMUser,
   getXRp,
@@ -47,8 +45,12 @@ export function useTxLimits() {
     isLoading: isTxLimitLoading,
     isError: isTxLimitError,
     error: txLimitError,
+    isFetching: isTxLimitFetching,
   } = useQuery({
-    queryKey: ["tx-limit", currency.currency],
+    // The address is part of the key: limits are per wallet, and without it a
+    // wallet switch kept showing (and validating against) the previous
+    // wallet's limit.
+    queryKey: ["tx-limit", account?.address, currency.currency],
     queryFn: async () => {
       return profile
         .getTxLimits({
@@ -74,6 +76,7 @@ export function useTxLimits() {
     isTxLimitLoading,
     isTxLimitError,
     txLimitError,
+    isTxLimitFetching,
   };
 }
 
@@ -546,49 +549,6 @@ export function useBvnVerificationStatus() {
   };
 }
 
-export function useUserOrderProgress() {
-  const { account } = useThirdweb();
-
-  const {
-    data: userOrderProgress,
-    isLoading: isUserOrderProgressLoading,
-    isError: isUserOrderProgressError,
-    error: userOrderProgressError,
-  } = useQuery({
-    queryKey: ["user-order-progress", account?.address],
-    queryFn: async () => {
-      if (!account?.address) throw new Error("No account connected");
-      return getUser({ address: account.address as Address })
-        .andThen((user) => {
-          return getNumTxns({ address: account.address as Address }).map(
-            (txnCount) => ({
-              numOrdersPlaced: Number(user.numOrdersPlaced),
-              numOrdersCompleted: Number(txnCount),
-            }),
-          );
-        })
-        .match(
-          (result) => result,
-          (error) => {
-            console.error(
-              "[useUserOrderProgress] Error fetching user order progress",
-              error,
-            );
-            throw error;
-          },
-        );
-    },
-    enabled: !!account?.address,
-  });
-
-  return {
-    ...userOrderProgress,
-    isUserOrderProgressLoading,
-    isUserOrderProgressError,
-    userOrderProgressError,
-  };
-}
-
 export function useUserOrderVolume() {
   const { account } = useThirdweb();
 
@@ -624,33 +584,6 @@ export function useUserOrderVolume() {
     isUserOrderVolumeLoading,
     isUserOrderVolumeError,
     userOrderVolumeError,
-  };
-}
-
-export function useOnChainActivityBase() {
-  const {
-    data: onChainActivityBase,
-    isLoading: isOnChainActivityBaseLoading,
-    isError: isOnChainActivityBaseError,
-    error: onChainActivityBaseError,
-  } = useQuery({
-    queryKey: ["on-chain-activity-base"],
-    queryFn: async () => {
-      return getOnChainActivityBase().match(
-        (value) => Number(value),
-        (error) => {
-          console.error("[useOnChainActivityBase] Error fetching base", error);
-          throw error;
-        },
-      );
-    },
-  });
-
-  return {
-    onChainActivityBase,
-    isOnChainActivityBaseLoading,
-    isOnChainActivityBaseError,
-    onChainActivityBaseError,
   };
 }
 

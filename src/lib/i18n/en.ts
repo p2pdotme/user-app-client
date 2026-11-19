@@ -2662,6 +2662,8 @@ export const en = {
     VERIFY_ZK_PROOF: "Verify zk proof",
     VFX_ATTESTATION_EXPIRED:
       "Your verification result expired before it was saved. Please start again.",
+    VFX_ATTESTATION_INVALID:
+      "We couldn't confirm this verification result. Please start again.",
     VFX_BVN_OTP_METHOD_ALTERNATE_PHONE: "Another phone number",
     VFX_BVN_OTP_METHOD_EMAIL: "Email",
     VFX_BVN_OTP_METHOD_OTHER: "Other option",
@@ -2677,6 +2679,8 @@ export const en = {
     VFX_SESSION_EXPIRED_TITLE: "Session expired",
     VFX_START_AGAIN: "Start again",
     VFX_STATUS_CHECK_FAILED: "Couldn't check status",
+    VFX_VERIFICATION_UNAVAILABLE:
+      "This verification is temporarily unavailable. Please try again later.",
     VIA_JUPITER: "via Jupiter",
     VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
     VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",

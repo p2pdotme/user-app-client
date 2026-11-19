@@ -1,6 +1,8 @@
+import { AbiErrorSignatureNotFoundError } from "viem";
 import { describe, expect, it } from "vitest";
 import {
   getUserFacingErrorMessage,
+  isAlreadyVerifiedError,
   isNetworkOrTimeoutError,
   isUserCancellation,
 } from "@/lib/user-facing-error";
@@ -74,5 +76,39 @@ describe("getUserFacingErrorMessage send context", () => {
     expect(isNetworkOrTimeoutError(new Error("insufficient funds"))).toBe(
       false,
     );
+  });
+});
+
+describe("liveness / passport attestation reverts", () => {
+  // What a revert looks like at gas estimation: the app's TWEstimateGasError
+  // ("network fee issue") wrapping viem's AbiErrorSignatureNotFoundError,
+  // which carries the 4-byte selector in its message.
+  const estimateGasRevert = (selector: string) => ({
+    code: "TWEstimateGasError",
+    message: "This transaction failed due to a network fee issue",
+    cause: new AbiErrorSignatureNotFoundError(selector as `0x${string}`, {
+      docsPath: "/docs",
+    }),
+  });
+
+  it("names a rejected attestation instead of 'Connection problem'", () => {
+    // LivenessInvalidSignature()
+    expect(getUserFacingErrorMessage(t, estimateGasRevert("0x9cfb0729"))).toBe(
+      "VFX_ATTESTATION_INVALID",
+    );
+    // LivenessAttestationExpired()
+    expect(getUserFacingErrorMessage(t, estimateGasRevert("0x54710b53"))).toBe(
+      "VFX_ATTESTATION_EXPIRED",
+    );
+  });
+
+  it("treats a face or passport used by another wallet as already verified", () => {
+    // LivenessNullifierAlreadySpent(), KycNullifierAlreadySpent()
+    for (const selector of ["0x61746f27", "0xbdbb1a03"]) {
+      expect(isAlreadyVerifiedError(estimateGasRevert(selector))).toBe(true);
+      expect(getUserFacingErrorMessage(t, estimateGasRevert(selector))).toBe(
+        "ERROR_ALREADY_VERIFIED_DESCRIPTION",
+      );
+    }
   });
 });
