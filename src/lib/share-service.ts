@@ -128,20 +128,3 @@ export class ShareService {
  * Default share service instance
  */
 export const shareService = new ShareService();
-
-/**
- * Utility function for quick sharing
- */
-export async function shareReceipt(
-  blob: Blob,
-  filename: string,
-  title: string,
-  text: string,
-): Promise<void> {
-  return shareService.share({
-    title,
-    text,
-    blob,
-    filename,
-  });
-}

@@ -13,7 +13,7 @@ The user-facing web application for the [P2P.me](https://p2p.me) protocol — a 
 - **Buy USDC** — send fiat (UPI, PIX, GoPay, bank transfer, etc.) and receive USDC in your wallet
 - **Sell USDC** — receive fiat directly to your payment details
 - **Scan & Pay** — scan any merchant QR code and pay with USDC; the merchant receives fiat
-- **Cross-chain Deposit / Withdraw** — bridge in USDC or other tokens from Ethereum, Solana, Polygon, Arbitrum, Optimism, BSC, and HyperEVM via Rango Exchange
+- **Cross-chain Deposit / Withdraw** — bridge USDC to and from other chains via NEAR Intents (1Click)
 - **ZK Verifications** — increase transaction limits by verifying social accounts (GitHub, LinkedIn, Instagram) using zero-knowledge proofs — no personal data is stored or shared
 
 **Supported currencies:** INR · BRL · IDR · NGN · ARS · MXN · VEN · USD · EUR · COP
@@ -28,10 +28,9 @@ The user-facing web application for the [P2P.me](https://p2p.me) protocol — a 
 | Styling | Tailwind CSS v4 + shadcn/ui |
 | Blockchain | Base L2 (EIP-4337 account abstraction — gasless) |
 | Wallet / Auth | Thirdweb in-app wallet (email, phone, Google, passkey) |
-| External Wallets | Dynamic Labs (MetaMask, Phantom, WalletConnect) |
 | Contract Interaction | Thirdweb SDK + viem |
 | Data Layer | The Graph (subgraph) — minimises RPC calls |
-| Bridge | Rango Exchange |
+| Bridge | NEAR Intents (1Click) |
 | ZK Verifications | Reclaim Protocol |
 | Error Handling | neverthrow (Result/ResultAsync — no thrown errors in core) |
 | Validation | Zod |
@@ -52,12 +51,12 @@ src/
 │   │   ├── contracts/         ← ABIs + read/write functions
 │   │   ├── subgraph/          ← GraphQL queries to The Graph
 │   │   └── shared/            ← Zod schemas, error types, validation
-│   ├── rango/                 ← Cross-chain bridge integration
+│   ├── near-intents/          ← Cross-chain bridge (NEAR Intents 1Click)
 │   └── client/                ← LocalStorage settings, address books
 ├── hooks/                     ← React hooks consuming core/
 ├── pages/                     ← Route-level components
 ├── components/                ← Shared UI components
-├── contexts/                  ← React providers (Settings, PWA, Dynamic)
+├── contexts/                  ← React providers (Settings, PWA)
 ├── lib/                       ← Analytics, Sentry, i18n, utilities
 └── assets/                    ← Inline SVG icons + CDN-hosted media
 ```
@@ -114,7 +113,6 @@ Copy `.env.example` to `.env`. Every variable is documented in that file. The ta
 | `VITE_HTTP_RPC_URL` | HTTP RPC endpoint | [alchemy.com](https://alchemy.com) or any provider |
 | `VITE_WS_RPC_URL` | WebSocket RPC endpoint | Same provider |
 | `VITE_THIRDWEB_CLIENT_ID` | Thirdweb Client ID — wallet login | [thirdweb.com/dashboard](https://thirdweb.com/dashboard/settings/api-keys) |
-| `VITE_DYNAMIC_PROJECT_ID` | Dynamic Labs environment ID — external wallets | [app.dynamic.xyz](https://app.dynamic.xyz) |
 | `VITE_SUBGRAPH_URL` | The Graph endpoint for order history and routing | [thegraph.com/studio](https://thegraph.com/studio) |
 | `VITE_CONTRACT_ADDRESS_DIAMOND` | Diamond proxy address | Pre-filled for Base Sepolia in `.env.example` |
 | `VITE_CONTRACT_ADDRESS_USDC` | USDC token address | Pre-filled for Base Sepolia in `.env.example` |
@@ -125,33 +123,17 @@ Copy `.env.example` to `.env`. Every variable is documented in that file. The ta
 
 | Variable | Feature | Description |
 |---|---|---|
-| `VITE_BUNDLER_PAYMASTER_URL` | Gasless transactions | EIP-4337 paymaster. Without it users pay gas. Get from [Coinbase CDP](https://portal.cdp.coinbase.com) |
 | `VITE_PIX_PROXY_URL` | BRL payments | PIX QR proxy server — required only for Brazil |
-| `VITE_RANGO_API_KEY` | Bridge | Cross-chain deposit/withdraw via Rango Exchange |
-| `VITE_RANGO_REFERRER_ADDRESS` | Bridge fees | **Change to your own wallet** — receives 0.5% bridge referral fees |
 | `VITE_RECLAIM_BASE_URL` | ZK verifications | Social account proofs for transaction limits. Points at the reclaim-session-service, which holds the Reclaim app secret |
 | `VITE_ACTIVITY_LOG_API_URL` / `VITE_ACTIVITY_LOG_ENCRYPTION_KEY` | Fraud detection | SEON-based device fingerprinting |
-| `VITE_FRAUD_ENGINE_REGION` | Fraud detection | SEON region: `asia`, `eu`, or `us` |
 | `VITE_AMPLITUDE_API_KEY` | Analytics | Amplitude event tracking |
-| `VITE_FINGERPRINTJS_API_KEY` | Device fingerprinting | FingerprintJS Pro |
 | `VITE_SENTRY_DSN` | Error tracking | Sentry error and performance monitoring |
-| `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` | Dynamic proxy | Supabase edge function used as a Dynamic Labs API proxy |
-
-### Branding (for forks)
-
-| Variable | Description |
-|---|---|
-| `VITE_APP_NAME` | App name in PWA manifest and wallet modal |
-| `VITE_APP_URL` | Your deployment domain (Sentry trace targets, ToS links) |
-| `VITE_APP_FAVICON_URL` | Icon shown in Thirdweb wallet modal |
-| `VITE_TERMS_URL` / `VITE_PRIVACY_URL` | Legal page links |
 
 ### CI-only — never put in `.env`
 
 | Variable | Description |
 |---|---|
 | `VITE_SENTRY_AUTH_TOKEN` | Sentry token used by the build plugin to upload source maps. Set in CI secrets only |
-| `VITE_SENTRY_ORG` / `VITE_SENTRY_PROJECT` | Your Sentry org and project slugs |
 
 ---
 

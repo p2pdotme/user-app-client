@@ -3,7 +3,6 @@ import { ResultAsync } from "neverthrow";
 import { formatUnits } from "viem";
 import {
   getAdditionalOrderDetails,
-  getOrderFixedFeePaid,
   getSmallOrderFixedFeeBuy,
   getSmallOrderFixedFeePay,
   getSmallOrderFixedFeeSell,
@@ -30,33 +29,6 @@ export function getFeeConfig(
     smallOrderThreshold: Number(formatUnits(threshold as bigint, 6)),
     smallOrderFixedFee: Number(formatUnits(fixedFee as bigint, 6)),
   }));
-}
-
-/**
- * Get the fixed fee paid for a specific order
- */
-export function getOrderFixedFee(orderId: number) {
-  return getOrderFixedFeePaid({ orderId }).map((fee) =>
-    Number(formatUnits(fee as bigint, 6)),
-  );
-}
-
-/**
- * Get the actual USDC amount for an order (after fees)
- */
-export function getOrderActualUsdcAmount(orderId: number) {
-  return getAdditionalOrderDetails({ orderId }).map((details) =>
-    Number(formatUnits(details.actualUsdtAmount as bigint, 6)),
-  );
-}
-
-/**
- * Get the actual fiat amount for an order (after fees)
- */
-export function getOrderActualFiatAmount(orderId: number) {
-  return getAdditionalOrderDetails({ orderId }).map((details) =>
-    Number(formatUnits(details.actualFiatAmount as bigint, 6)),
-  );
 }
 
 /**
