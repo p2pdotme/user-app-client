@@ -569,7 +569,3 @@ export const getPageFAQs = (pageKey: keyof typeof FAQ_ON_PAGES): FAQ[] => {
   const faqIds = FAQ_ON_PAGES[pageKey].faqIds;
   return getFAQsByIds(faqIds);
 };
-
-export const getPageFAQIds = (pageKey: keyof typeof FAQ_ON_PAGES): string[] => {
-  return FAQ_ON_PAGES[pageKey].faqIds;
-};

@@ -42,9 +42,6 @@ interface ImportMetaEnv {
   readonly VITE_PIX_PROXY_URL: string;
 
   // Bridge
-  readonly VITE_DYNAMIC_PROJECT_ID: string;
-  readonly VITE_RANGO_API_KEY: string;
-  readonly VITE_RANGO_REFERRER_CODE: string;
 
   // Analytics
   readonly VITE_AMPLITUDE_API_KEY: string;
