@@ -141,13 +141,6 @@ export function useSounds(): SoundFunctions & {
 }
 
 /**
- * Get all available sound pattern names for testing/debugging
- */
-export function getAllSoundPatternNames(): readonly string[] {
-  return ["qrScan", "success", "failure"] as const;
-}
-
-/**
  * Export types for external use
  */
 export type { SoundFunctions, SoundSupportInfo };

@@ -70,7 +70,7 @@ export function prepareGetUSDCBalanceTx(params: {
 The adapter layer chains P2P protocol calls with Thirdweb operations while preserving error types:
 
 ```typescript
-// From @/core/adapters/wallet/thirdweb/actions.ts
+// From @/core/adapters/thirdweb/actions.ts
 export const getUSDCBalance = (
   address: Address,
   account: Account,
@@ -112,7 +112,7 @@ export const getUSDCBalance = (
 ### Adapter Error Types
 
 ```typescript
-// From @/core/adapters/wallet/thirdweb/client.ts
+// From @/core/adapters/thirdweb/client.ts
 export type ThirdwebAdapterError = AppError<"ThirdwebAdapter">;
 
 // Error codes used in the adapter
@@ -130,7 +130,7 @@ For simple queries that don't need custom error handling:
 
 ```typescript
 import { useQuery } from "@tanstack/react-query";
-import { getUSDCBalance } from "@/core/adapters/wallet/thirdweb";
+import { getUSDCBalance } from "@/core/adapters/thirdweb";
 
 export function useUSDCBalance(address: Address, account: Account) {
   return useQuery({
@@ -459,7 +459,7 @@ return createP2PError("Failed to prepare transaction", {
 
 ```typescript
 import { describe, it, expect, vi } from "vitest";
-import { getUSDCBalance } from "@/core/adapters/wallet/thirdweb";
+import { getUSDCBalance } from "@/core/adapters/thirdweb";
 
 describe("USDC Balance Error Handling", () => {
   it("should handle network errors gracefully", async () => {

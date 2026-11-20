@@ -69,7 +69,6 @@ Copy `.env.example` to `.env` and fill in the values. The table below explains e
 | `VITE_CONTRACT_ADDRESS_REPUTATION_MANAGER` | Reputation manager contract address |
 | `VITE_THIRDWEB_CLIENT_ID` | Thirdweb Client ID — required for wallet login. Get one at [thirdweb.com/dashboard](https://thirdweb.com/dashboard/settings/api-keys) |
 | `VITE_THIRDWEB_CONTRACT_ADDRESS_AA_FACTORY` | EIP-4337 account abstraction factory address |
-| `VITE_DYNAMIC_PROJECT_ID` | Dynamic Labs environment ID — required for external wallet connectors. Get one at [app.dynamic.xyz](https://app.dynamic.xyz) |
 | `VITE_SUBGRAPH_URL` | The Graph endpoint for order history and circle routing |
 
 > **Testnet defaults:** Base Sepolia contract addresses are pre-filled in `.env.example`. For RPC, you can use a free Alchemy app or a public Base Sepolia endpoint.
@@ -79,31 +78,11 @@ Copy `.env.example` to `.env` and fill in the values. The table below explains e
 | Variable | Description |
 |---|---|
 | `VITE_PIX_PROXY_URL` | PIX proxy server URL — required only for BRL (Brazil) payments |
-| `VITE_BUNDLER_PAYMASTER_URL` | EIP-4337 paymaster URL for gasless transactions (e.g. Coinbase CDP) |
-| `VITE_RANGO_API_KEY` | Rango Exchange API key — enables cross-chain deposit/withdraw |
-| `VITE_RANGO_REFERRER_CODE` | Your Rango referral code |
-| `VITE_RANGO_REFERRER_ADDRESS` | Wallet address to receive 0.5% bridge referral fees. **Change this to your own address** — if left as the default it sends fees to the P2P.me wallet |
 | `VITE_RECLAIM_BASE_URL` | Base URL of the reclaim-session-service — enables ZK social verifications for transaction limits. The Reclaim app secret lives on that service, never in this app: it is a private key whose address is the appId, and every `VITE_*` var is inlined into the shipped bundle |
 | `VITE_ACTIVITY_LOG_API_URL` | Fraud detection API endpoint |
 | `VITE_ACTIVITY_LOG_ENCRYPTION_KEY` | 32-byte hex AES-256 key for fraud payload encryption. **Never commit this** |
-| `VITE_FRAUD_ENGINE_REGION` | SEON API region: `asia`, `eu`, or `us`. Defaults to `asia` |
 | `VITE_AMPLITUDE_API_KEY` | Amplitude analytics key — analytics are disabled if absent |
-| `VITE_FINGERPRINTJS_API_KEY` | FingerprintJS Pro key — device fingerprinting disabled if absent |
 | `VITE_SENTRY_DSN` | Sentry DSN — error tracking disabled if absent |
-| `VITE_SENTRY_ORG` | Your Sentry organization slug (used by build plugin) |
-| `VITE_SENTRY_PROJECT` | Your Sentry project slug (used by build plugin) |
-| `VITE_SUPABASE_URL` | Supabase edge function URL used as a Dynamic Labs API proxy |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anon key for the above |
-
-### Branding (for forks)
-
-| Variable | Description |
-|---|---|
-| `VITE_APP_NAME` | App name shown in the PWA manifest and Thirdweb wallet modal |
-| `VITE_APP_URL` | Your deployment domain — used for Sentry trace propagation and ToS links |
-| `VITE_APP_FAVICON_URL` | Icon shown in the Thirdweb wallet modal |
-| `VITE_TERMS_URL` | Terms of service URL |
-| `VITE_PRIVACY_URL` | Privacy policy URL |
 
 ### CI-only (never put in `.env`)
 
@@ -123,7 +102,7 @@ src/
 │   │   ├── contracts/         ← ABIs and read/write contract functions
 │   │   ├── subgraph/          ← GraphQL queries to The Graph
 │   │   └── shared/            ← Zod schemas, error types, validation helpers
-│   ├── rango/                 ← Cross-chain bridge integration (Rango Exchange)
+│   ├── near-intents/          ← Cross-chain bridge (NEAR Intents 1Click)
 │   ├── client/                ← LocalStorage-backed settings and address books
 │   └── fees.ts                ← Fee calculation helpers
 ├── hooks/                     ← React hooks that consume core/

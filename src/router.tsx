@@ -219,12 +219,6 @@ const Recover = lazy(() =>
   })),
 );
 
-const Notification = lazy(() =>
-  import("@/pages/notification").then((module) => ({
-    default: module.NotificationPage,
-  })),
-);
-
 export function Router() {
   const { t } = useTranslation();
   return (
@@ -299,8 +293,6 @@ export function Router() {
 
         <Route path={INTERNAL_HREFS.RECOVER} element={<Recover />} />
         <Route path={INTERNAL_HREFS.RECOVERY} element={<Recovery />} />
-
-        <Route path={INTERNAL_HREFS.NOTIFICATION} element={<Notification />} />
 
         <Route path={INTERNAL_HREFS.PRIZE_DRAW} element={<PrizeDraw />} />
 

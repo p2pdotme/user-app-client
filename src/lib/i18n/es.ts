@@ -4,28 +4,21 @@ export const es = {
     ABOUT_P2P_TOKEN_DESCRIPTION:
       '$P2P es el token de gobernanza y utilidad del Protocolo P2P, que impulsa la gobernanza basada en futarquía, el control de tesorería y el staking de confianza ("Círculos de Confianza") para una rampa de entrada/salida fiat-cripto descentralizada y que preserva la privacidad.',
     ACCEPTED: "Aceptado",
-    ACCESS_GRANTED_BUTTON: "Ver guía en video",
     ACCESS_GRANTED_READY_DESCRIPTION:
       "Ya puedes comprar y vender USDC y pagar códigos QR locales con Scan & Pay. Encontrarás respuestas paso a paso siempre en Ayuda.",
     ACCESS_GRANTED_TITLE: "¡Listo! Ya tienes acceso",
-    ACCOUNT: "Cuenta",
     ACCOUNT_NAME: "Nombre de la cuenta",
     ACCOUNT_NUMBER: "Número de cuenta",
     ACCOUNT_NUMBER_DOES_NOT_MATCH: "El número de cuenta no coincide",
-    ACCOUNT_TEMPORARILY_RESTRICTED:
-      "Tu cuenta está restringida temporalmente. Intenta de nuevo más tarde o contacta a soporte.",
     ACCOUNT_TYPE: "Tipo de cuenta",
     ACTION_NEEDED: "Acción requerida",
     ACTIVE_ADDRESS_UPDATED: "Dirección activa actualizada",
     ADDED_TO_YOUR_BALANCE: "Agregado a tu saldo",
     ADDRESS: "Dirección",
     ADDRESS_ADDED_SUCCESSFULLY: "Dirección agregada correctamente",
-    ADDRESS_BOOK_IS_INVALID: "La libreta de direcciones no es válida",
     ADDRESS_COPIED: "Dirección copiada",
     ADDRESS_COPIED_TO_CLIPBOARD: "Dirección de Base copiada al portapapeles",
     ADDRESS_DELETED_SUCCESSFULLY: "Dirección eliminada correctamente",
-    ADDRESS_IS_INVALID: "La dirección no es válida",
-    ADDRESS_NOT_FOUND: "Dirección no encontrada",
     ADDRESS_NOT_FOUND_IN_ADDRESS_BOOK:
       "Dirección no encontrada en la libreta de direcciones",
     ADDRESS_NOT_FOUND_IN_SELL_ADDRESS_BOOK:
@@ -42,7 +35,6 @@ export const es = {
     ALIAS_ID: "Tu alias",
     ALIAS_TRANSFERENCIA: "Llave Bre-B",
     ALL: "Todos",
-    ALLOW_CAMERA: "Permitir cámara",
     ALL_FAQS: "Todas las preguntas frecuentes",
     ALL_MILESTONES_ACHIEVED: "Todos los hitos alcanzados",
     ALREADY_INSTALLED_NOTE:
@@ -53,22 +45,13 @@ export const es = {
     ALSO_AVAILABLE_ON: "También disponible en",
     ALT_404_IMAGE: "Error 404",
     ALT_MAINTENANCE_MASCOT: "Mascota de mantenimiento",
-    AMOUNT_CONTAINS_INVALID_CHARACTERS:
-      "El monto contiene caracteres no válidos",
-    AMOUNT_MUST_BE_GREATER_THAN_ZERO: "El monto debe ser mayor que cero",
-    AMOUNT_NOT_A_VALID_NUMBER: "El monto no es un número válido",
-    AMOUNT_STRING_EMPTY: "El campo de monto está vacío",
     ANDROID: "Android:",
     ANDROID_DNS_INSTRUCTIONS:
       "Configuración → Red → DNS privado → Seleccionar DNS privado",
     AN_ADDRESS_WITH_THIS_LABEL_OR_ADDRESS_ALREADY_EXISTS:
       "Ya existe una dirección con esta etiqueta o dirección",
     APPLY: "Aplicar",
-    APPLY_DATE_RANGE: "Aplicar rango de fechas",
-    APPLY_FILTERS: "Aplicar filtros",
-    APPROVAL: "Aprobación",
     APPROVED: "Aprobado",
-    APPROVING: "Aprobando",
     ARE_YOU_SURE: "¿Estás seguro?",
     ARE_YOU_SURE_YOU_WANT_TO_CANCEL_THIS_ORDER:
       "¿Estás seguro de que quieres cancelar este pedido?",
@@ -82,17 +65,9 @@ export const es = {
     ASK_AI_ASSISTANT: "Pregúntale al asistente de IA",
     ASK_THE_VENDOR_TO_GENERATE_QR_ONLY_AFTER_YOUR_SCANNER_OPENS:
       "Pídele al comercio que genere el QR solo cuando tu escáner ya esté abierto",
-    ATTEMPTED_AMOUNT: "Monto intentado",
-    AUTH_DEBUG: "Depuración de autenticación",
-    AUTO_CONNECT: "Conexión automática",
     AVAILABLE_BALANCE: "Saldo disponible",
     A_MERCHANT_ACCEPTED_YOUR_ORDER: "Un comerciante aceptó tu pedido",
-    BACK_TO_FILTERS: "Volver a los filtros",
     BALANCE: "Saldo",
-    BALANCE_ERROR: "Error de saldo",
-    BALANCE_FETCH_ERROR: "Error al obtener el saldo",
-    BALANCE_LOADING: "Cargando saldo",
-    BALANCE_NOT_LOADED: "Saldo no cargado",
     BANK: "Banco",
     BANK_LABEL: "Banco",
     BANK_NAME: "Nombre del banco",
@@ -126,8 +101,6 @@ export const es = {
       "Puentes recientes guardados en este dispositivo. Para tu historial completo, visita el explorador de NEAR Intents.",
     BRIDGE_HISTORY_TITLE: "Historial de puentes",
     BRIDGE_INSUFFICIENT_FUNDS: "Fondos insuficientes",
-    BRIDGE_LOAD_ASSETS_FAILED:
-      "Error al cargar los activos admitidos: {{message}}",
     BRIDGE_MEMO: "Memo",
     BRIDGE_MEMO_COPIED: "Memo copiado",
     BRIDGE_MEMO_REQUIRED_WARNING:
@@ -137,8 +110,6 @@ export const es = {
     BRIDGE_RATE: "Tasa",
     BRIDGE_RECIPIENT_INVALID: "La dirección del destinatario no es válida.",
     BRIDGE_REFUND_ADDRESS: "Dirección de reembolso",
-    BRIDGE_REFUND_ADDRESS_HINT:
-      "Tu dirección en la cadena de origen, que se usará si se reembolsa el intercambio.",
     BRIDGE_REFUND_ADDRESS_INVALID: "La dirección de reembolso no es válida.",
     BRIDGE_REPORT_ISSUE_PROMPT:
       "¿No recibiste tus fondos? Abre un ticket con el <0>soporte de NEAR Intents<1></1></0>",
@@ -179,8 +150,6 @@ export const es = {
     BRIDGE_WITHDRAWING: "Retirando…",
     BRIDGE_WITHDRAW_STATUS_KNOWN_DEPOSIT_TX: "USDC enviado",
     BRIDGE_WITHDRAW_STATUS_PENDING_DEPOSIT: "Enviando USDC…",
-    BRIDGING_MAY_TAKE_TIME:
-      "La transferencia entre redes puede tardar. Quédate en esta página hasta que termine o sigue el progreso en este enlace",
     BROWSE_HELP_CENTER: "Ir al Centro de ayuda",
     BROWSE_HELP_CENTER_DESCRIPTION:
       "Encuentra respuestas, guías y soporte para todas tus preguntas en un solo lugar.",
@@ -264,79 +233,15 @@ export const es = {
     BVN_OTP_PLACEHOLDER: "Ingresa el OTP",
     BVN_SIGNER_NOT_SET:
       "La verificación de BVN no está disponible temporalmente. Inténtalo más tarde.",
-    BVN_TAG: "Solo Nigeria",
     BVN_TITLE: "Verificación BVN",
     BVN_VERIFICATION_FAILED: "La verificación de BVN falló",
     BVN_VERIFIED: "BVN verificado",
-    BVN_VERIFIED_DESCRIPTION:
-      "Tu certificación de BVN se registró en la blockchain.",
-    CAMERA_ACCESS: "Acceso a la cámara",
     CAMERA_ACCESS_DENIED: "Acceso a la cámara denegado",
     CAMERA_ACCESS_FAILED: "Falló el acceso a la cámara",
-    CAMERA_ACCESS_GRANTED: "¡Acceso a la cámara concedido!",
-    CAMERA_ACCESS_REQUIRED: "Se requiere acceso a la cámara",
-    CAMERA_ACCESS_REQUIRED_MESSAGE:
-      "Permite el acceso a la cámara para escanear códigos QR",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_NOTE:
-      "Si no funciona, intenta reiniciar Chrome o reinstalar la aplicación para restablecer los permisos",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_1: "Abre la app Configuración",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_2:
-      "Desplázate hacia abajo y toca Chrome",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_3: "Toca Cámara",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_4: "Selecciona 'Permitir'",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_STEP_5:
-      "Vuelve a abrir Chrome y recarga el sitio web",
-    CAMERA_INSTRUCTIONS_CHROME_IOS_TITLE: "Chrome en iOS",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1: "Método 1:",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_1: "Abre la aplicación de Chrome",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_2: "Entra al sitio web",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_3:
-      "Toca el ícono del candado en la barra de direcciones",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_4:
-      "Toca Permisos o Configuración del sitio",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_5:
-      "Toca Cámara y selecciona 'Permitir'",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_1_STEP_6: "Recarga el sitio web",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_2: "Método 2:",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_2_STEP_1:
-      "Ve a Configuración → Aplicaciones → Chrome → Permisos",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_2_STEP_2: "Toca Cámara",
-    CAMERA_INSTRUCTIONS_CHROME_METHOD_2_STEP_3:
-      "Elige 'Permitir mientras se usa la aplicación'",
-    CAMERA_INSTRUCTIONS_CHROME_TITLE: "Chrome",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_1: "Entra al sitio",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_2:
-      "Toca el ícono del candado o el menú (⋮)",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_3:
-      "Elige Permisos o Configuración del sitio",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_4: "Activa la cámara",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_STEP_5: "Recarga la página",
-    CAMERA_INSTRUCTIONS_OTHER_BROWSERS_TITLE: "Otros navegadores",
-    CAMERA_INSTRUCTIONS_SAFARI_NOTE:
-      "También revisa en Configuración → Privacidad y seguridad → Cámara que Safari esté habilitado",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_1: "Abre la app Configuración",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_2: "Desplázate hacia abajo y toca Safari",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_3:
-      "Desplázate hasta 'Configuración de sitios web'",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_4: "Toca Cámara",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_5: "Selecciona 'Permitir' o 'Preguntar'",
-    CAMERA_INSTRUCTIONS_SAFARI_STEP_6:
-      "Vuelve a abrir Safari y recarga la página",
-    CAMERA_INSTRUCTIONS_SAFARI_TITLE: "Safari",
     CAMERA_NOT_FOUND: "No se encontró ninguna cámara",
     CAMERA_NOT_FOUND_DESCRIPTION:
       "No se pudo encontrar una cámara en este dispositivo",
-    CAMERA_NOT_SUPPORTED: "Cámara no compatible",
-    CAMERA_NOT_SUPPORTED_DESCRIPTION:
-      "Tu navegador o dispositivo no admite el acceso a la cámara",
-    CAMERA_NOT_SUPPORTED_MESSAGE:
-      "Tu navegador no admite el acceso a la cámara",
-    CAMERA_PERMISSION_DENIED_DESCRIPTION:
-      "Por favor, permite el acceso a la cámara para escanear códigos QR",
-    CAMERA_UNKNOWN_ERROR: "Ocurrió un error desconocido al acceder a la cámara",
     CAMPAIGN_NOT_ACTIVE: "La campaña no está activa",
-    CAMPAIGN_PARAMS_DESCRIPTION:
-      "Te llevaremos a la página de la campaña después de iniciar sesión",
     CAMPAIGN_PARAMS_DETECTED: "Enlace de campaña detectado",
     CAMPAIGN_REWARD_CLAIMED_SUCCESSFULLY:
       "Recompensa de la campaña reclamada con éxito",
@@ -355,11 +260,9 @@ export const es = {
     CANNOT_VOTE_SELF: "No puedes votarte a ti mismo",
     CANNOT_VOTE_YOURSELF: "No puedes votarte a ti mismo",
     CARD_NUMBER: "Número de tarjeta",
-    CASHBACK_EARNED: "Cashback ganado",
     CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en ${{tokenSymbol}} por esta transacción. Ver tenencias de ${{tokenSymbol}}",
     CASHBACK_REWARD_TITLE: "Recompensa de cashback",
-    CASHBACK_TRACK_IN_COINS_ME: "Revisa y canjea en coins.me",
     CBTC_CASHBACK_REWARD_DESCRIPTION:
       "Acabas de recibir {{percentage}}% de cashback en {{tokenSymbol}} por esta transacción. Revísalo en coins.me.",
     CEDULA: "Cédula",
@@ -370,12 +273,8 @@ export const es = {
     CHAT_ON_TELEGRAM_SUBTITLE: "Únete al grupo de la comunidad",
     CHAT_SETUP_TAKING_LONGER:
       "Esto está tardando más de lo habitual. Tu disputa fue enviada: vuelve a abrir Ayuda y soporte en un momento, o escríbenos por Telegram.",
-    CHAT_SUPPORT_COMING_SOON: "El soporte por chat estará disponible pronto",
     CHAT_WITH_US: "Chatea con nosotros",
     CHECKING_WALLET_CONNECTION: "Verificando la conexión de la wallet...",
-    CHOOSE_NETWORK_TO_BRIDGE: "Elige la red a la que quieres transferir",
-    CHOOSE_START_AND_END_DATES_FOR_FILTERING:
-      "Elige fechas de inicio y fin específicas para filtrar tus transacciones",
     CIRCLE_ADMIN: "Administrador del círculo",
     CIRCLE_OPERATOR: "Soporte",
     CLABE_ID: "Número CLABE",
@@ -386,36 +285,15 @@ export const es = {
     CLAIM_MONTHLY_REWARD: "Reclamar recompensa",
     CLAIM_REWARD: "Reclamar recompensa",
     CLEAR: "Limpiar",
-    CLEAR_ALL_FILTERS: "Limpiar todo",
-    CLEAR_FILTER: "Limpiar",
     CLOSE: "Cerrar",
     COINSME_BANNER_ALT: "coins.me",
     COINSME_BANNER_BITCOIN_SIPS: "Inversión periódica en Bitcoin.",
     COINSME_BANNER_BUY_GOLD_STOCKS: "Compra oro y acciones.",
     COINSME_BANNER_SAME_WALLET: "Misma wallet",
-    COINSME_DRAWER_CTA: "Explora coins.me",
-    COINSME_DRAWER_FEATURE_FLOW:
-      "El mismo flujo fácil para comprar, vender y pagar",
-    COINSME_DRAWER_FEATURE_SIP: "Invierte periódicamente en BTC y más",
-    COINSME_DRAWER_FEATURE_STOCKS:
-      "Compra y vende acciones de EE. UU., ETFs y oro",
-    COINSME_DRAWER_FEATURE_TRACK: "Sigue miles de criptomonedas",
-    COINSME_DRAWER_FEATURE_USERNAME:
-      "Envía fondos con solo un nombre de usuario",
-    COINSME_DRAWER_FEATURE_WALLET:
-      "La misma wallet y el mismo inicio de sesión que p2p.me",
-    COINSME_DRAWER_SUBTITLE:
-      "Inicia sesión con tu cuenta de p2p.me y ya queda todo listo.",
     COINSME_DRAWER_TITLE: "Haz más con coins.me",
     COMPLETED: "Completado",
     COMPLETED_AT: "Completado el",
     COMPLETED_IN: "Completado en",
-    COMPLETED_IN_HOURS: "Completado en {{hours}} horas",
-    COMPLETED_IN_HOURS_MINUTES: "Completado en {{hours}}h {{minutes}}m",
-    COMPLETED_IN_MINUTES: "Completado en {{minutes}} minutos",
-    COMPLETED_IN_MINUTES_SECONDS: "Completado en {{minutes}}m {{seconds}}s",
-    COMPLETED_IN_SECONDS: "Completado en {{seconds}} segundos",
-    COMPLETED_TRANSACTIONS: "Transacciones completadas",
     COMPLETE_YOU_PAYMENT_AND_CONFIRM: "Completa tu pago y confirma",
     COMPLETE_ZK_PROOF_TO_UNLOCK:
       "Completa al menos una prueba zk para desbloquear referir y ganar",
@@ -426,9 +304,6 @@ export const es = {
       "Confirmar compra de USDC con {{currency}}",
     CONFIRM_SALE_OF_USDC_WITH_CURRENCY:
       "Confirmar venta de USDC con {{currency}}",
-    CONFIRM_SALE_OF_USDC_WITH_INR: "Confirmar venta de USDC con INR",
-    CONNECT: "Conectar",
-    CONNECTED_REDIRECTING: "¡Conectado! Redirigiendo...",
     CONNECTING_WALLET: "Conectando wallet...",
     CONNECTING_YOU_TO_A_MERCHANT_FOR_PAYMENT:
       "Conectándote con un comerciante para el pago",
@@ -438,10 +313,7 @@ export const es = {
       "Conectándote con un comerciante para tu cobro en {{currency}}",
     CONNECTION_STATUS: "Estado de la conexión",
     CONNECT_ANY_SERVER_REFRESH: "Conéctate a cualquier servidor y actualiza",
-    CONNECT_WALLET: "Conectar wallet",
     CONNECT_WALLET_FIRST: "Conecta una wallet primero",
-    CONNECT_YOUR_SOURCE_WALLET_TO_DEPOSIT_FROM_SOLANA_AND_5_EVM_CHAINS:
-      "Conecta tu wallet de origen para depositar desde Solana y 5 cadenas EVM.",
     CONN_CHECKING: "Comprobando tu conexión…",
     CONN_CHECK_AGAIN: "Comprobar de nuevo",
     CONN_DEGRADED_DESCRIPTION:
@@ -463,8 +335,6 @@ export const es = {
       "Continuar la verificación de {{platform}}",
     COOLDOWN_PERIOD_NOT_ELAPSED: "Aún no terminó el período de espera",
     COPY_TO_CLIPBOARD: "Copiar al portapapeles",
-    COULDING_ENCRYPT_PAYMENT_ADDRESS:
-      "No se pudo encriptar la dirección de pago",
     COULD_NOT_ACCESS_CLIPBOARD: "No se pudo acceder al portapapeles",
     CUP_BANDEC_WARNING:
       "BANDEC está teniendo problemas, por eso te sugerimos usar otros bancos para evitar disputas y demoras en tus pedidos.",
@@ -473,9 +343,6 @@ export const es = {
     CURRENCY_NOT_SUPPORTED: "Moneda no admitida",
     CURRENCY_REQUIRED: "Moneda requerida",
     CUSTOM: "Personalizado",
-    CUSTOMIZE_YOUR_TRANSACTION_VIEW: "Personaliza tu vista de transacciones",
-    CUSTOM_AMOUNT: "Monto personalizado",
-    CUSTOM_DATE_RANGE: "Rango de fechas personalizado",
     CUSTOM_RANGE: "Rango personalizado",
     DAILY_BUY_ORDER_COUNT_LIMIT_EXCEEDED:
       "Límite diario de pedidos de compra excedido",
@@ -496,19 +363,12 @@ export const es = {
     DEPOSIT: "Depositar",
     DEPOSITS_WITHDRAWALS: "Depósitos y retiros",
     DEPOSIT_BASE_USDC: "Depositar USDC de Base",
-    DEPOSIT_COMPLETED_SUCCESSFULLY: "¡Tu depósito se ha completado con éxito!",
-    DEPOSIT_FAILED: "El depósito falló",
-    DEPOSIT_FAILED_GENERIC:
-      "El proceso de depósito falló. Por favor, inténtalo de nuevo.",
     DEPOSIT_FROM_OTHER_CHAINS: "Depositar desde otras cadenas",
-    DEPOSIT_PROGRESS: "Progreso del depósito",
-    DEPOSIT_SUCCESSFUL: "Depósito exitoso",
     DEPOSIT_USDC: "Depositar USDC",
     DEPOSIT_USDC_ON_BASE_TO_YOUR_P2P_ME_WALLET:
       "Deposita USDC en Base en tu wallet de p2p.me",
     DEPOSIT_USDC_TO_BASE_FROM_SUPPORTED_CHAINS:
       "Deposita USDC en Base desde las cadenas compatibles",
-    DESTINATION_WALLET_NOT_CONNECTED: "Wallet de destino no conectada",
     DETAILS_SENT: "Detalles enviados",
     DEV_TOASTS_ACTIONS: "Acciones",
     DEV_TOASTS_ACTION_BUTTON: "Acción",
@@ -554,7 +414,6 @@ export const es = {
     DEV_TOASTS_WORKING: "Procesando...",
     DIAMOND_FUNCTION_DOES_NOT_EXIST: "La función no existe",
     DIDNT_FIND_WHAT_YOU_RE_LOOKING_FOR: "¿No encontraste lo que buscabas?",
-    DISCONNECT: "Desconectar",
     DISPUTED: "En disputa",
     DISPUTE_ALREADY_SETTLED: "La disputa ya fue resuelta",
     DISPUTE_APPEAL_NOT_DUE: "El plazo de revisión aún no ha vencido",
@@ -563,8 +422,6 @@ export const es = {
     DISPUTE_APPEAL_WINDOW_OPEN:
       "El plazo para impugnar sigue abierto, así que la decisión todavía no puede finalizarse",
     DISPUTE_AT_FINAL_TIER: "La disputa ya está en el nivel de revisión final",
-    DISPUTE_AVAILABLE_IN_TIME:
-      "Disputa disponible en {{time}} (espera mínima de 30 min)",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_HOURS_OF_ORDER_PLACEMENT:
       "La disputa solo puede abrirse después de 24 horas de haber realizado el pedido",
     DISPUTE_CAN_ONLY_BE_RAISED_AFTER_T_MINUTES_OF_ORDER_PLACEMEN:
@@ -579,7 +436,6 @@ export const es = {
       "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como el comprobante de pago.",
     DISPUTE_CHAT_SHARE_DETAILS_NOTE_SELL_PAY:
       "Puedes chatear con nuestro equipo de soporte y compartir detalles relevantes, como tu referencia de pago.",
-    DISPUTE_DEFAULT: "Predeterminado",
     DISPUTE_ESCALATE: "Escalar disputa",
     DISPUTE_ESCALATE_DESCRIPTION:
       "El revisor actual no decidió dentro del plazo. Al escalarla, la disputa pasa a {{tier}}.",
@@ -673,10 +529,6 @@ export const es = {
     EDIT_WALLET: "Editar wallet",
     ELIGIBILITY_CRITERIA_NOT_MET:
       "No cumples con los criterios de elegibilidad",
-    ENABLE_CAMERA_ACCESS: "Habilitar acceso a la cámara",
-    ENABLE_CAMERA_FOR_QR:
-      "Sigue estos pasos para habilitar la cámara y escanear códigos QR",
-    ENABLE_CAMERA_TO_SCAN: "Habilita la cámara para escanear",
     ENCRYPTION_FAILED: "Falló la encriptación",
     ENTER_AMOUNT: "Ingresar monto",
     ENTER_LAST_4_DIGITS_INSTRUCTION:
@@ -703,7 +555,6 @@ export const es = {
       "Algo salió mal. Inténtalo de nuevo. Si sigue pasando, contacta a soporte.",
     ERROR_INSUFFICIENT_BALANCE_DESCRIPTION:
       "No tienes suficientes USDC para esto. Agrega fondos e inténtalo de nuevo.",
-    ERROR_LOADING_ADDRESS_BOOK: "Error al cargar la libreta de direcciones",
     ERROR_LOADING_DATA: "Error al cargar los datos",
     ERROR_LOADING_PROGRESS: "Error al cargar el progreso",
     ERROR_LOADING_TASK_LEDGER: "Error al cargar el registro de tareas",
@@ -716,16 +567,12 @@ export const es = {
       "La transacción no se completó y no se movieron fondos. Inténtalo de nuevo.",
     ERROR_USER_CANCELLED_DESCRIPTION:
       "Cancelaste la solicitud. No se cambió nada.",
-    ESTIMATED_FEE: "Tarifa estimada",
     ESTIMATED_TIME: "Tiempo estimado",
-    ESTIMATED_TIME_RANGE: "2 - 5 min",
     EXCHANGE_NOT_OPERATIONAL: "El exchange no está operativo",
     EXPIRED: "Expirado",
-    EXTERNAL_WALLET: "Wallet externa",
     FACEBOOK_ONLY_RP_UPDATES: "Facebook solo admite actualizaciones de RP",
     FAILED_SWAPS: "Intercambios fallidos",
     FAILED_TO_CANCEL_ORDER: "Error al cancelar el pedido",
-    FAILED_TO_CHANGE_LANGUAGE: "Error al cambiar el idioma",
     FAILED_TO_CLAIM_CAMPAIGN_REWARD:
       "Error al reclamar la recompensa de la campaña",
     FAILED_TO_CLAIM_CAMPAIGN_USDC: "Error al reclamar el USDC de la campaña",
@@ -736,28 +583,18 @@ export const es = {
     FAILED_TO_COPY_PAYMENT_ADDRESS: "Error al copiar {{paymentAddressName}}",
     FAILED_TO_CREATE_RELAY_IDENTITY:
       "Error al crear la identidad de retransmisión",
-    FAILED_TO_DELETE_ADDRESS: "Error al eliminar la dirección",
     FAILED_TO_ESTIMATE_GAS:
       "Esta transacción falló debido a un problema con la tarifa de red. Por favor, inténtalo de nuevo.",
-    FAILED_TO_FETCH_QUOTE: "Error al obtener la cotización",
     FAILED_TO_FETCH_SELL_PRICE: "Error al obtener el precio de venta",
     FAILED_TO_GENERATE_RECEIPT_IMAGE: "Error al generar la imagen del recibo",
     FAILED_TO_GENERATE_REFERRAL_LINK: "Error al generar el enlace de referido",
     FAILED_TO_GENERATE_REFERRAL_LINK_LOG:
       "Error al generar el enlace de referido (registro)",
-    FAILED_TO_GET_QUOTE: "Error al obtener la cotización",
-    FAILED_TO_LOAD_ADDRESS_BOOK_FROM_STORAGE:
-      "Error al cargar la libreta de direcciones desde el almacenamiento",
-    FAILED_TO_LOAD_BALANCES: "Error al cargar los saldos",
-    FAILED_TO_LOAD_TIMER: "Error al cargar el temporizador",
     FAILED_TO_MARK_AS_PAID: "Error al marcar como pagado",
     FAILED_TO_PLACE_ORDER: "Error al realizar el pedido",
     FAILED_TO_READ_CLIPBOARD: "Error al leer del portapapeles",
-    FAILED_TO_SAVE_ADDRESS_BOOK_TO_STORAGE:
-      "Error al guardar la libreta de direcciones en el almacenamiento",
     FAILED_TO_SEND_PAYMENT_DETAILS: "Error al enviar los detalles del pago",
     FAILED_TO_SHARE_RECEIPT: "Error al compartir el recibo",
-    FAILED_TO_SWITCH_NETWORK: "Error al cambiar de red",
     FAQS: "Preguntas frecuentes",
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY:
       "¿Los límites de compra y venta se registran por separado?",
@@ -801,7 +638,6 @@ export const es = {
     FAQ_HOW_CAN_I_RAISE_DISPUTE: "¿Cómo puedo abrir una disputa?",
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
       "1. Abre el recibo del pedido.\n2. Toca el ícono de ayuda (?) arriba a la derecha.\n3. Selecciona 'Abrir disputa' y sigue las instrucciones.",
-    FAQ_HOW_CHECK_CURRENT_LIMITS: "¿Cómo puedo ver mis límites actuales?",
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "¿Cómo puedo depositar USDC en mi wallet de P2P.me?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
@@ -969,10 +805,6 @@ export const es = {
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED: "¿Qué monedas y redes admite P2P.me?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
       "Actualmente, P2P.me admite USDC en la red Base.",
-    FAQ_WHICH_PLATFORMS_SOCIAL_VERIFICATION:
-      "¿Qué plataformas puedo usar para la verificación social zk?",
-    FAQ_WHICH_PLATFORMS_SOCIAL_VERIFICATION_ANSWER:
-      "Puedes verificar tus cuentas de:\n• Instagram\n• LinkedIn\n• GitHub\n\nNota: La verificación social solo funciona en dispositivos móviles.",
     FAQ_WHO_HANDLES_CROSS_CHAIN:
       "¿Quién gestiona las transacciones cross-chain?",
     FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
@@ -1007,10 +839,7 @@ export const es = {
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
       "Para retiros directos en Base:\n• Revisa tu wallet y el explorador de bloques de Base.\n\nPara retiros cross-chain:\n• Visita el explorador de Near Intents\n• Contacta al soporte de Near Intents si la transacción está atascada",
     FDV: "FDV",
-    FEATURE_COMING_SOON: "Esta función llegará pronto",
     FEE: "Tarifa",
-    FEEDBACK_FEATURE_COMING_SOON:
-      "La función de comentarios estará disponible pronto",
     FIAT_AMOUNT: "Monto fiat",
     FIAT_AMOUNT_BELOW_MINIMUM:
       "El monto del pedido está por debajo del mínimo para esta moneda",
@@ -1018,21 +847,16 @@ export const es = {
     FILTERS_ACTIVE: "filtros activos",
     FILTERS_APPLIED: "Filtros aplicados",
     FILTERS_DESCRIPTION: "Filtra tu historial de transacciones",
-    FILTER_BY_FIAT_CURRENCY: "Filtrar transacciones por moneda fiduciaria",
-    FILTER_BY_TRANSACTION_STATUS: "Filtrar transacciones por su estado actual",
     FILTER_CURRENCY: "Moneda",
     FILTER_DISPUTES: "Disputas",
     FILTER_PERIOD: "Período",
     FILTER_STATUS: "Estado",
-    FILTER_TRANSACTIONS: "Filtrar transacciones",
     FILTER_TYPES: "Tipos",
     FIND_US_ON: "Encuéntranos en",
     FLAT_FEE_MINIMUM_ORDER_REQUIRED:
       "Se aplica una tarifa fija de {{flatFee}} USDC a pedidos menores a {{orderMinimumAmount}} USDC. Tu pedido debe ser mayor a {{flatFee}} USDC",
     FOR_DYNAMIC_QR_WITH_EXPIRY_TIMERS_GENERATE_THEM_AFTER_THE_SCANNER_OPENS_FOR_MAXIMUM_PAYMENT_TIME:
       "Si el QR es dinámico y tiene tiempo de vencimiento, pide que lo generen después de que se abra el escáner para tener más tiempo para pagar",
-    FRAUD_ACTIVITY_WARNING:
-      "Detectamos actividad fraudulenta. Sigue las pautas o te agregaremos a la lista negra",
     FRAUD_ASSESSMENT_APPROVED: "¡Aprobado! Creando tu pedido...",
     FRAUD_ASSESSMENT_IN_PROGRESS: "Revisión antifraude en curso...",
     FRAUD_ASSESSMENT_REJECTED:
@@ -1040,7 +864,6 @@ export const es = {
     FRAUD_NOTICE:
       "Aviso: Los pagos fraudulentos a comerciantes tendrán consecuencias legales según el historial de transacciones.",
     FROM: "Desde",
-    FROM_DATE: "Fecha de inicio",
     FROM_TO_MINUTES: "{{from}} - {{to}} mins",
     FUNCTION_NOT_FOUND: "Función no encontrada",
     FUND_PROTECTION_GUIDELINES: "Guía de protección de fondos",
@@ -1048,15 +871,9 @@ export const es = {
     GENERATE_LINK: "Generar enlace",
     GENERATE_REFERRAL_LINK: "Generar enlace de referido",
     GENERATING_LINK: "Generando enlace...",
-    GENERATING_PROOF: "Generando prueba",
     GETTING_STARTED: "Primeros pasos",
-    GET_25_BUY_LIMIT_INSTANTLY: "Obtén al instante un límite de compra de 25",
-    GET_LIMITS_UPTO: "Obtén límites de hasta",
     GET_QUICK_HELP: "Obtener ayuda rápida",
     GET_RECOMMENDATION_FIRST: "Obtén primero una recomendación",
-    GET_RECOMMENDED: "Consigue una recomendación",
-    GET_RECOMMENDED_DESCRIPTION:
-      "Pide un enlace de referido a alguien de confianza en p2p.me para desbloquear límites más altos.",
     GET_VERIFIED: "Verifícate",
     GIVEN: "Otorgadas",
     GOAT_CASH_BANNER_CTA: "Explorar",
@@ -1069,8 +886,6 @@ export const es = {
     GO_HOME: "Ir a inicio",
     GO_PAY: "GoPay",
     GUEST: "Invitado",
-    HANG_TIGHT_THIS_SHOULD_TAKE_ABOUT_20_90_SECONDS_PLEASE_DONT_LEAVE_THIS_PAGE:
-      "Espera un momento, esto debería tardar entre 20 y 90 segundos. No salgas de esta página.",
     HAPTICS: "Respuesta táctil",
     HAPTICS_ALL: "Respuesta táctil completa",
     HAPTICS_ALL_DESC: "Activa la respuesta táctil en todas las interacciones",
@@ -1087,10 +902,7 @@ export const es = {
     HELP: "Ayuda",
     HELP_AND_SUPPORT: "Ayuda y soporte",
     HELP_AND_SUPPORT_DESCRIPTION: "Obtén ayuda con tus operaciones P2P",
-    HELP_CENTER_COMING_SOON: "El centro de ayuda estará disponible pronto",
     HIDE_BALANCE: "Ocultar saldo",
-    HIDE_DETAILS: "Ocultar detalles",
-    HISTORY_AND_SUPPORT: "Historial y soporte",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_1:
       "Después de tocar Obtener acceso, irás a tu página Mis límites.",
     HOW_TO_CLAIM_YOUR_BONUS_STEP_2: "Allí verás tus recompensas.",
@@ -1113,9 +925,6 @@ export const es = {
     IDENTITY_VERIFIED_WITH_REWARD: "Identidad verificada con éxito",
     IDENTITY_VERIFYING: "Verificando tu identidad...",
     IDLE: "Inactivo",
-    INCLUDE_TRANSACTIONS_BY_DISPUTE_STATUS:
-      "Incluir transacciones según el estado de la disputa",
-    INCOMPATIBLE_WALLET: "Wallet incompatible",
     INCORRECT_ORDER_TYPE: "Tipo de pedido incorrecto",
     INCREASE_LIMITS: "Aumentar límites",
     INCREASE_LIMITS_SUBTITLE: "Verifícate para aumentar tus límites",
@@ -1125,8 +934,6 @@ export const es = {
       "Elige cualquier método. Cada verificación que completes aumenta tus límites.",
     INCREASE_LIMITS_WAYS_TITLE: "Desbloquea límites de transacción más altos",
     INCREASE_TRANSACTION_LIMITS: "Aumentar límites de transacción",
-    INCREASE_YOUR_LIMITS: "Aumenta tus límites",
-    INITIALIZING: "Inicializando...",
     INSTALL_APP: "Instalar aplicación",
     INSTALL_NOW: "Instalar ahora",
     INSTALL_PWA_IOS_DESCRIPTION: "Agrega la app a tu pantalla de inicio",
@@ -1144,7 +951,6 @@ export const es = {
     INVALID_BOOST_CONFIG: "Configuración de boost no válida",
     INVALID_CAMPAIGN_ID: "ID de campaña no válido",
     INVALID_CAMPAIGN_PARAMETERS: "Parámetros de campaña no válidos",
-    INVALID_FORMAT: "Formato no válido",
     INVALID_MANAGER_DETAILS: "Datos del administrador no válidos",
     INVALID_MIGRATION_STATUS: "Estado de migración no válido",
     INVALID_ORDER_PAYMENT_ADDRESS: "Dirección de pago del pedido no válida",
@@ -1154,14 +960,7 @@ export const es = {
     INVALID_PAYMENT_CHANNEL_ID: "ID del canal de pago no válido",
     INVALID_PAYMENT_DETAILS_FORMAT: "Formato de datos de pago no válido",
     INVALID_QR_DATA: "Datos del código QR no válidos",
-    INVALID_RECIPIENT_ADDRESS: "Dirección de destinatario no válida",
     INVALID_RECOMMENDATION_PARAMETERS: "Parámetros de recomendación no válidos",
-    INVALID_RELAY_IDENTITY: "Identidad de relé no válida",
-    INVALID_RELAY_IDENTITY_ADDRESS: "Dirección de identidad de relé no válida",
-    INVALID_RELAY_IDENTITY_PRIVATE_KEY:
-      "Clave privada de identidad de relé no válida",
-    INVALID_RELAY_IDENTITY_PUBLIC_KEY:
-      "Clave pública de identidad de relé no válida",
     INVALID_SOCIAL_PLATFORM: "Plataforma de red social no válida",
     INVALID_TIP_AMOUNT: "Monto de propina no válido",
     INVALID_USER_CAMPAIGN_REWARD_PARAMS:
@@ -1178,9 +977,7 @@ export const es = {
     JOIN_MERCHANT_BANNER_DESCRIPTION_SUFFIX: "en cada operación.",
     JOIN_MERCHANT_BANNER_TITLE: "Gana como comerciante",
     KYC_DESCRIPTION: "Verificación segura de pasaporte y prueba de vida",
-    KYC_ERROR: "KYC: {{message}}",
     KYC_NOT_AVAILABLE_FOR_REGION: "El KYC aún no está disponible en tu región",
-    KYC_SUBMISSION_FAILED: "Error al enviar el KYC",
     LABEL_IS_REQUIRED: "La etiqueta es obligatoria",
     LANGUAGE: "Idioma",
     LANGUAGE_REQUIRED: "Idioma requerido",
@@ -1191,7 +988,6 @@ export const es = {
     LAST_4_DIGITS: "Últimos 4 dígitos",
     LAST_7_DAYS: "Últimos 7 días",
     LAST_7_DAYS_SHORT: "7d",
-    LEARN_MORE: "Más información",
     LEARN_MORE_AT: "Más información en",
     LIB_DIAMOND_CUT_ADD_FACET_CANT_BE_ADDRESS_0:
       "La faceta a añadir no puede ser la dirección(0)",
@@ -1204,8 +1000,6 @@ export const es = {
     LIB_DIAMOND_CUT_NO_SELECTORS_IN_FACET_TO_CUT:
       "No hay selectores en la faceta a cortar",
     LIB_DIAMOND_MUST_BE_CONTRACT_OWNER: "Debe ser el propietario del contrato",
-    LIGHTNING_FAST: "Ultrarrápido",
-    LIMIT: "Límite",
     LIMITS_LIVENESS_SUBTITLE:
       "Demuestra que eres una persona real para desbloquear límites",
     LIMITS_PASSPORT_SUBTITLE: "Verifica tu identidad para desbloquear límites",
@@ -1214,7 +1008,6 @@ export const es = {
     LIMITS_UNAVAILABLE_IN_REGION_DESCRIPTION:
       "Esta verificación aún no está disponible para tu moneda seleccionada.",
     LIMITS_UNAVAILABLE_IN_REGION_TITLE: "No disponible en tu región",
-    LIMITS_ZK_KYC_SUBTITLE: "Verifica tus redes sociales de forma privada",
     LIMIT_CARD_MAX_USDC: "Máx. {{amount}} USDC",
     LIMIT_PER_ORDER: "{{limit}} USDC / pedido",
     LIMIT_UPDATES: "Actualizaciones de límites",
@@ -1256,8 +1049,6 @@ export const es = {
       "LinkedIn solo admite actualizaciones de RP",
     LIQUIDITY: "Liquidez",
     LIVENESS_DESCRIPTION: "Verificación facial rápida, sin documentos",
-    LIVENESS_ERROR: "Prueba de vida: {{message}}",
-    LIVENESS_SUBMISSION_FAILED: "Error al enviar la prueba de vida",
     LIVENESS_VERIFIED_WITH_REWARD: "Prueba de vida verificada con éxito",
     LIVENESS_VERIFYING: "Verificando tu prueba de vida...",
     LOADING: "Cargando",
@@ -1270,29 +1061,20 @@ export const es = {
     LOGGED_OUT_SUCCESSFULLY: "Sesión cerrada correctamente",
     LOGIN: "Iniciar sesión",
     LOGIN_AGREE_TERMS: "Al iniciar sesión, aceptas nuestros ",
-    LOGIN_CANCELLED: "Inicio de sesión cancelado",
-    LOGIN_PAGE_POSTER_ALT: "Ilustración de compra y venta",
     LOGIN_PAGE_TITLE: "Intercambia USDC ↔ {{currency}} al instante",
-    LOGIN_REQUIRED: "Debes iniciar sesión",
     LOGIN_TO_CLAIM_YOUR_REWARDS: "Inicia sesión para reclamar tus recompensas",
     LOGIN_TO_CONTINUE: "Inicia sesión para continuar",
     LOGIN_TO_CONTINUE_VERIFICATION:
       "Inicia sesión para continuar la verificación",
     LOGIN_TO_GET_VERIFIED_BUTTON: "Inicia sesión para verificarte",
-    LOGIN_TO_VERIFY: "Inicia sesión para verificar {{socialPlatform}}",
-    LOGOUT: "Cerrar sesión",
-    LOGOUT_ERROR: "Error al cerrar sesión",
-    LOGOUT_SUCCESS: "Sesión cerrada correctamente",
     MAKE_ACTIVE_PAYMENT_ADDRESS:
       "Establecer como {{paymentAddressName}} activa",
     MAKE_ACTIVE_RECEIVING_WALLET: "Establecer como wallet de recepción activa",
-    MALFORMED_URL: "El enlace del QR no tiene un formato válido",
     MANAGER_INACTIVE: "El administrador está inactivo",
     MANAGER_NOT_FOUND: "Administrador no encontrado",
     MARKED_AS_PAID: "Marcado como pagado",
     MARKET_PRICE: "Precio de mercado",
     MAX: "Máx.",
-    MAX_TRANSACTION_LIMIT: "Límite máximo por transacción",
     MAYBE_LATER: "Quizás después",
     MERCHANT: "Comerciante",
     MERCHANT_ACCEPTED: "El comerciante aceptó",
@@ -1300,7 +1082,6 @@ export const es = {
     MERCHANT_ALREADY_BLACKLISTED: "Comerciante ya en la lista negra",
     MERCHANT_ALREADY_REGISTERED: "Comerciante ya registrado",
     MERCHANT_ALREADY_REJECTED: "Comerciante ya rechazado",
-    MERCHANT_ASSIGNED: "Comerciante asignado",
     MERCHANT_BLACKLISTED: "Comerciante en la lista negra",
     MERCHANT_IS_NOT_APPROVED: "El comerciante no está aprobado",
     MERCHANT_IS_NOT_REGISTERED: "El comerciante no está registrado",
@@ -1315,7 +1096,6 @@ export const es = {
     MERCHANT_PLACEHOLDER: "comerciante@p2p.me",
     METHOD_BADGE_FASTEST: "Más rápido",
     METHOD_BADGE_INSTANT: "Instantáneo",
-    METHOD_BADGE_NEEDS_PATIENCE: "Requiere paciencia",
     METHOD_BADGE_QUICK: "Rápido",
     METHOD_LIVENESS_DESCRIPTION:
       "Un chequeo facial rápido, sin documentos, para aumentar tus límites.",
@@ -1326,16 +1106,9 @@ export const es = {
     METHOD_STAKE_DESCRIPTION:
       "Haz stake de $P2P para aumentar tus límites al instante.",
     METHOD_STAKE_TITLE: "Hacer stake de $P2P",
-    METHOD_ZK_KYC_DESCRIPTION:
-      "Verifica tus redes sociales con pruebas de conocimiento cero para aumentar tus límites.",
-    METHOD_ZK_KYC_TITLE: "ZK KYC de Reclaim",
-    MIGRATING_ACCOUNT: "Migrando cuenta",
     MIGRATION_ALREADY_REQUESTED: "Migración ya solicitada",
-    MIGRATION_COMPLETED_SUCCESSFULLY: "Migración completada con éxito",
-    MIGRATION_FAILED: "Migración fallida",
     MISSING_ACCOUNT_OR_CAMPAIGN_PARAMETERS:
       "Faltan parámetros de cuenta o campaña",
-    MISSING_PAYMENT_ADDRESS: "Falta la dirección de pago en el QR",
     MKT_CAP: "CAP. MKT",
     MONTHLY_BUY_ORDER_COUNT_LIMIT_EXCEEDED:
       "Límite mensual de pedidos de compra excedido",
@@ -1346,7 +1119,6 @@ export const es = {
     MOST_TIPPED: "MÁS ELEGIDA",
     MPESA: "M-Pesa",
     MPESA_DETAILS: "número de teléfono, comercio o paybill",
-    MPESA_ID: "Número de teléfono, comercio o paybill M-Pesa",
     MY_LIMITS: "Mis límites",
     MY_STAKE: "Mi stake",
     MY_STAKE_ACTIVITY_COOLDOWN_EXTENDED: "Período de espera extendido",
@@ -1362,7 +1134,6 @@ export const es = {
     MY_STAKE_BOOST_MAXED_OUT: "Boost al máximo",
     MY_STAKE_BOOST_MAXED_OUT_BUTTON: "Boost al máximo",
     MY_STAKE_CLAIM_READY_HEADING: "Tu $P2P está listo para reclamar",
-    MY_STAKE_COOLDOWN_ENDS: "El período de espera termina",
     MY_STAKE_COOLDOWN_HEADING: "Tu $P2P estará disponible en",
     MY_STAKE_COOLDOWN_TIME_REMAINING: "Tiempo restante",
     MY_STAKE_MAX_TOPUP_IS: "Puedes agregar hasta {{amount}} $P2P",
@@ -1370,8 +1141,6 @@ export const es = {
     MY_STAKE_ORDER_LIMIT_BOOSTED: "Límite por pedido aumentado",
     MY_STAKE_STAKED_LABEL: "Mi stake",
     MY_STAKE_STAKE_NOW: "Hacer stake ahora",
-    MY_STAKE_STAKE_TO_INCREASE_LIMIT:
-      "Haz stake para aumentar tu límite por pedido",
     MY_STAKE_TITLE: "Mi stake",
     MY_STAKE_TOPUP_BUTTON: "Haz stake para aumentar el límite",
     MY_STAKE_TOPUP_CONFIRM: "Confirmar",
@@ -1398,20 +1167,14 @@ export const es = {
     NEED_AT_LEAST_150_RP: "Necesitas al menos 150 RP",
     NEED_HELP: "¿Necesitas ayuda?",
     NETWORK: "Red",
-    NETWORK_ISSUE_DESCRIPTION:
-      "Esto podría deberse a restricciones de DNS en tu región. Pero no te preocupes, es fácil de solucionar.",
-    NETWORK_ISSUE_DETECTED: "Problema de red detectado",
     NEW_PAYMENT_CHANNEL_NOT_FOUND: "Nuevo canal de pago no encontrado",
     NEW_PAYMENT_CHANNEL_SHOULD_BE_ACTIVE:
       "El nuevo canal de pago debe estar activo",
-    NEW_TO_P2P_ME_BANNER_DESCRIPTION: "Mira esta guía rápida para empezar",
-    NEW_TO_P2P_ME_BANNER_TITLE: "¿Nuevo en P2P.me?",
     NEXT_LIMIT_UNLOCK: "Próximo desbloqueo de límite",
     NIP: "NIP",
     NONE: "Ninguno",
     NOTE: "Nota",
     NOTE_FOR_CENTRALIZED_EXCHANGES: "Nota para exchanges centralizados",
-    NOTIFICATIONS: "Notificaciones",
     NOT_ADMIN: "No es un administrador",
     NOT_AUTHORISED: "No autorizado",
     NOT_AUTHORIZED: "No autorizado",
@@ -1432,9 +1195,7 @@ export const es = {
     NO_ADDRESS_TO_DEPOSIT: "No hay dirección para depositar",
     NO_AMOUNT_TO_COPY: "El monto todavía no está disponible",
     NO_CAMPAIGN_PARAMETERS_FOUND: "No se encontraron parámetros de campaña",
-    NO_COMPLETED_TRANSACTIONS: "No hay transacciones completadas",
     NO_DISPUTE: "Sin disputa",
-    NO_DISPUTED_TRANSACTIONS: "No se encontraron transacciones en disputa",
     NO_DISPUTE_DECISION: "No hay ninguna decisión que finalizar",
     NO_ELIGIBLE_CIRCLES: "No hay círculos elegibles",
     NO_FAQ_RESULTS: "No encontramos preguntas que coincidan con tu búsqueda.",
@@ -1447,22 +1208,12 @@ export const es = {
     NO_MERCHANTS_TO_MIGRATE: "No hay comerciantes para migrar",
     NO_PENDING_MIGRATION_REQUEST: "No hay solicitud de migración pendiente",
     NO_PENDING_UNSTAKE_REQUEST: "No hay solicitud de retiro pendiente",
-    NO_PROCESSING_TRANSACTIONS: "No hay transacciones en proceso",
     NO_RECOMMENDATIONS_GIVEN: "Aún no diste recomendaciones",
     NO_RECOMMENDATIONS_RECEIVED: "Aún no recibiste recomendaciones",
-    NO_RELAY_IDENTITY_FOUND: "No se encontró identidad de relé",
     NO_REPUTATION: "Sin puntos de reputación",
     NO_REWARDS: "Sin recompensas",
     NO_REWARDS_ACCRUED: "Aún no acumulaste recompensas",
     NO_REWARDS_TO_CLAIM: "No hay recompensas para reclamar",
-    NO_ROUTE_FOUND: "No se encontró una ruta",
-    NO_SAVED_ADDRESSES: "No hay direcciones guardadas",
-    NO_SELL_ADDRESSES: "No hay direcciones de venta",
-    NO_SELL_ADDRESSES_DESCRIPTION:
-      "Agrega tu dirección de venta para elegirla rápido en tus próximas transacciones",
-    NO_SELL_ADDRESSES_TITLE: "No hay direcciones de venta",
-    NO_SELL_ADDRESSES_TITLE_DESCRIPTION:
-      "Agrega tu dirección de venta para elegirla rápido en tus próximas transacciones",
     NO_STAKE: "Sin stake",
     NO_STAKED_AMOUNT: "No hay monto en stake",
     NO_STAKE_TO_CLAIM: "No hay stake para reclamar",
@@ -1474,9 +1225,6 @@ export const es = {
     NO_WITHDRAWABLE_AMOUNT: "No hay monto disponible para retirar",
     NULLIFIER_ALREADY_VERIFIED:
       "Esta identidad ya se usó para verificar una wallet.",
-    OFFICIAL_RANGO_SUPPORT_CHANNELS: "Canales oficiales de soporte de Rango",
-    OFFICIAL_RANGO_SUPPORT_CHANNELS_NOTE:
-      "Nota: Si tu depósito o retiro cross-chain tiene problemas, contacta al soporte de Rango a través de los enlaces oficiales de arriba.",
     OLD_AND_NEW_PAYMENT_CHANNELS_ARE_THE_SAME:
       "Los canales de pago antiguo y nuevo son los mismos",
     OLD_PAYMENT_CHANNEL_NOT_FOUND: "Canal de pago antiguo no encontrado",
@@ -1501,7 +1249,6 @@ export const es = {
       "Inicia sesión para aceptar tu invitación. Te estará esperando en la pantalla de inicio.",
     ONB_REQUEST_IN_PROGRESS_DESCRIPTION:
       "Estamos confirmando esto en la red. Suele tardar unos segundos, así que mantén la app abierta.",
-    ONE_TIME: "{{paymentAddressName}} de un solo uso",
     ONE_TIME_ADDRESS: "Dirección de un solo uso",
     ONE_TIME_PAYMENT_ADDRESS: "{{paymentAddressName}} de un solo uso",
     ONLY_4_PEOPLE_PER_MONTH: "Solo 4 personas al mes",
@@ -1509,7 +1256,6 @@ export const es = {
     ONLY_NEW_USERS_ALLOWED: "Solo se permiten usuarios nuevos",
     ONLY_PAID_BUY_ORDERS_CAN_BE_MARKED_COMPLETE:
       "Solo los pedidos de compra pagados pueden marcarse como completados",
-    ON_TIME: "A tiempo",
     OPEN_COINS_ME: "Abrir coins.me",
     OPEN_IN_NEW_TAB: "Abrir en nueva pestaña",
     OR: "o",
@@ -1525,8 +1271,6 @@ export const es = {
       "{{elapsed}} transcurridos · normalmente menos de {{expected}} min",
     ORDER_ELAPSED_TIME_SECONDS:
       "{{elapsed}} transcurridos · normalmente menos de {{expected}} s",
-    ORDER_ERROR_DESCRIPTION:
-      "¡Uy! Hubo un problema con tu pedido. Contacta a soporte con los detalles del pedido para que podamos ayudarte.",
     ORDER_EXPIRED: "Pedido expirado",
     ORDER_ID: "ID del pedido",
     ORDER_ID_NOT_FOUND: "ID del pedido no encontrado",
@@ -1549,8 +1293,6 @@ export const es = {
     P2P_ECOSYSTEM: "Ecosistema P2P",
     P2P_HOLDINGS: "Tenencias de $P2P",
     P2P_ME_TRANSACTION_RECEIPT: "Recibo de transacción de P2P.me",
-    P2P_ME_UNREACHABLE:
-      "p2p.me no está disponible en este momento. Por favor, inténtalo de nuevo más tarde.",
     P2P_ME_WALLET: "Wallet de P2P.me",
     P2P_SENT_SUCCESSFULLY: "{{amount}} $P2P enviados con éxito",
     P2P_STAKE_APPLIES: "Se aplica",
@@ -1577,7 +1319,6 @@ export const es = {
       "La actividad fraudulenta puede provocar un bloqueo extendido.",
     P2P_STAKE_INPUT_LABEL: "Stake",
     P2P_STAKE_INSTANTLY: "Al instante",
-    P2P_STAKE_INSUFFICIENT_BALANCE: "Saldo de $P2P insuficiente",
     P2P_STAKE_LIMIT_RETURNS_DEFAULT:
       "Tu límite vuelve al valor predeterminado de inmediato.",
     P2P_STAKE_LOCKED_DURING_PERIOD:
@@ -1705,32 +1446,19 @@ export const es = {
       "Retiro de stake cancelado. Tu boost se restableció.",
     P2P_UNSTAKE_CLAIM_BUTTON: "Reclamar $P2P",
     P2P_UNSTAKE_CLAIM_SUCCESS: "$P2P reclamado exitosamente",
-    P2P_UNSTAKE_COOLDOWN_LABEL: "El período de espera termina",
-    P2P_UNSTAKE_COOLDOWN_REMAINING: "Tiempo restante",
-    P2P_UNSTAKE_DESCRIPTION:
-      "Al solicitar el retiro de tu stake, comienza un período de espera. Cuando termine, podrás reclamar tu $P2P en tu wallet.",
-    P2P_UNSTAKE_NO_STAKE: "No tienes ningún stake activo para retirar.",
-    P2P_UNSTAKE_READY_TO_CLAIM: "Listo para reclamar",
-    P2P_UNSTAKE_REQUESTING: "Solicitando...",
-    P2P_UNSTAKE_REQUEST_BUTTON: "Solicitar retiro de stake",
     P2P_UNSTAKE_REQUEST_SUCCESS:
       "Retiro de stake solicitado. Comenzó el período de espera.",
-    P2P_UNSTAKE_STAKED_LABEL: "Actualmente en stake",
-    P2P_UNSTAKE_TITLE: "Retirar stake de $P2P",
     PAGE_NOT_FOUND_DESCRIPTION:
       "Lo sentimos, no pudimos encontrar la página que estás buscando.",
     PAGE_NOT_FOUND_TITLE: "Página no encontrada",
     PAGO_MOVIL: "Pago Móvil",
     PAGO_MOVIL_DETAILS: "Datos de Pago Móvil",
-    PAGO_MOVIL_QR_DETAILS: "QR de Pago Móvil",
     PAID: "Pagado",
     PAID_BY: "Pagado por",
     PAID_MERCHANT: "Comerciante pagado",
     PAID_TO: "Pagado a",
     PAID_VIA: "Pagado a través de",
-    PARSE_FAILED: "Error de análisis",
     PASSPORT_ALREADY_VERIFIED: "Pasaporte ya verificado",
-    PATH: "Ruta",
     PAY: "Pagar",
     PAYBILL_ACCOUNT_NUMBER: "Número de cuenta",
     PAYBILL_NUMBER: "Número de paybill",
@@ -1833,8 +1561,6 @@ export const es = {
     PAYMENT_CHANNEL_NOT_FOUND: "Canal de pago no encontrado",
     PAYMENT_DETAILS: "Datos de pago",
     PAYMENT_DETAILS_ARE_REQUIRED: "Los datos de pago son obligatorios",
-    PAYMENT_DETAILS_NOT_FOUND:
-      "No se encontraron los datos de pago de este pedido",
     PAYMENT_DETAILS_SENT: "Datos de pago enviados",
     PAYMENT_IN_PROGRESS: "Pago en progreso",
     PAYMENT_METHOD: "Método de pago",
@@ -1862,10 +1588,8 @@ export const es = {
     PAY_NOTES_2:
       "Cuando se asigne el comerciante y se abra el escáner, pídele al vendedor que genere o muestre el QR y escanéalo.",
     PAY_NOTES_DESCRIPTION: "La forma correcta de escanear y pagar",
-    PAY_USDC: "Pagar con USDC",
     PAY_USDC_FAQS: "Preguntas frecuentes sobre pagar con USDC",
     PAY_VIA_PAYMENT_METHOD_AND_CONFIRM: "Paga con {{paymentMethod}} y confirma",
-    PAY_VIA_UPI_AND_CONFIRM: "Paga con UPI y confirma",
     PAY_WITHIN: "Paga dentro de",
     PC: "PC",
     PERPS_BANNER_BEAR: "¿Perdiste?",
@@ -1874,24 +1598,10 @@ export const es = {
     PERPS_BANNER_DESCRIPTION:
       "Ganes o pierdas, siempre recibes un 10% de cashback.",
     PERPS_BANNER_YES: "10% de cashback.",
-    PERU_CCI_INVALID:
-      "Ingresa un CCI de 20 dígitos o un celular Yape/Plin (9XXXXXXXX)",
     PERU_CCI_LABEL: "CCI",
     PERU_CCI_PLACEHOLDER: "CCI (20 dígitos)",
-    PERU_NO_QR_ENTER_CCI: "¿No tienes QR? Ingresa tu CCI o celular",
     PERU_PHONE_LABEL: "Celular Yape / Plin",
     PERU_PHONE_PLACEHOLDER: "Celular Yape/Plin (9XXXXXXXX)",
-    PERU_QR_ACCOUNT: "Cuenta",
-    PERU_QR_CHANGE: "Cambiar QR",
-    PERU_QR_DECODING: "Leyendo QR…",
-    PERU_QR_DETECTED: "QR detectado",
-    PERU_QR_INVALID_QR: "Esto no parece un QR de Yape/Plin válido",
-    PERU_QR_READ_ERROR: "No se pudo leer ese QR. Prueba con otra imagen",
-    PERU_QR_UPLOAD: "Subir QR",
-    PERU_QR_UPLOAD_HINT: "Toca para seleccionar una imagen de QR",
-    PERU_QR_UPLOAD_TITLE: "Sube tu QR de Yape/Plin",
-    PERU_QR_VIEW: "Ver QR",
-    PERU_USE_QR_INSTEAD: "Usar QR de Yape/Plin",
     PER_TRANSACTION_LIMITS: "Límites por transacción",
     PER_TRANSACTION_LIMITS_DESCRIPTION:
       "Este es el máximo de USDC que puedes comprar, vender o pagar en un solo pedido. Auméntalo para realizar transacciones más grandes.",
@@ -1911,45 +1621,27 @@ export const es = {
     PLACEHOLDER_PAYMENT_ID_BRL: "user@pix",
     PLACEHOLDER_PAYMENT_ID_CUP: "54004417",
     PLACEHOLDER_PAYMENT_ID_EGP: "01012345678",
-    PLACEHOLDER_PAYMENT_ID_EUR: "DE89370400440532013000",
     PLACEHOLDER_PAYMENT_ID_IDR: "8123456790",
     PLACEHOLDER_PAYMENT_ID_INR: "user@upi",
     PLACEHOLDER_PAYMENT_ID_MEX: "012345678901234567",
-    PLACEHOLDER_PAYMENT_ID_NGN: "1234567890",
-    PLACEHOLDER_PAYMENT_ID_PEN: "00212345678901234567 / 987654321",
     PLACEHOLDER_PAYMENT_ID_USD: "user@email.com",
     PLACEHOLDER_PAYMENT_ID_VEN: "04121234567",
     PLACEHOLDER_RIF: "V12345678",
     PLACE_NEW_ORDER: "Realizar nuevo pedido",
     PLACE_ORDER: "Realizar pedido",
     PLACING_ORDER: "Realizando pedido",
-    PLEASE_ENTER_RECIPIENT_ADDRESS:
-      "Por favor, ingresa la dirección del destinatario",
     PLEASE_ENTER_VALID_AMOUNT: "Por favor, ingresa un monto válido",
     PLEASE_FILL_IN_ALL_FIELDS: "Por favor, completa todos los campos",
     PLEASE_LOGIN_TO_VERIFY: "Por favor, inicia sesión para verificar.",
     PLEASE_LOGIN_TO_VERIFY_SOCIAL:
       "Por favor, inicia sesión para verificar tu red social.",
     PLEASE_SELECT_CURRENCY: "Por favor, selecciona una moneda para continuar",
-    PLEASE_SELECT_DESTINATION_CHAIN:
-      "Por favor, selecciona la cadena de destino",
-    PLEASE_SELECT_DESTINATION_CHAIN_FIRST:
-      "Por favor, selecciona primero la cadena de destino",
-    PLEASE_SELECT_DESTINATION_TOKEN:
-      "Por favor, selecciona el token de destino",
     PLEASE_SELECT_LANGUAGE: "Por favor, selecciona un idioma para continuar",
-    PLEASE_SELECT_SOURCE_CHAIN: "Por favor, selecciona la cadena de origen",
-    PLEASE_SELECT_SOURCE_TOKEN: "Por favor, selecciona el token de origen",
-    PLEASE_TRY_AGAIN_LATER: "Por favor, inténtalo de nuevo más tarde",
     PLEASE_WAIT_WHILE_WE_VERIFY_YOUR:
       "Por favor, espera mientras verificamos tu {{title}}...",
-    POWERED_BY_RANGO: "Con tecnología de Rango",
     POWER_THE_NETWORK_COMMA_EARN_PASSIVELY: "Impulsa la red, gana pasivamente",
     POWER_THE_NETWORK_COMMA_EARN_PASSIVELY_DESCRIPTION:
       "Aporta liquidez en P2P.me y gana hasta un 1.5% por transacción. Toca aquí para saber más.",
-    PREPARE_TO_SCAN_ONCE_MERCHANT_IS_ASSIGNED:
-      "Prepárate para escanear una vez que se asigne el comerciante",
-    PRICE: "Precio",
     PRIZERAIL_BANNER_CTA: "Ver sorteos",
     PRIZERAIL_BANNER_DESCRIPTION:
       "Cada pedido de COMPRA o VENTA te inscribe en el sorteo.",
@@ -1966,7 +1658,6 @@ export const es = {
     PRIZERAIL_DRAW_POOL: "{{entrants}} participantes",
     PRIZERAIL_DRAW_TITLE: "Estás en el sorteo",
     PRIZERAIL_ENTRIES_COUNT: "{{entries}} participaciones",
-    PRIZERAIL_ENTRIES_UNIT: "participaciones",
     PRIZERAIL_ENTRY_COUNT: "{{entries}} participación",
     PRIZERAIL_HOME_ANNOUNCED_IN: "Los ganadores se anunciarán en",
     PRIZERAIL_HOME_DESCRIPTION:
@@ -2015,11 +1706,9 @@ export const es = {
     PRIZERAIL_VIEW_DRAW: "Ver sorteo",
     PRIZERAIL_VIEW_MORE: "Ver más",
     PRIZERAIL_VIEW_ON_PRIZERAIL: "Ver en Prizerail",
-    PRIZERAIL_WON_AMOUNT: "Ganaste {{amount}}",
     PRIZERAIL_WON_IN_DRAW: "Ganaste en {{count}} sorteo",
     PRIZERAIL_WON_IN_DRAWS: "Ganaste en {{count}} sorteos",
     PRIZERAIL_YOUR_ENTRIES: "tus participaciones",
-    PROCEED_TO_PAY: "Continuar al pago",
     PROCESSING: "Procesando",
     PROCESSING_FAILED: "Falló el procesamiento",
     PROCESSING_PAYMENT: "Procesando pago",
@@ -2029,8 +1718,6 @@ export const es = {
     PROOF_APPROVED: "Comprobante aprobado",
     PROOF_BADGE_REQUESTED: "Comprobante solicitado",
     PROOF_BADGE_UPLOADED: "Comprobante listo",
-    PROOF_DESCRIPTION:
-      "Pide al comerciante que adjunte un recibo cifrado para este pedido.",
     PROOF_DOWNLOAD: "Descargar",
     PROOF_DOWNLOAD_FAILED: "Error al descargar",
     PROOF_FILES_TITLE: "Comprobantes de pago",
@@ -2070,15 +1757,10 @@ export const es = {
     PWA_UPDATE_NOT_DOWNLOADING: "¿La actualización no se descarga?",
     PWA_UPDATE_RELOAD_NOW: "Recargar ahora",
     QRIS: "QRIS",
-    QR_CODE_PAYMENT: "Pago con código QR",
-    QR_DATA_EMPTY_OR_INVALID: "Los datos del QR están vacíos o no son válidos",
     QR_PARSED_SUCCESSFULLY: "¡QR analizado con éxito!",
     QR_PROCESSED: "QR procesado",
     QR_SIMPLE: "QR Simple",
     QR_SIMPLE_DETAILS: "Datos de QR Simple",
-    QUICK_FIXES: "Soluciones rápidas",
-    QUOTE_DETAILS: "Detalles de la cotización",
-    QUOTE_NOT_AVAILABLE: "Cotización no disponible",
     RAISED: "Abierta",
     RAISE_A_DISPUTE: "Abrir una disputa",
     RAISE_DISPUTE: "Abrir disputa",
@@ -2091,11 +1773,6 @@ export const es = {
       "¿Pagaste pero no recibiste USDC?",
     RAISE_DISPUTE_FOR_TRANSACTION_DESCRIPTION_SELL_PAY:
       "¿No recibiste el pago del comerciante?",
-    RANGO_REQUEST_ID: "ID de solicitud de Rango",
-    RANGO_REQUEST_ID_COPIED_TO_CLIPBOARD:
-      "ID de solicitud de Rango copiado al portapapeles",
-    RANGO_REQUEST_ID_NOT_FOUND: "ID de solicitud de Rango no encontrado",
-    RANGO_SWAP_ERROR: "El intercambio falló. Por favor, inténtalo de nuevo.",
     RECEIPT_DOWNLOADED_SUCCESSFULLY: "Recibo descargado con éxito",
     RECEIVE: "Recibir",
     RECEIVED: "Recibidas",
@@ -2199,8 +1876,6 @@ export const es = {
       "Clave privada no válida. Debe ser 0x seguido de 64 caracteres hexadecimales.",
     RECOVER_WALLET: "Recuperar fondos",
     RECOVER_WALLET_ADDRESS: "Dirección de la smart wallet",
-    RECOVER_WALLET_WITH_PRIVATE_KEY:
-      "Recuperar una wallet con una clave privada",
     REDATM_BANNER_CTA: "Ver cajeros",
     REDATM_BANNER_DESCRIPTION:
       "Te devolvemos a tu wallet el 100% de la comisión del cajero",
@@ -2208,8 +1883,6 @@ export const es = {
     REFERRALS: "Referidos",
     REFERRAL_BONUS_WAITING: "Bono de referido pendiente",
     REFERRAL_LINK_COPIED: "Enlace de referido copiado al portapapeles",
-    REFERRAL_PARAMS_DESCRIPTION:
-      "Te llevaremos a la página de referidos después de iniciar sesión",
     REFERRAL_PARAMS_DETECTED: "¡Te refirieron!",
     REFERRAL_PROGRESS_MESSAGE:
       "¡Estás a solo {{left}} de alcanzar tu límite de {{target}} para desbloquear Referir y ganar!",
@@ -2219,16 +1892,9 @@ export const es = {
       "Comparte tu enlace de referido con amigos y gana un {{referralRewardPercentage}}% cada vez que operen.",
     REFER_AND_EARN_DESCRIPTION_NON_EARNABLE:
       "Gana un {{referralRewardPercentage}}% en cada operación que hagan tus amigos. ¡Invita a personas de confianza y empieza a ganar hoy!",
-    REFER_BACK: "Referir de vuelta",
     REFER_YOUR_FRIENDS: "Refiere a tus amigos",
-    RELAY_IDENTITY_NOT_FOUND:
-      "No se encontró la identidad de relé. No se puede realizar el pedido.",
-    RELOAD: "Recargar",
-    RELOADING_TO_APPLY_CONFIGURATION:
-      "Recargando para aplicar la configuración...",
     REORDER: "Volver a pedir",
     REQUEST: "Solicitar",
-    REQUESTING_ACCESS: "Solicitando acceso...",
     REQUEST_IN_PROGRESS: "Tu solicitud está en proceso...",
     RESET: "Restablecer",
     RESET_NOW: "Restablecer ahora",
@@ -2244,8 +1910,6 @@ export const es = {
     REVOLUT_ID: "ID de Revolut",
     REWARD: "Recompensa",
     REWARDS: "Recompensas",
-    REWARDS_BANNER_DESCRIPTION: "Refiere a tus amigos y gana bonos en USDC",
-    REWARDS_BANNER_TITLE: "Gana recompensas",
     REWARD_ALREADY_CLAIMED: "Recompensa ya reclamada",
     REWARD_CLAIMED: "¡Recompensa reclamada!",
     REWARD_CLAIMED_DESCRIPTION:
@@ -2256,13 +1920,10 @@ export const es = {
     SAFETY_NOTICE_WALLET:
       "Nunca te pediremos tu OTP, tu clave privada ni tu inicio de sesión a través de enlaces externos. Nunca compartas tus credenciales con nadie.",
     SAVE: "Guardar",
-    SAVED: "{{paymentAddressName}} guardada",
     SAVED_ADDRESS: "Dirección guardada",
     SAVED_ADDRESSES: "{{paymentAddressName}} guardadas",
     SAVED_PAYMENT_ADDRESS: "{{paymentAddressName}} guardada",
     SAVED_WALLET_ADDRESSES: "Direcciones de wallet guardadas",
-    SAVE_REQUEST_ID_FOR_SUPPORT:
-      "Guarda este ID por si necesitas contactar a soporte",
     SCAN_PAY: "Escanear y Pagar",
     SCAN_THIS_QR_CODE_WITH_YOUR_PAYMENT_APP:
       "Escanea este código QR con tu aplicación de pago",
@@ -2273,38 +1934,20 @@ export const es = {
       "Seleccionar dirección para el pedido de compra",
     SELECT_ADDRESS_FOR_SELL_ORDER:
       "Seleccionar dirección para el pedido de venta",
-    SELECT_A_NETWORK: "Selecciona una red",
-    SELECT_A_TOKEN: "Selecciona un token",
-    SELECT_CHAIN_AND_TOKEN: "Seleccionar cadena y token",
-    SELECT_CHAIN_AND_TOKEN_TO_BRIDGE:
-      "Selecciona cadena y token para {{bridgeType}}",
     SELECT_CURRENCY: "Seleccionar moneda",
     SELECT_CURRENCY_AND_LANGUAGE: "Seleccionar moneda e idioma",
     SELECT_CURRENCY_DESCRIPTION:
       "Selecciona la moneda para tus compras, ventas y pagos",
-    SELECT_CUSTOM_DATE_RANGE: "Seleccionar rango de fechas personalizado",
-    SELECT_DATE: "Seleccionar fecha",
-    SELECT_END_DATE: "Seleccionar fecha de fin",
     SELECT_HAPTICS: "Seleccionar respuesta táctil",
     SELECT_HAPTICS_DESCRIPTION: "Administra la respuesta táctil de la app.",
     SELECT_LANGUAGE: "Seleccionar idioma",
     SELECT_LANGUAGE_DESCRIPTION:
       "Elige el idioma de la app. Esto no cambia tu moneda.",
     SELECT_NETWORK: "Seleccionar red",
-    SELECT_NETWORK_TO_VIEW_AVAILABLE_TOKENS:
-      "Selecciona una red para ver los tokens disponibles",
     SELECT_PAYMENT_METHOD: "Selecciona un método de pago",
-    SELECT_SOUNDS: "Seleccionar sonidos",
-    SELECT_SOUNDS_DESCRIPTION: "Administra los sonidos de la app",
-    SELECT_START_DATE: "Seleccionar fecha de inicio",
     SELECT_THEME: "Seleccionar tema",
     SELECT_THEME_DESCRIPTION:
       "Elige tu tema preferido. La opción Sistema usa el tema de tu dispositivo.",
-    SELECT_TIME_PERIOD_FOR_TRANSACTIONS:
-      "Selecciona el período de tiempo para tu historial de transacciones",
-    SELECT_TOKEN: "Seleccionar token",
-    SELECT_TRANSACTION_TYPES_TO_INCLUDE:
-      "Selecciona qué tipos de transacciones incluir en tus resultados",
     SELF_REFERRAL_NOT_ALLOWED: "No puedes referirte a ti mismo",
     SELL: "Vender",
     SELL_AMOUNT_EXCEEDS_FIAT_LIMIT:
@@ -2321,10 +1964,8 @@ export const es = {
       "Límite de monto del pedido de venta excedido",
     SELL_PAY_VOLUME: "Volumen de venta y pago",
     SELL_PRICE: "Precio de venta",
-    SELL_QUIZ_CHECK: "Verificar",
     SELL_QUIZ_FINISH: "Finalizar",
     SELL_QUIZ_NEXT: "Siguiente",
-    SELL_QUIZ_NEXT_IN_SECONDS: "Siguiente en {{seconds}}s",
     SELL_QUIZ_Q1_A1:
       "Para proteger tu cuenta principal de congelamientos y seguir las operaciones fácilmente",
     SELL_QUIZ_Q1_A1_EXPL:
@@ -2380,15 +2021,11 @@ export const es = {
     SEND: "Enviar",
     SENDING: "Enviando",
     SENDING_PAYMENT_DETAILS: "Enviando datos de pago",
-    SENDING_TIP: "Enviando propina...",
     SENDING_YOUR_PAYMENT_DETAILS: "Enviando tus datos de pago",
-    SEND_FEEDBACK: "Enviar comentarios",
     SEND_P2P: "Enviar $P2P",
     SEND_P2P_BASE_ONLY_WARNING:
       "Envía solo a direcciones de la red Base. Si envías a otras redes, perderás tus fondos de forma permanente.",
-    SEND_P2P_DESC: "Envía tokens $P2P a cualquier dirección de wallet en Base",
     SEND_RECEIVE_SWAP: "Enviar · Recibir · Intercambiar",
-    SEND_TIP: "Enviar propina",
     SEND_USDC_FROM_YOUR_P2P_ME_WALLET: "Envía USDC desde tu wallet de P2P.me",
     SENT: "Enviado",
     SEO_DESCRIPTION_BUY:
@@ -2404,7 +2041,6 @@ export const es = {
     SEO_DESCRIPTION_SELL:
       "Vende USDC y recibe moneda local directamente en tu cuenta bancaria, PIX, UPI o billetera móvil en minutos.",
     SESSION_CHANGED: "La sesión cambió",
-    SESSION_NOT_FOUND: "Sesión no encontrada",
     SETTINGS: "Configuración",
     SETTINGS_RESET_SUCCESS:
       "La configuración se restableció a los valores predeterminados",
@@ -2413,7 +2049,6 @@ export const es = {
       "Tu disputa se está confirmando on-chain: esto tarda unos segundos.",
     SETTLED: "Resuelta",
     SHARE: "Compartir",
-    SHARE_FEEDBACK: "Compartir comentarios",
     SHARE_ON_TWITTER: "Compartir en X",
     SHARE_P2P_WITH_FRIENDS: "Comparte p2p.me con amigos",
     SHARE_TEXT_BUY: "¡Compré {{amount}} USDC por {{fiatAmount}} con P2P.me!",
@@ -2435,19 +2070,9 @@ export const es = {
       "Nuestros límites están diseñados para proteger tus operaciones y reducir la posibilidad de que tu banco marque o congele tu cuenta.",
     SMART_LIMITS_NO_FREEZES: "Límites inteligentes = Sin congelamientos",
     SOCIAL_ALREADY_VERIFIED: "Red social ya verificada",
-    SOCIAL_VERIFICATION: "Verificación social para {{name}}",
     SOLD_VIA: "Vendido a través de",
     SOMETHING_WENT_WRONG: "Algo salió mal",
     SOUNDS: "Sonidos",
-    SOUNDS_ALL: "Todos los sonidos",
-    SOUNDS_ALL_DESC:
-      "Reproducir todos los sonidos de notificación e interacción",
-    SOUNDS_ESSENTIAL: "Solo lo esencial",
-    SOUNDS_ESSENTIAL_DESC:
-      "Reproducir solo sonidos de notificación importantes",
-    SOUNDS_NONE: "Sin sonidos",
-    SOUNDS_NONE_DESC: "Desactivar todos los sonidos de notificación",
-    SOURCE_WALLET_NOT_CONNECTED: "Wallet de origen no conectada",
     SPEI: "SPEI",
     SPEND_USDC_ANYWHERE_SCAN_QR:
       "Gasta USDC en cualquier lugar con Escanear y Pagar",
@@ -2457,17 +2082,10 @@ export const es = {
     STAKE_AMOUNT_ZERO: "El monto del stake debe ser mayor que cero",
     STAKE_COOLDOWN_ALREADY_EXTENDED:
       "El período de espera del stake ya se extendió",
-    STAKE_CTA_BUTTON: "Hacer stake de $P2P",
-    STAKE_CTA_BUTTON_MY_STAKE: "Mi stake de $P2P",
-    STAKE_CTA_DESCRIPTION:
-      "Haz stake de tokens $P2P para desbloquear hasta +{{amount}} USDC de límite por transacción en Comprar, Vender y Pagar.",
     STAKE_CTA_INSTANT: "Instantáneo",
     STAKE_CTA_KICKER: "Haz stake de $P2P",
-    STAKE_CTA_RATE_STAKE: "Stake",
-    STAKE_CTA_RATE_UNLOCK: "Desbloquea",
     STAKE_CTA_SUBTITLE: "Hasta {{amount}} USDC en compras, pagos y ventas",
     STAKE_CTA_TITLE: "Aumenta tus límites",
-    STAKE_CTA_TITLE_CARD: "Haz stake de $P2P y aumenta tus límites",
     STAKE_EXCEEDS_MAX_TOKENS: "El stake excede el máximo de tokens permitido",
     STAKE_IN_PROGRESS_DESCRIPTION:
       "Puedes salir de esta pantalla. Te avisaremos cuando termine y tu límite se actualizará automáticamente. Podrás volver a hacer stake cuando finalice.",
@@ -2478,9 +2096,6 @@ export const es = {
     STAKE_STATUS_ACTIVE: "Activo",
     STAKE_STATUS_COOLDOWN: "En espera",
     STAKE_STATUS_SEIZED: "Confiscado",
-    STAK_AMOUNT_TOO_LOW: "Monto de stake demasiado bajo",
-    STARTING_MIGRATION: "Iniciando migración",
-    START_EARNING: "Empezar a ganar",
     STATUS: "Estado",
     STATUS_FILTER: "Estado: {{statuses}}",
     STAY_SECURE: "Mantente seguro",
@@ -2488,7 +2103,6 @@ export const es = {
       "Si congelan tu cuenta por una transacción en P2P.me, nuestro equipo te ayudará a descongelarla, con reembolso del 100% y apoyo legal a través de nuestro portal exclusivo.",
     STUCK_FUNDS_QUICK_SUPPORT: "Fondos atascados = ¡Soporte rápido!",
     SUBMITTING: "Enviando",
-    SUBMITTING_PROOF: "Enviando prueba",
     SUPPORT: "Soporte",
     SUPPORTED_NETWORKS: "Redes compatibles",
     SUPPORT_SCAM_WARNING:
@@ -2530,11 +2144,8 @@ export const es = {
     SUP_ORDER_SUMMARY:
       "Pedido #{{id}} · {{type}} · {{status}} · realizado hace {{minutes}} min",
     SWAP: "Intercambiar",
-    SWAPPED: "Intercambiado",
-    SWAPPER: "Intercambiador",
     SWAPPING: "Intercambiando",
     SWAP_EXCEEDS_LIMIT: "Máximo {{amount}} {{token}} por intercambio",
-    SWAP_FAILED: "Intercambio fallido",
     SWAP_HISTORY: "Historial de intercambios",
     SWAP_INITIATED_SUCCESS: "Intercambio iniciado con éxito",
     SWAP_INSUFFICIENT_BALANCE: "Saldo insuficiente de {{token}}",
@@ -2546,15 +2157,10 @@ export const es = {
     SWAP_REFUNDED: "Reembolsado",
     SWAP_STEP_INITIATING: "(2/2) Iniciando intercambio…",
     SWAP_STEP_TRANSFERRING: "(1/2) Transfiriendo fondos…",
-    SWAP_TXN_NOT_CREATED: "Transacción de intercambio no creada",
     SWAP_USER_TX: "Tx del usuario",
     SW_INSTALLING_UPDATE: "Instalando actualización",
     SW_MAY_TAKE_UP_TO: "Esto puede tardar hasta 2 minutos.",
     SW_PLEASE_WAIT: "Por favor, espera pacientemente.",
-    TAG_RELIABLE: "Confiable",
-    TAP_TO_CUSTOMIZE: "Toca para personalizar",
-    TAP_TO_CUSTOMIZE_DATE_RANGE: "Toca para personalizar el rango de fechas",
-    TAP_TO_SELECT: "Toca para seleccionar",
     TARGET_IS_LONGER_THAN_DATA: "El objetivo es más largo que los datos",
     TASK_AADHAR_VERIFICATION: "Ganado por verificación de Aadhar.",
     TASK_BINANCE_VERIFICATION: "Ganado por verificación de Binance",
@@ -2585,9 +2191,6 @@ export const es = {
     TAX_REPORT_HELP_TITLE: "Informe fiscal",
     TELEGRAM: "Telegram",
     TERMS_AND_CONDITIONS: "Términos y condiciones",
-    TGE_BANNER_CYPHERPUNKS: "$P2P TGE",
-    TGE_BANNER_GET_P2P: "Regístrate",
-    TGE_BANNER_JOIN_MOVEMENT: "Regístrate para participar en",
     THANK_YOU_FOR_YOUR_GENEROSITY: "¡Gracias por tu generosidad!",
     THEME: "Tema",
     THEME_DARK: "Oscuro",
@@ -2607,10 +2210,8 @@ export const es = {
     THIS_MONTH: "Este mes",
     THIS_MONTH_SHORT: "Mes",
     TILL_NUMBER: "Número de comercio (till)",
-    TIME_REMAINING: "Tiempo restante",
     TIP_ALREADY_GIVEN:
       "Ya le diste propina a este comerciante. ¡Gracias por tu generosidad!",
-    TIP_AMOUNT: "Monto de la propina",
     TIP_MERCHANT: "Dar propina al comerciante",
     TIP_MERCHANT_DESCRIPTION:
       "¡Muestra tu agradecimiento por el buen servicio!",
@@ -2620,32 +2221,19 @@ export const es = {
       "¡Propina enviada con éxito! Gracias por tu generosidad.",
     TO: "A",
     TOKEN: "Token",
-    TOKENS_AVAILABLE: "Tokens disponibles",
-    TOKENS_PLURAL_AVAILABLE: "Tokens disponibles",
-    TOKEN_ADDRESS_NOT_SPECIFIED: "Dirección del token no especificada",
     TOKEN_ALREADY_EXISTS: "El token ya existe",
-    TOKEN_BLOCKCHAIN_NOT_SPECIFIED: "Blockchain del token no especificada",
     TOKEN_EMPTY: "El token está vacío",
     TOKEN_NOT_FOUND: "Token no encontrado",
-    TOKEN_SINGULAR: "Token",
     TOKEN_STATS: "Estadísticas del token",
     TOTAL_ORDER_VOLUME: "Volumen total de pedidos",
     TOTAL_PAYABLE_AMOUNT: "Monto total a pagar",
     TOTAL_RECEIVABLE_AMOUNT: "Monto total a recibir",
-    TO_DATE: "Fecha de fin",
     TRADE_ON_SOLANA: "Operar en Solana",
-    TRADING_BANNER_DESCRIPTION:
-      "Consulta las tendencias del mercado antes de operar",
-    TRADING_BANNER_TITLE: "Opera con inteligencia",
     TRANSACTIONS: "Transacciones",
     TRANSACTION_CANCELLED: "Transacción cancelada",
     TRANSACTION_HASH: "Hash de la transacción",
     TRANSACTION_ID: "ID de la transacción",
     TRANSACTION_ID_DOES_NOT_MATCH: "El ID de la transacción no coincide",
-    TRANSACTION_REJECTED: "Transacción rechazada",
-    TRANSACTION_REJECTED_DESCRIPTION:
-      "Rechazaste la transacción. Acéptala en tu wallet para continuar.",
-    TRANSACTION_STATUS: "Estado de la transacción",
     TRANSACTION_SUCCESSFUL: "Transacción exitosa",
     TRANSACTION_TYPES: "Tipos de transacción",
     TRANSFERENCIA: "Transferencia bancaria",
@@ -2654,8 +2242,6 @@ export const es = {
     TRANSFER_FAILED: "Transferencia fallida",
     TRANSFER_THE_AMOUNT_TO_THE_PAYMENT_ADDRESS_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
       "Transfiere el monto a la {{paymentAddressName}} de abajo y toca 'Ya hice el pago' para continuar",
-    TRANSFER_THE_AMOUNT_TO_THE_UPI_ID_BELOW_AND_CLICK_I_HAVE_PAID_TO_CONTINUE:
-      "Transfiere el monto al ID de UPI de abajo y toca 'Ya hice el pago' para continuar",
     TRY_AGAIN: "Intentar de nuevo",
     TRY_NOW: "Pruébalo",
     TWENTY_FOUR_HOUR: "24h",
@@ -2666,10 +2252,7 @@ export const es = {
     UNCLAIMED_USDC_REWARDS: "Recompensas de USDC no reclamadas",
     UNDERFLOW_CANNOT_SUBTRACT_MORE_THAN_BALANCE:
       "Subdesbordamiento: no se puede restar más que el saldo",
-    UNDER_MAINTENANCE_DESCRIPTION: "¡Estamos haciendo mejoras!",
-    UNDER_MAINTENANCE_EXPECTED_COMPLETION: "Finalización estimada: Pronto™",
     UNDER_MAINTENANCE_TITLE: "En mantenimiento",
-    UNFREEZE_BANNER_CTA: "Unfreeze.pro",
     UNFREEZE_BANNER_LABEL: "Pensado para problemas locales",
     UNFREEZE_BANNER_SUBTITLE:
       "¿Te congelaron la cuenta bancaria o te aplicaron una retención? Unfreeze.pro te da un reembolso del 100% + apoyo legal.",
@@ -2683,9 +2266,6 @@ export const es = {
       "El período de espera para retirar el stake aún está activo",
     UNSTAKE_REQUEST_IS_ALREADY_PENDING:
       "Ya hay una solicitud de retiro de stake pendiente",
-    UNSUPPORTED_CURRENCY: "Moneda no compatible para este QR",
-    UPDATE_INSTALLED:
-      "Se instaló la nueva versión V{{version}}. Recarga la página.",
     UPDATING_SETTINGS: "Actualizando configuración",
     UPI: "UPI",
     UPI_ID: "ID de UPI",
@@ -2717,7 +2297,6 @@ export const es = {
       "El usuario no está en la lista negra para extensión",
     USER_YEARLY_VOLUME_LIMIT_EXCEEDED:
       "Límite de volumen anual del usuario excedido",
-    USE_CBBTC_ON_COINSME: "Usa tu cbBTC en coins.me",
     USE_RECOMMENDATIONS_GIVEN_ERROR_FETCHING_VOTES:
       "Error al obtener los votos de",
     USE_RECOMMENDATIONS_GIVEN_ERROR_VALIDATING_VOTES:
@@ -2740,19 +2319,6 @@ export const es = {
       "El límite máximo es de {{limit}} USDC. Aumenta los límites para vender más.",
     VALIDATION_MINIMUM_ORDER: "El monto mínimo del pedido es {{amount}}.",
     VALIDATION_PLEASE_ENTER_AMOUNT: "Por favor, ingresa un monto",
-    VALID_PROOF_NOT_FOUND: "No se encontró una prueba válida",
-    VEN_NO_QR_ENTER_DETAILS: "¿No tienes QR? Ingresa teléfono, cédula y banco",
-    VEN_QR_CHANGE: "Cambiar QR",
-    VEN_QR_CONFIRM: "Confirma que este es tu QR de Pago Móvil",
-    VEN_QR_DECODING: "Leyendo QR…",
-    VEN_QR_DETECTED: "QR detectado",
-    VEN_QR_INVALID_QR: "Esto no parece un QR válido de Pago Móvil",
-    VEN_QR_READ_ERROR: "No se pudo leer ese QR. Prueba con otra imagen",
-    VEN_QR_UPLOAD: "Subir QR",
-    VEN_QR_UPLOAD_HINT: "Toca para seleccionar el QR de tu app bancaria",
-    VEN_QR_UPLOAD_TITLE: "Sube tu QR de Pago Móvil",
-    VEN_QR_VIEW: "Ver QR",
-    VEN_USE_QR_INSTEAD: "Usar QR de Pago Móvil",
     VERIFICATIONS_PRIVATE_DESCRIPTION:
       "Con tecnología de Reclaim Protocol · Nunca vemos tus credenciales.",
     VERIFICATIONS_PRIVATE_TITLE:
@@ -2761,26 +2327,16 @@ export const es = {
     VERIFICATION_DURATION_INFO:
       "Esta verificación tarda entre 3 y 5 minutos en total.",
     VERIFICATION_FAILED: "Verificación fallida",
-    VERIFICATION_FAILED_MESSAGE: "Verificación fallida: {{errorMessage}}",
     VERIFICATION_IN_PROGRESS: "Verificación en curso",
-    VERIFICATION_PARAMS_DESCRIPTION:
-      "Por favor, inicia sesión de nuevo para continuar la verificación de tu cuenta de {{socialPlatform}}",
-    VERIFICATION_PARAMS_DETECTED:
-      "Inicia sesión de nuevo para continuar la verificación",
     VERIFICATION_STEP_1_ALT: "Paso 1 de verificación",
     VERIFICATION_SUCCESS: "Verificación exitosa",
     VERIFIED: "Verificado",
-    VERIFIED_SOCIALS_TO_UNLOCK: "Redes sociales verificadas para desbloquear",
-    VERIFIED_TOAST_TITLE: "¡Se verificó {{title}} correctamente!",
     VERIFYING: "Verificando...",
     VERIFYING_YOUR_PAYMENT: "Verificando tu pago",
-    VERIFY_ATLEAST_ONE_SOCIAL_ACCOUNT: "Verifica al menos una red social",
     VERIFY_ROW_UNLOCKS_AMOUNT: "Desbloquea +{{amount}} USDC",
     VERIFY_ROW_USDC_FOR_ALL: "por transacción",
     VERIFY_SECURELY_DESCRIPTION:
       "Cada verificación en P2P.me usa conocimiento cero. Tus datos se mantienen privados mientras tus límites crecen.",
-    VERIFY_SOCIALS_TO_UNLOCK:
-      "Verifica con ZK cualquier red social para reclamar tu recompensa.",
     VERIFY_SOCIAL_TO_GROW_LIMITS:
       "Verifica al menos una red social para aumentar tus límites, y sigue subiéndolos a medida que completas transacciones.",
     VERIFY_TO_RAISE: "Verifica para aumentar",
@@ -2807,94 +2363,11 @@ export const es = {
     VFX_VERIFICATION_UNAVAILABLE:
       "Esta verificación no está disponible temporalmente. Inténtalo más tarde.",
     VIA_JUPITER: "vía Jupiter",
-    VIDEO_APP_TOUR_LINK: "https://www.youtube.com/watch?v=app-tour",
-    VIDEO_APP_TOUR_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_BUY_SELL_PAY_FLOW: "Flujo de compra, venta y pago",
-    VIDEO_BUY_SELL_PAY_FLOW_LINK:
-      "https://www.youtube.com/watch?v=buy-sell-pay",
-    VIDEO_BUY_SELL_PAY_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_CLAIMING_REFERRAL: "Reclamar recompensas de referidos",
-    VIDEO_CLAIMING_REFERRALS: "Cómo reclamar recompensas de referidos",
-    VIDEO_CLAIMING_REFERRALS_LINK:
-      "https://www.youtube.com/watch?v=claim-rewards",
-    VIDEO_CLAIMING_REFERRALS_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_CLAIMING_REFERRAL_LINK:
-      "https://www.youtube.com/watch?v=claim-referral",
-    VIDEO_CLAIMING_REFERRAL_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_CLAIMING_REWARDS_GENERAL: "Cómo reclamar tus recompensas",
-    VIDEO_CLAIMING_REWARDS_GENERAL_LINK:
-      "https://www.youtube.com/watch?v=claim-general",
-    VIDEO_CLAIMING_REWARDS_GENERAL_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_DEPOSIT_FLOW: "Flujo de depósito",
-    VIDEO_DEPOSIT_FLOW_DETAILED: "Flujo de depósito detallado",
-    VIDEO_DEPOSIT_FLOW_DETAILED_LINK:
-      "https://www.youtube.com/watch?v=deposit-detailed",
-    VIDEO_DEPOSIT_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_DEPOSIT_FLOW_LINK: "https://www.youtube.com/watch?v=deposit-flow",
-    VIDEO_DEPOSIT_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_INCREASE_TRANSACTION_LIMIT:
-      "Cómo aumentar los límites de transacción",
-    VIDEO_INCREASE_TRANSACTION_LIMIT_LINK:
-      "https://www.youtube.com/watch?v=increase-limits",
-    VIDEO_INCREASE_TRANSACTION_LIMIT_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_NETWORK_ISSUE_FIX_VPN:
-      "Problemas de red - Cómo solucionarlos con VPN",
-    VIDEO_NETWORK_ISSUE_FIX_VPN_LINK:
-      "https://www.youtube.com/watch?v=network-fix",
-    VIDEO_NETWORK_ISSUE_FIX_VPN_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_RAISE_DISPUTE: "Cómo abrir una disputa",
-    VIDEO_RAISE_DISPUTE_LINK: "https://www.youtube.com/watch?v=raise-dispute",
-    VIDEO_RAISE_DISPUTE_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_RANGO_SUPPORT_TICKET: "Cómo crear un ticket de soporte en Rango",
-    VIDEO_RANGO_SUPPORT_TICKET_LINK:
-      "https://www.youtube.com/watch?v=rango-support",
-    VIDEO_RANGO_SUPPORT_TICKET_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_RECOMMENDING_SOMEONE: "Cómo recomendar a alguien",
-    VIDEO_RECOMMENDING_SOMEONE_LINK:
-      "https://www.youtube.com/watch?v=recommend",
-    VIDEO_RECOMMENDING_SOMEONE_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_REFERRING_SOMEONE_GENERAL: "Cómo referir a alguien",
-    VIDEO_REFERRING_SOMEONE_GENERAL_LINK:
-      "https://www.youtube.com/watch?v=refer-general",
-    VIDEO_REFERRING_SOMEONE_GENERAL_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_WHAT_IS_P2P_ME: "¿Qué es P2P.me?",
-    VIDEO_WHAT_IS_P2P_ME_LINK: "https://www.youtube.com/watch?v=what-is-p2p",
-    VIDEO_WHAT_IS_P2P_ME_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_WITHDRAW_FLOW: "Flujo de retiro",
-    VIDEO_WITHDRAW_FLOW_DETAILED: "Flujo de retiro detallado",
-    VIDEO_WITHDRAW_FLOW_DETAILED_LINK:
-      "https://www.youtube.com/watch?v=withdraw-detailed",
-    VIDEO_WITHDRAW_FLOW_DETAILED_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_WITHDRAW_FLOW_LINK: "https://www.youtube.com/watch?v=withdraw-flow",
-    VIDEO_WITHDRAW_FLOW_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_BAD_CASES: "Verificación ZK - Problemas comunes",
-    VIDEO_ZK_VERIFICATION_BAD_CASES_LINK:
-      "https://www.youtube.com/watch?v=zk-issues",
-    VIDEO_ZK_VERIFICATION_BAD_CASES_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_GITHUB: "Verificación ZK - GitHub",
-    VIDEO_ZK_VERIFICATION_GITHUB_LINK:
-      "https://www.youtube.com/watch?v=zk-github",
-    VIDEO_ZK_VERIFICATION_GITHUB_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_INSTAGRAM: "Verificación ZK - Instagram",
-    VIDEO_ZK_VERIFICATION_INSTAGRAM_LINK:
-      "https://www.youtube.com/watch?v=zk-instagram",
-    VIDEO_ZK_VERIFICATION_INSTAGRAM_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_LINKEDIN: "Verificación ZK - LinkedIn",
-    VIDEO_ZK_VERIFICATION_LINKEDIN_LINK:
-      "https://www.youtube.com/watch?v=zk-linkedin",
-    VIDEO_ZK_VERIFICATION_LINKEDIN_THUMBNAIL: "https://placehold.co/120x160",
-    VIDEO_ZK_VERIFICATION_TWITTER: "Verificación ZK - Twitter",
-    VIDEO_ZK_VERIFICATION_TWITTER_LINK:
-      "https://www.youtube.com/watch?v=zk-twitter",
-    VIDEO_ZK_VERIFICATION_TWITTER_THUMBNAIL: "https://placehold.co/120x160",
     VIEW_HOLDINGS: "Ver tenencias",
-    VIEW_MORE: "Ver más",
-    VIEW_MORE_DETAILS: "Ver más detalles",
     VIEW_MY_ORDERS: "Ver mis pedidos",
     VIEW_ON: "Ver en",
     VIEW_ORDER_TYPE_FAQS_DESCRIPTION:
       "Ver preguntas frecuentes sobre pedidos de tipo {{orderType}}",
-    VIEW_P2P_TOKEN_HOLDINGS: "Ver tus tenencias de $P2P",
     VODAFONE_CASH: "Vodafone Cash",
     VODAFONE_CASH_DETAILS: "Datos de Vodafone Cash",
     VOTES_PER_EPOCH_EXCEEDED: "Votos por época excedidos",
@@ -2911,25 +2384,17 @@ export const es = {
       "Por qué tu transacción podría haber fallado:",
     WITHDRAW: "Retirar",
     WITHDRAW_BASE_USDC: "Retirar USDC de Base",
-    WITHDRAW_COMPLETED_SUCCESSFULLY: "Retiro completado con éxito",
-    WITHDRAW_FAILED: "El retiro falló",
-    WITHDRAW_FAILED_GENERIC:
-      "El proceso de retiro falló. Por favor, inténtalo de nuevo.",
-    WITHDRAW_PROGRESS: "Progreso del retiro",
-    WITHDRAW_SUCCESSFUL: "Retiro exitoso",
     WITHDRAW_USDC: "Retirar USDC",
     WITHDRAW_USDC_CROSS_CHAIN: "Retirar USDC cross-chain",
     WITHDRAW_USDC_ONLY_TO_BASE_ADDRESSES:
       "Retirar USDC solo a direcciones de Base",
     WITHDRAW_USDC_ON_BASE_NETWORK: "Retirar USDC en la red Base",
     WITHDRAW_USDC_TO_SUPPORTED_CHAINS: "Retirar USDC a cadenas compatibles",
-    WORKS_ON_DEVICE_ONLY: "Funciona solo en {{device}}",
     YAPE_PLIN_CCI: "Yape / Plin / CCI",
     YAPE_PLIN_CCI_DETAILS: "QR de Yape / Plin",
     YEAR_FIELD_NOT_FOUND_IN_PROOF: "Campo de año no encontrado en la prueba",
     YES_CANCEL_ORDER: "Sí, cancelar pedido",
     YOUR_ACTIVITY: "Tu actividad",
-    YOUR_ACTIVITY_30_DAYS: "Tu actividad (últimos 30 días)",
     YOUR_ACTIVITY_FILTERED: "Tu actividad (filtrada)",
     YOUR_BASE_ADDRESS: "Tu dirección de Base",
     YOUR_CURRENCY: "tu moneda",
@@ -2958,4 +2423,4 @@ export const es = {
     ZK_PRIVACY_BANNER_TITLE: "Privado por diseño",
     ZK_VERIFICATION_REQUIRED: "Se requiere verificación ZK",
   },
-} as const;
+};
