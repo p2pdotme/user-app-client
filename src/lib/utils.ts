@@ -145,81 +145,10 @@ export const truncateAmount = (
   }
 };
 
-/**
- * Rounds a numeric amount up (ceiling) to a specified precision.
- *
- * This function always rounds the amount up to the specified number of decimal places.
- *
- * @param {string | number} amount - The amount to round up. Can be a numeric string or number.
- * @param {number} [precision=2] - Number of decimal places to round up to.
- * @returns {number} The amount rounded up to the specified precision.
- *
- * @throws {Error} If the amount cannot be converted to a valid number.
- *
- * @example
- * // Always rounds up to the specified precision
- * ceilAmount(1234.561, 2)   // → 1234.57
- * ceilAmount(1234.567, 2)   // → 1234.57
- * ceilAmount(1234.560001, 2) // → 1234.57
- * ceilAmount(1234.56, 0)      // → 1235
- *
- * // String inputs
- * ceilAmount("1234.561", 2) // → 1234.57
- *
- * // Example showing the difference with truncateAmount for small numbers
- * ceilAmount(0.0009876, 2) // → 0.01
- * truncateAmount(0.0009876, 2) // -> 0.00098 (using significant digits)
- */
-export const ceilAmount = (
-  amount: string | number,
-  precision: number = 2,
-): number => {
-  const numberAmount = Number(amount);
-
-  // Ensure the value is a valid number.
-  if (Number.isNaN(numberAmount)) {
-    throw new Error(
-      "Invalid amount. The provided value cannot be converted to a number.",
-    );
-  }
-
-  const factor = 10 ** precision;
-  return Math.ceil(numberAmount * factor) / factor;
-};
-
 export const roundAmount = (amount: string | number) => {
   const numericAmount = Number(amount) * 1e6;
   const scaledAmount = Math.round(numericAmount / 1e4);
   return scaledAmount / 1e2;
-};
-
-/**
- * Truncates a number to 6 decimal places without rounding.
- *
- * @param n - The number to truncate
- * @returns The number truncated to 6 decimal places
- * @example
- * truncate6(123.456789012) // → 123.456789
- * truncate6(0.123456789) // → 0.123456
- */
-export const truncate6 = (n: number) => Math.trunc(n * 1e6) / 1e6;
-
-/**
- * Converts a duration in seconds to whole days, rounded.
- *
- * @param seconds - Duration in seconds (e.g. on-chain cooldown).
- * @returns Number of days, or `null` if `seconds` is falsy/invalid.
- *
- * @example
- * secondsToDays(1_296_000) // → 15
- * secondsToDays(86_400)    // → 1
- * secondsToDays(0)         // → null
- */
-export const secondsToDays = (
-  seconds: number | null | undefined,
-): number | null => {
-  if (!seconds || !Number.isFinite(seconds)) return null;
-  return Math.round(seconds / 86_400);
 };
 
 type DurationTranslator = (
@@ -306,42 +235,6 @@ export function getBaseDomain() {
   }
 
   return `${currentProtocol}//${baseHostname}`;
-}
-
-/**
- * Determines the current device platform based on the user agent string.
- *
- * This function analyzes the navigator's user agent to identify the operating system
- * of the current device. It supports detection of Android and iOS devices.
- * Yes, userAgent is not a reliable way to detect the platform, but for now, we can deal with it.
- *
- * @returns {'android' | 'ios' | 'unknown'} The identified platform:
- *   - 'android' for Android devices
- *   - 'ios' for Apple devices (iPhone, iPad, iPod)
- *   - 'unknown' for all other platforms (including desktop)
- *
- * @example
- * // On an iPhone
- * getPlatform() // → "ios"
- *
- * // On an Android phone
- * getPlatform() // → "android"
- *
- * // On a desktop browser
- * getPlatform() // → "unknown"
- */
-export function getPlatform() {
-  const ua = navigator.userAgent.toLowerCase();
-
-  if (/android/i.test(ua)) {
-    return "android";
-  }
-
-  if (/iphone|ipad|ipod/i.test(ua)) {
-    return "ios";
-  }
-
-  return "unknown";
 }
 
 /**
@@ -938,46 +831,3 @@ export const isSyncedWithContract = (contractVersion: string) => {
   const appContractVersion = import.meta.env.CONTRACT_VERSION;
   return appContractVersion === contractVersion;
 };
-
-/**
- * Decodes a JWT token payload without signature verification.
- * Useful for reading claims from trusted sources.
- *
- * @param token - The JWT token string
- * @returns The decoded payload as an object, or null if decoding fails
- *
- * @example
- * const payload = decodeJwtPayload(token);
- * if (payload) {
- *   console.log(payload.storedToken?.isNewUser);
- * }
- */
-export function decodeJwtPayload(
-  token: string,
-): Record<string, unknown> | null {
-  try {
-    const parts = token.split(".");
-    if (parts.length !== 3) {
-      console.warn(
-        "[JWT] Invalid JWT format: expected 3 parts, got",
-        parts.length,
-      );
-      return null;
-    }
-    const payload = parts[1];
-    // Handle base64url encoding (replace - with + and _ with /)
-    let base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
-    // Add padding if needed (base64url omits padding, but atob() requires it)
-    const paddingLength = base64.length % 4;
-    if (paddingLength === 2) {
-      base64 += "==";
-    } else if (paddingLength === 3) {
-      base64 += "=";
-    }
-    const decoded = atob(base64);
-    return JSON.parse(decoded) as Record<string, unknown>;
-  } catch (error) {
-    console.error("[JWT] Failed to decode payload:", error);
-    return null;
-  }
-}
