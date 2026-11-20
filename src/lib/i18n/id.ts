@@ -589,129 +589,132 @@ export const id = {
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY:
       "Apakah batas beli dan jual dihitung terpisah?",
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY_ANSWER:
-      "Ya, batas beli dan jual Anda terpisah dan akan naik seiring penggunaan.",
+      "Ya. Limit beli Anda terpisah dari limit jual dan bayar. Keduanya naik saat Anda menyelesaikan verifikasi dan lebih banyak pesanan.",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS:
-      "Apakah deposit dan penarikan bebas biaya gas?",
+      "Apakah saya membayar biaya jaringan (gas)?",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS_ANSWER:
-      "Ya, semua transaksi di P2P.me sepenuhnya bebas biaya gas, termasuk deposit, penarikan, dan trading, selama Anda memakai dompet dalam aplikasi di jaringan Base.",
+      "Tidak di dalam P2P.me. Biaya jaringan (gas) ditanggung untuk penarikan, pesanan, dan semua hal lain yang Anda lakukan dari dompet P2P.me.\n\nAda dua pengecualian: exchange atau dompet asal pengiriman mungkin mengenakan biaya sendiri, dan transfer cross-chain termasuk biaya bridge yang ditampilkan di penawaran harga.",
     FAQ_ARE_THERE_RISKS_REFERRING:
       "Apakah ada risiko jika saya mengajak seseorang?",
     FAQ_ARE_THERE_RISKS_REFERRING_ANSWER:
-      "Ya, ada sedikit risiko. Ajak hanya pengguna yang Anda percaya. Jika pengguna yang Anda ajak terlibat aktivitas penipuan atau mencurigakan, hak referral dan batas transaksi Anda bisa dipotong/ditangguhkan. Protokol tidak kenal ampun, jadi pilih referral Anda dengan bijak!",
+      "Ya. Anda menjamin orang yang Anda ajak. Jika orang yang Anda ajak melakukan penipuan, Anda bisa kehilangan hadiah referral, dan limit Anda bisa dipotong atau ditangguhkan. Ajak hanya orang yang Anda kenal dan percaya.",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS: "Apakah ada batas penarikan?",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS_ANSWER:
-      "Tidak, tidak ada batas penarikan di P2P.me.",
+      "Tidak. Anda bisa menarik berapa pun USDC yang Anda punya, dan limit beli serta jual Anda tidak berlaku. Penarikan cross-chain punya jumlah minimum yang kecil.",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS:
-      "Apa itu Perlindungan Pembekuan Rekening untuk transaksi India di P2P.me?",
+      "Apa itu Perlindungan Pembekuan Rekening (India)?",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER:
-      "P2P.me memberikan jaminan pengembalian dana 100% untuk pengguna India: jika ada transaksi P2P.me (setelah 1 September 2025) yang menyebabkan rekening bank dibekukan atau transaksi diblokir (lien), kami akan mengembalikan seluruh jumlah transaksi dalam USDC langsung ke dompet P2P.me Anda, dan tim hukum komunitas kami akan mendampingi Anda selama proses penyelesaian.\n\nSilakan kunjungi https://unfreeze.pro, portal khusus kami untuk pengguna dan merchant P2P, lalu kirimkan detail insiden penipuan Anda sesegera mungkin. Tim dukungan kami akan memverifikasi ID Pesanan dan bukti dari bank Anda sebelum memproses pengembalian dana dan bantuan hukum.\n\nHanya jumlah yang terkait dengan ID transaksi tersebut yang ditanggung. Saat ini, perlindungan ini hanya berlaku di India. Meskipun kasus seperti ini sangat jarang, kami tetap menyarankan memakai rekening bank terpisah khusus untuk off-ramp.",
+      "Jika pesanan P2P.me yang dibuat setelah 1 September 2025 menyebabkan rekening bank Anda dibekukan atau diblokir (lien), kami mengembalikan jumlah penuh pesanan itu dalam USDC ke dompet P2P.me Anda. Tim hukum komunitas kami juga membantu Anda membuka kembali rekening tersebut.\n\n1. Laporkan secepat mungkin di unfreeze.pro.\n2. Bagikan ID pesanan dan pemberitahuan dari bank.\n3. Setelah kami verifikasi, kami kirim pengembalian dananya.\n\nHanya jumlah pesanan itu yang ditanggung. Hanya tersedia di India.",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT:
+      "Mengapa saya tidak bisa membatalkan saat menunggu merchant?",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT_ANSWER:
+      "Saat pesanan Anda sedang mencari merchant, belum ada yang terjadi: Anda belum membayar, dan pada pesanan jual atau bayar, USDC Anda terkunci aman di pesanan.\n\nJika tidak ada merchant yang menerima dalam beberapa menit, pesanan batal dengan sendirinya dan USDC kembali ke dompet Anda. Pada pesanan beli, Anda bisa membatalkan setelah merchant menerima, tetapi hanya jika Anda belum membayar.",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY:
       "Bisakah saya mengunduh riwayat transaksi?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
-      "Ya! Anda bisa mengunduh riwayat pesanan yang sudah selesai langsung dari bagian Transaksi.",
+      "Ya, bisa. Di Transaksi, atur filter yang Anda inginkan (misalnya rentang tanggal), lalu ketuk Unduh. Anda akan mendapat file CSV berisi pesanan yang ditampilkan, yang bisa dibuka di Excel atau Google Sheets.",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS:
       "Apakah batas yang sudah naik bisa hilang?",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS_ANSWER:
-      "Ya. Batas dapat dikurangi atau dicabut jika:\n• Anda terlibat dalam aktivitas penipuan\n• Anda mengajak pengguna yang ditandai karena penyalahgunaan",
+      "Ya. Limit Anda bisa diturunkan atau dicabut jika:\n• Anda terlibat penipuan atau mengajukan sengketa palsu, atau\n• orang yang Anda ajak ketahuan melakukan penipuan.",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING:
-      "Bisakah saya memakai P2P.me untuk belanja kripto sehari-hari?",
+      "Bisakah saya memakai P2P.me untuk pembayaran sehari-hari?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
-      "Ya! Dengan P2P.me, pembayaran sehari-hari jadi cepat dan mudah. Cukup scan kode QR, bayar dengan USDC, dan pembayaran diterima dalam mata uang lokal dalam hitungan detik.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS:
-      "Bisakah saya menarik USDC ke jaringan lain?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Ya, gunakan fitur Penarikan Cross-Chain lalu:\n• Pilih chain tujuan yang benar\n• Periksa kembali alamat dompet Anda sebelum konfirmasi",
+      "Ya, bisa. Dengan Scan & Pay, Anda memindai QR code pembayaran toko dan bayar dengan USDC. Merchant membayar toko dalam mata uang lokal, biasanya dalam satu menit. Fitur ini tersedia di sebagian besar pasar.",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
-      "Saya tidak ingin menautkan akun sosial, apakah tetap aman?",
+      "Apakah saya harus menautkan akun sosial saya?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
-      "Ya, aman. Anda tidak perlu menautkan akun sosial apa pun.\n\nP2P.me menggunakan bukti zk (zero-knowledge), metode yang mengutamakan privasi untuk membuktikan bahwa Anda pengguna asli tanpa membagikan data pribadi apa pun.\n\nKami sepenuhnya terdesentralisasi, tanpa server atau penyimpanan data. Info Anda selalu pribadi, terenkripsi, dan aman.",
-    FAQ_DO_I_NEED_KYC: "Apakah saya perlu KYC untuk memakai P2P.me?",
+      "Tidak. Verifikasi akun sosial hanya salah satu cara menaikkan limit. Anda bisa memakai pemeriksaan liveness, KYC Paspor (jika tersedia), atau staking.\n\nJika Anda memverifikasi akun sosial, prosesnya privat: Anda membuktikan bahwa akun itu milik Anda, tetapi P2P.me tidak pernah melihat kata sandi, postingan, atau profil Anda, dan tidak ada yang diposting.",
+    FAQ_DO_I_NEED_KYC: "Apakah saya perlu verifikasi identitas (KYC)?",
     FAQ_DO_I_NEED_KYC_ANSWER:
-      "Tidak, KYC tidak diperlukan untuk memulai. Anda bisa langsung membeli, menjual, dan membayar. Untuk batas yang lebih tinggi, Anda bisa memverifikasi identitas secara opsional dengan cara yang tetap menjaga privasi.",
+      "Tidak perlu identitas untuk menjual atau membayar.\n\nUntuk membeli, lakukan verifikasi di Limit Saya dengan LinkedIn, GitHub, atau KYC Paspor (jika tersedia). Paspor tidak wajib: LinkedIn atau GitHub sudah cukup. Pengecekan lain, seperti liveness atau X, menaikkan limit Anda tetapi tidak membuka pembelian dengan sendirinya.",
+    FAQ_FINISH_VERIFICATION: 'Apa arti "Selesaikan verifikasi"?',
+    FAQ_FINISH_VERIFICATION_ANSWER:
+      'Anda sudah lolos pengecekan (seperti pemeriksaan liveness atau paspor), tetapi hasilnya belum tersimpan di akun Anda. Ketuk "Selesaikan verifikasi" di Limit Saya untuk menyimpannya dan menaikkan limit Anda.\n\nLakukan segera: jika Anda menunggu terlalu lama, hasilnya kedaluwarsa dan Anda harus mulai lagi.',
     FAQ_HOW_CAN_I_RAISE_DISPUTE: "Bagaimana cara mengajukan sengketa?",
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
-      "1. Buka halaman Tanda Terima Pesanan.\n2. Ketuk ikon bantuan (?) di kanan atas.\n3. Pilih 'Ajukan Sengketa' dan ikuti instruksinya.",
+      '1. Buka pesanan (Transaksi → ketuk pesanan).\n2. Ketuk ikon bantuan di bagian atas.\n3. Ketuk "Ajukan Sengketa" dan ikuti langkahnya.\n\nJika opsinya belum tersedia, aplikasi menunjukkan kapan opsi itu terbuka atau alasannya. Anda selalu bisa memakai "Chat dengan kami".',
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "Bagaimana cara deposit USDC ke dompet P2P.me saya?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "Anda bisa deposit USDC dengan dua cara:\n• Deposit langsung ke alamat dompet Anda di jaringan Base\n• Deposit cross-chain menggunakan Near Intents (jika Anda mengirim dari jaringan lain)\n\nCatatan: Deposit USDC hanya di jaringan Base. Jangan kirim ETH atau token lain karena dana Anda bisa hilang.",
+      'Di Beranda, ketuk Deposit dan pilih:\n• Deposit Base USDC: salin alamat Anda dan kirim USDC di jaringan Base ke alamat itu.\n• Deposit dari chain lain: masukkan USDC atau token lain dari jaringan lain. Dana masuk sebagai USDC di Base.\n\nHanya kirim USDC di Base ke alamat Anda. Token atau jaringan lain bisa hilang. Jika itu terjadi, lihat "Saya mengirim dana di jaringan yang salah. Bisakah dananya kembali?".',
     FAQ_HOW_DO_I_START_EARNING: "Bagaimana cara mulai mendapat penghasilan?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
-      "Untuk mulai mendapat penghasilan:\n1. Buka bagian 'Ajak & Dapat Hadiah' di aplikasi.\n2. Buat link referral Anda.\n3. Bagikan ke teman tepercaya.\n4. Pastikan mereka mendaftar dan trading menggunakan link Anda.\n\nCatatan: Setiap link referral hanya bisa dipakai oleh satu teman.",
+      "1. Buka Ajak & Dapat Hadiah.\n2. Buat link referral.\n3. Kirim ke orang yang Anda percaya.\n4. Mereka mendaftar dengan link Anda dan mulai trading.\n\nSetiap link hanya berlaku untuk satu orang, jadi buat link baru untuk setiap teman.",
     FAQ_HOW_MANY_USERS_CAN_I_REFER:
       "Berapa banyak pengguna yang bisa saya ajak?",
     FAQ_HOW_MANY_USERS_CAN_I_REFER_ANSWER:
-      "Anda bisa mengajak hingga 4 pengguna per bulan.",
+      "Anda bisa mengajak orang dalam jumlah terbatas setiap bulan. Ajak & Dapat Hadiah menunjukkan sisa referral yang Anda punya.",
     FAQ_HOW_MERCHANTS_SELECTED: "Bagaimana merchant dipilih di P2P.me?",
     FAQ_HOW_MERCHANTS_SELECTED_ANSWER:
-      "Siapa pun bisa stake USDC untuk menjadi merchant, tetapi harus lolos pemeriksaan verifikasi yang ketat. Merchant wajib mengirimkan bukti ZK yang menunjukkan rekening bank yang valid serta tidak punya riwayat pembekuan rekening atau aktivitas mencurigakan. Hanya merchant yang memenuhi standar ini yang bisa melayani pesanan beli.",
+      "Siapa pun bisa mendaftar jadi merchant, tetapi mereka harus mengunci (stake) USDC dan lolos pengecekan dulu. Mereka membuktikan secara privat bahwa mereka punya rekening bank aktif tanpa riwayat pembekuan atau aktivitas mencurigakan. Hanya merchant yang lolos yang bisa memproses pesanan beli, jual, dan bayar.",
     FAQ_HOW_MUCH_CAN_I_EARN: "Berapa banyak yang bisa saya dapatkan?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
-      "Anda mendapatkan 0,5% dari setiap transaksi pengguna yang Anda ajak. Tidak ada batas maksimal, semakin sering mereka trading, semakin banyak yang Anda dapatkan.",
-    FAQ_HOW_PREVENT_FRAUD: "Bagaimana P2P.me mencegah penipuan?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Penipuan di platform P2P tradisional sering terjadi saat penipu mengirim dana fiat curian ke pengguna yang tidak curiga, sehingga rekening dibekukan dan bikin repot. P2P.me punya perlindungan bawaan untuk menjaga Anda tetap aman:\n\n• Bukti Zero-Knowledge (ZK) dan pemeriksaan riwayat untuk semua merchant: Kami memastikan hanya merchant tepercaya yang bisa trading dengan memeriksa aktivitas perbankan mereka. Tidak ada tempat bagi pihak yang mencurigakan.\n• Sistem verifikasi Zk-Social: Pengguna yang belum terverifikasi punya akses terbatas, jadi semuanya tetap eksklusif. Jika Anda sudah terverifikasi, Anda pengguna istimewa bagi kami. Jika belum, coba lagi nanti.\n• Penalti bagi pengguna yang merekomendasikan penipu: Kami bersikap tegas. Jika Anda mengajak seseorang yang berperilaku buruk, bukan hanya mereka yang dikeluarkan. Anda juga bisa kehilangan hak istimewa.\n\nDengan lebih dari 55.000 transaksi yang sudah diproses, tingkat penipuan kami hampir nol. Memang belum sempurna, tapi sudah sangat mendekati.",
+      "Anda mendapat persentase dari setiap trade yang dilakukan orang yang Anda ajak. Tingkat saat ini ditampilkan di halaman Ajak & Dapat Hadiah. Tidak ada batas maksimal: semakin banyak mereka trading, semakin banyak yang Anda dapat.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
-      "Bagaimana P2P.me melindungi Anda dari pembekuan rekening akibat penipuan?",
+      "Bagaimana cara menghindari pembekuan rekening bank?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
-      "1. Perlindungan Tingkat Pertama\n• Verifikasi ZK-Social memblokir penipu sebelum bisa mengakses protokol.\n• Tingkat penipuan kami sangat rendah, kurang dari 1 dari 25.000 transaksi\n\n2. Perlindungan Tingkat Kedua\n• Selalu gunakan rekening bank terpisah untuk off-ramp P2P.\n• Hindari mencampur dana dari rekening ini dengan rekening utama Anda.\n• Tips: Membuka rekening terpisah mudah di Jio Payments Bank atau Airtel Payments Bank di India.\n\n3. Perlindungan Tingkat Ketiga\n• Jika rekening Anda dibekukan, kunjungi Unfreeze.pro, portal khusus yang kami buat untuk pengguna dan merchant P2P.me. Tim hukum kami akan membantu Anda memulihkan dana secara gratis.",
+      "P2P.me memeriksa pengguna dan merchant untuk mencegah masuknya uang curian, jadi pembekuan jarang terjadi. Anda bisa menurunkan risikonya lagi:\n• Gunakan rekening bank terpisah khusus untuk pesanan P2P, dan simpan tabungan utama Anda di tempat lain.\n• Bayar dan terima hanya dari rekening atas nama Anda sendiri.\n• Jangan sebut kripto, USDC, atau P2P.me di catatan pembayaran.\n\nJika tetap terjadi, laporkan di unfreeze.pro untuk bantuan hukum gratis.",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
-      "Bagaimana cara memulihkan dana jika saya salah mengirim token atau salah jaringan?",
+      "Saya mengirim dana di jaringan yang salah. Bisakah dananya kembali?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "Jika Anda tidak sengaja mengirim token yang tidak didukung atau menggunakan jaringan yang berbeda, dana Anda masih bisa dipulihkan, selama dikirim ke alamat dompet Anda yang benar.\n\nAnda bisa menggunakan bridge cross-chain seperti Relay.link atau Jumper.Exchange untuk mengonversi token tersebut menjadi USDC di jaringan Base, yang didukung di P2P.me.\n\nCara melakukannya:\n1. Buka Relay.link dalam tampilan desktop.\n2. Hubungkan dompet Anda menggunakan WalletConnect.\n3. Di situs bridge, pilih WalletConnect dan salin URI koneksi.\n4. Di beranda aplikasi P2P.me, buka Wallet → Kelola Dompet → Hubungkan Aplikasi, tempel URI, dan konfirmasi untuk terhubung ke Relay.link.\n5. Kembali ke Relay Bridge dan pilih token serta jaringan yang salah Anda gunakan di bagian 'From/Buy', lalu pilih USDC di Base pada bagian 'To/Sell'.\n6. Klik tombol Swap untuk memulai transaksi, dan tunggu sampai selesai.\n7. Kembali ke aplikasi P2P.me dan segarkan dompet Anda. USDC Anda seharusnya sudah muncul.\n\nButuh bantuan? Hubungi kanal dukungan Telegram P2P.me.\n\nPastikan: Anda memilih USDC di Base sebagai tujuan.",
+      "Sering kali bisa, jika Anda mengirimnya ke alamat P2P.me Anda sendiri di jaringan lain seperti Ethereum, Arbitrum, Polygon, atau BNB Chain. Alamat Anda sama di semua jaringan itu.\n1. Buka Bantuan & Dukungan → Mengirim dana di jaringan yang salah? → Pulihkan token.\n2. Pilih jaringan yang Anda gunakan untuk mengirim.\n3. Pilih token dan kirim ke alamat yang Anda kendalikan, seperti exchange Anda.\n\nAnda mungkin memerlukan sedikit koin jaringan itu untuk biayanya. Dana yang dikirim di Tron atau Solana tidak bisa dipulihkan dengan cara ini.",
     FAQ_HOW_SECURE_TRANSACTIONS:
-      "Bagaimana P2P.me menjamin keamanan transaksi?",
+      "Bagaimana P2P.me menjaga pesanan saya tetap aman?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
-      "Protokol tidak menyimpan dana pengguna. Semua transaksi berlangsung secara P2P antara pembeli dan merchant. Demi keamanan, merchant menjalani verifikasi berbasis ZK dan aktivitas perbankannya ditinjau sebelum diizinkan menerima pesanan. Ini mengurangi risiko penipuan atau pembekuan rekening.",
+      "• Merchant diperiksa dulu sebelum bisa memproses pesanan, memakai bukti privat dari riwayat bank mereka.\n• Pada pesanan jual dan bayar, USDC Anda dikunci di pesanan sampai merchant menandai pembayaran sebagai terkirim. Jika tidak ada merchant yang menerima, USDC kembali ke Anda.\n• Jika merchant tidak membayar, atau tidak mengonfirmasi pembayaran Anda, Anda bisa mengajukan sengketa dari layar bantuan pesanan.",
     FAQ_HOW_TO_BUY_USDC_FIAT:
-      "Cara Membeli USDC di P2P.me Menggunakan Fiat atau Mata Uang Lokal",
+      "Bagaimana cara membeli USDC dengan mata uang lokal?",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Ketuk 'Beli USDC' di Beranda.\n2. Masukkan jumlah dan alamat penerima → Lanjut ke Pembayaran.\n3. Merchant akan ditunjuk dan membagikan detail pembayaran.\n4. Bayar via UPI/PIX/QRIS di aplikasi lokal Anda, lalu ketuk 'Saya sudah melakukan pembayaran'.\n5. Setelah merchant mengonfirmasi, USDC dikirim dalam hitungan detik.\n\nCatatan: Pengguna baru (0 verifikasi zk) mulai dari $10 per pesanan, 1 pembelian/hari. Selesaikan verifikasi zk untuk menaikkan limit.",
+      '1. Di Beranda, ketuk Beli USDC, masukkan jumlah, lalu buat pesanan.\n2. Tunggu merchant menerima (biasanya kurang dari 90 detik). Jika tidak ada yang menerima dalam 3 menit, pesanan dibatalkan. Anda belum membayar apa pun.\n3. Bayar jumlah yang tepat ke detail merchant, dari rekening atas nama Anda sendiri, sebelum waktu habis (sekitar 5 menit). Jangan sebut kripto atau USDC di catatan pembayaran.\n4. Ketuk "Saya sudah melakukan pembayaran".\n5. Setelah merchant mengonfirmasi, USDC masuk ke dompet Anda.\n\nSebelum pembelian pertama, lakukan verifikasi di Limit Saya dengan LinkedIn, GitHub, atau KYC Paspor (jika tersedia).',
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "Bagaimana cara menghitung pajak atas pesanan P2P.me saya?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
-      "Buka laporan pajak dari Bantuan & Dukungan. Laporan ini membaca pesanan P2P.me Anda yang sudah selesai dan memperkirakan pajak penghasilan kripto (VDA) untuk tahun pajak India yang Anda pilih: 30% atas keuntungan, ditambah surcharge dan cess. Anda juga mendapat tabel Schedule VDA, tanggal pajak di muka, dan pemeriksaan TDS untuk dipakai saat pelaporan.\n\nMelaporkan pajak adalah tanggung jawab Anda sendiri. P2P.me tidak memotong, melaporkan, atau menyampaikan apa pun untuk Anda, dan angkanya hanyalah perkiraan, bukan nasihat pajak. Harap konfirmasi dengan Chartered Accountant sebelum melapor.",
+      "Buka Bantuan & Dukungan → Laporan pajak. Fitur ini memakai pesanan P2P.me Anda yang sudah selesai untuk memperkirakan pajak kripto (VDA) untuk tahun buku yang Anda pilih: 30% atas keuntungan, ditambah surcharge dan cess. Fitur ini juga memberi Anda tabel Schedule VDA, tanggal advance tax, dan pengecekan TDS.\n\nAngkanya hanya perkiraan, bukan saran pajak. P2P.me tidak mengajukan apa pun untuk Anda, jadi tanyakan ke Chartered Accountant sebelum lapor pajak.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
-      "Cara Deposit dan Tarik dari Exchange seperti Binance, MEXC, atau Dompet Lain ke P2P.me",
+      "Bagaimana cara memindahkan USDC antara exchange (seperti Binance) dan P2P.me?",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
-      "Deposit USDC:\nDari Exchange (Binance, MEXC, dll.):\n1. Beranda → Deposit.\n2. Ketuk 'Terima USDC' untuk menyalin alamat dompet Base Anda.\n3. Di exchange Anda, tarik USDC ke alamat tersebut di Base.\n\nDari Dompet (MetaMask, Phantom, dll.):\n1. Buka dompet dan pilih jaringan Base.\n2. Kirim USDC ke alamat dompet P2P.me Anda (lihat di 'Terima USDC').\n\nTarik USDC:\nKe Exchange:\n1. Beranda → Tarik → USDC.\n2. Tempel alamat deposit USDC exchange Anda di Base.\n3. Konfirmasi.\n\nKe Dompet:\n1. Beranda → Tarik → USDC.\n2. Masukkan alamat dompet Anda. Jika di jaringan lain, gunakan Penarikan Cross-Chain.\n\nCatatan: P2P.me berjalan di Base. Untuk deposit/penarikan langsung, gunakan Base saja. Jika salah jaringan/token, lihat FAQ pemulihan dana.",
-    FAQ_HOW_TO_EARN_MONEY: "Cara Mendapat Penghasilan di P2P.me",
+      'P2P.me memakai USDC di jaringan Base, jadi selalu pilih Base saat Anda mengirim atau menarik.\n\nUntuk menambah USDC:\n1. Di Beranda, ketuk Deposit → Deposit Base USDC dan salin alamat Anda.\n2. Di exchange, tarik USDC ke alamat itu dan pilih jaringan Base.\n\nUntuk mengirim USDC keluar:\n1. Di Beranda, ketuk Tarik → Tarik Base USDC.\n2. Tempel alamat deposit USDC exchange untuk Base, masukkan jumlah, lalu konfirmasi.\n\nExchange tidak mendukung Base? Gunakan "Deposit dari chain lain" atau "Tarik USDC cross-chain".',
+    FAQ_HOW_TO_EARN_MONEY: "Bagaimana cara mendapat penghasilan dengan P2P.me?",
     FAQ_HOW_TO_EARN_MONEY_ANSWER:
-      "Ada dua cara untuk mendapat penghasilan di P2P.me:\n\n1. Ajak Pengguna: Setelah batas beli Anda di atas $150, Anda bisa mulai mengajak pengguna lewat aplikasi P2P.me dan mendapatkan 0,5% dari volume trading mereka.\n2. Jadi Merchant Terverifikasi: Anda juga bisa mendapat penghasilan dengan menjadi Merchant Terverifikasi di protokol lp.p2p.me dan melayani pesanan peer-to-peer.",
-    FAQ_HOW_TO_INCREASE_LIMITS:
-      "Bagaimana cara menaikkan batas beli/jual saya?",
+      "Ada dua cara:\n1. Ajak teman: setelah limit beli Anda mencapai 150 USDC, bagikan link Anda dari Ajak & Dapat Hadiah dan dapatkan bagian dari setiap trade yang dilakukan teman Anda.\n2. Menjadi merchant: proses pesanan pengguna lain dan dapatkan penghasilan dari setiap pesanan. Info lebih lanjut di lp.p2p.me.",
+    FAQ_HOW_TO_INCREASE_LIMITS: "Bagaimana cara menaikkan limit?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "Anda dapat meningkatkan limit dengan dua cara:\n\n1. Selesaikan setidaknya satu verifikasi zk sosial di halaman Limit Saya untuk langsung menaikkan limit dan membuka hingga 5 pesanan beli per hari.\n\n2. Verifikasi identitas Anda menggunakan:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nSetelah verifikasi zk pertama selesai, Anda dapat terus meningkatkan limit dengan menyelesaikan lebih banyak transaksi di P2P.me.\n\nCatatan: Kami tidak mengumpulkan atau membagikan data pribadi Anda. Semua verifikasi menggunakan bukti zero-knowledge, sehingga informasi Anda tetap privat dan aman karena hanya hal yang diperlukan yang dibuktikan. Karena kami tidak menyimpan data Anda, kami tidak dapat membagikannya ke siapa pun di masa depan.",
+      "Buka Limit Saya dari menu (atau ketuk Tingkatkan Batas Transaksi di Beranda) dan selesaikan salah satu dari ini:\n• Pemeriksaan liveness: scan wajah singkat, tanpa dokumen (tidak tersedia di India)\n• KYC Paspor: scan paspor dan ambil selfie (jika tersedia)\n• Verifikasi akun sosial, seperti LinkedIn, GitHub, atau X\n• Pengecekan BVN (khusus Nigeria)\n• Stake token $P2P\n\nSetiap opsi menunjukkan berapa tambahan limit per pesanan yang Anda dapat. Menyelesaikan lebih banyak pesanan juga menaikkan limit Anda seiring waktu.",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY:
-      "Bagaimana cara membayar dengan Scan & Pay di P2P.me?",
+      "Bagaimana cara membayar di toko dengan Scan & Pay?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
-      "- Dapatkan jumlah tagihan - Minta tagihan dari toko dan konfirmasikan totalnya.\n- Buka P2P.me - Ketuk Scan & Pay, masukkan jumlah tagihan, dan buat pesanan. Setelah pesanan diterima merchant P2P.me, pemindai di aplikasi akan terbuka.\n- Minta toko untuk membuat kode QR pembayaran - Minta toko untuk membuat QR di mesin POS mereka hanya setelah pemindai P2P.me terbuka. (Catatan: QR POS biasanya kedaluwarsa dalam ~2 menit, jadi ketepatan waktu sangat penting.)\n- Pindai & tunggu - Gunakan pemindai P2P.me untuk memindai QR. Kebanyakan pembayaran diproses dalam 60 detik, jadi tunggu dengan sabar.\n- QR Statis - Jika toko memiliki kode QR statis, prosesnya lebih mudah karena Anda punya lebih banyak waktu untuk menyelesaikan pembayaran.",
+      "1. Pastikan jumlah tagihan dengan toko.\n2. Di Beranda, ketuk Scan & Pay, masukkan jumlah, lalu buat pesanan.\n3. Tunggu merchant menerima. Setelah itu, scanner akan terbuka.\n4. Baru sekarang minta toko membuat QR pembayaran. QR code di mesin kartu sering kedaluwarsa dalam sekitar 2 menit.\n5. Scan QR dan biarkan halaman tetap terbuka. Sebagian besar pembayaran selesai dalam 60 detik.\n\nQR code cetak (statis) tidak kedaluwarsa, jadi Anda punya lebih banyak waktu.",
     FAQ_HOW_TO_SCAN_PAY_QR:
-      "Bisakah Saya Scan Kode QR Apa Pun dan Bayar dengan USDC di P2P.me?",
+      "QR code apa saja yang bisa dibayar dengan Scan & Pay?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
-      "Bisa. Anda dapat memindai QR UPI (India), PIX (Brasil), atau QRIS (Indonesia).\n\n1. Ketuk 'Scan & Pay QR'.\n2. Masukkan jumlah jika belum tercantum di QR.\n3. Merchant akan ditunjuk untuk memproses pembayaran.\n4. Pindai QR UPI/PIX/QRIS; detail dikirim ke merchant.\n\nCatatan: Tetap di halaman sampai detail pembayaran Anda terkirim.",
+      "Anda bisa membayar QR code pembayaran lokal di negara Anda, seperti UPI di India, PIX di Brasil, atau QRIS di Indonesia. Anda bayar dengan USDC, lalu merchant membayar QR tersebut dalam mata uang lokal.\n\nScan & Pay tersedia di sebagian besar pasar, tetapi belum tersedia di Kenya. Jika Anda tidak melihat Scan & Pay di Beranda, fitur ini belum tersedia untuk mata uang yang Anda pilih.",
     FAQ_HOW_TO_SELL_USDC:
-      "Bagaimana cara menjual USDC dan menerima dana ke detail pembayaran saya?",
+      "Bagaimana cara menjual USDC dan menerima uang ke bank atau aplikasi pembayaran?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Ketuk 'Jual USDC'.\n2. Masukkan jumlah dan detail UPI/PIX/QRIS Anda → Lanjut.\n3. Merchant akan ditunjuk.\n4. Setelah USDC Anda diterima, fiat dikirim ke detail pembayaran Anda.\n\nCatatan: Batas jual default $100 per pesanan, maksimal 10 pesanan/hari. Verifikasi zk untuk menaikkan limit.",
+      "1. Di Beranda, ketuk Jual USDC, masukkan jumlah, tambahkan tujuan pembayaran Anda (misalnya UPI ID atau kunci PIX), lalu buat pesanan. USDC Anda dikunci di pesanan sampai selesai.\n2. Biarkan halaman tetap terbuka. Saat merchant menerima (biasanya 20–90 detik), aplikasi mengirim detail pembayaran Anda ke mereka.\n3. Merchant mengirim uang dan menandainya sebagai terkirim.\n4. Periksa bank atau aplikasi pembayaran Anda.\n\nJika tidak ada merchant yang menerima tepat waktu, pesanan dibatalkan dan USDC Anda kembali ke dompet Anda.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
-      "Bagaimana cara memverifikasi akun sosial saya dengan bukti zk untuk menaikkan limit?",
+      "Bagaimana cara memverifikasi akun sosial untuk menaikkan limit?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
-      "Anda bisa menaikkan limit dengan memverifikasi akun sosial Anda (X, Instagram, LinkedIn, atau GitHub) menggunakan bukti zk. Didukung oleh Reclaim untuk verifikasi yang aman dan menjaga privasi tanpa perlu instalasi aplikasi penuh, sehingga prosesnya cepat dan mudah.\n\nCaranya:\nLangkah 1: Setelah klik verifikasi, ketuk untuk membuka app clip.\nLangkah 2: Selesaikan login sosial (X, Instagram, LinkedIn, atau GitHub) dan ikuti instruksi di layar.\nLangkah 3: Tunggu sampai bukti selesai dibuat. Verifikasi akan selesai otomatis begitu bukti Anda siap.\n\nCatatan: Jika gagal di percobaan pertama, coba lagi dengan sabar. Pembuatan bukti zk bisa memakan waktu sebentar agar prosesnya tetap aman.",
+      "1. Buka Limit Saya → Verifikasi akun sosial dan pilih salah satu (seperti LinkedIn, GitHub, atau X).\n2. Ikuti link ke aplikasi Reclaim Verifier. Instal dari App Store atau Google Play jika diminta.\n3. Login ke akun sosial Anda di sana dan ikuti langkahnya.\n4. Kembali ke P2P.me. Pengecekan selesai dengan sendirinya, biasanya dalam 3–5 menit.\n\nJika gagal, coba lagi. Di India, akun lain baru muncul setelah Anda memverifikasi LinkedIn, GitHub, atau KYC Paspor.",
     FAQ_HOW_WITHDRAW_FUNDS: "Bagaimana cara menarik dana dari P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "Anda dapat menarik USDC dengan:\n• Mengirim langsung ke alamat dompet Base, atau\n• Menggunakan Penarikan Cross-Chain via Near Intents untuk memindahkan dana ke chain lain.",
+      "Di Beranda, ketuk Tarik dan pilih:\n• Tarik Base USDC: masukkan alamat dan jumlah, periksa detailnya, lalu ketuk Konfirmasi & kirim. Dompet atau exchange penerima harus mendukung USDC di Base.\n• Tarik USDC cross-chain: kirim ke jaringan lain (daftar yang didukung ada di sana). Ini memakai NEAR Intents.\n\nPenarikan tidak bisa dibatalkan, jadi periksa ulang alamatnya.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
-      "Apakah P2P.me mematuhi hukum anti pencucian uang (AML)?",
+      "Apakah P2P.me mengikuti aturan anti pencucian uang (AML)?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
-      "Ya, kami serius soal AML, tetapi dengan cara yang tetap menjaga privasi! P2P.me sejalan dengan semangat pedoman FATF melalui:\n\n• Batas default yang kecil: Agar risiko tetap rendah di awal.\n• KYC zero-knowledge: Kami tidak menyimpan info Anda, tetapi tetap memverifikasi Anda demi kepercayaan.\n• Reputasi on-chain: Sistem reputasi yang membantu mencegah aktivitas mencurigakan.\n\nKami membangun pengaman yang melindungi Anda sekaligus menghormati privasi Anda. Yang terbaik dari dua sisi!",
+      "P2P.me mengikuti semangat pedoman AML internasional (FATF) sambil tetap melindungi privasi Anda:\n• Akun baru dimulai dengan limit kecil.\n• Limit lebih tinggi memerlukan verifikasi, yang dilakukan dengan bukti privat.\n• Setiap akun membangun reputasi dari riwayatnya, yang membantu memblokir pelaku jahat.",
     FAQ_IS_P2P_ME_SAFE: "Apakah P2P.me aman digunakan?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
-      "Ya. P2P.me dirancang dengan keamanan pengguna sebagai prioritas utama. Semua merchant di platform diverifikasi secara personal. Sebelum bergabung, mereka harus mengirimkan bukti zero-knowledge (ZK-proofs) atas aktivitas perbankan mereka untuk membuktikan bahwa mereka pengguna yang sah dan aktif tanpa riwayat pembekuan rekening atau penipuan. Dengan begitu, dana merchant aman dan transaksi bisa dipercaya.",
+      "Ya. Setiap merchant diperiksa dulu sebelum bisa memproses pesanan: mereka membuktikan secara privat bahwa rekening bank mereka aktif dan tidak punya riwayat pembekuan atau penipuan.\n\nSaat Anda menjual atau membayar, USDC Anda dikunci di pesanan sampai merchant membayar. Jika ada masalah, Anda bisa mengajukan sengketa dari pesanan. Dompet Anda milik Anda, dan P2P.me tidak bisa memindahkan dana Anda.",
+    FAQ_PAID_BUT_ORDER_CANCELLED:
+      "Saya sudah membayar, tetapi pesanan beli saya dibatalkan atau waktunya habis. Apa yang harus saya lakukan sekarang?",
+    FAQ_PAID_BUT_ORDER_CANCELLED_ANSWER:
+      'Jangan membayar lagi. Uang Anda tidak hilang.\n• Jika pesanan menampilkan Dibatalkan: buka pesanan, ketuk ikon bantuan, dan ajukan sengketa. Sengketa bisa diajukan 15 menit setelah Anda membuat pesanan dan tetap terbuka selama 24 jam.\n• Jika tertulis waktu pembayaran sudah habis: ketuk "Chat dengan kami" dan bagikan referensi pembayaran Anda (seperti UPI UTR).\n\nTim dukungan akan memeriksa dengan merchant dan menyelesaikannya.',
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "Bagaimana cara memulihkan dana menggunakan kunci pribadi saya?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      'Jika Anda kehilangan akses ke akun tetapi masih punya kunci pribadi dompet, Anda tetap bisa memulihkan USDC Anda.\n\n1. Buka halaman "Pulihkan Dana".\n2. Tempel kunci pribadi Anda untuk memuat smart wallet Anda.\n3. Masukkan alamat dompet P2P.me lain dan jumlahnya.\n4. Ketuk Pulihkan dana untuk mengirim.\n\nJangan pernah membagikan kunci pribadi Anda kepada siapa pun.',
+      "Jika Anda tidak bisa login tetapi punya private key dompet Anda (kode rahasia yang mengendalikan dompet Anda):\n1. Buka Pulihkan Dana (link di bawah).\n2. Tempel private key untuk memuat dompet Anda.\n3. Pilih USDC atau $P2P, lalu masukkan alamat Base yang Anda kendalikan dan jumlahnya.\n4. Ketuk Pulihkan dana.\n\nJangan pernah membagikan private key Anda. Tim dukungan P2P.me tidak akan pernah memintanya.",
     FAQ_SCAN_PAY_REFUND_POLICY:
       "Bisakah saya mendapatkan refund untuk pesanan Scan & Pay?",
     FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
@@ -719,119 +722,118 @@ export const id = {
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "Penjaga toko minta bukti pembayaran, apa yang harus saya lakukan?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
-      '1. Salin UPI ID merchant dari pesanan Anda.\n2. Tempel di aplikasi UPI Anda untuk melihat nama mereka.\n3. Sampaikan ke penjaga toko: "Anda seharusnya sudah menerima ₹XXXX dari [Nama]."\n4. Jika mereka masih menyangkal, hubungi dukungan. Kami akan mengirimkan screenshot untuk ditunjukkan kepada mereka.',
-    FAQ_WHAT_ARE_DEFAULT_LIMITS: "Apa batas default di P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Apa batas default?",
+      '1. Buka pesanan yang sudah selesai dan ketuk "Minta bukti". Merchant mengunggah bukti pembayaran, dan "Lihat bukti" muncul saat sudah siap.\n2. Sementara itu, salin ID pembayaran merchant dari pesanan (misalnya UPI ID mereka) dan periksa nama mereka di aplikasi pembayaran Anda.\n3. Beri tahu toko: "Anda menerima [jumlah] dari [nama]."\n\nMasih ada masalah? Gunakan "Chat dengan kami" di Bantuan & Dukungan.',
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED:
+      "Saya sudah melakukan verifikasi, tetapi limit saya tidak naik. Mengapa?",
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED_ANSWER:
+      'Periksa hal-hal ini:\n1. Di Limit Saya, jika opsinya menampilkan "Selesaikan verifikasi", ketuk itu. Hasil Anda belum tersimpan sampai Anda melakukannya.\n2. Tutup lalu buka lagi aplikasinya. Update bisa memerlukan satu menit.\n3. Anda mungkin sudah berada di limit per pesanan tertinggi untuk negara Anda.\n4. Beberapa pengecekan tidak dihitung sendiri untuk akun baru. Tambahkan LinkedIn, GitHub, atau KYC Paspor.\n\nMasih belum berhasil? Gunakan "Chat dengan kami".',
+    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Berapa limit awalnya?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Untuk pengguna baru:\n• Pesanan beli: Tidak tersedia. Lengkapi setidaknya satu verifikasi zk untuk membuka fungsi beli dan memulai dengan aman.\n• Limit Jual: $100 per pesanan, hingga 10 pesanan per hari (limit harian $1.000, karena merchant sudah diverifikasi dan siap trading).\n\nUntuk pengguna dengan minimal satu verifikasi zk:\n• Limit Beli: Limit transaksi Anda per pesanan, hingga 5 pesanan per hari.\n• Limit Jual: Limit transaksi Anda per pesanan, hingga 10 pesanan per hari.\n\nLimit maksimum per transaksi: $400 USDC.\nBatas jumlah pesanan beli bulanan: 25 pesanan.\nLimit volume tahunan: {{yearlyVolumeLimit}} USDC per pengguna.\nIngin limit lebih tinggi? Kunjungi bagian Limit Saya untuk menyelesaikan verifikasi zk dan membuka lebih banyak limit.",
-    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "Apa itu transaksi yang disengketakan?",
+      "Limit tergantung negara dan verifikasi Anda. Limit Saya menunjukkan angka pastinya.\n• Akun baru bisa menjual dan membayar. Untuk membeli, lakukan verifikasi dengan LinkedIn, GitHub, atau KYC Paspor (jika tersedia).\n• Setiap verifikasi menaikkan limit per pesanan (jumlah USDC terbesar dalam satu pesanan).\n• Ada juga limit pesanan harian dan bulanan, serta limit tahunan {{yearlyVolumeLimit}} USDC.\n\nSelesaikan lebih banyak verifikasi di Limit Saya untuk menaikkan limit Anda.",
+    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "Apa itu sengketa?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
-      "Transaksi yang disengketakan adalah transaksi yang diajukan sengketanya oleh pengguna karena ada masalah dalam prosesnya. Jika Anda mengalami kendala, Anda juga bisa mengajukan sengketa.",
+      'Sengketa adalah permintaan agar tim dukungan P2P.me turun tangan saat ada masalah di pesanan, misalnya Anda sudah bayar tetapi tidak menerima USDC, atau merchant tidak membayar Anda. Tim dukungan memeriksa pembayaran dengan merchant dan menyelesaikan pesanan. Pesanan dengan sengketa yang masih dibuka menampilkan "Dalam sengketa" di Transaksi.',
     FAQ_WHAT_ARE_ORDER_STATUSES: "Apa saja status pesanan?",
     FAQ_WHAT_ARE_ORDER_STATUSES_ANSWER:
-      "• Memproses: Pesanan sedang aktif dan diproses di protokol.\n• Selesai: Pesanan berhasil diselesaikan.\n• Dibatalkan: Pesanan dibatalkan secara manual atau kedaluwarsa otomatis.",
+      "• Mencari merchant: menunggu merchant menerima.\n• Merchant ditetapkan: merchant sudah menerima dan langkah pembayaran sedang berjalan.\n• Pembayaran sedang berlangsung: pembayaran sudah ditandai terkirim dan menunggu konfirmasi.\n• Selesai: pesanan sudah selesai.\n• Dibatalkan: pesanan dibatalkan atau waktunya habis. Untuk pesanan jual dan bayar, USDC Anda dikembalikan.\n• Dalam sengketa / Sengketa selesai: sengketa sedang dibuka, atau sudah diselesaikan.",
     FAQ_WHAT_FEES_CHARGED: "Biaya apa yang dikenakan P2P.me?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
-      "Saat ini protokol tidak mengenakan biaya apa pun. Harga USDC yang Anda lihat ditetapkan oleh protokol P2P.me agar adil dan sederhana bagi pengguna awal.",
+      "Sebagian besar pesanan tidak punya biaya terpisah: Anda membayar harga yang ditampilkan.\n\nPesanan kecil dikenakan biaya tetap dalam USDC. Jika jumlah Anda di bawah batas, aplikasi menampilkan biaya dan jumlah pasti yang akan Anda terima atau bayar sebelum Anda membuat pesanan.\n\nMengirim USDC dari dompet P2P.me gratis, karena biaya jaringan (gas) sudah ditanggung. Transfer cross-chain termasuk biaya bridge, yang ditampilkan di penawaran harga.",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE:
       "Apa yang terjadi jika saya mengajukan sengketa palsu?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
-      "Jika Anda mengajukan sengketa palsu atau menyalahgunakannya, akan ada konsekuensinya. Misalnya:\n• Penangguhan layanan\n• Kehilangan hak trading\n\nJadi, bermainlah adil dan tetap jujur.",
+      "Sengketa palsu atau yang disalahgunakan bisa membuat akun Anda ditangguhkan dan Anda tidak bisa trading. Ajukan sengketa hanya jika memang ada masalah.",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
       "Apa yang akan terjadi jika saya ketahuan melakukan aktivitas penipuan?",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
-      "Anda akan masuk daftar hitam, dan jika Anda telah men-stake token $P2P, token tersebut akan disita.",
+      "Akun Anda akan diblokir dari P2P.me, dan token $P2P yang Anda stake bisa diambil.",
     FAQ_WHAT_IF_BANK_FROZEN:
-      "Apa yang terjadi jika rekening saya dibekukan? Apakah P2P.me akan membantu membukanya?",
+      "Rekening bank saya dibekukan setelah pesanan P2P.me. Apa yang harus saya lakukan?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      "Jika rekening Anda dibekukan karena transaksi di P2P.me, kunjungi Unfreeze.pro, portal khusus yang kami buat untuk pengguna dan merchant P2P.me di India. Ajukan kasus Anda dan tim hukum kami akan mendampingi Anda dalam proses pembukaan blokir secara gratis.\n\nAnda juga bisa bergabung dengan kanal komunitas P2P.me, tempat pengguna dan relawan bisa membantu Anda selama prosesnya.",
+      'Laporkan di unfreeze.pro, portal gratis kami untuk pengguna dan merchant P2P.me. Bagikan ID pesanan dan pemberitahuan dari bank. Tim hukum kami akan memandu Anda untuk membuka pembekuan rekening.\n\nDi India, pesanan yang memenuhi syarat juga dilindungi dengan pengembalian dana penuh (lihat "Apa itu Perlindungan Pembekuan Rekening (India)?").\n\nAnda juga bisa minta bantuan di grup Telegram P2P.me.',
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
-      "Bagaimana jika transaksi cross-chain saya tertahan?",
+      "Deposit atau penarikan cross-chain saya tertahan. Apa yang harus saya lakukan?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Jika transaksi Near Intents Anda tertahan:\n\n1. Kunjungi Near Intents Explorer dari konfirmasi transaksi Anda.\n2. Salin Request ID Anda dari transaksi.\n3. Hubungi dukungan Near Intents: https://t.me/near_intents Gunakan hanya kanal resmi yang terverifikasi untuk menghindari penipuan.",
+      "Transfer cross-chain dijalankan oleh NEAR Intents, bukan P2P.me.\n1. Buka bridge (Deposit → Deposit dari chain lain, atau Tarik → Tarik USDC cross-chain) dan cari transfernya di Riwayat Bridge.\n2. Buka di explorer NEAR Intents dan salin detailnya.\n3. Hubungi dukungan NEAR Intents di near.com/support.\n\nJika transfer tidak bisa selesai, token Anda kembali ke alamat refund yang Anda masukkan. Hanya gunakan link dukungan resmi.",
     FAQ_WHAT_IS_P2P_ME: "Apa itu P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
-      "P2P.me adalah platform global yang memudahkan Anda membeli, menjual, dan membayar menggunakan USDC dengan aman dan privat. P2P.me mendukung metode pembayaran lokal populer seperti UPI, PIX, dan QRIS, dan dana Anda tetap sepenuhnya dalam kendali Anda.",
+      "P2P.me memungkinkan Anda membeli, menjual, dan membelanjakan USDC, yaitu dolar digital, dengan metode pembayaran lokal seperti UPI, PIX, QRIS, M-Pesa, atau transfer bank. Setiap pesanan diproses oleh merchant terverifikasi. USDC Anda tetap di dompet Anda sendiri, yang hanya Anda kendalikan.",
     FAQ_WHAT_IS_REFER_AND_EARN: "Apa itu Ajak & Dapat Hadiah di P2P.me?",
     FAQ_WHAT_IS_REFER_AND_EARN_ANSWER:
-      "Ajak & Dapat Hadiah adalah kesempatan Anda untuk mendapat hadiah pasif dengan mengajak pengguna tepercaya bertransaksi di P2P.me. Setelah memenuhi syarat, Anda bisa membuat link referral, membagikannya, dan mendapat 0,5% dari total volume trading pengguna yang bergabung lewat link Anda.",
-    FAQ_WHAT_IS_ZERO_KNOWLEDGE: "Apa itu zero-knowledge?",
+      "Ajak orang yang Anda percaya ke P2P.me dan dapatkan bagian dari setiap trade yang mereka lakukan. Setelah Anda memenuhi syarat, buat link di Ajak & Dapat Hadiah dan bagikan. Tingkat hadiah saat ini ditampilkan di halaman Ajak & Dapat Hadiah.",
+    FAQ_WHAT_IS_USDC: "Apa itu USDC, dan apa itu jaringan Base?",
+    FAQ_WHAT_IS_USDC_ANSWER:
+      'USDC adalah dolar digital: 1 USDC bernilai sekitar 1 dolar AS. USDC adalah "stablecoin", jadi nilainya tidak naik-turun seperti kripto lain.\n\nBase adalah jaringan blockchain yang dipakai P2P.me untuk memindahkan USDC dengan cepat dan murah. Saat Anda mengirim atau menerima USDC di luar aplikasi, selalu pilih jaringan Base.',
+    FAQ_WHAT_IS_ZERO_KNOWLEDGE: 'Apa itu verifikasi "zero-knowledge" (zk)?',
     FAQ_WHAT_IS_ZERO_KNOWLEDGE_ANSWER:
-      "Verifikasi zero-knowledge memungkinkan Anda membuktikan hal seperti usia atau identitas tanpa membagikan data pribadi kepada kami. Data Anda tetap privat saat Anda memverifikasi dan menaikkan batas di P2P.me.\n\nSingkatnya: Anda cukup membuktikan yang diperlukan, sementara informasi pribadi Anda tetap di tangan Anda.",
+      "Ini cara privat untuk membuktikan sesuatu tanpa menunjukkan detailnya. Misalnya, Anda bisa membuktikan bahwa Anda memiliki akun LinkedIn tanpa membagikan kata sandi atau profil Anda. P2P.me hanya tahu bahwa pengecekan lolos. Informasi pribadi Anda tetap ada pada Anda.",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "Jaringan apa yang didukung untuk deposit?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "Saat ini, USDC di jaringan Base adalah satu-satunya metode deposit yang didukung. Jika dana Anda ada di chain lain, gunakan opsi Deposit Cross-Chain yang didukung Near Intents.",
+      "Dompet P2P.me Anda menyimpan USDC di jaringan Base, dan Anda bisa mengirim USDC di Base langsung ke alamat Anda.\n\nUntuk jaringan lain, ketuk Deposit → Deposit dari chain lain. Di sana ada daftar jaringan dan token yang didukung, dan dana masuk sebagai USDC di Base.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE:
       "Kapan saya bisa mulai mendapat penghasilan?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
-      "Anda bisa mulai mengajak teman dan mendapat penghasilan setelah Poin Reputasi (RP) Anda melebihi 150.",
+      "Saat limit beli Anda mencapai 150 USDC. Anda bisa menaikkannya di Limit Saya dengan menyelesaikan verifikasi.",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER:
       "Kapan saya harus mengajukan sengketa untuk pesanan beli?",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER_ANSWER:
-      "Ajukan sengketa untuk pesanan beli hanya jika Anda sudah membayar, tetapi pesanan dibatalkan dan dana Anda tidak dikembalikan.",
+      'Ajukan sengketa jika Anda sudah membayar merchant tetapi tidak menerima USDC, misalnya merchant belum mengonfirmasi, atau pesanan dibatalkan setelah Anda membayar.\n• Anda bisa mengajukannya mulai 15 menit setelah membuat pesanan, sampai 24 jam.\n• Ketuk "Saya sudah melakukan pembayaran" di pesanan dulu, jika belum.\n• Siapkan referensi pembayaran Anda (seperti UPI UTR).\n\nJika waktu pembayaran sudah habis sebelum Anda menandainya sebagai sudah bayar, gunakan "Chat dengan kami".',
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER:
       "Kapan saya harus mengajukan sengketa untuk pesanan jual?",
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER_ANSWER:
-      "Untuk pesanan jual, ajukan sengketa hanya jika USDC Anda sudah terpotong, tetapi Anda belum menerima pembayaran dari pembeli.",
+      "Ajukan sengketa jika merchant sudah menandai pembayaran Anda sebagai terkirim, tetapi uangnya belum masuk ke bank atau aplikasi pembayaran Anda.\n• Anda bisa mengajukannya mulai 30 menit setelah membuat pesanan, sampai 7 hari.\n• Periksa bank atau aplikasi Anda dulu, karena beberapa pembayaran memerlukan sedikit waktu.\n\nHal yang sama berlaku untuk pesanan Scan & Pay jika toko tidak menerima uangnya.",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS:
       "Di mana saya bisa cek limit transaksi saya?",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS_ANSWER:
-      'Buka halaman "Limit Saya" di menu beranda untuk melihat limit beli dan jual/bayar Anda.',
+      "Buka Limit Saya dari menu, atau ketuk Tingkatkan Batas Transaksi di Beranda. Beranda juga menunjukkan limit per pesanan saat ini untuk beli, jual, dan bayar.",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY:
       "Di mana saya bisa melihat riwayat deposit dan penarikan?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
-      "Buka bagian Transaksi di aplikasi. Anda akan melihat tab untuk:\n• Pesanan (Beli/Jual)\n• Deposit\n• Penarikan",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Di Mana Melihat Riwayat Pesanan atau Transaksi Anda di P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Buka bagian 'Transaksi' di aplikasi untuk melihat pesanan, deposit, penarikan, dan sengketa Anda.",
-    FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
-      "Di mana saya dapat melihat semua transaksi saya di P2P.me?",
+      "Transaksi hanya menampilkan pesanan beli, jual, dan bayar.\n• Transfer cross-chain: lihat Riwayat Bridge di halaman bridge (Deposit → Deposit dari chain lain). Riwayat ini disimpan di perangkat ini. Untuk riwayat lengkap, buka explorer NEAR Intents.\n• Deposit dan penarikan Base: cari alamat dompet Anda di BaseScan (basescan.org). Setelah penarikan, Anda juga bisa ketuk Lihat di BaseScan.",
+    FAQ_WHERE_VIEW_ALL_TRANSACTIONS: "Di mana saya bisa melihat pesanan saya?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
-      "Buka bagian Transaksi di aplikasi untuk melihat semua aktivitas Anda, termasuk deposit, penarikan, dan sengketa.",
+      'Buka Transaksi dari menu. Di sana ada semua pesanan beli, jual, dan bayar Anda, dengan filter untuk jenis, status, tanggal, dan sengketa. Ketuk pesanan untuk membukanya.\n\nDeposit dan penarikan tidak ada di sana. Lihat "Di mana saya bisa melihat riwayat deposit dan penarikan?"',
     FAQ_WHERE_VIEW_CLAIM_REWARDS:
       "Di mana saya bisa melihat dan mengklaim hadiah?",
     FAQ_WHERE_VIEW_CLAIM_REWARDS_ANSWER:
-      "Pantau dan klaim hadiah Anda di bagian 'Ajak & Dapat Hadiah'. Lihat aktivitas dan klaim kapan saja.",
+      "Di Ajak & Dapat Hadiah. Anda bisa melihat referral dan hadiah Anda di sana, dan ketuk Klaim untuk memindahkan hadiah Anda ke dompet kapan saja.",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED:
       "Koin dan jaringan apa yang didukung P2P.me?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
-      "Saat ini, P2P.me mendukung USDC di jaringan Base.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN: "Siapa yang menangani transaksi cross-chain?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Semua transaksi cross-chain diproses oleh Near Intents. Jika ada keterlambatan atau masalah, Anda perlu menghubungi dukungan Near Intents di sini.",
+      "P2P.me bekerja dengan USDC di jaringan Base. USDC adalah dolar digital (1 USDC ≈ 1 dolar AS), dan Base adalah jaringan blockchain yang dipakai aplikasi.\n\nPunya USDC atau token lain di jaringan lain? Ketuk Deposit → Deposit dari chain lain untuk memasukkannya sebagai USDC di Base.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Siapa yang membangun dan memelihara P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
-      "P2P.me adalah protokol public goods yang dikembangkan oleh komunitas kontributor open-source dari seluruh dunia. Dibangun di Base, protokol ini tumbuh lewat kolaborasi. Seluruhnya open-source, jadi siapa pun bisa melihat langsung cara kerjanya. Tanpa rahasia, hanya transparansi.",
+      "P2P.me adalah protokol open-source di jaringan Base, dibangun oleh komunitas kontributor dari seluruh dunia. Siapa pun bisa membaca kodenya dan memeriksa cara kerjanya.",
     FAQ_WHY_APP_BLOCKED_REGIONS:
-      "Aplikasi Tidak Bisa Dibuka di Wilayah Anda? Begini Cara Mengaksesnya",
+      "Aplikasi tidak bisa dibuka di wilayah saya. Apa yang bisa saya lakukan?",
     FAQ_WHY_APP_BLOCKED_REGIONS_ANSWER:
-      "Kadang P2P.me dibatasi oleh ISP lokal. Agar tetap bisa mengakses dan mendapat update:\n\nOpsi 1: Gunakan VPN (Turbo VPN di mobile, Zenmate di desktop). Hubungkan ke wilayah mana pun dan muat ulang aplikasi.\n\nOpsi 2: Ganti DNS:\n• Android: Pengaturan → Jaringan → Private DNS → Tambah 8.8.8.8 atau 1.1.1.1\n• iOS: Wi‑Fi → Ketuk 'i' → Configure DNS → Manual → Tambah 8.8.8.8 atau 1.1.1.1\n\nMeski aplikasi sudah terinstal, VPN/DNS memastikan akses dan update tetap lancar.",
+      "Beberapa penyedia internet memblokir P2P.me. Coba salah satu cara ini:\n1. Gunakan aplikasi VPN, sambungkan ke negara mana pun, lalu muat ulang aplikasi.\n2. Atau ubah DNS Anda:\n• Android: Setelan → Jaringan & internet → DNS Pribadi → masukkan dns.google\n• iPhone: Pengaturan → Wi‑Fi → ketuk (i) → Konfigurasikan DNS → Manual → tambahkan 8.8.8.8 atau 1.1.1.1\n\nCara ini juga membantu aplikasi yang terinstal mendapat update.",
+    FAQ_WHY_CANT_I_BUY: "Mengapa saya tidak bisa membuat pesanan beli?",
+    FAQ_WHY_CANT_I_BUY_ANSWER:
+      "Alasan umum:\n• Anda belum melakukan verifikasi yang membuka pembelian. Untuk akun baru, verifikasinya adalah LinkedIn, GitHub, atau KYC Paspor (jika tersedia) di Limit Saya. Pengecekan lain, seperti liveness atau X, menaikkan limit Anda tetapi tidak membuka pembelian dengan sendirinya.\n• Jumlahnya melebihi limit per pesanan, atau terlalu kecil untuk menutup biaya tetap.\n• Anda sudah mencapai limit pesanan harian atau bulanan. Coba lagi nanti.\n• Pengecekan keamanan kami menjeda pembelian di akun Anda. Menyelesaikan lebih banyak verifikasi bisa membukanya. Jika menurut Anda ini kesalahan, hubungi Bantuan.",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
-      "Mengapa saya tidak bisa mengirim pesan di saluran Telegram P2P.me? Apa yang harus saya lakukan?",
+      "Mengapa saya tidak bisa mengirim pesan di grup Telegram P2P.me?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
-      'Ketika Anda bergabung dengan saluran komunitas P2P.me India untuk pertama kalinya, Anda akan melihat pesan selamat datang di bawah topik "Verify (For New Members)". Untuk mulai mengirim pesan di grup, Anda perlu mengetuk prompt verifikasi pada pesan tersebut dan menyelesaikan CAPTCHA sederhana.\n\nJika Anda melewatkannya atau tidak menyelesaikannya: Keluar dari grup sepenuhnya lalu bergabung kembali. Pesan selamat datang dan prompt verifikasi akan muncul lagi.\n\nSetelah terverifikasi, Anda bisa ikut mengobrol di grup.',
+      'Anggota baru harus lolos pengecekan singkat sebelum bisa mengirim pesan.\n\n1. Cari pesan sambutan di grup (di grup India, ada di topik "Verify (For New Members)").\n2. Ketuk tombol verifikasi dan selesaikan CAPTCHA.\n\nTerlewat? Keluar dari grup lalu gabung lagi, dan pesan sambutan akan muncul lagi.\n\nPerlu bantuan untuk pesanan sekarang? Gunakan "Chat dengan kami" di Bantuan & Dukungan.',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA:
-      "Mengapa muncul 'Tidak memenuhi kriteria kelayakan' saat saya mencoba verifikasi?",
+      'Mengapa saya melihat "Kriteria kelayakan tidak terpenuhi" saat verifikasi?',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER:
-      "Itu berarti akun Anda tidak memenuhi beberapa pemeriksaan kelayakan rahasia yang digunakan protokol untuk menjaga verifikasi tetap adil dan aman untuk semua.\nJika ini terjadi, coba verifikasi dengan akun sosial lain (X, Instagram, LinkedIn, atau GitHub) untuk menyelesaikan verifikasi zk Anda.",
-    FAQ_WHY_SELL_RATES_LOW: "Mengapa harga jual USDC terkadang rendah?",
+      "Akun itu tidak lolos salah satu pengecekan yang menjaga verifikasi tetap adil. Kami tidak bisa membagikan aturan pastinya, karena itu akan membantu penipu.\n\nCoba akun sosial lain, atau opsi lain di Limit Saya, seperti pemeriksaan liveness atau KYC Paspor.",
+    FAQ_WHY_SELL_RATES_LOW: "Mengapa harga jual kadang lebih rendah?",
     FAQ_WHY_SELL_RATES_LOW_ANSWER:
-      "Umumnya, harga jual di P2P.me kompetitif. Namun, saat pesanan jual melonjak sementara pesanan beli sedikit, merchant mungkin tidak punya cukup likuiditas untuk menyelesaikan transaksi. Dalam kondisi seperti itu, kami menurunkan harga jual untuk mengurangi tekanan dan mendorong lebih banyak pesanan beli. Seiring protokol berkembang, ketidakseimbangan likuiditas ini akan makin jarang terjadi.",
-    FAQ_WILL_P2P_HANDLE_TAXES: "Apakah P2P akan menangani pajak saya?",
+      "Saat banyak orang menjual dan sedikit yang membeli, merchant kekurangan uang lokal untuk membayar. Harga jual turun sementara untuk menyeimbangkannya. Biasanya harga pulih lagi saat pesanan beli bertambah.",
+    FAQ_WILL_P2P_HANDLE_TAXES: "Apakah P2P.me mengurus pajak saya?",
     FAQ_WILL_P2P_HANDLE_TAXES_ANSWER:
-      "Tidak. P2P.me adalah protokol terdesentralisasi dan non-custodial. P2P.me tidak memotong atau melaporkan pajak apa pun. Anda bertanggung jawab mematuhi peraturan pajak setempat. Riwayat transaksi lengkap tersedia untuk membantu pelaporan pajak Anda.",
+      "Tidak. P2P.me tidak memotong, melaporkan, atau mengajukan pajak untuk Anda. Anda bertanggung jawab mengikuti aturan pajak di negara Anda.\n\nAnda bisa mengunduh riwayat pesanan dari Transaksi untuk membantu Anda lapor pajak. Di India, Anda juga bisa memakai laporan pajak di Bantuan & Dukungan.",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT:
-      "Apakah P2P.me akan menyerahkan data saya ke pemerintah di masa depan?",
+      "Apakah P2P.me akan membagikan data saya ke pemerintah?",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT_ANSWER:
-      "Tidak, kami tidak bisa dan tidak akan melakukannya. P2P.me adalah protokol yang sepenuhnya terdesentralisasi, jadi sejak awal kami memang tidak punya akses ke data Anda. Semua detail pembayaran dan data pribadi dienkripsi end-to-end dan hanya dibagikan antara Anda dan merchant. Tidak ada pihak ketiga, termasuk kami, yang dapat mengakses atau melihat informasi ini.",
+      "P2P.me dibuat untuk mengetahui sesedikit mungkin tentang Anda. Kami tidak meminta identitas Anda untuk menjual atau membayar, dan kami tidak menyimpan dokumen atau login akun Anda. Detail pembayaran Anda dienkripsi dan hanya ditampilkan ke merchant di pesanan Anda. Verifikasi memakai bukti privat: kami hanya tahu bahwa pengecekan lolos, bukan detail di baliknya.",
     FAQ_WITHDRAWAL_HASNT_ARRIVED:
       "Apa yang harus saya lakukan jika penarikan saya belum masuk?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "Untuk penarikan langsung di Base:\n• Periksa dompet Anda dan Base block explorer.\n\nUntuk penarikan cross-chain:\n• Kunjungi Near Intents\n• Hubungi dukungan Near Intents jika transaksi tertahan",
+      "• Penarikan Base: buka di BaseScan (ketuk Lihat di BaseScan, atau cari alamat Anda). Jika statusnya Success, USDC sudah terkirim. Periksa apakah dompet atau exchange penerima mendukung USDC di Base, lalu hubungi mereka.\n• Penarikan cross-chain: periksa statusnya di Riwayat Bridge. Jika tertahan, hubungi dukungan NEAR Intents di near.com/support.",
     FDV: "FDV",
     FEE: "Biaya",
     FIAT_AMOUNT: "Jumlah Fiat",
