@@ -161,7 +161,3 @@ export function getSource(id: SourceId): Source {
   if (!source) throw new Error(`Unknown source id: ${id}`);
   return source;
 }
-
-export function isSourceId(id: string): id is SourceId {
-  return BY_ID.has(id);
-}

@@ -181,14 +181,14 @@ export function getSettings(): Result<Settings, SettingsError> {
 - **Sell Address Book**: Currency-specific payment address management
 - **User Management**: Basic user session functions
 
-### 3. Adapter Layer (`@/core/adapters/wallet/thirdweb`)
+### 3. Adapter Layer (`@/core/adapters/thirdweb`)
 
 **Purpose**: Bridge between protocol layer and Thirdweb wallet integration.
 
 **Structure**:
 
 ```
-src/core/adapters/wallet/thirdweb/
+src/core/adapters/thirdweb/
 ├── actions/
 │   ├── order.ts    # Order operations (read & write)
 │   ├── usdc.ts     # USDC operations
@@ -497,7 +497,7 @@ if (result.isOk()) {
 ### 2. **Adapter Integration**
 
 ```typescript
-import { getUSDCBalance } from "@/core/adapters/wallet/thirdweb";
+import { getUSDCBalance } from "@/core/adapters/thirdweb";
 
 const balance = await getUSDCBalance("0x...");
 balance.match(
@@ -510,7 +510,7 @@ balance.match(
 
 ```typescript
 import { useQuery } from "@tanstack/react-query";
-import { getUSDCBalance } from "@/core/adapters/wallet/thirdweb";
+import { getUSDCBalance } from "@/core/adapters/thirdweb";
 
 function MyComponent() {
   const { data, error, isLoading } = useQuery({

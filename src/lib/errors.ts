@@ -7,9 +7,6 @@ export type Domain =
   | "Subgraph"
   | "Utils"
   | "QRParser"
-  | "RangoDeposit"
-  | "RangoWithdraw"
-  | "Subgraph"
   | "SellQuiz";
 
 export type ErrorCode =
@@ -31,12 +28,6 @@ export type ErrorCode =
   | "SGUnreachable"
   | "RelayIdentityError"
   | "QRParserError"
-  | "RangoBalanceFetchError"
-  | "RangoQuoteError"
-  | "RangoSwapError"
-  | "RangoApproveError"
-  | "RangoDepositError"
-  | "RangoWithdrawError"
   | "AccountAddressNotAvailable"
   | "TWRecoverConnectError";
 

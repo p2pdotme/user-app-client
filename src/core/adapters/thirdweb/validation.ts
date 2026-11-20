@@ -35,12 +35,6 @@ export function validateBeforeUse<S extends ZodSchema | ZodType>(
   );
 }
 
-export const OrderIdSchema = z
-  .string()
-  .refine((id) => !Number.isNaN(Number(id)) && Number(id) >= 0, {
-    message: "Order ID must be a number greater than or equal to 0",
-  });
-
 export const CurrencySchema = z
   .string()
   .transform((val) => hexToString(val as Hex, { size: 32 }))

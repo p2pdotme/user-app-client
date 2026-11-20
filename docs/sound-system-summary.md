@@ -37,18 +37,6 @@ sounds.triggerSuccessSound();
 sounds.triggerFailureSound();
 ```
 
-### 2. Bridge Handlers (`bridgeHandler/`)
-
-```typescript
-// Pass sounds to handlers
-await handleDeposit(swapRes, primaryWallet, setDepositData, sounds);
-await handleWithdraw(swapRes, account, setWithdrawData, sounds);
-
-// Inside handlers
-sounds.triggerSuccessSound(); // Success
-sounds.triggerFailureSound(); // Failure
-```
-
 ### 3. UI Components
 
 ```typescript
@@ -161,7 +149,7 @@ export const handleOperation = async (
 
 ## Audio Assets
 
-- **Location**: `src/assets/audio/`
+- **Location**: CDN (see `ASSETS.AUDIO` in `src/assets/index.ts`)
 - **Format**: MP3
 - **Files**: `SUCCESS.mp3`, `FAILED.mp3`
 - **Duration**: < 1 second
