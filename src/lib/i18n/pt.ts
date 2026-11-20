@@ -596,121 +596,124 @@ export const pt = {
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY:
       "Os limites de compra e venda são contabilizados separadamente?",
     FAQ_ARE_BUY_SELL_LIMITS_TRACKED_SEPARATELY_ANSWER:
-      "Sim. Seus limites de compra e venda são independentes e aumentam conforme o uso.",
-    FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS:
-      "Depósitos e saques são isentos de taxa de gas?",
+      "Sim. Seu limite de compra é separado dos seus limites de venda e pagamento. Todos aumentam conforme você conclui verificações e mais pedidos.",
+    FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS: "Eu pago taxas de rede (gas)?",
     FAQ_ARE_DEPOSITS_WITHDRAWALS_GASLESS_ANSWER:
-      "Sim. Todas as transações no P2P.me são totalmente isentas de taxa de gas, incluindo depósitos, saques e negociações, quando você usa a carteira do app na rede Base.",
+      "Não dentro do P2P.me. As taxas de rede (gas) são cobertas para saques, pedidos e tudo o que você faz pela sua carteira P2P.me.\n\nDuas exceções: a corretora ou carteira de onde você envia pode cobrar uma taxa própria, e transferências cross-chain incluem uma taxa de ponte mostrada na cotação.",
     FAQ_ARE_THERE_RISKS_REFERRING: "Há riscos em indicar alguém?",
     FAQ_ARE_THERE_RISKS_REFERRING_ANSWER:
-      "Sim, existe um pequeno risco. Indique apenas pessoas em quem você confia. Se alguém que você indicou se envolver em atividade fraudulenta ou suspeita, seus privilégios de indicação e limites de transação podem ser reduzidos ou suspensos. O Protocolo não perdoa, então escolha bem quem você indica!",
+      "Sim. Você responde pelas pessoas que indica. Se alguém que você indicou cometer fraude, você pode perder suas recompensas de indicação, e seus limites podem ser reduzidos ou suspensos. Indique apenas pessoas que você conhece e em quem confia.",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS: "Há limites de saque?",
     FAQ_ARE_THERE_WITHDRAWAL_LIMITS_ANSWER:
-      "Não. Não há limites de saque no P2P.me.",
+      "Não. Você pode sacar qualquer valor de USDC que tiver, e seus limites de compra e venda não se aplicam. Saques cross-chain têm um valor mínimo pequeno.",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS:
-      "O que é a Proteção contra Bloqueio Bancário para transações indianas no P2P.me?",
+      "O que é a Proteção contra Bloqueio Bancário (Índia)?",
     FAQ_BANK_FREEZE_PROTECTION_INR_USERS_ANSWER:
-      "O P2P.me oferece garantia de reembolso de 100% para usuários indianos: se alguma transação do P2P.me (feita após 1º de setembro de 2025) resultar em bloqueio da conta bancária ou em uma transação marcada com retenção judicial, reembolsaremos o valor total da transação em USDC diretamente na sua carteira P2P.me, e nossa equipe jurídica da comunidade dará suporte a você durante todo o processo.\n\nAcesse https://unfreeze.pro, nosso portal dedicado para usuários finais e comerciantes P2P, e envie os detalhes do incidente de fraude o quanto antes. Nossa equipe de suporte vai verificar o ID do pedido e a confirmação do banco antes de liberar o reembolso e o suporte jurídico.\n\nSomente o valor exato vinculado àquele ID de transação é coberto. No momento, esta proteção vale apenas na Índia. Embora esses casos já sejam extremamente raros, ainda recomendamos usar uma conta bancária separada, só para isso, ao fazer off-ramp.",
+      "Se um pedido no P2P.me feito após 1º de setembro de 2025 levar a um bloqueio ou retenção na sua conta bancária, reembolsamos o valor total desse pedido em USDC na sua carteira P2P.me. Nossa equipe jurídica da comunidade também ajuda você a liberar a conta.\n\n1. Informe o caso o quanto antes em unfreeze.pro.\n2. Envie o ID do pedido e o aviso do banco.\n3. Depois de verificarmos, enviamos o reembolso.\n\nSomente o valor desse pedido é coberto. Disponível apenas na Índia.",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT:
+      "Por que não consigo cancelar enquanto espero um comerciante?",
+    FAQ_CANT_CANCEL_WAITING_MERCHANT_ANSWER:
+      "Enquanto seu pedido procura um comerciante, nada aconteceu ainda: você não pagou, e em pedidos de venda ou pagamento seu USDC está bloqueado com segurança no pedido.\n\nSe nenhum comerciante aceitar em alguns minutos, o pedido é cancelado automaticamente e qualquer USDC volta para a sua carteira. Em um pedido de compra, você pode cancelar depois que um comerciante aceitar, mas só se ainda não tiver pago.",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY:
       "Posso baixar meu histórico de transações?",
     FAQ_CAN_DOWNLOAD_TRANSACTION_HISTORY_ANSWER:
-      "Sim! Você pode baixar o histórico dos seus pedidos concluídos direto na seção Transações.",
+      "Sim. Em Transações, ajuste os filtros que quiser (por exemplo, um período), depois toque em Baixar. Você recebe um arquivo CSV com os pedidos mostrados, que abre no Excel ou no Google Sheets.",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS: "Posso perder meus limites aumentados?",
     FAQ_CAN_I_LOSE_INCREASED_LIMITS_ANSWER:
-      "Sim. Os limites podem ser reduzidos ou removidos se:\n• Você se envolver em atividade fraudulenta\n• Você indicar usuários sinalizados por uso indevido",
+      "Sim. Seus limites podem ser reduzidos ou removidos se:\n• você participar de fraude ou abrir disputas falsas, ou\n• alguém que você indicou for pego cometendo fraude.",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING:
-      "Posso usar o P2P.me para gastos do dia a dia com cripto?",
+      "Posso usar o P2P.me para pagamentos do dia a dia?",
     FAQ_CAN_USE_DAILY_CRYPTO_SPENDING_ANSWER:
-      "Sim! Com o P2P.me, os pagamentos do dia a dia são rápidos e simples. É só escanear um QR code, pagar em USDC e o valor é liquidado em moeda local em segundos.",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS: "Posso sacar USDC para outras redes?",
-    FAQ_CAN_WITHDRAW_OTHER_NETWORKS_ANSWER:
-      "Sim. Use o recurso de saque cross-chain e:\n• Selecione a rede de destino correta\n• Confira bem o endereço da sua carteira antes de confirmar",
-    FAQ_DONT_WANT_LINK_SOCIAL_SAFE:
-      "Não quero vincular minhas redes sociais. É seguro?",
+      "Sim. Com o Scan & Pay, você escaneia o QR code de pagamento de uma loja e paga em USDC. Um comerciante paga a loja em moeda local, normalmente em até um minuto. Funciona na maioria dos mercados.",
+    FAQ_DONT_WANT_LINK_SOCIAL_SAFE: "Preciso vincular minhas redes sociais?",
     FAQ_DONT_WANT_LINK_SOCIAL_SAFE_ANSWER:
-      "Sim, é seguro. Você não precisa vincular nenhuma rede social.\n\nO P2P.me usa provas zk (conhecimento zero), um método focado em privacidade em que você prova que é uma pessoa real sem compartilhar dados pessoais.\n\nSomos totalmente descentralizados, sem servidores nem armazenamento de dados. Suas informações ficam sempre privadas, criptografadas e seguras.",
-    FAQ_DO_I_NEED_KYC: "Preciso fazer KYC para usar o P2P.me?",
+      "Não. Verificar uma rede social é só uma das formas de aumentar seus limites. Você pode usar a prova de vida, o KYC com passaporte (onde disponível) ou staking.\n\nSe você verificar uma rede social, isso é privado: você prova que a conta é sua, mas o P2P.me nunca vê sua senha, suas publicações ou seu perfil, e nada é publicado.",
+    FAQ_DO_I_NEED_KYC: "Preciso verificar minha identidade (KYC)?",
     FAQ_DO_I_NEED_KYC_ANSWER:
-      "Não, o KYC não é obrigatório para começar. Você pode comprar, vender e pagar na hora. Para limites maiores, você pode, se quiser, verificar sua identidade de forma que preserva sua privacidade.",
+      "Não é preciso documento para vender ou pagar.\n\nPara comprar, faça a verificação em Meus limites com LinkedIn, GitHub ou KYC com passaporte (onde disponível). O passaporte não é obrigatório: LinkedIn ou GitHub já basta. Outras verificações, como prova de vida ou X, aumentam seus limites, mas sozinhas não liberam a compra.",
+    FAQ_FINISH_VERIFICATION: 'O que significa "Concluir verificação"?',
+    FAQ_FINISH_VERIFICATION_ANSWER:
+      'Você passou em uma verificação (como a prova de vida ou a de passaporte), mas o resultado ainda não foi salvo na sua conta. Toque em "Concluir verificação" em Meus limites para salvar e aumentar seu limite.\n\nFaça isso logo: se demorar demais, o resultado expira e você vai precisar começar de novo.',
     FAQ_HOW_CAN_I_RAISE_DISPUTE: "Como abro uma disputa?",
     FAQ_HOW_CAN_I_RAISE_DISPUTE_ANSWER:
-      "1. Abra a página do comprovante do pedido.\n2. Toque no ícone de ajuda (?) no canto superior direito.\n3. Selecione 'Abrir disputa' e siga as instruções.",
+      '1. Abra o pedido (Transações → toque no pedido).\n2. Toque no ícone de ajuda no topo.\n3. Toque em "Abrir uma disputa" e siga os passos.\n\nSe a opção ainda não estiver disponível, o app mostra quando ela abre ou o motivo. Você sempre pode usar "Fale com a gente".',
     FAQ_HOW_DEPOSIT_USDC_WALLET:
       "Como posso depositar USDC na minha carteira P2P.me?",
     FAQ_HOW_DEPOSIT_USDC_WALLET_ANSWER:
-      "Você pode depositar USDC de duas formas:\n• Depósito direto no endereço da sua carteira na rede Base\n• Depósito cross-chain usando Near Intents (se estiver enviando de outras redes)\n\nObservação: deposite apenas USDC na rede Base. Não envie ETH nem outros tokens, pois você pode perder seus fundos.",
+      'No Início, toque em Depositar e escolha:\n• Depositar USDC na Base: copie seu endereço e envie USDC na rede Base para ele.\n• Depositar de outras redes: traga USDC ou outros tokens de outra rede. Eles chegam como USDC na Base.\n\nEnvie para o seu endereço apenas USDC na Base. Outros tokens ou redes podem ser perdidos. Se isso aconteceu, veja "Enviei fundos pela rede errada. Consigo recuperá-los?".',
     FAQ_HOW_DO_I_START_EARNING: "Como começo a ganhar?",
     FAQ_HOW_DO_I_START_EARNING_ANSWER:
-      "Para começar a ganhar:\n1. Acesse a seção 'Indique e Ganhe' no app.\n2. Gere seu link de indicação.\n3. Compartilhe com amigos de confiança.\n4. Garanta que eles se cadastrem e negociem usando seu link.\n\nObservação: cada link de indicação pode ser usado por apenas um amigo.",
+      "1. Abra Indique e Ganhe.\n2. Crie um link de indicação.\n3. Envie para alguém em quem você confia.\n4. A pessoa se cadastra com seu link e começa a negociar.\n\nCada link funciona para apenas uma pessoa, então crie um link novo para cada amigo.",
     FAQ_HOW_MANY_USERS_CAN_I_REFER: "Quantos usuários posso indicar?",
     FAQ_HOW_MANY_USERS_CAN_I_REFER_ANSWER:
-      "Você pode indicar até 4 usuários por mês.",
+      "Você pode indicar um número limitado de pessoas por mês. Indique e Ganhe mostra quantas indicações ainda restam.",
     FAQ_HOW_MERCHANTS_SELECTED:
       "Como os comerciantes são selecionados no P2P.me?",
     FAQ_HOW_MERCHANTS_SELECTED_ANSWER:
-      "Qualquer pessoa pode fazer stake de USDC para se tornar comerciante, mas precisa passar por verificações rigorosas. É preciso enviar provas ZK de que possui contas bancárias válidas e de que não tem histórico de bloqueios de conta ou atividade suspeita. Só comerciantes que atendem a esses critérios podem atender pedidos de compra.",
+      "Qualquer pessoa pode se candidatar para ser comerciante, mas antes precisa bloquear (fazer stake de) USDC e passar pelas verificações. O comerciante prova de forma privada que tem uma conta bancária ativa, sem histórico de bloqueios ou atividade suspeita. Só comerciantes aprovados podem atender pedidos de compra, venda e pagamento.",
     FAQ_HOW_MUCH_CAN_I_EARN: "Quanto posso ganhar?",
     FAQ_HOW_MUCH_CAN_I_EARN_ANSWER:
-      "Você ganha 0,5% de cada negociação feita pelos usuários que indicou. Não há limite máximo: quanto mais eles negociam, mais você ganha.",
-    FAQ_HOW_PREVENT_FRAUD: "Como vocês evitam fraudes?",
-    FAQ_HOW_PREVENT_FRAUD_ANSWER:
-      "Em plataformas P2P tradicionais, a fraude costuma acontecer quando golpistas enviam dinheiro roubado para usuários desavisados, o que gera bloqueios de conta e muita dor de cabeça. O P2P.me tem proteções integradas para manter você seguro:\n\n• Provas de conhecimento zero (ZK) e checagem de histórico para todos os comerciantes: verificamos a atividade bancária para garantir que só comerciantes confiáveis possam negociar. Nada de gente suspeita.\n• Sistema de verificação zk-Social: usuários não verificados têm acesso limitado, para manter tudo mais seguro. Se você é verificado, está com tudo. Se não, tente de novo mais tarde.\n• Penalidade para quem indica fraudadores: somos rigorosos. Se você indicar alguém que se comporta mal, não é só essa pessoa que sai. Você também pode perder privilégios.\n\nCom mais de 55.000 transações processadas, nossa taxa de fraude é quase zero. Não dizemos que é perfeito, mas estamos bem perto.",
+      "Você ganha uma porcentagem de cada negociação feita pelas pessoas que você indicar. A taxa atual aparece na página Indique e Ganhe. Não há limite: quanto mais elas negociam, mais você ganha.",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE:
-      "Como o P2P.me protege você contra fraudes que bloqueiam sua conta?",
+      "Como posso evitar o bloqueio da minha conta bancária?",
     FAQ_HOW_PROTECT_ACCOUNT_FREEZE_ANSWER:
-      "1. Proteção de primeiro nível\n• A verificação ZK-Social bloqueia fraudadores antes que eles acessem o protocolo.\n• Nossa taxa de fraude é muito baixa: menos de 1 a cada 25.000 transações\n\n2. Proteção de segundo nível\n• Sempre use uma conta bancária separada para off-ramps P2P.\n• Evite misturar o dinheiro dessa conta com o da sua conta principal.\n• Dica: abrir uma conta separada é fácil com o Jio Payments Bank ou o Airtel Payments Bank na Índia.\n\n3. Proteção de terceiro nível\n• Se sua conta for bloqueada, acesse Unfreeze.pro, um portal que criamos para usuários e comerciantes do P2P.me. Nossa equipe jurídica vai ajudar você a recuperar seus fundos, sem custo.",
+      "O P2P.me verifica usuários e comerciantes para manter dinheiro roubado longe, então bloqueios são raros. Você pode reduzir ainda mais o risco:\n• Use uma conta bancária separada só para pedidos P2P, e mantenha suas economias principais em outro lugar.\n• Pague e receba apenas de contas no seu próprio nome.\n• Não mencione cripto, USDC ou P2P.me na descrição dos pagamentos.\n\nSe mesmo assim acontecer, informe o caso em unfreeze.pro para receber ajuda jurídica gratuita.",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK:
-      "Como recupero meus fundos se enviei o token errado ou usei a rede errada?",
+      "Enviei fundos pela rede errada. Consigo recuperá-los?",
     FAQ_HOW_RECOVER_FUNDS_WRONG_TOKEN_NETWORK_ANSWER:
-      "Se você enviou por engano um token não suportado ou usou outra rede, ainda dá para recuperar seus fundos, desde que eles tenham ido para o endereço correto da sua carteira.\n\nVocê pode usar pontes cross-chain como Relay.link ou Jumper.Exchange para converter esses tokens em USDC na rede Base, que é suportada pelo P2P.me.\n\nComo fazer:\n1. Abra o Relay.link na versão para desktop.\n2. Conecte sua carteira usando o WalletConnect.\n3. No site da ponte, selecione WalletConnect e copie o URI de conexão.\n4. Na tela inicial do app P2P.me, vá em Wallet → Manage Wallets → Connect an App, cole o URI e confirme para conectar ao Relay.link.\n5. Volte para o Relay Bridge, selecione o token e a rede que você usou por engano em 'From/Buy' e escolha USDC na Base em 'To/Sell'.\n6. Clique no botão Swap para iniciar a transação e aguarde a conclusão.\n7. Volte ao app P2P.me e atualize sua carteira. Seu USDC deve aparecer.\n\nPrecisa de ajuda? Fale com o canal de suporte do P2P.me no Telegram.\n\nAtenção: selecione USDC na Base como destino.",
-    FAQ_HOW_SECURE_TRANSACTIONS: "Como o P2P.me garante transações seguras?",
+      "Muitas vezes, sim, se você enviou para o seu próprio endereço do P2P.me em outra rede, como Ethereum, Arbitrum, Polygon ou BNB Chain. Seu endereço é o mesmo em todas elas.\n1. Vá em Ajuda e suporte → Enviou fundos pela rede errada? → Recuperar tokens.\n2. Escolha a rede em que você enviou.\n3. Escolha o token e envie para um endereço que você controla, como o da sua corretora.\n\nPode ser preciso um pouco da moeda dessa rede para pagar a taxa. Fundos enviados pela Tron ou Solana não podem ser recuperados dessa forma.",
+    FAQ_HOW_SECURE_TRANSACTIONS: "Como o P2P.me mantém meus pedidos seguros?",
     FAQ_HOW_SECURE_TRANSACTIONS_ANSWER:
-      "O protocolo não guarda fundos dos usuários. Todas as transações são P2P, entre comprador e comerciante. Para garantir a segurança, os comerciantes passam por verificação baseada em ZK e têm a atividade bancária analisada antes de poderem aceitar negociações. Isso reduz o risco de fraude e de bloqueio de conta.",
-    FAQ_HOW_TO_BUY_USDC_FIAT: "Como comprar USDC no P2P.me com moeda local",
+      "• Os comerciantes são verificados antes de poder atender pedidos, com provas privadas do histórico bancário deles.\n• Em pedidos de venda e pagamento, seu USDC fica bloqueado no pedido até o comerciante marcar o pagamento como enviado. Se nenhum comerciante aceitar, ele volta para você.\n• Se um comerciante não pagar ou não confirmar seu pagamento, você pode abrir uma disputa na tela de ajuda do pedido.",
+    FAQ_HOW_TO_BUY_USDC_FIAT: "Como compro USDC com a minha moeda local?",
     FAQ_HOW_TO_BUY_USDC_FIAT_ANSWER:
-      "1. Toque em 'Comprar USDC' na tela inicial.\n2. Informe o valor e o endereço do destinatário → Prosseguir para pagamento.\n3. Um comerciante é designado e envia os dados de pagamento.\n4. Pague via PIX/QRIS/UPI no app do seu banco e toque em 'Já fiz o pagamento'.\n5. Depois que o comerciante confirmar, o USDC é enviado em segundos.\n\nObservação: novos usuários (0 verificações zk) começam com US$ 10 por pedido, 1 compra por dia. Faça verificações zk para aumentar os limites.",
+      '1. No Início, toque em Comprar USDC, informe o valor e faça o pedido.\n2. Aguarde um comerciante aceitar (normalmente em menos de 90 segundos). Se ninguém aceitar em 3 minutos, o pedido é cancelado. Você não pagou nada.\n3. Pague o valor exato para os dados do comerciante, de uma conta no seu nome, antes de o tempo acabar (cerca de 5 minutos). Não mencione cripto nem USDC na descrição do pagamento.\n4. Toque em "Já fiz o pagamento".\n5. Quando o comerciante confirmar, o USDC chega na sua carteira.\n\nAntes da sua primeira compra, faça a verificação em Meus limites com LinkedIn, GitHub ou KYC com passaporte (onde disponível).',
     FAQ_HOW_TO_CALCULATE_TAX_INDIA:
       "Como calculo o imposto dos meus pedidos no P2P.me?",
     FAQ_HOW_TO_CALCULATE_TAX_INDIA_ANSWER:
-      "Abra o relatório fiscal em Ajuda e suporte. Ele lê seus pedidos concluídos no P2P.me e estima seu imposto de renda sobre cripto (VDA) para o ano fiscal indiano que você escolher: 30% sobre os ganhos, mais sobretaxa e cess. Você também recebe uma tabela Schedule VDA, as datas do imposto antecipado e uma verificação de TDS para usar na declaração.\n\nDeclarar seus impostos é responsabilidade sua. O P2P.me não retém, informa nem declara nada por você, e os valores são uma estimativa, não aconselhamento fiscal. Confirme com um contador (Chartered Accountant) antes de declarar.",
+      "Abra Ajuda e suporte → Relatório fiscal. Ele usa seus pedidos concluídos no P2P.me para estimar o imposto sobre cripto (VDA) do ano fiscal que você escolher: 30% sobre os ganhos, mais sobretaxa e cess. Ele também mostra uma tabela Schedule VDA, as datas do imposto antecipado e uma checagem de TDS.\n\nOs valores são uma estimativa, não uma orientação fiscal. O P2P.me não declara nada por você, então consulte um Chartered Accountant antes de declarar.",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES:
-      "Como depositar e sacar entre exchanges como Binance e MEXC ou outras carteiras e o P2P.me",
+      "Como transfiro USDC entre uma corretora (como a Binance) e o P2P.me?",
     FAQ_HOW_TO_DEPOSIT_WITHDRAW_EXCHANGES_ANSWER:
-      "Para depositar USDC:\nDe exchanges (Binance, MEXC etc.):\n1. Início → Depositar.\n2. Toque em 'Receber USDC' para copiar seu endereço na Base.\n3. Na exchange, saque USDC para esse endereço na rede Base.\n\nDe carteiras (MetaMask, Phantom etc.):\n1. Abra a carteira e selecione a rede Base.\n2. Envie USDC para o endereço da sua carteira P2P.me (em 'Receber USDC').\n\nPara sacar USDC:\nPara exchanges:\n1. Início → Sacar → USDC.\n2. Cole o endereço de depósito de USDC da exchange na Base.\n3. Confirme.\n\nPara carteiras:\n1. Início → Sacar → USDC.\n2. Informe o endereço da sua carteira. Se for outra rede, use o saque cross-chain.\n\nObservação: o P2P.me opera na Base. Para depósitos e saques diretos, use apenas a Base. Se você enviou pela rede ou token errado, veja a pergunta sobre recuperação de fundos.",
-    FAQ_HOW_TO_EARN_MONEY: "Como ganhar dinheiro no P2P.me",
+      'O P2P.me usa USDC na rede Base, então sempre escolha Base ao enviar ou sacar.\n\nPara adicionar USDC:\n1. No Início, toque em Depositar → Depositar USDC na Base e copie seu endereço.\n2. Na corretora, saque USDC para esse endereço e escolha a rede Base.\n\nPara enviar USDC para fora:\n1. No Início, toque em Sacar → Sacar USDC na Base.\n2. Cole o endereço de depósito de USDC da corretora na Base, informe o valor e confirme.\n\nA corretora não aceita Base? Use "Depositar de outras redes" ou "Sacar USDC cross-chain".',
+    FAQ_HOW_TO_EARN_MONEY: "Como posso ganhar com o P2P.me?",
     FAQ_HOW_TO_EARN_MONEY_ANSWER:
-      "Existem duas formas de ganhar no P2P.me:\n\n1. Indicar usuários: quando seus limites de compra passarem de US$ 150, você pode começar a indicar usuários pelo app P2P.me e ganhar 0,5% do volume negociado por eles.\n2. Tornar-se comerciante verificado: você também pode ganhar se tornando comerciante verificado no protocolo lp.p2p.me e atendendo pedidos P2P.",
-    FAQ_HOW_TO_INCREASE_LIMITS: "Como aumento meus limites de compra e venda?",
+      "Há duas formas:\n1. Indique amigos: quando seu limite de compra chegar a 150 USDC, compartilhe seu link em Indique e Ganhe e ganhe uma parte de cada negociação que seus amigos fizerem.\n2. Torne-se comerciante: atenda pedidos de outros usuários e ganhe em cada um. Saiba mais em lp.p2p.me.",
+    FAQ_HOW_TO_INCREASE_LIMITS: "Como aumento meus limites?",
     FAQ_HOW_TO_INCREASE_LIMITS_ANSWER:
-      "Você pode aumentar seus limites de duas formas:\n\n1. Faça pelo menos uma verificação zk social na página Meus limites para aumentar seus limites na hora e liberar até 5 pedidos de compra por dia.\n\n2. Verifique sua identidade usando:\n • zk-Social (Instagram, LinkedIn, GitHub, X)\n\nDepois da primeira verificação zk, você pode continuar aumentando seus limites fazendo mais transações no P2P.me.\n\nObservação: não coletamos nem compartilhamos seus dados pessoais. Todas as verificações usam provas de conhecimento zero, que mantêm suas informações privadas e seguras e comprovam apenas o necessário. Como não armazenamos seus dados, não temos como compartilhá-los com ninguém no futuro.",
-    FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "Como pago com Scan & Pay no P2P.me?",
+      "Abra Meus limites no menu (ou toque em Aumentar limites de transação no Início) e conclua qualquer uma destas opções:\n• Prova de vida: um escaneamento rápido do rosto, sem documentos (não disponível na Índia)\n• KYC com passaporte: escaneie seu passaporte e tire uma selfie (onde disponível)\n• Verifique uma rede social, como LinkedIn, GitHub ou X\n• Verificação de BVN (somente na Nigéria)\n• Faça stake de tokens $P2P\n\nCada opção mostra quanto ela aumenta seu limite por pedido. Concluir mais pedidos também aumenta seus limites com o tempo.",
+    FAQ_HOW_TO_PAY_WITH_SCAN_PAY: "Como pago uma loja com o Scan & Pay?",
     FAQ_HOW_TO_PAY_WITH_SCAN_PAY_ANSWER:
-      "- Peça o valor da conta - Peça a conta na loja e confirme o total.\n- Abra o P2P.me - Toque em Scan & Pay, informe o valor da conta e faça o pedido. Quando ele for atribuído a um comerciante do P2P.me, o leitor do app vai abrir.\n- Peça para a loja gerar o QR code de pagamento - Peça para gerar o QR na maquininha só depois que o leitor do P2P.me abrir. (Observação: QRs de maquininha costumam expirar em cerca de 2 minutos, então o tempo é essencial.)\n- Escaneie e aguarde - Use o leitor do P2P.me para escanear o QR. A maioria dos pagamentos é processada em até 60 segundos, então aguarde com calma.\n- QRs estáticos - Se a loja tiver um QR code estático, é mais simples, porque você terá mais tempo para concluir o pagamento.",
-    FAQ_HOW_TO_SCAN_PAY_QR:
-      "Posso escanear qualquer QR code e pagar com USDC no P2P.me?",
+      "1. Confirme o valor da conta com a loja.\n2. No Início, toque em Scan & Pay, informe o valor e faça o pedido.\n3. Aguarde um comerciante aceitar. Em seguida, o leitor de QR abre.\n4. Só agora peça para a loja gerar o QR de pagamento. QR codes de maquininhas costumam expirar em cerca de 2 minutos.\n5. Escaneie o QR e mantenha a página aberta. A maioria dos pagamentos é concluída em até 60 segundos.\n\nQR codes impressos (estáticos) não expiram, então você tem mais tempo.",
+    FAQ_HOW_TO_SCAN_PAY_QR: "Quais QR codes posso pagar com o Scan & Pay?",
     FAQ_HOW_TO_SCAN_PAY_QR_ANSWER:
-      "Sim. Você pode escanear QRs UPI (Índia), PIX (Brasil) ou QRIS (Indonésia).\n\n1. Toque em 'Scan & Pay QR'.\n2. Informe o valor se ele não vier preenchido no QR.\n3. Um comerciante é designado para fazer o pagamento.\n4. Escaneie o QR UPI/PIX/QRIS. Os dados são enviados ao comerciante.\n\nObservação: fique na página até que seus dados de pagamento sejam enviados.",
-    FAQ_HOW_TO_SELL_USDC: "Como vendo USDC e recebo o dinheiro na minha conta?",
+      "Você pode pagar os QR codes de pagamento locais do seu país, como UPI na Índia, PIX no Brasil ou QRIS na Indonésia. Você paga em USDC, e um comerciante paga o QR em moeda local.\n\nO Scan & Pay funciona na maioria dos mercados, mas ainda não no Quênia. Se você não vê o Scan & Pay no Início, ele não está disponível para a moeda selecionada.",
+    FAQ_HOW_TO_SELL_USDC:
+      "Como vendo USDC e recebo no meu banco ou app de pagamento?",
     FAQ_HOW_TO_SELL_USDC_ANSWER:
-      "1. Toque em 'Vender USDC'.\n2. Informe o valor e seus dados UPI/PIX/QRIS → Prosseguir.\n3. Um comerciante é designado.\n4. Depois que seu USDC for recebido, o dinheiro é enviado para os seus dados de pagamento.\n\nObservação: o limite padrão de venda é US$ 100 por pedido, no máximo 10 pedidos por dia. Faça verificações zk para aumentar os limites.",
+      "1. No Início, toque em Vender USDC, informe o valor, adicione onde você quer receber (por exemplo, sua chave PIX ou seu UPI ID) e faça o pedido. Seu USDC fica bloqueado no pedido até ele ser concluído.\n2. Mantenha a página aberta. Quando um comerciante aceitar (normalmente em 20–90 segundos), o app envia seus dados de pagamento para ele.\n3. O comerciante envia o dinheiro e marca como enviado.\n4. Confira seu banco ou app de pagamento.\n\nSe nenhum comerciante aceitar a tempo, o pedido é cancelado e seu USDC volta para a sua carteira.",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS:
-      "Como verifico minhas redes sociais com provas zk para aumentar meus limites?",
+      "Como verifico uma rede social para aumentar meus limites?",
     FAQ_HOW_VERIFY_SOCIAL_ACCOUNTS_ZK_PROOFS_ANSWER:
-      "Você pode aumentar seus limites verificando suas redes sociais (X, Instagram, LinkedIn ou GitHub) com provas zk. A verificação usa a tecnologia da Reclaim, que é segura, preserva sua privacidade e não exige instalar um app completo, tornando o processo rápido e fácil.\n\nVeja como:\nPasso 1: depois de clicar em verificar, toque para abrir o app clip.\nPasso 2: faça o login na rede social (X, Instagram, LinkedIn ou GitHub) e siga as instruções na tela.\nPasso 3: aguarde a geração da prova. A verificação é concluída automaticamente assim que sua prova estiver pronta.\n\nObservação: se não funcionar na primeira tentativa, tente de novo com calma. Gerar provas zk pode levar um tempinho, pois o processo é feito com segurança.",
+      "1. Abra Meus limites → Verifique uma rede social e escolha uma (como LinkedIn, GitHub ou X).\n2. Siga o link até o app Reclaim Verifier. Instale pela App Store ou pelo Google Play, se for pedido.\n3. Entre na sua rede social por lá e siga os passos.\n4. Volte para o P2P.me. A verificação termina sozinha, normalmente em 3–5 minutos.\n\nSe falhar, tente de novo. Na Índia, outras contas só aparecem depois que você verifica LinkedIn, GitHub ou KYC com passaporte.",
     FAQ_HOW_WITHDRAW_FUNDS: "Como faço para sacar fundos do P2P.me?",
     FAQ_HOW_WITHDRAW_FUNDS_ANSWER:
-      "Você pode sacar USDC:\n• Enviando direto para um endereço de carteira na Base, ou\n• Usando o saque cross-chain via Near Intents para mover fundos para outras redes.",
+      "No Início, toque em Sacar e escolha:\n• Sacar USDC na Base: informe o endereço e o valor, confira os detalhes e toque em Confirmar e enviar. A carteira ou corretora que vai receber precisa aceitar USDC na Base.\n• Sacar USDC cross-chain: envie para outra rede (a lista de redes aceitas aparece lá). Isso usa a NEAR Intents.\n\nSaques não podem ser desfeitos, então confira bem o endereço.",
     FAQ_IS_P2P_ME_AML_COMPLIANT:
-      "O P2P.me está em conformidade com as leis contra lavagem de dinheiro (AML)?",
+      "O P2P.me segue as regras contra lavagem de dinheiro (AML)?",
     FAQ_IS_P2P_ME_AML_COMPLIANT_ANSWER:
-      "Sim, levamos AML a sério, mas de um jeito que respeita sua privacidade! O P2P.me segue o espírito das diretrizes do GAFI (FATF) por meio de:\n\n• Limites iniciais baixos: para manter o risco baixo no começo.\n• KYC de conhecimento zero: não armazenamos suas informações, mas ainda verificamos você para garantir a confiança.\n• Reputação on-chain: um sistema de reputação que ajuda a evitar atividades suspeitas.\n\nCriamos proteções que cuidam de você e respeitam sua privacidade. É o melhor dos dois mundos!",
+      "O P2P.me segue o espírito das diretrizes internacionais de AML (FATF/GAFI) protegendo sua privacidade:\n• Contas novas começam com limites baixos.\n• Limites maiores exigem verificação, feita com provas privadas.\n• Cada conta constrói uma reputação a partir do seu histórico, o que ajuda a barrar pessoas mal-intencionadas.",
     FAQ_IS_P2P_ME_SAFE: "O P2P.me é seguro?",
     FAQ_IS_P2P_ME_SAFE_ANSWER:
-      "Sim. O P2P.me foi criado com a segurança do usuário em primeiro lugar. Todos os comerciantes da plataforma são verificados individualmente. Antes de entrar, eles precisam enviar provas de conhecimento zero (provas ZK) da sua atividade bancária para comprovar que são usuários legítimos e ativos, sem histórico de bloqueios bancários ou comportamento fraudulento. Isso mantém os fundos dos comerciantes seguros e as transações confiáveis.",
+      "Sim. Todo comerciante é verificado antes de poder atender pedidos: ele prova de forma privada que a conta bancária está ativa e não tem histórico de bloqueios ou fraude.\n\nQuando você vende ou paga, seu USDC fica bloqueado no pedido até o comerciante pagar. Se algo der errado, você pode abrir uma disputa pelo pedido. A carteira é sua, e o P2P.me não pode movimentar seus fundos.",
+    FAQ_PAID_BUT_ORDER_CANCELLED:
+      "Paguei, mas meu pedido de compra foi cancelado ou o tempo acabou. E agora?",
+    FAQ_PAID_BUT_ORDER_CANCELLED_ANSWER:
+      'Não pague de novo. Seu dinheiro não foi perdido.\n• Se o pedido aparece como Cancelado: abra-o, toque no ícone de ajuda e abra uma disputa. As disputas ficam disponíveis 15 minutos depois de você fazer o pedido e continuam abertas por 24 horas.\n• Se aparecer que o prazo de pagamento acabou: toque em "Fale com a gente" e envie a referência do pagamento (como o UTR do UPI).\n\nO suporte vai conferir com o comerciante e resolver.',
     FAQ_RECOVER_FUNDS_PRIVATE_KEY:
       "Como recupero fundos usando minha chave privada?",
     FAQ_RECOVER_FUNDS_PRIVATE_KEY_ANSWER:
-      'Se você perdeu o acesso à sua conta, mas ainda tem a chave privada da sua carteira, pode recuperar seu USDC.\n\n1. Abra a página "Recuperar fundos".\n2. Cole sua chave privada para carregar sua carteira inteligente.\n3. Informe o endereço de outra carteira P2P.me e o valor.\n4. Toque em Recuperar fundos para enviar.\n\nNunca compartilhe sua chave privada com ninguém.',
+      "Se você não consegue entrar, mas tem a chave privada da sua carteira (o código secreto que controla sua carteira):\n1. Abra Recuperar fundos (link abaixo).\n2. Cole sua chave privada para carregar sua carteira.\n3. Escolha USDC ou $P2P, depois informe um endereço na Base que você controla e o valor.\n4. Toque em Recuperar fundos.\n\nNunca compartilhe sua chave privada. O suporte do P2P.me nunca vai pedi-la.",
     FAQ_SCAN_PAY_REFUND_POLICY:
       "Posso pedir reembolso de um pedido Scan & Pay?",
     FAQ_SCAN_PAY_REFUND_POLICY_ANSWER:
@@ -718,116 +721,117 @@ export const pt = {
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF:
       "O lojista está pedindo para ver o pagamento – o que devo fazer?",
     FAQ_SHOPKEEPER_ASKING_PAYMENT_PROOF_ANSWER:
-      '1. Copie o ID UPI do comerciante no seu pedido.\n2. Cole no seu app UPI para ver o nome dele.\n3. Diga ao lojista: "Você deve ter recebido ₹XXXX de [Nome]."\n4. Se ele ainda negar, fale com o suporte. Enviaremos uma captura de tela para você mostrar.',
-    FAQ_WHAT_ARE_DEFAULT_LIMITS: "Quais são os limites padrão no P2P.me?",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_ANSWER:
-      "Para novos usuários:\n• Pedidos de compra: indisponíveis. Faça pelo menos uma verificação zk para liberar a compra e começar com segurança!\n• Limite de venda: US$ 100 por pedido, até 10 pedidos por dia (limite diário de US$ 1.000, já que os comerciantes são verificados e estão prontos para negociar).\n\nPara usuários com pelo menos uma verificação zk:\n• Limite de compra: seu limite de transação por pedido, até 5 pedidos por dia.\n• Limite de venda: seu limite de transação por pedido, até 10 pedidos por dia.\n\nLimite máximo por transação: 400 USDC.\nLimite mensal de pedidos de compra: 25 pedidos.\nLimite de volume anual: {{yearlyVolumeLimit}} USDC por usuário.\nQuer limites maiores? Acesse a seção Meus limites para fazer verificações zk e liberar mais.",
-    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Quais são os limites padrão?",
+      '1. Abra o pedido concluído e toque em "Solicitar comprovante". O comerciante envia um recibo do pagamento, e "Ver comprovante" aparece quando estiver pronto.\n2. Enquanto isso, copie o ID de pagamento do comerciante no pedido (por exemplo, a chave PIX ou o UPI ID dele) e confira o nome dele no seu app de pagamento.\n3. Diga para a loja: "Você recebeu [valor] de [nome]."\n\nAinda com problema? Use "Fale com a gente" em Ajuda e suporte.',
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED:
+      "Fiz a verificação, mas meu limite não aumentou. Por quê?",
+    FAQ_VERIFIED_LIMIT_NOT_CHANGED_ANSWER:
+      'Confira estes pontos:\n1. Em Meus limites, se a opção mostrar "Concluir verificação", toque nela. Seu resultado só é salvo depois disso.\n2. Feche e abra o app de novo. As atualizações podem levar um minuto.\n3. Você pode já estar no maior limite por pedido do seu país.\n4. Algumas verificações não contam sozinhas para contas novas. Adicione LinkedIn, GitHub ou KYC com passaporte.\n\nAinda com problema? Use "Fale com a gente".',
+    FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS: "Quais são os limites iniciais?",
     FAQ_WHAT_ARE_DEFAULT_LIMITS_MY_LIMITS_ANSWER:
-      "Para novos usuários:\n• Pedidos de compra: indisponíveis. Faça pelo menos uma verificação zk para liberar a compra e começar com segurança!\n• Limite de venda: US$ 100 por pedido, até 10 pedidos por dia (limite diário de US$ 1.000, já que os comerciantes são verificados e estão prontos para negociar).\n\nPara usuários com pelo menos uma verificação zk:\n• Limite de compra: seu limite de transação por pedido, até 5 pedidos por dia.\n• Limite de venda: seu limite de transação por pedido, até 10 pedidos por dia.\n\nLimite máximo por transação: 400 USDC.\nLimite mensal de pedidos de compra: 25 pedidos.\nLimite de volume anual: {{yearlyVolumeLimit}} USDC por usuário.\nQuer limites maiores? Acesse a seção Meus limites para fazer verificações zk e liberar mais.",
-    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "O que são transações em disputa?",
+      "Os limites dependem do seu país e das suas verificações. Meus limites mostra seus valores exatos.\n• Contas novas podem vender e pagar. Para comprar, faça a verificação com LinkedIn, GitHub ou KYC com passaporte (onde disponível).\n• Cada verificação aumenta seu limite por pedido (o máximo de USDC em um pedido).\n• Também há limites diários e mensais de pedidos, e um limite anual de {{yearlyVolumeLimit}} USDC.\n\nConclua mais verificações em Meus limites para aumentar seus limites.",
+    FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS: "O que é uma disputa?",
     FAQ_WHAT_ARE_DISPUTED_TRANSACTIONS_ANSWER:
-      "Transações em disputa são aquelas em que um usuário abriu uma disputa por causa de algum problema na transação. Se você tiver qualquer problema, também pode abrir uma.",
+      'Uma disputa pede que o suporte do P2P.me intervenha quando um pedido dá errado, por exemplo: você pagou mas não recebeu seu USDC, ou um comerciante não pagou você. O suporte confere o pagamento com o comerciante e resolve o pedido. Pedidos com disputa aberta aparecem como "Em disputa" em Transações.',
     FAQ_WHAT_ARE_ORDER_STATUSES: "Quais são os diferentes status de um pedido?",
     FAQ_WHAT_ARE_ORDER_STATUSES_ANSWER:
-      "• Processando: o pedido está ativo e sendo processado no protocolo.\n• Concluído: o pedido foi concluído com sucesso.\n• Cancelado: o pedido foi cancelado manualmente ou expirou automaticamente.",
+      "• Procurando comerciante: aguardando um comerciante aceitar.\n• Comerciante atribuído: um comerciante aceitou e a etapa de pagamento está em andamento.\n• Pagamento em andamento: o pagamento foi marcado como enviado e está aguardando confirmação.\n• Concluídas: o pedido foi concluído.\n• Canceladas: o pedido foi cancelado ou expirou. Em pedidos de venda e pagamento, seu USDC é reembolsado.\n• Em disputa / Disputa resolvida: uma disputa está aberta ou já foi resolvida.",
     FAQ_WHAT_FEES_CHARGED: "Quais taxas o P2P.me cobra?",
     FAQ_WHAT_FEES_CHARGED_ANSWER:
-      "No momento, o protocolo não cobra taxas. O preço do USDC que você vê é definido pelo protocolo P2P.me para garantir justiça e simplicidade aos primeiros usuários.",
+      "A maioria dos pedidos não tem taxa separada: você paga o preço mostrado.\n\nPedidos pequenos têm uma taxa fixa em USDC. Se o seu valor estiver abaixo do limite, o app mostra a taxa e exatamente quanto você vai receber ou pagar antes de você fazer o pedido.\n\nEnviar USDC da sua carteira P2P.me é grátis, pois as taxas de rede (gas) são cobertas. Transferências cross-chain incluem uma taxa de ponte, mostrada na cotação.",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE:
       "O que acontece se eu abrir uma disputa falsa?",
     FAQ_WHAT_HAPPENS_FALSE_DISPUTE_ANSWER:
-      "Se você abrir disputas falsas ou abusivas, haverá consequências, como:\n• Suspensão dos serviços\n• Perda de privilégios de negociação\n\nEntão jogue limpo e seja honesto.",
+      "Disputas falsas ou abusivas podem levar à suspensão da sua conta e impedir você de negociar. Só abra uma disputa quando algo realmente der errado.",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY:
       "O que acontecerá se eu for pego em atividade fraudulenta?",
     FAQ_WHAT_HAPPENS_IF_FRAUDULENT_ACTIVITY_ANSWER:
-      "Você será colocado na lista negra e, se tiver feito stake de tokens $P2P, eles serão confiscados.",
+      "Sua conta será bloqueada no P2P.me, e os tokens $P2P que você tiver em stake podem ser confiscados.",
     FAQ_WHAT_IF_BANK_FROZEN:
-      "O que acontece se minha conta for bloqueada? O P2P.me ajuda a desbloquear?",
+      "Minha conta bancária foi bloqueada depois de um pedido no P2P.me. O que faço?",
     FAQ_WHAT_IF_BANK_FROZEN_ANSWER:
-      "Se sua conta for bloqueada por causa de uma transação no P2P.me, acesse Unfreeze.pro, um portal que criamos para usuários e comerciantes do P2P.me na Índia. Envie seu caso e nossa equipe jurídica vai orientar você no processo de desbloqueio, sem custo.\n\nVocê também pode entrar nos canais da comunidade P2P.me, onde usuários e voluntários podem ajudar você durante o processo.",
-    FAQ_WHAT_IF_CROSS_CHAIN_STUCK: "E se minha transação cross-chain travar?",
+      'Informe o caso em unfreeze.pro, nosso portal gratuito para usuários e comerciantes do P2P.me. Envie o ID do pedido e o aviso do banco. Nossa equipe jurídica vai orientar você para desbloquear a conta.\n\nNa Índia, pedidos elegíveis também têm reembolso total (veja "O que é a Proteção contra Bloqueio Bancário (Índia)?").\n\nVocê também pode pedir ajuda no seu grupo do P2P.me no Telegram.',
+    FAQ_WHAT_IF_CROSS_CHAIN_STUCK:
+      "Meu depósito ou saque cross-chain está travado. O que faço?",
     FAQ_WHAT_IF_CROSS_CHAIN_STUCK_ANSWER:
-      "Se sua transação Near Intents travar:\n\n1. Acesse o Near Intents Explorer pela confirmação da sua transação.\n2. Copie o Request ID da transação.\n3. Fale com o suporte da Near Intents: https://t.me/near_intents Use apenas canais verificados para evitar golpes.",
+      "As transferências cross-chain são feitas pela NEAR Intents, não pelo P2P.me.\n1. Abra a ponte (Depositar → Depositar de outras redes, ou Sacar → Sacar USDC cross-chain) e encontre a transferência em Histórico de pontes.\n2. Abra-a no explorador da NEAR Intents e copie os detalhes.\n3. Fale com o suporte da NEAR Intents em near.com/support.\n\nSe uma transferência não puder ser concluída, seus tokens voltam para o endereço de reembolso que você informou. Use apenas links oficiais de suporte.",
     FAQ_WHAT_IS_P2P_ME: "O que é o P2P.me?",
     FAQ_WHAT_IS_P2P_ME_ANSWER:
-      "O P2P.me é uma plataforma global que permite comprar, vender e pagar com USDC de forma fácil, segura e privada. Ele aceita métodos de pagamento locais populares como UPI, PIX e QRIS, e seus fundos ficam sempre sob seu controle.",
+      "O P2P.me permite comprar, vender e gastar USDC, um dólar digital, com métodos de pagamento locais como UPI, PIX, QRIS, M-Pesa ou transferência bancária. Cada pedido é atendido por um comerciante verificado. Seu USDC fica na sua própria carteira, que só você controla.",
     FAQ_WHAT_IS_REFER_AND_EARN: "O que é o Indique e Ganhe no P2P.me?",
     FAQ_WHAT_IS_REFER_AND_EARN_ANSWER:
-      "O Indique e Ganhe é a sua chance de ganhar recompensas passivas convidando pessoas de confiança para negociar no P2P.me. Quando estiver elegível, você pode gerar um link de indicação, compartilhar e ganhar 0,5% do volume total negociado pelos usuários que entrarem pelo seu link.",
-    FAQ_WHAT_IS_ZERO_KNOWLEDGE: "O que é essa coisa de conhecimento zero?",
+      "Convide pessoas em quem você confia para o P2P.me e ganhe uma parte de cada negociação que elas fizerem. Quando você estiver elegível, crie um link em Indique e Ganhe e compartilhe. A taxa de recompensa atual aparece na página Indique e Ganhe.",
+    FAQ_WHAT_IS_USDC: "O que é USDC e o que é a rede Base?",
+    FAQ_WHAT_IS_USDC_ANSWER:
+      'USDC é um dólar digital: 1 USDC vale cerca de 1 dólar americano. É uma "stablecoin", então o valor dela não oscila como outras criptos.\n\nBase é a rede blockchain que o P2P.me usa para movimentar USDC de forma rápida e barata. Ao enviar ou receber USDC fora do app, sempre escolha a rede Base.',
+    FAQ_WHAT_IS_ZERO_KNOWLEDGE:
+      'O que é a verificação de "conhecimento zero" (zk)?',
     FAQ_WHAT_IS_ZERO_KNOWLEDGE_ANSWER:
-      "A verificação de conhecimento zero permite comprovar coisas como sua idade ou identidade sem compartilhar seus dados pessoais com a gente. Seus dados continuam privados enquanto você se verifica e aumenta seus limites no P2P.me.\n\nResumindo: você comprova o que é necessário, e suas informações pessoais ficam com você.",
+      "É uma forma privada de provar algo sem mostrar os detalhes. Por exemplo, você pode provar que tem uma conta no LinkedIn sem compartilhar sua senha ou seu perfil. O P2P.me só fica sabendo que a verificação foi aprovada. Suas informações pessoais ficam com você.",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS:
       "Quais redes são suportadas para depósitos?",
     FAQ_WHAT_NETWORKS_SUPPORTED_DEPOSITS_ANSWER:
-      "No momento, USDC na rede Base é o único método de depósito suportado. Se seus fundos estiverem em outra rede, use a opção de depósito cross-chain da Near Intents.",
+      "Sua carteira P2P.me guarda USDC na rede Base, e você pode enviar USDC na Base direto para o seu endereço.\n\nPara outras redes, toque em Depositar → Depositar de outras redes. Lá aparecem as redes e tokens aceitos, e eles chegam como USDC na Base.",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE: "Quando me torno elegível para ganhar?",
     FAQ_WHEN_DO_I_BECOME_ELIGIBLE_ANSWER:
-      "Você pode começar a indicar e ganhar quando seus Pontos de Reputação (RP) passarem de 150.",
+      "Quando seu limite de compra chegar a 150 USDC. Você pode aumentá-lo em Meus limites concluindo verificações.",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER:
       "Quando devo abrir uma disputa em um pedido de compra?",
     FAQ_WHEN_RAISE_DISPUTE_BUY_ORDER_ANSWER:
-      "Abra uma disputa no seu pedido de compra apenas se você fez o pagamento, mas o pedido foi cancelado e você não recebeu o reembolso.",
+      'Abra uma disputa se você pagou o comerciante mas não recebeu seu USDC, por exemplo, se o comerciante não confirmou ou se o pedido foi cancelado depois que você pagou.\n• Você pode abrir a partir de 15 minutos depois de fazer o pedido, por até 24 horas.\n• Antes, toque em "Já fiz o pagamento" no pedido, se ainda não tiver tocado.\n• Tenha em mãos a referência do pagamento (como o UTR do UPI).\n\nSe o prazo de pagamento acabou antes de você marcar como pago, use "Fale com a gente".',
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER:
       "Quando devo abrir uma disputa em um pedido de venda?",
     FAQ_WHEN_RAISE_DISPUTE_SELL_ORDER_ANSWER:
-      "No seu pedido de venda, abra uma disputa apenas se seu USDC foi debitado, mas você não recebeu o pagamento do comprador.",
+      "Abra uma disputa se o comerciante marcou seu pagamento como enviado, mas o dinheiro não chegou no seu banco ou app de pagamento.\n• Você pode abrir a partir de 30 minutos depois de fazer o pedido, por até 7 dias.\n• Confira seu banco ou app antes, pois alguns pagamentos demoram um pouco.\n\nO mesmo vale para pedidos de Scan & Pay quando a loja não recebeu o dinheiro.",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS:
       "Onde posso verificar meus limites de transação?",
     FAQ_WHERE_CHECK_TRANSACTION_LIMITS_ANSWER:
-      'Acesse a página "Meus limites" no menu da tela inicial para ver seus limites de compra e venda/pagamento.',
+      "Abra Meus limites no menu ou toque em Aumentar limites de transação no Início. O Início também mostra seus limites atuais por pedido para compra, venda e pagamento.",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY:
       "Onde posso encontrar meu histórico de depósitos e saques?",
     FAQ_WHERE_FIND_DEPOSIT_WITHDRAWAL_HISTORY_ANSWER:
-      "Acesse a seção Transações no app. Você vai ver abas para:\n• Pedidos (compra/venda)\n• Depósitos\n• Saques",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY:
-      "Onde encontrar o histórico de pedidos ou transações no P2P.me",
-    FAQ_WHERE_TO_FIND_TRANSACTION_HISTORY_ANSWER:
-      "Acesse 'Transações' no app para ver pedidos, depósitos, saques e disputas.",
-    FAQ_WHERE_VIEW_ALL_TRANSACTIONS:
-      "Onde posso ver todas as minhas transações no P2P.me?",
+      "Transações mostra apenas pedidos de compra, venda e pagamento.\n• Transferências cross-chain: veja o Histórico de pontes na página da ponte (Depositar → Depositar de outras redes). Ele fica salvo neste dispositivo. Para o histórico completo, abra o explorador da NEAR Intents.\n• Depósitos e saques na Base: pesquise o endereço da sua carteira no BaseScan (basescan.org). Depois de um saque, você também pode tocar em Ver no BaseScan.",
+    FAQ_WHERE_VIEW_ALL_TRANSACTIONS: "Onde vejo meus pedidos?",
     FAQ_WHERE_VIEW_ALL_TRANSACTIONS_ANSWER:
-      "Acesse a seção Transações no app para ver toda a sua atividade, incluindo depósitos, saques e disputas.",
+      'Abra Transações no menu. Lá aparecem todos os seus pedidos de compra, venda e pagamento, com filtros por tipo, status, data e disputas. Toque em um pedido para abri-lo.\n\nDepósitos e saques não aparecem lá. Veja "Onde posso encontrar meu histórico de depósitos e saques?"',
     FAQ_WHERE_VIEW_CLAIM_REWARDS: "Onde vejo e resgato minhas recompensas?",
     FAQ_WHERE_VIEW_CLAIM_REWARDS_ANSWER:
-      "Acompanhe e resgate suas recompensas na seção 'Indique e Ganhe'. Veja a atividade e resgate quando quiser.",
+      "Em Indique e Ganhe. Lá você vê suas indicações e recompensas, e pode tocar em Resgatar para mover suas recompensas para a carteira a qualquer momento.",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED:
       "Quais moedas e redes o P2P.me suporta?",
     FAQ_WHICH_COINS_NETWORKS_SUPPORTED_ANSWER:
-      "No momento, o P2P.me suporta USDC na rede Base.",
-    FAQ_WHO_HANDLES_CROSS_CHAIN: "Quem cuida das transações cross-chain?",
-    FAQ_WHO_HANDLES_CROSS_CHAIN_ANSWER:
-      "Todas as operações cross-chain são feitas pela Near Intents. Se houver atrasos ou problemas, fale com o suporte da Near Intents aqui.",
+      "O P2P.me funciona com USDC na rede Base. USDC é um dólar digital (1 USDC ≈ 1 dólar americano), e Base é a rede blockchain que o app usa.\n\nTem USDC ou outros tokens em outra rede? Toque em Depositar → Depositar de outras redes para trazê-los como USDC na Base.",
     FAQ_WHO_IS_BUILDING_P2P_ME: "Quem desenvolve e mantém o P2P.me?",
     FAQ_WHO_IS_BUILDING_P2P_ME_ANSWER:
-      "O P2P.me é um protocolo de bem público desenvolvido por uma comunidade de colaboradores open source do mundo todo. Construído na Base, é um protocolo que cresce com a colaboração. É totalmente open source, ou seja, qualquer pessoa pode olhar por dentro e ver o que está acontecendo. Sem segredos, só transparência.",
+      "O P2P.me é um protocolo de código aberto na rede Base, construído por uma comunidade de colaboradores do mundo todo. Qualquer pessoa pode ler o código e conferir como ele funciona.",
     FAQ_WHY_APP_BLOCKED_REGIONS:
-      "O app não carrega na sua região? Veja como acessar",
+      "O app não carrega na minha região. O que posso fazer?",
     FAQ_WHY_APP_BLOCKED_REGIONS_ANSWER:
-      "Às vezes o P2P.me pode ser bloqueado por provedores de internet locais. Para acessar e manter o app atualizado:\n\nOpção 1: use uma VPN (Turbo VPN no celular, Zenmate no computador). Conecte-se a qualquer região e atualize o app.\n\nOpção 2: altere o DNS:\n• Android: Configurações → Rede → DNS particular → Adicione 8.8.8.8 ou 1.1.1.1\n• iOS: Wi‑Fi → Toque em 'i' → Configurar DNS → Manual → Adicione 8.8.8.8 ou 1.1.1.1\n\nMesmo com o app instalado, VPN/DNS garantem acesso e atualizações sem problemas.",
+      "Alguns provedores de internet bloqueiam o P2P.me. Tente uma destas opções:\n1. Use um app de VPN, conecte a qualquer país e recarregue o app.\n2. Ou mude seu DNS:\n• Android: Configurações → Rede e internet → DNS privado → digite dns.google\n• iPhone: Ajustes → Wi‑Fi → toque em (i) → Configurar DNS → Manual → adicione 8.8.8.8 ou 1.1.1.1\n\nIsso também ajuda o app instalado a receber atualizações.",
+    FAQ_WHY_CANT_I_BUY: "Por que não consigo fazer um pedido de compra?",
+    FAQ_WHY_CANT_I_BUY_ANSWER:
+      "Motivos comuns:\n• Você ainda não fez uma verificação que libera a compra. Para uma conta nova, isso é LinkedIn, GitHub ou KYC com passaporte (onde disponível) em Meus limites. Outras verificações, como prova de vida ou X, aumentam seus limites, mas sozinhas não liberam a compra.\n• O valor está acima do seu limite por pedido, ou é pequeno demais para cobrir a taxa fixa.\n• Você atingiu seu limite diário ou mensal de pedidos. Tente de novo mais tarde.\n• Nossas checagens de segurança pausaram as compras na sua conta. Concluir mais verificações pode liberar isso. Se você acha que é um erro, fale com a Ajuda.",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL:
-      "Por que não consigo enviar mensagens no canal Telegram do P2P.me? O que devo fazer?",
+      "Por que não consigo enviar mensagens no grupo do P2P.me no Telegram?",
     FAQ_WHY_CANT_TEXT_TELEGRAM_CHANNEL_ANSWER:
-      'Quando você entra no canal da comunidade P2P.me India pela primeira vez, aparece uma mensagem de boas-vindas no tópico "Verify (For New Members)". Para começar a mandar mensagens no grupo, clique no aviso de verificação dessa mensagem e resolva um CAPTCHA simples.\n\nSe você não viu ou não concluiu: é só sair do grupo e entrar de novo. A mensagem de boas-vindas e o aviso de verificação vão aparecer outra vez.\n\nDepois de verificado, você poderá participar da conversa.',
+      'Novos membros precisam passar por uma verificação rápida antes de poder postar.\n\n1. Encontre a mensagem de boas-vindas no grupo (no grupo da Índia, ela fica no tópico "Verify (For New Members)").\n2. Toque no botão de verificação e resolva o CAPTCHA.\n\nPerdeu a mensagem? Saia do grupo e entre de novo, e a mensagem de boas-vindas vai aparecer outra vez.\n\nPrecisa de ajuda com um pedido agora? Use "Fale com a gente" em Ajuda e suporte.',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA:
-      "Por que estou vendo 'Não atendeu aos critérios de elegibilidade' quando tento verificar?",
+      'Por que aparece "Você não atende aos critérios de elegibilidade" quando faço a verificação?',
     FAQ_WHY_SEEING_DIDNT_MEET_ELIGIBLE_CRITERIA_ANSWER:
-      "Isso significa que sua conta não passou em algumas verificações de elegibilidade confidenciais que o protocolo usa para manter a verificação justa e segura para todos.\nSe isso acontecer, tente se verificar com outra rede social (X, Instagram, LinkedIn ou GitHub) para concluir sua verificação zk.",
+      "Essa conta não passou em uma das checagens que mantêm a verificação justa. Não podemos compartilhar as regras exatas, pois isso ajudaria fraudadores.\n\nTente outra rede social ou outra opção em Meus limites, como a prova de vida ou o KYC com passaporte.",
     FAQ_WHY_SELL_RATES_LOW:
-      "Por que às vezes a cotação de venda de USDC fica baixa?",
+      "Por que o preço de venda às vezes está mais baixo?",
     FAQ_WHY_SELL_RATES_LOW_ANSWER:
-      "Na maior parte do tempo, os preços de venda no P2P.me são competitivos. Mas, quando há um pico de pedidos de venda e poucos pedidos de compra, os comerciantes podem não ter liquidez suficiente para concluir as transações. Nesses casos, baixamos os preços de venda para aliviar a pressão e incentivar mais pedidos de compra. Conforme o protocolo cresce, esses desequilíbrios de liquidez vão ficar menos frequentes.",
-    FAQ_WILL_P2P_HANDLE_TAXES: "O P2P vai cuidar dos meus impostos?",
+      "Quando muita gente está vendendo e pouca está comprando, os comerciantes ficam com pouco dinheiro local para pagar. O preço de venda cai por um tempo para equilibrar isso. Normalmente ele se recupera conforme entram mais pedidos de compra.",
+    FAQ_WILL_P2P_HANDLE_TAXES: "O P2P.me cuida dos meus impostos?",
     FAQ_WILL_P2P_HANDLE_TAXES_ANSWER:
-      "Não. O P2P.me é um protocolo descentralizado e não custodial. Ele não retém nem declara impostos. Você é responsável por cumprir as regras fiscais do seu país. Um histórico completo de transações está disponível para ajudar na declaração.",
+      "Não. O P2P.me não retém, não declara e não paga impostos por você. Você é responsável por seguir as regras fiscais do seu país.\n\nVocê pode baixar seu histórico de pedidos em Transações para ajudar na declaração. Na Índia, você também pode usar o relatório fiscal em Ajuda e suporte.",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT:
-      "Vocês vão enviar meus dados ao governo no futuro?",
+      "O P2P.me compartilha meus dados com o governo?",
     FAQ_WILL_YOU_SUBMIT_DATA_GOVERNMENT_ANSWER:
-      "Não. Não podemos e não vamos. O P2P.me é um protocolo totalmente descentralizado, ou seja, nem temos acesso aos seus dados. Todos os dados pessoais e de pagamento são criptografados de ponta a ponta e compartilhados apenas entre você e o comerciante. Nenhum terceiro, nem mesmo nós, pode acessar ou ver essas informações.",
+      "O P2P.me foi feito para saber o mínimo possível sobre você. Não pedimos seu documento para vender ou pagar, e não guardamos seus documentos nem seus logins de contas. Seus dados de pagamento são criptografados e só aparecem para o comerciante do seu pedido. As verificações usam provas privadas: só ficamos sabendo que a verificação foi aprovada, não os detalhes por trás dela.",
     FAQ_WITHDRAWAL_HASNT_ARRIVED: "O que devo fazer se meu saque não chegou?",
     FAQ_WITHDRAWAL_HASNT_ARRIVED_ANSWER:
-      "Para saques diretos na Base:\n• Verifique sua carteira e o explorador de blocos da Base.\n\nPara saques cross-chain:\n• Acesse a Near Intents\n• Fale com o suporte da Near Intents se a transação estiver travada",
+      "• Saque na Base: abra-o no BaseScan (toque em Ver no BaseScan ou pesquise seu endereço). Se aparecer Success, o USDC foi enviado. Confira se a carteira ou corretora que vai receber aceita USDC na Base e fale com ela.\n• Saque cross-chain: veja o status em Histórico de pontes. Se estiver travado, fale com o suporte da NEAR Intents em near.com/support.",
     FDV: "FDV",
     FEE: "Taxa",
     FIAT_AMOUNT: "Valor em moeda local",
