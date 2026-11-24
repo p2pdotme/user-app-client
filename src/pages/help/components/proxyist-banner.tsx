@@ -11,6 +11,8 @@ const CREAM = "#F1EFEA";
 const VIOLET = "#8F88F9";
 const GREEN = "#5DBB8A";
 
+const EASE_OUT = "cubic-bezier(0.16, 1, 0.3, 1)";
+
 /** proxy.ist mark: two square brackets around a violet dot. */
 function ProxyistMark({ className }: { className?: string }) {
   return (
@@ -47,63 +49,100 @@ export function ProxyistBanner() {
   return (
     <BannerItem bgColor="bg-[#141414]">
       <style>{`
-        @keyframes px-glow { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
-        @keyframes px-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.82); } }
-        @keyframes px-enter { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes px-glow { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+        @keyframes px-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.8); } }
+        @keyframes px-ring { 0% { transform: scale(0.5); opacity: 0.5; } 100% { transform: scale(1.9); opacity: 0; } }
+        @keyframes px-cursor { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+        @keyframes px-enter { 0% { transform: translateY(8px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes px-enter-mark { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
       `}</style>
 
       {/* Violet glow on the right, as on proxy.ist */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-2/3"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 70% 50%, rgba(72,62,190,0.55), rgba(72,62,190,0.18) 45%, transparent 72%)",
+            "radial-gradient(ellipse 55% 110% at 90% 55%, rgba(84,72,214,0.5), rgba(84,72,214,0.14) 50%, transparent 78%)",
           animation: "px-glow 8s ease-in-out infinite",
         }}
       />
 
-      {/* Dot grid */}
+      {/* Dot grid, fading out towards the left so the headline stays clean */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(241,239,234,0.16) 1px, transparent 1px)",
-          backgroundSize: "14px 14px",
+            "radial-gradient(rgba(241,239,234,0.2) 1px, transparent 1px)",
+          backgroundSize: "12px 12px",
+          maskImage:
+            "linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,1))",
         }}
       />
+
+      {/* Hairline frame */}
+      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
 
       <button
         type="button"
         onClick={handleBannerClick}
-        className="group relative flex h-full w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left">
-        <div className="flex min-w-0 flex-1 flex-col justify-center">
+        className="group relative flex h-full w-full cursor-pointer flex-col justify-between px-4 py-3 text-left">
+        {/* Brand mark, top-right, with a presence ping behind the dot */}
+        <div
+          className="absolute top-3 right-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-95"
+          style={{
+            animation:
+              "px-enter-mark 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 300ms both",
+          }}>
           <span
-            className="truncate font-mono text-[9px]r"
+            className="absolute size-5 rounded-full border"
             style={{
-              color: `${CREAM}99`,
-              animation: "px-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both",
+              borderColor: VIOLET,
+              animation: "px-ring 2.4s ease-out infinite",
+            }}
+          />
+          <ProxyistMark className="relative h-8 w-auto" />
+        </div>
+
+        {/* Eyebrow + headline */}
+        <div className="min-w-0">
+          <span
+            className="block truncate pr-10 font-mono text-[7.5px] tracking-[0.08em]"
+            style={{
+              color: `${CREAM}80`,
+              animation: `px-enter 600ms ${EASE_OUT} both`,
             }}>
             &gt; {t("PROXYIST_BANNER_LABEL")}
+            <span
+              aria-hidden
+              className="ml-0.5 inline-block h-[7px] w-[4px] translate-y-px"
+              style={{
+                backgroundColor: VIOLET,
+                animation: "px-cursor 1.1s steps(1) infinite",
+              }}
+            />
           </span>
           <h3
-            className="mt-0.5 font-black text-[19px] leading-[1.05] tracking-tighter"
+            className="mt-0.5 font-black text-[clamp(20px,6.9vw,27px)] leading-[0.98] tracking-[-0.05em]"
             style={{
               color: CREAM,
-              animation:
-                "px-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both",
+              animation: `px-enter 700ms ${EASE_OUT} 120ms both`,
             }}>
-            <span className="block truncate">{t("PROXYIST_BANNER_TITLE")}</span>
-            <span className="block truncate" style={{ color: VIOLET }}>
+            <span className="block truncate pr-10">
+              {t("PROXYIST_BANNER_TITLE")}
+            </span>
+            <span className="block truncate pb-0.5" style={{ color: VIOLET }}>
               {t("PROXYIST_BANNER_TITLE_ACCENT")}
             </span>
           </h3>
+        </div>
+
+        {/* Footer: prompt line + wordmark */}
+        <div
+          className="flex items-center justify-between gap-2 font-mono"
+          style={{ animation: `px-enter 600ms ${EASE_OUT} 240ms both` }}>
           <p
-            className="mt-1 flex items-center gap-1 truncate font-mono text-[9px]"
-            style={{
-              color: CREAM,
-              animation:
-                "px-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both",
-            }}>
+            className="flex min-w-0 items-center gap-1 text-[9px]"
+            style={{ color: `${CREAM}CC` }}>
             <span className="truncate">
               &gt; {t("PROXYIST_BANNER_SUBTITLE")}
             </span>
@@ -115,13 +154,8 @@ export function ProxyistBanner() {
               <Check className="size-2.5" strokeWidth={3} />
             </span>
           </p>
-        </div>
-
-        {/* Brand mark + wordmark */}
-        <div className="flex flex-shrink-0 flex-col items-center gap-1.5 self-center transition-transform duration-300 group-hover:scale-105 group-active:scale-95">
-          <ProxyistMark className="h-11 w-auto" />
           <span
-            className="font-mono text-[10px] tracking-wide"
+            className="flex-shrink-0 text-[10px] tracking-wide"
             style={{ color: CREAM }}>
             proxy<span style={{ color: VIOLET }}>(.)</span>ist
           </span>
