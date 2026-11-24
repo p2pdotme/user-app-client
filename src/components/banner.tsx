@@ -25,6 +25,7 @@ import { JoinMerchantBanner } from "@/pages/help/components/join-merchant";
 import { P2PSwapBanner } from "@/pages/help/components/p2p-swap-banner";
 import { PerpsBanner } from "@/pages/help/components/perps-banner";
 import { PrizerailBanner } from "@/pages/help/components/prizerail-banner";
+import { ProxyistBanner } from "@/pages/help/components/proxyist-banner";
 import { RedAtmBanner } from "@/pages/help/components/redatm-banner";
 import { UnfreezeBanner } from "@/pages/help/components/unfreeze-banner";
 
@@ -123,6 +124,11 @@ export function Banner() {
         className="w-full"
         opts={{ loop: true }}>
         <CarouselContent>
+          {/* Proxyist Banner — first slide for everyone */}
+          <CarouselItem>
+            <ProxyistBanner />
+          </CarouselItem>
+
           {/* Join Merchant Banner — first slide for ARS/BRL users */}
           {showMerchantBannerFirst && (
             <CarouselItem>
