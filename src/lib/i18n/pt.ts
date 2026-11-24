@@ -1724,7 +1724,6 @@ export const pt = {
     PROOF_UPLOADED: "Comprovante enviado",
     PROOF_VIEW: "Ver comprovante",
     PROXYIST_BANNER_LABEL: "um app da rede p2p foundation",
-    PROXYIST_BANNER_PROOF: "pago via escrow",
     PROXYIST_BANNER_SUBTITLE: "vá até lá e receba",
     PROXYIST_BANNER_TITLE: "Ganhe USDC",
     PROXYIST_BANNER_TITLE_ACCENT: "com tarefas perto de você.",

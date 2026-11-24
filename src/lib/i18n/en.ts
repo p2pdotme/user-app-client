@@ -1676,7 +1676,6 @@ export const en = {
     PROOF_UPLOADED: "Proof uploaded",
     PROOF_VIEW: "View proof",
     PROXYIST_BANNER_LABEL: "a p2p foundation network app",
-    PROXYIST_BANNER_PROOF: "escrow-backed",
     PROXYIST_BANNER_SUBTITLE: "be there, get paid",
     PROXYIST_BANNER_TITLE: "Earn USDC",
     PROXYIST_BANNER_TITLE_ACCENT: "for tasks near you.",

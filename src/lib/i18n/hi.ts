@@ -1637,7 +1637,6 @@ export const hi = {
     PROOF_UPLOADED: "रसीद अपलोड हो गई",
     PROOF_VIEW: "रसीद देखें",
     PROXYIST_BANNER_LABEL: "p2p foundation नेटवर्क का ऐप",
-    PROXYIST_BANNER_PROOF: "एस्क्रो से सुरक्षित",
     PROXYIST_BANNER_SUBTITLE: "मौके पर जाएं, पैसे पाएं",
     PROXYIST_BANNER_TITLE: "USDC कमाएं",
     PROXYIST_BANNER_TITLE_ACCENT: "अपने आस-पास के काम से।",

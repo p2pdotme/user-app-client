@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { BannerItem } from "@/components";
 import { useAnalytics } from "@/hooks";
@@ -9,7 +8,6 @@ const PROXYIST_URL = "https://app.proxy.ist/help";
 // proxy.ist brand palette
 const CREAM = "#F1EFEA";
 const VIOLET = "#8F88F9";
-const GREEN = "#5DBB8A";
 
 const EASE_OUT = "cubic-bezier(0.16, 1, 0.3, 1)";
 
@@ -141,18 +139,9 @@ export function ProxyistBanner() {
           className="flex items-center justify-between gap-2 font-mono"
           style={{ animation: `px-enter 600ms ${EASE_OUT} 240ms both` }}>
           <p
-            className="flex min-w-0 items-center gap-1 text-[9px]"
+            className="min-w-0 truncate text-[9px]"
             style={{ color: `${CREAM}CC` }}>
-            <span className="truncate">
-              &gt; {t("PROXYIST_BANNER_SUBTITLE")}
-            </span>
-            <span style={{ color: GREEN }}>·</span>
-            <span
-              className="flex flex-shrink-0 items-center gap-0.5"
-              style={{ color: GREEN }}>
-              {t("PROXYIST_BANNER_PROOF")}
-              <Check className="size-2.5" strokeWidth={3} />
-            </span>
+            &gt; {t("PROXYIST_BANNER_SUBTITLE")}
           </p>
           <span
             className="flex-shrink-0 text-[10px] tracking-wide"
