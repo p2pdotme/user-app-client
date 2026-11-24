@@ -1636,10 +1636,9 @@ export const hi = {
     PROOF_TITLE: "भुगतान रसीद",
     PROOF_UPLOADED: "रसीद अपलोड हो गई",
     PROOF_VIEW: "रसीद देखें",
-    PROXYIST_BANNER_LABEL: "Proxyist · USDC में भुगतान",
-    PROXYIST_BANNER_SUBTITLE:
-      "प्रॉपर्टी देखें, चाबियां पहुंचाएं, लाइन में लगें। अपने शहर के कामों के लिए भुगतान पाएं।",
-    PROXYIST_BANNER_TITLE: "अपने आस-पास के काम से USDC कमाएं",
+    PROXYIST_BANNER_SUBTITLE: "मौके पर जाएं, पैसे पाएं",
+    PROXYIST_BANNER_TITLE: "USDC कमाएं",
+    PROXYIST_BANNER_TITLE_ACCENT: "अपने आस-पास के काम से।",
     PWA_CHECK_INTERNET: "अपना इंटरनेट कनेक्शन जांचें।",
     PWA_DOWNLOADING_UPDATE: "अपडेट डाउनलोड हो रहा है",
     PWA_INSTALL_ACCEPTED: "ऐप इंस्टॉलेशन स्वीकार किया गया",
