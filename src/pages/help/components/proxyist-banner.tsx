@@ -3,7 +3,7 @@ import { BannerItem } from "@/components";
 import { useAnalytics, useTypewriter } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 
-const PROXYIST_URL = "https://app.proxy.ist/help";
+const PROXYIST_URL = "https://app.proxy.ist/";
 
 // proxy.ist brand palette
 const CREAM = "#F1EFEA";
