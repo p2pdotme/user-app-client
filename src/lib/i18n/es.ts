@@ -1736,7 +1736,6 @@ export const es = {
     PROOF_TITLE: "Comprobante de pago",
     PROOF_UPLOADED: "Comprobante subido",
     PROOF_VIEW: "Ver comprobante",
-    PROXYIST_BANNER_LABEL: "una app de la red p2p foundation",
     PROXYIST_BANNER_SUBTITLE: "preséntate y cobra",
     PROXYIST_BANNER_TITLE: "Gana USDC",
     PROXYIST_BANNER_TITLE_ACCENT: "con tareas cerca de ti.",

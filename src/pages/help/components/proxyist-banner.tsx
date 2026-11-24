@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { BannerItem } from "@/components";
-import { useAnalytics } from "@/hooks";
+import { useAnalytics, useTypewriter } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 
 const PROXYIST_URL = "https://app.proxy.ist/help";
@@ -34,6 +34,8 @@ function ProxyistMark({ className }: { className?: string }) {
 export function ProxyistBanner() {
   const { track } = useAnalytics();
   const { t } = useTranslation();
+  const subtitle = t("PROXYIST_BANNER_SUBTITLE");
+  const typedSubtitle = useTypewriter(subtitle);
 
   const handleBannerClick = () => {
     track(EVENTS.FEATURE, {
@@ -84,64 +86,54 @@ export function ProxyistBanner() {
         type="button"
         onClick={handleBannerClick}
         className="group relative flex h-full w-full cursor-pointer flex-col justify-between px-4 py-3 text-left">
-        {/* Brand mark, top-right, with a presence ping behind the dot */}
-        <div
-          className="absolute top-3 right-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-95"
+        {/* Headline, with the brand mark sharing the first line */}
+        <h3
+          className="min-w-0 font-black text-[clamp(19px,6.3vw,26px)] leading-[1.05] tracking-[-0.01em]"
           style={{
-            animation:
-              "px-enter-mark 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 300ms both",
+            color: CREAM,
+            animation: `px-enter 700ms ${EASE_OUT} both`,
           }}>
-          <span
-            className="absolute size-5 rounded-full border"
-            style={{
-              borderColor: VIOLET,
-              animation: "px-ring 2.4s ease-out infinite",
-            }}
-          />
-          <ProxyistMark className="relative h-8 w-auto" />
-        </div>
-
-        {/* Eyebrow + headline */}
-        <div className="min-w-0">
-          <span
-            className="block truncate pr-10 font-mono text-[7.5px] tracking-[0.08em]"
-            style={{
-              color: `${CREAM}80`,
-              animation: `px-enter 600ms ${EASE_OUT} both`,
-            }}>
-            &gt; {t("PROXYIST_BANNER_LABEL")}
+          <span className="flex items-center justify-between gap-3">
+            <span className="truncate">{t("PROXYIST_BANNER_TITLE")}</span>
             <span
-              aria-hidden
-              className="ml-0.5 inline-block h-[7px] w-[4px] translate-y-px"
+              className="relative flex flex-shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-110 group-active:scale-95"
               style={{
-                backgroundColor: VIOLET,
-                animation: "px-cursor 1.1s steps(1) infinite",
-              }}
-            />
+                animation:
+                  "px-enter-mark 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 300ms both",
+              }}>
+              <span
+                className="absolute size-[0.6em] rounded-full border"
+                style={{
+                  borderColor: VIOLET,
+                  animation: "px-ring 2.4s ease-out infinite",
+                }}
+              />
+              <ProxyistMark className="relative h-[1em] w-auto" />
+            </span>
           </span>
-          <h3
-            className="mt-0.5 font-black text-[clamp(20px,6.9vw,27px)] leading-[0.98] tracking-[-0.05em]"
-            style={{
-              color: CREAM,
-              animation: `px-enter 700ms ${EASE_OUT} 120ms both`,
-            }}>
-            <span className="block truncate pr-10">
-              {t("PROXYIST_BANNER_TITLE")}
-            </span>
-            <span className="block truncate pb-0.5" style={{ color: VIOLET }}>
-              {t("PROXYIST_BANNER_TITLE_ACCENT")}
-            </span>
-          </h3>
-        </div>
+          <span className="block truncate pb-0.5" style={{ color: VIOLET }}>
+            {t("PROXYIST_BANNER_TITLE_ACCENT")}
+          </span>
+        </h3>
 
-        {/* Footer: prompt line + wordmark */}
+        {/* Footer: typed prompt line + wordmark */}
         <div
           className="flex items-center justify-between gap-2 font-mono"
-          style={{ animation: `px-enter 600ms ${EASE_OUT} 240ms both` }}>
+          style={{ animation: `px-enter 600ms ${EASE_OUT} 160ms both` }}>
           <p
-            className="min-w-0 truncate text-[9px]"
+            className="min-w-0 truncate text-[10px]"
             style={{ color: `${CREAM}CC` }}>
-            &gt; {t("PROXYIST_BANNER_SUBTITLE")}
+            <span className="sr-only">{subtitle}</span>
+            <span aria-hidden>
+              &gt; {typedSubtitle}
+              <span
+                className="ml-0.5 inline-block h-[9px] w-[5px] translate-y-px"
+                style={{
+                  backgroundColor: VIOLET,
+                  animation: "px-cursor 1.1s steps(1) infinite",
+                }}
+              />
+            </span>
           </p>
           <span
             className="flex-shrink-0 text-[10px] tracking-wide"

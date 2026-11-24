@@ -1711,7 +1711,6 @@ export const id = {
     PROOF_TITLE: "Bukti pembayaran",
     PROOF_UPLOADED: "Bukti diunggah",
     PROOF_VIEW: "Lihat bukti",
-    PROXYIST_BANNER_LABEL: "aplikasi jaringan p2p foundation",
     PROXYIST_BANNER_SUBTITLE: "datang & dibayar",
     PROXYIST_BANNER_TITLE: "Dapatkan USDC",
     PROXYIST_BANNER_TITLE_ACCENT: "dari tugas di sekitar Anda.",
