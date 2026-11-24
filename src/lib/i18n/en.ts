@@ -1675,10 +1675,9 @@ export const en = {
     PROOF_TITLE: "Payment proof",
     PROOF_UPLOADED: "Proof uploaded",
     PROOF_VIEW: "View proof",
-    PROXYIST_BANNER_LABEL: "Proxyist · Get paid in USDC",
-    PROXYIST_BANNER_SUBTITLE:
-      "Check a property, drop off keys, stand in a queue. Get paid for errands in your city.",
-    PROXYIST_BANNER_TITLE: "Earn USDC for tasks near you",
+    PROXYIST_BANNER_SUBTITLE: "be there, get paid",
+    PROXYIST_BANNER_TITLE: "Earn USDC",
+    PROXYIST_BANNER_TITLE_ACCENT: "for tasks near you.",
     PWA_CHECK_INTERNET: "Check your internet connection.",
     PWA_DOWNLOADING_UPDATE: "Downloading Update",
     PWA_INSTALL_ACCEPTED: "App installation accepted",

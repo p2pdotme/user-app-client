@@ -1711,10 +1711,9 @@ export const id = {
     PROOF_TITLE: "Bukti pembayaran",
     PROOF_UPLOADED: "Bukti diunggah",
     PROOF_VIEW: "Lihat bukti",
-    PROXYIST_BANNER_LABEL: "Proxyist · Dibayar dalam USDC",
-    PROXYIST_BANNER_SUBTITLE:
-      "Cek properti, antar kunci, antre. Dapatkan bayaran untuk tugas di kota Anda.",
-    PROXYIST_BANNER_TITLE: "Dapatkan USDC dari tugas di sekitar Anda",
+    PROXYIST_BANNER_SUBTITLE: "datang & dibayar",
+    PROXYIST_BANNER_TITLE: "Dapatkan USDC",
+    PROXYIST_BANNER_TITLE_ACCENT: "dari tugas di sekitar Anda.",
     PWA_CHECK_INTERNET: "Periksa koneksi internet Anda.",
     PWA_DOWNLOADING_UPDATE: "Mengunduh pembaruan",
     PWA_INSTALL_ACCEPTED: "Penginstalan aplikasi diterima",
