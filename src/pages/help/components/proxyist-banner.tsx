@@ -1,10 +1,35 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { BannerItem } from "@/components";
 import { useAnalytics } from "@/hooks";
 import { EVENTS } from "@/lib/analytics";
 
 const PROXYIST_URL = "https://app.proxy.ist/help";
+
+// proxy.ist brand palette
+const CREAM = "#F1EFEA";
+const VIOLET = "#8F88F9";
+const GREEN = "#5DBB8A";
+
+/** proxy.ist mark: two square brackets around a violet dot. */
+function ProxyistMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 538 594" className={className} aria-hidden>
+      <path fill={CREAM} d="M0 0H204V102H102V492H204V594H0Z" />
+      <path fill={CREAM} d="M538 0H334V102H436V492H334V594H538Z" />
+      <circle
+        cx="269"
+        cy="297"
+        r="93"
+        fill={VIOLET}
+        style={{
+          transformOrigin: "269px 297px",
+          animation: "px-dot 2.4s ease-in-out infinite",
+        }}
+      />
+    </svg>
+  );
+}
 
 export function ProxyistBanner() {
   const { track } = useAnalytics();
@@ -20,94 +45,86 @@ export function ProxyistBanner() {
   };
 
   return (
-    <BannerItem bgColor="bg-gradient-to-br from-[#06231c] via-[#0b3a2e] to-[#04130f]">
+    <BannerItem bgColor="bg-[#141414]">
       <style>{`
-        @keyframes px-glow { 0%, 100% { transform: translate(-8%, -8%) scale(1); opacity: 0.45; } 50% { transform: translate(6%, 4%) scale(1.18); opacity: 0.7; } }
-        @keyframes px-ring { 0% { transform: scale(0.35); opacity: 0.55; } 100% { transform: scale(1.5); opacity: 0; } }
-        @keyframes px-pin { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        @keyframes px-glow { 0%, 100% { opacity: 0.75; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+        @keyframes px-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.82); } }
         @keyframes px-enter { 0% { transform: translateY(6px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
-        @keyframes px-enter-cta { 0% { transform: scale(0.6) rotate(-30deg); opacity: 0; } 70% { transform: scale(1.08) rotate(5deg); } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
       `}</style>
 
-      {/* Soft emerald glow — top-left */}
+      {/* Violet glow on the right, as on proxy.ist */}
       <div
-        className="-top-10 -left-10 pointer-events-none absolute size-56 rounded-full bg-emerald-500/30 blur-3xl"
-        style={{ animation: "px-glow 10s ease-in-out infinite" }}
-      />
-
-      {/* Map-grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        className="pointer-events-none absolute inset-y-0 right-0 w-2/3"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
+          background:
+            "radial-gradient(ellipse at 70% 50%, rgba(72,62,190,0.55), rgba(72,62,190,0.18) 45%, transparent 72%)",
+          animation: "px-glow 8s ease-in-out infinite",
         }}
       />
 
-      {/* Location pin with radar rings */}
-      <div className="pointer-events-none absolute inset-y-0 right-14 flex w-24 items-center justify-center">
-        <span
-          className="absolute size-24 rounded-full border border-emerald-300/50"
-          style={{ animation: "px-ring 3s ease-out infinite" }}
-        />
-        <span
-          className="absolute size-24 rounded-full border border-emerald-300/50"
-          style={{ animation: "px-ring 3s ease-out infinite 1.5s" }}
-        />
-        <MapPin
-          className="size-16 text-emerald-200/25"
-          strokeWidth={1.5}
-          style={{ animation: "px-pin 3s ease-in-out infinite" }}
-        />
-      </div>
-
-      {/* Left-side scrim so copy stays legible over the pin */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#06231c]/80 via-[#06231c]/30 to-transparent" />
+      {/* Dot grid */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(241,239,234,0.16) 1px, transparent 1px)",
+          backgroundSize: "14px 14px",
+        }}
+      />
 
       <button
         type="button"
         onClick={handleBannerClick}
-        className="group relative flex h-full w-full cursor-pointer items-center justify-between gap-2.5 px-4 py-3 text-left">
-        <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5">
-          <div
-            className="flex items-center gap-1.5 whitespace-nowrap"
+        className="group relative flex h-full w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left">
+        <div className="flex min-w-0 flex-1 flex-col justify-center">
+          <span
+            className="truncate font-mono text-[9px]r"
             style={{
+              color: `${CREAM}99`,
               animation: "px-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) both",
             }}>
-            <span className="relative inline-flex h-1 w-1">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300" />
-              <span className="relative inline-flex h-1 w-1 rounded-full bg-emerald-300" />
-            </span>
-            <span className="font-semibold text-[9px] text-emerald-100/90 uppercase tracking-[0.14em]">
-              {t("PROXYIST_BANNER_LABEL")}
-            </span>
-          </div>
+            &gt; {t("PROXYIST_BANNER_LABEL")}
+          </span>
           <h3
-            className="truncate font-bold text-[17px] text-white leading-tight tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+            className="mt-0.5 font-black text-[19px] leading-[1.05] tracking-tighter"
             style={{
+              color: CREAM,
               animation:
                 "px-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both",
             }}>
-            {t("PROXYIST_BANNER_TITLE")}
+            <span className="block truncate">{t("PROXYIST_BANNER_TITLE")}</span>
+            <span className="block truncate" style={{ color: VIOLET }}>
+              {t("PROXYIST_BANNER_TITLE_ACCENT")}
+            </span>
           </h3>
           <p
-            className="line-clamp-2 text-[11px] text-emerald-50/80 leading-snug"
+            className="mt-1 flex items-center gap-1 truncate font-mono text-[9px]"
             style={{
+              color: CREAM,
               animation:
                 "px-enter 600ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both",
             }}>
-            {t("PROXYIST_BANNER_SUBTITLE")}
+            <span className="truncate">
+              &gt; {t("PROXYIST_BANNER_SUBTITLE")}
+            </span>
+            <span style={{ color: GREEN }}>·</span>
+            <span
+              className="flex flex-shrink-0 items-center gap-0.5"
+              style={{ color: GREEN }}>
+              {t("PROXYIST_BANNER_PROOF")}
+              <Check className="size-2.5" strokeWidth={3} />
+            </span>
           </p>
         </div>
 
-        <div
-          className="relative flex size-9 flex-shrink-0 items-center justify-center self-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:border-white/60 group-hover:bg-white/20 group-active:scale-95"
-          style={{
-            animation:
-              "px-enter-cta 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 360ms both",
-          }}>
-          <ArrowUpRight className="group-hover:-translate-y-0.5 size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+        {/* Brand mark + wordmark */}
+        <div className="flex flex-shrink-0 flex-col items-center gap-1.5 self-center transition-transform duration-300 group-hover:scale-105 group-active:scale-95">
+          <ProxyistMark className="h-11 w-auto" />
+          <span
+            className="font-mono text-[10px] tracking-wide"
+            style={{ color: CREAM }}>
+            proxy<span style={{ color: VIOLET }}>(.)</span>ist
+          </span>
         </div>
       </button>
     </BannerItem>
