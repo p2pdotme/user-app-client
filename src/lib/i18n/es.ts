@@ -1736,6 +1736,10 @@ export const es = {
     PROOF_TITLE: "Comprobante de pago",
     PROOF_UPLOADED: "Comprobante subido",
     PROOF_VIEW: "Ver comprobante",
+    PROXYIST_BANNER_LABEL: "Proxyist · Cobra en USDC",
+    PROXYIST_BANNER_SUBTITLE:
+      "Revisa una propiedad, entrega llaves, haz una fila. Cobra por encargos en tu ciudad.",
+    PROXYIST_BANNER_TITLE: "Gana USDC con tareas cerca de ti",
     PWA_CHECK_INTERNET: "Verifica tu conexión a internet.",
     PWA_DOWNLOADING_UPDATE: "Descargando actualización",
     PWA_INSTALL_ACCEPTED: "Instalación de la aplicación aceptada",
