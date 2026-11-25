@@ -1683,6 +1683,22 @@ export const pt = {
     PRIZERAIL_PAST_DRAWS: "Seus sorteios anteriores",
     PRIZERAIL_PRIZES_TOTAL_PAID: "Total em prêmios pagos",
     PRIZERAIL_PRIZES_WINNERS: "Total de vencedores",
+    PRIZERAIL_PUBLICITY_AWAITING_BODY:
+      "Compartilhe seu prêmio para recebê-lo. Leva cerca de dois minutos, e seu prêmio é enviado quando a Prizerail aprovar.",
+    PRIZERAIL_PUBLICITY_AWAITING_CTA: "Compartilhar meu prêmio",
+    PRIZERAIL_PUBLICITY_HOME_BODY: "Compartilhe seu prêmio para recebê-lo.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_BODY:
+      "Obrigado! A Prizerail está analisando o que você enviou, normalmente em até um dia. Seu prêmio é enviado quando for aprovado.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_CTA: "Ver o que enviei",
+    PRIZERAIL_PUBLICITY_LINK_ERROR:
+      "Não foi possível carregar seu link. Tente novamente.",
+    PRIZERAIL_PUBLICITY_LINK_LOADING: "Buscando seu link",
+    PRIZERAIL_PUBLICITY_PRIVATE_NOTE:
+      "Este link é só para você, não o compartilhe. Resgatar é grátis: ninguém vai pedir pagamento, senha ou as chaves da sua carteira.",
+    PRIZERAIL_PUBLICITY_REJECTED_BODY:
+      "Algo precisa ser corrigido antes do envio do seu prêmio. Abra seu link para ver a observação e envie de novo.",
+    PRIZERAIL_PUBLICITY_REJECTED_CTA: "Corrigir e enviar de novo",
+    PRIZERAIL_PUBLICITY_TITLE: "Você ganhou {{amount}}!",
     PRIZERAIL_TOTAL_WON: "Você ganhou",
     PRIZERAIL_UNAVAILABLE: "O sorteio não está disponível no momento.",
     PRIZERAIL_VERIFY_PAST_DRAWS: "Verificar sorteios anteriores",

@@ -1,4 +1,4 @@
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, PartyPopper } from "lucide-react";
 import moment from "moment";
 import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -9,8 +9,10 @@ import {
 import { CardDescription, CardTitle } from "@/components/ui/card";
 import { useSettings } from "@/contexts";
 import { usePrizerailDraws } from "@/hooks/use-prizerail-draws";
+import { usePrizerailPublicityRequests } from "@/hooks/use-prizerail-user";
 import { type CurrencyType, INTERNAL_HREFS } from "@/lib/constants";
 import {
+  formatPrizeCents,
   getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailUserApiUrl,
@@ -41,7 +43,13 @@ export function PrizeDrawCard() {
     !!getPrizerailCampaignSlug() &&
     !!getPrizerailUserApiUrl() &&
     getDrawEntryPercent(currency.currency as CurrencyType) > 0;
+  // A win the wallet must share before its prize is released: the one thing
+  // on this card that needs the user to act, so it leads.
+  const { data: publicityRequests } =
+    usePrizerailPublicityRequests(isAvailable);
   if (!isAvailable) return null;
+  // Nothing to do while Prizerail is reviewing what the winner sent.
+  const toShare = publicityRequests?.find((r) => r.status !== "in_review");
 
   const nextDrawAt = draws?.nextDraw ? moment(draws.nextDraw.drawAt) : null;
   const hasNextDraw = !!nextDrawAt?.isValid();
@@ -50,7 +58,30 @@ export function PrizeDrawCard() {
   const headlinePrize = `$${(PRIZERAIL_HEADLINE_PRIZE_CENTS / 100).toLocaleString("en-US")}`;
 
   return (
-    <section className="flex w-full flex-col items-center justify-center py-4">
+    <section className="flex w-full flex-col items-center justify-center gap-3 py-4">
+      {toShare && (
+        <button
+          type="button"
+          onClick={() => navigate(INTERNAL_HREFS.PRIZE_DRAW)}
+          className="flex w-full items-center gap-3 rounded-xl border border-success/30 bg-success/10 px-6 py-4 text-left">
+          <PartyPopper className="size-5 shrink-0 text-success" />
+          <div className="flex min-w-0 flex-1 flex-col">
+            <p className="font-semibold text-foreground">
+              {t("PRIZERAIL_PUBLICITY_TITLE", {
+                amount: formatPrizeCents(toShare.amountCents),
+              })}
+            </p>
+            <p className="text-muted-foreground text-sm">
+              {t(
+                toShare.status === "rejected"
+                  ? "PRIZERAIL_PUBLICITY_REJECTED_CTA"
+                  : "PRIZERAIL_PUBLICITY_HOME_BODY",
+              )}
+            </p>
+          </div>
+          <ArrowRight className="size-5 shrink-0" />
+        </button>
+      )}
       <button
         type="button"
         onClick={() => navigate(INTERNAL_HREFS.PRIZE_DRAW)}

@@ -1636,6 +1636,22 @@ export const en = {
     PRIZERAIL_PAST_DRAWS: "Your past draws",
     PRIZERAIL_PRIZES_TOTAL_PAID: "Total Rewards Paid",
     PRIZERAIL_PRIZES_WINNERS: "Total Winners",
+    PRIZERAIL_PUBLICITY_AWAITING_BODY:
+      "Share your win to receive your prize. It takes about two minutes, and your prize is sent once Prizerail approves it.",
+    PRIZERAIL_PUBLICITY_AWAITING_CTA: "Share your win",
+    PRIZERAIL_PUBLICITY_HOME_BODY: "Share your win to receive your prize.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_BODY:
+      "Thanks! Prizerail is checking what you sent, usually within a day. Your prize is sent once it's approved.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_CTA: "View what I sent",
+    PRIZERAIL_PUBLICITY_LINK_ERROR:
+      "Couldn't load your link. Please try again.",
+    PRIZERAIL_PUBLICITY_LINK_LOADING: "Getting your link",
+    PRIZERAIL_PUBLICITY_PRIVATE_NOTE:
+      "This link is only for you, so don't share it. Claiming is free: nobody will ask you for a payment, a password or your wallet keys.",
+    PRIZERAIL_PUBLICITY_REJECTED_BODY:
+      "Something needs fixing before your prize can be sent. Open your link to see the note and send it again.",
+    PRIZERAIL_PUBLICITY_REJECTED_CTA: "Fix and send again",
+    PRIZERAIL_PUBLICITY_TITLE: "You won {{amount}}!",
     PRIZERAIL_TOTAL_WON: "You've Won",
     PRIZERAIL_UNAVAILABLE: "The prize draw isn't available right now.",
     PRIZERAIL_VERIFY_PAST_DRAWS: "Verify past draws",
