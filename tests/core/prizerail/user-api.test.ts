@@ -1,5 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
-import { fetchCampaignDetails } from "@/core/prizerail/user-api";
+import {
+  fetchCampaignDetails,
+  fetchUserPrizeSummary,
+  fetchUserPublicityLinks,
+  winnerLinkMessage,
+} from "@/core/prizerail/user-api";
 
 function jsonResponse(status: number, body: unknown): Response {
   return new Response(JSON.stringify(body), {
@@ -121,5 +126,118 @@ describe("fetchCampaignDetails", () => {
     await expect(
       fetchCampaignDetails({ baseUrl: "http://localhost:8080", fetchImpl }),
     ).rejects.toMatchObject({ code: "bad_response" });
+  });
+});
+
+const WALLET = "0xC173753204F6B8914FCA2FF7FB96005D0B7F6F46";
+const REQUEST = {
+  drawingId: "g1",
+  drawingNumber: 1,
+  kind: "guarantee",
+  drawAt: "2026-11-25T16:15:00.000Z",
+  amountCents: 100_000,
+  status: "awaiting",
+};
+const SUMMARY = {
+  wallet: WALLET.toLowerCase(),
+  campaign: null,
+  currentDrawing: null,
+  pendingEntries: null,
+  wins: { count: 1, totalCents: 100_000 },
+  recentWins: [],
+};
+
+describe("fetchUserPrizeSummary", () => {
+  it("keeps the wins the wallet still has to share", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(200, {
+        success: true,
+        data: { ...SUMMARY, publicityRequests: [REQUEST] },
+      }),
+    );
+    const summary = await fetchUserPrizeSummary(WALLET, {
+      baseUrl: "http://localhost:8080",
+      fetchImpl,
+    });
+    expect(summary.publicityRequests).toEqual([REQUEST]);
+  });
+
+  it("reads an API from before winner publicity as nothing to share", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(200, { success: true, data: SUMMARY }),
+    );
+    const summary = await fetchUserPrizeSummary(WALLET, {
+      baseUrl: "http://localhost:8080",
+      fetchImpl,
+    });
+    expect(summary.publicityRequests).toEqual([]);
+  });
+});
+
+describe("winnerLinkMessage", () => {
+  it("is the exact text the API checks, with the wallet lower-cased", () => {
+    expect(winnerLinkMessage(WALLET, "2026-11-25T16:19:00.000Z")).toBe(
+      "P2P.me prize draw: show my winner link\n" +
+        "Wallet: 0xc173753204f6b8914fca2ff7fb96005d0b7f6f46\n" +
+        "Time: 2026-11-25T16:19:00.000Z",
+    );
+  });
+});
+
+describe("fetchUserPublicityLinks", () => {
+  const PROOF = { signature: "0xabcdef", signedAt: "2026-11-25T16:19:00.000Z" };
+  const LINK = { ...REQUEST, url: "https://www.prizerail.com/disclosures/abc" };
+
+  it("sends the wallet proof in headers and returns the links", async () => {
+    const fetchImpl = vi.fn(async (_url: string, _init?: RequestInit) =>
+      jsonResponse(200, { success: true, data: [LINK] }),
+    );
+    const links = await fetchUserPublicityLinks(WALLET, PROOF, {
+      baseUrl: "http://localhost:8080/",
+      fetchImpl: fetchImpl as unknown as typeof fetch,
+    });
+
+    expect(links).toEqual([LINK]);
+    const [url, init] = fetchImpl.mock.calls[0];
+    expect(url).toBe(
+      `http://localhost:8080/api/v1/prizerail/users/${WALLET}/publicity`,
+    );
+    expect(init?.headers).toMatchObject({
+      "X-Wallet-Signature": PROOF.signature,
+      "X-Wallet-Signed-At": PROOF.signedAt,
+    });
+  });
+
+  it("refuses a link that is not https", async () => {
+    for (const url of ["javascript:alert(1)", "http://www.prizerail.com/x"]) {
+      const fetchImpl = vi.fn(async () =>
+        jsonResponse(200, { success: true, data: [{ ...LINK, url }] }),
+      );
+      await expect(
+        fetchUserPublicityLinks(WALLET, PROOF, {
+          baseUrl: "http://localhost:8080",
+          fetchImpl,
+        }),
+      ).rejects.toMatchObject({ code: "bad_response" });
+    }
+  });
+
+  it("surfaces a rejected signature", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(401, {
+        success: false,
+        data: null,
+        error: {
+          code: "unauthorized",
+          message: "the wallet signature is not valid",
+        },
+      }),
+    );
+    await expect(
+      fetchUserPublicityLinks(WALLET, PROOF, {
+        baseUrl: "http://localhost:8080",
+        fetchImpl,
+      }),
+    ).rejects.toMatchObject({ status: 401, code: "unauthorized" });
   });
 });

@@ -1672,6 +1672,23 @@ export const id = {
     PRIZERAIL_PAST_DRAWS: "Undian Anda sebelumnya",
     PRIZERAIL_PRIZES_TOTAL_PAID: "Total hadiah dibayarkan",
     PRIZERAIL_PRIZES_WINNERS: "Total pemenang",
+    PRIZERAIL_PUBLICITY_AWAITING_BODY:
+      "Bagikan kemenangan Anda untuk menerima hadiah. Hanya sekitar dua menit, dan hadiah dikirim setelah Prizerail menyetujuinya.",
+    PRIZERAIL_PUBLICITY_AWAITING_CTA: "Bagikan kemenangan saya",
+    PRIZERAIL_PUBLICITY_HOME_BODY:
+      "Bagikan kemenangan Anda untuk menerima hadiah.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_BODY:
+      "Terima kasih! Prizerail sedang memeriksa kiriman Anda, biasanya dalam satu hari. Hadiah dikirim setelah disetujui.",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_CTA: "Lihat kiriman saya",
+    PRIZERAIL_PUBLICITY_LINK_ERROR:
+      "Tautan Anda tidak dapat dimuat. Silakan coba lagi.",
+    PRIZERAIL_PUBLICITY_LINK_LOADING: "Mengambil tautan Anda",
+    PRIZERAIL_PUBLICITY_PRIVATE_NOTE:
+      "Tautan ini hanya untuk Anda, jangan dibagikan. Klaim itu gratis: tidak ada yang akan meminta pembayaran, kata sandi, atau kunci dompet Anda.",
+    PRIZERAIL_PUBLICITY_REJECTED_BODY:
+      "Ada yang perlu diperbaiki sebelum hadiah Anda dikirim. Buka tautan Anda untuk melihat catatannya dan kirim lagi.",
+    PRIZERAIL_PUBLICITY_REJECTED_CTA: "Perbaiki dan kirim lagi",
+    PRIZERAIL_PUBLICITY_TITLE: "Anda memenangkan {{amount}}!",
     PRIZERAIL_TOTAL_WON: "Anda telah memenangkan",
     PRIZERAIL_UNAVAILABLE: "Undian hadiah tidak tersedia saat ini.",
     PRIZERAIL_VERIFY_PAST_DRAWS: "Verifikasi undian sebelumnya",
