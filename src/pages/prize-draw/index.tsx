@@ -18,6 +18,7 @@ import {
 } from "@/lib/prizerail";
 import { CurrentDrawCard } from "./current-draw-card";
 import { DrawHistory } from "./draw-history";
+import { PublicityCards } from "./publicity-card";
 import { WonSummary } from "./won-summary";
 
 /**
@@ -70,6 +71,9 @@ export function PrizeDraw() {
               </Card>
             ) : (
               <>
+                <PublicityCards
+                  requests={summary.data?.publicityRequests ?? []}
+                />
                 <WonSummary
                   wins={summary.data?.wins}
                   isLoading={summary.isLoading}

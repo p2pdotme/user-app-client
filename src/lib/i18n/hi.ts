@@ -1597,6 +1597,22 @@ export const hi = {
     PRIZERAIL_PAST_DRAWS: "आपके पिछले ड्रॉ",
     PRIZERAIL_PRIZES_TOTAL_PAID: "कुल दिए गए इनाम",
     PRIZERAIL_PRIZES_WINNERS: "कुल विजेता",
+    PRIZERAIL_PUBLICITY_AWAITING_BODY:
+      "अपना इनाम पाने के लिए अपनी जीत शेयर करें। इसमें करीब दो मिनट लगते हैं, और Prizerail की मंज़ूरी के बाद आपका इनाम भेज दिया जाता है।",
+    PRIZERAIL_PUBLICITY_AWAITING_CTA: "अपनी जीत शेयर करें",
+    PRIZERAIL_PUBLICITY_HOME_BODY: "अपना इनाम पाने के लिए अपनी जीत शेयर करें।",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_BODY:
+      "धन्यवाद! Prizerail आपकी भेजी जानकारी जांच रहा है, आमतौर पर एक दिन के भीतर। मंज़ूरी मिलते ही आपका इनाम भेज दिया जाएगा।",
+    PRIZERAIL_PUBLICITY_IN_REVIEW_CTA: "मैंने जो भेजा वह देखें",
+    PRIZERAIL_PUBLICITY_LINK_ERROR:
+      "आपका लिंक लोड नहीं हो सका। कृपया फिर से कोशिश करें।",
+    PRIZERAIL_PUBLICITY_LINK_LOADING: "आपका लिंक लाया जा रहा है",
+    PRIZERAIL_PUBLICITY_PRIVATE_NOTE:
+      "यह लिंक सिर्फ़ आपके लिए है, इसे किसी से शेयर न करें। क्लेम करना मुफ़्त है: कोई भी आपसे भुगतान, पासवर्ड या वॉलेट की कुंजियां नहीं मांगेगा।",
+    PRIZERAIL_PUBLICITY_REJECTED_BODY:
+      "आपका इनाम भेजने से पहले कुछ ठीक करना ज़रूरी है। नोट देखने के लिए अपना लिंक खोलें और फिर से भेजें।",
+    PRIZERAIL_PUBLICITY_REJECTED_CTA: "ठीक करके फिर से भेजें",
+    PRIZERAIL_PUBLICITY_TITLE: "आपने {{amount}} जीते!",
     PRIZERAIL_TOTAL_WON: "आपकी कुल जीत",
     PRIZERAIL_UNAVAILABLE: "इनामी ड्रॉ अभी उपलब्ध नहीं है।",
     PRIZERAIL_VERIFY_PAST_DRAWS: "पिछले ड्रॉ जाँचें",

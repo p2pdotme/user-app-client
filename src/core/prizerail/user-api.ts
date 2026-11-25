@@ -4,6 +4,7 @@ import { z } from "zod";
 // executor). It reads Prizerail on the server and answers per wallet:
 //   GET {base}/api/v1/prizerail/users/{wallet}
 //   GET {base}/api/v1/prizerail/users/{wallet}/drawings?limit&before&entered
+//   GET {base}/api/v1/prizerail/users/{wallet}/publicity   (signed by the wallet)
 // and about the campaign as a whole:
 //   GET {base}/api/v1/prizerail/campaign/details
 // Every response is { success, data, meta? } or { success: false, error }.
@@ -36,11 +37,31 @@ const winSchema = z.object({
   amountCents: z.number(),
 });
 
+// A win the wallet has to share (a photo and first name, or a post on X)
+// before Prizerail releases the prize. `status` is awaiting, in_review or
+// rejected; an approved request is no longer listed.
+const publicityRequestSchema = z.object({
+  drawingId: z.string(),
+  drawingNumber: z.number().nullable(),
+  kind: z.string(),
+  drawAt: z.string(),
+  amountCents: z.number(),
+  status: z.string(),
+});
+
+// The same request with the winner's own Prizerail form. Only https links
+// are accepted, since the app sends the user there.
+const publicityLinkSchema = publicityRequestSchema.extend({
+  url: z.url({ protocol: /^https$/ }),
+});
+
 const summarySchema = z.object({
   wallet: z.string(),
   currentDrawing: drawingEntriesSchema.nullable(),
   wins: z.object({ count: z.number(), totalCents: z.number() }),
   recentWins: z.array(winSchema),
+  // Absent on an API deployed before winner publicity.
+  publicityRequests: z.array(publicityRequestSchema).default([]),
 });
 
 // Campaign-wide facts the prize page explains: how many winners each draw
@@ -102,6 +123,7 @@ function okEnvelope<T extends z.ZodType>(data: T) {
 const summaryEnvelope = okEnvelope(summarySchema);
 const campaignDetailsEnvelope = okEnvelope(campaignDetailsSchema);
 const drawingsEnvelope = okEnvelope(z.array(drawingEntriesSchema));
+const publicityLinksEnvelope = okEnvelope(z.array(publicityLinkSchema));
 const drawingsMetaSchema = z.object({
   nextBefore: z.string().nullable().optional(),
 });
@@ -109,6 +131,8 @@ const drawingsMetaSchema = z.object({
 export type UserDrawingEntries = z.infer<typeof drawingEntriesSchema>;
 export type UserWin = z.infer<typeof winSchema>;
 export type UserPrizeSummary = z.infer<typeof summarySchema>;
+export type PublicityRequest = z.infer<typeof publicityRequestSchema>;
+export type PublicityLink = z.infer<typeof publicityLinkSchema>;
 export type PrizeTier = z.infer<typeof prizeTierSchema>;
 export type CampaignDetails = z.infer<typeof campaignDetailsSchema>;
 
@@ -134,7 +158,26 @@ export interface UserApiOptions {
   fetchImpl?: typeof fetch;
 }
 
-async function getJson(url: string, options: UserApiOptions): Promise<unknown> {
+/** Proof that the caller holds the wallet: see winnerLinkMessage. */
+export interface WalletProof {
+  signature: string;
+  /** ISO time that went into the signed message. */
+  signedAt: string;
+}
+
+/**
+ * The exact text the wallet signs to be shown its winner link. Keep in step
+ * with the API's copy (prizerail: src/http/walletAuth.ts).
+ */
+export function winnerLinkMessage(wallet: string, signedAt: string): string {
+  return `P2P.me prize draw: show my winner link\nWallet: ${wallet.toLowerCase()}\nTime: ${signedAt}`;
+}
+
+async function getJson(
+  url: string,
+  options: UserApiOptions,
+  headers: Record<string, string> = {},
+): Promise<unknown> {
   const fetchImpl = options.fetchImpl ?? fetch;
   // Manual controller rather than AbortSignal.timeout: the PWA still has to
   // run on Safari < 16 (see core/prizerail/public.ts).
@@ -143,7 +186,7 @@ async function getJson(url: string, options: UserApiOptions): Promise<unknown> {
   let res: Response;
   try {
     res = await fetchImpl(url, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", ...headers },
       signal: controller.signal,
     });
   } finally {
@@ -209,6 +252,26 @@ export async function fetchUserDrawings(
     items: envelope.data,
     nextBefore: meta.success ? (meta.data.nextBefore ?? null) : null,
   };
+}
+
+/**
+ * The wallet's open publicity requests with their links. The link is the
+ * winner's own form, so the API only answers a request signed by the wallet.
+ */
+export async function fetchUserPublicityLinks(
+  wallet: string,
+  proof: WalletProof,
+  options: UserApiOptions,
+): Promise<PublicityLink[]> {
+  const body = await getJson(
+    userUrl(options.baseUrl, wallet, "/publicity"),
+    options,
+    {
+      "X-Wallet-Signature": proof.signature,
+      "X-Wallet-Signed-At": proof.signedAt,
+    },
+  );
+  return parse(publicityLinksEnvelope, body, "publicity links").data;
 }
 
 export async function fetchCampaignDetails(
