@@ -9,7 +9,7 @@ import { usePrizerailUserDrawings } from "@/hooks/use-prizerail-user";
 import {
   formatPrizeCents,
   getPrizerailCampaignSlug,
-  getPrizerailCampaignUrl,
+  getPrizerailResultsUrl,
 } from "@/lib/prizerail";
 import { cn } from "@/lib/utils";
 import { DrawHistorySkeleton, DrawRowSkeleton } from "./skeletons";
@@ -114,7 +114,7 @@ export function DrawHistory() {
       <CardContent className="flex flex-col">
         {slug && (
           <a
-            href={getPrizerailCampaignUrl(slug)}
+            href={getPrizerailResultsUrl(slug)}
             target="_blank"
             rel="noopener noreferrer"
             className="mb-1 flex items-center justify-between gap-3 rounded-lg bg-primary/5 px-4 py-3 font-medium text-foreground text-sm transition-colors hover:bg-primary/10">

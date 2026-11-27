@@ -193,3 +193,8 @@ export const PRIZERAIL_HEADLINE_PRIZE_CENTS = 10_000_000;
 export function getPrizerailCampaignUrl(slug: string): string {
   return `${getPrizerailPublicBaseUrl()}/campaigns/${encodeURIComponent(slug)}`;
 }
+
+/** The campaign page opened on its Results tab — every past draw, replayable. */
+export function getPrizerailResultsUrl(slug: string): string {
+  return `${getPrizerailCampaignUrl(slug)}?tab=results`;
+}

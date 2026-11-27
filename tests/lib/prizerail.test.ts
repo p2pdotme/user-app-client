@@ -6,6 +6,7 @@ import {
   getDrawEntryPercent,
   getPrizerailCampaignSlug,
   getPrizerailCampaignUrl,
+  getPrizerailResultsUrl,
   PRIZERAIL_SITE_BY_CHAIN,
   selectDrawWindow,
 } from "@/lib/prizerail";
@@ -167,6 +168,14 @@ describe("campaign env helpers", () => {
     expect(getPrizerailCampaignSlug()).toBe("p2p-daily");
     expect(getPrizerailCampaignUrl("p2p-daily")).toBe(
       "https://www.prizerail.com/campaigns/p2p-daily",
+    );
+  });
+
+  it("builds the results-tab url", () => {
+    vi.stubEnv("VITE_CHAIN", "base");
+    vi.stubEnv("VITE_PRIZERAIL_PUBLIC_URL", "");
+    expect(getPrizerailResultsUrl("p2p-ramp")).toBe(
+      "https://www.prizerail.com/campaigns/p2p-ramp?tab=results",
     );
   });
 
