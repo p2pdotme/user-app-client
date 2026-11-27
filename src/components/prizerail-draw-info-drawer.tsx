@@ -10,7 +10,7 @@ import {
 import {
   entriesForOrderUsdc,
   getPrizerailCampaignSlug,
-  getPrizerailCampaignUrl,
+  getPrizerailResultsUrl,
 } from "@/lib/prizerail";
 
 interface PrizerailDrawInfoDrawerProps {
@@ -79,7 +79,7 @@ export function PrizerailDrawInfoDrawer({
       body: t("PRIZERAIL_INFO_FAIRNESS_BODY"),
       link: slug
         ? {
-            href: getPrizerailCampaignUrl(slug),
+            href: getPrizerailResultsUrl(slug),
             label: t("PRIZERAIL_INFO_FAIRNESS_LINK"),
           }
         : undefined,
